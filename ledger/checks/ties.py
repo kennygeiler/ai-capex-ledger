@@ -36,7 +36,7 @@ def readings_of(fact: dict, by_id: dict) -> list[dict]:
     extraction id the fact lists (one per filing: an extraction id is accession|field|dimension|period_end). `period`
     is the filing's own report period (documents.period), its lineage: a 10-K/A carries its original's."""
     out = [by_id[i] for i in (fact.get("extraction_ids") or "").split(",") if i in by_id]
-    keys = ("accession", "filed", "form", "period", "value", "scale")
+    keys = ("accession", "filed", "form", "period", "value", "scale", "extraction_id", "cell_text")
     return sorted(({k: r.get(k) for k in keys} for r in out), key=lambda r: (str(r["filed"] or ""), r["accession"]))
 
 
@@ -67,6 +67,136 @@ def second_accession(rs: list[dict], shipped: str | None) -> str | None:
 def differ_message(rs: list[dict]) -> str:
     from ..web.cards import money
     return "readings differ across filings: " + " vs ".join(f"{money(r['value'])} in {r['accession']} (filed {str(r['filed'] or '')[:10]})" for r in rs)
+
+
+# ── restatement: one fact's readings that disagree, and which one the dataset uses ──────────────────────────────────
+def _same(a, b, scale: int) -> bool:
+    return a is not None and b is not None and not config.restated(min(a, b), max(a, b), scale)
+
+
+def _filing(r: dict) -> str:
+    return f"{r.get('form') or '10-K'} {str(r.get('filed') or '')[:10]}".strip()
+
+
+def restatement(rs: list[dict], used: str | None) -> dict | None:
+    """The one answer to "do the readings of this fact disagree, and which is used" (T-RS, every view reads it): None
+    when they agree (`differ`, config.RESTATEMENT_TOLERANCE); else the readings grouped in filing order by figure, as
+    filed (`cell_text`), the reading the dataset uses (`used`: the shipped accession, else the newest reading), the
+    extraction ids of the superseded readings (a figure other than the one used) and the pair to compare, oldest
+    superseded against the one used. Display only: the row's state stays what status decides (a tagged fact checked by
+    its XBRL twin stays checked; an untagged one stays open by fact_readings_differ until a person explains it).
+
+        {"line": "Restated: 105,362 (10-K 2024-07-30) → 87,464 (10-K 2025-07-30, 10-K 2026-07-29) · dataset uses 87,464 (10-K 2026-07-29)",
+         "steps": [{"cell_text", "value", "filings": [{accession, form, filed, extraction_id}]}], "used": {...}, "superseded": [ids],
+         "compare": {"a", "b"}}"""
+    from ..core.states import RESTATED
+    rs = [r for r in rs if r.get("value") is not None]
+    if not differ(rs):
+        return None
+    scale = max(max(int(r.get("scale") or 1), 1) for r in rs)
+    u = next((r for r in rs if r.get("accession") == used), None) or rs[-1]
+    steps: list[dict] = []
+    for r in rs:  # oldest filing first (readings_of): a run of filings printing the same figure is one step
+        if steps and _same(steps[-1]["value"], r["value"], scale):
+            steps[-1]["filings"].append(r)
+        else:
+            steps.append({"value": r["value"], "cell_text": r.get("cell_text") or f"{r['value']:,}", "filings": [r]})
+    sup = [r for r in rs if not _same(r["value"], u["value"], scale)]
+    shape = lambda r: {k: r.get(k) for k in ("accession", "form", "filed", "extraction_id", "cell_text", "value")} | {"filed": str(r.get("filed") or "")[:10] or None}
+    figure = lambda r: r.get("cell_text") or f"{r['value']:,}"
+    line = (f"{RESTATED}: " + " → ".join(f"{s['cell_text']} ({', '.join(_filing(f) for f in s['filings'])})" for s in steps)
+            + f" · dataset uses {figure(u)} ({_filing(u)})")
+    return {"line": line, "steps": [{"value": s["value"], "cell_text": s["cell_text"], "filings": [shape(f) for f in s["filings"]]} for s in steps],
+            "used": shape(u), "superseded": [r.get("extraction_id") for r in sup if r.get("extraction_id")],
+            "compare": {"a": sup[0].get("extraction_id"), "b": u.get("extraction_id")} if sup and sup[0].get("extraction_id") and u.get("extraction_id") else None}
+
+
+def restatements(con, tickers: list[str]) -> dict:
+    """{(ticker, field, dimension, period): restatement(...)} for every fact of `tickers` whose readings disagree, read
+    from facts and note_extractions (no instance, no fetch): what the gold set, the evidence page and Reconcile read
+    when they hold no ladder."""
+    has = lambda n: bool(con.execute("select count(*) from information_schema.tables where table_name = ?", [n]).fetchone()[0])
+    if not tickers or not all(has(n) for n in ("facts", "note_extractions", "documents")):
+        return {}
+    facts = _rows(con, "select ticker, field, dimension, period, accession, extraction_ids from facts where ticker in (select unnest(?))", list(tickers))
+    ext = _rows(con, "select n.extraction_id, n.accession, n.value, n.scale, n.cell_text, d.filed, d.form, d.period from note_extractions n "
+                     "left join documents d using (accession) where n.ticker in (select unnest(?))", list(tickers))
+    by_id = {e["extraction_id"]: e for e in ext}
+    out = {}
+    for f in facts:
+        rec = restatement(readings_of(f, by_id), f["accession"])
+        if rec:
+            out[(f["ticker"], f["field"], f["dimension"] or "", f["period"])] = rec
+    return out
+
+
+def of_reading(con, ticker: str, extraction_id: str) -> dict:
+    """{"restatement", "mark"} for one cited reading (/api/v1/evidence): the restatement of the fact it is a reading of,
+    or None, and states.SUPERSEDED when this reading is one the dataset does not use, else None."""
+    from ..core.states import SUPERSEDED
+    rec = next((r for r in restatements(con, [ticker]).values() if extraction_id in {f["extraction_id"] for s in r["steps"] for f in s["filings"]}), None)
+    return {"restatement": rec, "mark": SUPERSEDED if rec and extraction_id in rec["superseded"] else None}
+
+
+def mark(cites: list[dict], rec: dict | None, key: str = "extraction_id") -> list[dict]:
+    """The cited cells with `mark` (states.SUPERSEDED) on each superseded reading of `rec`, for the pages' crops."""
+    from ..core.states import SUPERSEDED
+    sup = set((rec or {}).get("superseded") or [])
+    return [{**c, "mark": SUPERSEDED} if c.get(key) in sup else c for c in cites]
+
+
+# ── segment basis: does a segment series mix filing vintages across a re-segmentation ─────────────────────────────────
+SEGMENT_FIELDS = ("segment_revenue", "segment_capex")
+
+
+def segment_basis(facts: list[dict], extractions: list[dict], fields=SEGMENT_FIELDS) -> list[dict]:
+    """Per company and segment field, where each fiscal year's value comes from and whether the series mixes bases.
+
+    A re-segmentation is detected only by its trace in the readings: a later 10-K prints a figure for a segment and
+    year that an earlier 10-K printed differently (`restatement`). The newest such filing is the series' `cutover`;
+    every fact the dataset ships from a filing filed before it is on an earlier basis (`mixed`), because the newest
+    filing that prints that year did not restate it (it printed only its own comparative years). A segment set that
+    changes with no figure printed two ways (a segment dropped or added) leaves no trace here.
+
+    Returns [{ticker, field, cutover: {accession, form, filed, changes: [{dimension, period, before, after}]} or None, cutovers: every
+              such filing, oldest first,
+              years: [{dimension, period, value, cell_text, accession, form, filed, readings, restatement, mixed}],
+              mixed: [periods on an earlier basis]}], sorted by ticker and field. Pure: nothing is read or decided here."""
+    by_id = {e["extraction_id"]: e for e in extractions}
+    series: dict = {}
+    for f in facts:
+        if f["field"] in fields:
+            series.setdefault((f["ticker"], f["field"]), []).append(f)
+    out = []
+    for (t, fld), fs in sorted(series.items()):
+        rows, cuts = [], {}
+        for f in sorted(fs, key=lambda f: (f["period"], f.get("dimension") or "")):
+            rs = readings_of(f, by_id)
+            rec = restatement(rs, f["accession"])
+            u = next((r for r in rs if r["accession"] == f["accession"]), None) or {}
+            rows.append({"dimension": f.get("dimension") or "", "period": f["period"], "value": f["value"], "cell_text": u.get("cell_text"),
+                         "accession": f["accession"], "form": u.get("form") or "10-K", "filed": str(u.get("filed") or "")[:10] or None,
+                         "readings": [{k: (str(r.get(k) or "")[:10] or None) if k == "filed" else r.get(k) for k in ("accession", "form", "filed", "cell_text", "value")} for r in rs],
+                         "restatement": rec})
+            for a, b in zip((rec or {}).get("steps", []), (rec or {}).get("steps", [])[1:]):
+                first = b["filings"][0]  # the filing that first printed the year differently
+                c = cuts.setdefault(first["accession"], {"accession": first["accession"], "form": first.get("form") or "10-K", "filed": first.get("filed"), "changes": []})
+                c["changes"].append({"dimension": f.get("dimension") or "", "period": f["period"], "before": a["cell_text"], "after": b["cell_text"]})
+        cut = max(cuts.values(), key=lambda c: (str(c["filed"] or ""), c["accession"])) if cuts else None
+        for r in rows:
+            r["mixed"] = bool(cut) and str(r["filed"] or "") < str(cut["filed"] or "")
+        out.append({"ticker": t, "field": fld, "cutover": cut, "cutovers": sorted(cuts.values(), key=lambda c: (str(c["filed"] or ""), c["accession"])),
+                    "years": rows, "mixed": sorted({r["period"] for r in rows if r["mixed"]})})
+    return out
+
+
+def basis_message(s: dict, period: str) -> str:
+    """One finding's words: the year, the filing it ships from, the cutover filing and what it restated."""
+    c = s["cutover"]
+    src = sorted({(r["filed"] or "", r["form"], r["accession"]) for r in s["years"] if r["period"] == period and r["mixed"]})
+    ch = "; ".join(f"{x['dimension']} {x['period']} {x['before']} → {x['after']}" for x in c["changes"][:6]) + (f"; {len(c['changes']) - 6} more" if len(c["changes"]) > 6 else "")
+    return (f"{s['field']} {period} ships from " + ", ".join(f"{fm} {fd} ({a})" for fd, fm, a in src)
+            + f"; {c['form']} {str(c['filed'] or '')[:10]} ({c['accession']}) restated the segments and has no {period} reading, so {period} stays on the earlier basis. Restated: {ch}")
 
 
 # ── ties ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -166,6 +296,9 @@ def fact_state(f: dict, idx: dict, lad: dict, restated: str | None = None) -> tu
         ref["filer_tag"] = filer
     if len(lineages(rs)) >= 2 or differs:
         ref["readings"] = rs
+    rec = restatement(rs, f.get("accession"))
+    if rec:  # shown on every view, tagged or not; never a state (status.of_fact decides that below)
+        ref["restatement"] = rec
     if holds:
         ref["tie"] = {k_: holds[k_] for k_ in ("rule", "key", "accession", "concept", "total", "sum", "tolerance", "dimensions", "parts")}
     res = (resolutions.resolution_of(idx, "findings", t, f["field"], dim, f["period"], DIFFER) if differs
@@ -220,7 +353,7 @@ def load(con, tickers: list[str], rules: list[dict]) -> dict:
     if not all(has(n) and need[n] <= cols(n) for n in need):
         return {"facts": [], "extractions": [], "totals": {}}  # a database without the note tables (or a hand-built one): no readings, no ties
     facts = _rows(con, "select ticker, field, dimension, period, period_end, value, label, accession, extraction_ids from facts where ticker in (select unnest(?))", tickers)
-    ext = _rows(con, "select n.extraction_id, n.accession, n.ticker, n.field, n.dimension, n.period_end, n.value, n.scale, d.filed, d.form, d.period from note_extractions n "
+    ext = _rows(con, "select n.extraction_id, n.accession, n.ticker, n.field, n.dimension, n.period_end, n.value, n.scale, n.cell_text, d.filed, d.form, d.period from note_extractions n "
                      "left join documents d using (accession) where n.ticker in (select unnest(?))", tickers)
     ties = [r for r in rules if r.get("check") == TIE_CHECK]
     concepts = {c for r in ties for c in r["params"]["concepts"]}

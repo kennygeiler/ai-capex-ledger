@@ -122,7 +122,7 @@ function goldSet() {
     const claimName = (it) => [FIELDS[it.field] || it.field, it.dimension, it.period].filter(Boolean).join(' · ');
     const claim = (it) => h('div', {}, h('div', {class: 'fw-semibold'}, claimName(it)),
       h('div', {class: 'text-secondary small'}, it.kind === 'fact' ? 'Note figure' : 'Statement figure', it.untagged ? ' · Not in SEC XBRL' : it.xbrl != null ? ` · SEC XBRL ${goldMoney(it.xbrl)}` : ''),
-      it.group_note ? h('div', {class: 'small text-orange'}, it.group_note) : '');
+      it.group_note ? h('div', {class: 'small text-orange'}, it.group_note) : '', restatedLine(it.restatement, true));
     const value = (it) => {
       const lv = it.live, moved = lv && lv.value !== it.value;
       const f = asFiled(it);
@@ -134,7 +134,7 @@ function goldSet() {
     const cited = (it) => (it.cites.length ? h('div', {}, calcBlock(it.calc), h('div', {class: 'cites'}, it.cites.map((c) => {
       const E = c.evidence;
       if (!E) return h('div', {class: 'cite-line small'}, h('span', {class: 'text-secondary'}, 'Crop unavailable'), SEC_LINK.test(c.url || '') ? [' · ', h('a', {href: safeHref(c.url), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗')] : '');
-      return citeCell({role: c.role, crop: {state: E.state, reason: E.reason, url: E.url}, viewer: E.viewer, link: c.url, form: E.form, filed: E.filed, row: c.row, column: (c.column || '').replaceAll(' | ', ' '), cell: c.cell_text}, claimName(it));
+      return citeCell({role: c.role, mark: c.mark, crop: {state: E.state, reason: E.reason, url: E.url}, viewer: E.viewer, link: c.url, form: E.form, filed: E.filed, row: c.row, column: (c.column || '').replaceAll(' | ', ' '), cell: c.cell_text}, claimName(it));
     }))) : h('span', {class: 'text-secondary small'}, '—'));
     const verdict = (it) => {
       const note = h('input', {type: 'text', class: 'form-control form-control-sm', placeholder: 'Note (required for Wrong / Can’t say)', value: it.note || '', 'aria-label': `Note on ${it.id}`});

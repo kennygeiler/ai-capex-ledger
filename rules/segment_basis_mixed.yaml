@@ -1,0 +1,17 @@
+id: segment_basis_mixed
+severity: warn
+description: A segment series (revenue or capex by segment) takes every fiscal year from filings on the same side of the
+  company's latest re-segmentation, seen as a later 10-K printing a segment figure differently from an earlier one.
+rationale: The newest filing wins for each year, but a re-segmenting 10-K restates only the comparative years it prints.
+  An older year stays on the old segment definitions while the later years use the new ones, so the series compares
+  two definitions (Microsoft's FY2025 10-K restated FY2023 and FY2024; FY2022 is only in older 10-Ks). Code cannot
+  pick a basis; the item goes to Reconcile for a person.
+owner: Kenny Geiler
+check: segment_basis_mixed
+params:
+  fields: [segment_revenue, segment_capex]
+title: A segment series mixes definitions across a re-segmentation.
+plain: The company changed its segments. Later years use the new segments; this year is only printed on the old ones,
+  so it does not compare with the years after it.
+action: Decide whether this year ships on the old basis (explain, saying so) or is left out of the series. No value is
+  changed by code.

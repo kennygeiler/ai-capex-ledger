@@ -22,13 +22,14 @@ STAGES = ("ingest", "values", "facts", "statements", "mapping", "planned", "rele
 STAGE_LABEL = {"ingest": "Filings", "values": "Statement figures", "facts": "Note figures", "statements": "AI disclosures", "mapping": "Category mapping",
                "planned": "Guidance and projects", "release": "Release"}
 NEEDS = {"values": "Definition or unit rule", "facts": "Definition", "finding": "Definition or rule", "mapping": "Category mapping",
-         "mapping_confirm": "Proposed category", "readings": "Readings differ", "tie": "Does not tie to total",
+         "mapping_confirm": "Proposed category", "readings": "Readings differ", "tie": "Does not tie to total", "basis": "Segment basis",
          "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision"}  # what an open item needs, as the Rules page groups it
 
 
 # The exceptions a loader writes when a stage failed (cli/extract, cli/notes, cli/aispend, cli/projects): failures, never
 # explanations, and no rule on file names them. They sit on the ingest stage, open or blocked by their severity, and never
 # take the state of other rows (T80: a warn failure with no field used to take the worst state of every value).
+BASIS = "segment_basis_mixed"  # rules/segment_basis_mixed.yaml: a segment series across a re-segmentation, one finding per field and year
 FAILURES = ("extraction_failed", "note_extraction_failed", "ai_extraction_failed", "projects_failed")
 
 
@@ -147,7 +148,7 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
         g = lad["groups"].get(ties.key(t, e["field"], e["period"], e["subject"])) if e["rule_id"].endswith("_tie") else None
         gap = {"sum": g["sum"], "total": g["total"], "gap": g["sum"] - g["total"], "tolerance": g["tolerance"], "parts": len(g["parts"]), "concept": g["concept"]} \
             if g and g.get("sum") is not None and g.get("total") is not None else None  # the failing group's numbers, so the trail says them as values
-        items.append(_item(f"{e['rule_id']}: {e['field']} {e['period'] or ''} ({e['subject'] or ''})".strip(), st, e["message"][:300], NEEDS["tie"],
+        items.append(_item(f"{e['rule_id']}: {e['field']} {e['period'] or ''} ({e['subject'] or ''})".strip(), st, e["message"][:300], NEEDS["basis"] if e["rule_id"] == BASIS else NEEDS["tie"],
                            ref={"ticker": t, "field": e["field"], "period": e["period"], "accession": e["subject"], "finding": e["rule_id"], **({"tie_gap": gap} if gap else {})}))
     stages["facts"] = _stage(items)
 

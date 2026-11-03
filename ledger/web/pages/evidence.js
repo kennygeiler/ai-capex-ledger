@@ -9,7 +9,7 @@ const evKv = (k, v) => h('div', {class: 'ev-kv'}, h('div', {class: 'text-seconda
 function evFiling(e) {
   const crop = e.crop || {};
   return h('div', {class: 'ev-side'},
-    h('div', {class: 'hrow'}, evState(e), e.reason ? h('span', {class: 'text-secondary small'}, e.reason) : ''),
+    h('div', {class: 'hrow'}, evState(e), e.reason ? h('span', {class: 'text-secondary small'}, e.reason) : '', e.mark ? h('span', {class: 'text-orange fw-medium small'}, e.mark) : ''),
     e.state === 'located' && crop.url
       ? h('a', {href: safeHref(e.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing'}, h('img', {class: 'ev-crop', src: crop.url, alt: `${e.row_label}, ${e.column_label}: ${e.cell_text}, boxed in the filing`}))
       : h('p', {class: 'msg'}, '—'),
@@ -31,7 +31,7 @@ async function evidencePage(view, arg, qs) {
   const e = await api('/api/v1/evidence/' + encodeURIComponent(decodeURIComponent(arg || '')));
   view.append(h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
       h('div', {class: 'col'}, h('h1', {class: 'page-title'}, evWhat(e), h('span', {class: 'text-secondary ms-2 fw-normal'}, e.ticker)),
-        h('div', {class: 'text-secondary small mt-1'}, evPeriod(e))),
+        h('div', {class: 'text-secondary small mt-1'}, evPeriod(e)), restatedLine(e.restatement, true)),
       h('div', {class: 'col-auto'}, h('a', {href: `#proof/${e.ticker}`, class: 'small'}, 'Company trail')))),
     h('div', {class: 'ev-grid'}, h('section', {}, h('h2', {}, 'Extracted'), evExtracted(e)), h('section', {}, h('h2', {}, 'Filing'), evFiling(e))));
 }
@@ -48,6 +48,6 @@ async function evidenceCompare(view, q) {
   view.append(h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
       h('div', {class: 'col'}, h('h1', {class: 'page-title'}, evWhat(a), h('span', {class: 'text-secondary ms-2 fw-normal'}, a.ticker)),
         h('div', {class: 'small mt-1'}, differ ? h('span', {class: 'text-orange fw-medium'}, 'Readings differ') : h('span', {class: 'text-green fw-medium'}, 'Readings agree'),
-          h('span', {class: 'text-secondary'}, ` · ${a.row_label} · ${evPeriod(a)}${evPeriod(a) !== evPeriod(b) ? ' and ' + evPeriod(b) : ''}`))))),
+          h('span', {class: 'text-secondary'}, ` · ${a.row_label} · ${evPeriod(a)}${evPeriod(a) !== evPeriod(b) ? ' and ' + evPeriod(b) : ''}`)), restatedLine(a.restatement || b.restatement)))),
     h('div', {class: 'ev-grid ev-wide'}, side(a, 'A'), side(b, 'B')));
 }

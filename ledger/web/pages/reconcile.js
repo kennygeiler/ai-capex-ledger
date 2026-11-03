@@ -269,6 +269,12 @@ async function reconcilePage(view, qs) {
   function evidence(r) {
     const E = r.evidence || {}, S = r.series || [], cards = [];
     const col = (n, ...k) => h('div', {class: `col-12 col-xl-${n}`}, k);
+    if (E.restatement) cards.push(col(12, restatedLine(E.restatement, true)));  // the readings disagree across filings (ties.restatement), whatever the state
+    if (E.basis) {  // segment_basis_mixed: the year's segments, the filing each comes from, and the cutover that restated the series
+      const B = E.basis, C = B.cutover || {};
+      cards.push(col(8, dtable(`${r.period} · segments by filing`, [{t: 'Segment', k: 'dimension'}, {t: 'As filed', num: 1, k: 'cell_text'}, {t: 'From', f: (x) => `${x.form} ${x.filed}`},
+        {t: 'Basis', f: (x) => (x.mixed ? h('span', {class: 'text-orange'}, `Before ${C.form || '10-K'} ${C.filed || ''}`) : 'Current')}, {t: '', f: (x) => (x.restated ? h('span', {class: 'small text-secondary'}, x.restated) : '')}], B.rows)));
+    }
     const yr = S.find((s) => s.period === r.period) || {};
     if (r.cause === 'fact_differs') {
       const c = E.cell;

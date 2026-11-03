@@ -101,8 +101,11 @@ class Compute(unittest.TestCase):
         from ledger.review import gold
         items = [i for d in gold.load_checked()[0].values() for i in d["items"]]
         given = sum(gold.has_verdict(i) for i in items)  # Kenny gives verdicts over time: stub at 0, partial until all 120
-        self.assertEqual(rows["gold_error_rate"]["status"], "stub" if not given else "partial" if given < len(items) else rows["gold_error_rate"]["status"])
-        self.assertNotEqual(rows["gold_error_rate"]["status"], "proven" if given < len(items) else None)
+        self.assertEqual(rows["gold_error_rate"]["status"], "stale")  # it checks the golden report, which the static view reads live only (plumbing bug B)
+        live = {r["id"]: r for r in C.computed(live=True)}
+        self.assertNotEqual(live["gold_error_rate"]["status"], "proven" if given < len(items) else None)
+        if not given:
+            self.assertEqual(live["gold_error_rate"]["status"], "stub")
         self.assertEqual(rows["hosted_copy"]["status"], "stale")     # no deploy record
         self.assertEqual(rows["edgar_checked"]["status"], "stale")   # freshness is checked live only
         self.assertNotEqual(rows["golden_equal"]["status"], "proven")  # gold unverified is never a golden pass
@@ -466,6 +469,28 @@ class Doc(unittest.TestCase):
             self.assertEqual((l["state"], l["required"], l["ok"]), ("fail", True, False))
             self.assertEqual(checklist.doc_line(Path(d) / "none.md", "x")["state"], "fail")
         self.assertEqual(checklist.doc_line()["state"], "pass")  # the committed file is current
+
+    def test_the_static_doc_reads_no_test_run_and_no_golden_report(self):
+        """Plumbing bug B: docs/CLAIMS.md depended on reports/tests.json and reports/golden.json, which every `ledger test`
+        rewrites, so each run left it stale and "Claims doc current" red. Two runs that disagree on every fact the doc
+        could read (skips, failures, golden tables, gold state) give the same doc; the live view still reads them."""
+        with tempfile.TemporaryDirectory() as d:
+            t, g = Path(d) / "tests.json", Path(d) / "golden.json"
+            docs, live = [], []
+            for run_, gold_ in (({"ok": True, "failures": [], "skipped_ids": [], "at": "2026-11-03T01:00:00"}, {"ok": True, "tables_ok": True, "gold": {"state": "pass"}, "at": "a"}),
+                                ({"ok": False, "failures": [f"{REAL_TEST}: boom"], "skipped_ids": [REAL_TEST], "at": "2026-11-03T02:00:00"}, {"ok": False, "tables_ok": False, "gold": {"state": "fail", "failures": ["x"]}, "at": "b"}),
+                                (None, None)):
+                for p_, body in ((t, run_), (g, gold_)):
+                    p_.unlink(missing_ok=True)
+                    if body is not None:
+                        p_.write_text(json.dumps(body))
+                with mock.patch.object(C, "TEST_REPORT", t), mock.patch.object(C, "GOLDEN_REPORT", g):
+                    docs.append(C.markdown())
+                    live.append({r["id"]: r["status"] for r in C.computed(True)})
+            self.assertEqual(docs[0], docs[1])
+            self.assertEqual(docs[1], docs[2])
+            self.assertIn("see the Release page", docs[0])
+            self.assertNotEqual(live[0], live[1])  # the live register still reads the run and the golden report
 
     def test_claims_md_is_current(self):
         self.assertEqual(C.DOC.read_text(), C.markdown(), "docs/CLAIMS.md is stale: run uv run python -m ledger claims")

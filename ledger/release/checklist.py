@@ -388,6 +388,17 @@ def _changed_since(sha: str) -> list | None:
     return changed_since(sha)
 
 
+def review_counts(board: dict, unconfirmed: list) -> dict:
+    """{bad, wait, blocked, per_company}: the Proof board's items by the row word every page shows (states.row), counted
+    with states.tally (Reconcile's header counts its rows the same way), plus a run's decisions to confirm under wait
+    (Reconcile's "To confirm" rows, Proposed there; no Proof item carries them, so nothing is counted twice)."""
+    from ..core.states import row as row_word, tally
+    words = {c["ticker"]: [row_word(i["state"], i.get("by")) for s in c["stages"].values() for i in s["all"]] for c in board["proven"]}
+    n = tally(w for ws in words.values() for w in ws)
+    return {"bad": n.get("bad", 0), "wait": n.get("wait", 0) + len(unconfirmed), "blocked": n.get("blocked", 0),
+            "per_company": [{"ticker": t, "open": ws.count("bad"), "proposed": ws.count("wait"), "blocked": ws.count("blocked")} for t, ws in words.items()]}
+
+
 def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     """The checklist for `version` (default: the next version). JSON the page renders as it is."""
     version = version or next_version()
@@ -396,36 +407,36 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     p = packet(con, version, stage)
     board = proof.board(con)
     lines = []
-    # gates per company (T4): one line per gate, the failing companies named
+    from ..core.states import word
+    # gates per company (T4): one line per gate, the failing companies named. G6 is the Proposed bucket (a run's decisions
+    # and asset-type mappings no person confirmed): its line carries Reconcile's word for it, and no other line counts it
     bad = failing(p["gates"])
     for gid in GATES:
         by_t = p["gates"][gid]
         n = sum(len(v) for v in by_t.values())
         detail = [{"ticker": t, "items": len(items), "example": items[0] if items else ""} for t, items in by_t.items()]
-        lines.append(_line(f"gate_{gid}", GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", GATE_FIX[gid],
+        lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", GATE_FIX[gid],
                            GATES[gid] + (f"; export the hand-check from reports/stage{stage}-validation.html to golden/stage{stage}-handcheck.json" if gid == "G5" and any(v == ["no hand-check file"] for v in by_t.values()) else ""), detail))
-    # open and blocked in scope (T1): the one definition of open, from the Proof board
-    blocked = sum(s["blocked"] for c in board["proven"] for s in c["stages"].values())
-    open_ = board["open"] - blocked
-    per_co = [{"ticker": c["ticker"], "open": c["open"] - sum(s["blocked"] for s in c["stages"].values()), "blocked": sum(s["blocked"] for s in c["stages"].values())} for c in board["proven"]]
-    lines.append(_line("open", "Items to review", True, open_, "pass" if open_ == 0 else "fail", "reconcile", "Neither verified nor explained", [x for x in per_co if x["open"]]))
-    lines.append(_line("blocked", "Items blocking release", True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "A block rule or a decision refuses the release", [x for x in per_co if x["blocked"]]))
+    # open, proposed and blocked in scope (T1): the one definition of open, from the Proof board, split by the row word every
+    # page shows (states.row) and counted with states.tally, the function Reconcile's header counts with. Each line is a
+    # distinct set, named as Reconcile names its bucket: Needs review (open, nothing proposed; an unmapped asset type is one),
+    # Proposed (the G6 line above: an asset-type mapping or a run's decision no person confirmed), Blocks release. Before,
+    # "Items to review" counted Needs review and Proposed together, and "Decisions left to confirm" and G6 counted Proposed
+    # twice more.
+    unc = resolutions.unconfirmed()  # a run's decisions to confirm (T3): Reconcile's "To confirm" rows, Proposed there too
+    um = taxonomy.unmapped(con, list(SCOPE))     # T14: the unmapped asset types among the Needs review items, named in the detail
+    rc = review_counts(board, unc)
+    open_, blocked, per_co = rc["bad"], rc["blocked"], rc["per_company"]  # rc["wait"] is the G6 line's count (tests.test_checklist.Parity)
+    lines.append(_line("open", word("row", "bad"), True, open_, "pass" if open_ == 0 else "fail", "reconcile",
+                       "Neither verified nor explained, nothing proposed" + (f"; {len(um)} of them asset types with no entry (Reconcile, asset types)" if um else ""),
+                       [{"ticker": x["ticker"], "open": x["open"]} for x in per_co if x["open"]] + [{"unmapped": m} for m in um]))
+    lines.append(_line("blocked", word("row", "blocked"), True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "A block rule or a decision refuses the release", [{"ticker": x["ticker"], "blocked": x["blocked"]} for x in per_co if x["blocked"]]))
     # completeness against the answer key (T81): an XBRL value with no released value and nothing open is a silent blank
     miss = proof.missing_from_dataset(con, SCOPE, decisions())
     lines.append(_line("complete", "Answer-key values missing from the dataset", True, len(miss), "pass" if not miss else "fail", "reconcile",
                        "company, field and year (from its first 10-K) where XBRL holds a value and the release ships none, with no open item, "
                        "no person's resolution and no person's review decision on it; a company with no XBRL answer loaded counts once",
                        [{"ticker": m["ticker"], "field": m["field"], "period": m["period"], "reference": m["reference"], "why": m["why"]} for m in miss]))
-    # decisions a run left to confirm (T3)
-    unc = resolutions.unconfirmed()
-    utc = taxonomy.to_confirm(con, list(SCOPE))  # T63: asset-type mappings no person confirmed count here as G6 counts them
-    lines.append(_line("unconfirmed", "Decisions left to confirm", True, len(unc) + len(utc), "pass" if not unc and not utc else "fail", "reconcile" if unc and utc else "reconcile?cause=asset_types" if utc else "reconcile?cause=to_confirm",  # both groups open: the page with both
-                       "a run decided; a person confirms or overturns each (the same items G6 counts per company)" + (f"; {len(utc)} of them asset-type mappings no person confirmed (Reconcile, asset types)" if utc else ""),
-                       [{"key": r["key"], "state": r["state"], "reason": (r.get("reason") or "")[:160]} for r in unc]
-                       + [{"key": f"asset_types|{m['ticker']}|{m['reported_name']}", "state": "to confirm", "reason": f"{m['standard_type']} proposed by {m.get('by')}"} for m in utc]))
-    # unmapped asset types in scope (T14: 0 required)
-    um = taxonomy.unmapped(con, list(SCOPE))
-    lines.append(_line("unmapped", "Unmapped asset types in scope (no entry)", True, len(um), "pass" if not um else "fail", "reconcile?cause=asset_types", "every reported PP&E category has an entry with a us-gaap member (taxonomy/asset_types.yaml); entries no person confirmed count under Decisions left to confirm", um))
     # rows with no value, by measure (T15: informational)
     tax = list(csv.DictReader(io.StringIO(p["files"]["taxonomy.csv"])))
     nv = {}
@@ -467,7 +478,7 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     required = [l for l in lines if l["required"]]
     return {"version": version, "previous": p["previous"], "scope": list(SCOPE), "stage": stage, "hash": p["hash"], "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "ok": all(l["ok"] for l in required), "red": [l["id"] for l in required if not l["ok"]], "lines": lines,
-            "gates": {"table": p["gates"], "failing": bad}, "open": open_, "blocked": blocked, "unconfirmed": len(unc) + len(utc), "unmapped": len(um),
+            "gates": {"table": p["gates"], "failing": bad}, "open": open_, "blocked": blocked, "unconfirmed": sum(len(v) for v in p["gates"]["G6"].values()), "unmapped": len(um),
             "diff": d, "golden": g, "tests": t, "exists": exists, "signed": signed, "folder": fstate}
 
 

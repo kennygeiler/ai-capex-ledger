@@ -23,6 +23,7 @@ import re
 from ..core import status, store
 from ..review.definitions import load as load_definitions
 from ..release.taxonomy import deep_link, quote_link
+from ..checks.ties import mark
 
 FIELD = {"revenue": "Revenue", "capex": "Capital spending (capex)", "opex": "Operating costs (opex)",
          "cost_of_revenue": "Cost of revenue", "operating_income": "Operating income",
@@ -111,6 +112,8 @@ def _words(it: dict, name: str, defs: dict, found_value=None) -> dict:
             fmt = exact if len({money(v) for v in vals}) < len(set(vals)) else money  # two different figures never print the same
             text = "Readings differ: " + " → ".join(fmt(r.get("value")) for r in (rs[0], rs[-1]))
             return {"tone": "bad", "text": text, "detail": " · ".join(f"{r.get('form') or '10-K'} filed {str(r.get('filed') or '')[:10]}: {fmt(r.get('value'))}" for r in rs)}
+        if by == "rule:segment_basis_mixed":
+            return {"tone": "bad", "text": "Segment basis mixed", "detail": more}
         if by.startswith("rule:") and by.endswith("_tie"):
             g = ref.get("tie_gap")
             if not g:
@@ -210,8 +213,13 @@ def add(con, trail: dict) -> dict:
             continue
         ids = [i for i in split_ids(f.get("extraction_ids") or "") if i in notes]
         where = sorted((_cell(notes[i], docs, ev) for i in ids), key=lambda w: (w["filed"] or "", w["extraction_id"]))
-        it["card"] = {"found": money(f["value"]), "where": where, "how": _how(it, name, defs, f["value"])}
-        if it.get("by") == "rule:fact_readings_differ" and len(where) >= 2:  # the oldest and the newest reading, side by side on #evidence/compare
+        rec = ref.get("restatement")  # ties.restatement: the readings disagree; said on the row whatever its state, the superseded crops marked
+        it["card"] = {"found": money(f["value"]), "where": mark(where, rec), "how": _how(it, name, defs, f["value"])}
+        if rec:
+            it["card"]["restatement"] = rec
+        if rec and rec.get("compare"):  # the oldest superseded reading and the one the dataset uses, side by side on #evidence/compare
+            it["card"]["compare"] = rec["compare"]
+        elif it.get("by") == "rule:fact_readings_differ" and len(where) >= 2:  # the oldest and the newest reading
             it["card"]["compare"] = {"a": where[0]["extraction_id"], "b": where[-1]["extraction_id"]}
 
     # AI quotes: the sentence, opened at its words

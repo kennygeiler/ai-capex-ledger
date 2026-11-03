@@ -249,7 +249,7 @@ class Consumers(unittest.TestCase):
     @unittest.skipUnless(store.DEFAULT_DB.exists(), "no working database")
     def test_reconcile_proposed_is_exactly_what_g6_refuses(self):
         """S-1: Reconcile's Proposed count (rows whose word is Proposed: a run's decision to confirm, an asset type no
-        person confirmed) is the Release line "Decisions left to confirm"; the to-confirm rows are open, like G6 says."""
+        person confirmed) is the Release line G6, which carries the word Proposed; the to-confirm rows are open, like G6 says."""
         import duckdb
         from ledger.release import checklist as cl
         from ledger.review import workbench
@@ -257,7 +257,7 @@ class Consumers(unittest.TestCase):
         con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
         try:
             it = workbench.items(con, app.flow("all"))
-            line = next(l for l in cl.checklist(con)["lines"] if l["id"] == "unconfirmed")
+            line = next(l for l in cl.checklist(con)["lines"] if l["id"] == "gate_G6")
         finally:
             con.close()
         wait = [r for r in it["rows"] if r["verification"] == "wait"]

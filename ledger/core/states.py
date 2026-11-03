@@ -120,6 +120,16 @@ def row(state: str | None, by: str | None) -> str:
     return "unknown"
 
 
+def tally(words) -> dict:
+    """{row word: count} over row words (states.row's result per row): Reconcile's header (workbench.items by_state)
+    and the Release checklist's Needs review / Proposed / Blocks release lines both count with this, so a bucket has
+    one name and one number on both pages (tests.test_checklist.Parity)."""
+    out: dict = {}
+    for w in words:
+        out[w] = out.get(w, 0) + 1
+    return out
+
+
 def group(state: str) -> str:
     """The status.STATES group of a row state."""
     for g, (_, members) in ROW.groups.items():
@@ -246,6 +256,10 @@ GOLD_GROUP = Machine("gold_group", "M17", "ledger.review.gold.group", (
 GOLD_GROUP_ORDER = ("no_counterpart", "definition", "not_extracted", "not_reconciled", "calculated", "xbrl")
 # a gold item's live group may differ from the group of its claim at the draw (gold.groups): the page says so
 GROUP_CHANGED = "Group changed since draw"
+# a fact whose readings disagree across filings (ties.restatement): the line every view shows and the word under each
+# superseded reading's crop. A display of facts, never a state: the row keeps the state its machine gives it.
+RESTATED = "Restated"
+SUPERSEDED = "Superseded"
 
 # ── crosscheck: a calculated figure against a total someone else printed or tagged (calc.state) ──────────────────────
 CROSSCHECK = Machine("crosscheck", "M18", "ledger.checks.calc.state", (

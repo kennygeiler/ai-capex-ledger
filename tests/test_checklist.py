@@ -382,7 +382,7 @@ class DryRun(unittest.TestCase):
         try:
             with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), mock.patch.object(store, "init", return_value=con):
                 cl = checklist.checklist(con)
-                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "unconfirmed", "unmapped", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "golden", "tests", "previous", "packet"])
+                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "golden", "tests", "previous", "packet"])
                 comp = next(l for l in cl["lines"] if l["id"] == "complete")  # T81: required, and 0 on the six
                 self.assertEqual((comp["required"], comp["state"], comp["count"]), (True, "pass", 0), comp["detail"][:3])
                 lim = next(l for l in cl["lines"] if l["id"] == "limitations")  # T68: informs, never red
@@ -416,6 +416,44 @@ class DryRun(unittest.TestCase):
                 self.assertIn(lid, str(e.exception))
         finally:
             con.close()
+
+
+class Parity(unittest.TestCase):
+    """Plumbing bug A: the Release checklist said "Items to review 45" while Reconcile's header said Needs review 16 ·
+    Proposed 29: the 45 was 16 + 29, Needs review and Proposed together, and "Decisions left to confirm" counted the 29
+    again. Each line now counts one bucket, named as Reconcile names it, with the same counting function (states.tally)."""
+
+    def test_each_line_counts_a_distinct_bucket_by_its_row_word(self):
+        item = lambda state, by: {"state": state, "by": by}
+        board = {"proven": [{"ticker": "X", "stages": {"facts": {"all": [item("open", "rule:jump"), item("open", "rule:jump")]},
+                                                      "mapping": {"all": [item("open", "label:to_confirm"), item("open", "label:to_confirm"), item("open", "label:to_confirm")]},
+                                                      "release": {"all": [item("blocked", "rule:b")]}, "values": {"all": [item("checked", "xbrl")]}}}], "open": 6}
+        rc = checklist.review_counts(board, [{"key": "k"}])
+        self.assertEqual((rc["bad"], rc["wait"], rc["blocked"]), (2, 3 + 1, 1))  # 2 + 4 + 1 = 7: every open item once, the old line said 5 then 3 again
+        self.assertEqual(rc["bad"] + rc["wait"] - 1 + rc["blocked"], board["open"])  # Proof's open (6) = bad + wait items + blocked; the run decision is not a Proof item
+        self.assertEqual(checklist.review_counts({"proven": []}, []), {"bad": 0, "wait": 0, "blocked": 0, "per_company": []})  # nothing to count is zero, per bucket
+
+    @unittest.skipUnless(store.DEFAULT_DB.exists() and not os.environ.get("LEDGER_SKIP_DB"), "no data/ledger.duckdb")
+    def test_release_lines_equal_reconcile_header_buckets_on_the_real_database(self):
+        from ledger.review import workbench
+        from ledger.web import app
+        flow = app._flow("all")
+        con = app._con()
+        try:
+            head = workbench.items(con, flow)["by_state"]
+            cl = checklist.checklist(con)
+        finally:
+            con.close()
+        lines = {l["id"]: l for l in cl["lines"]}
+        for lid, bucket in (("open", "bad"), ("gate_G6", "wait"), ("blocked", "blocked")):
+            self.assertEqual((lines[lid]["label"], lines[lid]["count"]), (stateword(bucket), head.get(bucket, 0)), lid)
+        self.assertEqual(sum(l["label"] == stateword("wait") for l in cl["lines"]), 1)  # one line counts the proposals, not two
+        self.assertNotIn("unconfirmed", lines)
+
+
+def stateword(s):
+    from ledger.core.states import word
+    return word("row", s)
 
 
 if __name__ == "__main__":

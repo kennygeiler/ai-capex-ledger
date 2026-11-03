@@ -45,7 +45,8 @@ check measures (counts, dates, versions) are written by the check; only what no 
 
 The clock and the commit are live facts. The Gaps page, `/api/v1/claims` and the Release checklist read them; docs/CLAIMS.md
 and every packet's LIMITATIONS.md do not (the packet is hashed, so the same data must give the same text at any time on
-any commit): there, the EDGAR check and the hosted copy's code read "checked live only".
+any commit): there, the EDGAR check and the hosted copy's code read "checked live only", and the last test run, the golden report and
+the gold verdict count read "see the Release page" (every `ledger test` rewrites them; the static doc must not move with a run).
 
 `claims/findings.jsonl` is the list of open review findings, append-only: one JSON line per finding (id, source, severity,
 text in product words, where with the identifiers, claim, ticket, status open / fixed / wontfix, at). To close one,
