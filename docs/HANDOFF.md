@@ -88,7 +88,7 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | this file, Data conventions |
 | stated figures | figures companies stated about AI, gathered from releases, calls and press, verbatim with the source; `company_stated_ai` rows | `taxonomy/stated_figures.yaml` | `docs/TAXONOMY.md` |
 | failure types | every failure type INGESTION.md logged, as data: id, cause class, origin, the check in code that catches it or `none`, count seen | `taxonomy/failures.yaml`, `ledger/checks/failures.py` | `docs/INGESTION.md` |
-| rules, guards | the 15 checks, each with its rationale and owner; the two guards that tag part-year and program statements | `rules/*.yaml`, `ledger/checks/rules.py`, `ledger/checks/guards.py` | `docs/PROOF.md` |
+| rules, guards | the checks in `rules/*.yaml`, each with its rationale and owner; the two guards that tag part-year and program statements | `rules/*.yaml`, `ledger/checks/rules.py`, `ledger/checks/guards.py` | `docs/PROOF.md` |
 | resolutions | what a person decided about a queue item, keyed `kind|ticker|field|period|dimension|rule_id|subject` (`resolutions.key_for`); `status` on exported rows | `decisions/resolutions.jsonl` (tracked, append-only; `ledger resolutions migrate-keys` re-keys lines from before T62, archive under `decisions/archive/`) | `docs/PROOF.md`, `docs/API.md` |
 | releases | plain files whose content hash a person signs | `releases/v*/` | release `README.md` |
 | production | the signed releases, one table per release file plus `ledger_releases`; `current_*` views follow the highest version | Postgres at `DATABASE_URL`, `ledger/release/publish.py` | this file |
@@ -147,7 +147,8 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   red with its count and the page that fixes it, and the packet built in memory. Its Sign button (enabled only when every
   required line is green) writes `releases/<version>/`, signs as the name in the signer box, stores the checklist as it
   was in `SIGNOFF.json`, and publishes; that is the one place a release is signed (`docs/PROOF.md`). Its test line reads
-  `reports/tests.json`, which `ledger test` writes: run it on the commit being signed, or the line reads stale. Its Golden line is green only when the tables are equal AND gold passes (every gold item has a verdict and every verdict holds): with 0 of 120 verdicts it is red, so nothing signs until a person gives them (`ledger golden --check` itself still exits 0 on unverified-only). The command line
+  `reports/tests.json`, which `ledger test` writes: run it on the commit being signed, or the line reads stale. The line is required since a00b67f;
+  releases up to v1.8.0 were signed while it only informed (their `SIGNOFF.json` records it not run, `required: false`). Its Golden line is green only when the tables are equal AND gold passes (every gold item has a verdict and every verdict holds): it stays red until every gold item has a verdict, so nothing signs until a person gives them (`ledger golden --check` itself still exits 0 on unverified-only). The command line
   does the same in pieces: `ledger release vX.Y.Z` builds the packet for `config.SCOPE`, prints the gate table (one row
   per company, G1 G4 G5 G6) and refuses on any failing row (`--stage N` only names the hand-check file); `ledger signoff
   vX.Y.Z --by "<name>"` signs without a checklist; `ledger publish vX.Y.Z` pushes the signed files to production and

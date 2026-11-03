@@ -100,8 +100,30 @@ class Http(unittest.TestCase):
 class Read(unittest.TestCase):
     def test_read_whitelist(self):
         self.assertIsNotNone(docs.read("MAP.md"))
-        for bad in ("../README.md", "archive/x.md", "MAP.txt", "/etc/passwd", "..", "", None, "MAP.md/..", ".md", "a b.md"):
+        for bad in ("../README.md", "archive/x.md", "MAP.txt", "/etc/passwd", "..", "", None, "MAP.md/..", ".md", "a b.md",
+                    "MAP.md\n", "TICKETS.md", "DISCIPLINES.md"):
             self.assertIsNone(docs.read(bad), bad)
+        self.assertTrue(set(docs.SERVED) >= {f for _, _, f in docs.SIDEBAR if f})
+        for f in docs.SERVED:
+            self.assertIsNotNone(docs.read(f), f)
+
+    def test_a_symlink_never_leads_out_of_docs(self):
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as tmp:
+            root, outside = Path(tmp) / "docs", Path(tmp) / "outside"
+            root.mkdir()
+            outside.mkdir()
+            (outside / "secret.md").write_text("# secret\n")
+            (root / "notes.txt").write_text("not markdown\n")
+            (root / "OK.md").write_text("# ok\n")
+            (root / "L.md").symlink_to(outside / "secret.md")
+            (root / "M.md").symlink_to(root / "notes.txt")
+            allow = {"OK.md", "L.md", "M.md"}
+            self.assertEqual(docs.read("OK.md", root, allow), "# ok\n")
+            self.assertIsNone(docs.read("L.md", root, allow))
+            self.assertIsNone(docs.read("M.md", root, allow))
+            self.assertIsNone(docs.read("OK.md", root, {"L.md"}))  # not on the allowlist
 
     def test_sidebar_files_exist_outside_archive(self):
         for slug, title, f in docs.SIDEBAR:
@@ -119,15 +141,26 @@ class Read(unittest.TestCase):
         """_markdown.js over every top-level doc in node, with a stub h(): it returns, and gives blocks (a shared regex
         state once made a bold link loop forever and hang the page)."""
         js = (ROOT / "ledger" / "web" / "pages" / "_markdown.js").read_text()
-        prog = ("const h=(tag,attrs={},...kids)=>({tag,attrs,kids:kids.flat(Infinity)}); const safeHref=(u)=>u;\n" + js +
+        safe = next(l for l in (ROOT / "ledger" / "web" / "pages" / "_shared.js").read_text().splitlines() if l.startswith("const safeHref"))
+        prog = ("const h=(tag,attrs={},...kids)=>({tag,attrs,kids:kids.flat(Infinity)});\n" + safe + "\n" + js +
                 "\nconst fs=require('fs'); const out={}; for (const f of fs.readdirSync(process.argv[1]).filter((f)=>f.endsWith('.md')))"
                 " out[f]=mdRender(fs.readFileSync(process.argv[1]+'/'+f,'utf8'),{files:{'MAP.md':'map'}}).length;"
                 " out['bold-link']=mdRender('**[a `b`](MAP.md)** and [c](../ledger/web/) http://x.example/y.',{files:{'MAP.md':'map'}}).length;"
+                " const links=(md)=>{const acc=[];const walk=(n)=>{if(n&&n.tag==='a')acc.push(n.attrs.href);if(n&&n.kids)n.kids.forEach(walk);};"
+                " mdRender(md,{files:{'MAP.md':'map'},served:['PROOF.md']}).forEach(walk);return acc;};"
+                " out.hrefs={javascript:links('[x](javascript:alert(1)) [y](JavaScript:alert(1))'),data:links('[x](data:text/html,<b>x</b>)'),"
+                " mixed:links('[a](vbscript:x) [b](//evil.example/x) [c](../../etc/passwd) [d](mailto:a@b)'),"
+                " served:links('[p](PROOF.md) [m](MAP.md) [t](TICKETS.md)')};"
                 " process.stdout.write(JSON.stringify(out));")
         r = subprocess.run(["node", "-e", prog, str(ROOT / "docs")], capture_output=True, text=True, timeout=30)
         self.assertEqual(r.returncode, 0, r.stderr)
         out = json.loads(r.stdout)
         self.assertEqual(out.pop("bold-link"), 1)
+        hrefs = out.pop("hrefs")
+        self.assertEqual(hrefs["javascript"], [])
+        self.assertEqual(hrefs["data"], [])
+        self.assertEqual(hrefs["mixed"], [])
+        self.assertEqual(hrefs["served"], ["/docs/PROOF.md", "#docs/map", "https://github.com/kennygeiler/ai-capex-ledger/blob/main/docs/TICKETS.md"])
         for f, n in out.items():
             self.assertGreater(n, 0, f)
 
@@ -189,6 +222,44 @@ class Glossary(unittest.TestCase):
             self.assertIn(f"`{r['id']}`", page)
 
 
+# Every top-level doc: no first or second person, no owner named as the one who wants or decides, no session talk.
+# Code spans, fenced code and quoted text (a filing's words, a recorded author) are not read. Allowed: "Kenny's Data
+# Emporium" (the app's name), "Kenny Geiler" (an attribution: who signed, who owns a rule), and the roman numeral I as a
+# section letter or in "Annex I".
+VOICE = (
+    re.compile(r"\b(?:you|your|yours|yourself|You|Your)\b"),
+    re.compile(r"\b(?:we|our|ours|us|We|Our|Us)\b(?!-)"),
+    re.compile(r"\bI\b"),
+    re.compile(r"\bKenny\b(?!'s Data Emporium| Geiler)"),
+    re.compile(r"\b(?:this branch|this session|tonight|the robot)\b", re.I),
+)
+VOICE_ALLOW = (re.compile(r"^#+ I\. "), re.compile(r"\bAnnex I\b"), re.compile(r"\b[A-H] and I\b"))
+
+
+def _prose(text: str) -> list[str]:
+    """The doc's lines with fenced code, code spans and quoted text blanked, line numbers kept."""
+    text = re.sub(r"```.*?```", lambda m: "\n" * m.group(0).count("\n"), text, flags=re.S)
+    out = []
+    for line in text.split("\n"):
+        line = re.sub(r"`[^`]*`", "", line)
+        line = re.sub(r'"[^"]*"', "", line)
+        out.append(re.sub(r"\u201c[^\u201d]*\u201d", "", line))
+    return out
+
+
+def voice_hits(text: str) -> list[str]:
+    hits = []
+    for n, line in enumerate(_prose(text), 1):
+        for rx in VOICE_ALLOW:
+            line = rx.sub("", line)
+        for rx in (*VOICE, *BANNED):
+            m = rx.search(line)
+            if m:
+                hits.append(f"{n}: {line[max(0, m.start() - 50):m.end() + 40].strip()}")
+                break
+    return hits
+
+
 class Voice(unittest.TestCase):
     def test_shown_docs_carry_no_chat_voice(self):
         for slug, _, _ in docs.SIDEBAR:
@@ -196,12 +267,18 @@ class Voice(unittest.TestCase):
             for rx in BANNED:
                 m = rx.search(text)
                 self.assertIsNone(m, f"{slug}: {m and text[max(0, m.start() - 60):m.end() + 40]!r}")
-        readme = (ROOT / "README.md").read_text()
-        for rx in BANNED:
-            self.assertIsNone(rx.search(readme), rx.pattern)
+
+    def test_every_doc_and_the_readme_in_product_voice(self):
+        files = sorted((ROOT / "docs").glob("*.md")) + [ROOT / "README.md"]
+        found = {f.name: voice_hits(f.read_text()) for f in files}
+        self.assertEqual({k: v for k, v in found.items() if v}, {})
+        for slug in ("glossary", "rules"):
+            self.assertEqual(voice_hits(docs.page(slug)["markdown"]), [], slug)
 
     def test_scan_catches_chat_voice(self):
-        for s in ("Kenny wants the table", "as you asked", "We decided today", "Claude wrote the 47 mappings", "If you are an AI agent"):
-            self.assertTrue(any(rx.search(s) for rx in BANNED), s)
-        for s in ("Signed by Kenny Geiler", '12 by "Claude Code, for Kenny Geiler to confirm"', "a Claude subscription"):
-            self.assertFalse(any(rx.search(s) for rx in BANNED), s)
+        for s in ("Kenny wants the table", "as you asked", "We decided today", "Claude wrote the 47 mappings", "If you are an AI agent",
+                  "what each stage taught us", "I want a score", "Kenny confirms each", "on this branch"):
+            self.assertTrue(voice_hits(s), s)
+        for s in ("Signed by Kenny Geiler", '12 by "Claude Code, for Kenny Geiler to confirm"', "a Claude subscription", "a us-gaap member",
+                  "## I. Agents", "the Annex I additions", "then H and I", "Kenny's Data Emporium", "`we` in code", 'quoted "we said"'):
+            self.assertFalse(voice_hits(s), s)

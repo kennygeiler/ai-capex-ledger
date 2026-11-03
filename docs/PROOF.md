@@ -43,7 +43,7 @@ point at the record that makes it so; each Proof item carries `ref`, that record
 | `resolution:<id>` | a line with that id in `decisions/resolutions.jsonl` that a person wrote: `author_kind` person when the line has the field (T69), else a `by` on `config.PEOPLE` and no "to confirm" |
 | `label:not_reported`, `label:no_reference` | XBRL looked up for that row and holding no value |
 
-**Who is a person (`status.is_person`).** Fail closed: a name on `config.PEOPLE` (the signers, today Kenny Geiler) that
+**Who is a person (`status.is_person`).** Fail closed: a name on `config.PEOPLE` (the signers: Kenny Geiler) that
 names no model, agent or run (`status.NOT_A_PERSON`). `status.confirmed` uses it, so a hand edit `confirmed_by: Claude`
 confirms nothing, and `mapper.person` refuses any other name on the write. T69 replaces the name with a field for
 resolutions.
@@ -103,7 +103,7 @@ as a person's when its `by` (or `reviewer`) is a name on `config.PEOPLE`. Anyone
 clear a blank; the log is in git and the name is checked against the list, never guessed.
 
 Where it runs: on `config.SCOPE` (the six). On the six it reads 0 (golden fixtures and the live database). A one-off
-reading on stage 3 (2 Nov 2026, this branch's database copy) gave 4, all "no XBRL answer loaded": SPCX, NBIS, BTDR and
+reading on stage 3 (a copy of the working database) gave 4, all "no XBRL answer loaded": SPCX, NBIS, BTDR and
 ARM, companies with no 10-K read and no values rows (foreign filers or not yet public). HUT and RIOT opex FY2024 (the
 negative computed opex) are no longer on the line: they are open by `label:not_reported` until T102. No test asserts
 the stage-3 figure: the fixtures hold the six only.
@@ -127,7 +127,7 @@ unresolved value is open. Every item carries `by`: `xbrl`, `esef:<tag>`, `source
 XBRL is one kind of answer key. There are five (four since T40, the second reading since T92), and `answer_key(by)` names which one a `by` (or a taxonomy row's
 `check_method`) is; a quote, a located table, a mapping and every explanation are not answer keys. One function,
 `status.state`, turns each into checked, so Proof and Reconcile count a row an ESEF tag confirms exactly as they count
-one XBRL confirms. No row carries `esef:`, `source:` or `actual:` today (2 Nov 2026); T41–T45 write them.
+one XBRL confirms. No row carries `esef:`, `source:` or `actual:` yet; T41–T45 write them.
 
 - **A structured twin** (`xbrl`, `esef:<tag>`): the filer's own tagged number for the same concept and period, read
   from the instance the filer signed (the SEC's XBRL, an ESEF package). It proves the number the pipeline read from the
@@ -224,7 +224,7 @@ ladder checks an untagged fact, and `differs` / `rule:fact_readings_differ` wher
 whose asset-type mapping is unmapped or unconfirmed still shows the mapping check (T63), so on the six the published
 column moves for the segment and commitment rows; the PP&E rows move once their mappings are confirmed.
 
-On the six (2 Nov 2026, golden fixtures, after the review fixes): 327 facts, 180 checked by the twin, 5 explained by the
+On the six (golden fixtures, at the time of writing): 327 facts, 180 checked by the twin, 5 explained by the
 restatement guard, 142 untagged. Of the 142: tie 101, second reading 17, citation only 22, open 2 (APLD "Other equipment
 and fixtures" FY2024, $9.6M in 0001144879-24-000216 vs $1.8M in 0001144879-25-000021, and FY2025, $2.1M vs $12.4M in
 0001144879-26-000048; both sit in groups that tie, so the company moved amounts between lines and the old reading or the
@@ -302,7 +302,7 @@ What it proves, and no more: the company tagged a figure of the same value on th
 extracted year. A value match against the company's own classification, not an audit of it (claims register,
 `mapping_filer_tag`). With no proposal, a company tag is its own status ("Company tags X · no proposal"), never "Differs".
 
-On the six (2 Nov 2026): of 47 mappings, 18 are checked by the company's tag (GOOGL 5, AMZN 3, NVDA 2, APLD 8), and the
+On the six (at the time of writing): of 47 mappings, 18 are checked by the company's tag (GOOGL 5, AMZN 3, NVDA 2, APLD 8), and the
 open mapping count drops 47 → 29. The other 29: 6 differ (AMZN "Other equipment", "Other assets"; APLD "Building",
 "Building improvements", "Information Systems and Software", "Networking equipment, electrical equipment, and
 software"), 7 carry a company member in every extracted year (AMZN "Servers and networking equipment", NVDA 2, APLD 4), 3 a company
@@ -369,7 +369,7 @@ the thesis in use); and the order of a value's cost-line extraction ids was not 
 | planned | guidance and projects, verbatim, forward-looking | Regulation S-K |
 | company_stated_ai | a figure the company itself stated about AI, verbatim, in its own scope words | none: the company's words |
 
-Nothing is inferred. The attribution methods that estimated an AI share, and the theses that drove them, are archived under `docs/archive/theses/` (1 Nov 2026, "invent nothing").
+Nothing is inferred. The attribution methods that estimated an AI share, and the theses that drove them, are archived under `docs/archive/theses/`, under the rule "invent nothing".
 
 **Point in time, no lookahead (T55).** `values` ships the newest 10-K's figure per fiscal year and keeps the first 10-K's as `first_reported`;
 a buyer who backtests on day D must see only what was filed by D, or a restated figure leaks the future into history (APLD's FY2025 revenue

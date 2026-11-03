@@ -71,7 +71,7 @@ Then open [Release](#release). The checklist builds the packet in memory and sho
 | Decisions left to confirm | A run decided; a person has not confirmed | Reconcile, `?cause=to_confirm` |
 | Unmapped asset types | A reported PP&E category has no entry | `ledger mapper X`, then approve |
 | Golden test | Tables differ from the frozen expectation, or gold fails or is unverified | Fix the code, or freeze on purpose with the reason; give or re-check gold verdicts |
-| Test run | Failed, or run on another commit or a dirty tree | `ledger test` on the commit being signed |
+| Test run | Failed, not run, or run on another commit or a dirty tree | `ledger test` on the commit being signed. Required since a00b67f; releases up to v1.8.0 were signed while the line only informed, and their `SIGNOFF.json` records it as not run with `required: false` |
 | Claims register | A shown string has no row in `claims/claims.yaml`, or a finding was edited | Register the string; restore the finding log |
 | Claims doc current | `docs/CLAIMS.md` differs from the register | `ledger claims`, then commit |
 | Previous releases readable | A signed release no longer matches its hash | Investigate; never edit `releases/` |

@@ -2,8 +2,9 @@
 from code on every request so they cannot drift from it (the glossary, from ledger/core/states.py and the terms below;
 rules and checks, from rules/*.yaml, the answer keys and the release gates).
 
-Only a top-level file in docs/ whose name is `[A-Za-z0-9_-]+.md` is ever read: no other suffix, no subfolder (docs/archive
-is not served), no path traversal. `read` is the one function that opens a file."""
+Only a file named in SERVED is ever read: the sidebar's files and the docs the README links to, each a top-level
+`docs/<[A-Za-z0-9_-]+>.md`. No other suffix, no subfolder (docs/archive is not served), no path traversal, and no symlink
+that leads outside docs/ or to anything but a .md file. `read` is the one function that opens a file."""
 from __future__ import annotations
 
 import re
@@ -12,7 +13,7 @@ from pathlib import Path
 from ..core import store
 
 DOCS = store.ROOT / "docs"
-NAME = re.compile(r"^[A-Za-z0-9_-]+\.md$")
+NAME = re.compile(r"[A-Za-z0-9_-]+\.md")
 
 # The sidebar, in order: (slug, title, file in docs/ or None for a page written from code). A doc that is stale or
 # superseded is left off the sidebar rather than shown; it stays readable at /docs/<NAME>.md.
@@ -28,6 +29,10 @@ SIDEBAR = (
     ("handoff", "Handoff", "HANDOFF.md"),
 )
 SLUGS = {s for s, _, _ in SIDEBAR}
+# Served as raw text at /docs/<NAME>.md: the sidebar's files and the reference docs the README and the sidebar docs link
+# to. A doc not on this list is linked to its copy on GitHub instead (pages/_markdown.js mdHref).
+SERVED = frozenset({f for _, _, f in SIDEBAR if f} | {"API.md", "BUILD.md", "COMPANIES.md", "DATA_DICTIONARY.md", "FIELDS.md",
+                                                       "INGESTION.md", "PROOF.md", "TAXONOMY.md"})
 
 # The app's pages, as the top navigation names them (ledger/web/app.html): the routes a doc may link to as #<page>.
 APP_PAGES = {"proof": "Proof", "rules": "Rules", "reconcile": "Reconcile", "data": "Dataset", "explore": "Explore",
@@ -86,10 +91,11 @@ TERMS = (
 )
 
 
-def read(name: str, root: Path | None = None) -> str | None:
-    """The text of docs/<name>, or None: a name that is not `[A-Za-z0-9_-]+.md`, a path outside docs/, or no such file."""
+def read(name: str, root: Path | None = None, allow=None) -> str | None:
+    """The text of docs/<name>, or None: a name not on the allowlist (SERVED) or not `[A-Za-z0-9_-]+.md`, a file whose
+    real path (symlinks followed) is outside docs/ or not a .md file, or no such file."""
     base = Path(root or DOCS)
-    if not isinstance(name, str) or not NAME.match(name):
+    if not isinstance(name, str) or not NAME.fullmatch(name) or name not in (SERVED if allow is None else allow):
         return None
     f = (base / name).resolve()
     if f.parent != base.resolve() or f.suffix != ".md" or not f.is_file():
@@ -141,10 +147,11 @@ def rules_page() -> str:
     for k in status.KEY_GRADE:
         out.append(f"| {status.KEY_LABEL[k]} | {', '.join('`' + p + '`' for p in status.ANSWER_KEYS[k])} | {_cell(status.KEY_WHY[k])} |")
     out += ["", "## Rules", "", "Block refuses the release until decided; warn opens the rows it fires on; info explains.", "",
-            "| Rule | Severity | Check | What it checks | Why |", "|---|---|---|---|---|"]
+            "Each rule's rationale and owner are in its file; the file's hash is recorded in every release manifest.", "",
+            "| Rule | Severity | Check | What it checks | File |", "|---|---|---|---|---|"]
     for s in ("block", "warn", "info"):
         for r in sev[s]:
-            out.append(f"| `{r['id']}` | {s} | `{r['check']}` | {_cell(r['description'])} | {_cell(r['rationale'])} |")
+            out.append(f"| `{r['id']}` | {s} | `{r['check']}` | {_cell(r['description'])} | [rules/{r['id']}.yaml](../rules/{r['id']}.yaml) |")
     out += ["", "## Release gates", "", "Per company, on the release scope. Any failing row refuses the release.", "", "| Gate | Condition |", "|---|---|"]
     out += [f"| {g} | {_cell(t)} |" for g, t in GATES.items()]
     return "\n".join(out) + "\n"
@@ -152,7 +159,7 @@ def rules_page() -> str:
 
 def index() -> dict:
     return {"pages": [{"slug": s, "title": t, "file": f or None, "generated": f is None} for s, t, f in SIDEBAR],
-            "files": {f: s for s, _, f in SIDEBAR if f}, "app_pages": APP_PAGES}
+            "files": {f: s for s, _, f in SIDEBAR if f}, "served": sorted(SERVED), "app_pages": APP_PAGES}
 
 
 def page(slug: str) -> dict | None:

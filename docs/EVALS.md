@@ -86,8 +86,8 @@ can't say, a note, `by` on `config.PEOPLE`, `at`.
   open row (or a blank): the same value shipped as checked fails, a different number fails as "changed since
   verdict, re-verify", a missing row (a renamed dimension included) as "row gone, re-verify". A right item whose row
   is open for another reason still passes: that is the Open line's job, not gold's.
-- Gold has its own state beside golden's tables: fail, unverified N of M, or pass. Equal tables with nothing verified
-  read "golden: equal" and "gold: unverified 120 of 120", never one green line; the exit code is 0 for unverified only
+- Gold has its own state beside golden's tables: fail, unverified N of M, or pass. Equal tables with items unverified
+  read "golden: equal" and "gold: unverified N of M", never one green line; the exit code is 0 for unverified only
   and 1 for any gold failure. A missing gold/ folder, a proven company with no file or no items, and a file that does
   not read or validate (items a list, `value` present, `verdict` one of the three or null) fail, naming the file.
 - `ledger gold --draw` builds the sample without a lock, then re-reads, merges and replaces the file under the same

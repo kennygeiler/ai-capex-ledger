@@ -1,13 +1,17 @@
 # Capex Ledger
 
-An auditable pipeline that turns SEC 10-K filings into a versioned dataset of revenue, capex, opex, note-level facts
-(segment capex and revenue, PP&E by category, finance leases, purchase commitments) and company statements about AI
-spend. Agents read the filings; deterministic code checks every number against the cell it cites and against
-independent answer keys; a person reviews only what code cannot decide and signs each release. Every figure in a release
-carries its citation, its verification level and the record that verification rests on.
+A pipeline that turns SEC 10-K filings into a versioned dataset of revenue, capex, opex, note-level facts (segment
+capex and revenue, PP&E by category, finance leases, purchase commitments) and company statements about AI spend.
+Agents read the filings; deterministic code checks every number against the cell it cites and, where one exists, against
+the filer's own XBRL, a tie to a tagged total or a second reading in a later filing; a person reviews only what code
+cannot decide and signs each release. Every figure carries its citation and its verification level. Many carry no more
+than the citation: on the six companies in scope, more than half the rows (about 56% at the golden fixtures) have no
+answer key and read Unverified, citation only.
 
-Coverage: six companies proven end to end (`config.PROVEN`: MSFT, GOOGL, AMZN, NVDA, APLD, AMD), 100 tracked
-(`docs/COMPANIES.md`), fiscal years 2022 to 2026, annual.
+Coverage: six companies in the release scope (`config.PROVEN`: MSFT, GOOGL, AMZN, NVDA, APLD, AMD), 100 tracked
+(`docs/COMPANIES.md`), fiscal years 2022 to 2026, annual. A company is proven when none of its rows is open (each is
+checked or explained); that is not a claim that every figure is right. The hand-check gate on the Release page stays
+red until every gold item has a verdict.
 
 The web app, Kenny's Data Emporium (`ledger app`, port 3610), shows every row's state, the review queue, the release
 checklist and these docs.
@@ -68,9 +72,12 @@ The stages, with the module that owns each (full map: [docs/MAP.md](docs/MAP.md)
 4. **Resolve citations** (`ledger/extract/extract.py`, rule `citation_resolves`). Every value names table, row, column
    and cell; the cell must exist in the parsed filing and equal the value with its unit and sign rule. Quotes must
    match their source text after normalisation.
-5. **Verify** (`ledger/checks/`, `ledger/core/status.py`). The answer keys, the rules, and a second read of every cited
-   cell on the 10-K rendered in Chrome (`ledger/checks/crops.py`). One function, `status.state`, gives every row one of
-   four states, and every page and gate reads it.
+5. **Verify** (`ledger/checks/`, `ledger/core/status.py`). The answer keys, the rules, and a second read of the cited
+   cells on the 10-K rendered in Chrome (`ledger/checks/crops.py`): for the six in scope, a crop of each cited cell,
+   written by `ledger evidence --crops` and not kept in git. Each row's state (checked, explained, open, blocked) comes
+   from one function, `status.state`, which Proof, Reconcile, the trail and the gates read. The other words a page shows
+   (crop, gold verdict, checklist line, EDGAR freshness and more) come from their own state machines in
+   `ledger/core/states.py` ([docs/STATES.md](docs/STATES.md)).
 6. **Review** (`ledger/review/`, the Reconcile page). Only open rows reach a person, each with the reason code could
    not decide it. A decision is a definition (`definitions/companies.yaml`), a rule (`rules/`), or a resolution
    (`decisions/resolutions.jsonl`) keyed to a hash of the item's content, so it lapses when its inputs change.
@@ -80,7 +87,7 @@ The stages, with the module that owns each (full map: [docs/MAP.md](docs/MAP.md)
 
 ## Verification ladder
 
-A checked row names the strongest independent record that agrees with it. Strongest first
+A checked row names the strongest record that agrees with it, ranked by how independent it is of the reading. Strongest first
 (`status.KEY_GRADE`, `ties.fact_state`, words from `ledger/core/states.py`):
 
 | Rung | Page word | Proves | Does not prove |
@@ -92,9 +99,9 @@ A checked row names the strongest independent record that agrees with it. Strong
 | Citation only (`label:no_reference`) | Unverified | The cited cell exists and holds the value. | Anything beyond the citation: no tag, no tie, one reading. |
 
 A label never counts as a check: every checked or explained row must point at the record it rests on, and a walk over
-the proven set fails on any that does not (`status.evidence_gap`, `proof.unevidenced`). On the six, rows by strongest
-key: twin 273 of 889, tie 101, second reading 17, no key 498 (golden fixtures; [docs/PROOF.md](docs/PROOF.md)). Second
-source and later truth are declared keys that no row carries yet.
+the proven set fails on any that does not (`status.evidence_gap`, `proof.unevidenced`). The Proof page counts the rows
+by their strongest key ("Rows by answer key"); [docs/PROOF.md](docs/PROOF.md) explains the grading. Second source and
+later truth are declared keys that no row carries yet.
 
 ## Evaluation
 
@@ -106,12 +113,13 @@ Detail: [docs/EVALS.md](docs/EVALS.md).
   table column by column. Agents are frozen on purpose: their answers are inputs, the checks on them are under test.
   Equal tables mean nothing changed, not that anything is right. Last run: tables equal (`reports/golden.json`).
 - **Gold set** (`gold/<TICKER>.json`, `ledger gold`). Per proven company 10 values and 10 facts, stratified by field and
-  year, untagged facts oversampled to 6 of 10, drawn with a per-release seed. A person gives each a verdict against the
-  filing: right, wrong or can't say. Error rate is wrong of (right + wrong) with a Wilson 95% interval
-  (`ledger/core/stats.py`). Current state, from `gold/*.json` and `reports/golden.json`: 50 of 120 items verified, 50
-  right, 0 wrong; error rate 0 of 50, interval 0–7.1%. By group: values 0 of 29 (0–11.7%), facts 0 of 21 (0–15.5%),
-  facts with no XBRL tag 0 of 11 (0–25.9%). 70 items are unverified, so the Golden line on the Release page is red
-  until they are given.
+  year, untagged facts oversampled to 6 of 10, drawn with a per-release seed. A person gives each item a verdict
+  against the filing: right, wrong or can't say. The error rate is wrong of (right + wrong) with a Wilson 95% interval
+  (`ledger/core/stats.py`), overall and per group of what else vouches for the item (`gold.rates`): no SEC counterpart,
+  definition differs, not extracted, not reconciled, calculated, matches SEC XBRL. The group with no SEC counterpart is
+  quoted first, because there the person is the only check. Verdicts are being given now; the live counts and intervals
+  are in `ledger gold --status` and the Hand check section of the Proof page. Until every item has a verdict the
+  Golden line on the Release page is red.
 - **Planted faults** (`ledger faults`). Real extractions corrupted one at a time in nine ways (wrong column, stale
   column, wrong row, scale, sign, digits, omission, wrong table, systematic). Stage 3 run
   (`reports/stage3-faults.json`): 31,206 planted, 29,258 caught by a rule, 131 caught only by XBRL, 1,805 no effect on a
@@ -119,8 +127,8 @@ Detail: [docs/EVALS.md](docs/EVALS.md).
   the real error mix; the catch rate bounds what the checks can see.
 - **Per-agent scores** (`ledger/checks/score.py`, Rules page). Each reader's outputs counted checked, explained, open and
   blocked, agreement with its twin where one exists, with denominators and a Wilson interval.
-- **Tests.** `ledger test` runs the suite offline and writes `reports/tests.json`, which the Release page reads
-  (last recorded run: 661 tests, 0 failing, 1 skipped).
+- **Tests.** `ledger test` runs the suite offline and writes `reports/tests.json`, which the Release page's Test run
+  line reads.
 
 ## Data model
 
@@ -146,9 +154,14 @@ reads from filing dates.
 
 ## Releases and contracts
 
-- **Gates** (`ledger/release/release.py`, per company): G1 every filing read with no failure open; G4 no block without a
-  decision; G5 every value XBRL cannot vouch for confirmed on the rendered filing; G6 no run decision or asset-type
-  mapping without a person's confirmation.
+- **Gates** (`ledger/release/release.py` `GATES`, per company):
+  - G1: every filing ended in a valid output or a logged failure, and no failure is open.
+  - G4: no block exception without a current decision.
+  - G5: every value XBRL can't vouch for, plus a random sample of those it can, confirmed on the filing at the value
+    being released: by the re-read of the rendered 10-K, or by the hand-check file (`golden/stage<N>-handcheck.json`)
+    where the re-read did not confirm the cell.
+  - G6: no decision left by a run for a person to confirm (`decisions/resolutions.jsonl`, "to confirm"), and no
+    asset-type mapping without a person's `confirmed_by` (`taxonomy/asset_types.yaml`).
 - **Checklist** (`ledger/release/checklist.py`, the Release page): the gates plus open and blocked items, answer-key
   values missing from the dataset, unmapped asset types, the golden test and gold set, the test run on the signed
   commit, the claims register and the previous releases' hashes. Signing is enabled only when every required line is
@@ -179,7 +192,14 @@ From `taxonomy/limitations.yaml`, `docs/CLAIMS.md` and [docs/HANDOFF.md](docs/HA
 - **Without a structured twin, systematic errors escape.** With XBRL off, 143 planted faults escaped (above); sources
   without tags (ESEF without tags, KPI tables, transcripts) are exposed.
 - **Omissions.** Some planted omissions escape every check.
-- **Gold is incomplete.** 70 of 120 items have no verdict; the error-rate interval is wide.
+- **"Proven" means nothing open.** Every row is checked or explained; explained rows include citation-only figures.
+- **Gold is incomplete.** Not every gold item has a verdict yet, and with a small sample the error-rate interval is
+  wide (live: `ledger gold --status`).
+- **Crops are local and cover the six.** The pictures of cited cells are not in git (the repository is public); a clone
+  rebuilds them with `ledger evidence --crops`. Companies outside the scope have none, and neither has the hosted copy.
+- **Old statement outputs without a fingerprint.** 13 statement outputs predate task fingerprints (`_run.task_sha`) and
+  load unjudged until they are read again (listed in [docs/HANDOFF.md](docs/HANDOFF.md)).
+- **Open review findings.** The current list is on the Known gaps page and in [docs/CLAIMS.md](docs/CLAIMS.md).
 - **One person.** The same person builds, reviews and signs; there is no second reviewer and no sign-in (the name in the
   signer box is a claim, checked against `config.PEOPLE`).
 - **Interpretive fields unmeasured.** For AI statements and projects only the quote is checked, not what the reader

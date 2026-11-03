@@ -6,7 +6,7 @@ exists, the dataset carries what the company itself said, verbatim, and nothing 
 
 ## The standards used, and for what
 
-| Standard | What it gives us | Where it is used |
+| Standard | What it gives | Where it is used |
 |---|---|---|
 | US GAAP / XBRL (FASB taxonomy, `us-gaap`) | the accounting definitions of capex, PP&E, asset types, segments, commitments, leases; the concept names the SEC checks | every spent and committed measure is a `us-gaap` concept or a member of one of its axes |
 | ASC 280 (segment reporting) | what a reportable segment is and that segment capex and revenue are disclosed | segment-level spent and revenue |
@@ -28,14 +28,14 @@ body defines it. Companies state figures about it in their own words. The datase
   forward-looking; and projects the company named, quoted verbatim.
 
 A fourth, **company_stated_ai**: a figure or share the company itself stated about AI, verbatim, with scope words and
-period as stated. Not a measure of ours. A label on a quote.
+period as stated. Not a measure of the ledger's. A label on a quote.
 
 ## Categories
 
 ### Entity
 
 - `sic`: the SEC's SIC code and description for the filer (from EDGAR `submissions`). Standard.
-- `layer` (non-standard, a reading aid): the supply-chain layer we used to pick companies (hyperscaler, neocloud,
+- `layer` (non-standard, a reading aid): the supply-chain layer used to pick companies (hyperscaler, neocloud,
   ...), added to every row by the API and the packet. A grouping for reading the dataset, not a definition of
   anything; never shown as `industry`. Schema v11 (T9) dropped `group`, which was the same value under a second name.
 
@@ -58,7 +58,7 @@ against a published list, recorded; it is never a number. It counts as checked w
 the proposed us-gaap member, unambiguously, in every extracted year (`mapping:filer_tag`, docs/PROOF.md); otherwise it is a proposal, open on Proof and a G6 failure, and
 its taxonomy rows read `mapped` false and `check` to_confirm (`check_method` label:to_confirm), with the proposed member
 in `standard_type`. An entry with no `standard_type` is no mapping: unmapped. The filer's own tagged member, where it tags a
-us-gaap one, is shown beside the proposal on Reconcile and a difference is flagged (on the six, 1 Nov 2026: Amazon tags
+us-gaap one, is shown beside the proposal on Reconcile and a difference is flagged (on the six, at the time of writing: Amazon tags
 `EquipmentMember` for "Other equipment" and `OtherCapitalizedPropertyPlantAndEquipmentMember` for "Other assets";
 Applied Digital tags `BuildingMember`, `BuildingImprovementsMember` and `SoftwareAndSoftwareDevelopmentCostsMember`
 for "Building", "Building improvements" and its two software-bearing lines; T74 stores it on the row).
