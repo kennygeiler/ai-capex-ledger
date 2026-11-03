@@ -1,5 +1,5 @@
 {
- "at": "2026-11-03T20:55:35+00:00",
+ "at": "2026-11-03T21:12:16+00:00",
  "ok": false,
  "failed_step": null,
  "tables_ok": true,
@@ -8,11 +8,11 @@
   "holds": true,
   "state": "unverified",
   "failures": [],
-  "checked": 110,
-  "right": 110,
+  "checked": 119,
+  "right": 119,
   "wrong": 0,
   "cant_say": 0,
-  "unverified": 10,
+  "unverified": 1,
   "items": 120
  },
  "diffs": {},
