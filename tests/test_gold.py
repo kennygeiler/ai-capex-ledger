@@ -373,9 +373,10 @@ class Verdict(unittest.TestCase):
             self.assertIn("config.PEOPLE", out["error"])
             self.assertEqual(post({**body, "by": "Kenny Geiler"}, ctype="text/plain")[0], 403)  # the guards every write has
             self.assertEqual(post({**body, "by": "Kenny Geiler"}, origin="https://evil.example")[0], 403)
-            with mock.patch.object(app, "_con", side_effect=AssertionError("no database work without a ticker")):
+            with mock.patch.object(app, "_con", side_effect=app.Busy("busy")):  # the summary counts live groups; a busy database still answers, as drawn
                 with request.urlopen(f"{base}/api/v1/gold") as r:
-                    self.assertEqual(json.loads(r.read())["companies"][0]["ticker"], "AMZN")
+                    d = json.loads(r.read())
+                    self.assertEqual((d["companies"][0]["ticker"], d["groups_live"]), ("AMZN", False))
             try:
                 request.urlopen(f"{base}/api/v1/gold?t=BOGUS")
                 self.fail("?t=BOGUS answered 200")

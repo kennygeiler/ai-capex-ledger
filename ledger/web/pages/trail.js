@@ -29,18 +29,17 @@ function trailWhat(it, stage) {
 function trailSource(c, what) {
   const where = c.where || [];
   if (!where.length) return h('span', {class: 'text-secondary'}, '—');
-  return h('div', {class: 'cites'}, where.map((w) => (w.crop
+  return h('div', {}, calcBlock(c.calc), h('div', {class: 'cites'}, where.map((w) => (w.crop
     ? citeCell(w, what)
     : h('div', {class: 'cite-line small'}, w.viewer ? [w.label, ' · ', h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open'), SEC_LINK.test(w.link || '') ? [' · ', h('a', {href: safeHref(w.link), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗')] : '']
-      : [w.label, w.link ? [' · ', h('a', {href: safeHref(w.link), target: '_blank', rel: 'noopener noreferrer'}, 'Open ↗')] : '']))));
+      : [w.label, w.link ? [' · ', h('a', {href: safeHref(w.link), target: '_blank', rel: 'noopener noreferrer'}, 'Open ↗')] : ''])))));
 }
 
 // Verification: the status word and one short line; the long form opens under it
 function trailVerify(c, ticker) {
   const [cls, word] = rowWord(c.how.tone);
   const line = h('div', {class: 'small'}, h('span', {class: cls + ' fw-medium'}, word), c.how.text ? h('span', {class: 'text-secondary'}, ` · ${c.how.text}`) : '');
-  const more = [c.formula ? h('div', {class: 'small text-secondary'}, c.formula) : '',
-    c.compare ? h('div', {class: 'small'}, h('a', {href: `#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}`}, 'Compare filings')) : ''];
+  const more = [c.compare ? h('div', {class: 'small'}, h('a', {href: `#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}`}, 'Compare filings')) : ''];
   return [c.how.detail ? h('details', {class: 'why'}, h('summary', {}, line), h('div', {class: 'small text-secondary mt-1'}, c.how.detail)) : line, more];
 }
 
@@ -50,7 +49,7 @@ function trailRow(it, stage, ticker) {
   const what = trailWhat(it, stage);
   return h('tr', {},
     h('td', {}, h('span', {class: cls, 'aria-hidden': 'true'}, '● '), what),
-    h('td', {class: 'num'}, c.found || h('span', {class: 'text-secondary'}, '—')),
+    h('td', {class: 'num'}, c.found ? (stage === 'statements' || stage === 'planned' ? c.found : h('span', {class: 'money'}, c.found)) : h('span', {class: 'text-secondary'}, '—')),
     h('td', {}, trailSource(c, what)),
     h('td', {}, trailVerify(c, ticker)));
 }

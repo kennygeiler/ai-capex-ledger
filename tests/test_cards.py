@@ -12,6 +12,50 @@ class Money(unittest.TestCase):
         self.assertEqual(cards.money(-384_809_000), "−$384.8M")
         self.assertEqual(cards.money(450_000), "$450,000")
         self.assertEqual(cards.money(None), "—")
+        self.assertEqual(cards.money(513_983_000_000), "$513,983M")  # the gold set's overflowing figure (review-fixes)
+        self.assertEqual(cards.money(1_800_000), "$1.8M")
+        self.assertEqual(cards.money(0), "$0")
+        self.assertEqual(cards.money(1_250_000), "$1.3M")  # half up, never banker's
+
+    CASES = [513_983_000_000, 1_800_000, 0, 1_250_000, 1_350_000, 999_950_000, -236_462_000, 394_144_000, 56_771_000, 450_000, -1, 13_458_000_000, None,
+             2.5, -2.5, 0.5, -0.4, 1_249_999.5, 999_999.5]
+
+    def test_half_up_on_the_magnitude(self):
+        self.assertEqual([cards.money(v) for v in (2.5, -2.5, 0.5, -0.4, 999_999.5)], ["$3", "−$3", "$1", "$0", "$1M"])
+        self.assertEqual(cards.exact(-394_144_000), "−$394,144,000")
+
+    def test_the_pages_format_is_pythons(self):
+        """One money format app-wide: the page's `usd` (_shared.js) gives what cards.money gives, case for case."""
+        import json, shutil, subprocess
+        if not shutil.which("node"):
+            self.skipTest("no node")
+        src = (store.ROOT / "ledger" / "web" / "pages" / "_shared.js").read_text()
+        fn = src[src.index("const usd = "):src.index("};", src.index("const usd = ")) + 2]
+        out = subprocess.run(["node", "-e", fn + "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[1]).map(usd)))", "--", json.dumps(self.CASES)],
+                             capture_output=True, text=True, check=True).stdout
+        self.assertEqual(json.loads(out), [cards.money(v) for v in self.CASES])
+        rep = (store.ROOT / "ledger" / "cli" / "report_template.html").read_text()  # the report's abbreviated figures are the same format
+        fn = rep[rep.index("const short = "):rep.index("};", rep.index("const short = ")) + 2]
+        out = subprocess.run(["node", "-e", fn + "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[1]).map(short)))", "--", json.dumps(self.CASES)],
+                             capture_output=True, text=True, check=True).stdout
+        self.assertEqual(json.loads(out), [cards.money(v) for v in self.CASES])
+        ex = src[src.index("const usdExact = "):src.index("};", src.index("const usdExact = ")) + 2]
+        out = subprocess.run(["node", "-e", ex + "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[1]).map(usdExact)))", "--", json.dumps(self.CASES)],
+                             capture_output=True, text=True, check=True).stdout
+        self.assertEqual(json.loads(out), [cards.exact(v) for v in self.CASES])
+
+    def test_readings_that_print_the_same_show_exact_dollars(self):
+        h = cards._how({"state": "open", "by": "rule:fact_readings_differ", "ref": {"readings": [{"value": 1_234_500}, {"value": 1_234_400}]}}, "X", {}, None)
+        self.assertEqual(h["text"], "Readings differ: $1,234,500 → $1,234,400")
+        h = cards._how({"state": "open", "by": "rule:fact_readings_differ", "ref": {"readings": [{"value": 5_000_000}, {"value": 6_000_000}]}}, "X", {}, None)
+        self.assertEqual(h["text"], "Readings differ: $5M → $6M")
+        js = (store.ROOT / "ledger" / "web" / "pages" / "evidence.js").read_text()
+        self.assertIn("differ && usd(a.value) === usd(b.value) ? usdExact : usd", js)
+
+    def test_no_page_keeps_its_own_money_format(self):
+        pages = store.ROOT / "ledger" / "web" / "pages"
+        for f in pages.glob("*.js"):
+            self.assertFalse("goldUsd" in f.read_text(), f.name)
 
 
 class How(unittest.TestCase):

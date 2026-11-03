@@ -35,7 +35,11 @@ def main(argv=None) -> int:
         items = [i for d in docs.values() for i in d["items"]]
         for t, d in docs.items():
             print(f"{t} ({d['release']}): {gold.rate_line(gold.error_rate(d['items']))}")
-        print(f"all: {gold.rate_line(gold.error_rate(items))}")
+        from ..core.states import word
+        r = gold.rates(items, gold.live_groups(con, docs))  # the per-group numbers the API and the Proof page show
+        for g in r["groups"]:
+            print(f"{word('gold_group', g['id'])}: {gold.rate_line(g['rate'])}")
+        print(f"all: {gold.rate_line(r['all'])}")
         c = gold.compare_db(con, docs)
         print(gold.summary_line(c))
         return 0 if not c["failures"] else 1  # unverified exits 0 and says "Not a pass"; a failing verdict exits 1

@@ -82,7 +82,14 @@
   .ev-crop { display: block; width: 100%; max-width: 64rem; height: auto; border-radius: 4px; box-shadow: 0 0 0 1px var(--tblr-border-color); background: #fff; }
   /* the trail: fixed columns, the value on one line, the cited cells' crops in the row */
   table.trail { table-layout: fixed; width: 100%; }
-  table.trail col.c-item { width: 22%; } table.trail col.c-value { width: 7.5rem; } table.trail col.c-source { width: 42%; } table.trail col.c-verify { width: auto; }
+  table.trail col.c-item { width: 22%; } table.trail col.c-value { width: 9.5rem; } table.trail col.c-source { width: 42%; } table.trail col.c-verify { width: auto; }
+  /* a money figure is one line in its own column (the app's one format, at most "−$999,999.9M"); the source column clips its
+     thumbnails, so a crop never paints over the value beside it */
+  .money { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  table.trail td:nth-child(3) { overflow: hidden; }
+  .cite-role { color: var(--tblr-body-color); }
+  .calc .money-line { overflow-wrap: anywhere; }
+  table.trail tr.gold-group th { background: var(--tblr-bg-surface-secondary); text-transform: none; letter-spacing: 0; }
   table.trail-quote col.c-item { width: 20%; } table.trail-quote col.c-value { width: 34%; } table.trail-quote col.c-source { width: 22%; }
   table.trail-quote td.num { white-space: normal; text-align: left; }
   table.trail td { vertical-align: top; overflow-wrap: anywhere; }

@@ -124,7 +124,14 @@ const D = __DATA__;
 const $ = (s, el = document) => el.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const usd = (v) => v == null ? "–" : (v < 0 ? "−$" : "$") + Math.abs(v).toLocaleString("en-US");
-const short = (v) => v == null ? "–" : (Math.abs(v) >= 1e9 ? `$${(v / 1e9).toFixed(2)}B` : `$${(v / 1e6).toFixed(0)}M`);
+// abbreviated figures: the app's one money format (ledger/web/cards.py money; tests.test_cards.Money); `usd` above is to the dollar
+const short = (n) => {
+  if (n == null || n === '') return '—';
+  const x = Number(n), a = Math.floor(Math.abs(x) + 0.5), sign = x < 0 && a ? '−' : '';
+  if (a >= 1e6 && a % 1e6 === 0) return `${sign}$${(a / 1e6).toLocaleString('en-US')}M`;
+  if (a >= 1e6) { const t = Math.floor((a + 5e4) / 1e5); return `${sign}$${Math.floor(t / 10).toLocaleString('en-US')}.${t % 10}M`; }
+  return `${sign}$${a.toLocaleString('en-US')}`;
+};
 const qLabel = (p) => p;  // fiscal year, e.g. FY2026
 const KEY = `ledger-handcheck-${D.name}`;
 const key = (v) => `${v.ticker}|${v.field}|${v.period}`;

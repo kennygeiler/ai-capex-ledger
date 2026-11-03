@@ -173,6 +173,74 @@
     - Whether a company reads Proven today is on the Proof board; the register does not read the database.
   ticket: T63
 
+- id: gold_groups
+  claim: "Hand check by group, hard first: No SEC counterpart (the headline), Definition differs, Not extracted, Not reconciled, Calculated, Matches SEC XBRL; right / wrong / can't say / unchecked per group, with a Wilson 95% interval when n > 0; each item counted under its live group"
+  where: [ledger/core/states.py, ledger/web/pages/proof.js, ledger/review/gold.py, ledger/web/app.py, ledger/cli/gold.py, /api/v1/gold]
+  shown: ["No SEC counterpart", "Definition differs", "Not extracted", "Not reconciled", "Calculated", "Matches SEC XBRL", "Group changed since draw", "Groups as drawn · live tables unavailable"]
+  backed_by:
+    functions: [ledger.review.gold.group, ledger.review.gold.live_groups, ledger.review.gold.group_note, ledger.review.gold.ordered, ledger.review.gold.rates, ledger.review.gold.error_rate]
+    tests:
+      - tests.test_calc.Groups.test_every_label_has_its_group
+      - tests.test_calc.Groups.test_each_item_its_own_group
+      - tests.test_calc.Groups.test_nothing_unreadable_lands_in_a_machine_checked_group
+      - tests.test_calc.Groups.test_hard_first_and_stable
+      - tests.test_calc.Groups.test_rates_per_group_add_up
+      - tests.test_calc.Groups.test_an_item_counts_under_its_live_group_and_keeps_its_verdict
+      - tests.test_calc.Groups.test_live_groups_reads_the_live_label_and_flags_a_move
+      - tests.test_calc.Groups.test_the_group_is_the_claims_when_the_database_is_busy
+      - tests.test_calc.Consumers.test_the_trail_and_the_gold_set_read_calc_for_ticker
+  status: stub
+  checks: [gold]
+  gaps:
+    - With the database busy the groups are the claims' at the draw, without the calculation (an opex item reads Matches SEC XBRL); the page says "Groups as drawn".
+  ticket: none
+
+- id: calculated_figure
+  claim: "Calculated: the formula and the arithmetic on the cited inputs, each crop labelled by its role, cross-checked against the filing's own total and SEC XBRL"
+  where: [ledger/checks/calc.py, ledger/core/states.py, ledger/web/pages/_shared.js, ledger/web/pages/trail.js, ledger/web/pages/proof.js, ledger/web/cards.py, /api/v1/gold, /api/v1/proof/<ticker>]
+  shown: ["Calculated: ", "Filing’s own total", "Filing’s total", "matches", "includes", "differs by", "No total to compare", "within rounding", "Stored value", "Revenue", "Cost of revenue", "Operating income"]
+  backed_by:
+    functions: [ledger.checks.calc.calculation, ledger.checks.calc.for_ticker, ledger.checks.calc.state]
+    tests:
+      - tests.test_calc.Calc.test_amd_opex_says_how_it_was_calculated
+      - tests.test_calc.Calc.test_apld_definition_gap_names_the_line
+      - tests.test_calc.Calc.test_a_difference_no_line_explains_names_none
+      - tests.test_calc.Calc.test_sign_matters
+      - tests.test_calc.Calc.test_two_lines_of_the_amount_name_none
+      - tests.test_calc.Calc.test_the_xbrl_check_never_reads_the_table
+      - tests.test_calc.Calc.test_inputs_that_do_not_give_the_value_say_so
+      - tests.test_calc.Calc.test_nothing_to_compare_is_no_total
+      - tests.test_calc.Calc.test_degenerate
+      - tests.test_calc.Calc.test_parts_and_a_loss
+      - tests.test_calc.Calc.test_rounded_terms_that_do_not_add_up_print_exact_dollars
+      - tests.test_calc.Calc.test_a_wider_total_is_not_the_filings_own
+      - tests.test_calc.Calc.test_a_filing_total_off_by_exactly_one_input_is_explained
+      - tests.test_calc.Calc.test_explained_needs_an_exact_input_and_no_other_line
+      - tests.test_calc.Consumers.test_one_reading_per_company
+      - tests.test_calc.Consumers.test_the_trail_and_the_gold_set_read_calc_for_ticker
+      - tests.test_calc.Consumers.test_a_label_with_a_comma_keeps_its_cell
+  status: proven
+  gaps: []
+  ticket: none
+
+- id: money_format
+  claim: "One money format on every page of Kenny's Data Emporium and in the report's abbreviated figures: $513,983M, $1.8M, $450,000, $0, half up; two different figures that would print the same show to the dollar; the value column one line, never under a crop"
+  where: [ledger/web/cards.py, ledger/web/pages/_shared.js, ledger/web/pages/evidence.js, ledger/web/app.html, ledger/cli/report_template.html]
+  shown: ["money"]
+  backed_by:
+    functions: [ledger.web.cards.money, ledger.web.cards.exact]
+    tests:
+      - tests.test_cards.Money.test_reads_like_people_read_money
+      - tests.test_cards.Money.test_half_up_on_the_magnitude
+      - tests.test_cards.Money.test_the_pages_format_is_pythons
+      - tests.test_cards.Money.test_no_page_keeps_its_own_money_format
+      - tests.test_cards.Money.test_readings_that_print_the_same_show_exact_dollars
+  status: partial
+  gaps:
+    - The value column's fit is checked by eye in the browser at 1600 and 1280 px, not by a test.
+    - The downloadable report's arithmetic lines print exact dollars on purpose (its `usd`); only its abbreviated figures use the app's format.
+  ticket: none
+
 - id: golden_equal
   claim: "Regression test"
   where: [ledger/web/pages/proof.js, ledger/checks/golden.py, reports/golden.json]
@@ -606,10 +674,14 @@
       - tests.test_crops.State.test_the_stored_file_is_hashed_as_the_viewer_does
       - tests.test_crops.Parity.test_the_pages_text_rule_is_pythons
       - tests.test_crops.Offline.test_rendering_a_filing_fetches_nothing
+      - tests.test_crops.SubHeader.test_the_date_column_not_the_footnote_column
+      - tests.test_crops.SubHeader.test_the_real_nvidia_filing
+      - tests.test_crops.SubHeader.test_a_colon_part_over_a_value_is_a_header
+      - tests.test_crops.SubHeader.test_after_a_drop_two_columns_are_ambiguous
   status: partial
   gaps:
     - Located means the rendered page shows the cited text at that row and column; it does not check the scale, the sign or the period.
-    - A cell whose column label carries a neighbouring sub-header is not located, though the number is in the table.
+    - A trailing sub-header part is dropped only when it is a unit "(In years / months / millions / thousands / billions)", or ends in a colon with no header of that text over a value in the row; after a drop, a header over more than one value is "Column ambiguous". Another neighbouring sub-header in a column label is still not located.
     - A cell that runs several values together is not located, though the cited value is one of them.
   ticket: none
 

@@ -355,3 +355,13 @@ What each company cost. `ledger run` prints this, and each validation page shows
     seven stay refused until `ledger notes --run --ticker AMZN AMD` re-asks them. 13 statement outputs written by hand
     before headless runs (no `_run`) carry no fingerprint: `--load` cannot judge them, and `extract --run` re-asks them
     (review fix), as notes and aispend already re-ask an output without one. Found by the T100 ticket's reading.
+
+75. **A column label that ends in a neighbouring sub-header.** NVIDIA's PP&E note heads its two date columns with
+    "(In millions)" and the useful-life column with "(In years)"; the parser carried "(In years)" (or the section label
+    "Property and Equipment:") into each date column's label ("January 31,2021 | (In years)"). The crop locator matched
+    the header on the last part, read the useful-life column and refused every cell ("Page shows (C) · cited 558"):
+    40 of NVIDIA's 175 cited cells had no crop. Fix (2 Nov 2026, F-EV1): the locator (`evidence._LOCATE`) drops a trailing
+    unit sub-header ("(In years / months / millions / thousands / billions)"), or a part ending in a colon when no header
+    of that text sits over a value in the row, before the header match; after a drop, a header over more than one value
+    is "Column ambiguous"; the guard is unchanged (the cell must equal the cited text). Locator only, no re-read: all 873 cells
+    of the proven six re-cropped, 873 located, the 833 located before byte-identical. Found by Kenny grading gold.

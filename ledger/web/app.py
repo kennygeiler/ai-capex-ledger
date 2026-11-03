@@ -172,10 +172,6 @@ def data(q: dict) -> dict:
             "scope": list(SCOPE), "fields": fields, "kinds": ["spent", "committed", "derived", "planned"]}
 
 
-def usd_(n) -> str:
-    return "—" if n is None else f"${n / 1e6:,.0f}M"
-
-
 _FLOW: dict = {}
 
 
@@ -278,45 +274,57 @@ def _flow(scope: str) -> dict:
 
 # ── T82: the gold set on the Proof page. Read: GET /api/v1/gold?t=; write: POST /api/gold/verdict (one writer, gold.record) ──
 def gold_view(ticker: str | None = None) -> dict:
-    """The gold set for the Proof page. With no ticker: the companies and their error rates, read from gold/ alone (no
-    database). With a ticker: its items with the live row beside each claim, that company's rows only. Error rates from
-    the verdicts carry n and a Wilson 95% interval. A file that does not read or validate is named in `problems`."""
+    """The gold set for the Proof page. With no ticker: the companies and their error rates per group. With a ticker:
+    its items, hard first, with the live row beside each claim. Every item is counted under its live group
+    (gold.live_groups, with the live calculation); with the database busy the groups are the claims' and `groups_live`
+    is false. Error rates carry n and a Wilson 95% interval. A file that does not read or validate is in `problems`."""
     from ..review import gold
     from ..core.config import PROVEN
     docs, problems = gold.load_checked(expect=PROVEN)
     t = (ticker or "").upper()
     if t and t not in docs:
         raise KeyError(f"no gold file for {t!r}")
-    items, live_ok = [], None
-    if t:
-        live, looked_up, xbrl, idx, lad = {}, set(), {}, resolutions.by_row(), None
+    items, live_ok, groups = [], None, None
+    try:
+        con = _con()
+    except Busy:
+        con = None
+    live, looked_up, xbrl, idx, lad = {}, set(), {}, resolutions.by_row(), None
+    from ..checks import crops  # the cited cells' crops, read the way the trail and Reconcile read them
+    cells = {}
+    if con is not None:
         try:
-            con = _con()
-        except Busy:
-            con = None
-        from ..checks import crops  # the cited cells' crops, read the way the trail and Reconcile read them
-        cells = {}
-        if con is not None:
-            try:
+            groups = gold.live_groups(con, docs)  # every item's group, from its claim and from the live tables, with the live calculation
+            if t:
                 vals = _rows(con, 'select ticker, field, period, value, label from "values" where ticker = ?', t)
                 facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker = ?", t)
                 ref = _rows(con, "select ticker, field, period, value from reference_values where ticker = ?", t)
                 cells = crops.cells(con, [c.get("extraction_id") for it in docs[t]["items"] for c in it.get("cites", [])])
                 from ..checks.ties import ladder
                 lad = ladder(con, [t])  # the one ladder Proof and gold.compare read (F26)
-            finally:
-                con.close()
-            live = gold.live_index(vals, facts)
-            looked_up = {r["ticker"] for r in ref}
-            xbrl = {(r["ticker"], r["field"], r["period"]): gold.num(r["value"]) for r in ref}
-        live_ok = con is not None
-        for it in docs[t]["items"]:
-            row = live.get(it["id"])
-            items.append({**it, "live": None if con is None else {"value": gold.num(row["value"]) if row else None, "label": row and row.get("label"), "gone": row is None,
-                                                                 "open": gold.is_open(row, looked_up, xbrl, idx, lad)},
-                          "cites": [{**c, "evidence": crops.brief(cells.get(c.get("extraction_id"))) if con is not None else None} for c in it.get("cites", [])]})
-    return {"companies": [{"ticker": k, "release": d.get("release"), "seed": d.get("seed"), "note": d.get("note"), "rate": gold.error_rate(d["items"])} for k, d in docs.items()],
-            "all": gold.error_rate([i for d in docs.values() for i in d["items"]]), "ticker": t or None, "items": items, "problems": problems,
+                live = gold.live_index(vals, facts)
+                looked_up = {r["ticker"] for r in ref}
+                xbrl = {(r["ticker"], r["field"], r["period"]): gold.num(r["value"]) for r in ref}
+        finally:
+            con.close()
+    live_ok = con is not None
+    for it in (gold.ordered(docs[t]["items"], groups) if t else []):  # hard first, by the live group
+        row = live.get(it["id"])
+        G = (groups or {}).get(it["id"]) or {}
+        c = G.get("calc")
+        role = {i["extraction_id"]: i["role"] for i in (c or {}).get("inputs", [])}
+        seq = {e: k for k, e in enumerate(role)}  # the cited cells in the order the arithmetic reads them
+        items.append({**it, "group": G.get("live") or gold.group(it), "group_at_draw": G.get("claim") or gold.group(it), "calc": c,
+                      "group_note": gold.group_note(G or None),
+                      "live": None if con is None else {"value": gold.num(row["value"]) if row else None, "label": row and row.get("label"), "gone": row is None,
+                                                        "open": gold.is_open(row, looked_up, xbrl, idx, lad)},
+                      "cites": [{**x, "role": role.get(x.get("extraction_id")), "evidence": crops.brief(cells.get(x.get("extraction_id"))) if con is not None else None}
+                                for x in sorted(it.get("cites", []), key=lambda x: seq.get(x.get("extraction_id"), len(seq)))]})
+    every = [i for d in docs.values() for i in d["items"]]
+    r = gold.rates(every, groups)  # one function: the error rate per group and overall, the same numbers the CLI prints
+    return {"companies": [{"ticker": k, "release": d.get("release"), "seed": d.get("seed"), "note": d.get("note"), "rate": gold.error_rate(d["items"]), "rates": gold.rates(d["items"], groups)}
+                          for k, d in docs.items()],
+            "all": r["all"], "groups": r["groups"], "headline": r["headline"], "groups_live": r["live"], "ticker": t or None, "items": items, "problems": problems,
             "verdicts": list(gold.VERDICTS), "live": live_ok}
 
 
