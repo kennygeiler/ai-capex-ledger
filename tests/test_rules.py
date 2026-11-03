@@ -114,6 +114,17 @@ def bad(mutate):
     return ctx
 
 
+def _resegment(c):
+    """A re-segmentation: the newer 10-K (ACC) prints Cloud FY2025 differently from the older one (OLD) and prints a
+    segment name OLD did not (Services, already in the good fixture), and FY2024 is only in OLD, so the series ships
+    FY2024 on the old segments and FY2025 on the new ones."""
+    o24, o25 = nx("segment_revenue", "Cloud", "2024-05-31", 25_000_000_000, OLD, "2025-06-20", 1_000_000), nx("segment_revenue", "Cloud", "2025-05-31", 30_000_000_000, OLD, "2025-06-20", 1_000_000)
+    n25 = nx("segment_revenue", "Cloud", "2025-05-31", 35_000_000_000, scale=1_000_000)
+    c.note_extractions.extend([o24, o25, n25])
+    c.facts.extend([fx("segment_revenue", "Cloud", "FY2024", "2024-05-31", 25_000_000_000, [o24["extraction_id"]], OLD, label="agree"),
+                    fx("segment_revenue", "Cloud", "FY2025", "2025-05-31", 35_000_000_000, [o25["extraction_id"], n25["extraction_id"]], label="agree")])
+
+
 FAIL = {
     "citation_resolves": lambda c: c.extractions[0].update(cell_text="67,358"),  # checked whether or not the cell ships
     "cost_lines_summed": lambda c: c.extractions.append(ext("cost_of_revenue_part", "2025-06-01", "2026-05-31", 1, "1", "Hardware", "x")),
@@ -134,13 +145,14 @@ FAIL = {
     "segment_revenue_tie": lambda c: c.note_extractions.pop(7),  # a segment missing from the read: the sum falls short of the total
     "segment_capex_tie": lambda c: c.totals.update({(ACC, "PaymentsToAcquirePropertyPlantAndEquipment", "2026-05-31"): 20_000_000_000}),  # accrual segment capex above cash capex
     "fact_readings_differ": lambda c: c.note_extractions[2].update(value=9_552_000),
+    "segment_basis_mixed": lambda c: _resegment(c),
     "statement_tables_distinct": lambda c: c.documents.append({"accession": "0001018724-26-000004", "ticker": "AMZN", "form": "10-K", "period": "2025-12-31", "income_tables": "t0034", "cash_flow_tables": "t0034"}),
 }
 
 
 class Registry(unittest.TestCase):
     def test_every_rule_loads_with_rationale_and_owner(self):
-        self.assertEqual(len(RULES), 20)
+        self.assertEqual(len(RULES), 21)
         for r in RULES.values():
             self.assertTrue(r["rationale"].strip() and r["owner"].strip(), r["id"])
 

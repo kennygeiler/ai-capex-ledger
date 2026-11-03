@@ -227,8 +227,15 @@ function citeCell(w, what) {
   const thumb = c.state === 'located' && c.url
     ? h('button', {type: 'button', class: 'crop-thumb', title: caption, onclick: () => cropBox(c.url, caption, [w.viewer ? h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener'}, 'Open in filing') : '', links[1] ? links[1].cloneNode(true) : ''])}, h('img', {src: c.url, alt: caption, loading: 'lazy', onload: (e) => focusCell(e.target)}))
     : h('div', {class: 'crop-none small'}, cropState(c));
-  return h('div', {class: 'cite'}, w.role ? h('div', {class: 'cite-role small fw-medium'}, w.role) : '', thumb,
+  return h('div', {class: 'cite'}, w.role ? h('div', {class: 'cite-role small fw-medium'}, w.role) : '', thumb, w.mark ? h('div', {class: 'cite-mark small fw-medium text-orange'}, w.mark) : '',
     h('div', {class: 'cite-line small'}, `${w.form || '10-K'} ${w.filed || ''}`.trim(), links.map((l) => (l ? [' · ', l] : ''))));
+}
+// a fact whose readings disagree across filings (ledger/checks/ties.py restatement): the server's line, exact figures as filed,
+// and the pair to compare. Shown whatever the row's state; the words come from the server (states.RESTATED, SUPERSEDED).
+function restatedLine(r, compare) {
+  if (!r) return '';
+  const link = compare && r.compare ? [' · ', h('a', {href: `#evidence/compare?a=${encodeURIComponent(r.compare.a)}&b=${encodeURIComponent(r.compare.b)}`}, 'Compare filings')] : '';
+  return h('div', {class: 'small text-orange restated'}, r.line, link);
 }
 // a figure calculated from several cells (ledger/checks/calc.py): the formula with its result, the arithmetic on the real
 // inputs, and each cross-check (the filing's own total, SEC XBRL) in states.CROSSCHECK's tone. The trail and the gold set.
@@ -264,8 +271,41 @@ function focusCell(img) {
     const merge = (bands) => bands.sort((p, q) => p[0] - q[0]).reduce((out, b) => { const l = out[out.length - 1]; if (l && b[0] <= l[1] + 4) l[1] = Math.max(l[1], b[1]); else out.push([...b]); return out; }, []);
     const clampX = (v) => Math.max(0, Math.min(W, v)), clampY = (v) => Math.max(0, Math.min(H, v));
     const pad = Math.max(16, (red.x1 - red.x0) * k * 0.3), rowH = (red.y1 - red.y0 + 1) * k;
-    const xs = merge([label ? [clampX(label[0] * k - 10), clampX(label[1] * k + 14)] : null, [clampX(red.x0 * k - pad), clampX((red.x1 + 1) * k + pad)]].filter(Boolean));
     const ys = merge([[0, clampY(blue ? (blue.y1 + 1) * k + 6 : 0)], [clampY(red.y0 * k - rowH), clampY((red.y1 + 1) * k + rowH)]].filter((b) => b[1] > b[0]));
+    // Column boundaries: a band's edge never cuts a neighbour's figure. `ink` marks every x where the rows shown carry dark,
+    // uncoloured text (the red and blue boxes are coloured; a rule line across the table is skipped); an edge padded out
+    // from the kept range stops in the middle of the blank run before the first ink, so a neighbouring value is either
+    // whole outside the band or not shown at all, never a sliver.
+    const plain = (i) => px[i] + px[i + 1] + px[i + 2] < 330 && Math.max(px[i], px[i + 1], px[i + 2]) - Math.min(px[i], px[i + 1], px[i + 2]) < 40;
+    const ink = new Uint8Array(cw);
+    for (const [a, b] of ys) {
+      for (let y = Math.floor(a / k); y < Math.min(ch, Math.ceil(b / k)); y++) {
+        let n = 0; for (let x = 0; x < cw; x++) if (plain(at(x, y))) n++;
+        if (n > cw * 0.5) continue;  // a rule line, not text
+        for (let x = 0; x < cw; x++) if (!ink[x] && plain(at(x, y))) ink[x] = 1;
+      }
+    }
+    const edge = (from, dir, reach) => {  // from the kept range's edge outward, at most `reach` (downsampled px): where to cut
+      let x = from + dir, n = 0;
+      while (x >= 0 && x < cw && n < reach && !ink[x]) { x += dir; n++; }
+      if (x < 0 || x >= cw || n >= reach) return from + dir * n;  // no ink within reach: the full pad
+      return from + dir * Math.floor(n / 2);  // ink at x: cut in the middle of the blank run before it
+    };
+    const keep0 = Math.min(red.x0, blue ? blue.x0 : red.x0), keep1 = Math.max(red.x1, blue ? blue.x1 : red.x1), reach = Math.ceil(pad / k);
+    const cellBand = [clampX(edge(keep0, -1, reach) * k), clampX((edge(keep1, 1, reach) + 1) * k)];
+    // the label column ends at the first blank run (about 12 px) past the cell's own label, so a longer label on a row
+    // above or below shows whole rather than cut mid-word; when that run is far (a label wider than three of the cited
+    // one), the band stops before the next ink instead
+    const gutter = (from, dir, limit) => {  // the middle of the first blank run of g px from `from` towards `limit` (exclusive), or null
+      const g = Math.max(2, Math.ceil(12 / k)); let run = 0;
+      for (let x = from + dir; dir > 0 ? x < limit : x > limit; x += dir) { run = ink[x] ? 0 : run + 1; if (run >= g) return x - dir * (g - 1 - Math.floor(g / 2)); }
+      return null;
+    };
+    const lw = label ? label[1] - label[0] + 1 : 0;
+    const lend = label ? gutter(label[1], 1, keep0) : null, lbeg = label ? gutter(label[0], -1, -1) : null;
+    const labelBand = label ? [clampX((lbeg !== null && label[0] - lbeg <= 2 * lw ? lbeg : lbeg === null ? 0 : edge(label[0], -1, Math.ceil(10 / k))) * k),
+      clampX(((lend !== null && lend - label[1] <= 2 * lw ? lend : edge(label[1], 1, Math.ceil(14 / k))) + 1) * k)] : null;
+    const xs = merge([labelBand, cellBand].filter(Boolean));
     const gap = 10, CW = xs.reduce((n, b) => n + b[1] - b[0], 0) + gap * (xs.length - 1), CH = ys.reduce((n, b) => n + b[1] - b[0], 0) + gap * (ys.length - 1);
     const out = document.createElement('canvas'); out.width = CW; out.height = CH;
     const o = out.getContext('2d'); o.fillStyle = '#e5e7eb'; o.fillRect(0, 0, CW, CH);

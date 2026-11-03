@@ -15,7 +15,7 @@ const TRAIL_RULE = {jump: 'Large year-over-year change', restated: 'Restated', r
 
 function trailWhat(it, stage) {
   const r = it.ref || {}, s = it.show || {};
-  if (stage === 'facts' && r.finding) return [FIELDS[r.field] || r.field, r.period, 'Parts vs total'].filter(Boolean).join(' · ');
+  if (stage === 'facts' && r.finding) return [FIELDS[r.field] || r.field, r.period, r.finding === 'segment_basis_mixed' ? 'Segment basis' : 'Parts vs total'].filter(Boolean).join(' · ');
   if (stage === 'values' && s.rule) return [FIELDS[r.field] || r.field, r.period, TRAIL_RULE[s.rule] || s.rule.replaceAll('_', ' ')].filter(Boolean).join(' · ');
   if ((stage === 'values' || stage === 'facts') && r.field) return [FIELDS[r.field] || r.field, r.dimension, r.period].filter(Boolean).join(' · ');
   if (stage === 'statements' && s.field) return [FIELDS[s.field] || s.field, s.period, s.kind === 'outlook' ? 'Outlook' : 'Actual'].join(' · ');
@@ -39,7 +39,7 @@ function trailSource(c, what) {
 function trailVerify(c, ticker) {
   const [cls, word] = rowWord(c.how.tone);
   const line = h('div', {class: 'small'}, h('span', {class: cls + ' fw-medium'}, word), c.how.text ? h('span', {class: 'text-secondary'}, ` · ${c.how.text}`) : '');
-  const more = [c.compare ? h('div', {class: 'small'}, h('a', {href: `#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}`}, 'Compare filings')) : ''];
+  const more = [restatedLine(c.restatement), c.compare ? h('div', {class: 'small'}, h('a', {href: `#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}`}, 'Compare filings')) : ''];
   return [c.how.detail ? h('details', {class: 'why'}, h('summary', {}, line), h('div', {class: 'small text-secondary mt-1'}, c.how.detail)) : line, more];
 }
 

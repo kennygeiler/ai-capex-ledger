@@ -120,6 +120,16 @@ def row(state: str | None, by: str | None) -> str:
     return "unknown"
 
 
+def tally(words) -> dict:
+    """{row word: count} over row words (states.row's result per row): Reconcile's header (workbench.items by_state)
+    and the Release checklist's Needs review / Proposed / Blocks release lines both count with this, so a bucket has
+    one name and one number on both pages (tests.test_checklist.Parity)."""
+    out: dict = {}
+    for w in words:
+        out[w] = out.get(w, 0) + 1
+    return out
+
+
 def group(state: str) -> str:
     """The status.STATES group of a row state."""
     for g, (_, members) in ROW.groups.items():
@@ -246,6 +256,18 @@ GOLD_GROUP = Machine("gold_group", "M17", "ledger.review.gold.group", (
 GOLD_GROUP_ORDER = ("no_counterpart", "definition", "not_extracted", "not_reconciled", "calculated", "xbrl")
 # a gold item's live group may differ from the group of its claim at the draw (gold.groups): the page says so
 GROUP_CHANGED = "Group changed since draw"
+# ── display words: what a page says about a row that is not a state of it (docs/STATES.md, "Display words") ──────────
+# A fact whose readings disagree across filings (ties.restatement) and a segment series across a re-segmentation
+# (rules/segment_basis_mixed.yaml) are facts about the row, never its state: the row keeps the state its machine gives
+# it. Declared here so `words()` lists them with the state words: the claims scan reads them from this file, and
+# tests.test_states.Words holds them to one owner each, like a state word.
+DISPLAY = {
+    "restated": ("Restated", "the line on a fact whose readings disagree across filings: every figure as filed, oldest first, and the one the dataset uses"),
+    "superseded": ("Superseded", "under a reading's crop: a figure the dataset does not use"),
+    "source_not_found": ("Source reading not found", "never good: no reading from the fact's own filing carries the dataset's figure, so no reading is called the one used"),
+    "segment_basis_mixed": ("Segment basis mixed", "a segment series whose release years come from both sides of a re-segmentation (the rule's finding, open until a person decides)"),
+}
+RESTATED, SUPERSEDED, SOURCE_NOT_FOUND, SEGMENT_BASIS_MIXED = (DISPLAY[k][0] for k in ("restated", "superseded", "source_not_found", "segment_basis_mixed"))
 
 # ── crosscheck: a calculated figure against a total someone else printed or tagged (calc.state) ──────────────────────
 CROSSCHECK = Machine("crosscheck", "M18", "ledger.checks.calc.state", (
@@ -323,7 +345,8 @@ def labels() -> dict:
 
 
 def words() -> dict:
-    """{word: [(machine, state) that own it]}: aliases resolve to their owner, groups count as their members."""
+    """{word: [(machine, state) that own it]}: aliases resolve to their owner, groups count as their members, and the
+    display words (DISPLAY) are owned by ("display", key)."""
     out: dict = {}
     for mid, m in MACHINES.items():
         for s in m.states:
@@ -331,6 +354,8 @@ def words() -> dict:
                 out.setdefault(s.label, []).append((mid, s.name))
         for g, (w, members) in m.groups.items():
             out.setdefault(w, []).append((mid, "group:" + g))
+    for k, (w, _) in DISPLAY.items():  # display words: not states, owned here all the same
+        out.setdefault(w, []).append(("display", k))
     return out
 
 

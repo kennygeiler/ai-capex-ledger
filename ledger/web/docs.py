@@ -120,6 +120,8 @@ def glossary() -> str:
             out.append(f"| {_cell(r.label)} | {mid} ({m.doc}) | `{s.name}` | {s.kind} | {_cell(s.meaning) or '—'} |")
         for g, (w, members) in m.groups.items():
             out.append(f"| {_cell(w)} | {mid} ({m.doc}) | group `{g}` | group | {_cell(', '.join(members))} |")
+    for k, (w, meaning) in states.DISPLAY.items():  # display words: what a page says about a row, never its state
+        out.append(f"| {_cell(w)} | display | `{k}` | display | {_cell(meaning)} |")
     out += ["", "Kinds: good, neutral and open are ordinary; unknown, stale and missing are never good (not looked up, out of date, gone)."]
     out += ["", "## Terms", "", "| Term | Meaning |", "|---|---|"]
     out += [f"| {_cell(t)} | {_cell(d)} |" for t, d in TERMS]

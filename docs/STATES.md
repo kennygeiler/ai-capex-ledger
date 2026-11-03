@@ -172,7 +172,8 @@ explained, fix_pending, blocks (76). Orthogonal:
 **UI.** Reconcile "<Accept|Explain|Fix|Blocks> by <by>, <date>" (reconcile.js:94; RES_LABEL/RES_HELP/RES_BADGE 9-11).
 The to-confirm group "To confirm: a decision a run made, for Kenny Geiler to confirm or overturn" (workbench.py:167),
 with buttons "Confirm <state>" and "Overturn" (reconcile.js:140-148). data.js badges fix/ok/expl/block (data.js:67).
-API `status` (api.py:69,72,172). Release "Decisions left to confirm", gate G6 (checklist.py:37,397-402). Card "Reviewer
+API `status` (api.py:69,72,172). Release gate G6, labelled Proposed, one detail row per key with its page (checklist.py
+`g6_detail`, `g6_link`). Card "Reviewer
 decision: …" (cards.py:109). The packet README says `status` is "empty, confirmed, overridden or rejected"
 (release.py:336): **wrong vocabulary**. API `status` "accepted" can come from a run line (no author filter).
 
@@ -261,7 +262,8 @@ taxonomy/*.yaml, mapping_proposals.jsonl or gold/.
 category in its XBRL" / "ambiguous: …" (51), buttons Approve / Reject / Edit / Map / "Write as …" (167-195). Proof "<name>:
 <member>, to confirm" / "<name>: no standard asset type" (proof.py:174-176). Cards "Confirmed: <member>", "Proposed
 category. Review in Reconcile.", "→ unmapped" (cards.py:72,100,173). Taxonomy `check`, `mapped` (taxonomy.py:87,209-211).
-Release "Unmapped asset types in scope (no entry)" and "Decisions left to confirm" (checklist.py:398-405). Claims
+Release: an unmapped name counts on the Needs review line, listed on Proof or not (checklist.py `review_counts`); a
+to-confirm entry on gate G6, labelled Proposed (`g6_detail`). Claims
 `mappings_confirmed` (claims.py:310-315). One row shows both the badge "open" and the chip "to confirm".
 **Risks.** [MED] Reject has no person check. [MED] A hand-confirmed entry looks the same as one confirmed through the route.
 [LOW] An unrecorded "undone". [LOW] Approving a `none` proposal fails only with a 400.
@@ -581,3 +583,16 @@ tests.json. Add the missing gates as required lines:
 - watch older than 48 h = fail;
 - hosted ≠ latest signed = fail after publish, or a "deployed" step in `sign`;
 - run-authored current decisions in decisions.jsonl counted in G6.
+
+## Display words (not states)
+
+`ledger/core/states.py` `DISPLAY` declares the words a page says about a row that are not a state of it. They are listed
+by `states.words()` with the state words, so the claims scan reads them from states.py and `tests.test_states.Words`
+holds each to one owner; the row keeps the state its machine gives it.
+
+| Key | Word | Where it shows | Meaning |
+|---|---|---|---|
+| restated | Restated | gold item, trail row, evidence page, Reconcile drawer (`ties.restatement` line) | the readings of one fact disagree across filings: every figure as filed, oldest first, and the one the dataset uses |
+| superseded | Superseded | under a reading's crop (`ties.mark`) | a figure the dataset does not use |
+| source_not_found | Source reading not found | the end of the Restated line, in place of "dataset uses" | never good: no reading from the fact's own filing carries the dataset's figure |
+| segment_basis_mixed | Segment basis mixed | the trail card and Reconcile's cause label for the rule's finding | a segment series whose release years come from both sides of a re-segmentation (open until a person decides) |

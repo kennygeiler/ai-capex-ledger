@@ -182,9 +182,13 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   proven six first when a rule changed.
 - **After a merge** (`.gitattributes` keeps these from conflicting; `claims/findings.jsonl` merges by union, both sides'
   lines kept), in this order, committing after each: `ledger golden --check` (rewrites `reports/golden.json`, which the
-  register's gold and golden claims read); `ledger claims` (regenerates `docs/CLAIMS.md`: a union merge leaves it stale,
+  live register's gold and golden claims read); `ledger claims` (regenerates `docs/CLAIMS.md`: a union merge leaves it stale,
   and the Release line "Claims doc current" and `tests.test_claims.Doc` fail until it runs); then `ledger test` on that
-  commit (rewrites `reports/tests.json`; a later commit that changes only that file keeps the Test run line green). The
+  commit (rewrites `reports/tests.json`; a later commit that changes only that file keeps the Test run line green).
+  `docs/CLAIMS.md` reads neither report (the last run, the golden report and the gold verdict count say "see the Release
+  page" there and are checked live), so `ledger test` or `golden --check` never leaves it stale: two test runs in a row
+  and `ledger claims --check` stay green. Only a change to the register, the findings, the gold set reaching all
+  verdicts, the mappings or the signed releases needs `ledger claims` again. The
   two report files keep the checked-out side on a merge once a clone runs `git config merge.ledger-report.driver true`
   (without it they conflict as before; either side is stale on the merge commit anyway).
 - **Finding ids** are branch-prefixed, `F-<BRANCH CODE><n>` (`F-RC7`, `F-EV2`) or `S-<n>` for state findings; plain

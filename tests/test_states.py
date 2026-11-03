@@ -166,6 +166,15 @@ class Words(unittest.TestCase):
         for g, (_, members) in states.ROW.groups.items():  # the word Checked never covers a row nothing independent checked
             self.assertEqual(g == "checked", all(states.ROW.get(m).kind == states.GOOD for m in members), g)
 
+    def test_the_display_words_are_declared_listed_and_documented(self):
+        doc = (store.ROOT / "docs" / "STATES.md").read_text()
+        for k, (w, meaning) in states.DISPLAY.items():
+            self.assertEqual(states.words()[w], [("display", k)], w)  # one owner, never also a state word
+            self.assertIn(f"| {k} | {w} |", doc, w)
+            self.assertTrue(meaning, k)
+        self.assertEqual((states.RESTATED, states.SUPERSEDED, states.SOURCE_NOT_FOUND, states.SEGMENT_BASIS_MIXED),
+                         ("Restated", "Superseded", "Source reading not found", "Segment basis mixed"))
+
     def test_the_scan_reads_the_words_from_states_py(self):
         sc = claims.scan()
         for w in states.words():
@@ -249,7 +258,7 @@ class Consumers(unittest.TestCase):
     @unittest.skipUnless(store.DEFAULT_DB.exists(), "no working database")
     def test_reconcile_proposed_is_exactly_what_g6_refuses(self):
         """S-1: Reconcile's Proposed count (rows whose word is Proposed: a run's decision to confirm, an asset type no
-        person confirmed) is the Release line "Decisions left to confirm"; the to-confirm rows are open, like G6 says."""
+        person confirmed) is the Release line G6, which carries the word Proposed; the to-confirm rows are open, like G6 says."""
         import duckdb
         from ledger.release import checklist as cl
         from ledger.review import workbench
@@ -257,7 +266,7 @@ class Consumers(unittest.TestCase):
         con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
         try:
             it = workbench.items(con, app.flow("all"))
-            line = next(l for l in cl.checklist(con)["lines"] if l["id"] == "unconfirmed")
+            line = next(l for l in cl.checklist(con)["lines"] if l["id"] == "gate_G6")
         finally:
             con.close()
         wait = [r for r in it["rows"] if r["verification"] == "wait"]

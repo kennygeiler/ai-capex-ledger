@@ -64,16 +64,14 @@ Then open [Release](#release). The checklist builds the packet in memory and sho
 | All filings read (G1) | A filing ended in a failure that is still open | On Proof, find the failed step; rerun it (`--run`, then `--load`) or log the failure type |
 | Every block has a decision (G4) | A block-severity rule fired with no current decision | Decide each item on Reconcile |
 | Values confirmed on filing (G5) | A value XBRL cannot vouch for was not confirmed on the rendered filing | `ledger evidence --ticker X`; where the re-read cannot confirm, a person confirms in the hand-check file |
-| No proposal left to confirm (G6) | A run's decision or an asset-type mapping has no person's confirmation | Reconcile, "to confirm" and "asset types" groups |
-| Items to review | Rows neither checked nor explained | Reconcile |
-| Items blocking release | A block rule or a decision refuses the release | Reconcile |
+| Proposed (G6) | A run's decision or an asset-type mapping has no person's confirmation; the same count as Reconcile's Proposed | Reconcile, "to confirm" and "asset types" groups |
+| Needs review | Rows neither checked nor explained, nothing proposed (an unmapped asset type is one); the same count as Reconcile's Needs review | Reconcile; an unmapped asset type: `ledger mapper X`, then approve |
+| Blocks release | A block rule or a decision refuses the release; the same count as Reconcile's Blocks release | Reconcile |
 | Answer-key values missing from the dataset | XBRL holds a value the dataset does not ship and nothing accounts for it | Rerun the reader for the filing, or resolve the row on Reconcile |
-| Decisions left to confirm | A run decided; a person has not confirmed | Reconcile, `?cause=to_confirm` |
-| Unmapped asset types | A reported PP&E category has no entry | `ledger mapper X`, then approve |
 | Golden test | Tables differ from the frozen expectation, or gold fails or is unverified | Fix the code, or freeze on purpose with the reason; give or re-check gold verdicts |
 | Test run | Failed, not run, or run on another commit or a dirty tree | `ledger test` on the commit being signed. Required since a00b67f; releases up to v1.8.0 were signed while the line only informed, and their `SIGNOFF.json` records it as not run with `required: false` |
 | Claims register | A shown string has no row in `claims/claims.yaml`, or a finding was edited | Register the string; restore the finding log |
-| Claims doc current | `docs/CLAIMS.md` differs from the register | `ledger claims`, then commit |
+| Claims doc current | `docs/CLAIMS.md` differs from the register (a test run no longer changes it: the run, the golden report and the gold count are read live) | `ledger claims`, then commit |
 | Previous releases readable | A signed release no longer matches its hash | Investigate; never edit `releases/` |
 | Packet | The version's folder exists with other content | Use the next version |
 

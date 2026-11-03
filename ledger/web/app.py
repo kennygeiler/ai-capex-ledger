@@ -289,8 +289,9 @@ def gold_view(ticker: str | None = None) -> dict:
         con = _con()
     except Busy:
         con = None
-    live, looked_up, xbrl, idx, lad = {}, set(), {}, resolutions.by_row(), None
+    live, looked_up, xbrl, idx, lad, restated = {}, set(), {}, resolutions.by_row(), None, {}
     from ..checks import crops  # the cited cells' crops, read the way the trail and Reconcile read them
+    from ..checks.ties import mark
     cells = {}
     if con is not None:
         try:
@@ -302,6 +303,8 @@ def gold_view(ticker: str | None = None) -> dict:
                 cells = crops.cells(con, [c.get("extraction_id") for it in docs[t]["items"] for c in it.get("cites", [])])
                 from ..checks.ties import ladder
                 lad = ladder(con, [t])  # the one ladder Proof and gold.compare read (F26)
+                from ..checks.ties import restatements
+                restated = restatements(con, [t])  # readings that disagree across filings, said on the item whatever its group
                 live = gold.live_index(vals, facts)
                 looked_up = {r["ticker"] for r in ref}
                 xbrl = {(r["ticker"], r["field"], r["period"]): gold.num(r["value"]) for r in ref}
@@ -314,12 +317,13 @@ def gold_view(ticker: str | None = None) -> dict:
         c = G.get("calc")
         role = {i["extraction_id"]: i["role"] for i in (c or {}).get("inputs", [])}
         seq = {e: k for k, e in enumerate(role)}  # the cited cells in the order the arithmetic reads them
-        items.append({**it, "group": G.get("live") or gold.group(it), "group_at_draw": G.get("claim") or gold.group(it), "calc": c,
+        rec = restated.get((t, it.get("field"), it.get("dimension") or "", it.get("period"))) if it.get("kind") == "fact" else None
+        items.append({**it, "restatement": rec, "group": G.get("live") or gold.group(it), "group_at_draw": G.get("claim") or gold.group(it), "calc": c,
                       "group_note": gold.group_note(G or None),
                       "live": None if con is None else {"value": gold.num(row["value"]) if row else None, "label": row and row.get("label"), "gone": row is None,
                                                         "open": gold.is_open(row, looked_up, xbrl, idx, lad)},
-                      "cites": [{**x, "role": role.get(x.get("extraction_id")), "evidence": crops.brief(cells.get(x.get("extraction_id"))) if con is not None else None}
-                                for x in sorted(it.get("cites", []), key=lambda x: seq.get(x.get("extraction_id"), len(seq)))]})
+                      "cites": mark([{**x, "role": role.get(x.get("extraction_id")), "evidence": crops.brief(cells.get(x.get("extraction_id"))) if con is not None else None}
+                                     for x in sorted(it.get("cites", []), key=lambda x: seq.get(x.get("extraction_id"), len(seq)))], rec)})
     every = [i for d in docs.values() for i in d["items"]]
     r = gold.rates(every, groups)  # one function: the error rate per group and overall, the same numbers the CLI prints
     return {"companies": [{"ticker": k, "release": d.get("release"), "seed": d.get("seed"), "note": d.get("note"), "rate": gold.error_rate(d["items"]), "rates": gold.rates(d["items"], groups)}
@@ -535,6 +539,9 @@ class Handler(BaseHTTPRequestHandler):
             con = _con()
             try:
                 out = crops.view(con, eid)
+                if out:  # the fact this reading belongs to, when its readings disagree (ties.restatement): the line, and whether this one is superseded
+                    from ..checks.ties import of_reading
+                    out |= of_reading(con, out["ticker"], eid)
             finally:
                 con.close()
             return self._json(out) if out else self._json({"error": f"no cited cell {eid!r}"}, HTTPStatus.NOT_FOUND)

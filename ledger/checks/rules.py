@@ -402,6 +402,23 @@ def _readings_differ(ctx, p):
     return out
 
 
+@check("segment_basis_mixed")
+def _segment_basis(ctx, p):
+    """A segment series (segment_revenue, segment_capex) whose fiscal years come from filings on both sides of a
+    re-segmentation (ties.segment_basis): a later 10-K printed a segment figure differently, and a year the dataset
+    ships is from a filing before it. One finding per field and year in ctx.years, subject the cutover filing. Nothing
+    is changed and no basis is picked: a person decides."""
+    from .ties import basis_message, segment_basis
+    years = set(ctx.years or [])
+    out = []
+    for s in segment_basis(ctx.facts, ctx.note_extractions, tuple(p.get("fields") or ("segment_revenue", "segment_capex"))):
+        for q in s["mixed"]:
+            if years and q not in years:
+                continue
+            out.append(Finding(s["ticker"], basis_message(s, q), s["field"], q, s["cutover"]["accession"]))
+    return out
+
+
 TIE_CHECK_NAME = "parts_tie"
 
 

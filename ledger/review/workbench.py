@@ -8,6 +8,7 @@ from . import resolutions
 from ..core import status, store
 from ..core.config import industry
 from ..checks.rules import explain_key, explained
+from ..core.states import SEGMENT_BASIS_MIXED
 
 EVIDENCE = store.ROOT / "reports" / "evidence"
 CAUSES = {"fact_differs": "Differs from SEC XBRL", "fact_changed": "Changed since last release", "blocked": "Blocks release",
@@ -17,6 +18,7 @@ REF_LABEL = {"fact_differs": "SEC XBRL", "fact_changed": "Last release", "blocke
 FINDING_LABEL = {"restated": "Restated", "jump": "Large year-over-year change", "row_switch": "Line renamed", "capex_intensity": "Capex high vs revenue", "opex_over_revenue": "Opex above revenue",
                  "segment_capex_tie": "Does not tie to reported total", "segment_revenue_tie": "Does not tie to reported total", "ppe_categories_tie": "Does not tie to reported total",
                  "fact_readings_differ": "Readings differ across filings"}
+FINDING_LABEL["segment_basis_mixed"] = SEGMENT_BASIS_MIXED  # a display word declared in states.py (states.DISPLAY)
 
 
 def xbrl_name(con, accession: str, period_end: str | None, value) -> dict | None:
@@ -218,6 +220,19 @@ def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
     return out
 
 
+def _basis(con, tickers: list[str]) -> dict:
+    """{(ticker, field, period): the year's segments as ties.segment_basis gives them, each with its filing, readings and
+    restatement, plus the cutover}: what a segment_basis_mixed row's drawer shows."""
+    from ..checks.ties import load, segment_basis
+    data = load(con, tickers, [])
+    out = {}
+    for s in segment_basis(data["facts"], data["extractions"]):
+        for r in s["years"]:
+            out.setdefault((s["ticker"], s["field"], r["period"]), {"cutover": s["cutover"], "rows": []})["rows"].append(
+                {k: r[k] for k in ("dimension", "period", "cell_text", "form", "filed", "accession", "mixed")} | {"restated": (r["restatement"] or {}).get("line")})
+    return out
+
+
 def items(con, flow: dict) -> dict:
     """One uniform row per queue item. `measure` is usd; `ours` and `reference` are in that measure; `delta` = ours - reference.
     Every row carries `state`, `by` and `reason` from status.state and `open` (open or blocked); `open` counts those.
@@ -228,6 +243,10 @@ def items(con, flow: dict) -> dict:
     xp = _explained(con, sorted({q["ticker"] for q in flow["queue"]}))
     from ..checks.ties import ladder
     lad = ladder(con, sorted({q["ticker"] for q in flow["queue"]}))  # T92: the facts' ladder, read once
+    from ..checks.ties import restatements
+    tick = sorted({q["ticker"] for q in flow["queue"]})
+    restated = restatements(con, tick)  # ties.restatement per fact: the drawer says it whatever the row's state
+    basis = _basis(con, tick) if any((q.get("detail") or {}).get("rule") == "segment_basis_mixed" for q in flow["queue"]) else {}
     enc = {}  # the definitions and rules on file, read once for every item's offers
     rows = []
     from ..checks.crops import brief, cells
@@ -274,6 +293,11 @@ def items(con, flow: dict) -> dict:
         elif q["kind"] == "new_filing":
             row |= {"period": d.get("period")}
             row["evidence"] = {"url": d.get("url"), "filed": d.get("filed"), "form": d.get("form")}
+        if q["kind"] in ("fact_differs", "fact_changed") or (q["kind"] == "finding_unconfirmed" and d.get("rule") == "fact_readings_differ"):
+            dim = d.get("dimension") if q["kind"] != "finding_unconfirmed" else d.get("subject")
+            row["evidence"]["restatement"] = restated.get((q["ticker"], d.get("field"), dim or "", d.get("period")))
+        if q["kind"] == "finding_unconfirmed" and d.get("rule") == "segment_basis_mixed":
+            row["evidence"]["basis"] = basis.get((q["ticker"], d.get("field"), d.get("period")))
         if q["kind"] in ("blocked", "finding_unconfirmed"):
             row["encode"] = _offers(con, q["key"], enc)  # T36: what this item may be written as, once, for every company it applies to
         if row["ours"] is not None and row["reference"] is not None:
@@ -288,9 +312,8 @@ def items(con, flow: dict) -> dict:
     from ..core.states import row as row_state
     for r in confirm + rows:  # the row's word on the page: states.row, the one the trail and Proof read
         r["verification"] = row_state(r["state"], r["by"])
-    by_state: dict = {}  # the header's counts, by the same word every row shows: Proposed is every `wait` row (a run's
-    for r in confirm + rows:  # decision to confirm, an asset type no person confirmed), the set G6 refuses on
-        by_state[r["verification"]] = by_state.get(r["verification"], 0) + 1
+    from ..core.states import tally  # the header's counts, by the same word every row shows: Proposed is every `wait` row (a run's
+    by_state = tally(r["verification"] for r in confirm + rows)  # decision to confirm, an asset type no person confirmed), the set G6 refuses on
     open_ = [r for r in rows if r["open"]]
     by_cause = {}
     for r in confirm + rows:
