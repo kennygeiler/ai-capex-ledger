@@ -1,5 +1,7 @@
 # Start here
 
+Where is X, and what do I edit to change it: [docs/MAP.md](MAP.md), one page.
+
 For a person, or an AI agent, who has just cloned this repository. Read this, then `git log` for what changed
 lately, then the document for whatever you are about to touch.
 
@@ -215,7 +217,7 @@ Dashes are zero; NVDA's capex includes intangibles; banks and oil majors are par
 
 ## If you are an AI agent
 
-Read in this order: this file, `git log --first-parent main` (what landed lately), `docs/BUILD.md` (how every ticket is built), `docs/PROOF.md`, `docs/STATES.md` (every implicit state machine, its states, transitions and UI words), `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/DISCIPLINES.md` (seven discipline audits against the code, with the proposed tickets T67–T79 awaiting Kenny), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
+Read in this order: this file, `docs/MAP.md`, `git log --first-parent main` (what landed lately), `docs/BUILD.md` (how every ticket is built), `docs/PROOF.md`, `docs/STATES.md` (every implicit state machine, its states, transitions and UI words), `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/DISCIPLINES.md` (seven discipline audits against the code, with the proposed tickets T67–T79 awaiting Kenny), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
 module you will change. Run the tests before and after. The invariants that must hold:
 
 - Every value in `values` resolves to a cell in a parsed table; `extract --load` rejects anything else.
