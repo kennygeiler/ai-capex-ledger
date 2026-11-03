@@ -311,35 +311,81 @@ def error_rate(items: list[dict]) -> dict:
                          "n": sum(bool(i.get("untagged")) and i.get("verdict") in ("right", "wrong") for i in items)}}
 
 
-def group(it: dict | None) -> str:
-    """states.GOLD_GROUP: what independent check an item has besides the person, read from the claim on file (so the
-    Proof page and the API agree with or without a database). No XBRL value, or untagged → no_counterpart; an XBRL value
-    and a label other than agree → definition; agree and computed from several cells (calc.FORMULAS) → calculated;
-    agree → xbrl. Anything unreadable lands in a hard group, never in a machine-checked one."""
+# states.GOLD_GROUP by the claim's reconcile label (states.CHECK's names); agree splits on XBRL and the calculation
+GROUP_OF_LABEL = {"no_reference": "no_counterpart", "not_reported": "no_counterpart", "definition_gap": "definition", "unresolved": "definition",
+                  "not_extracted": "not_extracted"}
+
+
+def group(it: dict | None, calc: dict | None = None) -> str:
+    """states.GOLD_GROUP: what independent check an item has besides the person. By its label: no_reference and
+    not_reported → no_counterpart; definition_gap and unresolved → definition; not_extracted → not_extracted; agree →
+    calculated when its calculation from several cells exists and holds (calc.holds), else xbrl (no XBRL value on an
+    agree claim → no_counterpart); no label or one off the list → not_reconciled, never a machine-checked group."""
     from ..checks.calc import FORMULAS
     it = it or {}
-    if it.get("xbrl") is None or it.get("untagged") or it.get("label") == "no_reference":
+    lab = it.get("label")
+    if lab in GROUP_OF_LABEL:
+        return GROUP_OF_LABEL[lab]
+    if lab != "agree":
+        return "not_reconciled"
+    if it.get("xbrl") is None or it.get("untagged"):
         return "no_counterpart"
-    if it.get("label") != "agree":
-        return "definition"
-    if it.get("kind") == "value" and it.get("field") in FORMULAS and len(it.get("cites") or []) > 1:
+    if it.get("kind") == "value" and it.get("field") in FORMULAS and calc is not None and calc.get("holds"):
         return "calculated"
     return "xbrl"
 
 
-def ordered(items: list[dict]) -> list[dict]:
-    """The items hard first (states.GOLD_GROUP_ORDER), each group in its order on file."""
+def live_groups(con, docs: dict) -> dict:
+    """{item id: {"claim", "live", "calc"}}: each item's group read from its claim at the draw and from the live tables
+    (the row's label and XBRL value now), both with the live calculation (calc.for_ticker). A row gone reads
+    not_reconciled. The rates count an item under its live group; the page flags an item whose group moved."""
+    from ..checks import calc as calc_
+    out = {}
+    q = lambda sql, t: [dict(zip([c[0] for c in cur.description], r)) for cur in [con.execute(sql, [t])] for r in cur.fetchall()]
+    for t, doc in docs.items():
+        calcs = calc_.for_ticker(con, t)
+        ref = {(r["field"], r["period"]): num(r["value"]) for r in q("select field, period, value from reference_values where ticker = ?", t)}
+        vals = {(v["field"], v["period"]): v for v in q('select field, period, label from "values" where ticker = ?', t)}
+        facts = {(f["field"], f["dimension"] or "", f["period"]): f for f in q("select field, dimension, period, label, reference from facts where ticker = ?", t)}
+        for it in doc.get("items", []):
+            c = calcs.get((it.get("field"), it.get("period"))) if it.get("kind") == "value" else None
+            if it.get("kind") == "value":
+                row = vals.get((it.get("field"), it.get("period")))
+                now = row and {**it, "label": row["label"], "xbrl": ref.get((it["field"], it["period"])), "untagged": row["label"] == "no_reference"}
+            else:
+                row = facts.get((it.get("field"), it.get("dimension") or "", it.get("period")))
+                now = row and {**it, "label": row["label"], "xbrl": num(row["reference"]), "untagged": row["label"] == "no_reference"}
+            out[it["id"]] = {"claim": group(it, c), "live": group(now, c) if now else "not_reconciled", "calc": c}
+    return out
+
+
+def group_note(g: dict | None) -> str | None:
+    """"Group changed since draw: was X, now Y" for an item whose live group is not its claim's (`live_groups`), else None."""
+    from ..core.states import GROUP_CHANGED, word
+    if not g or g["claim"] == g["live"]:
+        return None
+    return f"{GROUP_CHANGED}: was {word('gold_group', g['claim'])}, now {word('gold_group', g['live'])}"
+
+
+def _group_of(it: dict, live: dict | None) -> str:
+    g = (live or {}).get(it.get("id"))
+    return g["live"] if g else group(it)
+
+
+def ordered(items: list[dict], live: dict | None = None) -> list[dict]:
+    """The items hard first (states.GOLD_GROUP_ORDER) by their live group when `live` is given, each group in file order."""
     from ..core.states import GOLD_GROUP_ORDER
-    return sorted(items, key=lambda i: GOLD_GROUP_ORDER.index(group(i)))
+    return sorted(items, key=lambda i: GOLD_GROUP_ORDER.index(_group_of(i, live)))
 
 
-def rates(items: list[dict]) -> dict:
+def rates(items: list[dict], live: dict | None = None) -> dict:
     """The error rate per group and overall, the one reading the API, the Proof page and the CLI share:
     {"all": error_rate, "groups": [{"id", "rate"}] in GOLD_GROUP_ORDER (every group, empty ones too), "headline": the
-    group quoted first (no_counterpart: the items Matches SEC XBRL are machine-checked already)}."""
+    group quoted first (no_counterpart: the items Matches SEC XBRL are machine-checked already), "live": whether the
+    groups are the live ones}. An item counts under its live group (`live_groups`); its verdict stays as given."""
     from ..core.states import GOLD_GROUP_ORDER
-    return {"all": error_rate(items), "headline": GOLD_GROUP_ORDER[0],
-            "groups": [{"id": g, "rate": error_rate([i for i in items if group(i) == g])} for g in GOLD_GROUP_ORDER]}
+    return {"all": error_rate(items), "headline": GOLD_GROUP_ORDER[0], "live": live is not None,
+            "groups": [{"id": g, "rate": error_rate([i for i in items if _group_of(i, live) == g])} for g in GOLD_GROUP_ORDER]}
 
 
 def rate_line(r: dict) -> str:

@@ -36,7 +36,7 @@ def main(argv=None) -> int:
         for t, d in docs.items():
             print(f"{t} ({d['release']}): {gold.rate_line(gold.error_rate(d['items']))}")
         from ..core.states import word
-        r = gold.rates(items)  # the per-group numbers the API and the Proof page show
+        r = gold.rates(items, gold.live_groups(con, docs))  # the per-group numbers the API and the Proof page show
         for g in r["groups"]:
             print(f"{word('gold_group', g['id'])}: {gold.rate_line(g['rate'])}")
         print(f"all: {gold.rate_line(r['all'])}")

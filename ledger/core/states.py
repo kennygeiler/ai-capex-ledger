@@ -234,23 +234,27 @@ def gold(item: dict | None) -> str:
 
 # ── gold_group: what independent check a gold item has besides the person (gold.group); the hard groups come first ───
 GOLD_GROUP = Machine("gold_group", "M17", "ledger.review.gold.group", (
-    _s("no_counterpart", NEUTRAL, "No SEC counterpart", "text-azure", meaning="no XBRL value to compare (untagged, no_reference): the person is the only check"),
-    _s("definition", NEUTRAL, "Definition differs", "text-azure", meaning="an XBRL value exists and differs (a definition gap or unresolved)"),
-    _s("calculated", GOOD, "Calculated", "text-teal", meaning="computed from several cells, and the result agrees with SEC XBRL"),
-    _s("xbrl", GOOD, "Matches SEC XBRL", "text-green", meaning="one cell that agrees with SEC XBRL: already machine-checked"),
-), frozenset(),
-    absent="no_counterpart",
-    no_unknown_because="an item with no XBRL value on file, or a label off the list, lands in No SEC counterpart (or Definition differs), the groups shown first; never in a machine-checked group")
-GOLD_GROUP_ORDER = ("no_counterpart", "definition", "calculated", "xbrl")
+    _s("no_counterpart", NEUTRAL, "No SEC counterpart", "text-azure", meaning="no XBRL value to compare (no_reference, not_reported): the person is the only check"),
+    _s("definition", NEUTRAL, "Definition differs", "text-azure", meaning="an XBRL value exists and differs (definition_gap, unresolved)"),
+    _s("not_extracted", OPEN, "Not extracted", "text-red", meaning="XBRL holds a value the reader did not extract (not_extracted)"),
+    _s("not_reconciled", UNKNOWN, "Not reconciled", "text-secondary", meaning="no label, or a label off the list: the row was never compared"),
+    _s("calculated", GOOD, "Calculated", "text-teal", meaning="agrees with SEC XBRL, and its calculation from several cells holds (calc.holds)"),
+    _s("xbrl", GOOD, "Matches SEC XBRL", "text-green", meaning="agrees with SEC XBRL: already machine-checked"),
+), frozenset({(a, b) for a in ("no_counterpart", "definition", "not_extracted", "not_reconciled", "calculated", "xbrl")
+              for b in ("no_counterpart", "definition", "not_extracted", "not_reconciled", "calculated", "xbrl") if a != b}),
+    absent="not_reconciled")
+GOLD_GROUP_ORDER = ("no_counterpart", "definition", "not_extracted", "not_reconciled", "calculated", "xbrl")
+# a gold item's live group may differ from the group of its claim at the draw (gold.groups): the page says so
+GROUP_CHANGED = "Group changed since draw"
 
 # ── crosscheck: a calculated figure against a total someone else printed or tagged (calc.state) ──────────────────────
 CROSSCHECK = Machine("crosscheck", "M18", "ledger.checks.calc.state", (
     _s("matches", GOOD, "matches", "text-green", meaning="the filing's own total, or SEC XBRL, equals the calculation within rounding"),
-    _s("differs", OPEN, "differs by", "text-orange", meaning="the other total differs; the page names the line of that amount when one exists"),
-    _s("none", UNKNOWN, "No total to compare", "text-secondary", meaning="the filing prints no such total and XBRL has no value"),
-), frozenset({("none", "matches"), ("none", "differs"), ("matches", "differs"), ("differs", "matches")}),
+    _s("explained", NEUTRAL, "includes", "text-secondary", meaning="the filing's own total differs by exactly one formula input, sign-aware, and by no other line (a wider measure: Amazon's total includes cost of sales)"),
+    _s("differs", OPEN, "differs by", "text-orange", meaning="the other total differs; the page names the line of that amount only when exactly one line is"),
+    _s("none", UNKNOWN, "No total to compare", "text-secondary", meaning="the filing prints no such total in that column, or XBRL has no value"),
+), frozenset({(a, b) for a in ("none", "matches", "explained", "differs") for b in ("none", "matches", "explained", "differs") if a != b and b != "none"}),
     absent="none")
-
 
 # ── line: a Release checklist line (checklist._line) ────────────────────────────────────────────────────────────────
 LINE = Machine("line", "M9", "ledger.release.checklist._line", (

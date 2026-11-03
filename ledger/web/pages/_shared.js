@@ -16,11 +16,13 @@ const plural = (n, one, many) => `${int(n)} ${n === 1 ? one : many || one + 's'}
 // the one money format (ledger/web/cards.py money, the same cases tested on both): $513,983M, $1.8M, $450,000, $0, —
 const usd = (n) => {
   if (n == null || n === '') return '—';
-  const v = Math.round(Number(n)), a = Math.abs(v), sign = v < 0 ? '−' : '';
+  const x = Number(n), a = Math.floor(Math.abs(x) + 0.5), sign = x < 0 && a ? '−' : '';
   if (a >= 1e6 && a % 1e6 === 0) return `${sign}$${(a / 1e6).toLocaleString('en-US')}M`;
   if (a >= 1e6) { const t = Math.floor((a + 5e4) / 1e5); return `${sign}$${Math.floor(t / 10).toLocaleString('en-US')}.${t % 10}M`; }
   return `${sign}$${a.toLocaleString('en-US')}`;
 };
+// the figure to the dollar (cards.exact), where two different figures would print the same in usd
+const usdExact = (n) => { if (n == null || n === '') return '—'; const x = Number(n), a = Math.floor(Math.abs(x) + 0.5); return `${x < 0 && a ? '−' : ''}$${a.toLocaleString('en-US')}`; };
 const day = (s) => (s ? new Date(String(s).slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'}) : '—');
 const when = (s) => (s ? new Date(s).toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'}) : '—');
 // One name per field, every page (trail, Reconcile, Dataset, Explore, gold, evidence)

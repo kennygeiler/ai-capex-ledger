@@ -17,6 +17,7 @@ info, citation only (or an explanation on file); wait and bad, needs review. `VE
 from __future__ import annotations
 
 import json
+import math
 import re
 
 from ..core import status, store
@@ -31,20 +32,29 @@ OPEX_PARTS = ("revenue", "cost_of_revenue", "operating_income")
 
 
 def money(v) -> str:
-    """Whole dollars as people read them, the one money format of the app: $131,819M for whole millions, $1.8M (tenths,
-    half up) otherwise, the exact figure below a million, $0 for zero, — for a blank. The pages' copy is `usd` in
-    _shared.js (tests.test_cards.Money.test_the_pages_format_is_pythons runs both on the same cases)."""
+    """Whole dollars as people read them, the one money format of the app: $131,819M for whole millions, $1.8M (tenths)
+    otherwise, the exact figure below a million, $0 for zero, — for a blank. Every rounding is half up on the magnitude
+    (2.5 → 3, −2.5 → −3), in integers. The pages' copy is `usd` in _shared.js and the report's `short`
+    (tests.test_cards.Money runs all three on the same cases)."""
     if v is None:
         return "—"
-    v = int(round(v))
-    sign = "−" if v < 0 else ""
-    a = abs(v)
+    a = int(math.floor(abs(v) + 0.5))
+    sign = "−" if v < 0 and a else ""
     if a >= 1_000_000 and a % 1_000_000 == 0:
         return f"{sign}${a // 1_000_000:,}M"
     if a >= 1_000_000:
-        tenths = (a + 50_000) // 100_000  # integer arithmetic: the same rounding as the page's copy, never banker's
+        tenths = (a + 50_000) // 100_000
         return f"{sign}${tenths // 10:,}.{tenths % 10}M"
     return f"{sign}${a:,}"
+
+
+def exact(v) -> str:
+    """The figure to the dollar ($394,144,000), where two figures would print the same in `money` or rounded terms
+    would not add up. The pages' copy is `usdExact` in _shared.js."""
+    if v is None:
+        return "—"
+    a = int(math.floor(abs(v) + 0.5))
+    return f"{'−' if v < 0 and a else ''}${a:,}"
 
 
 def _rows(con, sql, *p):
@@ -97,8 +107,10 @@ def _words(it: dict, name: str, defs: dict, found_value=None) -> dict:
             return {"tone": "bad", "text": "In SEC XBRL, not extracted. Re-read required.", "detail": None}
         rs = ref.get("readings") or []
         if by == "rule:fact_readings_differ" and len(rs) >= 2:
-            text = "Readings differ: " + " → ".join(money(r.get("value")) for r in (rs[0], rs[-1]))
-            return {"tone": "bad", "text": text, "detail": " · ".join(f"{r.get('form') or '10-K'} filed {str(r.get('filed') or '')[:10]}: {money(r.get('value'))}" for r in rs)}
+            vals = [r.get("value") for r in rs]
+            fmt = exact if len({money(v) for v in vals}) < len(set(vals)) else money  # two different figures never print the same
+            text = "Readings differ: " + " → ".join(fmt(r.get("value")) for r in (rs[0], rs[-1]))
+            return {"tone": "bad", "text": text, "detail": " · ".join(f"{r.get('form') or '10-K'} filed {str(r.get('filed') or '')[:10]}: {fmt(r.get('value'))}" for r in rs)}
         if by.startswith("rule:") and by.endswith("_tie"):
             g = ref.get("tie_gap")
             if not g:
@@ -167,6 +179,7 @@ def add(con, trail: dict) -> dict:
     # main numbers: the value, the cells it was read from, the SEC's copy
     vals = {(v["field"], v["period"]): v for v in _rows(con, 'select field, period, value, extraction_ids from "values" where ticker = ?', t)}
     from ..checks import calc
+    from ..release.release import split_ids
     calcs = calc.for_ticker(con, t)  # a figure calculated from several cells says so (the gold set reads the same function)
     ext = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, field, table_id, row_label, column_label, cell_text from extractions where ticker = ?", t)}
     for it in stages.get("values", {}).get("all", []):
@@ -175,7 +188,7 @@ def add(con, trail: dict) -> dict:
         if not v:
             it["card"] = {"found": None, "where": [], "how": _how(it, name, defs)}
             continue
-        ids = [i for i in (v.get("extraction_ids") or "").split(",") if i in ext]
+        ids = [i for i in split_ids(v.get("extraction_ids") or "") if i in ext]  # a cost-line label may hold a comma (type 66)
         c = calcs.get((ref.get("field"), ref.get("period")))
         role = {i["extraction_id"]: i["role"] for i in (c or {}).get("inputs", [])}
         order = {i["extraction_id"]: k for k, i in enumerate((c or {}).get("inputs", []))}
@@ -195,7 +208,7 @@ def add(con, trail: dict) -> dict:
                       "link": d.get("url"), "viewer": f"/filing/{ref['accession']}"}] if d else []
             it["card"] = {"found": None, "where": where, "how": _how(it, name, defs)}
             continue
-        ids = [i for i in (f.get("extraction_ids") or "").split(",") if i in notes]
+        ids = [i for i in split_ids(f.get("extraction_ids") or "") if i in notes]
         where = sorted((_cell(notes[i], docs, ev) for i in ids), key=lambda w: (w["filed"] or "", w["extraction_id"]))
         it["card"] = {"found": money(f["value"]), "where": where, "how": _how(it, name, defs, f["value"])}
         if it.get("by") == "rule:fact_readings_differ" and len(where) >= 2:  # the oldest and the newest reading, side by side on #evidence/compare

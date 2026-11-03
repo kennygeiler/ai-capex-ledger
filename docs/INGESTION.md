@@ -361,6 +361,7 @@ What each company cost. `ledger run` prints this, and each validation page shows
     "Property and Equipment:") into each date column's label ("January 31,2021 | (In years)"). The crop locator matched
     the header on the last part, read the useful-life column and refused every cell ("Page shows (C) · cited 558"):
     40 of NVIDIA's 175 cited cells had no crop. Fix (2 Nov 2026, F-EV1): the locator (`evidence._LOCATE`) drops a trailing
-    unit sub-header ("(In years / months / millions / thousands / billions)") or a part ending in a colon before the
-    header match; the guard is unchanged (the cell must equal the cited text). Locator only, no re-read: all 873 cells
+    unit sub-header ("(In years / months / millions / thousands / billions)"), or a part ending in a colon when no header
+    of that text sits over a value in the row, before the header match; after a drop, a header over more than one value
+    is "Column ambiguous"; the guard is unchanged (the cell must equal the cited text). Locator only, no re-read: all 873 cells
     of the proven six re-cropped, 873 located, the 833 located before byte-identical. Found by Kenny grading gold.

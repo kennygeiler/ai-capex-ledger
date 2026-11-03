@@ -383,7 +383,7 @@ NVDA_PPE = """<table>
   <tr><td></td><td colspan="2">January 30,<br>2022</td><td colspan="2">January 31,<br>2021</td><td>Estimated Useful Life</td></tr>
   <tr><td></td><td colspan="4">(In millions)</td><td>(In years)</td></tr>
   <tr><td>Property and Equipment:</td></tr>
-  <tr><td>Land</td><td>$</td><td>218</td><td>$</td><td>218</td><td>(A)</td></tr>
+  <tr><td>Land</td><td>$</td><td>218</td><td>$</td><td>216</td><td>(A)</td></tr>
   <tr><td>Equipment, compute hardware, and software</td><td></td><td>2,852</td><td></td><td>1,985</td><td>3-5</td></tr>
   <tr><td>Construction in process</td><td></td><td>737</td><td></td><td>558</td><td>(C)</td></tr></table>"""
 
@@ -405,14 +405,16 @@ class SubHeader(unittest.TestCase):
         doc = _page(NVDA_PPE, self.dir)
         r = self.crop(doc, [_cite("cip21", "Construction in process", "January 31,2021 | (In years)", "558"),
                             _cite("cip22", "Construction in process", "January 30,2022 | (In years)", "737"),
-                            _cite("land", "Land", "January 31,2021 | Property and Equipment:", "218"),
+                            _cite("land", "Land", "January 31,2021 | Property and Equipment:", "216"),
+                            _cite("land22", "Land", "January 31,2021 | Property and Equipment:", "218"),  # the 2022 value under the 2021 label
                             _cite("eq", "Equipment, compute hardware, and software", "January 31,2021 | (In years)", "1,985"),
                             _cite("wrong", "Construction in process", "January 31,2021 | (In years)", "737"),  # the other year's value
                             _cite("mark", "Construction in process", "(In years)", "558")])  # only the footnote column named
-        for k, seen in (("cip21", "558"), ("cip22", "737"), ("land", "$218"), ("eq", "1,985")):
+        for k, seen in (("cip21", "558"), ("cip22", "737"), ("land", "$216"), ("eq", "1,985")):
             self.assertTrue(r[k]["located"], k)
             self.assertEqual(r[k]["seen"], seen, k)
         self.assertEqual(r["wrong"]["reason"], "Page shows 558 · cited 737")
+        self.assertEqual(r["land22"]["reason"], "Page shows $216 · cited 218")  # the boxed column is 2021's, never 2022's
         self.assertIsNone(r["wrong"]["img"])
         self.assertEqual(r["mark"]["reason"], "Page shows (C) · cited 558")  # a footnote mark is never a value
 
@@ -422,10 +424,30 @@ class SubHeader(unittest.TestCase):
         self.assertTrue(doc.is_file(), f"stored filing needed in data/raw: {doc}")
         r = self.crop(doc, [{"extraction_id": "cip", "accession": "0001045810-22-000036", "table_id": "t0037", "row_label": "Construction in process",
                              "column_label": "January 31,2021 | (In years)", "cell_text": "558"},
-                            {"extraction_id": "land", "accession": "0001045810-22-000036", "table_id": "t0037", "row_label": "Land",
-                             "column_label": "January 30,2022 | (In years)", "cell_text": "218"}])
+                            {"extraction_id": "bld", "accession": "0001045810-22-000036", "table_id": "t0037", "row_label": "Buildings, leasehold improvements, and furniture",
+                             "column_label": "January 31,2021 | (In years)", "cell_text": "796"},
+                            {"extraction_id": "bld22", "accession": "0001045810-22-000036", "table_id": "t0037", "row_label": "Buildings, leasehold improvements, and furniture",
+                             "column_label": "January 31,2021 | (In years)", "cell_text": "874"}])  # 2022's value under the 2021 label
         self.assertEqual((r["cip"]["located"], r["cip"]["seen"]), (True, "558"))
-        self.assertEqual((r["land"]["located"], r["land"]["seen"]), (True, "$218"))
+        self.assertEqual((r["bld"]["located"], r["bld"]["seen"]), (True, "796"))
+        self.assertEqual(r["bld22"]["reason"], "Page shows 796 · cited 874")
+
+    def test_a_colon_part_over_a_value_is_a_header(self):
+        """A trailing part ending in a colon is dropped only when no header of that text sits over a value in the row."""
+        doc = _page("""<table><tr><td></td><td>2024</td><td>Total:</td></tr>
+          <tr><td>Rent</td><td>5</td><td>9</td></tr></table>""", self.dir)
+        r = self.crop(doc, [_cite("tot", "Rent", "2024 | Total:", "9"), _cite("yr", "Rent", "2024 | Total:", "5")])
+        self.assertTrue(r["tot"]["located"])
+        self.assertEqual(r["yr"]["reason"], "Page shows 9 · cited 5")
+
+    def test_after_a_drop_two_columns_are_ambiguous(self):
+        doc = _page("""<table><tr><td></td><td>2024</td><td></td><td>2024</td></tr><tr><td></td><td colspan="3">(In millions)</td></tr>
+          <tr><td>Cost</td><td>7</td><td></td><td>8</td></tr></table>
+          <table><tr><td></td><td colspan="2">2024</td></tr><tr><td></td><td colspan="2">(In millions)</td></tr>
+          <tr><td>Land</td><td>3</td><td>4</td></tr></table>""", self.dir)
+        r = self.crop(doc, [_cite("two", "Cost", "2024 | (In millions)", "7"), _cite("wide", "Land", "2024 | (In millions)", "3")])
+        self.assertEqual(r["two"]["reason"], "Column ambiguous")  # two non-overlapping 2024 headers
+        self.assertEqual(r["wide"]["reason"], "Column ambiguous")  # one 2024 header over two values
 
 
 @unittest.skipUnless(CHROME, "needs Chrome")

@@ -387,24 +387,29 @@ screenshots are no longer served.
 
 ## M17. A gold item's group (review-fixes, 2 Nov 2026)
 
-**States.** no_counterpart (no XBRL value: untagged, no_reference) · definition (an XBRL value that differs: definition_gap,
-unresolved) · calculated (computed from several cells, agrees with XBRL) · xbrl (one cell, agrees). Words: No SEC counterpart ·
-Definition differs · Calculated · Matches SEC XBRL (`states.GOLD_GROUP`).
-**Who decides.** `gold.group`, from the claim on file (label, xbrl, kind, field, cites), so the API with or without a database
-and the Proof page agree. `gold.ordered` puts the items in `GOLD_GROUP_ORDER`; `gold.rates` gives the error rate per group and
-overall (right / wrong / can't say / unchecked, Wilson 95% when n > 0); the headline is no_counterpart. `/api/v1/gold`, the
-Proof page and `ledger gold --status` read `rates`. Test: `tests.test_calc.Groups`.
-**Transitions.** None: fixed at the draw. A label off the list, or no XBRL value, lands in a hard group, never a checked one.
+**States.** no_counterpart (no_reference, not_reported, or an agree claim with no XBRL value) · definition (definition_gap,
+unresolved) · not_extracted · not_reconciled (no label, a label off the list, or the live row gone; the absent state) ·
+calculated (agree, and its calculation from several cells exists and holds) · xbrl (agree). Words: No SEC counterpart ·
+Definition differs · Not extracted · Not reconciled · Calculated · Matches SEC XBRL (`states.GOLD_GROUP`), in that order.
+**Who decides.** `gold.group(item, calc)`. `gold.live_groups` gives each item its group from the claim at the draw and
+from the live tables (label, XBRL value, the live calculation); an item counts under its live group in `gold.rates`
+(per group and overall: right / wrong / can't say / unchecked, Wilson 95% when n > 0; headline no_counterpart) and the
+Proof page flags a move ("Group changed since draw: was X, now Y", `gold.group_note`); the verdict stays. `/api/v1/gold`,
+the Proof page and `ledger gold --status` read `rates`. With the database busy the groups are the claims' and the page
+says "Groups as drawn". Tests: `tests.test_calc.Groups`.
+**Transitions.** Any group to any other, by a change in the live tables; never by a verdict.
 
 ## M18. A calculated figure's cross-check (review-fixes, 2 Nov 2026)
 
-**States.** matches (within half a rounding unit per input) · differs (the page says "differs by $X" and names the one
-line of that amount, an input or another row of the column, when there is one) · none (nothing printed or tagged).
-**Who decides.** `calc.state`, inside `calc.calculation`; against the filing's own "Total operating expenses" row in the
-same table and column, and against SEC XBRL. `calc.for_ticker` feeds the trail's card and the gold set. Test:
-`tests.test_calc.Calc`.
+**States.** matches (within half a rounding unit per input) · explained (the filing's own total differs by exactly one
+formula input, sign-aware, and no other line: "Filing's total includes cost of sales · $326,288M"; neutral) · differs
+("differs by $X", naming the line only when exactly one line, sign-aware, is that amount) · none ("No total to compare":
+no "Total operating expenses" row in that table and column, or no XBRL value).
+**Who decides.** `calc.state`, inside `calc.calculation`; SEC XBRL is compared with the inputs only, never a table row.
+`calc.for_ticker` feeds the trail's card and the gold set (through `gold.live_groups`). Tests: `tests.test_calc.Calc`.
 **UI.** `calcBlock` (_shared.js): "Calculated: revenue − cost of revenue − operating income = $X", the arithmetic on the
-real inputs, each cross-check in its tone; each crop labelled with its role (Revenue / Cost of revenue / Operating income).
+real inputs (to the dollar when rounded terms would not add up), each cross-check in its tone; each crop labelled with
+its role (Revenue / Cost of revenue / Operating income).
 
 ## M12. Freshness of the monitoring inputs
 

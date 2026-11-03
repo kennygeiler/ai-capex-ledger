@@ -97,8 +97,9 @@ function goldSet() {
     const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Hand check'),
       h('div', {class: 'text-secondary small'}, '20 items per company · random sample · Unchecked never passes'),
       h('div', {class: 'mt-1'}, g.headline && byGroup[g.headline] ? groupLine(g.headline, true) : '',
-        (g.groups || []).filter((x) => x.id !== g.headline).map((x) => groupLine(x.id)),
-        h('div', {class: 'small'}, h('span', {class: 'text-secondary'}, 'All'), `: ${goldRate(g.all)}`)));
+        (g.groups || []).filter((x) => x.id !== g.headline && x.rate.items).map((x) => groupLine(x.id)),
+        h('div', {class: 'small'}, h('span', {class: 'text-secondary'}, 'All'), `: ${goldRate(g.all)}`),
+        g.groups_live === false ? h('div', {class: 'small text-orange'}, 'Groups as drawn · live tables unavailable') : ''));
     const picker = h('div', {class: 'btn-group flex-wrap mb-2', role: 'group', 'aria-label': 'Company'}, g.companies.map((c) => {
       const done = c.rate.items - c.rate.unverified;
       return h('button', {type: 'button', class: 'btn btn-sm ' + (c.ticker === t ? 'btn-primary' : 'btn-outline-secondary'), 'aria-pressed': String(c.ticker === t), title: goldRate(c.rate), onclick: () => goldSet.draw(c.ticker)},
@@ -108,7 +109,8 @@ function goldSet() {
     const co = g.companies.find((c) => c.ticker === t);
     const claimName = (it) => [FIELDS[it.field] || it.field, it.dimension, it.period].filter(Boolean).join(' · ');
     const claim = (it) => h('div', {}, h('div', {class: 'fw-semibold'}, claimName(it)),
-      h('div', {class: 'text-secondary small'}, it.kind === 'fact' ? 'Note figure' : 'Statement figure', it.untagged ? ' · Not in SEC XBRL' : it.xbrl != null ? ` · SEC XBRL ${goldMoney(it.xbrl)}` : ''));
+      h('div', {class: 'text-secondary small'}, it.kind === 'fact' ? 'Note figure' : 'Statement figure', it.untagged ? ' · Not in SEC XBRL' : it.xbrl != null ? ` · SEC XBRL ${goldMoney(it.xbrl)}` : ''),
+      it.group_note ? h('div', {class: 'small text-orange'}, it.group_note) : '');
     const value = (it) => {
       const lv = it.live, moved = lv && lv.value !== it.value;
       return h('div', {}, h('div', {class: 'money', title: it.value == null ? null : `$${int(it.value)}`}, goldMoney(it.value)),
