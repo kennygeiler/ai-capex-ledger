@@ -21,7 +21,7 @@ each in `ledger/cli/` (they do the table writes: `store.write`).
 | Module | Owns | State machine it decides |
 |---|---|---|
 | `core/status.py` | the one definition of open: checked / explained / open / blocked (`_state`, `of_value`, `of_fact`, `of_mapping`) | row groups (M1) |
-| `core/states.py` | every state that reaches a page: its states, moves, deciding function, page word; `/pages/_states.js`, `/api/v1/states` | all eight: row, ladder, check, mapping, crop, gold, line, edgar |
+| `core/states.py` | every state that reaches a page: its states, moves, deciding function, page word; `/pages/_states.js`, `/api/v1/states` | all ten: row, ladder, check, mapping, crop, gold, gold_group, crosscheck, line, edgar |
 | `core/store.py` | DuckDB schema, write contracts, `data/ledger.duckdb`, `docs/DATA_DICTIONARY.md` | |
 | `core/config.py` | companies, years, fields, `PROVEN`, `SCOPE`, `PEOPLE`, `INDUSTRIES` | |
 | `ingest/edgar.py` | the SEC client, its cache, `LEDGER_OFFLINE` | |
@@ -32,12 +32,13 @@ each in `ledger/cli/` (they do the table writes: `store.write`).
 | `checks/rules.py`, `guards.py` | the rule engine over `rules/*.yaml`; the part-year and program guards | |
 | `checks/ties.py` | readings across filings and ties to totals: the note-figure ladder (`fact_state`) | ladder (M1b) |
 | `checks/crops.py` | a picture of every cited cell, `reports/evidence/crops.json` | crop (M14) |
+| `checks/calc.py` | a figure calculated from several cells: formula, arithmetic, roles, cross-checks (filing total, XBRL) | crosscheck (M18) |
 | `checks/proof.py` | Proof: every row's state per stage per company | |
 | `checks/golden.py` | the golden test (`fixtures/`) | |
 | `review/resolutions.py` | `decisions/resolutions.jsonl`, keys (`key_for`) | |
 | `review/workbench.py` | Reconcile's rows | |
 | `review/mapper.py`, `mapcard.py` | the mapping assistant and the mapping decision card | mapping (M5, via `status.of_mapping`) |
-| `review/gold.py` | the gold set, verdicts, error rate | gold (M7) |
+| `review/gold.py` | the gold set, verdicts, error rate per group, hard items first | gold (M7), gold_group (M17) |
 | `release/taxonomy.py` | the taxonomy rows (`/api/v1/taxonomy`, `taxonomy.csv`) | |
 | `release/checklist.py` | the Release page's checklist and the Sign act | line (M9) |
 | `release/claims.py` | the claims register, the page scan, `docs/CLAIMS.md` | |

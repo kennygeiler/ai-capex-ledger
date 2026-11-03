@@ -40,9 +40,10 @@ async function evidenceCompare(view, q) {
   if (!q.a || !q.b) throw new Error('Two readings are needed: #evidence/compare?a=<id>&b=<id>');
   const [a, b] = await Promise.all([q.a, q.b].map((id) => api('/api/v1/evidence/' + encodeURIComponent(id))));
   const differ = a.value !== b.value;
+  const fmt = differ && usd(a.value) === usd(b.value) ? usdExact : usd;  // two different readings never print the same
   const side = (e, n) => h('section', {},
     h('h2', {}, `Filing ${n} · ${e.form} filed ${day(e.filed)}`), h('div', {class: 'text-secondary small mb-2 mono'}, e.accession),
-    h('div', {class: 'ev-value'}, usd(e.value), h('span', {class: 'text-secondary small fw-normal ms-2'}, `cited ${e.cell_text}`)),
+    h('div', {class: 'ev-value'}, fmt(e.value), h('span', {class: 'text-secondary small fw-normal ms-2'}, `cited ${e.cell_text}`)),
     evFiling(e));
   view.append(h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
       h('div', {class: 'col'}, h('h1', {class: 'page-title'}, evWhat(a), h('span', {class: 'text-secondary ms-2 fw-normal'}, a.ticker)),

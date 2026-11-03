@@ -25,7 +25,12 @@ def load_all() -> dict:
 _LOCATE = """([idx, row, col, cited]) => {
   const norm = (s) => (s || "").replace(/\\s+/g, "").toLowerCase();
   const tables = [...document.querySelectorAll("table")];
-  const parts = col.split("|").map(norm), want = norm(row), head = parts[parts.length - 1];
+  // A trailing part that names no value column is dropped before the header match: a unit sub-header ("(In years)", the
+  // useful-life column's), or a section label ending in a colon ("Property and Equipment:") when no header cell of that
+  // text sits over a value in the row; the parser can carry either into a date column's label (NVIDIA's PP&E table). The
+  // header is then the part before it (the date). After a drop, a header over more than one value is ambiguous.
+  const unit = (p) => /^\\(in(years|months|millions|thousands|billions)\\)$/.test(p), colon = (p) => /:$/.test(p);
+  const full = col.split("|").map(norm), want = norm(row);
   for (const t of [tables[idx], ...tables].filter(Boolean)) {
     const trs = [...t.querySelectorAll("tr")];
     const named = trs.filter((r) => { const c = [...r.cells].find((c) => c.textContent.trim()); return c && norm(c.textContent) === want; });
@@ -33,6 +38,13 @@ _LOCATE = """([idx, row, col, cited]) => {
     // A label can repeat (Oracle lists "Services" under revenues and again under expenses): use the row that shows the cited text, else the first.
     const read = (tr) => {
       const above = trs.slice(0, trs.indexOf(tr)).flatMap((r) => [...r.cells]);
+      const span = (hd) => { const h = hd.getBoundingClientRect(); return [...tr.cells].slice(1).filter((c) => { const r = c.getBoundingClientRect(); return /\\d/.test(c.textContent) && r.right > h.left + 1 && r.left < h.right - 1; }); };
+      const parts = [...full];
+      while (parts.length > 1) {
+        const p = parts[parts.length - 1];
+        if (unit(p) || (colon(p) && !above.some((c) => norm(c.textContent) === p && span(c).length))) parts.pop(); else break;
+      }
+      const stripped = parts.length < full.length, head = parts[parts.length - 1];
       // A header cell names the column only when its whole text is the label's last part (normalised), never a suffix of it.
       const heads = above.filter((c) => norm(c.textContent) === head);
       if (!heads.length) return null;
@@ -56,6 +68,7 @@ _LOCATE = """([idx, row, col, cited]) => {
       const nx = near(cells[cells.length - 1], "nextElementSibling"), pv = near(cells[0], "previousElementSibling");
       if (nx && /^[)]/.test(nx.textContent.trim())) cells.push(nx);  // a closing parenthesis in its own cell, past the header
       if (pv && /^[(]$/.test(pv.textContent.trim())) cells.unshift(pv);
+      if (stripped && cells.filter((c) => /\\d/.test(c.textContent)).length > 1) return { ambiguous: true };
       const abs = (r) => ({ x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height });
       const rows = cells.map((c) => c.getBoundingClientRect()), tr_ = tr.getBoundingClientRect(), tb = t.getBoundingClientRect();
       const cell = cells.length ? { x: Math.min(...rows.map((r) => r.left)) + scrollX, y: tr_.top + scrollY, w: Math.max(...rows.map((r) => r.right)) - Math.min(...rows.map((r) => r.left)), h: tr_.height } : null;
