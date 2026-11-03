@@ -73,7 +73,8 @@ const GOLD_HELP = {right: 'The filing shows this number at this cell', wrong: 'T
 const verdictTone = (v) => stateWord('gold', v)[0];
 const goldNeedsMe = new Set();
 document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of goldNeedsMe) b.disabled = !(me || '').trim(); });
-const goldUsd = (n) => (n == null ? 'Not reported' : (n < 0 ? '−$' : '$') + int(Math.abs(n)));  // the exact figure, so it can be read against the cell (in thousands or millions)
+const goldMoney = (n) => (n == null ? 'Not reported' : usd(n));  // the app's one money format; the exact dollars in the hover
+const goldGroup = (g) => stateWord('gold_group', g);  // states.GOLD_GROUP: the group's word and tone
 // counts first; the error rate only once a verdict exists (n > 0), with its interval
 const goldRate = (r) => {
   const counts = `${int(r.n - r.wrong)} right · ${int(r.wrong)} wrong · ${int(r.cant_say)} can’t say · ${int(r.unverified)} unchecked`;
@@ -90,9 +91,14 @@ function goldSet() {
     const probs = (g.problems || []).length ? h('div', {class: 'text-red small mb-2'}, h('b', {}, 'Hand-check files with errors: '), g.problems.join('; ')) : '';
     if (!g.companies.length) { wrap.replaceChildren(probs, h('p', {class: 'text-secondary small'}, 'No hand-check sample yet')); return; }
     const t = g.ticker || null;
+    // the headline is the group no machine checks (gold.rates headline); the others and the overall follow, the same numbers as the API
+    const byGroup = Object.fromEntries((g.groups || []).map((x) => [x.id, x.rate]));
+    const groupLine = (id, strong) => h('div', {class: 'small' + (strong ? ' fw-medium' : '')}, h('span', {class: goldGroup(id)[0]}, goldGroup(id)[1]), `: ${goldRate(byGroup[id])}`);
     const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Hand check'),
       h('div', {class: 'text-secondary small'}, '20 items per company · random sample · Unchecked never passes'),
-      h('div', {class: 'small mt-1'}, goldRate(g.all), g.all.untagged.n ? ` · Not in SEC XBRL: wrong ${int(g.all.untagged.wrong)} of ${int(g.all.untagged.n)}` : ''));
+      h('div', {class: 'mt-1'}, g.headline && byGroup[g.headline] ? groupLine(g.headline, true) : '',
+        (g.groups || []).filter((x) => x.id !== g.headline).map((x) => groupLine(x.id)),
+        h('div', {class: 'small'}, h('span', {class: 'text-secondary'}, 'All'), `: ${goldRate(g.all)}`)));
     const picker = h('div', {class: 'btn-group flex-wrap mb-2', role: 'group', 'aria-label': 'Company'}, g.companies.map((c) => {
       const done = c.rate.items - c.rate.unverified;
       return h('button', {type: 'button', class: 'btn btn-sm ' + (c.ticker === t ? 'btn-primary' : 'btn-outline-secondary'), 'aria-pressed': String(c.ticker === t), title: goldRate(c.rate), onclick: () => goldSet.draw(c.ticker)},
@@ -102,18 +108,18 @@ function goldSet() {
     const co = g.companies.find((c) => c.ticker === t);
     const claimName = (it) => [FIELDS[it.field] || it.field, it.dimension, it.period].filter(Boolean).join(' · ');
     const claim = (it) => h('div', {}, h('div', {class: 'fw-semibold'}, claimName(it)),
-      h('div', {class: 'text-secondary small'}, it.kind === 'fact' ? 'Note figure' : 'Statement figure', it.untagged ? ' · Not in SEC XBRL' : it.xbrl != null ? ` · SEC XBRL ${goldUsd(it.xbrl)}` : ''));
+      h('div', {class: 'text-secondary small'}, it.kind === 'fact' ? 'Note figure' : 'Statement figure', it.untagged ? ' · Not in SEC XBRL' : it.xbrl != null ? ` · SEC XBRL ${goldMoney(it.xbrl)}` : ''));
     const value = (it) => {
       const lv = it.live, moved = lv && lv.value !== it.value;
-      return h('div', {}, h('div', {class: 'text-nowrap'}, goldUsd(it.value)),
-        !lv ? h('div', {class: 'text-secondary small'}, 'Current value unavailable') : lv.gone ? h('div', {class: 'text-red small'}, 'Removed from dataset') : moved ? h('div', {class: 'text-red small'}, `Now ${goldUsd(lv.value)}`) : lv.open ? h('div', {class: stateWord('row', 'bad')[0] + ' small'}, stateWord('row', 'bad')[1]) : '');
+      return h('div', {}, h('div', {class: 'money', title: it.value == null ? null : `$${int(it.value)}`}, goldMoney(it.value)),
+        !lv ? h('div', {class: 'text-secondary small'}, 'Current value unavailable') : lv.gone ? h('div', {class: 'text-red small'}, 'Removed from dataset') : moved ? h('div', {class: 'text-red small'}, `Now ${goldMoney(lv.value)}`) : lv.open ? h('div', {class: stateWord('row', 'bad')[0] + ' small'}, stateWord('row', 'bad')[1]) : '');
     };
     // the cited cell, as the trail shows it: the crop (cell boxed in red; click for full size) or its state, then Open in filing
-    const cited = (it) => (it.cites.length ? h('div', {class: 'cites'}, it.cites.map((c) => {
+    const cited = (it) => (it.cites.length ? h('div', {}, calcBlock(it.calc), h('div', {class: 'cites'}, it.cites.map((c) => {
       const E = c.evidence;
       if (!E) return h('div', {class: 'cite-line small'}, h('span', {class: 'text-secondary'}, 'Crop unavailable'), SEC_LINK.test(c.url || '') ? [' · ', h('a', {href: safeHref(c.url), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗')] : '');
-      return citeCell({crop: {state: E.state, reason: E.reason, url: E.url}, viewer: E.viewer, link: c.url, form: E.form, filed: E.filed, row: c.row, column: (c.column || '').replaceAll(' | ', ' '), cell: c.cell_text}, claimName(it));
-    })) : h('span', {class: 'text-secondary small'}, '—'));
+      return citeCell({role: c.role, crop: {state: E.state, reason: E.reason, url: E.url}, viewer: E.viewer, link: c.url, form: E.form, filed: E.filed, row: c.row, column: (c.column || '').replaceAll(' | ', ' '), cell: c.cell_text}, claimName(it));
+    }))) : h('span', {class: 'text-secondary small'}, '—'));
     const verdict = (it) => {
       const note = h('input', {type: 'text', class: 'form-control form-control-sm', placeholder: 'Note (required for Wrong / Can’t say)', value: it.note || '', 'aria-label': `Note on ${it.id}`});
       const msg = h('div', {class: 'small', role: 'status'}, it.verdict ? h('span', {class: verdictTone(it.verdict) + ' fw-medium'}, `${goldWord(it.verdict)} · ${it.by} · ${day(it.at)}`) : h('span', {class: stateWord('gold', 'unchecked')[0]}, stateWord('gold', 'unchecked')[1]));
@@ -132,12 +138,21 @@ function goldSet() {
       });
       return h('div', {}, h('div', {class: 'btn-group mb-1', role: 'group', 'aria-label': `Verdict on ${it.id}`}, btns), note, msg);
     };
-    const rows = g.items.map((it) => h('tr', {class: it.live && it.live.value !== it.value ? 'table-danger' : null},
-      h('td', {}, claim(it)), h('td', {class: 'num'}, value(it)), h('td', {}, cited(it)), h('td', {}, verdict(it))));
+    // the items arrive hard first (gold.ordered); a header row opens each group with that group's numbers for this company
+    const coGroups = Object.fromEntries(((co.rates || {}).groups || []).map((x) => [x.id, x.rate]));
+    const rows = [];
+    for (const it of g.items) {
+      if (!rows.length || rows[rows.length - 1].group !== it.group) {
+        const [tone, word] = goldGroup(it.group), r = coGroups[it.group];
+        rows.push({group: it.group, tr: h('tr', {class: 'gold-group'}, h('th', {colspan: 4, class: 'small'}, h('span', {class: tone + ' fw-semibold'}, word), r ? h('span', {class: 'text-secondary fw-normal ms-2'}, goldRate(r)) : ''))});
+      }
+      rows.push({group: it.group, tr: h('tr', {class: it.live && it.live.value !== it.value ? 'table-danger' : null},
+        h('td', {}, claim(it)), h('td', {class: 'num'}, value(it)), h('td', {}, cited(it)), h('td', {}, verdict(it)))});
+    }
     const tbl = h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, `${t} · ${plural(co.rate.items, 'item')}`), h('span', {class: 'ms-auto text-secondary small'}, goldRate(co.rate))),
       h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table trail gold'},
         h('colgroup', {}, h('col', {class: 'c-item'}), h('col', {class: 'c-value'}), h('col', {class: 'c-source'}), h('col', {class: 'c-verify'})),
-        h('thead', {}, h('tr', {}, h('th', {}, 'Item'), h('th', {class: 'num'}, 'Value'), h('th', {}, 'Source'), h('th', {}, 'Check'))), h('tbody', {}, rows))));
+        h('thead', {}, h('tr', {}, h('th', {}, 'Item'), h('th', {class: 'num'}, 'Value'), h('th', {}, 'Source'), h('th', {}, 'Check'))), h('tbody', {}, rows.map((x) => x.tr)))));
     wrap.replaceChildren(head, probs, picker, co.note ? h('p', {class: 'text-secondary small'}, co.note) : '', tbl);
   };
   return wrap;

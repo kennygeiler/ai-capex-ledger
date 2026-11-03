@@ -311,6 +311,37 @@ def error_rate(items: list[dict]) -> dict:
                          "n": sum(bool(i.get("untagged")) and i.get("verdict") in ("right", "wrong") for i in items)}}
 
 
+def group(it: dict | None) -> str:
+    """states.GOLD_GROUP: what independent check an item has besides the person, read from the claim on file (so the
+    Proof page and the API agree with or without a database). No XBRL value, or untagged → no_counterpart; an XBRL value
+    and a label other than agree → definition; agree and computed from several cells (calc.FORMULAS) → calculated;
+    agree → xbrl. Anything unreadable lands in a hard group, never in a machine-checked one."""
+    from ..checks.calc import FORMULAS
+    it = it or {}
+    if it.get("xbrl") is None or it.get("untagged") or it.get("label") == "no_reference":
+        return "no_counterpart"
+    if it.get("label") != "agree":
+        return "definition"
+    if it.get("kind") == "value" and it.get("field") in FORMULAS and len(it.get("cites") or []) > 1:
+        return "calculated"
+    return "xbrl"
+
+
+def ordered(items: list[dict]) -> list[dict]:
+    """The items hard first (states.GOLD_GROUP_ORDER), each group in its order on file."""
+    from ..core.states import GOLD_GROUP_ORDER
+    return sorted(items, key=lambda i: GOLD_GROUP_ORDER.index(group(i)))
+
+
+def rates(items: list[dict]) -> dict:
+    """The error rate per group and overall, the one reading the API, the Proof page and the CLI share:
+    {"all": error_rate, "groups": [{"id", "rate"}] in GOLD_GROUP_ORDER (every group, empty ones too), "headline": the
+    group quoted first (no_counterpart: the items Matches SEC XBRL are machine-checked already)}."""
+    from ..core.states import GOLD_GROUP_ORDER
+    return {"all": error_rate(items), "headline": GOLD_GROUP_ORDER[0],
+            "groups": [{"id": g, "rate": error_rate([i for i in items if group(i) == g])} for g in GOLD_GROUP_ORDER]}
+
+
 def rate_line(r: dict) -> str:
     if not r["n"]:
         return f"no verdicts yet ({r['items']} items unverified)"

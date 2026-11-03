@@ -31,16 +31,19 @@ OPEX_PARTS = ("revenue", "cost_of_revenue", "operating_income")
 
 
 def money(v) -> str:
-    """Whole dollars as people read them: $131,819M for millions, the exact figure below a million."""
+    """Whole dollars as people read them, the one money format of the app: $131,819M for whole millions, $1.8M (tenths,
+    half up) otherwise, the exact figure below a million, $0 for zero, — for a blank. The pages' copy is `usd` in
+    _shared.js (tests.test_cards.Money.test_the_pages_format_is_pythons runs both on the same cases)."""
     if v is None:
         return "—"
-    v = int(v)
+    v = int(round(v))
     sign = "−" if v < 0 else ""
     a = abs(v)
     if a >= 1_000_000 and a % 1_000_000 == 0:
         return f"{sign}${a // 1_000_000:,}M"
     if a >= 1_000_000:
-        return f"{sign}${a / 1_000_000:,.1f}M"
+        tenths = (a + 50_000) // 100_000  # integer arithmetic: the same rounding as the page's copy, never banker's
+        return f"{sign}${tenths // 10:,}.{tenths % 10}M"
     return f"{sign}${a:,}"
 
 
@@ -163,6 +166,8 @@ def add(con, trail: dict) -> dict:
 
     # main numbers: the value, the cells it was read from, the SEC's copy
     vals = {(v["field"], v["period"]): v for v in _rows(con, 'select field, period, value, extraction_ids from "values" where ticker = ?', t)}
+    from ..checks import calc
+    calcs = calc.for_ticker(con, t)  # a figure calculated from several cells says so (the gold set reads the same function)
     ext = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, field, table_id, row_label, column_label, cell_text from extractions where ticker = ?", t)}
     for it in stages.get("values", {}).get("all", []):
         ref = it.get("ref") or {}
@@ -171,10 +176,12 @@ def add(con, trail: dict) -> dict:
             it["card"] = {"found": None, "where": [], "how": _how(it, name, defs)}
             continue
         ids = [i for i in (v.get("extraction_ids") or "").split(",") if i in ext]
-        cells = [_cell(ext[i], docs, ev) for i in ids]
+        c = calcs.get((ref.get("field"), ref.get("period")))
+        role = {i["extraction_id"]: i["role"] for i in (c or {}).get("inputs", [])}
+        order = {i["extraction_id"]: k for k, i in enumerate((c or {}).get("inputs", []))}
+        cells = sorted((_cell(ext[i], docs, ev) | ({"role": role[i]} if i in role else {}) for i in ids), key=lambda w: order.get(w["extraction_id"], len(order)))
         found = money(v["value"]) if v["value"] is not None else "Not reported"
-        it["card"] = {"found": found, "where": cells, "how": _how(it, name, defs, v["value"]),
-                      "formula": "Revenue − cost of revenue − operating income" if ref.get("field") == "opex" and len(ids) > 1 else None}
+        it["card"] = {"found": found, "where": cells, "how": _how(it, name, defs, v["value"]), "calc": c}
 
     # footnote numbers: the fact, its cells in the notes
     facts = {(f["field"], f["dimension"] or "", f["period"]): f for f in _rows(con, "select field, dimension, period, value, extraction_ids from facts where ticker = ?", t)}

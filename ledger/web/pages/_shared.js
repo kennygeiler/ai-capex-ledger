@@ -13,10 +13,13 @@ const h = (tag, attrs = {}, ...kids) => {
 const safeHref = (u) => (typeof u === 'string' && (/^https?:\/\//i.test(u) || /^\/filing\/[0-9-]+(\?|$)/.test(u) || /^#[a-z]/.test(u)) ? u : null);
 const int = (n) => (n == null || n === '' ? '—' : Number(n).toLocaleString('en-US'));
 const plural = (n, one, many) => `${int(n)} ${n === 1 ? one : many || one + 's'}`;
+// the one money format (ledger/web/cards.py money, the same cases tested on both): $513,983M, $1.8M, $450,000, $0, —
 const usd = (n) => {
   if (n == null || n === '') return '—';
-  const m = Number(n) / 1e6;
-  return (m < 0 ? '−' : '') + '$' + Math.abs(m).toLocaleString('en-US', {maximumFractionDigits: Math.abs(m) >= 100 ? 0 : 1}) + 'M';
+  const v = Math.round(Number(n)), a = Math.abs(v), sign = v < 0 ? '−' : '';
+  if (a >= 1e6 && a % 1e6 === 0) return `${sign}$${(a / 1e6).toLocaleString('en-US')}M`;
+  if (a >= 1e6) { const t = Math.floor((a + 5e4) / 1e5); return `${sign}$${Math.floor(t / 10).toLocaleString('en-US')}.${t % 10}M`; }
+  return `${sign}$${a.toLocaleString('en-US')}`;
 };
 const day = (s) => (s ? new Date(String(s).slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'}) : '—');
 const when = (s) => (s ? new Date(s).toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'}) : '—');
@@ -222,7 +225,16 @@ function citeCell(w, what) {
   const thumb = c.state === 'located' && c.url
     ? h('button', {type: 'button', class: 'crop-thumb', title: caption, onclick: () => cropBox(c.url, caption, [w.viewer ? h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener'}, 'Open in filing') : '', links[1] ? links[1].cloneNode(true) : ''])}, h('img', {src: c.url, alt: caption, loading: 'lazy', onload: (e) => focusCell(e.target)}))
     : h('div', {class: 'crop-none small'}, cropState(c));
-  return h('div', {class: 'cite'}, thumb, h('div', {class: 'cite-line small'}, `${w.form || '10-K'} ${w.filed || ''}`.trim(), links.map((l) => (l ? [' · ', l] : ''))));
+  return h('div', {class: 'cite'}, w.role ? h('div', {class: 'cite-role small fw-medium'}, w.role) : '', thumb,
+    h('div', {class: 'cite-line small'}, `${w.form || '10-K'} ${w.filed || ''}`.trim(), links.map((l) => (l ? [' · ', l] : ''))));
+}
+// a figure calculated from several cells (ledger/checks/calc.py): the formula with its result, the arithmetic on the real
+// inputs, and each cross-check (the filing's own total, SEC XBRL) in states.CROSSCHECK's tone. The trail and the gold set.
+function calcBlock(c) {
+  if (!c) return '';
+  return h('div', {class: 'calc small mb-2'}, h('div', {class: 'fw-medium'}, c.line), h('div', {class: 'text-secondary money-line'}, c.arithmetic),
+    c.holds ? '' : h('div', {class: stateWord('crosscheck', 'differs')[0]}, `Stored value ${usd(c.value)}`),
+    (c.checks || []).map((x) => h('div', {class: stateWord('crosscheck', x.state)[0]}, x.text)));
 }
 // the thumbnail: the row's label, the column header and the boxed cell, legible. The crop boxes the cell in red
 // (#dc2626) and the column header in blue (#2563eb); the label is the first run of dark text left of the cell on its row.

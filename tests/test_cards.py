@@ -12,6 +12,28 @@ class Money(unittest.TestCase):
         self.assertEqual(cards.money(-384_809_000), "−$384.8M")
         self.assertEqual(cards.money(450_000), "$450,000")
         self.assertEqual(cards.money(None), "—")
+        self.assertEqual(cards.money(513_983_000_000), "$513,983M")  # the gold set's overflowing figure (review-fixes)
+        self.assertEqual(cards.money(1_800_000), "$1.8M")
+        self.assertEqual(cards.money(0), "$0")
+        self.assertEqual(cards.money(1_250_000), "$1.3M")  # half up, never banker's
+
+    CASES = [513_983_000_000, 1_800_000, 0, 1_250_000, 1_350_000, 999_950_000, -236_462_000, 394_144_000, 56_771_000, 450_000, -1, 13_458_000_000, None]
+
+    def test_the_pages_format_is_pythons(self):
+        """One money format app-wide: the page's `usd` (_shared.js) gives what cards.money gives, case for case."""
+        import json, shutil, subprocess
+        if not shutil.which("node"):
+            self.skipTest("no node")
+        src = (store.ROOT / "ledger" / "web" / "pages" / "_shared.js").read_text()
+        fn = src[src.index("const usd = "):src.index("};", src.index("const usd = ")) + 2]
+        out = subprocess.run(["node", "-e", fn + "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[1]).map(usd)))", "--", json.dumps(self.CASES)],
+                             capture_output=True, text=True, check=True).stdout
+        self.assertEqual(json.loads(out), [cards.money(v) for v in self.CASES])
+
+    def test_no_page_keeps_its_own_money_format(self):
+        pages = store.ROOT / "ledger" / "web" / "pages"
+        for f in pages.glob("*.js"):
+            self.assertFalse("goldUsd" in f.read_text(), f.name)
 
 
 class How(unittest.TestCase):

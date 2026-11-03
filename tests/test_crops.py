@@ -611,7 +611,7 @@ class RowEvidence(unittest.TestCase):
         harness = """
 const h = (tag, attrs = {}, ...kids) => ({tag, attrs, kids: kids.flat(Infinity)});
 const safeHref = (u) => u; const SEC_LINK = /^https:\\/\\/www\\.sec\\.gov\\//; const int = (n) => String(n); const FIELDS = {}; const STAGE_LABEL_UI = {};
-const calls = []; const citeCell = (w, what) => { calls.push([w.crop.state, what]); return h('div', {class: 'cite'}); };
+const calls = []; const citeCell = (w, what) => { calls.push([w.crop.state, what]); return h('div', {class: 'cite'}); }; const calcBlock = (c) => '';
 """ + (pages / "trail.js").read_text() + """
 trailSource({where: [{crop: {state: 'located', url: '/evidence/crops/a.png'}, viewer: '/filing/x', link: 'https://www.sec.gov/x'}, {crop: {state: 'stale'}}, {label: '10-K filed 2026', viewer: '/filing/x'}]}, 'Revenue');
 process.stdout.write(JSON.stringify(calls));"""

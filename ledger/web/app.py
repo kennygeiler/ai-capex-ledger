@@ -172,10 +172,6 @@ def data(q: dict) -> dict:
             "scope": list(SCOPE), "fields": fields, "kinds": ["spent", "committed", "derived", "planned"]}
 
 
-def usd_(n) -> str:
-    return "—" if n is None else f"${n / 1e6:,.0f}M"
-
-
 _FLOW: dict = {}
 
 
@@ -295,9 +291,11 @@ def gold_view(ticker: str | None = None) -> dict:
         except Busy:
             con = None
         from ..checks import crops  # the cited cells' crops, read the way the trail and Reconcile read them
-        cells = {}
+        cells, calcs = {}, {}
         if con is not None:
             try:
+                from ..checks import calc
+                calcs = calc.for_ticker(con, t)  # the one reading of a calculated figure, the trail's too
                 vals = _rows(con, 'select ticker, field, period, value, label from "values" where ticker = ?', t)
                 facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker = ?", t)
                 ref = _rows(con, "select ticker, field, period, value from reference_values where ticker = ?", t)
@@ -310,13 +308,21 @@ def gold_view(ticker: str | None = None) -> dict:
             looked_up = {r["ticker"] for r in ref}
             xbrl = {(r["ticker"], r["field"], r["period"]): gold.num(r["value"]) for r in ref}
         live_ok = con is not None
-        for it in docs[t]["items"]:
+        for it in gold.ordered(docs[t]["items"]):  # hard first: no SEC counterpart, definition differs, calculated, matches SEC XBRL
             row = live.get(it["id"])
-            items.append({**it, "live": None if con is None else {"value": gold.num(row["value"]) if row else None, "label": row and row.get("label"), "gone": row is None,
-                                                                 "open": gold.is_open(row, looked_up, xbrl, idx, lad)},
-                          "cites": [{**c, "evidence": crops.brief(cells.get(c.get("extraction_id"))) if con is not None else None} for c in it.get("cites", [])]})
-    return {"companies": [{"ticker": k, "release": d.get("release"), "seed": d.get("seed"), "note": d.get("note"), "rate": gold.error_rate(d["items"])} for k, d in docs.items()],
-            "all": gold.error_rate([i for d in docs.values() for i in d["items"]]), "ticker": t or None, "items": items, "problems": problems,
+            c = calcs.get((it["field"], it["period"])) if it.get("kind") == "value" else None
+            role = {i["extraction_id"]: i["role"] for i in (c or {}).get("inputs", [])}
+            seq = {e: k for k, e in enumerate(role)}  # the cited cells in the order the arithmetic reads them
+            items.append({**it, "group": gold.group(it), "calc": c,
+                          "live": None if con is None else {"value": gold.num(row["value"]) if row else None, "label": row and row.get("label"), "gone": row is None,
+                                                            "open": gold.is_open(row, looked_up, xbrl, idx, lad)},
+                          "cites": [{**x, "role": role.get(x.get("extraction_id")), "evidence": crops.brief(cells.get(x.get("extraction_id"))) if con is not None else None}
+                                    for x in sorted(it.get("cites", []), key=lambda x: seq.get(x.get("extraction_id"), len(seq)))]})
+    every = [i for d in docs.values() for i in d["items"]]
+    r = gold.rates(every)  # one function: the error rate per group and overall, the same numbers the CLI prints
+    return {"companies": [{"ticker": k, "release": d.get("release"), "seed": d.get("seed"), "note": d.get("note"), "rate": gold.error_rate(d["items"]), "rates": gold.rates(d["items"])}
+                          for k, d in docs.items()],
+            "all": r["all"], "groups": r["groups"], "headline": r["headline"], "ticker": t or None, "items": items, "problems": problems,
             "verdicts": list(gold.VERDICTS), "live": live_ok}
 
 

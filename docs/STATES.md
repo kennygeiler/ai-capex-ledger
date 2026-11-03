@@ -385,6 +385,27 @@ indexed by picture name, `crops.extraction_of`). The viewer's banner is its own 
 this page" / "Not found on this page"), not this state. The Dataset drawer shows the same crop; the older re-read
 screenshots are no longer served.
 
+## M17. A gold item's group (review-fixes, 2 Nov 2026)
+
+**States.** no_counterpart (no XBRL value: untagged, no_reference) · definition (an XBRL value that differs: definition_gap,
+unresolved) · calculated (computed from several cells, agrees with XBRL) · xbrl (one cell, agrees). Words: No SEC counterpart ·
+Definition differs · Calculated · Matches SEC XBRL (`states.GOLD_GROUP`).
+**Who decides.** `gold.group`, from the claim on file (label, xbrl, kind, field, cites), so the API with or without a database
+and the Proof page agree. `gold.ordered` puts the items in `GOLD_GROUP_ORDER`; `gold.rates` gives the error rate per group and
+overall (right / wrong / can't say / unchecked, Wilson 95% when n > 0); the headline is no_counterpart. `/api/v1/gold`, the
+Proof page and `ledger gold --status` read `rates`. Test: `tests.test_calc.Groups`.
+**Transitions.** None: fixed at the draw. A label off the list, or no XBRL value, lands in a hard group, never a checked one.
+
+## M18. A calculated figure's cross-check (review-fixes, 2 Nov 2026)
+
+**States.** matches (within half a rounding unit per input) · differs (the page says "differs by $X" and names the one
+line of that amount, an input or another row of the column, when there is one) · none (nothing printed or tagged).
+**Who decides.** `calc.state`, inside `calc.calculation`; against the filing's own "Total operating expenses" row in the
+same table and column, and against SEC XBRL. `calc.for_ticker` feeds the trail's card and the gold set. Test:
+`tests.test_calc.Calc`.
+**UI.** `calcBlock` (_shared.js): "Calculated: revenue − cost of revenue − operating income = $X", the arithmetic on the
+real inputs, each cross-check in its tone; each crop labelled with its role (Revenue / Cost of revenue / Operating income).
+
 ## M12. Freshness of the monitoring inputs
 
 | Input | Fresh / stale rule | Read where | Not checked where |

@@ -17,6 +17,8 @@ The machines:
 - mapping   a reported asset type (M5): `mapping(st)` on status.of_mapping's state.
 - crop      a cited cell's crop (M14): crops.state.
 - gold      a gold item's verdict (M7): `gold(item)`.
+- gold_group what independent check a gold item has besides the person (M17): gold.group; the Proof page's group order.
+- crosscheck a calculated figure against the filing's own total or SEC XBRL (M18): calc.state.
 - line      a Release checklist line (M9): checklist._line refuses an undeclared state.
 - edgar     the EDGAR check's freshness (M12): `edgar(checked_at, now)`, read by the trail and the claims register.
 """
@@ -230,6 +232,26 @@ def gold(item: dict | None) -> str:
     return v if v in ("right", "wrong", "cant_say") else "unchecked"
 
 
+# ── gold_group: what independent check a gold item has besides the person (gold.group); the hard groups come first ───
+GOLD_GROUP = Machine("gold_group", "M17", "ledger.review.gold.group", (
+    _s("no_counterpart", NEUTRAL, "No SEC counterpart", "text-azure", meaning="no XBRL value to compare (untagged, no_reference): the person is the only check"),
+    _s("definition", NEUTRAL, "Definition differs", "text-azure", meaning="an XBRL value exists and differs (a definition gap or unresolved)"),
+    _s("calculated", GOOD, "Calculated", "text-teal", meaning="computed from several cells, and the result agrees with SEC XBRL"),
+    _s("xbrl", GOOD, "Matches SEC XBRL", "text-green", meaning="one cell that agrees with SEC XBRL: already machine-checked"),
+), frozenset(),
+    absent="no_counterpart",
+    no_unknown_because="an item with no XBRL value on file, or a label off the list, lands in No SEC counterpart (or Definition differs), the groups shown first; never in a machine-checked group")
+GOLD_GROUP_ORDER = ("no_counterpart", "definition", "calculated", "xbrl")
+
+# ── crosscheck: a calculated figure against a total someone else printed or tagged (calc.state) ──────────────────────
+CROSSCHECK = Machine("crosscheck", "M18", "ledger.checks.calc.state", (
+    _s("matches", GOOD, "matches", "text-green", meaning="the filing's own total, or SEC XBRL, equals the calculation within rounding"),
+    _s("differs", OPEN, "differs by", "text-orange", meaning="the other total differs; the page names the line of that amount when one exists"),
+    _s("none", UNKNOWN, "No total to compare", "text-secondary", meaning="the filing prints no such total and XBRL has no value"),
+), frozenset({("none", "matches"), ("none", "differs"), ("matches", "differs"), ("differs", "matches")}),
+    absent="none")
+
+
 # ── line: a Release checklist line (checklist._line) ────────────────────────────────────────────────────────────────
 LINE = Machine("line", "M9", "ledger.release.checklist._line", (
     _s("pass", GOOD, "Pass", "text-green"),
@@ -262,7 +284,7 @@ def edgar(checked_at, at=None) -> tuple[str, float | None, str | None]:
     return ("stale" if hours > STALE_HOURS else "fresh"), hours, None
 
 
-MACHINES = {m.id: m for m in (ROW, LADDER, CHECK, MAPPING, CROP, GOLD, LINE, EDGAR)}
+MACHINES = {m.id: m for m in (ROW, LADDER, CHECK, MAPPING, CROP, GOLD, GOLD_GROUP, CROSSCHECK, LINE, EDGAR)}
 
 
 def allow(machine: str, frm: str, to: str) -> None:
