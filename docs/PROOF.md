@@ -1,9 +1,8 @@
-# Proof: the pipeline proves its own numbers (31 Oct 2026)
+# Proof: the pipeline proves its own numbers
 
-Kenny, after the replication run: fifty changes to the screens, and the biggest findings were still errors in
-ingestion and attribution. "The entire point of this pipeline is to manage those issues and fix them." So the
-frame changes. Not a dataset across 100 companies with a review screen on top; a pipeline that proves every number
-it produces, shown first on five companies, widened only when the five are proven.
+The frame: not a dataset across 100 companies with a review screen on top, but a pipeline that proves every number it
+produces, shown first on the proven set (`config.PROVEN`) and widened only when that set is proven. A replication run
+through the app found that the largest errors were in ingestion and attribution, which screens alone do not manage.
 
 ## What proven means: the one definition of open (`ledger/core/status.py`)
 

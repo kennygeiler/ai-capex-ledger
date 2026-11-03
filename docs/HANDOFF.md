@@ -1,9 +1,9 @@
 # Start here
 
-Where is X, and what do I edit to change it: [docs/MAP.md](MAP.md), one page.
+Where the code lives and what to edit for a change: [docs/MAP.md](MAP.md), one page. The pipeline in one picture: [docs/OVERVIEW.md](OVERVIEW.md). Routine operation: [docs/OPERATIONS.md](OPERATIONS.md).
 
-For a person, or an AI agent, who has just cloned this repository. Read this, then `git log` for what changed
-lately, then the document for whatever you are about to touch.
+For an operator or an automated agent taking over a fresh clone. Read this, then `git log` for recent changes,
+then the document for the area being changed.
 
 ## What this is, in four sentences
 
@@ -14,12 +14,12 @@ money-flow model for the company's industry and the cleaned data and says how mu
 input so code recomputes the number. A person edits the models and definitions, reruns, checks against a reference
 set, and signs a release; nobody is asked anything else.
 
-Built by Kenny Geiler in late October 2026 as a working prototype for a data-science role at Arctal. 100 companies
+Built by Kenny Geiler in October 2026 as a working prototype for Arctal. 100 companies
 across the AI supply chain (`docs/COMPANIES.md`), annual, fiscal years 2022 to 2026. See `docs/PROOF.md` for who Arctal is and why the app looks the way it does.
 
 ## What a clone contains, and what it does not
 
-Tracked, so you have it on clone:
+Tracked, present on clone:
 
 - Code (`ledger/`), tests (`tests/`), the rules (`rules/*.yaml`), the agents' prompts (`agents/`), the taxonomy
   (`taxonomy/`: the categories and their standards, the asset-type mappings, the stated figures), per-company
@@ -41,7 +41,7 @@ Not tracked, rebuilt by `ledger run` (needs the network and about 30 minutes for
 ```bash
 uv sync                                                     # Python 3.12, DuckDB, edgartools, pypdf, playwright
 echo 'SEC_USER_AGENT="Your Name you@example.com"' > .env     # the SEC requires a contact; never commit it
-echo 'DATABASE_URL="postgresql://…"' >> .env                 # production Postgres, only if you will publish releases
+echo 'DATABASE_URL="postgresql://…"' >> .env                 # production Postgres, only to publish releases
 echo 'DATABASE_READONLY_URL="postgresql://…"' >> .env        # the arctal_reader string, SELECT only; the one to hand a consumer
 claude                                                      # then /login: the agents run on a Claude subscription, headless
 export LEDGER_CLAUDE="$(which claude)"                      # the claude binary the pipeline should use
@@ -124,14 +124,14 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
 - **Map a reported asset type**: Proof shows it open under Mapping. `ledger mapper <TICKER>` (T33; `--dry-run` writes the
   task only) asks the mapper agent for a us-gaap member per unmapped category with the note's words as evidence; the
   proposals land in `decisions/mapping_proposals.jsonl` and on Reconcile's "asset types" group (`#reconcile?scope=<TICKER>`,
-  in scope or not), where Approve or Edit writes the entry to `taxonomy/asset_types.yaml` under your name (`POST
+  in scope or not), where Approve or Edit writes the entry to `taxonomy/asset_types.yaml` under the signer's name (`POST
   /api/mapping`: the one writer; a member off the header's list or a second entry for the same name is refused) and
   Reject logs the member so the next run proposes another (T100: a delayed proposal of a rejected member is never current;
   Reconcile shows it as "re-proposed after rejection", and a proposal after an approval changes nothing). Or write the entry by hand, with the note's own words as
   evidence, who and when. Either way, rerun `ledger rules` (or any taxonomy read) and the row shows `mapped`. A mapping
   is a classification, never a number; a proposal is nothing until a person approves it. T63: an entry counts as checked
   only with `confirmed_by` and `confirmed_at` (Approve writes both; an agent never does). One without them, like the 47
-  Claude Fable 5.1 wrote on 1 Nov 2026, is open on Proof as "to confirm", fails gate G6, and sits in the same Reconcile
+  an agent proposed in one batch, is open on Proof as "to confirm", fails gate G6, and sits in the same Reconcile
   group: Approve confirms its line, Edit replaces it confirmed, Reject removes it and logs the member.
 - **Settle a disagreement with the SEC's data**: add a definition for the company in `definitions/companies.yaml`
   (who, why), rerun `reconcile` and `rules`. Never accept the same thing twice.
@@ -147,7 +147,7 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   red with its count and the page that fixes it, and the packet built in memory. Its Sign button (enabled only when every
   required line is green) writes `releases/<version>/`, signs as the name in the signer box, stores the checklist as it
   was in `SIGNOFF.json`, and publishes; that is the one place a release is signed (`docs/PROOF.md`). Its test line reads
-  `reports/tests.json`, which `ledger test` writes: run it on the commit you sign, or the line reads stale. Its Golden line is green only when the tables are equal AND gold passes (every gold item has a verdict and every verdict holds): with 0 of 120 verdicts it is red, so nothing signs until a person gives them (`ledger golden --check` itself still exits 0 on unverified-only). The command line
+  `reports/tests.json`, which `ledger test` writes: run it on the commit being signed, or the line reads stale. Its Golden line is green only when the tables are equal AND gold passes (every gold item has a verdict and every verdict holds): with 0 of 120 verdicts it is red, so nothing signs until a person gives them (`ledger golden --check` itself still exits 0 on unverified-only). The command line
   does the same in pieces: `ledger release vX.Y.Z` builds the packet for `config.SCOPE`, prints the gate table (one row
   per company, G1 G4 G5 G6) and refuses on any failing row (`--stage N` only names the hand-check file); `ledger signoff
   vX.Y.Z --by "<name>"` signs without a checklist; `ledger publish vX.Y.Z` pushes the signed files to production and
@@ -161,8 +161,8 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
 ## Operating notes
 
 - **Worktrees share `data/raw`, `data/docs` and `data/text` with the main checkout through symlinks.** A builder on an
-  older base that runs `ledger ingest` rewrites the shared parses with old code (on 2 Nov the AMZN parses were found
-  reverted to tables@12). Run `ingest` only on current main, or give the worktree its own data copy; after any ingest,
+  older base that runs `ledger ingest` rewrites the shared parses with old code (this has reverted the shared AMZN parses
+  to tables@12 once). Run `ingest` only on current main, or give the worktree its own data copy; after any ingest,
   `cmp` fixtures/data/docs against data/docs for the six. A worktree needs those three symlinks, the crop PNGs symlinked
   (below), and a copy of `data/ledger.duckdb` and `data/watch.json`; tests run offline with no `.env`.
 - **The crop pictures are not in git** (the repository is public; 42 MB): `reports/evidence/crops/*.png` is ignored,
@@ -182,7 +182,7 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
 - **After a merge** (`.gitattributes` keeps these from conflicting; `claims/findings.jsonl` merges by union, both sides'
   lines kept), in this order, committing after each: `ledger golden --check` (rewrites `reports/golden.json`, which the
   register's gold and golden claims read); `ledger claims` (regenerates `docs/CLAIMS.md`: a union merge leaves it stale,
-  and the Release line "Claims doc current" and `tests.test_claims.Doc` fail until you do); then `ledger test` on that
+  and the Release line "Claims doc current" and `tests.test_claims.Doc` fail until it runs); then `ledger test` on that
   commit (rewrites `reports/tests.json`; a later commit that changes only that file keeps the Test run line green). The
   two report files keep the checked-out side on a merge once a clone runs `git config merge.ledger-report.driver true`
   (without it they conflict as before; either side is stale on the merge commit anyway).
@@ -190,7 +190,7 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   `F<n>` ids stop at F30. `claims.findings()` refuses a first line that is not open, a second open line for an id, or a
   new plain `F<n>` id.
 - An asset-type mapping is a person's only with `confirmed_by` on the entry (T63); an agent never writes that field, and
-  never in Kenny's name.
+  never in a person's name.
 - Release files are LF, hashed before the write, read back byte-exact; `publish` adds a release's new columns to existing tables.
 
 ## Data conventions
@@ -216,10 +216,10 @@ Dashes are zero; NVDA's capex includes intangibles; banks and oil majors are par
    marked retired with why. The Rules page shows each live charter with the prompt history and the runs per company.
 10. The design rules for Kenny's Data Emporium are in `docs/PROOF.md`; one thing per screen; numbers before words.
 
-## If you are an AI agent
+## Reading order and invariants
 
-Read in this order: this file, `docs/MAP.md`, `git log --first-parent main` (what landed lately), `docs/BUILD.md` (how every ticket is built), `docs/PROOF.md`, `docs/STATES.md` (every implicit state machine, its states, transitions and UI words), `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/DISCIPLINES.md` (seven discipline audits against the code, with the proposed tickets T67–T79 awaiting Kenny), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
-module you will change. Run the tests before and after. The invariants that must hold:
+Read in this order: this file, `docs/MAP.md`, `git log --first-parent main` (what landed lately), `docs/BUILD.md` (how every ticket is built), `docs/PROOF.md`, `docs/STATES.md` (every implicit state machine, its states, transitions and UI words), `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/DISCIPLINES.md` (seven discipline audits against the code, with the tickets T67–T79 they proposed), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
+module being changed. Run the tests before and after. The invariants that must hold:
 
 - Every value in `values` resolves to a cell in a parsed table; `extract --load` rejects anything else.
 - No column holds a number the pipeline made up: every taxonomy row is a reported figure, a verbatim quote, or
@@ -228,7 +228,7 @@ module you will change. Run the tests before and after. The invariants that must
 - `decisions/` and the agents' history are append-only.
 
 Verify, don't assert: the pipeline writes `runs`, snapshots and `data/jobs/progress.json`; `ledger golden --check` says
-whether the proven six still rebuild equal; read them rather than the log. `rtk` wraps shell commands in some sessions and
+whether the proven six still rebuild equal; read them rather than the log. Some shells wrap commands with `rtk`, which
 truncates long output; use `rtk proxy <cmd>` or a Python one-liner to read a full file or an HTTP body.
 
-`docs/PROOF.md` is the frame since 31 Oct 2026: the pipeline proves every number on five companies first; `ledger golden --check` is the bar. `docs/archive/REPLICATION.md` is the walk through the app as its user would do it that led there.
+`docs/PROOF.md` is the frame: the pipeline proves every number on the proven set (`config.PROVEN`) first; `ledger golden --check` is the bar. `docs/archive/REPLICATION.md` is the walk through the app as its user would do it that led there.

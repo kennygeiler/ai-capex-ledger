@@ -1,7 +1,6 @@
-# Taxonomy: standardize and sanitize, invent nothing (draft, 1 Nov 2026)
+# Taxonomy: standardize and sanitize, invent nothing (draft)
 
-Kenny: "a full taxonomy iteration that focuses on standardizing and sanitizing, rather than coming up with our own
-concept of AI spend. Let's not invent anything." So every category below is taken from a published standard, named,
+The principle: standardize and sanitize what companies report, and invent no concept of AI spend. So every category below is taken from a published standard, named,
 and the pipeline's job is to map what a company reports onto it with the evidence beside it. Where no standard
 exists, the dataset carries what the company itself said, verbatim, and nothing more.
 
@@ -142,7 +141,7 @@ coarser unit the two vintages are rounded to. Half a unit is the most rounding a
 beyond it is a change the filer made (Meta's 0.8% capex change counts; a same-day amendment that re-rounds does not).
 Nothing else holds a threshold; `docs/DATA_DICTIONARY.md` names the constant on every `basis` and `restated` column.
 
-## Open questions for Kenny
+## Open questions for the owner
 
 1. ~~Keep `group` as a non-standard reading aid, or drop it?~~ Dropped in schema v11 (T9); `layer` stays as the reading aid.
 2. `ppe_additions_by_type` reports the change in a gross balance. It is arithmetic on reported figures, not an estimate,

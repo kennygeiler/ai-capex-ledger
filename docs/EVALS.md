@@ -1,6 +1,6 @@
 # Evals: how the pipeline grades its own agents
 
-Written 2 Nov 2026 from the code. It maps the pipeline onto a standard evals checklist for AI systems, says what
+Written from the code. It maps the pipeline onto a standard evals checklist for AI systems, says what
 each part does here, where it lives, and whether it is built, being built, or planned (with its ticket in
 [TICKETS.md](TICKETS.md)). The spec for what "proven" means is [PROOF.md](PROOF.md); this file is about how the
 agents are measured.
@@ -29,15 +29,15 @@ cannot come back silently.
 |---|---|---|
 | Error analysis before metrics | The failure log, then failure classes and a ranked chart | Log built; classes T54 |
 | Versioned golden set | `ledger golden`, `fixtures/`, prompts versioned in `agents/prompts/` | Built |
-| Synthetic cases along dimensions | `ledger faults`: six kinds of planted error on real extractions | Built |
+| Synthetic cases along dimensions | `ledger faults`: nine kinds of planted error on real extractions | Built |
 | Deterministic assertions first | Schema, citation checks, 20 rules, five answer keys, a rendered second read | Built |
 | Trajectory and run logs | `runs` table: model, tokens, seconds, attempts per call | Built |
-| Score per agent | `ledger/checks/score.py`: counts with their denominators | Built (T49, merged 1 Nov) |
-| Confidence intervals | Wilson 95% on every share | Planned (T53) |
-| Error rate where no answer key exists | Stratified hand-checked sample, ASML first | Planned (T53) |
+| Score per agent | `ledger/checks/score.py`: counts with their denominators | Built (T49) |
+| Confidence intervals | Wilson 95% on the keyed share and the gold error rate | Built for those two (T53, T82); per field planned |
+| Error rate where no answer key exists | Stratified hand-checked sample: the gold set on the proven six; ASML next | Gold set built (T82); ASML planned (T53) |
 | Reliability across runs (pass^k) | Same task run k times per reader | Planned (T60) |
 | Paired test before a prompt change | Old and new prompt on the same cells, per field | Planned (T61) |
-| Gates in CI | Golden check, `reports/tests.json` (`ledger test`, T30, merged 1 Nov), release gates G1–G6 | Built |
+| Gates in CI | Golden check, `reports/tests.json` (`ledger test`, T30), release gates G1–G6 | Built |
 | Live monitoring | `ledger watch` for new filings; decisions expire when their inputs change | Built; reopen on new evidence T57b |
 | Cost as a metric | `ledger/extract/cost.py` per company and per agent; person minutes | Agent cost built; person minutes T38 |
 | Close the loop | Failure → type → check → fixture → golden freeze | Built |
@@ -102,11 +102,14 @@ can't say, a note, `by` on `config.PEOPLE`, `at`.
 ## Planted errors
 
 `ledger/checks/faults.py` corrupts one real extraction at a time, the way agents misread statements, and records what caught
-it. The six kinds are the dimensions: wrong column, stale (comparative) column, wrong row, wrong scale, sign flip,
-misread digits. Each fault ends in one outcome: no effect (it never reaches a released value), caught by a rule,
-caught only by the XBRL comparison, or escaped (a released value changed and nothing fired). The latest run on the
-proven six caught 1,275 of 1,283 planted faults with none escaped; the eight others had no effect on a released value.
-Reports are in `reports/<companies>-faults.json`.
+it. The nine kinds are the dimensions: wrong column, stale (comparative) column, wrong row, wrong scale, sign flip,
+misread digits, omission, wrong table, systematic (the same error in every year). Each fault ends in one outcome: no
+effect (it never reaches a released value), caught by a rule, caught only by the XBRL comparison, or escaped (a released
+value changed and nothing fired). The stage 3 run (`reports/stage3-faults.json`) planted 31,206 faults: 29,258 caught by
+a rule, 131 caught only by the XBRL comparison, 1,805 with no effect, 12 escaped. With the XBRL comparison off
+(`reports/stage3-faults-xbrl-off.json`, T67) 143 escaped: the measure of what a source with no structured twin would let
+through. Planted kinds are not the real mix of errors, so a catch rate is a floor on what the checks can see, not an
+error rate. Reports are in `reports/<companies>-faults.json`.
 
 ## Deterministic checks, in order
 
@@ -116,14 +119,16 @@ Reports are in `reports/<companies>-faults.json`.
    then is recorded as an error, never guessed (`ledger/extract/agent.py`).
 3. Citation. Every value names a table, row, column and cell; the cell must exist in the parsed filing and the cell
    times the unit must equal the value (rule `citation_resolves`).
-4. Rules. Fifteen rules in `rules/*.yaml`, each with a severity. Block: citation, column matches period, period length,
-   sign, statement tie, cost lines summed, XBRL reconcile. Warn: coverage, jump, outlier against own history, row label
-   switch, unit from elsewhere in the document. Info: definition note, no 10-K yet, restated.
-5. Answer keys. Four kinds, each named on the row (`status.ANSWER_KEYS`): a structured twin (XBRL, ESEF), a second
-   source (the earnings release against the 10-K), an arithmetic tie (quarters sum to the year, aligned ≤ eligible ≤
-   total), a later truth (the actual against what was planned). They are not equally strong: a twin is independent of
+4. Rules. Twenty rules in `rules/*.yaml`, each with a severity. Block (8): citation, column matches period, period
+   length, sign, statement tables distinct, statement tie, cost lines summed, XBRL reconcile. Warn (9): coverage, readings
+   differ across filings, jump, outlier against own history, the three ties to a tagged total (PP&E categories, segment
+   capex, segment revenue), row label switch, unit from elsewhere in the document. Info (3): definition note, no 10-K
+   yet, restated. The Docs section's Rules and checks page lists them from the files.
+5. Answer keys. Five kinds, each named on the row (`status.ANSWER_KEYS`): a structured twin (XBRL, ESEF), a second
+   source (the earnings release against the 10-K), an arithmetic tie (parts to a tagged total, quarters to the year), a
+   later truth (the actual against what was planned), a second reading (the next 10-K printing the same figure). They are not equally strong: a twin is independent of
    the reading, while an earnings release comes from the same finance team and can share its error. T56 grades them so
-   each row shows its strongest key.
+   each row shows its strongest key; on the proven six only the twin, the tie and the second reading occur.
 6. A second read on the rendered page. `ledger/checks/evidence.py` opens the 10-K in Chrome as a person sees it, finds the
    cell by its row label and column header on the page, not through the table parser, and boxes it in a screenshot.
 
@@ -133,8 +138,8 @@ There is no model-based grading. Everything above is code a person can read and 
 
 `ledger/checks/score.py` (T49) scores each live reader on the companies in scope: how many of its outputs are checked,
 explained, open and blocked, how many agree with their structured twin where one exists, and how many planted faults
-the checks behind it caught. Every count is shown with what it is out of; the page computes the shares. On the six
-today: the statement reader has 70 of 81 rows checked and 70 of 71 agree with XBRL where a tag exists; the notes
+the checks behind it caught. Every count is shown with what it is out of; the page computes the shares. On the proven six
+at the last scoring run (live on the Rules page): the statement reader has 70 of 81 rows checked and 70 of 71 agree with XBRL where a tag exists; the notes
 reader has 180 checked and 147 explained of 327, with 180 of 185 agreeing with the filing's own tags.
 
 Each agent has a charter in `agents/charters/<id>.md`: what it owns, what it never touches, its input and output
