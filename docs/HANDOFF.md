@@ -99,7 +99,7 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 https://datahq-production.up.railway.app is Kenny's Data Emporium read-only: the same pages and read API, from a snapshot of the working database,
 the evidence screenshots and the signed releases. Nothing writes there (every POST is refused; the header says "read-only copy")
 and it never reaches the SEC (`ledger/ingest/edgar.py` raises `Offline` instead of fetching). It is what to send someone who should
-look without a checkout. Redeploy after a run or a release: `railway up --service datahq` from this directory, then
+look without a checkout. Redeploy after a run or a release: `uv run python scripts/stage_hosted.py && railway up --service datahq` from this directory (the script stages the stored filings in scope into `deploy/raw/`; crops need `ledger evidence --crops` first), then
 `uv run python -m ledger claims --deployed` and commit `claims/hosted.json` (without that record the Gaps page reads the hosted copy stale) (the `Dockerfile`;
 `.railwayignore` and `.dockerignore` re-include `data/ledger.duckdb` and the distilled XBRL instances `data/raw/*/filings/*.facts.json`,
 which git ignores: without the instances the restatement guard (`proof._restated`) cannot name a tag's filing, and the hosted copy

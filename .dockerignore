@@ -12,3 +12,4 @@ tests
 !data/docs
 !data/watch.json
 !reports/evidence/crops/*.png
+!deploy/raw

@@ -9,6 +9,8 @@ COPY . .
 # (data/raw/<cik>/filings/<accession>.facts.json); the golden fixtures carry those for every company in scope, so the
 # hosted copy reads them from there. Without them the hosted Proof counts restated rows open while the local one explains them.
 RUN [ -d data/raw ] || cp -r fixtures/data/raw data/raw
+# The stored filings in scope (scripts/stage_hosted.py), for the crop state and the in-app filing viewer.
+RUN if [ -d deploy/raw ]; then cp -r deploy/raw/. data/raw/ && rm -rf deploy; fi
 ENV LEDGER_READONLY=1 PORT=3610 PATH="/app/.venv/bin:$PATH"
 EXPOSE 3610
 CMD ["python", "-m", "ledger", "app", "--host", "0.0.0.0"]
