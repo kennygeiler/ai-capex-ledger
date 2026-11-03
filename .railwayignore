@@ -10,3 +10,6 @@ __pycache__
 .claude
 tests
 !data/ledger.duckdb
+!data/docs
+!data/watch.json
+!reports/evidence/crops/*.png
