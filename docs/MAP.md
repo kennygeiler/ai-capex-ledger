@@ -42,9 +42,10 @@ each in `ledger/cli/` (they do the table writes: `store.write`).
 | `release/checklist.py` | the Release page's checklist and the Sign act | line (M9) |
 | `release/claims.py` | the claims register, the page scan, `docs/CLAIMS.md` | |
 | `web/app.py` | every route; `pages/*.js` and `app.html` | |
+| `web/docs.py` | the Docs section: top-level `docs/*.md` served read-only, the glossary and the rules page written from code | |
 | `web/cards.py` | the trail's evidence cards and status tiles | edgar freshness via `states.edgar` (M12) |
 
-## If you want to change X, edit Y
+## To change X, edit Y
 
 | To change | Edit | Then |
 |---|---|---|
