@@ -22,8 +22,8 @@
 
 - id: verified_xbrl
   claim: "Verified · matches SEC XBRL"
-  where: [ledger/pages/trail.js, ledger/pages/_shared.js, ledger/pages/data.js, ledger/cards.py, /api/v1/proof/<ticker>]
-  shown: ["Verified", "Matches SEC XBRL", "Verified · matches SEC XBRL"]
+  where: [ledger/states.py, ledger/pages/trail.js, ledger/pages/_shared.js, ledger/pages/data.js, ledger/cards.py, /api/v1/proof/<ticker>]
+  shown: ["Verified", "Matches SEC XBRL", "· matches SEC XBRL"]
   backed_by:
     functions: [ledger.status.state, ledger.cards._how, ledger.ties.fact_state]
     tests:
@@ -37,7 +37,7 @@
 
 - id: verified_other
   claim: "Done · statements located, no blocking items (found, not an independent check)"
-  where: [ledger/cards.py, ledger/pages/trail.js]
+  where: [ledger/states.py, ledger/cards.py, ledger/pages/trail.js]
   shown: ["Statements located", "No blocking items", "Done"]
   backed_by:
     functions: [ledger.cards._how]
@@ -51,7 +51,7 @@
 
 - id: corroborated_tie
   claim: "Corroborated · ties to reported total"
-  where: [ledger/pages/trail.js, ledger/cards.py, ledger/ties.py]
+  where: [ledger/states.py, ledger/pages/trail.js, ledger/cards.py, ledger/ties.py]
   shown: ["Corroborated", "Ties to reported total", "Tie to totals", "Does not tie to reported total", "Does not tie · gap"]
   backed_by:
     functions: [ledger.ties.tolerance, ledger.ties.groups, ledger.ties.degenerate, ledger.status.evidence_gap]
@@ -84,7 +84,7 @@
 
 - id: unverified_citation_only
   claim: "Unverified · citation only"
-  where: [ledger/pages/trail.js, ledger/pages/_shared.js, ledger/pages/proof.js, ledger/cards.py]
+  where: [ledger/states.py, ledger/pages/trail.js, ledger/pages/_shared.js, ledger/pages/proof.js, ledger/cards.py]
   shown: ["Unverified", "Citation only", "Unverified · citation only", "Not in SEC XBRL"]
   backed_by:
     functions: [ledger.status.of_fact, ledger.cards._how]
@@ -98,7 +98,7 @@
 
 - id: unverified_explained
   claim: "Unverified · explained (not reported, definition, decision, rule)"
-  where: [ledger/cards.py, ledger/pages/_shared.js]
+  where: [ledger/states.py, ledger/cards.py, ledger/pages/_shared.js]
   shown: ["Not reported · none in SEC XBRL", "Definition differs from SEC XBRL", "Decision on file", "Not reported", "Unverified · definition",
           "Restated in a later 10-K", "Part-year amount"]
   backed_by:
@@ -114,9 +114,9 @@
 
 - id: needs_review
   claim: "Needs review"
-  where: [ledger/pages/trail.js, ledger/pages/_shared.js, ledger/cards.py, /api/v1/proof/<ticker>]
+  where: [ledger/states.py, ledger/pages/trail.js, ledger/pages/_shared.js, ledger/cards.py, /api/v1/proof/<ticker>]
   shown: ["Needs review", "to review", "Complete", "Differs from SEC XBRL", "Proposed category. Review in Reconcile.",
-          "In SEC XBRL, not extracted. Re-read required.", "Decide in Reconcile"]
+          "In SEC XBRL, not extracted. Re-read required.", "In SEC XBRL, not extracted", "Decide in Reconcile"]
   backed_by:
     functions: [ledger.status.is_open, ledger.proof.company]
     tests:
@@ -129,8 +129,8 @@
 
 - id: item_states
   claim: "Item states · Verified · Unverified · Needs review · Blocks release · Proposed"
-  where: [ledger/pages/reconcile.js, ledger/pages/proof.js, ledger/status.py]
-  shown: ["Verified", "Unverified", "Needs review", "Blocks release", "block release", "Proposed"]
+  where: [ledger/states.py, ledger/pages/reconcile.js, ledger/pages/proof.js, ledger/status.py]
+  shown: ["Verified", "Unverified", "Needs review", "Blocks release", "block release", "Proposed", "Checked", "To review", "Not checked"]
   backed_by:
     functions: [ledger.status.state, ledger.status.of_mapping]
     tests:
@@ -192,8 +192,8 @@
 
 - id: gold_error_rate
   claim: "Hand-check error rate"
-  where: [ledger/pages/proof.js, ledger/gold.py, /api/v1/gold]
-  shown: ["Hand check: ", "'Hand check'", "Right", "Wrong", "Can’t say", "Removed from dataset", "Now", "Note required"]
+  where: [ledger/states.py, ledger/pages/proof.js, ledger/gold.py, /api/v1/gold]
+  shown: ["Hand check: ", "'Hand check'", "Right", "Wrong", "Can’t say", "Unchecked", "Removed from dataset", "Now", "Note required"]
   backed_by:
     functions: [ledger.gold.error_rate, ledger.gold.load_checked, ledger.stats.wilson]
     tests:
@@ -207,8 +207,8 @@
 
 - id: edgar_checked
   claim: "SEC checked · Next 10-K expected"
-  where: [ledger/pages/trail.js, ledger/cards.py, ledger/clock.py]
-  shown: ["SEC checked", "SEC never checked", "SEC check failed", "d ago · out of date", "Next 10-K expected"]
+  where: [ledger/states.py, ledger/pages/trail.js, ledger/cards.py, ledger/clock.py]
+  shown: ["SEC checked", "SEC never checked", "SEC check failed", "out of date", "Next 10-K expected"]
   backed_by:
     functions: [ledger.cards.status_line, ledger.clock.age_hours]
     tests:
@@ -280,7 +280,7 @@
 
 - id: mapping_filer_tag
   claim: "Matches company's own tag"
-  where: [ledger/mapcard.py, ledger/cards.py, ledger/filertag.py, ledger/status.py, ledger/taxonomy.py, ledger/store.py, ledger/pages/trail.js, ledger/pages/reconcile.js, ledger/limitations.py, ledger/claims.py, /api/v1/proof/<ticker>, /api/v1/reconcile]
+  where: [ledger/states.py, ledger/mapcard.py, ledger/cards.py, ledger/filertag.py, ledger/status.py, ledger/taxonomy.py, ledger/store.py, ledger/pages/trail.js, ledger/pages/reconcile.js, ledger/limitations.py, ledger/claims.py, /api/v1/proof/<ticker>, /api/v1/reconcile]
   shown: ["Matches company tag", "Matches company's own tag", "Matches company’s own tag", "Same as proposed", "def verified", "Confirm or override in Reconcile", "def tally", "mapping_check"]
   backed_by:
     functions: [ledger.filertag.verdicts, ledger.filertag.verdicts_ok, ledger.filertag.verified, ledger.filertag.gap, ledger.filertag.tally, ledger.status.of_mapping, ledger.status.of_fact, ledger.taxonomy.to_confirm, ledger.mapper.approve]
@@ -506,8 +506,8 @@
 
 - id: release_checklist
   claim: "Release checklist line states"
-  where: [ledger/pages/release.js, ledger/checklist.py]
-  shown: ["Pass", "Fail", "Info", "Not run"]
+  where: [ledger/states.py, ledger/pages/release.js, ledger/checklist.py]
+  shown: ["Pass", "Fail", "Info", "Not run", "Stale"]
   backed_by:
     functions: [ledger.checklist.checklist, ledger.checklist.tests_line, ledger.checklist.golden_line]
     tests:
@@ -588,7 +588,7 @@
 
 - id: evidence_cell_located
   claim: "Cell located · the stored 10-K shows the cited text under that row label and column header"
-  where: [ledger/pages/evidence.js, ledger/pages/_shared.js, ledger/viewer.py, ledger/crops.py, /api/v1/evidence/<extraction_id>, /filing/<accession>]
+  where: [ledger/states.py, ledger/pages/evidence.js, ledger/pages/_shared.js, ledger/viewer.py, ledger/crops.py, /api/v1/evidence/<extraction_id>, /filing/<accession>]
   shown: ["Cell located", "Cell not located", "Crop out of date", "Crop file missing", "No crop"]
   backed_by:
     functions: [ledger.crops.state, ledger.crops.crop_doc, ledger.evidence.same, ledger.evidence.runs_together, ledger.evidence.offline, ledger.viewer.script]
@@ -667,7 +667,7 @@
 
 - id: row_evidence
   claim: "Every trail, hand-check and Reconcile row shows its cited cell: the crop with the cell boxed, or the crop's state; Open lands on the cell in the stored filing"
-  where: [ledger/pages/trail.js, ledger/pages/_shared.js, ledger/pages/proof.js, ledger/pages/reconcile.js, ledger/cards.py, ledger/crops.py, ledger/app.py, ledger/workbench.py]
+  where: [ledger/states.py, ledger/pages/trail.js, ledger/pages/_shared.js, ledger/pages/proof.js, ledger/pages/reconcile.js, ledger/cards.py, ledger/crops.py, ledger/app.py, ledger/workbench.py]
   shown: ["Cell located", "Cell not located", "Crop out of date", "No crop", "Open in filing", "Crop unavailable"]
   backed_by:
     functions: [ledger.crops.cells, ledger.crops.brief, ledger.crops.state, ledger.cards.add, ledger.app.gold_view, ledger.workbench.items]

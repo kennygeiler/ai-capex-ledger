@@ -157,8 +157,9 @@ class Page(unittest.TestCase):
     blocked and escaped always written, zero included; the faults line is the API's faults_note when nothing was measured."""
 
     def render(self, sc):
+        from ledger import states
         js = (store.ROOT / "ledger" / "pages" / "rules.js").read_text()
-        harness = """
+        harness = states.js() + """
 const h = (tag, attrs = {}, ...kids) => kids.flat(Infinity).filter((k) => k !== '' && k != null).join(' ');
 const int = (n) => (n == null || n === '' ? '—' : Number(n).toLocaleString('en-US'));
 const STAGE_LABEL_UI = {values: 'Values', facts: 'Facts', statements: 'Statements', planned: 'Planned'};
@@ -169,7 +170,7 @@ const STAGE_LABEL_UI = {values: 'Values', facts: 'Facts', statements: 'Statement
         sc = {"outputs": 81, "checked": 70, "explained": 11, "open": 0, "blocked": 0, "twin": {"agree": 70, "of": 71, "interval": [0.9244, 0.9975]},
               "faults": {"caught": 1275, "planted": 1283, "no_effect": 8, "escaped": 0}, "faults_note": "reports/stage3-faults.json: run 2026-10-30", "stage": "values", "companies": 6, "note": "n"}
         out = self.render(sc)
-        self.assertIn("Verified 70 · Unverified 11 · Needs review 0 · Blocks release 0 (of 81)", out)
+        self.assertIn("Checked 70 · Unverified 11 · To review 0 · Blocks release 0 (of 81)", out)
         self.assertIn("Matches SEC XBRL 70 of 71 · 98.6% (95% CI 92.4–99.8%)", out)
         # one display path: the page computes the interval from agree / of; the API's interval is informational, so a
         # missing or a wrong one changes nothing on the page

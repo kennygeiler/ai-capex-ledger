@@ -10,11 +10,13 @@ function byHover(items) {
 }
 function stageCell(st) {
   const blocked = st.blocked || 0, open = st.open.length;  // open counts blocked too (docs/PROOF.md); blocked is named on its own beside it
-  const title = st.explained_items && st.explained_items.length ? byHover(st.explained_items) : 'Unverified';
-  return h('td', {class: 'num'}, h('span', {class: 'text-green fw-semibold', title: 'Verified'}, int(st.checked)), h('span', {class: 'text-secondary'}, ' · '),
-    h('span', {class: 'text-azure', title}, int(st.explained)), h('span', {class: 'text-secondary'}, ' · '),
-    open ? h('span', {class: 'text-red fw-semibold', title: 'Needs review'}, int(open)) : h('span', {class: 'text-secondary', title: 'Needs review'}, '0'),
-    blocked ? [h('span', {class: 'text-secondary'}, ' · '), h('span', {class: 'text-red', title: 'Blocks release'}, `${int(blocked)} block release`)] : '');
+  // the counts are status.STATES groups; their words are STATE_GROUPS.row (ledger/states.py): Checked covers Verified,
+  // Corroborated, Matches company tag and Done, so a located table is never counted under the word Verified (F10)
+  const G = STATE_GROUPS.row, title = st.explained_items && st.explained_items.length ? byHover(st.explained_items) : G.explained;
+  return h('td', {class: 'num'}, h('span', {class: 'text-green fw-semibold', title: G.checked}, int(st.checked)), h('span', {class: 'text-secondary'}, ' · '),
+    h('span', {class: STATES.row.info[0], title}, int(st.explained)), h('span', {class: 'text-secondary'}, ' · '),
+    open ? h('span', {class: STATES.row.bad[0] + ' fw-semibold', title: G.open}, int(open)) : h('span', {class: 'text-secondary', title: G.open}, '0'),
+    blocked ? [h('span', {class: 'text-secondary'}, ' · '), h('span', {class: STATES.row.blocked[0], title: G.blocked}, `${int(blocked)} block release`)] : '');
 }
 // T82: the regression test's tables and the hand check's verdicts are two lines, never one: equal tables with nothing checked is not a pass
 const tablesOk = (g) => (g.tables_ok != null ? g.tables_ok : g.ok && !(g.gold && g.gold.failures && g.gold.failures.length));
@@ -39,7 +41,7 @@ async function proofPage(view) {
       h('td', {}, h('div', {}, h('a', {href: '#proof/' + c.ticker, onclick: (e) => e.stopPropagation()}, c.name), ' ', h('span', {class: 'text-secondary small'}, c.ticker)), h('div', {class: 'text-secondary small'}, INDUSTRY[c.layer] || c.layer)),
       b.stages.map((s) => stageCell(c.stages[s.id])),
       h('td', {class: 'text-nowrap'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-orange fw-medium'}, `${int(c.open)} to review`))))))));
-  const legend = h('p', {class: 'small mt-2'}, h('span', {class: 'text-green'}, '● Verified'), h('span', {class: 'text-secondary'}, ' · '), h('span', {class: 'text-azure'}, '● Unverified'), h('span', {class: 'text-secondary'}, ' · '), h('span', {class: 'text-red'}, '● Needs review'));
+  const legend = h('p', {class: 'small mt-2'}, [[STATES.row.ok[0], 'checked'], [STATES.row.info[0], 'explained'], [STATES.row.bad[0], 'open']].map(([cls, g], i) => [i ? h('span', {class: 'text-secondary'}, ' · ') : '', h('span', {class: cls}, '● ' + STATE_GROUPS.row[g])]));
   // T56: rows by the strongest answer key that vouches for them, graded by independence (status.KEY_GRADE); `none` is every row no key vouches for, so a row counts once
   const grades = b.key_grade || [];
   const keyCols = [{t: 'Company', f: (c) => c.ticker}, ...grades.map((g) => ({t: h('span', {title: g.why}, KEY_WORD[g.id] || g.label), num: 1, f: (c) => int(c.keys[g.id])})),
@@ -63,9 +65,9 @@ async function proofPage(view) {
 }
 // ── T82: the gold set. A hand-verified sample per proven company (gold/<TICKER>.json): golden says nothing changed, gold says
 // the numbers a person checked are still right. One verdict per item, written under the signer box's name (config.PEOPLE).
-const GOLD_WORD = {right: 'Right', wrong: 'Wrong', cant_say: 'Can’t say'};
+const GOLD_WORD = Object.fromEntries(['right', 'wrong', 'cant_say'].map((v) => [v, STATES.gold[v][1]]));  // states.GOLD
 const GOLD_HELP = {right: 'The filing shows this number at this cell', wrong: 'The filing shows something else; note what', cant_say: 'The filing does not settle it; note why'};
-const GOLD_TONE = {right: 'text-green', wrong: 'text-red', cant_say: 'text-secondary'};
+const GOLD_TONE = Object.fromEntries(['right', 'wrong', 'cant_say'].map((v) => [v, STATES.gold[v][0]]));
 const goldNeedsMe = new Set();
 document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of goldNeedsMe) b.disabled = !(me || '').trim(); });
 const goldUsd = (n) => (n == null ? 'Not reported' : (n < 0 ? '−$' : '$') + int(Math.abs(n)));  // the exact figure, so it can be read against the cell (in thousands or millions)
@@ -101,7 +103,7 @@ function goldSet() {
     const value = (it) => {
       const lv = it.live, moved = lv && lv.value !== it.value;
       return h('div', {}, h('div', {class: 'text-nowrap'}, goldUsd(it.value)),
-        !lv ? h('div', {class: 'text-secondary small'}, 'Current value unavailable') : lv.gone ? h('div', {class: 'text-red small'}, 'Removed from dataset') : moved ? h('div', {class: 'text-red small'}, `Now ${goldUsd(lv.value)}`) : lv.open ? h('div', {class: 'text-orange small'}, 'Needs review') : '');
+        !lv ? h('div', {class: 'text-secondary small'}, 'Current value unavailable') : lv.gone ? h('div', {class: 'text-red small'}, 'Removed from dataset') : moved ? h('div', {class: 'text-red small'}, `Now ${goldUsd(lv.value)}`) : lv.open ? h('div', {class: STATES.row.bad[0] + ' small'}, STATES.row.bad[1]) : '');
     };
     // the cited cell, as the trail shows it: the crop (cell boxed in red; click for full size) or its state, then Open in filing
     const cited = (it) => (it.cites.length ? h('div', {class: 'cites'}, it.cites.map((c) => {
@@ -111,7 +113,7 @@ function goldSet() {
     })) : h('span', {class: 'text-secondary small'}, '—'));
     const verdict = (it) => {
       const note = h('input', {type: 'text', class: 'form-control form-control-sm', placeholder: 'Note (required for Wrong / Can’t say)', value: it.note || '', 'aria-label': `Note on ${it.id}`});
-      const msg = h('div', {class: 'small', role: 'status'}, it.verdict ? h('span', {class: GOLD_TONE[it.verdict] + ' fw-medium'}, `${GOLD_WORD[it.verdict]} · ${it.by} · ${day(it.at)}`) : h('span', {class: 'text-secondary'}, 'Unchecked'));
+      const msg = h('div', {class: 'small', role: 'status'}, it.verdict ? h('span', {class: GOLD_TONE[it.verdict] + ' fw-medium'}, `${GOLD_WORD[it.verdict]} · ${it.by} · ${day(it.at)}`) : h('span', {class: STATES.gold.unchecked[0]}, STATES.gold.unchecked[1]));
       const btns = g.verdicts.map((v) => {
         const b = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary' + (it.verdict === v ? ' active' : ''), 'aria-pressed': String(it.verdict === v), title: (me || '').trim() ? GOLD_HELP[v] : 'Enter a signer name', onclick: async () => {
           if (v !== 'right' && !note.value.trim()) { msg.replaceChildren(h('span', {class: 'text-red'}, 'Note required')); note.focus(); return; }

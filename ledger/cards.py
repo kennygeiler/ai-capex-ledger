@@ -71,13 +71,19 @@ def _cell(c: dict, docs: dict, ev: dict) -> dict:
             "viewer": b["viewer"], "crop": {k: b[k] for k in ("state", "reason", "url")}}
 
 
-VERIFIED_BY = ("xbrl", "quote")  # the only checks a page may call Verified (tests.test_cards.How.test_only_sec_xbrl_and_quotes_read_verified)
+from .states import VERIFIED_BY  # the only checks a page may call Verified (tests.test_cards.How.test_only_sec_xbrl_and_quotes_read_verified)
 RULE_TEXT = {"part_year": "Part-year amount", "restated_between_filings": "Restated in a later 10-K", "amendment_without_statements": "Amendment without statements",
              "program_words": "Program, not annual guidance"}
 
 
 def _how(it: dict, name: str, defs: dict, found_value=None) -> dict:
-    """The item's state and its evidence: one short line (`text`) and, when there is more, the long form (`detail`)."""
+    """The item's state and its evidence: one short line (`text`) and, when there is more, the long form (`detail`). The
+    tone is the row state, decided by states.row from the item's status state and `by`, never here."""
+    from . import states
+    return {**_words(it, name, defs, found_value), "tone": states.row(it.get("state"), it.get("by"))}
+
+
+def _words(it: dict, name: str, defs: dict, found_value=None) -> dict:
     by, state = it.get("by") or "", it.get("state")
     ref = it.get("ref") or {}
     if state in ("open", "blocked"):
@@ -292,7 +298,6 @@ def status_line(con, trail: dict, newest: dict | None, watch: dict, at=None) -> 
     shipped (last signed release) and what changed since. The SEC check's age comes from clock.age_hours: a missing,
     unreadable, zone-less or future time is `sec_check_problem` with no age, and the page reads it stale."""
     from datetime import date, datetime, timedelta, timezone
-    from .clock import age_hours
     nxt = None
     if newest and newest.get("period") and newest.get("filed"):
         try:
@@ -309,11 +314,12 @@ def status_line(con, trail: dict, newest: dict | None, watch: dict, at=None) -> 
     reading = sum(i.get("state") == "explained" for i in figures)
     quotes = sum(1 for s in ("statements", "planned") for i in stages.get(s, {}).get("all", []) if i.get("state") == "checked")
     rel = last_release(trail["ticker"])
-    age, problem = age_hours(watch.get("checked_at"), at)
+    from .states import edgar
+    sec, age, problem = edgar(watch.get("checked_at"), at)  # fresh | stale | never | unreadable, the one reading (states.EDGAR)
     problem = None if problem == "never" else problem  # never checked has its own words on the page
     return {"as_of": (at or datetime.now(timezone.utc)).strftime("%-d %b %Y, %H:%M UTC"),
             "current_through": {"form": newest.get("form"), "period": str(newest.get("period") or "")[:10], "filed": str(newest.get("filed") or "")[:10]} if newest else None,
-            "sec_check_problem": problem,
+            "sec_check_problem": problem, "sec_check": sec,
             "next_expected": nxt, "sec_checked_hours_ago": None if age is None else round(age),
             "figures": len(figures), "matched": matched, "tied": tied, "second_reading": second, "reading_only": reading, "waiting": waiting, "quotes": quotes,
             "shipped": {k: rel[k] for k in ("version", "signed_by", "signed_at")} if rel else None,

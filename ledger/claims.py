@@ -44,7 +44,6 @@ from pathlib import Path
 import yaml
 
 from . import store
-from .clock import age_hours
 
 REPO = Path(__file__).resolve().parents[1]  # code-tracked things (the register, tests, pages, docs) always from the repo
 FILE = REPO / "claims" / "claims.yaml"
@@ -74,7 +73,7 @@ MUTABLE = ("status", "at")  # what a later line for the same finding may change
 FINDING_ID = re.compile(r"^(F\d+|F-[A-Z]{2,}\d+|S-\d+)$")
 LEGACY_MAX = 30
 TICKET = re.compile(r"^(none|T\d+[a-z]?)$")
-STALE_HOURS = 48
+from .states import STALE_HOURS  # one threshold: the trail and the register read states.edgar
 
 
 def _now() -> datetime:
@@ -278,10 +277,11 @@ def _edgar(ctx) -> list:
         w = json.loads(WATCH.read_text())
     except (OSError, ValueError):
         return [("stale", "EDGAR never checked", "no EDGAR check on file")]
-    hours, problem = age_hours((w or {}).get("checked_at"), ctx["now"])
+    from .states import edgar
+    sec, hours, problem = edgar((w or {}).get("checked_at"), ctx["now"])  # the trail reads the same function
     if problem:
         return [("stale", f"EDGAR check time {problem}", f"EDGAR check time {problem}: {(w or {}).get('checked_at')}")]
-    if hours > STALE_HOURS:
+    if sec == "stale":
         return [("stale", f"EDGAR check older than {STALE_HOURS} h", f"EDGAR last checked {str(w['checked_at'])[:10]}, {hours / 24:.1f} days ago")]
     return []
 
@@ -427,8 +427,12 @@ def counts_line(c: dict) -> str:
 
 # ── the page scan ────────────────────────────────────────────────────────────────────────────────────────────────
 # Label maps whose display strings are claims (value strings, or the keys when every value is a CSS class).
-LABEL_MAPS = {"trail.js": ("TRAIL_TONE",), "reconcile.js": ("STATE_BADGE",), "release.js": ("LINE_STATE",), "_shared.js": ("CHECK", "CROP_STATE"),
-              "proof.js": ("GOLD_WORD",)}
+# The state words themselves live in ledger/states.py (every page reads them from /pages/_states.js): the scan reads them
+# from there, as file "states.py" (`state_words`), so a row listing one names ledger/states.py in its `where`.
+LABEL_MAPS: dict = {}
+# A page that keeps its own [colour, word] pair (a label map the states do not own) is still read: its words need rows,
+# and tests.test_states fails when one of them is a state word (a copy that can drift from ledger/states.py).
+PAIR = re.compile(r"\[\s*'(?:text|bg)-[a-z-]+'\s*,\s*'([^']*)'\s*\]|\[\s*'([^']*)'\s*,\s*'(?:text|bg)-[a-z-]+'\s*\]")
 # The text of an element styled as a status (a badge or a tone colour), literal or the static parts of a template.
 TONED = re.compile(r"""h\('[a-z0-9]+',\s*\{[^{}]*class:\s*'[^']*(?:badge|text-(?:green|red|orange|teal|azure|yellow))[^']*'[^{}]*\},\s*('[^']*'|`[^`]*`)""")
 # Strings a page shows that the two rules above cannot see (a class picked at run time, a heading).
@@ -473,6 +477,9 @@ def strings_in(name: str, text: str) -> set[str]:
                 found |= set(_map_strings(hit.group(1)))
         for lit in TONED.findall(text):
             found |= set(_fragments(lit))
+        for a, b in PAIR.findall(text):
+            if len(re.findall("[A-Za-z]", a or b)) >= 3:
+                found.add(a or b)
     for rx in PY_RULES.get(name, ()):
         for blk in rx.findall(text):
             vals = re.findall(r':\s*"([^"]*)"', blk) if ":" in blk and '"' in blk else [blk]
@@ -482,16 +489,23 @@ def strings_in(name: str, text: str) -> set[str]:
     return found
 
 
+def state_words() -> set[str]:
+    """Every word a state machine gives a page (ledger/states.py): state words and group words."""
+    from . import states
+    return set(states.words())
+
+
 def scan(pages: Path | None = None, py: Path | None = None, html: Path | None = None) -> dict:
-    """{files, pages, strings: {string: [files]}}: every page script, app.html, and the Python with rules."""
+    """{files, pages, strings: {string: [files]}}: every page script, app.html, the Python with rules, and the state words
+    (ledger/states.py, read from the declarations, not by pattern)."""
     pages, py = pages or PAGES, py or PY
     html = html if html is not None else PY / "app.html"
     files = sorted(pages.glob("*.js")) + ([html] if html.is_file() else []) + sorted(p for p in py.glob("*.py") if p.name in PY_RULES)
-    strings: dict = {}
+    strings: dict = {w: ["states.py"] for w in state_words()}
     for f in files:
         for s in strings_in(f.name, f.read_text()):
             strings.setdefault(s, []).append(f.name)
-    return {"files": len(files), "pages": sum(f.suffix == ".js" for f in files), "strings": strings}
+    return {"files": len(files) + 1, "pages": sum(f.suffix == ".js" for f in files), "strings": strings}
 
 
 def unregistered(entries: list[dict] | None = None, pages: Path | None = None, repo: Path = REPO, py: Path | None = None, html: Path | None = None) -> list[dict]:

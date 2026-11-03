@@ -177,12 +177,10 @@ def check_columns(st: dict) -> tuple[str, str]:
     """A fact's state as the taxonomy row's (check, check_method), from the one ladder: agree / xbrl; corroborated by a
     tie or a second reading; no_reference / label:no_reference (citation only); explained by what explains it; differs
     when open (rule:fact_readings_differ for readings that differ, xbrl for a cell against its tag)."""
+    from .states import LADDER_CHECK, ladder
     by = st.get("by") or ""
-    if st["state"] == "checked":
-        return ("agree", by) if by in ("xbrl", "mapping:filer_tag") else ("corroborated", by)  # the company's own tag is a twin: the value is in its instance
-    if st["state"] == "explained":
-        return ("no_reference", by) if by == "label:no_reference" else ("explained", by)
-    return "differs", by if by.startswith("rule:") else "xbrl"
+    check = LADDER_CHECK[ladder(st)]  # the company's own tag is a twin: the value is in its instance, so it reads agree
+    return check, (by if check != "differs" or by.startswith("rule:") else "xbrl")
 
 
 # ── loaders (the database, and the distilled instances on disk; never fetched) ───────────────────────────────────────

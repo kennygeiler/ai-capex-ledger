@@ -9,9 +9,9 @@ document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const
 const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Block release'};
 const RES_HELP = {accept: 'Right as it stands', explain: 'Right, with the reason kept', fix: 'Wrong; stays open until re-read', blocks: 'Blocks release until settled'};
 const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yellow-lt', blocks: 'bg-red-lt'};
-// the one definition of open (status.state, docs/PROOF.md): every row carries state and by; the page only shows them
-const STATE_BADGE = {checked: ['text-green', 'Verified'], explained: ['text-azure', 'Unverified'], open: ['text-orange', 'Needs review'], blocked: ['text-red', 'Blocks release'], 'to confirm': ['text-orange', 'Proposed']};
-const stateCell = (r) => { const [cls, word] = STATE_BADGE[r.state] || ['text-secondary', r.state]; return h('span', {class: cls + ' fw-medium text-nowrap'}, word); };
+// the one definition of open (status.state, docs/PROOF.md): every row carries state, by and verification (states.row, the
+// word the trail and Proof use for the same row); the page only shows them, in ledger/states.py's words (/pages/_states.js)
+const stateCell = (r) => { const [cls, word] = stateWord('row', r.verification); return h('span', {class: cls + ' fw-medium text-nowrap'}, word); };
 let FOCUS_KEY = null;  // the row to focus after a save re-renders the page
 const num = (r, v) => (v == null ? '—' : r.measure === 'share' ? pct(v) : usd(v));
 const signed = (r, v) => (v == null ? '—' : (v < 0 ? '−' : '+') + (r.measure === 'share' ? `${(100 * Math.abs(v)).toFixed(1)} pts` : usd(Math.abs(v))));
@@ -33,7 +33,7 @@ function gapBar(r, large) {
 const badge = (text, cls) => h('span', {class: 'badge ' + (cls || 'bg-secondary-lt')}, text);
 const memberWords = (m) => { if (!m) return ''; const w = m.split(':').pop().replace(/Member$/, '').replace(/([a-z0-9])([A-Z])|([A-Z])([A-Z][a-z])/g, '$1$3 $2$4').split(' '); return [w[0], ...w.slice(1).map((x) => (x.length > 1 && x === x.toUpperCase() ? x : x.toLowerCase()))].join(' '); };
 const tone = (text, cls) => h('span', {class: cls + ' small text-nowrap'}, text);
-const checkBadge = (label) => (label == null ? '' : label === 'agree' ? tone('Verified', 'text-green') : label === 'not_reported' ? tone('Not reported', 'text-secondary') : label === 'no_reference' ? tone('Not in SEC XBRL', 'text-secondary') : label === 'definition_gap' ? tone('Unverified', 'text-azure') : tone('Differs from SEC XBRL', 'text-orange'));
+const checkBadge = (label) => { if (label == null) return ''; const [cls, word] = stateWord('check', label); return tone(word, cls); };  // states.CHECK, the Dataset's words
 const bar = (v, max, cls) => h('span', {class: 'bar ' + (cls || ''), style: `width:${Math.max(2, 44 * Math.abs(v || 0) / (max || 1)).toFixed(0)}px`});
 async function reconcilePage(view, qs) {
   NEEDS_ME.clear();  // the last render's buttons are gone with it
@@ -64,7 +64,7 @@ async function reconcilePage(view, qs) {
   const stat = (label, n, cls, always) => (n || always ? h('span', {class: 'me-3'}, h('span', {class: 'text-secondary'}, label + ' '), h('span', {class: (cls || '') + ' fw-medium'}, int(n))) : '');
   const header = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'small mt-1'},
-      stat('Needs review', nState('open'), 'text-orange', true), stat('Blocks release', nState('blocked'), 'text-red'), stat('Proposed', d.to_confirm, 'text-orange'), stat('Unverified', nState('explained'), 'text-azure'),
+      stat(STATE_GROUPS.row.open, nState('open'), STATES.row.bad[0], true), stat(STATE_GROUPS.row.blocked, nState('blocked'), STATES.row.blocked[0]), stat(STATES.row.wait[1], d.to_confirm, STATES.row.wait[0]), stat(STATE_GROUPS.row.explained, nState('explained'), STATES.row.info[0]),
       h('span', {class: 'text-secondary me-3'}, `Last run ${day(d.last_run)}`), d.release ? h('span', {class: 'text-secondary me-3'}, `Last release ${d.release}`) : '',
       h('span', {class: 'text-secondary', title: 'j k move · Enter opens · a e f b decide · space selects'}, 'Keyboard')))));
   const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},

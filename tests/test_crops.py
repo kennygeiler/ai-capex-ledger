@@ -416,7 +416,7 @@ class Claims(unittest.TestCase):
         ids = {e["id"] for e in claims.load()}
         self.assertLessEqual({"evidence_cell_located", "evidence_crop", "evidence_compare", "evidence_open_in_filing"}, ids)
         pages = Path(crops.__file__).parent / "pages"
-        found = claims.strings_in("evidence.js", (pages / "evidence.js").read_text()) | claims.strings_in("_shared.js", (pages / "_shared.js").read_text())
+        found = claims.strings_in("evidence.js", (pages / "evidence.js").read_text()) | claims.strings_in("_shared.js", (pages / "_shared.js").read_text()) | claims.state_words()
         self.assertLessEqual({"Cell located", "Cell not located", "Crop out of date", "Crop file missing", "No crop", "Readings differ", "Readings agree"}, found)
         self.assertEqual([p for p in claims.unregistered() if "evidence" in p["where"]], [])
 
@@ -567,11 +567,11 @@ process.stdout.write(JSON.stringify(calls));"""
         self.assertEqual(json.loads(out), [["located", "Revenue"], ["stale", "Revenue"]])
 
     def test_the_pages_read_one_label_map(self):
-        """Every page says a crop's state with _shared.js CROP_STATE; no page keeps its own copy."""
+        """Every page says a crop's state with states.CROP (ledger/states.py, through _shared.js cropWord); no page keeps its own copy."""
         pages = Path(crops.__file__).parent / "pages"
-        own = [f.name for f in pages.glob("*.js") if f.name != "_shared.js" and ("'Cell located'" in f.read_text() or "Crop out of date" in f.read_text())]
+        own = [f.name for f in pages.glob("*.js") if "'Cell located'" in f.read_text() or "Crop out of date" in f.read_text()]
         self.assertEqual(own, [])
-        self.assertIn("CROP_STATE[e.state]", (pages / "evidence.js").read_text())
+        self.assertIn("cropWord(e.state)", (pages / "evidence.js").read_text())
         self.assertIn("citeCell(", (pages / "trail.js").read_text())
         self.assertIn("citeCell(", (pages / "proof.js").read_text())
         self.assertIn("citeCell(", (pages / "reconcile.js").read_text())

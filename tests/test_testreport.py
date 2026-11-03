@@ -107,13 +107,13 @@ class Line(unittest.TestCase):
 
     def test_passing_on_another_commit_or_a_dirty_tree_is_stale_and_informs(self):
         other = checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=["ledger/rules.py", "reports/tests.json"])
-        self.assertEqual((other["state"], other["required"], other["ok"]), ("info", False, False))
+        self.assertEqual((other["state"], other["required"], other["ok"]), ("stale", False, False))  # its own state (states.LINE), not Info
         self.assertIn("stale", other["note"])
         self.assertIn("HEAD is abc1234", other["note"])
         self.assertIn("ledger test", other["note"])
-        self.assertEqual(checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=None)["state"], "info")  # unknown sha: stale
+        self.assertEqual(checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=None)["state"], "stale")  # unknown sha: stale
         dirty = checklist.tests_line(_rep(dirty=True), head="abc1234", changed=[])
-        self.assertEqual((dirty["state"], dirty["required"]), ("info", False))
+        self.assertEqual((dirty["state"], dirty["required"]), ("stale", False))
         self.assertIn("dirty tree", dirty["note"])
 
     def test_commits_since_the_run_that_only_recorded_it_are_forgiven(self):

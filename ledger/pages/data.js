@@ -44,7 +44,7 @@ async function dataPage(view, qs) {
     const p = r.prov;
     const bits = [h('h3', {style: 'margin:0 0 .4rem'}, `${d.names[r.ticker]}, ${FIELDS[r.field] || r.field}${r.dimension ? ', ' + r.dimension : ''}, ${r.period}`),
       h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('Value', usd(r.value), r.range ? `${usd(r.range[0])} – ${usd(r.range[1])}` : KINDS[r.kind]),
-        fig('Verification', r.check ? CHECK[r.check] || r.check : '—', `${p.table} table`)),
+        fig('Verification', r.check ? checkWord(r.check) : '—', `${p.table} table`)),
       p.inputs ? h('p', {class: 'muted small mono', style: 'margin-bottom:.6rem'}, p.inputs) : '',
       p.xbrl != null ? h('p', {class: 'muted small'}, `SEC XBRL: ${usd(p.xbrl)}`) : '',
       p.url ? h('p', {class: 'small'}, h('a', {href: safeHref(p.url), target: '_blank', rel: 'noopener'}, 'Open in 10-K ↗')) : ''];
@@ -58,10 +58,9 @@ async function dataPage(view, qs) {
 
   // the auditor's mark: traced (agrees with its source), untraced (checked, no source to agree with), differs
   function mark(r) {
-    let k = 'u', why = 'Unverified · citation only';
-    if (r.check === 'agree') { k = 't'; why = 'Verified · matches SEC XBRL'; }
-    else if (r.check === 'unresolved') { k = 'd'; why = 'Differs from SEC XBRL'; }
-    else if (r.check === 'definition_gap') { k = 'u'; why = 'Unverified · definition'; }
+    // the label's word from states.CHECK; a label the server did not declare reads "Not checked", never a pass (F22)
+    const why = checkWord(r.check) + (r.check === 'agree' ? ' · matches SEC XBRL' : '');
+    const k = r.check === 'agree' ? 't' : r.check === 'unresolved' || r.check === 'not_extracted' ? 'd' : STATES.check[r.check] ? 'u' : 'x';
     const marks = [h('span', {class: 'mk ' + k, title: why, 'aria-label': why}, k === 'x' ? '✗' : k === 'd' ? '≠' : k === 'u' ? '○' : '✓')];
     if (r.status) marks.push(h('span', {class: 'badge bg-' + ({fix_pending: 'yellow', accepted: 'green', explained: 'azure', blocks: 'red'})[r.status] + '-lt ms-1', title: ({fix_pending: 'Fix pending', accepted: 'Accepted', explained: 'Explained', blocks: 'Blocks release'})[r.status] || r.status}, ({fix_pending: 'Fix', accepted: 'Accepted', explained: 'Explained', blocks: 'Blocks release'})[r.status] || r.status));
     return marks;

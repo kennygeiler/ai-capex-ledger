@@ -266,7 +266,10 @@ def _report(path) -> dict | None:
 
 
 def _line(id_, label, required, count, state, link, note="", detail=None) -> dict:
-    """state: pass | fail | info | not_run. A required line passes only on `pass`."""
+    """state: one of states.LINE (pass | fail | info | not_run | stale). A required line passes only on `pass`."""
+    from .states import LINE
+    if state not in LINE.names():
+        raise ValueError(f"checklist line {id_}: state {state!r} is not declared in states.LINE")
     return {"id": id_, "label": label, "required": required, "count": count, "state": state, "ok": state == "pass", "link": link, "note": note, "detail": detail or []}
 
 
@@ -303,7 +306,7 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     stale = moved or bool(t.get("dirty"))
     if stale:
         why = "dirty tree" if t.get("dirty") else f"HEAD is {head}"
-        return _line("tests", "Test run", False, 0, "info", "proof", f"stale ({why}): run `ledger test`; {base}", detail)
+        return _line("tests", "Test run", False, 0, "stale", "proof", f"stale ({why}): run `ledger test`; {base}", detail)
     return _line("tests", "Test run", True, 0, "pass", "proof", base, detail)
 
 

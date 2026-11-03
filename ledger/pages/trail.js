@@ -9,9 +9,8 @@ const TRAIL_STAGE_HELP = {
   mapping: 'Reported asset categories mapped to US GAAP members',
   planned: 'Guidance and named projects, verbatim',
   release: 'Items blocking release'};
-// The ladder (T92): Verified against SEC XBRL; Corroborated by a tie to the reported total or a second filing; Unverified, citation only.
-const TRAIL_TONE = {ok: ['text-green', 'Verified'], corroborated: ['text-teal', 'Corroborated'], company: ['text-cyan', 'Matches company tag'], done: ['text-secondary', 'Done'],
-  info: ['text-azure', 'Unverified'], wait: ['text-orange', 'Needs review'], bad: ['text-red', 'Needs review']};
+// The ladder (T92): the row's word and colour come from ledger/states.py (STATES.row, /pages/_states.js); the card's tone is its state.
+const rowWord = (tone) => stateWord('row', tone);
 const TRAIL_RULE = {jump: 'Large year-over-year change', restated: 'Restated', row_switch: 'Line renamed', capex_intensity: 'Capex high vs revenue', opex_over_revenue: 'Opex above revenue'};
 
 function trailWhat(it, stage) {
@@ -38,7 +37,7 @@ function trailSource(c, what) {
 
 // Verification: the status word and one short line; the long form opens under it
 function trailVerify(c, ticker) {
-  const [cls, word] = TRAIL_TONE[c.how.tone] || TRAIL_TONE.info;
+  const [cls, word] = rowWord(c.how.tone);
   const line = h('div', {class: 'small'}, h('span', {class: cls + ' fw-medium'}, word), c.how.text ? h('span', {class: 'text-secondary'}, ` · ${c.how.text}`) : '');
   const more = [c.formula ? h('div', {class: 'small text-secondary'}, c.formula) : '',
     c.compare ? h('div', {class: 'small'}, h('a', {href: `#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}`}, 'Compare filings')) : ''];
@@ -46,8 +45,8 @@ function trailVerify(c, ticker) {
 }
 
 function trailRow(it, stage, ticker) {
-  const c = it.card || {how: {tone: 'info', text: it.reason || ''}, where: []};
-  const [cls] = TRAIL_TONE[c.how.tone] || TRAIL_TONE.info;
+  const c = it.card || {how: {tone: 'unknown', text: it.reason || ''}, where: []};
+  const [cls] = rowWord(c.how.tone);
   const what = trailWhat(it, stage);
   return h('tr', {},
     h('td', {}, h('span', {class: cls, 'aria-hidden': 'true'}, '● '), what),
@@ -76,21 +75,19 @@ async function trailPage(view, ticker) {
   const c = await api('/api/v1/proof/' + encodeURIComponent(ticker));
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)),
-      h('div', {class: 'small mt-1'}, h('span', {class: 'text-green'}, '● Verified'), h('span', {class: 'text-secondary'}, ' SEC XBRL or the quoted source'),
-        h('span', {class: 'text-teal ms-3'}, '● Corroborated'), h('span', {class: 'text-secondary'}, ' ties to totals or confirmed in 2 filings'),
-        h('span', {class: 'text-cyan ms-3', title: 'The company’s own XBRL tags this category'}, '● Matches company tag'),
-        h('span', {class: 'text-secondary ms-3', title: 'Located or confirmed; not an independent check'}, '● Done'),
-        h('span', {class: 'text-azure ms-3'}, '● Unverified'), h('span', {class: 'text-secondary'}, ' citation only'),
-        h('span', {class: 'text-orange ms-3'}, '● Needs review'), h('span', {class: 'text-secondary'}, ' open item'), c.in_proven_set ? '' : h('span', {class: 'text-secondary ms-3'}, 'Not in scope'))),
+      h('div', {class: 'small mt-1'}, [['ok', ' SEC XBRL or the quoted source'], ['corroborated', ' ties to totals or confirmed in 2 filings'], ['company', '', 'The company’s own XBRL tags this category'],
+        ['done', '', 'Located or confirmed; not an independent check'], ['info', ' citation only'], ['wait', ''], ['bad', ' open item'], ['blocked', '']].map(([s, after, title], i) => {
+          const [cls, word] = rowWord(s);
+          return [h('span', {class: cls + (i ? ' ms-3' : ''), title: title || null}, '● ' + word), after ? h('span', {class: 'text-secondary'}, after) : ''];
+        }), c.in_proven_set ? '' : h('span', {class: 'text-secondary ms-3'}, 'Not in scope'))),
     h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-orange fw-medium'}, `${int(c.open)} to review`),
       h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-3'}, 'Reconcile'), h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'))));
   const waitingTotal = Object.values(c.stages).reduce((n, st) => n + (st.open || []).length, 0);
   const s = c.summary || {}, S = c.status || {};
   const hours = S.sec_checked_hours_ago;
-  const fresh = S.sec_check_problem ? h('span', {class: 'text-orange'}, 'SEC check failed')
-    : hours == null ? h('span', {class: 'text-orange'}, 'SEC never checked')
-    : hours <= 48 ? h('span', {class: 'text-secondary'}, `SEC checked ${hours}h ago`)
-    : h('span', {class: 'text-orange'}, `SEC checked ${Math.round(hours / 24)}d ago · out of date`);
+  // the state is the server's (states.edgar, the one the claims register reads); the page only adds the age
+  const [secCls, secWord] = stateWord('edgar', S.sec_check), fresh = h('span', {class: secCls},
+    S.sec_check === 'fresh' ? `${secWord} ${hours}h ago` : S.sec_check === 'stale' ? `${STATES.edgar.fresh[1]} ${Math.round(hours / 24)}d ago · ${secWord}` : secWord);
   const tile = (title, ...lines) => h('div', {class: 'col-md-3'}, h('div', {class: 'text-secondary small text-uppercase mb-1'}, title), ...lines.map((l) => h('div', {class: 'small'}, l)));
   const kv = (label, n, cls) => (n ? h('span', {class: 'd-flex justify-content-between', style: 'max-width:15rem'}, h('span', {class: cls || 'text-secondary'}, label), h('span', {class: 'num'}, int(n))) : '');
   const since = S.since;
@@ -137,6 +134,6 @@ async function trailPage(view, ticker) {
 // "12 verified · 3 corroborated · 2 match company tag · 1 done · 4 unverified", by each item's tone, zero parts left out
 function tallyLine(items) {
   const n = (tone) => items.filter((i) => ((i.card && i.card.how) || {}).tone === tone).length;
-  return [[n('ok'), 'verified'], [n('corroborated'), 'corroborated'], [n('company'), 'match company tag'], [n('done'), 'done'], [n('info'), 'unverified']]
+  return [[n('ok'), 'verified'], [n('corroborated'), 'corroborated'], [n('company'), 'match company tag'], [n('done'), 'done'], [n('info'), 'unverified'], [n('unknown'), 'not checked']]
     .filter(([k]) => k).map(([k, w]) => `${int(k)} ${w}`).join(' · ');
 }

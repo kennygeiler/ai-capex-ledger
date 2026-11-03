@@ -1,9 +1,9 @@
 // ── Evidence: one cited cell, what we extracted next to the filing itself (a crop of the stored 10-K, the cell boxed),
 // or two readings of the same item from two filings side by side. The server computes every state (ledger/crops.py
-// cells, /api/v1/evidence/<id>; the words are _shared.js CROP_STATE); the page never shows a crop that is not current. ────────────────────
+// cells, /api/v1/evidence/<id>; the words are states.CROP via _shared.js cropWord); the page never shows a crop that is not current. ────────────────────
 const evPeriod = (e) => (e.period_start ? `${day(e.period_start)} – ${day(e.period_end)}` : `${e.months ? e.months + ' months to ' : ''}${day(e.period_end)}`);
 const evWhat = (e) => [FIELDS[e.field] || e.field, e.dimension].filter(Boolean).join(' · ');
-const evState = (e) => { const [cls, word] = CROP_STATE[e.state] || CROP_STATE.none; return h('span', {class: cls + ' fw-medium'}, word); };
+const evState = (e) => { const [cls, word] = cropWord(e.state); return h('span', {class: cls + ' fw-medium'}, word); };
 const evKv = (k, v) => h('div', {class: 'ev-kv'}, h('div', {class: 'text-secondary small'}, k), h('div', {class: 'brk'}, v));
 
 function evFiling(e) {

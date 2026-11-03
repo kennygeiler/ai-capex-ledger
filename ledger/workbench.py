@@ -196,7 +196,8 @@ def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
         D = dec.get(p["ticker"], {}).get(p["reported_name"])
         st = (D or {}).get("state") or status.of_mapping(None)  # the card's state: status.of_mapping with the company's tag, as Proof reads it
         st = {"state": st["state"], "by": st["by"], "reason": st.get("reason") or ""}
-        label = {"to_confirm": "Proposed", "verified": "Matches company's own tag"}.get(p["kind"], "Unmapped")
+        from .states import mapping as mapping_state, word
+        label = word("mapping", mapping_state(st))  # the state's word (states.MAPPING), from the state Proof counts
         from .config import SCOPE
         if p["ticker"] not in SCOPE:
             impact = "blocks nothing until the company is in scope (config.SCOPE)"
@@ -283,6 +284,9 @@ def items(con, flow: dict) -> dict:
         rows.append(row)
     confirm = to_confirm(None if flow["scope"] in ("", "all") else flow["tickers"], names)
     rows += asset_types(con, flow.get("tickers") or sorted(names), names)  # the scope's tickers: SCOPE for "all", a layer's, or the one ticker asked for
+    from .states import row as row_state
+    for r in confirm + rows:  # the row's word on the page: states.row, the one the trail and Proof read
+        r["verification"] = row_state(r["state"], r["by"])
     open_ = [r for r in rows if r["open"]]
     by_cause = {}
     for r in confirm + rows:

@@ -1,8 +1,7 @@
 // ── Release: the checklist a person signs from (T5, T6, T8; docs/PROOF.md). Every line is something that could make
 // the signature wrong, with its count and the page that fixes it. The server builds it (ledger/checklist.py); the
 // page renders it as it is and recomputes nothing. ───────────────────────────────────────────────────────────────
-const LINE_STATE = {pass: ['Pass', 'text-green'], fail: ['Fail', 'text-red'], info: ['Info', 'text-secondary'], not_run: ['Not run', 'text-orange']};
-const stateBadge = (l) => { const [word, cls] = LINE_STATE[l.state] || LINE_STATE.info; return h('span', {class: cls + ' fw-medium'}, word); };
+const stateBadge = (l) => { const [cls, word] = stateWord('line', l.state); return h('span', {class: cls + ' fw-medium'}, word); };  // states.LINE
 const PAGE_NAME = {proof: 'Proof', reconcile: 'Reconcile', data: 'Dataset', gaps: 'Known gaps', release: 'Release', rules: 'Rules'};
 
 // what a line's detail holds, as a table whose columns are the detail's own keys

@@ -99,7 +99,7 @@ const INDUSTRY = {hyperscaler: 'Hyperscaler', neocloud: 'Neocloud', miner_to_hpc
 const KINDS = {spent: 'spent', committed: 'committed', derived: 'derived', planned: 'planned'};
 const ALL_KINDS = Object.keys(KINDS);
 const parseQ = (s) => Object.fromEntries(new URLSearchParams(s));
-const CHECK = {agree: 'Verified', definition_gap: 'Unverified · definition', unresolved: 'Differs from SEC XBRL', no_reference: 'Unverified · citation only', not_reported: 'Not reported'};
+const checkWord = (label) => stateWord('check', label)[1];  // a value's reconcile label in states.CHECK's words
 
 // the drawer
 let drawerOpener = null;
@@ -184,10 +184,9 @@ function mappingDecision(D, actions) {
 }
 
 // ── A cited cell's crop (ledger/crops.py cells/brief): the server decides the state; every page says it with these words ──
-const CROP_STATE = {located: ['text-green', 'Cell located'], not_located: ['text-red', 'Cell not located'], stale: ['text-orange', 'Crop out of date'],
-  missing: ['text-orange', 'Crop file missing'], none: ['text-secondary', 'No crop']};
+const cropWord = (s) => stateWord('crop', s);  // states.CROP: the server decides the state (crops.state), every page says it with these words
 const SEC_LINK = /^https:\/\/www\.sec\.gov\//;  // only an SEC address becomes a link
-const cropState = (c) => { const [cls, word] = CROP_STATE[c.state] || CROP_STATE.none; return h('span', {class: cls}, word, c.state === 'not_located' && c.reason ? h('span', {class: 'text-secondary'}, ` · ${c.reason}`) : ''); };
+const cropState = (c) => { const [cls, word] = cropWord(c.state); return h('span', {class: cls}, word, c.state === 'not_located' && c.reason ? h('span', {class: 'text-secondary'}, ` · ${c.reason}`) : ''); };
 // the crop, full size, over the page: the cell boxed in red, its filing, Open in filing; Esc or a click outside closes it
 function cropBox(src, caption, links) {
   const close = () => { box.remove(); document.removeEventListener('keydown', esc); if (opener && opener.isConnected) opener.focus(); };
