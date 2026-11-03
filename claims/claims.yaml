@@ -606,10 +606,12 @@
       - tests.test_crops.State.test_the_stored_file_is_hashed_as_the_viewer_does
       - tests.test_crops.Parity.test_the_pages_text_rule_is_pythons
       - tests.test_crops.Offline.test_rendering_a_filing_fetches_nothing
+      - tests.test_crops.SubHeader.test_the_date_column_not_the_footnote_column
+      - tests.test_crops.SubHeader.test_the_real_nvidia_filing
   status: partial
   gaps:
     - Located means the rendered page shows the cited text at that row and column; it does not check the scale, the sign or the period.
-    - A cell whose column label carries a neighbouring sub-header is not located, though the number is in the table.
+    - A trailing sub-header part is dropped only when it is a unit "(In years / months / millions / thousands / billions)" or ends in a colon; another neighbouring sub-header in a column label is still not located.
     - A cell that runs several values together is not located, though the cited value is one of them.
   ticket: none
 

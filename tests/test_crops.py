@@ -379,6 +379,55 @@ class Locator(unittest.TestCase):
                 b.close()
 
 
+NVDA_PPE = """<table>
+  <tr><td></td><td colspan="2">January 30,<br>2022</td><td colspan="2">January 31,<br>2021</td><td>Estimated Useful Life</td></tr>
+  <tr><td></td><td colspan="4">(In millions)</td><td>(In years)</td></tr>
+  <tr><td>Property and Equipment:</td></tr>
+  <tr><td>Land</td><td>$</td><td>218</td><td>$</td><td>218</td><td>(A)</td></tr>
+  <tr><td>Equipment, compute hardware, and software</td><td></td><td>2,852</td><td></td><td>1,985</td><td>3-5</td></tr>
+  <tr><td>Construction in process</td><td></td><td>737</td><td></td><td>558</td><td>(C)</td></tr></table>"""
+
+
+@unittest.skipUnless(CHROME, "needs Chrome")
+class SubHeader(unittest.TestCase):
+    """F-EV1: NVIDIA's PP&E column labels end with the useful-life sub-header ("(In years)") or the section label
+    ("Property and Equipment:"); the header match drops those parts and reads the date column. The guard stays: the
+    cell must equal the cited text, and a label naming only the footnote column is still not a value."""
+
+    def setUp(self):
+        self.dir = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.dir)
+
+    def crop(self, doc, cites):
+        return crops.crop_doc(doc, hashlib.sha256(doc.read_bytes()).hexdigest(), cites, self.dir / "out", at="2026-11-02T00:00:00+00:00")
+
+    def test_the_date_column_not_the_footnote_column(self):
+        doc = _page(NVDA_PPE, self.dir)
+        r = self.crop(doc, [_cite("cip21", "Construction in process", "January 31,2021 | (In years)", "558"),
+                            _cite("cip22", "Construction in process", "January 30,2022 | (In years)", "737"),
+                            _cite("land", "Land", "January 31,2021 | Property and Equipment:", "218"),
+                            _cite("eq", "Equipment, compute hardware, and software", "January 31,2021 | (In years)", "1,985"),
+                            _cite("wrong", "Construction in process", "January 31,2021 | (In years)", "737"),  # the other year's value
+                            _cite("mark", "Construction in process", "(In years)", "558")])  # only the footnote column named
+        for k, seen in (("cip21", "558"), ("cip22", "737"), ("land", "$218"), ("eq", "1,985")):
+            self.assertTrue(r[k]["located"], k)
+            self.assertEqual(r[k]["seen"], seen, k)
+        self.assertEqual(r["wrong"]["reason"], "Page shows 558 · cited 737")
+        self.assertIsNone(r["wrong"]["img"])
+        self.assertEqual(r["mark"]["reason"], "Page shows (C) · cited 558")  # a footnote mark is never a value
+
+    def test_the_real_nvidia_filing(self):
+        """NVDA 10-K filed 2022-03-18, construction in process at 31 Jan 2021: cited 558, the page showed (C) before."""
+        doc = crops.doc_path(1045810, "0001045810-22-000036")
+        self.assertTrue(doc.is_file(), f"stored filing needed in data/raw: {doc}")
+        r = self.crop(doc, [{"extraction_id": "cip", "accession": "0001045810-22-000036", "table_id": "t0037", "row_label": "Construction in process",
+                             "column_label": "January 31,2021 | (In years)", "cell_text": "558"},
+                            {"extraction_id": "land", "accession": "0001045810-22-000036", "table_id": "t0037", "row_label": "Land",
+                             "column_label": "January 30,2022 | (In years)", "cell_text": "218"}])
+        self.assertEqual((r["cip"]["located"], r["cip"]["seen"]), (True, "558"))
+        self.assertEqual((r["land"]["located"], r["land"]["seen"]), (True, "$218"))
+
+
 @unittest.skipUnless(CHROME, "needs Chrome")
 class Parity(unittest.TestCase):
     def test_the_pages_text_rule_is_pythons(self):

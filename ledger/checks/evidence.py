@@ -25,7 +25,13 @@ def load_all() -> dict:
 _LOCATE = """([idx, row, col, cited]) => {
   const norm = (s) => (s || "").replace(/\\s+/g, "").toLowerCase();
   const tables = [...document.querySelectorAll("table")];
-  const parts = col.split("|").map(norm), want = norm(row), head = parts[parts.length - 1];
+  // A trailing part that names no value column is dropped before the header match: a unit sub-header ("(In years)", the
+  // useful-life column's) or a section label ending in a colon ("Property and Equipment:"), which the parser can carry
+  // into a date column's label (NVIDIA's PP&E table). The header is then the part before it (the date).
+  const frag = (p) => /^\\(in(years|months|millions|thousands|billions)\\)$/.test(p) || /:$/.test(p);
+  const parts = col.split("|").map(norm), want = norm(row);
+  while (parts.length > 1 && frag(parts[parts.length - 1])) parts.pop();
+  const head = parts[parts.length - 1];
   for (const t of [tables[idx], ...tables].filter(Boolean)) {
     const trs = [...t.querySelectorAll("tr")];
     const named = trs.filter((r) => { const c = [...r.cells].find((c) => c.textContent.trim()); return c && norm(c.textContent) === want; });
