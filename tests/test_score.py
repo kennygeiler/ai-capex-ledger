@@ -10,7 +10,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from unittest import mock
 
-from ledger import score, store
+from ledger.checks import score
+from ledger.core import store
 
 
 def _doc(acc, ticker, period):
@@ -50,7 +51,7 @@ class Synthetic(unittest.TestCase):
         self.assertEqual(sc["stage"], "values")
 
     def test_the_twin_interval_is_wilson_on_the_counts_and_none_without_a_denominator(self):
-        from ledger import stats
+        from ledger.core import stats
         sc = score.score(self.con, "reader", ["MSFT"])
         low, high = stats.wilson(sc["twin"]["agree"], sc["twin"]["of"])
         self.assertEqual(sc["twin"]["interval"], [round(low, 4), round(high, 4)])
@@ -145,7 +146,7 @@ class Synthetic(unittest.TestCase):
         self.assertIn("faults.py", sc["faults_note"])
 
     def test_by_agent_carries_the_score(self):
-        from ledger import cost
+        from ledger.extract import cost
         r = cost.by_agent(self.con, "reader", ["MSFT"])
         self.assertEqual(r["score"]["outputs"], 5)
         self.assertIsNone(cost.by_agent(self.con, "attributor", ["MSFT"])["score"])
@@ -157,8 +158,11 @@ class Page(unittest.TestCase):
     blocked and escaped always written, zero included; the faults line is the API's faults_note when nothing was measured."""
 
     def render(self, sc):
-        js = (store.ROOT / "ledger" / "pages" / "rules.js").read_text()
-        harness = """
+        from ledger.core import states
+        js = (store.ROOT / "ledger" / "web" / "pages" / "rules.js").read_text()
+        shared = (store.ROOT / "ledger" / "web" / "pages" / "_shared.js").read_text()
+        helpers = shared[shared.index("// ── state words"):shared.index("// ── end states-helpers")]  # stateWord, stateGroups
+        harness = states.js() + helpers + """
 const h = (tag, attrs = {}, ...kids) => kids.flat(Infinity).filter((k) => k !== '' && k != null).join(' ');
 const int = (n) => (n == null || n === '' ? '—' : Number(n).toLocaleString('en-US'));
 const STAGE_LABEL_UI = {values: 'Values', facts: 'Facts', statements: 'Statements', planned: 'Planned'};
@@ -169,7 +173,7 @@ const STAGE_LABEL_UI = {values: 'Values', facts: 'Facts', statements: 'Statement
         sc = {"outputs": 81, "checked": 70, "explained": 11, "open": 0, "blocked": 0, "twin": {"agree": 70, "of": 71, "interval": [0.9244, 0.9975]},
               "faults": {"caught": 1275, "planted": 1283, "no_effect": 8, "escaped": 0}, "faults_note": "reports/stage3-faults.json: run 2026-10-30", "stage": "values", "companies": 6, "note": "n"}
         out = self.render(sc)
-        self.assertIn("Verified 70 · Unverified 11 · Needs review 0 · Blocks release 0 (of 81)", out)
+        self.assertIn("Checked 70 · Unverified 11 · To review 0 · Blocks release 0 (of 81)", out)
         self.assertIn("Matches SEC XBRL 70 of 71 · 98.6% (95% CI 92.4–99.8%)", out)
         # one display path: the page computes the interval from agree / of; the API's interval is informational, so a
         # missing or a wrong one changes nothing on the page
@@ -196,7 +200,7 @@ const STAGE_LABEL_UI = {values: 'Values', facts: 'Facts', statements: 'Statement
 class RealDatabase(unittest.TestCase):
     def test_every_live_reader_counts_sum_to_the_denominator_on_the_six(self):
         import duckdb
-        from ledger.config import PROVEN
+        from ledger.core.config import PROVEN
         con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
         try:
             for aid in score.AGENT_STAGE:

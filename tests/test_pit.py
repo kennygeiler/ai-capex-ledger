@@ -1,4 +1,4 @@
-"""Point in time (T55, ledger/pit.py): an as-of query never returns a figure filed after the date asked (no lookahead); on
+"""Point in time (T55, ledger/web/pit.py): an as-of query never returns a figure filed after the date asked (no lookahead); on
 today's date it says what `values` says; APLD's FY2025 revenue flips on the second 10-K's filing date; a bad date is 400
 through the real Handler; and on a synthetic pair of filings a date between them answers the first."""
 import json
@@ -12,8 +12,9 @@ from urllib import error, request
 
 import duckdb
 
-from ledger import api, pit, store
-from ledger.config import PROVEN
+from ledger.web import api, pit
+from ledger.core import store
+from ledger.core.config import PROVEN
 
 DOC = {"cik": 1, "form": "10-K", "url": "u", "sha256": "0" * 64, "bytes": 1, "parser_version": "p", "table_count": 1, "tables_path": "t", "income_tables": None, "cash_flow_tables": None}
 CELL = {"unit_stated": "millions", "unit_source": "table", "scale": 1_000_000, "table_id": "t1", "row_label": "Revenue", "column_label": "2024", "cell_text": "1", "confidence": 1.0,
@@ -82,12 +83,12 @@ class Synthetic(unittest.TestCase):
 
 class Handler(unittest.TestCase):
     def test_a_bad_date_is_400_through_the_handler(self):
-        from ledger import app
+        from ledger.web import app
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         self.addCleanup(srv.shutdown)
         base = f"http://127.0.0.1:{srv.server_address[1]}/api/v1/values"
-        with mock.patch("ledger.app._con", return_value=mock.MagicMock()):
+        with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()):
             for url, word in ((base + "?as_of=2025-02-30", "as_of"), (base + "?as_of=2025-06-30&release=v1.8.0", "fixed snapshot")):
                 try:
                     request.urlopen(url)

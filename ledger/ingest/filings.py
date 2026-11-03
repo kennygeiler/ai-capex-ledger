@@ -10,7 +10,7 @@ import re
 from datetime import date
 from dataclasses import asdict, dataclass
 
-from ..config import PREDECESSORS, stage_tickers
+from ..core.config import PREDECESSORS, stage_tickers
 from .edgar import RAW, _cached, fetch_json, fetch_tickers
 
 FIRST_PERIOD = "2022-01-01"

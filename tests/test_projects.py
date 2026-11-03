@@ -2,7 +2,7 @@
 import unittest
 from unittest import mock
 
-from ledger import projects
+from ledger.extract import projects
 
 PS = {"p01": "Hyperion, our data center in Louisiana, will scale to 2 GW by 2030. We expect to spend $10 billion on it.",
       "p02": "Capital expenditures were $39 billion in 2024."}

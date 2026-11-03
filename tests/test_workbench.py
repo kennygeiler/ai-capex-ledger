@@ -3,7 +3,8 @@ from unittest import mock
 
 import duckdb
 
-from ledger import views, workbench
+from ledger.web import views
+from ledger.review import workbench
 
 
 
@@ -12,13 +13,13 @@ _PEOPLE = None
 
 def setUpModule():  # T80: config.PEOPLE fails closed; these tests confirm as placeholder people, never a real confirmer
     global _PEOPLE
-    from ledger import config
+    from ledger.core import config
     _PEOPLE = list(config.PEOPLE)
     config.PEOPLE[:] = _PEOPLE + ["a test"]
 
 
 def tearDownModule():
-    from ledger import config
+    from ledger.core import config
     config.PEOPLE[:] = _PEOPLE
 
 def _flow(queue):
@@ -32,7 +33,7 @@ CONFIRMED = {"GOOGL": {"Technical infrastructure": {"standard_type": "Technology
 
 
 def _confirmed():
-    return mock.patch("ledger.taxonomy.asset_types", return_value=CONFIRMED)
+    return mock.patch("ledger.release.taxonomy.asset_types", return_value=CONFIRMED)
 
 
 def _con():
@@ -48,13 +49,13 @@ def _con():
 class Workbench(unittest.TestCase):
     def setUp(self):  # the repo's own resolutions log stays out of these rows
         import pathlib, tempfile
-        from ledger import resolutions
+        from ledger.review import resolutions
         self._log, resolutions.LOG = resolutions.LOG, pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
         self._types = _confirmed()
         self._types.start()
 
     def tearDown(self):
-        from ledger import resolutions
+        from ledger.review import resolutions
         resolutions.LOG = self._log
         self._types.stop()
 
@@ -85,7 +86,7 @@ class Workbench(unittest.TestCase):
         self.assertEqual(r["reason"], "the filing tags a value the reader did not extract")
         self.assertIn("Not extracted", r["cause_label"])
         self.assertEqual((r["ours"], r["reference"], r["ref_label"]), (None, 23601000000, "SEC XBRL"))
-        from ledger import resolutions
+        from ledger.review import resolutions
         self.assertFalse(resolutions.is_live(r["key"]))  # closed by re-reading the filing, never by a decision
 
     def test_finding_rows_get_numbers_only_when_numeric(self):
@@ -132,7 +133,7 @@ if __name__ == "__main__":
 class ToConfirmGroup(unittest.TestCase):
     def test_unconfirmed_decisions_come_first_as_their_own_group(self):
         import json, pathlib, tempfile
-        from ledger import resolutions
+        from ledger.review import resolutions
         old = resolutions.LOG
         resolutions.LOG = pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
         resolutions.LOG.write_text(json.dumps({"id": "r9", "key": "fact_differs|GOOGL|segment_capex|FY2024|Google Cloud||", "hash": "h", "state": "explain", "reason": "a planning floor", "by": "Replication run (Claude), for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n"

@@ -5,7 +5,7 @@ ingestion and attribution. "The entire point of this pipeline is to manage those
 frame changes. Not a dataset across 100 companies with a review screen on top; a pipeline that proves every number
 it produces, shown first on five companies, widened only when the five are proven.
 
-## What proven means: the one definition of open (`ledger/status.py`)
+## What proven means: the one definition of open (`ledger/core/status.py`)
 
 For a company, every row of the dataset is in exactly one of four states, and one function, `status.state`, says
 which; Proof, Reconcile, the trail and the Release gates all read it, so no two pages count the same row differently:
@@ -56,7 +56,7 @@ it writes `not_reported` over every blank); a fact's only when its filing's XBRL
 evidence: a blank whose lookup never ran is a gap, and so is an `xbrl` check.
 
 Which labels explain, decided: only `not_reported` and `no_reference`, and only with XBRL looked up and empty. That is
-reconcile's own definition (`ledger/reconcile.py`): `not_reported` means the 10-K has no line and XBRL tags no value
+reconcile's own definition (`ledger/checks/reconcile.py`): `not_reported` means the 10-K has no line and XBRL tags no value
 either, `no_reference` means XBRL has no value to compare. A label with an XBRL value behind it is a check that did not
 happen, so it is a gap; a label whose row never asked XBRL is a gap too. Every other label (`not_extracted`,
 `to_confirm`, anything new) names a cause and explains nothing. One known way reconcile can still write `not_reported`
@@ -175,7 +175,7 @@ grades always sum to rows), per company and in total; Proof shows it as "Rows by
 the key in one word beside `by`. On the six since T92 (golden fixtures): twin 273 of 889 rows, tie 101, second reading
 17, no key 498; second source and later truth 0 until T41–T43 write them.
 
-### The ladder for the note figures (T92, `ledger/ties.py`)
+### The ladder for the note figures (T92, `ledger/checks/ties.py`)
 
 The SEC tags almost none of the untagged note figures (PP&E by category, segments a filer does not tag, purchase
 commitments), so before T92 every one read "citation only", and two that disagreed across filings passed silently as
@@ -247,7 +247,7 @@ or a rule, never as a click on a row; once written it applies every run and the 
 one click from Reconcile: an explanation becomes an info `explains` rule (the warn rule, the field, and the whole lines
 the company reads the field from; `rules.explained` joins it to the finding on Proof and Reconcile alike, after a
 person's decision and never over a blocked or checked row) or a `definitions/companies.yaml` entry, through
-`ledger/judgement.py`, by a person on `config.PEOPLE`. Its blast radius is bounded on purpose: a rule targets only a
+`ledger/review/judgement.py`, by a person on `config.PEOPLE`. Its blast radius is bounded on purpose: a rule targets only a
 label-driven finding (`rules.EXPLAINABLE`), matches exactly its set of lines, never a finding with no value row, and
 its `by` must be a person (T80's walk checks it); a revenue or opex definition records `periods` and applies only to
 them. A resolution is
@@ -260,7 +260,7 @@ because the fix is an extraction, not a decision; the row closes when the filing
 `tests/test_status.py` asserts, on the frozen fixtures, that the Proof board's open count equals Reconcile's for every
 company in the proven set.
 
-### The company's own tag checks a category mapping (`mapping:filer_tag`, `ledger/filertag.py`)
+### The company's own tag checks a category mapping (`mapping:filer_tag`, `ledger/checks/filertag.py`)
 
 A category mapping ("Construction in progress" → `ConstructionInProgressMember`) is a classification. The filer's own
 XBRL instance often classifies the same balance: it tags `PropertyPlantAndEquipmentGross` on the balance date with a
@@ -311,7 +311,7 @@ member in FY2023 only (GOOGL "Technical infrastructure", "Office space", "Corpor
 differ from the tag), and 13 are not tagged with the value (all 6 MSFT, all 5 AMD, AMZN "Equipment", GOOGL "Add: assets
 not yet in service").
 
-**The decision card** (`ledger/mapcard.py`, `decisions(con, ticker)`) is the one function the trail's Category mapping
+**The decision card** (`ledger/review/mapcard.py`, `decisions(con, ticker)`) is the one function the trail's Category mapping
 section and Reconcile's asset types group read: the company line (latest balance, the years, Open ↗ to the cell), the
 proposed member with its FASB label and definition verbatim from `taxonomy/us_gaap_members.yaml` ("Source: FASB US GAAP
 2025"), the company's own tag, the basis, up to three alternatives (the company's own us-gaap tag when it differs, then
@@ -374,7 +374,7 @@ Nothing is inferred. The attribution methods that estimated an AI share, and the
 
 **Point in time, no lookahead (T55).** `values` ships the newest 10-K's figure per fiscal year and keeps the first 10-K's as `first_reported`;
 a buyer who backtests on day D must see only what was filed by D, or a restated figure leaks the future into history (APLD's FY2025 revenue
-moved 58% between its 10-Ks). `?as_of=D` on `/api/v1/values` and `/api/v1/taxonomy` (`ledger/pit.py`, `docs/API.md`) answers from the cells
+moved 58% between its 10-Ks). `?as_of=D` on `/api/v1/values` and `/api/v1/taxonomy` (`ledger/web/pit.py`, `docs/API.md`) answers from the cells
 every filing left in `extractions` and `documents.filed`, with the values builder's own arithmetic, and names the accession and filing date it
 used; a year no filing by D reports is absent, never filled. `tests/test_pit.py` proves on the six that at every filing date the answer's
 `filed <= D` and that today's answer equals `values`. The packet carries no as-of file: the signed dataset is shipped once, and the as-of
@@ -398,7 +398,7 @@ answer is derived from the same cells.
   tagged for the category in its XBRL instance (`mapper.filer_members`) and flags a us-gaap member that differs from the proposal.
 - **Dataset**: the grid for a consumer, marks per cell (✓ traced, ≠ differs from SEC data, ✗ disagrees with a stated figure, ! above the total, a decision as a badge), CSV export.
 - **Explore**: charts on the API lists, share as a value, saved views as queries.
-- **Release** (`#release`, the last page; `ledger/checklist.py`, T5–T8): the checklist a person signs from. One line per thing
+- **Release** (`#release`, the last page; `ledger/release/checklist.py`, T5–T8): the checklist a person signs from. One line per thing
   that could make the signature wrong, each green or red with its count and a link to the page that fixes it: the four
   gates per company (G1 G4 G5 G6, `release.gates`), open and blocked items in the scope (the Proof board's counts, the one
   definition of open), answer-key values missing from the dataset (T81, 0 required: an XBRL value with no released
@@ -428,4 +428,4 @@ answer is derived from the same cells.
   the shipped rows, the parser versions over the filings in scope, rows whose run is unrecorded, the commit built on and whether
   the tree was dirty, the sha256 of the definitions, taxonomy and resolutions files); v1.8.0 and earlier name the versions in use at
   build time, and v1.9.0's DIFF.md says so. A shipped release is never edited.
-- The releases table and the golden test's last run sit on Proof; the guards, the asset-type mappings and the readers on Rules; the dataset on Dataset, as a grid by year or as the raw rows of every list. Seven pages, one file each under `ledger/pages/`, the shell in `ledger/app.html`.
+- The releases table and the golden test's last run sit on Proof; the guards, the asset-type mappings and the readers on Rules; the dataset on Dataset, as a grid by year or as the raw rows of every list. Seven pages, one file each under `ledger/web/pages/`, the shell in `ledger/web/app.html`.

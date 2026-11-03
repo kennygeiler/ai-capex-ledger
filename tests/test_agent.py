@@ -7,8 +7,8 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from ledger import agent
-from ledger.extract import Invalid, prompt_version
+from ledger.extract import agent
+from ledger.extract.extract import Invalid, prompt_version
 
 
 class _Invalid(Exception):

@@ -9,7 +9,7 @@ nothing. Prints migrated / archived / untouched; exit 0."""
 import argparse
 from pathlib import Path
 
-from .. import resolutions
+from ..review import resolutions
 
 
 def main(argv=None) -> int:
@@ -19,7 +19,7 @@ def main(argv=None) -> int:
     ap.add_argument("--log", type=Path, default=None, help="another log than decisions/resolutions.jsonl (tests)")
     ap.add_argument("--archive", type=Path, default=None, help="another archive file than decisions/archive/resolutions-keys-<date>.jsonl")
     a = ap.parse_args(argv)
-    from ..app import _flow
+    from ..web.app import _flow
     lines = resolutions.load(a.log)
     before = resolutions.load(a.archive) if a.archive else resolutions.archived_keys()
     plan = resolutions.migrate_keys(lines, lambda t: _flow(t)["queue"], archived_before=[r for r in before if "key" in r])

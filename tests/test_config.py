@@ -1,6 +1,6 @@
 import unittest
 
-from ledger.config import AI_SET, MVP_YEARS, STAGES, added, stage_tickers, tracked
+from ledger.core.config import AI_SET, MVP_YEARS, STAGES, added, stage_tickers, tracked
 
 
 class Config(unittest.TestCase):

@@ -2,10 +2,10 @@
 import argparse
 from collections import Counter
 
-from .. import store
-from ..config import add_scope, scope
-from ..definitions import load as load_definitions
-from ..reconcile import fiscal_year_end, values_for
+from ..core import store
+from ..core.config import add_scope, scope
+from ..review.definitions import load as load_definitions
+from ..checks.reconcile import fiscal_year_end, values_for
 
 
 def main(argv=None) -> int:

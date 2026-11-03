@@ -2,8 +2,8 @@ import os
 import unittest
 from pathlib import Path
 
-from ledger import golden
-from ledger.config import PROVEN
+from ledger.checks import golden
+from ledger.core.config import PROVEN
 
 
 class Golden(unittest.TestCase):

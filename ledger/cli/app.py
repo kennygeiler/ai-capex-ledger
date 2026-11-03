@@ -4,7 +4,7 @@ LEDGER_READONLY=1 serves a read-only copy (a hosted Kenny's Data Emporium): ever
 import argparse
 import os
 
-from ..app import serve
+from ..web.app import serve
 
 
 def main(argv=None) -> int:

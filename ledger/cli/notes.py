@@ -1,6 +1,6 @@
 """python -m ledger notes --stage N | --ticker X …  --pack | --run | --load
 
-Facts from the notes (ledger/notes.py): segment capex and revenue, PP&E by category, finance lease liabilities,
+Facts from the notes (ledger/extract/notes.py): segment capex and revenue, PP&E by category, finance lease liabilities,
 purchase commitments.
 --pack  writes one task per filing to data/notes/tasks/: the candidate note tables, nothing else.
 --run   packs, then runs the Notes reader headless on every filing whose task changed (--rerun: all), writing
@@ -16,13 +16,14 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
-from .. import agent, store
-from ..config import add_scope, scope
-from ..extract import Invalid
-from ..notes import DIMENSIONED, OUTPUTS, fact_rows, make_task, norm_dim, prompt_version, resolve_note, validate_output, write_tasks
-from ..reconcile import fiscal_year_end
-from ..reference.dimensions import CONCEPTS, instance_facts
-from ..reference.normalize import fiscal_label
+from ..extract import agent
+from ..core import store
+from ..core.config import add_scope, scope
+from ..extract.extract import Invalid
+from ..extract.notes import DIMENSIONED, OUTPUTS, fact_rows, make_task, norm_dim, prompt_version, resolve_note, validate_output, write_tasks
+from ..checks.reconcile import fiscal_year_end
+from ..ingest.reference.dimensions import CONCEPTS, instance_facts
+from ..ingest.reference.normalize import fiscal_label
 
 
 def _exc(ticker, subject, message):

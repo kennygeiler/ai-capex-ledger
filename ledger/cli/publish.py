@@ -5,7 +5,7 @@ DATABASE_URL in .env. Refuses an unsigned release or one whose files no longer m
 same version again replaces its rows in one transaction. --status lists what production holds."""
 import argparse
 
-from ..publish import NotPublishable, publish, status
+from ..release.publish import NotPublishable, publish, status
 
 
 def main(argv=None) -> int:

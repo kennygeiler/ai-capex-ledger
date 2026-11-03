@@ -10,11 +10,11 @@ import json
 import time
 from datetime import datetime, timezone
 
-from .. import progress, store
-from ..config import add_scope, scope, tracked
-from ..progress import STEPS
-from ..scorecard import scorecard, table
-from ..snapshots import save, take
+from ..core import progress, store
+from ..core.config import add_scope, scope, tracked
+from ..core.progress import STEPS
+from ..checks.scorecard import scorecard, table
+from ..core.snapshots import save, take
 
 
 def main(argv=None) -> int:

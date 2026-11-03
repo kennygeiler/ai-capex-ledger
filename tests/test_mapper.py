@@ -13,7 +13,7 @@ from http.server import ThreadingHTTPServer
 import duckdb
 import yaml
 
-from ledger import mapper
+from ledger.review import mapper
 
 
 _PEOPLE = None
@@ -21,13 +21,13 @@ _PEOPLE = None
 
 def setUpModule():  # T80: config.PEOPLE fails closed; these tests confirm as placeholder people, never a real confirmer
     global _PEOPLE
-    from ledger import config
+    from ledger.core import config
     _PEOPLE = list(config.PEOPLE)
     config.PEOPLE[:] = _PEOPLE + ["A Tester", "No", "Bruno Runyon", "Kenny", "a test"]
 
 
 def tearDownModule():
-    from ledger import config
+    from ledger.core import config
     config.PEOPLE[:] = _PEOPLE
 
 HEADER = """# The company's own PP&E category, mapped to the nearest us-gaap PropertyPlantAndEquipmentByTypeAxis member.
@@ -134,7 +134,7 @@ class Confirm(unittest.TestCase):
         self.assertEqual(after[:-1], before[:-1])  # nothing else moved
         self.assertEqual((e["by"], e["confirmed_by"], e["confirmed_at"]), ("Claude Fable 5.1", "A Tester", "2026-11-03"))  # the proposer stays named
         self.assertEqual([l["kind"] for l in mapper.load_proposals(self.log)], ["confirmed"])
-        from ledger import status
+        from ledger.core import status
         self.assertTrue(status.confirmed(yaml.safe_load(self.path.read_text())["AMD"]["Equipment"]))
         with self.assertRaises(ValueError) as c:  # once confirmed, it is a person's: not confirmed twice, not replaced
             mapper.approve("AMD", "Equipment", "LandMember", "equipment", "A Tester", path=self.path, log=self.log)
@@ -176,7 +176,7 @@ class Confirm(unittest.TestCase):
 
 class Confirmed(unittest.TestCase):
     def test_confirmed_is_a_field_check(self):
-        from ledger import status
+        from ledger.core import status
         self.assertFalse(status.confirmed(None))
         self.assertFalse(status.confirmed({"standard_type": "LandMember", "by": "Claude Fable 5.1"}))
         self.assertFalse(status.confirmed({"standard_type": "LandMember", "by": "Kenny, confirmed", "evidence": "confirmed by a person"}))  # never a phrase
@@ -184,7 +184,7 @@ class Confirmed(unittest.TestCase):
         self.assertTrue(status.confirmed({"standard_type": "LandMember", "confirmed_by": "A Tester"}))
 
     def test_of_mapping(self):
-        from ledger import status
+        from ledger.core import status
         self.assertEqual({k: v for k, v in status.of_mapping({"standard_type": "LandMember", "confirmed_by": "A Tester"}).items() if k != "reason"}, {"state": "checked", "by": "mapping:LandMember", "keys": [], "key": None})
         st = status.of_mapping({"standard_type": "LandMember", "by": "Claude Fable 5.1"})
         self.assertEqual((st["state"], st["by"]), ("open", "label:to_confirm"))
@@ -192,12 +192,12 @@ class Confirmed(unittest.TestCase):
         self.assertEqual(status.of_mapping(None)["state"], "open")
 
     def test_an_unconfirmed_mapping_fails_g6_under_its_company(self):
-        from ledger.release import gates
+        from ledger.release.release import gates
         g = gates([], [], {"values": []}, tickers=["NVDA"], mappings=[{"ticker": "NVDA", "reported_name": "Land"}, {"ticker": "TSLA", "reported_name": "Land"}])
         self.assertEqual(g["G6"], {"NVDA": ["asset_types|NVDA|Land"], "TSLA": ["asset_types|TSLA|Land"]})
 
     def test_the_taxonomy_lists_what_waits_for_a_person(self):
-        from ledger import taxonomy
+        from ledger.release import taxonomy
         types = {"MU": {"Land": {"standard_type": "LandMember", "by": "Claude Fable 5.1", "at": "2026-11-01"}, "Equipment": {"standard_type": "MachineryAndEquipmentMember", "by": "A Tester", "confirmed_by": "A Tester"}}}
         with mock.patch.object(taxonomy, "asset_types", return_value=types):
             got = taxonomy.to_confirm(_con(), ["MU"])
@@ -220,7 +220,7 @@ class Confirmed(unittest.TestCase):
             raw = Path(tmp)
             (raw / "0000723125" / "filings").mkdir(parents=True)
             (raw / "0000723125" / "filings" / "acc1.facts.json").write_text(json.dumps(inst))  # acc2 has no instance on disk
-            with mock.patch.object(edgar, "RAW", raw), mock.patch("ledger.reference.dimensions.instance_facts", side_effect=AssertionError("no fetch on a page read")):
+            with mock.patch.object(edgar, "RAW", raw), mock.patch("ledger.ingest.reference.dimensions.instance_facts", side_effect=AssertionError("no fetch on a page read")):
                 got = mapper.filer_members(con, "MU", ["Other equipment", "Land", "Equipment", "Leasehold", "Empty", "Elsewhere"])
         self.assertEqual(got["Other equipment"], {"members": ["us-gaap:EquipmentMember"], "ambiguous": False})  # the total (no member) never counts
         self.assertEqual(got["Land"], {"members": ["us-gaap:LandMember"], "ambiguous": False})
@@ -239,7 +239,9 @@ class Confirmed(unittest.TestCase):
         self.assertEqual(mapper.filer_members(con, "MU", ["Land"]), {"Land": None})
 
     def test_an_entry_with_no_member_is_unmapped(self):
-        from ledger import proof, status, taxonomy
+        from ledger.checks import proof
+        from ledger.core import status
+        from ledger.release import taxonomy
         types = {"MU": {"Land": {"evidence": "land", "by": "a test"}}}
         with mock.patch.object(taxonomy, "asset_types", return_value=types):
             self.assertEqual(taxonomy.unmapped(_con(), ["MU"]), [{"ticker": "MU", "reported_name": "Equipment"}, {"ticker": "MU", "reported_name": "Land"}])
@@ -248,7 +250,7 @@ class Confirmed(unittest.TestCase):
 
     def test_the_taxonomy_rows_of_an_unconfirmed_entry_are_not_mapped(self):
         """T63 review: the exported rows of an entry no person confirmed read mapped false, check to_confirm."""
-        from ledger import taxonomy
+        from ledger.release import taxonomy
         con = _con()
         for t, cols in (("extractions", "extraction_id text, accession text, table_id text, row_label text, cell_text text, ticker text"),):
             con.execute(f"create table {t} ({cols})")
@@ -398,10 +400,10 @@ def _con():
 
 class Group(unittest.TestCase):
     def test_reconcile_group_shape(self):
-        from ledger import workbench
+        from ledger.review import workbench
         lines = [{"kind": "proposed", "ticker": "MU", "reported_name": "Equipment", "standard_type": "MachineryAndEquipmentMember", "evidence": "Equipment(1)", "confidence": "medium", "reason": "r", "prompt_version": "mapper@v1", "model": "m", "at": "2026-11-01T00:00:00+00:00"}]
         flow = {"scope": "MU", "tickers": ["MU"], "names": {"MU": "Micron"}, "release": {"last": None}, "changed": {"last_run": None}, "queue": []}
-        with mock.patch.object(mapper, "load_proposals", return_value=lines), mock.patch("ledger.resolutions.unconfirmed", return_value=[]):
+        with mock.patch.object(mapper, "load_proposals", return_value=lines), mock.patch("ledger.review.resolutions.unconfirmed", return_value=[]):
             out = workbench.items(_con(), flow)
         rows = [r for r in out["rows"] if r["cause"] == "asset_types"]
         self.assertEqual([r["where"] for r in rows], ["Equipment", "Land"])  # MU has no entries in the real file; both are open
@@ -418,10 +420,10 @@ class Group(unittest.TestCase):
 
     def test_an_unconfirmed_entry_is_an_open_row_to_confirm(self):
         """T63: MSFT's Land has an entry with no confirmed_by: an open row, by label:to_confirm, the entry as its proposal."""
-        from ledger import workbench
+        from ledger.review import workbench
         flow = {"scope": "MSFT", "tickers": ["MSFT"], "names": {"MSFT": "Microsoft"}, "release": {"last": None}, "changed": {"last_run": None}, "queue": []}
         types = {"MSFT": {"Land": {"standard_type": "LandMember", "evidence": "the note's own category name", "by": "Claude Fable 5.1", "at": "2026-11-01"}}}
-        with mock.patch("ledger.taxonomy.asset_types", return_value=types), mock.patch.object(mapper, "load_proposals", return_value=[]), mock.patch("ledger.resolutions.unconfirmed", return_value=[]):
+        with mock.patch("ledger.release.taxonomy.asset_types", return_value=types), mock.patch.object(mapper, "load_proposals", return_value=[]), mock.patch("ledger.review.resolutions.unconfirmed", return_value=[]):
             out = workbench.items(_con(), flow)
             types["MSFT"]["Land"]["confirmed_by"] = "A Tester"
             after = workbench.items(_con(), flow)
@@ -433,7 +435,7 @@ class Group(unittest.TestCase):
 
 class Route(unittest.TestCase):
     def _serve(self):
-        from ledger import app
+        from ledger.web import app
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         self.addCleanup(srv.shutdown)
@@ -448,7 +450,7 @@ class Route(unittest.TestCase):
             return e.code, json.loads(e.read())
 
     def test_mapping_route(self):
-        from ledger import app
+        from ledger.web import app
         base = self._serve()
         with tempfile.TemporaryDirectory() as tmp:
             path, log = Path(tmp) / "asset_types.yaml", Path(tmp) / "p.jsonl"
@@ -459,7 +461,7 @@ class Route(unittest.TestCase):
             self.assertEqual(code, 403)
             self.assertIn("read-only", d["error"])
             um = [{"ticker": "MU", "reported_name": "Land"}, {"ticker": "MU", "reported_name": "Equipment"}]
-            with mock.patch.object(mapper, "ASSET_TYPES", path), mock.patch.object(mapper, "PROPOSALS", log), mock.patch.object(mapper, "unmapped", return_value=um), mock.patch("ledger.app._con", return_value=mock.MagicMock()):
+            with mock.patch.object(mapper, "ASSET_TYPES", path), mock.patch.object(mapper, "PROPOSALS", log), mock.patch.object(mapper, "unmapped", return_value=um), mock.patch("ledger.web.app._con", return_value=mock.MagicMock()):
                 code, d = self._post(base + "/api/mapping", {**body, "standard_type": "SoftwareAndSoftwareDevelopmentCostsMember"})
                 self.assertEqual(code, 400)
                 self.assertIn("not a member on the list", d["error"])

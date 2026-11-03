@@ -1,6 +1,6 @@
 """python -m ledger projects --stage N | --ticker X …  --pack | --run | --load
 
-Project-level investment (ledger/projects.py): named projects with size and stage, read from every gathered text.
+Project-level investment (ledger/extract/projects.py): named projects with size and stage, read from every gathered text.
 --pack  writes one task per text to data/projects/tasks/: the passages that name a project and give it a size.
 --run   packs, then runs the projects reader on every text whose task changed (--rerun: all), writing
         data/projects/outputs/<text_id>.json.
@@ -14,10 +14,11 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
-from .. import agent, store
-from ..config import add_scope, scope
-from ..guidance import task_passages
-from ..projects import OUTPUTS, TASKS, Invalid, latest, prompt_version, rows_for, validate_output, write_tasks
+from ..extract import agent
+from ..core import store
+from ..core.config import add_scope, scope
+from ..extract.guidance import task_passages
+from ..extract.projects import OUTPUTS, TASKS, Invalid, latest, prompt_version, rows_for, validate_output, write_tasks
 
 
 def _exc(ticker, subject, message):

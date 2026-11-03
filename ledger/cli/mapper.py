@@ -1,6 +1,6 @@
 """python -m ledger mapper <TICKER> [--dry-run]
 
-The mapping assistant (ledger/mapper.py, T33): for the ticker's reported PP&E categories with no entry in
+The mapping assistant (ledger/review/mapper.py, T33): for the ticker's reported PP&E categories with no entry in
 taxonomy/asset_types.yaml, write the task (the category names, the allowed us-gaap members, the note's words) to
 data/mapper/tasks/<TICKER>.md and run the mapper headless; its proposals go to decisions/mapping_proposals.jsonl and
 a `runs` row records the call. A person approves, edits or rejects each on Reconcile (#reconcile?scope=<TICKER>).
@@ -11,9 +11,10 @@ import json
 import time
 from datetime import datetime, timezone
 
-from .. import agent, store
-from ..mapper import Invalid, by_name, make_task, members, note_words, propose, prompt_version, validate_output, write_task
-from ..taxonomy import unmapped
+from ..extract import agent
+from ..core import store
+from ..review.mapper import Invalid, by_name, make_task, members, note_words, propose, prompt_version, validate_output, write_task
+from ..release.taxonomy import unmapped
 
 
 def main(argv=None) -> int:

@@ -12,13 +12,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ledger import golden, status, store
-from ledger.config import PROVEN
+from ledger.checks import golden
+from ledger.core import status, store
+from ledger.core.config import PROVEN
 
 SCRIPT = """
 import json, duckdb
-from ledger import app, cards, claims, filertag, limitations, proof, store, taxonomy, workbench
-from ledger.config import PROVEN
+from ledger.web import app, cards; from ledger.release import claims, limitations, taxonomy; from ledger.checks import filertag, proof; from ledger.core import store; from ledger.review import workbench
+from ledger.core.config import PROVEN
 con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
 b = proof.board(con)
 tags = filertag.verdicts(con, PROVEN)
@@ -359,7 +360,7 @@ class ALabelNeverCountsAsACheck(unittest.TestCase):
 
     def test_a_person_is_on_the_list(self):
         """T80: fail closed. A resolution or a confirmed_by counts as a person's only by a name on config.PEOPLE."""
-        from ledger import proof
+        from ledger.checks import proof
         self.assertTrue(status.is_person("Kenny Geiler"))
         for who in ("Gemini", "Claude", "Somebody Else", "", None, "Kenny Geiler (agent)"):
             self.assertFalse(status.is_person(who), who)
@@ -370,7 +371,7 @@ class ALabelNeverCountsAsACheck(unittest.TestCase):
         self.assertFalse(proof.person_wrote({"by": "Kenny Geiler", "author_kind": "run"}))
 
     def test_rule_ids_are_unique_and_guards_fill_only_gaps(self):
-        from ledger import proof
+        from ledger.checks import proof
         with self.assertRaises(ValueError):
             proof.rule_severities([{"id": "jump", "severity": "warn"}, {"id": "jump", "severity": "info"}])
         sev = proof.rule_severities([{"id": "part_year", "severity": "block"}])
@@ -380,7 +381,7 @@ class ALabelNeverCountsAsACheck(unittest.TestCase):
 
 WALK = r'''
 import json, sys, duckdb
-from ledger import proof, resolutions, status, store
+from ledger.checks import proof; from ledger.review import resolutions; from ledger.core import status, store
 plant = sys.argv[1]
 rw = lambda: duckdb.connect(str(store.DEFAULT_DB))
 if plant == "not_reported":  # (a) blank a value XBRL holds and label it not_reported
@@ -601,8 +602,8 @@ class EveryCheckedRowNamesItsEvidence(unittest.TestCase):
 
 LADDER = r'''
 import json, sys, duckdb
-from ledger import app, gold, proof, resolutions, status, taxonomy, ties, workbench
-from ledger.config import PROVEN
+from ledger.web import app; from ledger.review import gold, resolutions, workbench; from ledger.checks import proof, ties; from ledger.core import status; from ledger.release import taxonomy
+from ledger.core.config import PROVEN
 con = duckdb.connect(str(proof.store.DEFAULT_DB), read_only=True)
 idx = resolutions.by_row()
 lad = ties.ladder(con, PROVEN)
@@ -629,7 +630,7 @@ print(json.dumps({"facts": n, "mismatch": mismatch[:10], "n_mismatch": len(misma
 
 RECONCILE_PATH = r'''
 import json, duckdb
-from ledger import app, proof, resolutions, workbench
+from ledger.web import app; from ledger.checks import proof; from ledger.review import resolutions, workbench
 con = duckdb.connect(str(proof.store.DEFAULT_DB), read_only=True)
 q = app.flow("all")["queue"]
 pick = lambda rule, period, subj=None: next(x for x in q if x["kind"] == "finding_unconfirmed" and x["ticker"] == "APLD" and x["detail"].get("rule") == rule
@@ -709,7 +710,7 @@ class ProofAgreesWithReconcile(unittest.TestCase):
         self.assertEqual(r["checked_names"], r["confirmed_names"])
         self.assertEqual(r["tax_to_confirm"], r["to_confirm_names"])  # T63: the taxonomy rows say to_confirm, mapped false, for exactly those entries
         self.assertEqual(r["tax_mapped_unconfirmed"], 0)  # the exported rows never say mapped on an entry neither a person nor the company's tag checks
-        # the company's own tag (ledger/filertag.py): Proof, the taxonomy rows, the waiting list (G6) and Reconcile read one verdict
+        # the company's own tag (ledger/checks/filertag.py): Proof, the taxonomy rows, the waiting list (G6) and Reconcile read one verdict
         self.assertEqual(r["filer_names"], r["verified_names"])
         self.assertEqual(r["tax_filer_mapped"], r["verified_names"])
         self.assertEqual(r["reconcile_asset_names"], r["open_names"])

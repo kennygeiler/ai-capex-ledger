@@ -2,8 +2,9 @@
 import unittest
 from unittest import mock
 
-from ledger import api, config
-from ledger.config import PROVEN, SCOPE
+from ledger.web import api
+from ledger.core import config
+from ledger.core.config import PROVEN, SCOPE
 
 
 class Scope(unittest.TestCase):
@@ -31,7 +32,8 @@ class Scope(unittest.TestCase):
 
     def test_the_board_and_the_queue_read_the_scope(self):
         import inspect
-        from ledger import app, proof
+        from ledger.web import app
+        from ledger.checks import proof
         self.assertIn("for t in SCOPE", inspect.getsource(proof.board))
         self.assertIn("sorted(SCOPE)", inspect.getsource(app._flow))
 

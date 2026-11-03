@@ -2,9 +2,9 @@
 python -m ledger review --stage N | --ticker X … decide <id> accept|override|reject --reason "..." --by "..." [--value N]"""
 import argparse
 
-from .. import store
-from ..config import add_scope, scope
-from ..review import decide, decisions, open_items
+from ..core import store
+from ..core.config import add_scope, scope
+from ..review.review import decide, decisions, open_items
 
 
 def main(argv=None) -> int:

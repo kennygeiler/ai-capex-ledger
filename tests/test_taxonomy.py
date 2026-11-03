@@ -2,7 +2,8 @@ import unittest
 
 import duckdb
 
-from ledger import store, taxonomy
+from ledger.core import store
+from ledger.release import taxonomy
 
 A, B = "0001018724-25-000004", "0001018724-26-000004"  # AMZN's FY2024 and FY2025 10-Ks
 COMMA = "Land, buildings and leasehold improvements"  # a dimension with a comma: its extraction id holds one too

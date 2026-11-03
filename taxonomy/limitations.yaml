@@ -2,10 +2,10 @@
 # the Release checklist counts the entries whose mitigation is `none`. One entry per known weakness, keyed by a short id
 # that is never reused.
 #
-# Fields (every one required; ledger/limitations.py refuses an entry that lacks one):
+# Fields (every one required; ledger/release/limitations.py refuses an entry that lacks one):
 #   weakness    what the weakness is, in plain words.
 #   rows        the rows (or trials, companies, types) affected: an integer, `all`, or `computed: <name>`, a count code
-#               reads from the data at build time (ledger/limitations.py COMPUTED), so it is never typed by hand.
+#               reads from the data at build time (ledger/release/limitations.py COMPUTED), so it is never typed by hand.
 #   mitigation  what is in place today, or `none`.
 #   closes      the ticket that would close it (docs/TICKETS.md), or `none`.
 

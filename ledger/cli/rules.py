@@ -9,15 +9,15 @@ import argparse
 import json
 from collections import Counter
 
-from .. import store
-from ..config import MVP_YEARS, add_scope, scope
-from ..definitions import load as load_definitions
-from ..proof import FAILURES
-from ..rules import Context, load, run
+from ..core import store
+from ..core.config import MVP_YEARS, add_scope, scope
+from ..review.definitions import load as load_definitions
+from ..checks.proof import FAILURES
+from ..checks.rules import Context, load, run
 
 
 def context(con, tickers, rules: list | None = None) -> Context:
-    from ..ties import load as load_ties
+    from ..checks.ties import load as load_ties
     q = lambda sql: [dict(zip([c[0] for c in con.execute(sql, [tickers]).description], r)) for r in con.execute(sql, [tickers]).fetchall()]
     docs = q("select accession, ticker, form, period, income_tables, cash_flow_tables, tables_path from documents where ticker in (select unnest(?))")
     return Context(values=q('select * from "values" where ticker in (select unnest(?))'),

@@ -8,7 +8,7 @@ from pathlib import Path
 import duckdb
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from ledger.config import CONCEPTS  # noqa: E402
+from ledger.core.config import CONCEPTS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 con = duckdb.connect(str(ROOT / "data" / "ledger.duckdb"), read_only=True)

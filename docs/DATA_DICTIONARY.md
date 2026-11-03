@@ -1,6 +1,6 @@
 # Data dictionary
 
-Generated from `ledger/store.py` (schema version 12). Do not edit by hand: run `uv run python -m ledger.store`.
+Generated from `ledger/core/store.py` (schema version 12). Do not edit by hand: run `uv run python -m ledger.core.store`.
 
 Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.
 
@@ -337,7 +337,7 @@ Columns in this order, then `layer` and `proven` from the API. A row is identifi
 | `standard_concept` | VARCHAR | yes |  | The us-gaap concept (and axis) the row is an instance of; 'forward-looking statement (Reg S-K)' for guidance; 'none: ...' for a verbatim row with no standard. |
 | `standard_type` | VARCHAR | no |  | For an asset type: the us-gaap PropertyPlantAndEquipmentByTypeAxis member it maps to (taxonomy/asset_types.yaml); on a to_confirm row, the member proposed and not yet confirmed by a person. Empty elsewhere, and on an unmapped asset type. |
 | `mapped` | BOOLEAN | yes |  | False exactly when check is unmapped (a reported asset type with no entry in taxonomy/asset_types.yaml) or to_confirm (an entry neither a person confirmed, T63, nor the company's own tag matches; mapping_check). True on every other row. |
-| `mapping_check` | VARCHAR | no | pattern `^(mapping:.+|label:to_confirm|none)$` | On a derived asset-type row: what checks its mapping to standard_type. mapping:filer_tag: the company's own XBRL instance tags the category's value with that member in every extracted year (a value match, ledger/filertag.py); mapping:<member>: a person's confirmed_by on the entry (T63); label:to_confirm: a proposal neither checks; none: unmapped. Empty on every other row. |
+| `mapping_check` | VARCHAR | no | pattern `^(mapping:.+|label:to_confirm|none)$` | On a derived asset-type row: what checks its mapping to standard_type. mapping:filer_tag: the company's own XBRL instance tags the category's value with that member in every extracted year (a value match, ledger/checks/filertag.py); mapping:<member>: a person's confirmed_by on the entry (T63); label:to_confirm: a proposal neither checks; none: unmapped. Empty on every other row. |
 | `value` | BIGINT | no |  | The figure as reported or quoted, in `unit`: a dollar amount, or the low end of a stated range. Empty when the company gave no figure (has_value false) or stated a share instead. |
 | `value_high` | BIGINT | no |  | The high end of a stated range, on planned and company_stated_ai rows only, and only when the range has two ends. Never anything else. |
 | `change_from_prior` | BIGINT | no |  | On derived rows only: this year's reported gross balance minus the prior year's, for the same asset type. Arithmetic on two reported figures; empty on the first year. |

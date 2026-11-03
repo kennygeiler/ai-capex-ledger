@@ -1,4 +1,4 @@
-"""The company's own tag as evidence for a category mapping (ledger/filertag.py) and the decision card (ledger/mapcard.py).
+"""The company's own tag as evidence for a category mapping (ledger/checks/filertag.py) and the decision card (ledger/review/mapcard.py).
 
 Pre-mortem tests: an ambiguous value match, a zero-valued category, members that differ by year, a company extension
 member, an instance not on file, a partial tag, a forged or stale `mapping:filer_tag` refused by the walk, a person's
@@ -13,7 +13,10 @@ from unittest import mock
 import duckdb
 import yaml
 
-from ledger import filertag, mapcard, mapper, status, store, taxonomy
+from ledger.checks import filertag
+from ledger.review import mapcard, mapper
+from ledger.core import status, store
+from ledger.release import taxonomy
 
 CIK = 723125
 G = "PropertyPlantAndEquipmentGross"
@@ -79,7 +82,7 @@ class Base(unittest.TestCase):
         p = mock.patch.object(edgar, "RAW", raw)
         p.start()
         self.addCleanup(p.stop)
-        q = mock.patch("ledger.reference.dimensions.instance_facts", side_effect=AssertionError("no fetch on a page read"))
+        q = mock.patch("ledger.ingest.reference.dimensions.instance_facts", side_effect=AssertionError("no fetch on a page read"))
         q.start()
         self.addCleanup(q.stop)
         self.addCleanup(self.tmp.cleanup)
@@ -248,7 +251,7 @@ class Card(Base):
 
 class Guards(Base):
     def test_non_numeric_and_non_finite_values_never_match_or_verify(self):
-        from ledger import filertag as F
+        from ledger.checks import filertag as F
         for bad in (None, "", "n/a", float("nan"), float("inf"), "-inf", object()):
             self.assertIsNone(F.whole(bad), bad)
             self.assertEqual(F.members_at({(G, "us-gaap:LandMember", "2025-12-31"): 120_000_000}, "2025-12-31", bad), [])
@@ -261,7 +264,7 @@ class Guards(Base):
     def test_a_failed_query_is_not_read_never_zero_verified(self):
         tags, ok = filertag.verdicts_ok(duckdb.connect(), ["MU"])
         self.assertEqual((tags, ok), ({}, False))
-        from ledger import claims, limitations
+        from ledger.release import claims, limitations
         with mock.patch.object(filertag, "verdicts_ok", return_value=({}, False)):
             detail = claims._mappings({})[0][2]
             count, of = limitations._asset_types(None)
@@ -278,7 +281,7 @@ class Guards(Base):
     def test_an_instance_is_parsed_once_per_file_version(self):
         import os
         filertag._PARSED.clear()
-        with mock.patch("ledger.filertag.json.loads", wraps=json.loads) as parse:
+        with mock.patch("ledger.checks.filertag.json.loads", wraps=json.loads) as parse:
             filertag.verdicts(self.con, ["MU"])
             n = parse.call_count
             filertag.verdicts(self.con, ["MU"])
@@ -300,7 +303,7 @@ class Rows(Base):
     def test_a_tag_matched_figure_is_checked_by_the_company_tag_and_the_row_says_so(self):
         """The untagged figure of a category the company's tag checks is a value match in its own instance: agree by
         mapping:filer_tag, never "no XBRL to compare"; the derived row records what checks its mapping."""
-        from ledger import ties
+        from ledger.checks import ties
         st = status.of_fact({"label": "no_reference"}, filer=True)
         self.assertEqual((st["state"], st["by"], st["key"]), ("checked", "mapping:filer_tag", "twin"))
         self.assertEqual(ties.check_columns(st), ("agree", "mapping:filer_tag"))
@@ -318,7 +321,7 @@ class Rows(Base):
 
 class Override(Base):
     def test_a_verified_category_is_listed_after_the_open_ones_for_a_person_to_override(self):
-        from ledger import workbench
+        from ledger.review import workbench
         with mock.patch.object(taxonomy, "asset_types", return_value=ENTRIES), mock.patch.object(mapcard, "asset_types", return_value=ENTRIES), \
                 mock.patch.object(mapper, "load_proposals", return_value=[]):
             rows = workbench.asset_types(self.con, ["MU"], {"MU": "Micron"})

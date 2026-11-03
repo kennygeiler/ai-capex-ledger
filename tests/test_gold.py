@@ -11,8 +11,8 @@ from unittest import mock
 
 import duckdb
 
-from ledger import gold
-from ledger.config import PROVEN
+from ledger.review import gold
+from ledger.core.config import PROVEN
 
 
 def _db(ticker="AMZN", years=("FY2022", "FY2023", "FY2024", "FY2025", "FY2026"), untagged=12, tagged=8):
@@ -204,7 +204,7 @@ class Check(unittest.TestCase):
 
     def test_golden_check_runs_gold_against_the_tables_it_produced(self):
         """golden.gold_check is what `ledger golden --check` calls on its temporary database: a planted change fails it."""
-        from ledger import golden
+        from ledger.checks import golden
         con = _db()
         it = {"id": gold.item_id("value", "AMZN", "revenue", "", "FY2022"), "ticker": "AMZN", "field": "revenue", "dimension": "", "period": "FY2022",
               "value": 1000 * 1_000_000, "verdict": "right", "by": "Kenny Geiler"}
@@ -222,7 +222,7 @@ class Vacuous(unittest.TestCase):
         self.addCleanup(shutil.rmtree, self.dir.parent, True)
 
     def check(self):
-        from ledger import golden
+        from ledger.checks import golden
         with mock.patch.object(gold, "GOLD", self.dir):
             return golden.gold_check(_db())
 
@@ -257,7 +257,7 @@ class Vacuous(unittest.TestCase):
         self.assertEqual(c["items"], 60)  # AMZN, APLD, NVDA still loaded
 
     def test_a_check_that_raises_is_a_named_failure_not_a_traceback(self):
-        from ledger import golden
+        from ledger.checks import golden
         with mock.patch.object(gold, "compare_db", side_effect=RuntimeError("boom")):
             c = golden.gold_check(_db())
         self.assertFalse(c["ok"])
@@ -295,7 +295,7 @@ class Cli(unittest.TestCase):
         self.assertEqual(rep["gold"]["state"], "unverified")
         # exit 0 is the tables' check only: the report never calls unverified ok, and the Release line is red on it
         self.assertEqual((rep["ok"], rep["gold"]["ok"], rep["gold"]["holds"]), (False, False, True))
-        from ledger.checklist import golden_line
+        from ledger.release.checklist import golden_line
         line = golden_line(rep)
         self.assertEqual((line["state"], line["required"], line["ok"]), ("fail", True, False))
         self.assertIn("gold unverified 1 of 1", line["note"])
@@ -304,7 +304,7 @@ class Cli(unittest.TestCase):
         """The vacuous pass: 0 of N verdicts, nothing failing, used to read ok=true and turn the Release golden line green."""
         g_ = gold.compare({"AMZN": {"items": [Check().item(None), Check().item(None)]}}, [Check().row()], [])
         self.assertEqual((g_["ok"], g_["holds"], g_["state"], g_["checked"]), (False, True, "unverified", 0))
-        from ledger.checklist import golden_line
+        from ledger.release.checklist import golden_line
         self.assertEqual(golden_line({"ok": False, "tables_ok": True, "gold": g_})["state"], "fail")
         self.assertEqual(golden_line({"ok": True, "tables_ok": True, "gold": {**g_, "state": "pass", "unverified": 0}})["state"], "pass")
         self.assertEqual(golden_line({"ok": True, "tables_ok": False, "gold": {**g_, "state": "pass"}})["state"], "fail")
@@ -352,7 +352,7 @@ class Verdict(unittest.TestCase):
     def test_the_route_refuses_a_non_person_and_writes_a_person(self):
         from http.server import ThreadingHTTPServer
         from urllib import error, request
-        from ledger import app
+        from ledger.web import app
         with mock.patch.object(gold, "GOLD", self.dir):
             srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
             threading.Thread(target=srv.serve_forever, daemon=True).start()

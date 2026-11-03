@@ -7,7 +7,7 @@ import argparse
 import json
 from datetime import datetime, timezone
 
-from ..release import RELEASES, content_hash
+from ..release.release import RELEASES, content_hash
 
 
 def sign(version: str, by: str, checklist: dict | None = None) -> dict:

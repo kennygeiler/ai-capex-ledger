@@ -84,7 +84,7 @@ The agents (`docs/TICKETS.md` T48, T49): `/api/agents` is every live agent with 
 blocked, twin, faults, stage, companies, note}`, counts with their denominators and no shares (the page divides). `outputs` is the
 reader's rows in its Proof stage (`stage`) for those companies and the four states sum to it (`open` excludes `blocked` here); `twin`
 is `{agree, of, interval}` over the rows XBRL tags, or null for a reader whose rows are quotes: `interval` is the Wilson 95% interval of
-`agree / of` as `[low, high]` fractions to 4 dp (T53, `ledger/stats.py`), derived from the two counts alone, null when `of` is 0 (the page recomputes it from the counts rather than reading it); `faults` is `{caught, planted, no_effect, escaped}`
+`agree / of` as `[low, high]` fractions to 4 dp (T53, `ledger/core/stats.py`), derived from the two counts alone, null when `of` is 0 (the page recomputes it from the counts rather than reading it); `faults` is `{caught, planted, no_effect, escaped}`
 from the latest `ledger faults` run that covered each company, or null when the step has no fault test or no run covered them,
 with the reason in `note`.
 
@@ -114,7 +114,7 @@ is this list for the scope, with the same columns, and the release README's colu
 
 `values` and `taxonomy` carry the newest filing's figure (with `first_reported` and `basis` beside it on values). A backtest run on day D
 must not see a figure a later 10-K restated: that is lookahead. `?as_of=YYYY-MM-DD` on `/api/v1/values` or `/api/v1/taxonomy` (JSON or
-CSV, with the other filters) answers from `extractions` (every filing's cited cells are kept) joined to `documents.filed` (`ledger/pit.py`):
+CSV, with the other filters) answers from `extractions` (every filing's cited cells are kept) joined to `documents.filed` (`ledger/web/pit.py`):
 the figure the newest filing filed on or before D gave, by the values builder's own arithmetic (one cell per field, opex from the three cells
 of the same 10-K column, cost-of-revenue lines summed when there is no total line, the newest filing by `filed` and on the same day the more
 complete one). Every field of a year comes from that one newest filing, as in `values`: when it lacks the line the field is absent at
@@ -131,7 +131,7 @@ fixed snapshot; the as-of answer reads the live cells) is 400.
   that shows why this matters: AT&T revenue FY2022 is 120,741,000,000 in `values` with `first_reported` 120,741,000 and `basis` restated; the
   first 10-K's cell `120,741` was read against a `(000s)` unit line (scale 1,000) where the later 10-Ks say `(000,000)`, so the "restatement" is a
   1000× misread, and `as_of=2023-06-30` serves $120.7 million as what that filing said. The row says `unchecked`; it does not say right. The
-  per-vintage check is T55b (`docs/TICKETS.md`). Every as-of JSON response carries `api.AS_OF_NOTE` as a top-level `note` (`ledger/app.py`).
+  per-vintage check is T55b (`docs/TICKETS.md`). Every as-of JSON response carries `api.AS_OF_NOTE` as a top-level `note` (`ledger/web/app.py`).
 - `taxonomy?as_of=D`: the `spent` / `capex` rows are re-pointed at the newest filing filed by D (value, source, accession, filed, source_table,
   source_url; `check` reads `not_checked` with method `none` when that filing is not the one the live row was checked against). Every other
   row is kept only when its own `filed` is on or before D: a 10-K note, MD&A or 8-K figure filed after D is dropped, not replaced by an earlier

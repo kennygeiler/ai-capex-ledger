@@ -9,13 +9,13 @@ import json
 import time
 from datetime import datetime, timezone
 
-from .. import store
-from ..config import MVP_YEARS, add_scope, scope
+from ..core import store
+from ..core.config import MVP_YEARS, add_scope, scope
 
 from ..ingest.filings import fetch_documents, list_filings, with_statements
 from ..ingest.statements import assemble, locate
 from ..ingest.tables import PARSER_VERSION, document_units, parse_tables
-from ..reference.normalize import company_years
+from ..ingest.reference.normalize import company_years
 
 DOCS = store.ROOT / "data" / "docs"
 

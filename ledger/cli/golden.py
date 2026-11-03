@@ -1,12 +1,14 @@
 """python -m ledger golden --freeze | --check [--keep] [--verbose]
 
 The golden test (docs/PROOF.md): --freeze captures the proven set's inputs and the tables the code makes from them;
---check runs the code stages on those inputs in a temporary root and compares. Exit 1 on any difference."""
+--check runs the code stages on those inputs in a temporary root and compares. Exit 1 on any difference.
+--check is offline unless --online (LEDGER_OFFLINE=1: SEC reads from data/raw only, ledger/ingest/edgar.py)."""
 import argparse
 import json
+import os
 
-from .. import store
-from ..golden import FIXTURES, check, freeze
+from ..core import store
+from ..checks.golden import FIXTURES, check, freeze
 
 
 def main(argv=None) -> int:
@@ -17,8 +19,11 @@ def main(argv=None) -> int:
     ap.add_argument("--ticker", nargs="+", help="with --freeze: a different set than config.PROVEN")
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     ap.add_argument("--keep", action="store_true", help="with --check: keep the temporary root for a look")
+    ap.add_argument("--online", action="store_true", help="with --check: let the stages reach the SEC (default: offline, the data/raw cache only)")
     ap.add_argument("--verbose", action="store_true")
     a = ap.parse_args(argv)
+    if a.check:
+        os.environ["LEDGER_OFFLINE"] = "0" if a.online else "1"  # inherited by every stage subprocess
     if a.freeze:
         import duckdb
         con = duckdb.connect(a.db, read_only=True)
@@ -32,7 +37,7 @@ def main(argv=None) -> int:
     from datetime import datetime, timezone
     rep = store.ROOT / "reports" / "golden.json"
     rep.parent.mkdir(parents=True, exist_ok=True)
-    from .. import gold
+    from ..review import gold
     g_ = r.get("gold")
     rep.write_text(json.dumps({"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "ok": bool(r.get("ok")) and not r.get("failed_step"), "failed_step": r.get("failed_step"),
                                "tables_ok": not r.get("failed_step") and not r.get("diffs"),
@@ -46,7 +51,7 @@ def main(argv=None) -> int:
                 print(l["err"][-1500:] or l["out"][-1500:])
         return 1
     if not r["diffs"]:
-        from ..golden import LISTS, TABLES
+        from ..checks.golden import LISTS, TABLES
         print(f"golden: every table equals fixtures/expected ({', '.join((*TABLES, *LISTS))}).")
     print(gold.summary_line(g_))  # its own line: equal tables never read as a gold pass; unverified exits 0, a gold failure 1
     if r.get("exit_ok", r["ok"]):  # tables equal and no gold verdict fails; unverified-only exits 0 (golden.json "ok" stays false)

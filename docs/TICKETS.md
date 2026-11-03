@@ -27,13 +27,13 @@ Then T41, T42, T43 if time. After the call: T45 (Kenny, 1 Nov: the spike plus a 
 The honest estimate against this order is at the end of F.
 
 Each ticket: why, done when, what it touches. Order within a group is the order to do them. A ticket is closed by a commit that
-names it (`T12`) and updates the README status.
+names it (`T12`); the commit message says what was done and what is left open.
 
 ## Zero. Make parallel work possible
 
-- **T0 Split `ledger/app.html`.** One file of 830 lines is why two agents cannot work on two pages at once. `ledger/app.html`
-  becomes a shell (head, nav, router, shared helpers) plus `ledger/pages/<page>.js` (proof, trail, rules, reconcile, data,
-  explore, release, docs), served by `app.py` from `/pages/<name>.js`; shared helpers in `ledger/pages/_shared.js`. No behaviour
+- **T0 Split `ledger/web/app.html`.** One file of 830 lines is why two agents cannot work on two pages at once. `ledger/web/app.html`
+  becomes a shell (head, nav, router, shared helpers) plus `ledger/web/pages/<page>.js` (proof, trail, rules, reconcile, data,
+  explore, release, docs), served by `app.py` from `/pages/<name>.js`; shared helpers in `ledger/web/pages/_shared.js`. No behaviour
   change; every page screenshot before equals after at 1600px. Done when each page is its own file and the router imports them.
 
 ## A. One definition of open
@@ -42,7 +42,7 @@ The root fault: Proof counts an item explained when a rule or a definition cover
 decides. Both are "right", and they contradict each other on the same row (Amazon FY2024 Equipment: Proof 0 open, Reconcile
 open). Until these agree, no page can say whether a release is signable.
 
-- **T1 One `open` function.** `ledger/proof.py` and `ledger/workbench.py` call one function, `ledger/status.py:state(row)`, that
+- **T1 One `open` function.** `ledger/checks/proof.py` and `ledger/review/workbench.py` call one function, `ledger/core/status.py:state(row)`, that
   returns checked / explained / open / blocked with the reason (rule id, definition name, resolution id). Proof, trail, Reconcile,
   Dataset and the Release page all read it. Done when the Proof board's open count equals Reconcile's open count for the same
   scope, and a test asserts it on the fixtures.
@@ -69,7 +69,7 @@ open). Until these agree, no page can say whether a release is signable.
 - **T8 Release diff in rows.** `DIFF.md` lists rows added, removed and changed per list, not values alone; the page shows the
   same. Done when a changed `check` on one row appears in the diff.
 
-*As built (B, 2 Nov):* `ledger/checklist.py` holds the checklist and the sign; `ledger/pages/release.js` renders it and recomputes
+*As built (B, 2 Nov):* `ledger/release/checklist.py` holds the checklist and the sign; `ledger/web/pages/release.js` renders it and recomputes
 nothing; `ledger release` builds its packet through the same `checklist.packet`, so the page's hash is the command's. The signer is
 the name in the header's signer box, recorded as given: who may press the button is a later ticket (auth, production rails). The
 test-run line reads `reports/tests.json` `{ok, count, failures, at}` (T30 writes it); absent, it reads "not run" and does not block,
@@ -98,10 +98,10 @@ vocabularies; 2,404 rows unmapped; 1,029 rows with no value. Schema version 11, 
 1. `store.py`: `SCHEMA_VERSION = 11`, the migration, column descriptions.
 2. `taxonomy.py`: the row shape (T9–T17), with `tests/test_taxonomy.py` updated in the same commit.
 3. `api.py`, `publish.py` (`NUMERIC`, `DATE`, tables), `release.py` (packet README columns), `app.py` (`FIELD_KIND`, `/api/data`).
-4. `ledger/pages/data.js`, `explore.js`, `trail.js`: the columns the pages read.
+4. `ledger/web/pages/data.js`, `explore.js`, `trail.js`: the columns the pages read.
 5. `ledger rules` on the six, then `ledger golden --freeze` in its own commit whose message says which columns changed and why,
    then `golden --check` equal.
-6. `python -m ledger.store` regenerates `docs/DATA_DICTIONARY.md`; `docs/TAXONOMY.md` and `docs/API.md` say the new columns.
+6. `python -m ledger.core.store` regenerates `docs/DATA_DICTIONARY.md`; `docs/TAXONOMY.md` and `docs/API.md` say the new columns.
 7. `ledger release v1.8.0 --stage 3`, unsigned, in its own commit; Kenny signs from the Release page (T6).
 Each commit passes the full test suite; the branch merges to main as one merge commit named "Schema v11: one shape a stranger
 can read (T9–T18)". A reviewer agent reads the whole diff against the ticket list before the merge.
@@ -181,7 +181,7 @@ can read (T9–T18)". A reviewer agent reads the whole diff against the ticket l
 - **T30 Tests in the Release checklist.** `reports/tests.json` written by the test run (count, failures, golden ok, at), read by
   the Release page. Later the self-hosted runner writes it.
 
-  *As built (1 Nov):* `ledger test [--fast]` (`ledger/cli/test.py`, `ledger/testreport.py`) runs the unittest suite in process and
+  *As built (1 Nov):* `ledger test [--fast]` (`ledger/cli/test.py`, `ledger/release/testreport.py`) runs the unittest suite in process and
   writes `reports/tests.json`: `{ok, count, failures: ["test id: first line of the error"], skipped, golden: true|false|null,
   at, git: short sha|null, dirty, seconds}`; `--fast` sets `LEDGER_SKIP_GOLDEN=1` (golden null); exit 0 only when ok. The file
   is tracked, like `reports/golden.json`, so the hosted copy shows the last run. `checklist.tests_line` reads it: absent, "not
@@ -206,7 +206,7 @@ before scale is attempted; T35 measures it.
   mappings land in `taxonomy/asset_types.yaml` with `by` and the evidence. The agent runs headless (`LEDGER_CLAUDE`), prompt
   versioned under `agents/prompts/`. Done when company seven's asset types are mapped in under fifteen minutes of a person's time.
   *As built (branch `t33-mapping-assistant`):* charter `agents/charters/mapper.md`, prompt `mapper@v1`, schema `agents/schemas/mapper@v1.json`,
-  runner `ledger/mapper.py` + `ledger mapper <TICKER> [--dry-run]` (headless `claude -p`, step `mapper` in `runs`), proposals appended
+  runner `ledger/review/mapper.py` + `ledger mapper <TICKER> [--dry-run]` (headless `claude -p`, step `mapper` in `runs`), proposals appended
   to `decisions/mapping_proposals.jsonl` (`proposed`, `rejected`, `approved` lines); Reconcile group "asset types" (cause
   `asset_types`, any `?scope=<ticker>` the database holds) with Approve / Edit / Reject; `POST /api/mapping` is the one writer of
   `taxonomy/asset_types.yaml` (member must be on the header's list, one entry per ticker + name, `by` the signer box, `at` today);
@@ -219,13 +219,13 @@ before scale is attempted; T35 measures it.
 - **T35 Company seven, measured.** Micron added to `SCOPE` through every stage with a stopwatch on each: agent minutes, person
   minutes, open items at each stage, rules fired, mapping proposals accepted. Written to `reports/company-cost.md`. The number
   decides whether a hundred is a week or a quarter. Done when the report exists and `PROVEN` has seven.
-- **T36 Resolve-by-rule.** *Done 2 Nov 2026 (`ledger/judgement.py`, `POST /api/judgement`, the `explains` check, `tests/test_judgement.py` on a synthetic database: company seven/eight not yet in scope).* When a person explains a difference, Reconcile offers "make this a definition" or "make this a
+- **T36 Resolve-by-rule.** *Done 2 Nov 2026 (`ledger/review/judgement.py`, `POST /api/judgement`, the `explains` check, `tests/test_judgement.py` on a synthetic database: company seven/eight not yet in scope).* When a person explains a difference, Reconcile offers "make this a definition" or "make this a
   rule" with the text prefilled from the reason; the definition file or rule yaml is written, versioned, and the next run closes
   the same cause everywhere. Done when one explanation on company seven closes the same cause on an eighth without a person.
 - **T37 Bulk by cause with preview.** Select-all-by-cause shows what each decision does to the dataset (rows that change
   `check`, rows that leave the packet) before it is applied. Done when the preview counts equal the counts after.
 - **T38 Cost and time per stage on Proof.** Agent calls, tokens, wall time and person minutes per company per stage, from
-  `ledger/cost.py`, on the company trail. Done when the trail shows them for the six.
+  `ledger/extract/cost.py`, on the company trail. Done when the trail shows them for the six.
 
 - **T52 A hundred companies in scope, each with its honest state.** `SCOPE` widens in batches (7, 10, 25, 50, 100), each batch
   through every stage (the 94 are already ingested, extracted, read and stated; what each lacks is mapping, reconcile and
@@ -259,7 +259,7 @@ Agents build this, a person signs. The rules every agent follows, in the brief a
   alongside anything.
 - **The bar, unchanged.** `ledger golden --check` before any commit that touches a parser, a rule, a loader, the taxonomy or the
   schema; `--freeze` only on purpose, in its own commit saying why; `LEDGER_SKIP_GOLDEN=1` for the fast suite in between. The
-  README status block in every commit. `docs/HANDOFF.md` stays the start page. Nothing inferred: no column holds a number the
+  commit message is the record. `docs/HANDOFF.md` stays the start page. Nothing inferred: no column holds a number the
   pipeline made up, no page shows a number without its check.
 - **Skills are mandatory, not optional.** A builder on a page loads the three design skills; a builder on a schema change
   reads `docs/TAXONOMY.md` and `docs/PROOF.md` first; a builder on agents reads `agents/prompts/` and versions, never edits in
@@ -330,16 +330,16 @@ who changed it, a run ledger, and, after the call, a score.
   screenshotted at 1600px.
 - **T49 Per-agent score (after the call).** For each reader: the share of its outputs checked, explained and open (status.py),
   agreement with the twin where one exists, and the planted-fault catch rate of the checks behind it (`faults`), each with its
-  denominator. Done when the Agents section shows a score per live reader. *As built (1 Nov 2026):* `ledger/score.py` `score(con, agent_id, tickers)`,
+  denominator. Done when the Agents section shows a score per live reader. *As built (1 Nov 2026):* `ledger/checks/score.py` `score(con, agent_id, tickers)`,
   carried as `score` in `cost.by_agent` and so in `/api/agents/<id>/runs` and `/api/agents`: counts and denominators only (outputs,
   checked, explained, open, blocked; `twin: {agree, of}` or null; `faults: {caught, planted, no_effect, escaped}` or null with the
   reason in `note`). The states come from `proof.company` (so from `status.state`): the reader's outputs are the Values stage's value
   rows, the AI spend reader's the Statements stage, the notes reader's the Facts stage, the projects reader's the Planned stage's
-  project rows. A twin exists only for values and facts XBRL tags; a fault test exists only for the extract step (ledger/faults.py),
+  project rows. A twin exists only for values and facts XBRL tags; a fault test exists only for the extract step (ledger/checks/faults.py),
   read from the report of the latest `faults` run in the `runs` table that covered each company; the other readers show "not
-  measured" with the reason, never a number. The Rules page shows the block under each live reader (ledger/pages/rules.js
+  measured" with the reason, never a number. The Rules page shows the block under each live reader (ledger/web/pages/rules.js
   `scoreBlock`); each charter's Score paragraph says what the three numbers mean. Tests: tests/test_score.py. Known difference: the
-  Proof board's "Fault test" line (ledger/hq.py `snapshot`) counts caught = planted − escaped, so a fault that reached no released
+  Proof board's "Fault test" line (ledger/web/hq.py `snapshot`) counts caught = planted − escaped, so a fault that reached no released
   value counts as caught there (1,283 of 1,283), while the score counts only a rule or the XBRL comparison firing (1,275 of 1,283,
   8 no_effect, 0 escaped); reconciling hq.py to the score's definition is a follow-up, not done here. The faults report is a file
   keyed by its name, rewritten by `ledger faults` without a runs row, so `faults_note` carries the file's written time next to the
@@ -370,7 +370,7 @@ the file and off the calendar.
   `decisions/audit.jsonl`; the error rate with n and the interval on the Agents section, labelled "unkeyed, Kenny's verdicts".
   Owner of the verdicts: Kenny (~100–150 cells, about an hour). Touches rules.js, workbench.py, reconcile.js (after T37),
   ledger/spikes/esef.py for the sample. Done when the Agents section shows ASML's unkeyed error rate with n and the interval.
-  *As built (keyed), 1 Nov:* `ledger/stats.py` (`wilson(k, n, z=1.96)`, `share(k, n)`, standard library, None when n is 0);
+  *As built (keyed), 1 Nov:* `ledger/core/stats.py` (`wilson(k, n, z=1.96)`, `share(k, n)`, standard library, None when n is 0);
   `score.twin` carries `interval: [low, high]` (fractions, 4 dp) from its own `agree` / `of`, one interval on the sum over the
   companies; rules.js writes it in text under each reader ("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)"),
   computed on the page from the counts (the API's 4-dp `interval` is informational; one display path). On the six: reader 70 of 71, 92.4–99.8%; notes reader 180 of 185,
@@ -385,7 +385,7 @@ the file and off the calendar.
   check or `none` (a `none` is itself a finding, counted on the chart). *As built (first half):* `taxonomy/failures.yaml`, all 72
   types keyed by INGESTION's number, each with class, origin (agent / document / code / reference), the catching check or `none`
   with a note saying what caught it instead, count of companies named, first-seen date and the INGESTION line it comes from;
-  `ledger/failures.py` `load` refuses a class, origin or check not in the vocabulary or not in code (rule ids, `proof.GUARDS`,
+  `ledger/checks/failures.py` `load` refuses a class, origin or check not in the vocabulary or not in code (rule ids, `proof.GUARDS`,
   `faults.FAULTS`), `pareto` and `by_check` for the chart; `tests/test_failures.py`. A seventh class, `pipeline`, holds the
   defects in the pipeline's own bookkeeping or contracts (types 58, 59, 60, 61, 66). The numbers (from `pareto()`): by class
   scope 27, period 11, locator 10, agent misread 7, document error 6, units 6, pipeline 5; by origin document 31, code 22,
@@ -406,7 +406,7 @@ the file and off the calendar.
   packet shape should not change before v1.9.0: decide in the ticket's first commit and say why). A test on the six that an
   as-of query never returns a figure filed after D (no lookahead). Why: Arctal's buyers backtest; a restated figure in history is
   lookahead bias. Touches api.py, release.py. Done when the API and the test exist on the six. *As built (1 Nov 2026, branch
-  `t55-point-in-time`):* `ledger/pit.py` `as_of(con, D, tickers)` from `extractions` (ticker, field, period_start, period_end, value, scale,
+  `t55-point-in-time`):* `ledger/web/pit.py` `as_of(con, D, tickers)` from `extractions` (ticker, field, period_start, period_end, value, scale,
   accession, extraction_id) joined to `documents` on accession for `filed`, the fiscal calendar from `values` (ticker, period, period_end);
   the values builder's own arithmetic (12-month columns, cost lines summed without a total, opex from three cells, newest by `filed`, the more
   complete one on a tie). Rows carry accession, filed, extraction_ids and `restated_later`; absent when no filing by D reports the year;
@@ -651,7 +651,7 @@ Kenny's minutes: MU mappings ~15 min, audit ~1 h, batch approvals 2–3 h spread
 sign 5 min: about seven hours over nine days. What breaks: T57b depends on T42; batch runs over 25 need more than one session
 window; the proven count at 100 is 25–40 honest-proven with the rest open under named causes; the 993/1,218 headline is retired.
 Overnight rules: never sign v1.9.0, never publish, no paid API, no decision confirmed in Kenny's name (a "Kenny in the morning"
-list in the README status instead), two builders never hold one file.
+list in the commit message instead), two builders never hold one file.
 
 ## K. The discipline audits' tickets (Kenny, 2 Nov: "fold everything we need to change into tickets")
 
@@ -682,7 +682,7 @@ are listed at the end.
   where XBRL holds a value is either in the dataset or an open item; a silent blank is a release failure. A required
   checklist line counts "answer-key values missing from the dataset" and must read 0, open items aside. Builds on T65.
   Done when the line reads 0 on the six, and deleting one extracted value in a test turns it red. About ½ day.
-- **T82 A gold set separate from golden.** [root cause, LB4] *Done 2 Nov 2026, infrastructure; verdicts pending (branch `t82-gold-set`): `ledger/gold.py`, `ledger gold --draw | --status`, `gold/<TICKER>.json` for the six (10 values + 10 facts each, 6 facts untagged, seed GOLDEN_SEED|v1.9.0|ticker), the Gold set section on Proof with Right / Wrong / Can’t say and a note (`POST /api/gold/verdict`, `by` on config.PEOPLE, lock + temp file + os.replace), `ledger golden --check` compares every verdict with the run's tables and reports the rest as unverified, error rate with n and a Wilson interval. `tests/test_gold.py`: a planted change fails, the frozen Amazon blank fails, the route refuses a non-person. Kenny's ~1 hour of verdicts is still to do.* Golden stays the regression snapshot ("nothing changed").
+- **T82 A gold set separate from golden.** [root cause, LB4] *Done 2 Nov 2026, infrastructure; verdicts pending (branch `t82-gold-set`): `ledger/review/gold.py`, `ledger gold --draw | --status`, `gold/<TICKER>.json` for the six (10 values + 10 facts each, 6 facts untagged, seed GOLDEN_SEED|v1.9.0|ticker), the Gold set section on Proof with Right / Wrong / Can’t say and a note (`POST /api/gold/verdict`, `by` on config.PEOPLE, lock + temp file + os.replace), `ledger golden --check` compares every verdict with the run's tables and reports the rest as unverified, error rate with n and a Wilson interval. `tests/test_gold.py`: a planted change fails, the frozen Amazon blank fails, the route refuses a non-person. Kenny's ~1 hour of verdicts is still to do.* Golden stays the regression snapshot ("nothing changed").
   `gold/` holds a hand-verified sample per proven company: about 10 values and 10 facts per company, stratified across
   fields, years and the untagged notes, each verified by Kenny against the filing with right / wrong / can't say and a
   note. `ledger golden --check` also compares the live tables with `gold/` and fails on any disagreement, so a frozen
@@ -695,7 +695,7 @@ are listed at the end.
   removed, and report catch rate per kind with denominators on the Agents section. Done when the report shows how
   much of the catch rate depends on XBRL, every escape with XBRL off is a row in `taxonomy/limitations.yaml` (T68), and
   the omission and wrong-table kinds are caught (by T81 and the T65 locator rule). About 1 day.
-- **T68 Limitations and methodology in every release.** [MR2, VP7, DQ6] *Done 2 Nov 2026 (branch `t68-limitations`): `taxonomy/limitations.yaml` holds 11 entries (id, weakness, rows, mitigation, closes; `ledger/limitations.py` refuses one missing a field), 8 of them with counts computed at build time from the fault reports, failures.yaml, asset_types.yaml, config and the packet's own CSVs; `release.build` and `checklist.packet` write `LIMITATIONS.md` (intended use and not for use, the table, cadence, corrections, support = the signer in SIGNOFF.json); the README lists it; the checklist's informational line "Limitations with no mitigation" reads 2 (survivor bias, monitoring). QUALITY.md's wording was already right after T64; the `to_check` docstring and the README's QUALITY.md line were fixed. v1.9.0 is not built here: it carries the file when Kenny signs.* `taxonomy/limitations.yaml`: id, the weakness,
+- **T68 Limitations and methodology in every release.** [MR2, VP7, DQ6] *Done 2 Nov 2026 (branch `t68-limitations`): `taxonomy/limitations.yaml` holds 11 entries (id, weakness, rows, mitigation, closes; `ledger/release/limitations.py` refuses one missing a field), 8 of them with counts computed at build time from the fault reports, failures.yaml, asset_types.yaml, config and the packet's own CSVs; `release.build` and `checklist.packet` write `LIMITATIONS.md` (intended use and not for use, the table, cadence, corrections, support = the signer in SIGNOFF.json); the README lists it; the checklist's informational line "Limitations with no mitigation" reads 2 (survivor bias, monitoring). QUALITY.md's wording was already right after T64; the `to_check` docstring and the README's QUALITY.md line were fixed. v1.9.0 is not built here: it carries the file when Kenny signs.* `taxonomy/limitations.yaml`: id, the weakness,
   rows affected (count), mitigation, the ticket that would close it. Seed: T67's escapes, "the answer key comes from the
   same filer", "one person builds, decides and signs", "N companies not proven", "the universe is today's AI-relevant
   names, survivor-biased for backtests", "45 failure types have no catching check" (T54), "interpretive fields of
@@ -810,7 +810,7 @@ are listed at the end.
 - **T92 Cross-table ties.** [DQ7] `capex_segments_tie` (values capex against segment capex, APLD's accrual case
   explained by a definition) and `ppe_total_tie` (PP&E categories against the reported total). With T40/T41. About 1 day.
   *Done (2 Nov 2026, branch `t92-ties-corroboration`):* three warn tie rules on the note figures, `ppe_categories_tie`,
-  `segment_revenue_tie`, `segment_capex_tie` (check `parts_tie`, `ledger/ties.py`), each against the total the same
+  `segment_revenue_tie`, `segment_capex_tie` (check `parts_tie`, `ledger/checks/ties.py`), each against the total the same
   filing tags in its XBRL instance; a tie that holds checks each untagged part (key tie), one that fails is open on the
   group. Plus the ladder for untagged facts (docs/PROOF.md): `fact_readings_differ` opens readings that disagree across
   filings (APLD's two), and a second reading (`reading:<accession>`, key second_reading, graded last) checks one two

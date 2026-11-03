@@ -1,17 +1,17 @@
 """python -m ledger gold --draw [--version vX.Y.Z] [--ticker ...] | --status
 
-The gold set (T82, ledger/gold.py): --draw writes gold/<TICKER>.json, about 10 values and 10 facts per proven company,
+The gold set (T82, ledger/review/gold.py): --draw writes gold/<TICKER>.json, about 10 values and 10 facts per proven company,
 seeded with the release version, never overwriting a verdict on file; --status prints the verdicts, the error rate with
 n and a Wilson 95% interval, and compares every verdict with the working database. `ledger golden --check` runs the
 same comparison against the tables the code produces from the frozen inputs."""
 import argparse
 
-from .. import store
-from ..config import PROVEN
+from ..core import store
+from ..core.config import PROVEN
 
 
 def main(argv=None) -> int:
-    from .. import gold
+    from ..review import gold
     ap = argparse.ArgumentParser(prog="python -m ledger gold")
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--draw", action="store_true", help="write the sample files into gold/ (verdicts on file are kept)")
@@ -24,7 +24,7 @@ def main(argv=None) -> int:
     con = duckdb.connect(a.db, read_only=True)
     try:
         if a.draw:
-            from ..checklist import next_version
+            from ..release.checklist import next_version
             version = a.version or next_version()
             r = gold.draw(con, version, [t.upper() for t in a.ticker] if a.ticker else PROVEN)
             for t, s in r.items():

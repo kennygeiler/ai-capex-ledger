@@ -110,7 +110,7 @@ for "Building", "Building improvements" and its two software-bearing lines; T74 
 
 ## What a row looks like (schema v11, T9–T17)
 
-One shape for all five measures, 37 columns, declared once in `ledger/store.py` (`TAXONOMY`) and described column by
+One shape for all five measures, 37 columns, declared once in `ledger/core/store.py` (`TAXONOMY`) and described column by
 column in `docs/DATA_DICTIONARY.md`; the API and the packet add `layer` and `proven`. One meaning per column:
 
 ```
@@ -125,7 +125,7 @@ check (agree|explained|differs|no_reference|not_extracted|unmapped|to_confirm|ve
 ```
 
 `check` says whether the figure was verified and how it stands; `check_method` says what established that, in the
-words `ledger/status.py` uses for `by`: `xbrl`, `quote`, `gathered`, `rule:<id>`, `definition:<name>`,
+words `ledger/core/status.py` uses for `by`: `xbrl`, `quote`, `gathered`, `rule:<id>`, `definition:<name>`,
 `resolution:<id>`, `label:<label>`, `none`, and the answer keys T40 named for later sources, `esef:<tag>`,
 `source:<doc>`, `actual:<period>` and a tie rule `rule:<id>_tie` (`status.ANSWER_KEYS`, docs/PROOF.md; no row carries
 the three new ones yet). `period_kind` is reported only when the company's fiscal calendar (the

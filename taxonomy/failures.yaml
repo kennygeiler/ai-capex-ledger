@@ -14,10 +14,10 @@
 #   origin      where the cause sits: agent (the reader or attributor), document (the filing, the page, the company's
 #               own presentation), code (the pipeline's parser, locator, contract or bookkeeping), reference (the SEC's
 #               tag, CIK mapping or XBRL instance, or the key built from them).
-#   check       the check in code that catches the type today: a rule id (rules/*.yaml, ledger/rules.py), a guard id
-#               (ledger/proof.py GUARDS), a fault kind (ledger/faults.py FAULTS), or none. `none` is itself a finding:
+#   check       the check in code that catches the type today: a rule id (rules/*.yaml, ledger/checks/rules.py), a guard id
+#               (ledger/checks/proof.py GUARDS), a fault kind (ledger/checks/faults.py FAULTS), or none. `none` is itself a finding:
 #               the type is caught by a pipeline step, a contract, a count or an eye, not by a named check. Never an id
-#               that does not exist in code; ledger/failures.py refuses one.
+#               that does not exist in code; ledger/checks/failures.py refuses one.
 #   check_note  with `none`: what caught it instead and what was looked for. With an id INGESTION's row does not name:
 #               says so ("id from code, not from the row").
 #   caught_by   INGESTION's own "Caught by" words, verbatim or near it, for the reader.

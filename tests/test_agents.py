@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from ledger import agents
+from ledger.extract import agents
 
 
 class Versions(unittest.TestCase):
@@ -109,7 +109,8 @@ class RunsPerCompany(unittest.TestCase):
     an output read before the runner metered calls counts as read, not as a call."""
 
     def test_by_agent_from_the_runs_table(self):
-        from ledger import cost, store
+        from ledger.extract import cost
+        from ledger.core import store
         con = store.init(":memory:")
         store.write(con, "documents", [{"accession": "0000789019-25-000001", "ticker": "MSFT", "cik": 1, "form": "10-K", "period": "2025-06-30", "filed": "2025-07-30", "url": "u", "sha256": "0" * 64, "bytes": 1,
                                         "parser_version": "p", "table_count": 1, "income_tables": "", "cash_flow_tables": "", "tables_path": "t"},

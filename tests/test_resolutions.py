@@ -1,8 +1,8 @@
 import json
 import unittest
 
-from ledger import resolutions
-from ledger.resolutions import key_for
+from ledger.review import resolutions
+from ledger.review.resolutions import key_for
 
 
 class Keys(unittest.TestCase):
@@ -29,7 +29,7 @@ class Keys(unittest.TestCase):
 
     def test_live_kinds_are_what_the_queue_produces(self):
         import re
-        src = (resolutions.ROOT / "ledger" / "app.py").read_text()
+        src = (resolutions.ROOT / "ledger" / "web" / "app.py").read_text()
         produced = set(re.findall(r'queue\.append\(\{"kind": "([a-z_]+)"', src))
         self.assertEqual(produced - {"value_missing"}, set(resolutions.LIVE_KINDS))  # value_missing (T65) takes no resolution: the fix is a re-read, so it is never live
         self.assertIn("value_missing", produced)
@@ -101,7 +101,7 @@ class Keys(unittest.TestCase):
     def test_the_hash_is_the_pre_t62_hash(self):
         """T62 review: only the fields hq added for the key are left out, per kind, so no live resolution expired."""
         import hashlib
-        from ledger.app import content_hash
+        from ledger.web.app import content_hash
         pre = lambda d: hashlib.sha256(json.dumps(d, sort_keys=True, default=str).encode()).hexdigest()[:12]
         q = {"detail": None, "exception_id": "cost_lines_summed|T|opex|FY2022|None", "ticker": "T", "company": "AT&T", "rule": "cost_lines_summed", "severity": "block", "title": "t", "why": "w", "field": "opex", "period": "FY2022", "message": "m"}
         self.assertEqual(content_hash("blocked", {**q, "subject": None}), pre(q))  # a question carried `rule` before T62
@@ -121,7 +121,7 @@ class Keys(unittest.TestCase):
         import threading
         from http.server import ThreadingHTTPServer
         from urllib import error, request
-        from ledger import app
+        from ledger.web import app
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         self.addCleanup(srv.shutdown)
@@ -135,7 +135,8 @@ class Keys(unittest.TestCase):
     def test_the_stage3_queue_has_no_duplicate_keys(self):
         """T62 done-when: over every company the database holds (the 21 keys of 1 Nov were HUT, RIOT, CEG, T, VST, ...)."""
         from collections import Counter
-        from ledger import app, store
+        from ledger.web import app
+        from ledger.core import store
         if not store.DEFAULT_DB.exists():
             self.skipTest("no working database")
         for t in sorted(c["ticker"] for c in app.tracked()):
@@ -197,7 +198,7 @@ class ToConfirm(unittest.TestCase):
     """T3: the decisions a run made for a person to confirm stay flagged until that person resolves the same key."""
 
     def test_unconfirmed_is_the_latest_per_key_that_says_to_confirm(self):
-        from ledger.resolutions import unconfirmed
+        from ledger.review.resolutions import unconfirmed
         ka, kb, kc, kd = key_for("fact_differs", "A", "x", "FY2024", "d"), key_for("blocked", "B", "y", "FY2024", rule_id="r"), key_for("new_filing", "C", "10-K", "2025-12-31"), key_for("fact_changed", "D", "z", "FY2023")
         rs = [{"id": "a", "key": ka, "hash": "h", "state": "fix", "reason": "x", "by": "Replication run (Claude), for Kenny to confirm", "at": "2026-10-30T00:00:00"},
               {"id": "b", "key": ka, "hash": "h", "state": "accept", "reason": "y", "by": "Claude, for Kenny Geiler to confirm", "at": "2026-10-31T00:00:00"},
@@ -212,7 +213,7 @@ class ToConfirm(unittest.TestCase):
         finding_unconfirmed) was confirmed by Kenny Geiler on 2 Nov, so nothing waits; the 12 stale lines sit under
         decisions/archive/ behind a note line. After T62 (1 Nov): its three lines sit there twice, the legacy key and
         the migrated one (`migrated_from`), and every legacy line has a migrated successor."""
-        from ledger.resolutions import LOG, ROOT, is_live, load, parse_key, unconfirmed
+        from ledger.review.resolutions import LOG, ROOT, is_live, load, parse_key, unconfirmed
         self.assertEqual(unconfirmed(), [])
         rows = load()
         self.assertTrue(all(kind_live for kind_live in (r["key"].partition("|")[0] in resolutions.LIVE_KINDS for r in rows)), "stale kinds belong in decisions/archive/")
@@ -228,7 +229,7 @@ class ToConfirm(unittest.TestCase):
         self.assertEqual(LOG, ROOT / "decisions" / "resolutions.jsonl")
 
     def test_unconfirmed_ignores_stale_kinds_even_if_present(self):
-        from ledger.resolutions import unconfirmed
+        from ledger.review.resolutions import unconfirmed
         rs = [{"id": "a", "key": key_for("reference_disagrees", "GOOGL", "AI capex", "FY2024"), "hash": "h", "state": "explain", "reason": "x", "by": "Claude, for Kenny to confirm", "at": "2026-10-30T00:00:00"},
               {"id": "b", "key": key_for("attribution_moved", "LITE", "revenue", "FY2025"), "hash": "h", "state": "fix", "reason": "y", "by": "Claude, for Kenny to confirm", "at": "2026-10-30T00:00:00"},
               {"id": "c", "key": key_for("finding_unconfirmed", "LITE", "operating_income", rule_id="row_label_switch"), "hash": "h", "state": "accept", "reason": "z", "by": "Claude, for Kenny to confirm", "at": "2026-10-30T00:00:00"},
@@ -236,7 +237,7 @@ class ToConfirm(unittest.TestCase):
         self.assertEqual([r["id"] for r in unconfirmed(rs)], ["c"])
 
     def test_the_release_gate_fails_while_any_live_one_remains(self):
-        from ledger.release import gates
+        from ledger.release.release import gates
         k = key_for("finding_unconfirmed", "GOOGL", "opex", "FY2024", rule_id="jump")
         g = gates([], [], {"values": []}, frozenset(), [{"key": k}], tickers=["GOOGL"])
         self.assertEqual(g["G6"], {"GOOGL": [k]})
@@ -262,7 +263,7 @@ class Authors(unittest.TestCase):
         return p
 
     def test_a_run_line_without_the_phrase_still_fails_g6(self):
-        from ledger.release import gates
+        from ledger.release.release import gates
         self._log()
         r = resolutions.resolve(self.K, "h", "accept", "the jump is a one-off", "Replication run", author_kind="run")
         self.assertEqual(r["author_kind"], "run")
@@ -270,7 +271,7 @@ class Authors(unittest.TestCase):
         unc = resolutions.unconfirmed()
         self.assertEqual([u["id"] for u in unc], [r["id"]])
         self.assertEqual(gates([], [], {"values": []}, frozenset(), unc, tickers=["GOOGL"])["G6"], {"GOOGL": [self.K]})
-        from ledger import proof
+        from ledger.checks import proof
         self.assertFalse(proof.person_wrote(r))
         # even a run that writes a person's name is a run
         self.assertTrue(resolutions.by_run({"key": self.K, "by": "Kenny Geiler", "reason": "fine", "author_kind": "run"}))
@@ -305,7 +306,7 @@ class Authors(unittest.TestCase):
         import threading
         from http.server import ThreadingHTTPServer
         from urllib import error, request
-        from ledger import app
+        from ledger.web import app
         log = self._log()
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
@@ -408,7 +409,7 @@ class Authors(unittest.TestCase):
         import threading
         from http.server import ThreadingHTTPServer
         from urllib import error, request
-        from ledger import app
+        from ledger.web import app
         log = self._log()
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()

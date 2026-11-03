@@ -6,7 +6,8 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from ledger import app, progress
+from ledger.web import app
+from ledger.core import progress
 
 
 class Job(unittest.TestCase):

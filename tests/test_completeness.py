@@ -12,7 +12,8 @@ import unittest
 from datetime import date
 from pathlib import Path
 
-from ledger import config, golden, proof, rules, store
+from ledger.core import config, store
+from ledger.checks import golden, proof, rules
 from tests.test_status import fixture_root
 
 ACC = "0000000000-25-000001"
@@ -159,10 +160,10 @@ class MissingFromDataset(unittest.TestCase):
 PLANT = r'''
 import json, sys, duckdb
 from datetime import date
-from ledger import proof, rules, store
-from ledger.config import MVP_YEARS, PROVEN
-from ledger.reconcile import values_for
-from ledger.review import decisions
+from ledger.checks import proof, rules; from ledger.core import store
+from ledger.core.config import MVP_YEARS, PROVEN
+from ledger.checks.reconcile import values_for
+from ledger.review.review import decisions
 plant = sys.argv[1]
 con = duckdb.connect(str(store.DEFAULT_DB))
 q = lambda sql, *p: [dict(zip([c[0] for c in cur.description], r)) for cur in [con.execute(sql, list(p))] for r in cur.fetchall()]

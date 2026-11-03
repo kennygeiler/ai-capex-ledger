@@ -14,6 +14,7 @@ from pathlib import Path
 
 ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[2]
 RAW = ROOT / "data" / "raw"
+CHECKOUT_RAW = Path(__file__).resolve().parents[2] / "data" / "raw"  # the checkout's own cache; under LEDGER_ROOT (golden, the tests' temp roots) offline reads fall back to it
 MIN_INTERVAL = 0.15  # seconds between requests (under 10/s)
 _last = 0.0
 LOG: list[dict] = []  # one entry per call: network requests and cache reads
@@ -36,8 +37,24 @@ def user_agent() -> str:
     return ua
 
 
+def offline() -> bool:
+    """LEDGER_OFFLINE=1: every SEC read is served from the data/raw cache whatever its age, and anything not cached raises
+    Offline. `ledger test` and `ledger golden --check` set it unless --online; tests/__init__.py sets it for a bare
+    `python -m unittest`. No contact (SEC_USER_AGENT) is needed, since nothing is fetched."""
+    return os.environ.get("LEDGER_OFFLINE") == "1"
+
+
+def refuse_if_offline(url: str) -> None:
+    """Every code path that reaches the network calls this first (the SEC client, edgartools, the investor-page PDFs)."""
+    if offline():
+        raise Offline(f"LEDGER_OFFLINE=1 and not cached: {url}")
+    if os.environ.get("LEDGER_READONLY") == "1":  # a hosted Kenny's Data Emporium serves what it has; it never reaches the SEC
+        raise Offline(f"not in the cache and this copy is read-only: {url}")
+
+
 def _get(url: str, retries: int = 4) -> bytes:
     global _last
+    refuse_if_offline(url)
     for attempt in range(1, retries + 1):
         wait = MIN_INTERVAL - (time.monotonic() - _last)
         if wait > 0:
@@ -67,18 +84,38 @@ def _get(url: str, retries: int = 4) -> bytes:
 
 
 class Offline(RuntimeError):
-    """A read-only copy asked for a document it does not hold."""
+    """A read-only or offline copy asked for a document it does not hold."""
+
+
+def _offline_hit(url: str, path: Path) -> tuple[bytes, dict] | None:
+    """Offline: the cached file at `path`, or at the same place under the checkout's data/raw, whatever its age."""
+    cands = [path]
+    try:
+        cands.append(CHECKOUT_RAW / path.resolve().relative_to(RAW.resolve()))
+    except ValueError:
+        pass
+    for p in cands:
+        if p.exists():
+            meta_path = p.with_suffix(".meta.json")
+            meta = json.loads(meta_path.read_text()) if meta_path.exists() else {"url": url, "fetched_at": None, "bytes": p.stat().st_size}
+            LOG.append({"url": url, "at": _now(), "attempt": 1, "source": "cache", "status": 200, "ms": 0, "bytes": meta.get("bytes"), "fetched_at": meta.get("fetched_at"), "offline": True})
+            return p.read_bytes(), meta | {"cache": "hit"}
+    return None
 
 
 def _cached(url: str, path: Path, refresh: bool, max_age_h: float) -> tuple[bytes, dict]:
+    if offline():
+        hit = _offline_hit(url, Path(path))
+        if hit is None:
+            raise Offline(f"LEDGER_OFFLINE=1 and not cached: {url}")
+        return hit
     meta_path = path.with_suffix(".meta.json")
     fresh = path.exists() and meta_path.exists() and (time.time() - path.stat().st_mtime) < max_age_h * 3600
     if fresh and not refresh:
         meta = json.loads(meta_path.read_text())
         LOG.append({"url": url, "at": _now(), "attempt": 1, "source": "cache", "status": 200, "ms": 0, "bytes": meta["bytes"], "fetched_at": meta["fetched_at"]})
         return path.read_bytes(), meta | {"cache": "hit"}
-    if os.environ.get("LEDGER_READONLY") == "1":  # a hosted Kenny's Data Emporium serves what it has; it never reaches the SEC
-        raise Offline(f"not in the cache and this copy is read-only: {url}")
+    refuse_if_offline(url)
     body = _get(url)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(body)

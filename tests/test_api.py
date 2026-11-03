@@ -7,7 +7,8 @@ from unittest import mock
 
 import duckdb
 
-from ledger import api, store, views
+from ledger.web import api, views
+from ledger.core import store
 
 
 def _store():
@@ -76,12 +77,12 @@ class CsvLineEndings(unittest.TestCase):
 class StatusAndFlag(unittest.TestCase):
     def test_every_row_says_whether_its_company_is_proven(self):
         rows = api.fetch(None, "companies")
-        from ledger.config import PROVEN
+        from ledger.core.config import PROVEN
         self.assertEqual({r["ticker"] for r in rows if r["proven"]}, set(PROVEN))
 
     def test_values_rows_carry_status_and_flag(self):
         import duckdb
-        from ledger import resolutions
+        from ledger.review import resolutions
         con = duckdb.connect()
         con.execute('create table "values" (ticker text, field text, period text, period_end text, value double, label text, basis text, first_reported double, source text, extraction_ids text)')
         con.execute("insert into \"values\" values ('T','opex','FY2022','2022-12-31',74.5e6,'unresolved','as_reported',74.5e6,'agent','x'), ('MSFT','capex','FY2025','2025-06-30',64551e6,'agree','as_reported',64551e6,'agent','y')")

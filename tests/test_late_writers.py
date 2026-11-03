@@ -9,8 +9,9 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from ledger import agent, store
-from ledger.extract import make_task
+from ledger.extract import agent
+from ledger.core import store
+from ledger.extract.extract import make_task
 
 from tests.test_extract import ACCN, parsed, value
 
@@ -78,7 +79,7 @@ class StaleOutput(unittest.TestCase):
         """A refused notes or AI-spend output is logged as its failure class; `ledger rules` used to delete every exception
         but extraction_failed, so the refusal vanished. It keeps all four (proof.FAILURES)."""
         from ledger.cli import rules
-        from ledger.proof import FAILURES
+        from ledger.checks.proof import FAILURES
         con = store.init(self.db)
         store.write(con, "exceptions", [{"exception_id": f"{r}|x", "rule_id": r, "severity": "block", "ticker": "NVDA", "field": None, "period": None, "subject": "x",
                                           "message": "stale output: answered an older task", "input_hash": "h"} for r in FAILURES], replace=True)
@@ -97,11 +98,11 @@ class LateProposal(unittest.TestCase):
 
     def test_reject_a_mapping_then_a_delayed_proposal_of_the_same_member_is_not_current(self):
         """T100 done-when (2)."""
-        from ledger.mapper import by_name, propose
+        from ledger.review.mapper import by_name, propose
         log = Path(tempfile.mkdtemp()) / "mapping_proposals.jsonl"
         self.addCleanup(shutil.rmtree, log.parent, True)
         propose(self.T, {"prompt_version": "mapper@v1", "proposals": [{"reported_name": self.N, "standard_type": "BuildingMember", "evidence": "Buildings", "confidence": "high", "reason": "r"}]}, {"model": "m"}, log)
-        from ledger.mapper import load_proposals, _append
+        from ledger.review.mapper import load_proposals, _append
         _append({"kind": "rejected", "ticker": self.T, "reported_name": self.N, "standard_type": "BuildingMember", "by": "Kenny Geiler", "reason": "no", "at": "2026-11-02T00:00:00+00:00"}, log)
         self.assertIsNone(by_name(self.T, load_proposals(log))[self.N]["proposal"])
         # the delayed answer of a run started before the rejection lands now, proposing the same member
@@ -112,14 +113,14 @@ class LateProposal(unittest.TestCase):
         self.assertEqual(e["rejected"], ["BuildingMember"])  # the rejected list stays visible beside it
 
     def test_a_live_proposal_survives_a_late_reproposal(self):
-        from ledger.mapper import by_name
+        from ledger.review.mapper import by_name
         rej = {"kind": "rejected", "ticker": self.T, "reported_name": self.N, "standard_type": "BuildingMember", "by": "Kenny Geiler", "at": "2"}
         e = by_name(self.T, [self._p("BuildingMember", "1"), rej, self._p("BuildingsAndImprovementsGrossMember", "3"), self._p("BuildingMember", "4")])[self.N]
         self.assertEqual(e["proposal"]["standard_type"], "BuildingsAndImprovementsGrossMember")
         self.assertEqual([r["at"] for r in e["reproposed"]], ["4"])  # the first proposal was the one rejected, not a re-proposal
 
     def test_a_proposal_after_a_persons_approval_changes_nothing(self):
-        from ledger.mapper import by_name, propose
+        from ledger.review.mapper import by_name, propose
         ok = {"kind": "approved", "ticker": self.T, "reported_name": self.N, "standard_type": "LandMember", "evidence": "Buildings", "by": "Kenny Geiler", "at": "2026-11-02",
               "confirmed_by": "Kenny Geiler", "confirmed_at": "2026-11-02"}
         e = by_name(self.T, [self._p("BuildingMember", "1"), ok, self._p("BuildingMember", "3")])[self.N]
@@ -128,7 +129,7 @@ class LateProposal(unittest.TestCase):
         self.assertEqual([r["at"] for r in e["late"]], ["3"])
         # and a proposal only ever appends to the log: taxonomy/asset_types.yaml is written by approve alone
         import inspect
-        from ledger import mapper
+        from ledger.review import mapper
         self.assertNotIn("_edit(", inspect.getsource(mapper.propose))
 
 
@@ -172,7 +173,7 @@ class RoundTrip(unittest.TestCase):
         return p, tp
 
     def _notes(self, *flags, answer=None):
-        from ledger import notes
+        from ledger.extract import notes
         from ledger.cli import notes as cli
         calls = []
 
@@ -213,7 +214,7 @@ class RoundTrip(unittest.TestCase):
         con.close()
 
     def _aispend(self, *flags):
-        from ledger import guidance
+        from ledger.extract import guidance
         from ledger.cli import aispend as cli
         calls = []
 
@@ -244,7 +245,7 @@ class RoundTrip(unittest.TestCase):
         self.assertIn(ACCN, msg)
 
     def test_extract_run_reasks_an_output_with_no_fingerprint(self):
-        from ledger import extract
+        from ledger.extract import extract
         from ledger.cli import extract as cli
         p = parsed()
         p["tables"] = []
@@ -269,7 +270,7 @@ class RoundTrip(unittest.TestCase):
             self.assertEqual(len(calls), 1)  # now fingerprinted and current: not asked again
 
     def test_an_undone_approval_does_not_hide_later_proposals(self):
-        from ledger.mapper import by_name
+        from ledger.review.mapper import by_name
         ok = {"kind": "approved", "ticker": "MU", "reported_name": "Buildings", "standard_type": "LandMember", "by": "Kenny Geiler", "at": "2"}
         later = {"kind": "proposed", "ticker": "MU", "reported_name": "Buildings", "standard_type": "BuildingMember", "evidence": "Buildings", "confidence": "high", "reason": "r", "at": "3"}
         e = by_name("MU", [ok, later])["Buildings"]
@@ -279,7 +280,7 @@ class RoundTrip(unittest.TestCase):
         self.assertIsNone(e["approved"])
         self.assertEqual(e["proposal"]["standard_type"], "BuildingMember")
         import inspect
-        from ledger import mapper
+        from ledger.review import mapper
         self.assertIn("by_name(t, lines, set(names))", inspect.getsource(mapper.pending))  # pending passes its names: every one is unmapped or unconfirmed
 
 if __name__ == "__main__":

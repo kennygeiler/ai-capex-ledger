@@ -1,4 +1,4 @@
-"""The claims register (ledger/claims.py, docs/BUILD.md). Each class answers one way the register itself could lie, from
+"""The claims register (ledger/release/claims.py, docs/BUILD.md). Each class answers one way the register itself could lie, from
 the eight patterns of docs/BUILD.md: a declared status read as proven (1), nothing to check read as passed (2), one
 finding closing or rewriting another (3), the doc, the API, the checklist and the packet disagreeing (4), degenerate
 registers (5), a finding overwritten instead of appended (6), a claim on a page the register does not know (7), stale
@@ -14,14 +14,14 @@ from pathlib import Path
 from unittest import mock
 from urllib import request
 
-from ledger import claims as C
+from ledger.release import claims as C
 
 REAL_TEST = "tests.test_claims.Compute.test_a_declared_proven_never_survives_a_fact_against_it"
 RAN = {"recorded": True, "skipped": set(), "failed": set(), "at": None}
 
 
 def entry(**kw):
-    e = {"id": "x", "claim": "X", "where": [], "shown": [], "backed_by": {"functions": ["ledger.claims.load"], "tests": [REAL_TEST]},
+    e = {"id": "x", "claim": "X", "where": [], "shown": [], "backed_by": {"functions": ["ledger.release.claims.load"], "tests": [REAL_TEST]},
          "status": "proven", "gaps": [], "ticket": "none", "checks": []}
     e.update(kw)
     return e
@@ -47,7 +47,7 @@ class Compute(unittest.TestCase):
     def test_a_declared_proven_never_survives_a_fact_against_it(self):
         self.assertEqual(run(entry())["status"], "proven")  # everything backs it: proven stays
         for e, why in [(entry(backed_by={"functions": [], "tests": ["tests.test_claims.Nope.test_nope"]}), "a backing test does not exist"),
-                       (entry(backed_by={"functions": ["ledger.claims.no_such_thing"], "tests": [REAL_TEST]}), "a backing function does not import"),
+                       (entry(backed_by={"functions": ["ledger.release.claims.no_such_thing"], "tests": [REAL_TEST]}), "a backing function does not import"),
                        (entry(backed_by={"functions": ["ledger.no_such_module.f"], "tests": [REAL_TEST]}), "a backing function does not import"),
                        (entry(gaps=["one gap"]), "gaps listed")]:
             r = run(e)
@@ -70,9 +70,9 @@ class Compute(unittest.TestCase):
 
     def test_a_module_that_raises_at_import_is_a_reason_not_a_crash(self):
         with mock.patch("importlib.import_module", side_effect=RuntimeError("boom")):
-            why = C.function_imports("ledger.claims.load")
+            why = C.function_imports("ledger.release.claims.load")
         self.assertIn("raises at import", why)
-        self.assertIsNone(C.function_imports("ledger.claims.load"))
+        self.assertIsNone(C.function_imports("ledger.release.claims.load"))
 
     def test_without_checks_the_declaration_is_a_ceiling_and_with_checks_the_facts_decide(self):
         for s in ("partial", "stale", "stub", "planned"):
@@ -98,7 +98,11 @@ class Compute(unittest.TestCase):
 
     def test_the_real_register_today(self):
         rows = {r["id"]: r for r in C.computed(live=False)}
-        self.assertEqual(rows["gold_error_rate"]["status"], "stub")  # 0 of 120 verdicts
+        from ledger.review import gold
+        items = [i for d in gold.load_checked()[0].values() for i in d["items"]]
+        given = sum(gold.has_verdict(i) for i in items)  # Kenny gives verdicts over time: stub at 0, partial until all 120
+        self.assertEqual(rows["gold_error_rate"]["status"], "stub" if not given else "partial" if given < len(items) else rows["gold_error_rate"]["status"])
+        self.assertNotEqual(rows["gold_error_rate"]["status"], "proven" if given < len(items) else None)
         self.assertEqual(rows["hosted_copy"]["status"], "stale")     # no deploy record
         self.assertEqual(rows["edgar_checked"]["status"], "stale")   # freshness is checked live only
         self.assertNotEqual(rows["golden_equal"]["status"], "proven")  # gold unverified is never a golden pass
@@ -115,15 +119,15 @@ class Vacuous(unittest.TestCase):
     def test_an_empty_or_missing_gold_folder_is_a_stub(self):
         with tempfile.TemporaryDirectory() as d:
             for root in (Path(d), Path(d) / "missing"):
-                with mock.patch("ledger.gold.GOLD", root):
+                with mock.patch("ledger.review.gold.GOLD", root):
                     self.assertEqual(run(entry(checks=["gold"]))["status"], "stub")
 
     def test_gold_with_some_verdicts_is_partial_and_all_is_no_cap(self):
         docs = {"MSFT": {"items": [{"verdict": "right"}, {"verdict": None}]}}
-        with mock.patch("ledger.gold.load_checked", return_value=(docs, [])):
+        with mock.patch("ledger.review.gold.load_checked", return_value=(docs, [])):
             self.assertEqual(run(entry(checks=["gold"]))["status"], "partial")
         docs["MSFT"]["items"][1]["verdict"] = "wrong"
-        with mock.patch("ledger.gold.load_checked", return_value=(docs, [])):
+        with mock.patch("ledger.review.gold.load_checked", return_value=(docs, [])):
             self.assertEqual(run(entry(checks=["gold"]))["status"], "proven")
 
     def test_test_exists_reads_the_source_or_the_deploy_record(self):
@@ -172,6 +176,31 @@ class OneFindingOneItem(unittest.TestCase):
                 with self.assertRaises(ValueError, msg=str(change)):
                     C.findings(self.write(d, finding(), finding(**{**change, "status": "fixed"})), ids={"x", "y"})
 
+    def test_an_id_is_taken_once_and_a_close_needs_an_earlier_open(self):
+        """Merge friction: findings.jsonl merges by union, so two branches that pick one id must fail here, not land."""
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaises(ValueError):  # the same id opened twice (two branches, same words)
+                C.findings(self.write(d, finding(id="F-AB1"), finding(id="F-AB1")), ids={"x"})
+            for closed in ("fixed", "wontfix"):  # a close with no open line before it
+                with self.assertRaises(ValueError):
+                    C.findings(self.write(d, finding(id="F-AB2", status=closed)), ids={"x"})
+            for bad in ("F31", "F-1", "X-1", "f-ab1"):  # a new plain F<n> past the legacy ones, or a malformed id
+                with self.assertRaises(ValueError, msg=bad):
+                    C.findings(self.write(d, finding(id=bad)), ids={"x"})
+            fs = C.findings(self.write(d, finding(id="F-AB3"), finding(id="F-AB3", status="fixed"), finding(id="F-AB3", status="open"), finding(id="S-1")), ids={"x"})
+            self.assertEqual({f["id"]: f["status"] for f in fs}, {"F-AB3": "open", "S-1": "open"})  # reopen after a fix is allowed
+
+    def test_the_real_log_has_unique_ids_by_first_appearance(self):
+        seen = set()
+        for n, line in enumerate(C.FINDINGS.read_text().splitlines(), 1):
+            if not line.strip():
+                continue
+            f = json.loads(line)
+            if f["id"] not in seen:
+                self.assertEqual(f["status"], "open", f"line {n}: {f['id']} first appears {f['status']}")
+                seen.add(f["id"])
+        C.findings(ids={e["id"] for e in C.load()})  # the loader's own rules hold on the committed log
+
     def test_a_finding_on_an_unknown_claim_or_with_a_bad_field_is_refused(self):
         with tempfile.TemporaryDirectory() as d:
             for bad in (finding(claim="nope"), finding(severity="urgent"), finding(status="done"), {"id": "F9"}, finding(ticket="soon"), ["a list"]):
@@ -187,7 +216,8 @@ class OneAnswer(unittest.TestCase):
     depends on the clock or the commit."""
 
     def test_api_checklist_and_counts_agree(self):
-        from ledger import app, checklist
+        from ledger.web import app
+        from ledger.release import checklist
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         self.addCleanup(srv.shutdown)
@@ -197,7 +227,7 @@ class OneAnswer(unittest.TestCase):
         self.assertEqual(d["counts"], C.counts(C.computed(), C.findings()))
         self.assertEqual(d["problems"], [])
         self.assertGreater(d["scanned"]["strings"], 80)
-        reg, gaps = checklist.claims_lines()
+        reg, _doc, gaps = checklist.claims_lines()
         self.assertEqual((reg["id"], reg["required"], reg["state"]), ("claims", True, "pass"))
         self.assertIn(f"{d['scanned']['strings']} strings", reg["note"])
         self.assertEqual(gaps["count"], d["counts"]["stub"] + d["counts"]["stale"] + d["counts"]["open_findings"])
@@ -205,7 +235,7 @@ class OneAnswer(unittest.TestCase):
         self.assertEqual([r["status"] for r in d["claims"]], sorted((r["status"] for r in d["claims"]), key=lambda s: C.PAGE_ORDER[s]))
 
     def test_the_packet_lists_the_stub_and_stale_claims(self):
-        from ledger.limitations import markdown
+        from ledger.release.limitations import markdown
         md = markdown("v9.9.9", {})
         self.assertIn("## Claims not yet proven", md)
         for r in C.computed(live=False):
@@ -213,8 +243,8 @@ class OneAnswer(unittest.TestCase):
                 self.assertIn(r["claim"].replace("|", "\\|"), md)
 
     def test_the_packet_hash_ignores_the_clock_and_head(self):
-        from ledger.limitations import markdown
-        from ledger.release import content_hash
+        from ledger.release.limitations import markdown
+        from ledger.release.release import content_hash
         hashes = set()
         for when, head in ((datetime(2026, 11, 2, tzinfo=timezone.utc), "aaaaaaa"), (datetime(2027, 3, 1, tzinfo=timezone.utc), "bbbbbbb")):
             with mock.patch.object(C, "_now", return_value=when), mock.patch.object(C, "_head", return_value=head):
@@ -222,9 +252,9 @@ class OneAnswer(unittest.TestCase):
         self.assertEqual(len(hashes), 1)
 
     def test_a_red_scan_or_a_crash_turns_the_required_line_red(self):
-        from ledger import checklist
-        with mock.patch.object(C, "unregistered", return_value=[{"kind": "unregistered", "what": "'Proven'", "where": "ledger/pages/x.js"}]):
-            reg, _ = checklist.claims_lines()
+        from ledger.release import checklist
+        with mock.patch.object(C, "unregistered", return_value=[{"kind": "unregistered", "what": "'Proven'", "where": "ledger/web/pages/x.js"}]):
+            reg = checklist.claims_lines()[0]
         self.assertEqual((reg["state"], reg["count"]), ("fail", 1))
         for err in (ValueError("bad register"), RuntimeError("a module raised")):
             with mock.patch.object(C, "load", side_effect=err):
@@ -347,9 +377,9 @@ class Scan(unittest.TestCase):
 
     def test_a_row_whose_words_left_the_page_fails(self):
         none = Path(tempfile.gettempdir()) / "none"
-        probs = C.unregistered(entries=[entry(where=["ledger/pages/trail.js"], shown=["Audited by KPMG"])], pages=none)
+        probs = C.unregistered(entries=[entry(where=["ledger/web/pages/trail.js"], shown=["Audited by KPMG"])], pages=none)
         self.assertIn({"kind": "not_shown", "what": "Audited by KPMG", "where": "x"}, probs)
-        probs = C.unregistered(entries=[entry(where=["ledger/pages/nope.js"], shown=["x"])], pages=none)
+        probs = C.unregistered(entries=[entry(where=["ledger/web/pages/nope.js"], shown=["x"])], pages=none)
         self.assertIn("missing_file", [p["kind"] for p in probs])
 
 
@@ -386,9 +416,9 @@ class Stale(unittest.TestCase):
                 self.assertEqual(r["status"], "stale")
                 self.assertIn("Hosted copy serves v1.8.0; latest signed release is v1.9.0", r["facts"])  # the gap text is generated
                 h.write_text(json.dumps({"release": "v1.9.0", "commit": "0000000"}))
-                with mock.patch("ledger.testreport.changed_since", return_value=["ledger/app.py", "claims/hosted.json"]):
+                with mock.patch("ledger.release.testreport.changed_since", return_value=["ledger/web/app.py", "claims/hosted.json"]):
                     self.assertEqual(run(e)["status"], "stale")
-                with mock.patch("ledger.testreport.changed_since", return_value=["claims/hosted.json"]):  # the commit that recorded the deploy
+                with mock.patch("ledger.release.testreport.changed_since", return_value=["claims/hosted.json"]):  # the commit that recorded the deploy
                     self.assertEqual(run(e)["status"], "proven")
                 h.write_text(json.dumps({"release": "v1.9.0", "commit": "abc1234"}))
                 self.assertEqual(run(e)["status"], "proven")
@@ -396,7 +426,7 @@ class Stale(unittest.TestCase):
 
     def test_record_deploy_refuses_a_dirty_tree_or_no_git(self):
         for state in (("abc1234", True), (None, None)):
-            with mock.patch("ledger.testreport.git_state", return_value=state), mock.patch.object(C, "HOSTED", Path(tempfile.gettempdir()) / "never.json"):
+            with mock.patch("ledger.release.testreport.git_state", return_value=state), mock.patch.object(C, "HOSTED", Path(tempfile.gettempdir()) / "never.json"):
                 with self.assertRaises(ValueError):
                     C.record_deploy()
 
@@ -419,8 +449,21 @@ class Stale(unittest.TestCase):
 
 
 class Doc(unittest.TestCase):
+    def test_a_stale_or_union_merged_claims_doc_blocks_signing(self):
+        """docs/CLAIMS.md merges by union: a merged copy with duplicate rows, or a missing one, is a red required line."""
+        from ledger.release import checklist
+        with tempfile.TemporaryDirectory() as d:
+            doc = Path(d) / "CLAIMS.md"
+            doc.write_text("# x\n| a |\n")
+            self.assertEqual(checklist.doc_line(doc, "# x\n| a |\n")["state"], "pass")
+            doc.write_text("# x\n| a |\n| a |\n")  # what a union merge leaves
+            l = checklist.doc_line(doc, "# x\n| a |\n")
+            self.assertEqual((l["state"], l["required"], l["ok"]), ("fail", True, False))
+            self.assertEqual(checklist.doc_line(Path(d) / "none.md", "x")["state"], "fail")
+        self.assertEqual(checklist.doc_line()["state"], "pass")  # the committed file is current
+
     def test_claims_md_is_current(self):
-        self.assertEqual(C.DOC.read_text(), C.markdown(), "docs/CLAIMS.md is stale: run uv run python -m ledger.claims")
+        self.assertEqual(C.DOC.read_text(), C.markdown(), "docs/CLAIMS.md is stale: run uv run python -m ledger claims")
 
 
 if __name__ == "__main__":

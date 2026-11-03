@@ -6,7 +6,9 @@ import csv
 import re
 import unittest
 
-from ledger import golden, status, store, taxonomy
+from ledger.checks import golden
+from ledger.core import status, store
+from ledger.release import taxonomy
 try:
     from test_taxonomy import _con  # unittest discover -s tests
 except ImportError:
@@ -202,7 +204,7 @@ class OneMeaningPerColumn(unittest.TestCase):
 
 class Filters(unittest.TestCase):
     def test_a_boolean_filter_matches_false(self):
-        from ledger import api
+        from ledger.web import api
         rows = [{"ticker": "A", "has_value": True, "mapped": True}, {"ticker": "B", "has_value": False, "mapped": True}, {"ticker": "C", "has_value": None, "mapped": False}]
         self.assertEqual([r["ticker"] for r in api.apply(rows, {"has_value": "false"})], ["B"])  # False is a value, not an empty cell
         self.assertEqual([r["ticker"] for r in api.apply(rows, {"has_value": "true"})], ["A"])
