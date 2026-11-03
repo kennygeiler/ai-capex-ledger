@@ -172,7 +172,9 @@ def _git(*args, cwd: Path | None = None) -> subprocess.CompletedProcess | None:
 
 
 def append_only(path: Path = FINDINGS, rel: str = FINDINGS_REL, repo: Path | None = None) -> dict:
-    """{enforced, commits, problems}: every committed version of the findings log must be a prefix of the working file.
+    """{enforced, commits, problems}: every line of every committed version of the findings log must still be in the
+    working file, unchanged and in the same order (a subsequence). A union merge of two branches may interleave new
+    lines, so a strict prefix is not required; an edited or removed line is still caught.
     Without git (the hosted copy) nothing can be compared: enforced False, said so, never a silent pass."""
     log = _git("log", "--first-parent", "--format=%H", "--", rel, cwd=repo)
     if log is None or log.returncode != 0:
@@ -184,10 +186,16 @@ def append_only(path: Path = FINDINGS, rel: str = FINDINGS_REL, repo: Path | Non
         old = _git("show", f"{sha}:{rel}", cwd=repo)
         if old is None or old.returncode != 0:
             continue  # the commit that deleted it, or a rename: nothing to compare
-        if not now.startswith(old.stdout):
+        if not _kept_in_order(old.stdout.splitlines(), now.splitlines()):
             problems.append(f"{sha[:7]}: a line was edited or removed; append a new line with the same id instead")
     return {"enforced": True, "commits": len(shas), "problems": problems,
-            "note": f"append-only checked against {len(shas)} commits" if not problems else f"{len(problems)} commits are not a prefix"}
+            "note": f"append-only checked against {len(shas)} commits" if not problems else f"{len(problems)} commits lost or edited a line"}
+
+
+def _kept_in_order(old: list[str], now: list[str]) -> bool:
+    """Every old line appears in now, unchanged, in the same order."""
+    it = iter(now)
+    return all(any(line == n for n in it) for line in old)
 
 
 # ── what backs a claim ───────────────────────────────────────────────────────────────────────────────────────────

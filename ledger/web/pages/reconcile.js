@@ -13,7 +13,7 @@ const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yello
 // word the trail and Proof use for the same row); the page only shows them, in ledger/core/states.py's words (/pages/_states.js)
 const stateCell = (r) => { const [cls, word] = stateWord('row', r.verification); return h('span', {class: cls + ' fw-medium text-nowrap'}, word); };
 let FOCUS_KEY = null;  // the row to focus after a save re-renders the page
-const num = (r, v) => (v == null ? '—' : r.measure === 'share' ? pct(v) : usd(v));
+const num = (r, v) => (v == null ? '—' : r.measure === 'share' ? pct(v) : usdExact(v));
 const signed = (r, v) => (v == null ? '—' : (v < 0 ? '−' : '+') + (r.measure === 'share' ? `${(100 * Math.abs(v)).toFixed(1)} pts` : usd(Math.abs(v))));
 const pctSigned = (x) => (x == null ? '—' : `${x < 0 ? '−' : '+'}${(100 * Math.abs(x)).toFixed(Math.abs(x) < .1 ? 1 : 0)}%`);
 // a gap bar: one scale, ours as a bar, the stated figure as a tick with a band for where it allows

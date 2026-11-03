@@ -73,7 +73,19 @@ const GOLD_HELP = {right: 'The filing shows this number at this cell', wrong: 'T
 const verdictTone = (v) => stateWord('gold', v)[0];
 const goldNeedsMe = new Set();
 document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of goldNeedsMe) b.disabled = !(me || '').trim(); });
-const goldMoney = (n) => (n == null ? 'Not reported' : usd(n));  // the app's one money format; the exact dollars in the hover
+const goldMoney = (n) => (n == null ? 'Not reported' : usdExact(n));  // the hand check compares figures by eye: always to the dollar
+// The value as the filing prints it: the cited cell's figure and its scale, when every cite shows the same figure and
+// value = figure × 1, 1,000, 1,000,000 or 1,000,000,000. Otherwise null (calculated or rescaled figures show dollars only).
+const GOLD_SCALE = [[1, 'dollars'], [1e3, 'thousands'], [1e6, 'millions'], [1e9, 'billions']];
+const asFiled = (it) => {
+  if (it.value == null || it.calc || !it.cites.length) return null;
+  const texts = [...new Set(it.cites.map((c) => String(c.cell_text || '').replace(/[^0-9.]/g, '')))];
+  if (texts.length !== 1 || !texts[0]) return null;
+  const n = Number(texts[0]);
+  if (!(n > 0)) return null;
+  const hit = GOLD_SCALE.find(([k]) => Math.abs(Math.abs(it.value) - n * k) < 0.5);
+  return hit ? {figure: (it.value < 0 ? '−' : '') + n.toLocaleString('en-US', {maximumFractionDigits: 3}), scale: hit[1]} : null;
+};
 const goldGroup = (g) => stateWord('gold_group', g);  // states.GOLD_GROUP: the group's word and tone
 // counts first; the error rate only once a verdict exists (n > 0), with its interval
 const goldRate = (r) => {
@@ -113,7 +125,9 @@ function goldSet() {
       it.group_note ? h('div', {class: 'small text-orange'}, it.group_note) : '');
     const value = (it) => {
       const lv = it.live, moved = lv && lv.value !== it.value;
-      return h('div', {}, h('div', {class: 'money', title: it.value == null ? null : `$${int(it.value)}`}, goldMoney(it.value)),
+      const f = asFiled(it);
+      return h('div', {}, h('div', {class: 'money'}, f ? f.figure : goldMoney(it.value)),
+        f ? h('div', {class: 'text-secondary small money'}, `In ${f.scale} · ${goldMoney(it.value)}`) : '',
         !lv ? h('div', {class: 'text-secondary small'}, 'Current value unavailable') : lv.gone ? h('div', {class: 'text-red small'}, 'Removed from dataset') : moved ? h('div', {class: 'text-red small'}, `Now ${goldMoney(lv.value)}`) : lv.open ? h('div', {class: stateWord('row', 'bad')[0] + ' small'}, stateWord('row', 'bad')[1]) : '');
     };
     // the cited cell, as the trail shows it: the crop (cell boxed in red; click for full size) or its state, then Open in filing

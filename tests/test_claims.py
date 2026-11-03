@@ -349,6 +349,11 @@ class AppendOnly(unittest.TestCase):
             f.write_text('{"id":"F1"}\n{"id":"S1"}\n')
             self.assertEqual(len(C.append_only(f, "f.jsonl", repo)["problems"]), 2)
 
+    def test_interleaved_new_lines_pass_and_an_edit_fails(self):
+        self.assertTrue(C._kept_in_order(["a", "b", "c"], ["a", "b", "x", "c", "y"]))
+        self.assertFalse(C._kept_in_order(["a", "b", "c"], ["a", "c", "b"]))
+        self.assertFalse(C._kept_in_order(["a", "b"], ["a", "b2"]))
+
     def test_without_git_it_says_not_enforced(self):
         with mock.patch.object(C, "_git", return_value=None):
             a = C.append_only()

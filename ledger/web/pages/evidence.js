@@ -20,7 +20,7 @@ function evFiling(e) {
 
 function evExtracted(e) {
   return h('div', {class: 'ev-side'},
-    h('div', {class: 'ev-value'}, usd(e.value)),
+    h('div', {class: 'ev-value'}, usdExact(e.value)),
     evKv('Cited cell', h('span', {class: 'mono'}, e.cell_text)), evKv('Row', e.row_label), evKv('Column', e.column_label.split('|').map((s) => s.trim()).join(' · ')),
     evKv('Units', e.scale > 1 ? `stated × ${int(e.scale)}` : 'as stated'), evKv('Period', evPeriod(e)),
     evKv('Filing', `${e.form} · ${e.accession} · filed ${day(e.filed)}`), evKv('Source', e.kind === 'note' ? 'Notes to the financial statements' : 'Financial statements'));
