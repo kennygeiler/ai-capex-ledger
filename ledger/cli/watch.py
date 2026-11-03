@@ -11,6 +11,7 @@ import duckdb
 
 from ..core import store
 from ..core.config import add_scope, scope
+from ..ingest import edgar
 from ..ingest.filings import list_filings
 from .run import main as run
 
@@ -22,6 +23,8 @@ def main(argv=None) -> int:
     add_scope(ap)
     ap.add_argument("--run", action="store_true", help="read the new filings now (ledger run for those companies)")
     a = ap.parse_args(argv)
+    if edgar.offline():  # a cached submissions file would be written as a check made now: watch.json would read fresh while it is not
+        raise SystemExit("ledger watch asks the SEC what was filed; it does not run with LEDGER_OFFLINE=1 (unset it, or pass nothing offline)")
     if not a.ticker and not a.stage:
         a.stage = 3
     tickers, name = scope(a)

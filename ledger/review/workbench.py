@@ -158,7 +158,7 @@ TO_CONFIRM = "to_confirm"
 def to_confirm(tickers: list[str] | None, names: dict) -> list[dict]:
     """The decisions a run made for a person to confirm (resolutions.unconfirmed), as workbench rows: their own group,
     first. None of them is a dataset row; each is a resolution a person has not yet made their own."""
-    out = []
+    out = []  # open: the release refuses each (G6); the page word is Proposed (states.row), the same as an unconfirmed mapping
     for r in resolutions.unconfirmed():
         k = resolutions.parse_key(r["key"])  # unconfirmed() gives live keys only, so this is never None (T62)
         kind, ticker = k["kind"], k["ticker"]
@@ -166,7 +166,7 @@ def to_confirm(tickers: list[str] | None, names: dict) -> list[dict]:
         if tickers is not None and ticker not in tickers:
             continue
         out.append({"key": r["key"], "hash": r["hash"], "cause": TO_CONFIRM, "cause_label": "To confirm", "state": "to confirm",
-                    "by": f"resolution:{r.get('id', '')}", "reason": r["reason"], "open": False, "ticker": ticker, "name": names.get(ticker, ticker), "layer": industry(ticker),
+                    "by": f"resolution:{r.get('id', '')}", "reason": r["reason"], "open": True, "ticker": ticker, "name": names.get(ticker, ticker), "layer": industry(ticker),
                     "field": None, "period": None, "where": f"{kind.replace('_', ' ')}: {where}", "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,
                     "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "confirm", "impact": "the release refuses while it is unconfirmed",
                     "resolution": {k: r.get(k) for k in ("id", "state", "by", "at", "reason")}, "evidence": {"message": r["reason"], "proposed": r["state"]}})
@@ -288,6 +288,9 @@ def items(con, flow: dict) -> dict:
     from ..core.states import row as row_state
     for r in confirm + rows:  # the row's word on the page: states.row, the one the trail and Proof read
         r["verification"] = row_state(r["state"], r["by"])
+    by_state: dict = {}  # the header's counts, by the same word every row shows: Proposed is every `wait` row (a run's
+    for r in confirm + rows:  # decision to confirm, an asset type no person confirmed), the set G6 refuses on
+        by_state[r["verification"]] = by_state.get(r["verification"], 0) + 1
     open_ = [r for r in rows if r["open"]]
     by_cause = {}
     for r in confirm + rows:
@@ -297,5 +300,5 @@ def items(con, flow: dict) -> dict:
         by_cause[r["cause"]]["dollars"] += r["dollars"]
     causes = sorted(by_cause.values(), key=lambda c: (c["cause"] != TO_CONFIRM, -c["dollars"]))
     from .mapper import members
-    return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": confirm + rows, "open": len(open_), "to_confirm": len(confirm), "dollars": sum(r["dollars"] for r in open_),
+    return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": confirm + rows, "open": len(open_), "to_confirm": len(confirm), "by_state": by_state, "dollars": sum(r["dollars"] for r in open_),
             "causes": causes, "names": names, "members": members()}

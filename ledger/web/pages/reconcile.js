@@ -60,11 +60,11 @@ async function reconcilePage(view, qs) {
   const causes = CAUSE_ORDER.filter((c) => d.rows.some((r) => r.cause === c)), layers = [...new Set(d.rows.map((r) => r.layer))].sort(), fields = [...new Set(d.rows.map((r) => r.field).filter(Boolean))].sort();
   const sel = (label, value, opts, key) => h('select', {class: 'form-select form-select-sm', 'aria-label': label, onchange: (e) => setQ({[key]: e.target.value})}, opts.map(([v, t]) => h('option', {value: v, selected: v === value || null}, t)));
   const openRows = rows.filter(isOpen);
-  const nState = (s) => d.rows.filter((r) => r.state === s).length;
+  const nState = (s) => (d.by_state || {})[s] || 0;  // the server counts by states.row, the word each row shows
   const stat = (label, n, cls, always) => (n || always ? h('span', {class: 'me-3'}, h('span', {class: 'text-secondary'}, label + ' '), h('span', {class: (cls || '') + ' fw-medium'}, int(n))) : '');
   const header = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'small mt-1'},
-      stat(STATE_GROUPS.row.open, nState('open'), STATES.row.bad[0], true), stat(STATE_GROUPS.row.blocked, nState('blocked'), STATES.row.blocked[0]), stat(STATES.row.wait[1], d.to_confirm, STATES.row.wait[0]), stat(STATE_GROUPS.row.explained, nState('explained'), STATES.row.info[0]),
+      ...['bad', 'blocked', 'wait', 'info'].map((s, i) => { const [cls, word] = stateWord('row', s); return stat(word, nState(s), cls, i === 0); }),
       h('span', {class: 'text-secondary me-3'}, `Last run ${day(d.last_run)}`), d.release ? h('span', {class: 'text-secondary me-3'}, `Last release ${d.release}`) : '',
       h('span', {class: 'text-secondary', title: 'j k move · Enter opens · a e f b decide · space selects'}, 'Keyboard')))));
   const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},
@@ -109,7 +109,7 @@ async function reconcilePage(view, qs) {
     const confirmGroup = group === 'cause' && toConfirm(list[0]);
     const assetGroup = group === 'cause' && isAsset(list[0]);
     cards.push(h('div', {class: 'card mb-3'},
-      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} proposed` : assetGroup ? `${int(list.filter((r) => r.evidence.mapping === 'to_confirm').length)} proposed · ${int(list.filter((r) => r.evidence.mapping === 'unmapped').length)} unmapped · ${int(list.filter((r) => r.evidence.mismatch).length)} differ from company tag · ${int(list.filter((r) => r.evidence.mapping === 'verified').length)} match company tag` : `${int(open.length)} to review of ${int(list.length)}`),
+      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} proposed` : assetGroup ? `${int(list.filter((r) => r.verification === 'wait').length)} proposed · ${int(list.filter((r) => r.verification === 'bad').length)} unmapped · ${int(list.filter((r) => r.evidence.mismatch).length)} differ from company tag · ${int(list.filter((r) => r.verification === 'company').length)} match company tag` : `${int(open.length)} to review of ${int(list.length)}`),
         open.length > 1 && !assetGroup ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const r of open) selected.add(r.key); paint(); }}, `Select all ${int(open.length)}`) : ''),
       h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover'},
         h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, 'Item'), h('th', {class: 'num'}, 'Dataset'), h('th', {class: 'num'}, 'SEC XBRL'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Difference'), h('th', {}, 'Decision'))),

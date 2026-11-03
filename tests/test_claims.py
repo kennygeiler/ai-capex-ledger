@@ -223,7 +223,7 @@ class OneAnswer(unittest.TestCase):
         self.assertEqual(d["counts"], C.counts(C.computed(), C.findings()))
         self.assertEqual(d["problems"], [])
         self.assertGreater(d["scanned"]["strings"], 80)
-        reg, gaps = checklist.claims_lines()
+        reg, _doc, gaps = checklist.claims_lines()
         self.assertEqual((reg["id"], reg["required"], reg["state"]), ("claims", True, "pass"))
         self.assertIn(f"{d['scanned']['strings']} strings", reg["note"])
         self.assertEqual(gaps["count"], d["counts"]["stub"] + d["counts"]["stale"] + d["counts"]["open_findings"])
@@ -250,7 +250,7 @@ class OneAnswer(unittest.TestCase):
     def test_a_red_scan_or_a_crash_turns_the_required_line_red(self):
         from ledger.release import checklist
         with mock.patch.object(C, "unregistered", return_value=[{"kind": "unregistered", "what": "'Proven'", "where": "ledger/web/pages/x.js"}]):
-            reg, _ = checklist.claims_lines()
+            reg = checklist.claims_lines()[0]
         self.assertEqual((reg["state"], reg["count"]), ("fail", 1))
         for err in (ValueError("bad register"), RuntimeError("a module raised")):
             with mock.patch.object(C, "load", side_effect=err):
@@ -445,6 +445,19 @@ class Stale(unittest.TestCase):
 
 
 class Doc(unittest.TestCase):
+    def test_a_stale_or_union_merged_claims_doc_blocks_signing(self):
+        """docs/CLAIMS.md merges by union: a merged copy with duplicate rows, or a missing one, is a red required line."""
+        from ledger.release import checklist
+        with tempfile.TemporaryDirectory() as d:
+            doc = Path(d) / "CLAIMS.md"
+            doc.write_text("# x\n| a |\n")
+            self.assertEqual(checklist.doc_line(doc, "# x\n| a |\n")["state"], "pass")
+            doc.write_text("# x\n| a |\n| a |\n")  # what a union merge leaves
+            l = checklist.doc_line(doc, "# x\n| a |\n")
+            self.assertEqual((l["state"], l["required"], l["ok"]), ("fail", True, False))
+            self.assertEqual(checklist.doc_line(Path(d) / "none.md", "x")["state"], "fail")
+        self.assertEqual(checklist.doc_line()["state"], "pass")  # the committed file is current
+
     def test_claims_md_is_current(self):
         self.assertEqual(C.DOC.read_text(), C.markdown(), "docs/CLAIMS.md is stale: run uv run python -m ledger claims")
 

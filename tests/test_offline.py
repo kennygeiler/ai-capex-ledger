@@ -53,6 +53,16 @@ class Offline(unittest.TestCase):
         with self.assertRaises(edgar.Offline):
             texts._identity()
 
+    def test_watch_refuses_before_any_fetch(self):
+        """ledger watch writes checked_at=now: offline it would stamp a cached submissions file as a fresh check."""
+        from ledger.cli import watch
+        out = Path("/nonexistent/watch.json")
+        with mock.patch.object(watch, "list_filings", side_effect=AssertionError("fetched")) as lf, mock.patch.object(watch, "OUT", out):
+            with self.assertRaises(SystemExit):
+                watch.main(["--ticker", "MSFT"])
+            lf.assert_not_called()
+        self.assertFalse(out.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

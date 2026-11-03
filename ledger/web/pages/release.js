@@ -53,7 +53,7 @@ async function releasePage(view, qs) {
         h('b', {class: 'text-body'}, `${green} of ${required.length}`), ' required checks pass')),
     h('div', {class: 'col-auto text-end'}, button, status)));
   const lines = table([
-    {t: 'State', f: stateBadge, s: (l) => ({fail: 0, not_run: 1, info: 2, pass: 3})[l.state]},
+    {t: 'State', f: stateBadge, s: (l) => ({fail: 0, stale: 1, not_run: 2, info: 3, pass: 4})[l.state] ?? 0},
     {t: 'Check', k: 'label', f: (l) => h('span', {class: l.required ? '' : 'text-secondary'}, l.label)},
     {t: 'Count', n: 1, k: 'count', f: (l) => (l.state === 'not_run' ? '—' : int(l.count))},
     {t: 'Required', k: 'required', f: (l) => (l.required ? 'Required' : h('span', {class: 'text-secondary'}, 'Optional'))},

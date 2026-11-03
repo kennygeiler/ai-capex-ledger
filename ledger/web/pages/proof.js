@@ -10,13 +10,16 @@ function byHover(items) {
 }
 function stageCell(st) {
   const blocked = st.blocked || 0, open = st.open.length;  // open counts blocked too (docs/PROOF.md); blocked is named on its own beside it
-  // the counts are status.STATES groups; their words are STATE_GROUPS.row (ledger/core/states.py): Checked covers Verified,
-  // Corroborated, Matches company tag and Done, so a located table is never counted under the word Verified (F10)
-  const G = STATE_GROUPS.row, title = st.explained_items && st.explained_items.length ? byHover(st.explained_items) : G.explained;
-  return h('td', {class: 'num'}, h('span', {class: 'text-green fw-semibold', title: G.checked}, int(st.checked)), h('span', {class: 'text-secondary'}, ' · '),
-    h('span', {class: STATES.row.info[0], title}, int(st.explained)), h('span', {class: 'text-secondary'}, ' · '),
-    open ? h('span', {class: STATES.row.bad[0] + ' fw-semibold', title: G.open}, int(open)) : h('span', {class: 'text-secondary', title: G.open}, '0'),
-    blocked ? [h('span', {class: 'text-secondary'}, ' · '), h('span', {class: STATES.row.blocked[0], title: G.blocked}, `${int(blocked)} block release`)] : '');
+  // the counts are the page groups of states.ROW (stateGroups(), ledger/core/states.py): Checked is Verified,
+  // Corroborated and Matches company tag; Located/Done (statements located, no blocking items, a confirmation) is its own
+  // count, never under Checked or Verified (F10)
+  const G = stateGroups(), S = (s) => stateWord('row', s)[0], title = st.explained_items && st.explained_items.length ? byHover(st.explained_items) : G.explained;
+  const done = st.done || 0;
+  return h('td', {class: 'num'}, h('span', {class: S('ok') + ' fw-semibold', title: G.checked}, int(st.checked - done)), h('span', {class: 'text-secondary'}, ' · '),
+    done ? [h('span', {class: S('done'), title: G.done}, int(done)), h('span', {class: 'text-secondary'}, ' · ')] : '',
+    h('span', {class: S('info'), title}, int(st.explained)), h('span', {class: 'text-secondary'}, ' · '),
+    open ? h('span', {class: S('bad') + ' fw-semibold', title: G.open}, int(open)) : h('span', {class: 'text-secondary', title: G.open}, '0'),
+    blocked ? [h('span', {class: 'text-secondary'}, ' · '), h('span', {class: S('blocked'), title: G.blocked}, `${int(blocked)} block release`)] : '');
 }
 // T82: the regression test's tables and the hand check's verdicts are two lines, never one: equal tables with nothing checked is not a pass
 const tablesOk = (g) => (g.tables_ok != null ? g.tables_ok : g.ok && !(g.gold && g.gold.failures && g.gold.failures.length));
@@ -41,7 +44,7 @@ async function proofPage(view) {
       h('td', {}, h('div', {}, h('a', {href: '#proof/' + c.ticker, onclick: (e) => e.stopPropagation()}, c.name), ' ', h('span', {class: 'text-secondary small'}, c.ticker)), h('div', {class: 'text-secondary small'}, INDUSTRY[c.layer] || c.layer)),
       b.stages.map((s) => stageCell(c.stages[s.id])),
       h('td', {class: 'text-nowrap'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-orange fw-medium'}, `${int(c.open)} to review`))))))));
-  const legend = h('p', {class: 'small mt-2'}, [[STATES.row.ok[0], 'checked'], [STATES.row.info[0], 'explained'], [STATES.row.bad[0], 'open']].map(([cls, g], i) => [i ? h('span', {class: 'text-secondary'}, ' · ') : '', h('span', {class: cls}, '● ' + STATE_GROUPS.row[g])]));
+  const legend = h('p', {class: 'small mt-2'}, [['ok', 'checked'], ['done', 'done'], ['info', 'explained'], ['bad', 'open']].map(([s, g], i) => [i ? h('span', {class: 'text-secondary'}, ' · ') : '', h('span', {class: stateWord('row', s)[0]}, '● ' + stateGroups()[g])]));
   // T56: rows by the strongest answer key that vouches for them, graded by independence (status.KEY_GRADE); `none` is every row no key vouches for, so a row counts once
   const grades = b.key_grade || [];
   const keyCols = [{t: 'Company', f: (c) => c.ticker}, ...grades.map((g) => ({t: h('span', {title: g.why}, KEY_WORD[g.id] || g.label), num: 1, f: (c) => int(c.keys[g.id])})),
@@ -65,9 +68,9 @@ async function proofPage(view) {
 }
 // ── T82: the gold set. A hand-verified sample per proven company (gold/<TICKER>.json): golden says nothing changed, gold says
 // the numbers a person checked are still right. One verdict per item, written under the signer box's name (config.PEOPLE).
-const GOLD_WORD = Object.fromEntries(['right', 'wrong', 'cant_say'].map((v) => [v, STATES.gold[v][1]]));  // states.GOLD
+const goldWord = (v) => stateWord('gold', v)[1];  // states.GOLD, read when a row renders, never at load
 const GOLD_HELP = {right: 'The filing shows this number at this cell', wrong: 'The filing shows something else; note what', cant_say: 'The filing does not settle it; note why'};
-const GOLD_TONE = Object.fromEntries(['right', 'wrong', 'cant_say'].map((v) => [v, STATES.gold[v][0]]));
+const verdictTone = (v) => stateWord('gold', v)[0];
 const goldNeedsMe = new Set();
 document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of goldNeedsMe) b.disabled = !(me || '').trim(); });
 const goldUsd = (n) => (n == null ? 'Not reported' : (n < 0 ? '−$' : '$') + int(Math.abs(n)));  // the exact figure, so it can be read against the cell (in thousands or millions)
@@ -103,7 +106,7 @@ function goldSet() {
     const value = (it) => {
       const lv = it.live, moved = lv && lv.value !== it.value;
       return h('div', {}, h('div', {class: 'text-nowrap'}, goldUsd(it.value)),
-        !lv ? h('div', {class: 'text-secondary small'}, 'Current value unavailable') : lv.gone ? h('div', {class: 'text-red small'}, 'Removed from dataset') : moved ? h('div', {class: 'text-red small'}, `Now ${goldUsd(lv.value)}`) : lv.open ? h('div', {class: STATES.row.bad[0] + ' small'}, STATES.row.bad[1]) : '');
+        !lv ? h('div', {class: 'text-secondary small'}, 'Current value unavailable') : lv.gone ? h('div', {class: 'text-red small'}, 'Removed from dataset') : moved ? h('div', {class: 'text-red small'}, `Now ${goldUsd(lv.value)}`) : lv.open ? h('div', {class: stateWord('row', 'bad')[0] + ' small'}, stateWord('row', 'bad')[1]) : '');
     };
     // the cited cell, as the trail shows it: the crop (cell boxed in red; click for full size) or its state, then Open in filing
     const cited = (it) => (it.cites.length ? h('div', {class: 'cites'}, it.cites.map((c) => {
@@ -113,7 +116,7 @@ function goldSet() {
     })) : h('span', {class: 'text-secondary small'}, '—'));
     const verdict = (it) => {
       const note = h('input', {type: 'text', class: 'form-control form-control-sm', placeholder: 'Note (required for Wrong / Can’t say)', value: it.note || '', 'aria-label': `Note on ${it.id}`});
-      const msg = h('div', {class: 'small', role: 'status'}, it.verdict ? h('span', {class: GOLD_TONE[it.verdict] + ' fw-medium'}, `${GOLD_WORD[it.verdict]} · ${it.by} · ${day(it.at)}`) : h('span', {class: STATES.gold.unchecked[0]}, STATES.gold.unchecked[1]));
+      const msg = h('div', {class: 'small', role: 'status'}, it.verdict ? h('span', {class: verdictTone(it.verdict) + ' fw-medium'}, `${goldWord(it.verdict)} · ${it.by} · ${day(it.at)}`) : h('span', {class: stateWord('gold', 'unchecked')[0]}, stateWord('gold', 'unchecked')[1]));
       const btns = g.verdicts.map((v) => {
         const b = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary' + (it.verdict === v ? ' active' : ''), 'aria-pressed': String(it.verdict === v), title: (me || '').trim() ? GOLD_HELP[v] : 'Enter a signer name', onclick: async () => {
           if (v !== 'right' && !note.value.trim()) { msg.replaceChildren(h('span', {class: 'text-red'}, 'Note required')); note.focus(); return; }
@@ -123,7 +126,7 @@ function goldSet() {
             Object.assign(it, out);
             await goldSet.draw(t);
           } catch (e) { msg.replaceChildren(h('span', {class: 'text-red'}, e.message)); btns.forEach((x) => { x.disabled = !(me || '').trim(); }); }
-        }}, GOLD_WORD[v]);
+        }}, goldWord(v));
         b.disabled = !(me || '').trim(); goldNeedsMe.add(b);
         return b;
       });

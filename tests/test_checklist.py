@@ -25,7 +25,7 @@ HASH = content_hash(FILES)
 
 def _cl(ok: bool, red=(), version="v9.9.0", h=HASH) -> dict:
     lines = [{"id": "gate_G6", "label": "G6", "required": True, "count": 0 if ok else 7, "state": "pass" if ok else "fail", "ok": ok, "link": "reconcile", "note": "", "detail": []},
-             {"id": "tests", "label": "Test run", "required": False, "count": 0, "state": "not_run", "ok": False, "link": "proof", "note": "not run", "detail": []}]
+             {"id": "tests", "label": "Test run", "required": True, "count": 0, "state": "not_run", "ok": False, "link": "proof", "note": "not run", "detail": []}]
     return {"version": version, "previous": "v1.7.0", "scope": ["MSFT", "NVDA"], "stage": 3, "hash": h, "at": "2026-11-02T00:00:00+00:00", "ok": ok, "red": list(red),
             "lines": lines, "gates": {}, "open": 1, "blocked": 2, "unconfirmed": 0, "unmapped": 3, "diff": {"values": {"added": 1, "removed": 0, "changed": 0, "examples": {"added": [["X"]]}}},
             "golden": {"ok": True}, "tests": None, "exists": False, "signed": False, "folder": "none"}
@@ -382,7 +382,7 @@ class DryRun(unittest.TestCase):
         try:
             with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), mock.patch.object(store, "init", return_value=con):
                 cl = checklist.checklist(con)
-                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "unconfirmed", "unmapped", "no_value", "diff", "limitations", "claims", "known_gaps", "golden", "tests", "previous", "packet"])
+                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "unconfirmed", "unmapped", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "golden", "tests", "previous", "packet"])
                 comp = next(l for l in cl["lines"] if l["id"] == "complete")  # T81: required, and 0 on the six
                 self.assertEqual((comp["required"], comp["state"], comp["count"]), (True, "pass", 0), comp["detail"][:3])
                 lim = next(l for l in cl["lines"] if l["id"] == "limitations")  # T68: informs, never red

@@ -85,9 +85,12 @@ ROW = Machine("row", "M1", "ledger.core.states.row", (
 ), frozenset({("bad", "info"), ("bad", "blocked"), ("info", "bad"), ("info", "blocked"), ("blocked", "info"), ("blocked", "bad"),
               ("wait", "done"), ("wait", "bad"), ("wait", "info"), ("bad", "ok"), ("bad", "corroborated"), ("info", "ok"), ("info", "corroborated"),
               ("ok", "bad"), ("corroborated", "bad"), ("unknown", "bad")}),
-    groups={"checked": ("Checked", ("ok", "corroborated", "company", "done")), "explained": ("Unverified", ("info",)),
+    groups={"checked": ("Checked", ("ok", "corroborated", "company")), "done": ("Located/Done", ("done",)), "explained": ("Unverified", ("info",)),
             "open": ("To review", ("wait", "bad")), "blocked": ("Blocks release", ("blocked",))},
     absent="unknown")
+# the page groups as status.STATES groups: Located/Done is status "checked" (nothing open) but no independent check, so a
+# page never counts it under the word Checked
+STATUS_OF_GROUP = {"checked": "checked", "done": "checked", "explained": "explained", "open": "open", "blocked": "blocked"}
 # a person's decision moves a row between explained, open and blocked, never to checked: only a check makes it checked
 DECISION_MOVES = {"accept": "explained", "explain": "explained", "fix": "open", "blocks": "blocked"}
 
@@ -139,7 +142,8 @@ LADDER = Machine("ladder", "M1b", "ledger.core.states.ladder", (
               ("differs", "explained"), ("explained", "differs"), ("xbrl", "differs"), ("differs", "xbrl"), ("not_looked_up", "citation_only")}),
     absent="not_looked_up is declared but not produced: a fact whose instance was never loaded reads citation_only (F17, open)")
 LADDER_CHECK = {"xbrl": "agree", "filer_tag": "agree", "tie": "corroborated", "reading": "corroborated", "keyed": "corroborated",
-                "citation_only": "no_reference", "explained": "explained", "readings_differ": "differs", "differs": "differs"}  # the taxonomy `check` column
+                "citation_only": "no_reference", "explained": "explained", "readings_differ": "differs", "differs": "differs",
+                "not_looked_up": "not_checked"}  # the taxonomy `check` column; not_checked is the word pit.py gives an unchecked vintage, never a pass
 
 
 def ladder(st: dict) -> str:
@@ -262,7 +266,8 @@ MACHINES = {m.id: m for m in (ROW, LADDER, CHECK, MAPPING, CROP, GOLD, LINE, EDG
 
 
 def allow(machine: str, frm: str, to: str) -> None:
-    """Raise IllegalTransition unless `frm` -> `to` is declared (staying put is always allowed)."""
+    """Raise IllegalTransition unless `frm` -> `to` is declared (staying put is always allowed). Declared for every
+    machine; enforced at a writer only for gold today (gold.record): the other writers and log replays are still to do."""
     m = MACHINES[machine]
     for s in (frm, to):
         m.get(s)
@@ -304,12 +309,11 @@ def words() -> dict:
 
 
 def js() -> str:
-    """The page script /pages/_states.js: the words and tones, and stateWord(machine, state), which falls back to the
-    machine's absent state (never a good one) for a state the server did not declare."""
+    """The page script /pages/_states.js: the words and tones only. The readers (stateWord, stateGroups, stateKnown) live
+    in _shared.js and guard with typeof, so a page whose _states.js failed to load still renders, with plain words."""
     groups = {mid: {g: w for g, (w, _) in m.groups.items()} for mid, m in MACHINES.items() if m.groups}
     absent = {mid: m.absent for mid, m in MACHINES.items() if m.absent in m.names()}
     return ("// Written by ledger/core/states.py on every request: the one place a state's word lives. Do not copy these into a page.\n"
             f"const STATES = {json.dumps(labels(), ensure_ascii=False, sort_keys=True)};\n"
             f"const STATE_GROUPS = {json.dumps(groups, ensure_ascii=False, sort_keys=True)};\n"
-            f"const STATE_ABSENT = {json.dumps(absent, sort_keys=True)};\n"
-            "const stateWord = (m, s) => (STATES[m] && STATES[m][s]) || (STATES[m] && STATES[m][STATE_ABSENT[m]]) || ['text-secondary', String(s)];\n")
+            f"const STATE_ABSENT = {json.dumps(absent, sort_keys=True)};\n")

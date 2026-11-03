@@ -282,16 +282,16 @@ _LOOKUP = object()  # tests_line's default: read HEAD from this checkout; tests 
 
 def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     """The "Test run" line (T30) from reports/tests.json as `ledger test` writes it (testreport.py). Three cases:
-    absent or unreadable: "not run", grey, does not block (as before T30; the hosted copy before its first run).
-    Ran and failed: red, required, whatever commit it ran on: a known failure never signs.
-    Ran and passed on this HEAD with a clean tree: green, required. Passed on another commit, or on a dirty tree:
-    "stale", informs with the note "run `ledger test`"; it neither blocks nor vouches, since the code it tested is not
-    the code being signed. One forgiveness: when every commit since the run changed only reports/tests.json (the commit
+    The line is required in every case: only a passing run on the code being signed lets a release sign.
+    absent or unreadable: "not run", blocks.
+    Ran and failed: red, whatever commit it ran on: a known failure never signs.
+    Ran and passed on this HEAD with a clean tree: green. Passed on another commit, or on a dirty tree: "stale", blocks
+    with the note "run `ledger test`", since the code it tested is not the code being signed. One forgiveness: when every commit since the run changed only reports/tests.json (the commit
     that records the run), the code is the same and the line is green. Without git on either side (the hosted copy has
     no .git) the commit cannot be compared: informs, "commit not compared: no git", never a verified pass.
     `head` and `changed` are read from the checkout unless a test passes them."""
     if t is None:
-        return _line("tests", "Test run", False, 0, "not_run", "proof", "not run (reports/tests.json; `ledger test` writes it)")
+        return _line("tests", "Test run", True, 0, "not_run", "proof", "not run (reports/tests.json; `ledger test` writes it)")
     fails = t.get("failures") or []
     golden = t.get("golden")
     g_note = {True: "golden ok", False: "golden FAILED"}.get(golden, "golden skipped, see the Golden line")
@@ -302,7 +302,7 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     if not t.get("ok"):
         return _line("tests", "Test run", True, len(fails), "fail", "proof", base, detail)
     if not sha or not head:  # no git on one side (the hosted copy ships no .git): the commit cannot be compared, so this is never a verified pass
-        return _line("tests", "Test run", False, 0, "info", "proof", f"commit not compared: no git; {base}", detail)
+        return _line("tests", "Test run", True, 0, "info", "proof", f"commit not compared: no git; {base}", detail)
     moved = sha != head
     if moved:
         ch = _changed_since(sha) if changed is _LOOKUP else changed
@@ -310,7 +310,7 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     stale = moved or bool(t.get("dirty"))
     if stale:
         why = "dirty tree" if t.get("dirty") else f"HEAD is {head}"
-        return _line("tests", "Test run", False, 0, "stale", "proof", f"stale ({why}): run `ledger test`; {base}", detail)
+        return _line("tests", "Test run", True, 0, "stale", "proof", f"stale ({why}): run `ledger test`; {base}", detail)
     return _line("tests", "Test run", True, 0, "pass", "proof", base, detail)
 
 
@@ -358,7 +358,23 @@ def claims_lines() -> list[dict]:
     gaps = _line("known_gaps", f"Known gaps: {c['stub']} stub · {c['stale']} stale · {c['open_findings']} open findings", False,
                  c["stub"] + c["stale"] + c["open_findings"], "info", "gaps", claims.counts_line(c) + "; LIMITATIONS.md lists the stub, stale and planned claims",
                  [{"claim": r["claim"], "status": r["status"], "ticket": r["ticket"]} for r in rows if r["status"] in ("stub", "stale")])
-    return [reg, gaps]
+    return [reg, doc_line(), gaps]
+
+
+def doc_line(doc=None, text=None) -> dict:
+    """"Claims doc current" (required): docs/CLAIMS.md equals claims.markdown() now. The file merges by union
+    (.gitattributes), so a merge can leave duplicate or stale rows; this line blocks signing until `ledger claims` runs."""
+    from . import claims
+    label = "Claims doc current"
+    try:
+        want = claims.markdown() if text is None else text
+        doc = claims.DOC if doc is None else doc
+        have = doc.read_text() if doc.exists() else None
+    except Exception as e:
+        return _line("claims_doc", label, True, 1, "fail", "gaps", f"could not compare: {e.__class__.__name__}: {str(e)[:160]}")
+    if have == want:
+        return _line("claims_doc", label, True, 0, "pass", "gaps", "docs/CLAIMS.md equals the register as it is now")
+    return _line("claims_doc", label, True, 1, "fail", "gaps", "docs/CLAIMS.md is missing" if have is None else "docs/CLAIMS.md differs from the register: run `ledger claims` and commit")
 
 
 def _head() -> str | None:

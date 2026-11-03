@@ -17,6 +17,7 @@ from datetime import datetime, timedelta, timezone
 
 from . import proof
 from ..core import stats, status, store
+from ..core.states import row as row_state
 from .faults import rows_of, tally
 
 # which Proof stage holds each live reader's outputs (agents/charters/<id>.md says the same in words). The notes reader
@@ -198,6 +199,7 @@ def score(con, agent_id: str, tickers: list[str]) -> dict:
             counted[k] = counted.get(k, 0) + v
         for s in status.STATES:
             n[s] += sum(i["state"] == s for i in items)
+        n["done"] = n.get("done", 0) + sum(row_state(i["state"], i.get("by")) == "done" for i in items)  # within checked: Located/Done on the page
         w = twin(con, agent_id, t, items)
         if w is not None:
             tw = {k: (tw or {}).get(k, 0) + w[k] for k in ("agree", "of")}

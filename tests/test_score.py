@@ -160,7 +160,9 @@ class Page(unittest.TestCase):
     def render(self, sc):
         from ledger.core import states
         js = (store.ROOT / "ledger" / "web" / "pages" / "rules.js").read_text()
-        harness = states.js() + """
+        shared = (store.ROOT / "ledger" / "web" / "pages" / "_shared.js").read_text()
+        helpers = shared[shared.index("// ── state words"):shared.index("// ── end states-helpers")]  # stateWord, stateGroups
+        harness = states.js() + helpers + """
 const h = (tag, attrs = {}, ...kids) => kids.flat(Infinity).filter((k) => k !== '' && k != null).join(' ');
 const int = (n) => (n == null || n === '' ? '—' : Number(n).toLocaleString('en-US'));
 const STAGE_LABEL_UI = {values: 'Values', facts: 'Facts', statements: 'Statements', planned: 'Planned'};

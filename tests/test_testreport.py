@@ -87,9 +87,9 @@ def _rep(ok=True, failures=(), golden=True, git="abc1234", dirty=False):
 
 
 class Line(unittest.TestCase):
-    def test_missing_file_is_not_run_and_does_not_block(self):
+    def test_missing_file_is_not_run_and_blocks(self):
         l = checklist.tests_line(None, head="abc1234")
-        self.assertEqual((l["state"], l["required"], l["ok"], l["count"]), ("not_run", False, False, 0))
+        self.assertEqual((l["state"], l["required"], l["ok"], l["count"]), ("not_run", True, False, 0))  # required: no run, no signature
         self.assertIn("not run", l["note"])
 
     def test_passing_on_head_is_green_and_required_with_golden_and_sha_in_the_note(self):
@@ -105,15 +105,15 @@ class Line(unittest.TestCase):
         self.assertEqual(l["detail"], [{"test": "t.a: AssertionError: x"}, {"test": "t.b: KeyError: 'y'"}])
         self.assertIn("golden FAILED", l["note"])
 
-    def test_passing_on_another_commit_or_a_dirty_tree_is_stale_and_informs(self):
+    def test_passing_on_another_commit_or_a_dirty_tree_is_stale_and_blocks(self):
         other = checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=["ledger/checks/rules.py", "reports/tests.json"])
-        self.assertEqual((other["state"], other["required"], other["ok"]), ("stale", False, False))  # its own state (states.LINE), not Info
+        self.assertEqual((other["state"], other["required"], other["ok"]), ("stale", True, False))  # its own state (states.LINE), and it blocks
         self.assertIn("stale", other["note"])
         self.assertIn("HEAD is abc1234", other["note"])
         self.assertIn("ledger test", other["note"])
         self.assertEqual(checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=None)["state"], "stale")  # unknown sha: stale
         dirty = checklist.tests_line(_rep(dirty=True), head="abc1234", changed=[])
-        self.assertEqual((dirty["state"], dirty["required"]), ("stale", False))
+        self.assertEqual((dirty["state"], dirty["required"]), ("stale", True))
         self.assertIn("dirty tree", dirty["note"])
 
     def test_commits_since_the_run_that_only_recorded_it_are_forgiven(self):
@@ -121,10 +121,10 @@ class Line(unittest.TestCase):
         self.assertEqual((l["state"], l["required"], l["ok"]), ("pass", True, True))
         self.assertEqual(checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=[])["state"], "pass")
 
-    def test_without_git_on_either_side_the_commit_is_not_compared_and_the_line_informs(self):
+    def test_without_git_on_either_side_the_commit_is_not_compared_and_the_line_blocks(self):
         for t, head in ((_rep(git=None, dirty=None), "abc1234"), (_rep(git="abc1234"), None), (_rep(git=None, dirty=None), None)):
             l = checklist.tests_line(t, head=head, changed=[])
-            self.assertEqual((l["state"], l["required"], l["ok"]), ("info", False, False))
+            self.assertEqual((l["state"], l["required"], l["ok"]), ("info", True, False))  # no git: never a verified pass, so it blocks
             self.assertIn("commit not compared: no git", l["note"])
         self.assertNotIn(", on ", checklist.tests_line(_rep(git=None, dirty=None), head=None)["note"])
         self.assertEqual(checklist.tests_line(_rep(ok=False, failures=["t.a: x"], git=None), head=None)["state"], "fail")  # a failure is red even without git

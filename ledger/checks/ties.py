@@ -181,6 +181,8 @@ def check_columns(st: dict) -> tuple[str, str]:
     from ..core.states import LADDER_CHECK, ladder
     by = st.get("by") or ""
     check = LADDER_CHECK[ladder(st)]  # the company's own tag is a twin: the value is in its instance, so it reads agree
+    if check == "not_checked":  # no state: nothing vouches, never a default pass
+        return check, "none"
     return check, (by if check != "differs" or by.startswith("rule:") else "xbrl")
 
 

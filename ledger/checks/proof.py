@@ -242,7 +242,9 @@ def amendment_without_statements(doc: dict) -> bool:
 
 def _stage(items: list[dict], extra: dict | None = None) -> dict:
     """Counts per state, the open items (open and blocked), the explained items with what explained them."""
-    return {"checked": sum(i["state"] == "checked" for i in items), "explained": sum(i["state"] == "explained" for i in items),
+    from ..core.states import row
+    return {"checked": sum(i["state"] == "checked" for i in items), "done": sum(row(i["state"], i.get("by")) == "done" for i in items),  # done: checked by status, Located/Done on the page (states.ROW groups)
+            "explained": sum(i["state"] == "explained" for i in items),
             "blocked": sum(i["state"] == "blocked" for i in items), "open": [i for i in items if i["state"] in ("open", "blocked")],
             "items": len(items), "explained_items": [i for i in items if i["state"] == "explained"], "keys": keys_of(items), "all": items, **(extra or {})}
 

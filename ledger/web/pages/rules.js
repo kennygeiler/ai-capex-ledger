@@ -39,7 +39,7 @@ function scoreBlock(sc) {
   if (!sc) return '';
   const of = (a, n) => `${int(a)} of ${int(n)}`;
   const n = sc.outputs;
-  const G = STATE_GROUPS.row, states = `${G.checked} ${int(sc.checked)} · ${G.explained} ${int(sc.explained)} · ${G.open} ${int(sc.open)} · ${G.blocked} ${int(sc.blocked)} (of ${int(n)})`;  // status.STATES groups, states.ROW words
+  const G = stateGroups(), done = sc.done || 0, states = `${G.checked} ${int(sc.checked - done)} · ${done ? `${G.done} ${int(done)} · ` : ''}${G.explained} ${int(sc.explained)} · ${G.open} ${int(sc.open)} · ${G.blocked} ${int(sc.blocked)} (of ${int(n)})`;  // the page groups of states.ROW
   // the twin's share with its Wilson 95% interval (T53), in text, computed on the page from agree / of (the same formula
   // as the API's `interval`, so the two never disagree after rounding); nothing when `of` is 0: no share, no interval
   const twin = sc.twin ? `Matches SEC XBRL ${of(sc.twin.agree, sc.twin.of)}${shareText(sc.twin)}` : 'No SEC XBRL counterpart';

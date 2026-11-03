@@ -45,7 +45,7 @@ echo 'DATABASE_URL="postgresql://…"' >> .env                 # production Post
 echo 'DATABASE_READONLY_URL="postgresql://…"' >> .env        # the arctal_reader string, SELECT only; the one to hand a consumer
 claude                                                      # then /login: the agents run on a Claude subscription, headless
 export LEDGER_CLAUDE="$(which claude)"                      # the claude binary the pipeline should use
-uv run python -m ledger test --fast                         # about 615 tests, offline, a few minutes; writes reports/tests.json (drop --fast for golden too)
+uv run python -m ledger test --fast                         # the whole suite, offline, a few minutes; the count and result land in reports/tests.json (drop --fast for golden too)
 ```
 
 **Offline mode** (`LEDGER_OFFLINE=1`, `ledger/ingest/edgar.py`): every SEC read is served from the `data/raw` cache whatever

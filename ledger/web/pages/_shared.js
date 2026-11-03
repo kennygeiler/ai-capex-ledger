@@ -99,6 +99,21 @@ const INDUSTRY = {hyperscaler: 'Hyperscaler', neocloud: 'Neocloud', miner_to_hpc
 const KINDS = {spent: 'spent', committed: 'committed', derived: 'derived', planned: 'planned'};
 const ALL_KINDS = Object.keys(KINDS);
 const parseQ = (s) => Object.fromEntries(new URLSearchParams(s));
+// ── state words (ledger/core/states.py via /pages/_states.js). Every page reads them through these three, never STATES
+// directly: if _states.js did not load, the page still renders, with the state's own name and no colour. ── states-helpers
+const stateData = () => (typeof STATES === 'undefined' ? null : STATES);
+// [tone, word] for a state; an undeclared state reads as the machine's absent state (never a good one)
+function stateWord(m, s) {
+  const d = stateData(), a = typeof STATE_ABSENT === 'undefined' ? {} : STATE_ABSENT;
+  return (d && d[m] && (d[m][s] || d[m][a[m]])) || ['text-secondary', String(s)];
+}
+const stateKnown = (m, s) => { const d = stateData(); return !!(d && d[m] && d[m][s]); };
+// the page group words of a machine ({checked: 'Checked', ...}); without the declarations, each group's own name
+function stateGroups(m = 'row') {
+  const g = typeof STATE_GROUPS === 'undefined' ? null : STATE_GROUPS[m];
+  return g || {checked: 'checked', done: 'done', explained: 'explained', open: 'open', blocked: 'blocked'};
+}
+// ── end states-helpers
 const checkWord = (label) => stateWord('check', label)[1];  // a value's reconcile label in states.CHECK's words
 
 // the drawer

@@ -87,7 +87,7 @@ async function trailPage(view, ticker) {
   const hours = S.sec_checked_hours_ago;
   // the state is the server's (states.edgar, the one the claims register reads); the page only adds the age
   const [secCls, secWord] = stateWord('edgar', S.sec_check), fresh = h('span', {class: secCls},
-    S.sec_check === 'fresh' ? `${secWord} ${hours}h ago` : S.sec_check === 'stale' ? `${STATES.edgar.fresh[1]} ${Math.round(hours / 24)}d ago · ${secWord}` : secWord);
+    S.sec_check === 'fresh' ? `${secWord} ${hours}h ago` : S.sec_check === 'stale' ? `${stateWord('edgar', 'fresh')[1]} ${Math.round(hours / 24)}d ago · ${secWord}` : secWord);
   const tile = (title, ...lines) => h('div', {class: 'col-md-3'}, h('div', {class: 'text-secondary small text-uppercase mb-1'}, title), ...lines.map((l) => h('div', {class: 'small'}, l)));
   const kv = (label, n, cls) => (n ? h('span', {class: 'd-flex justify-content-between', style: 'max-width:15rem'}, h('span', {class: cls || 'text-secondary'}, label), h('span', {class: 'num'}, int(n))) : '');
   const since = S.since;

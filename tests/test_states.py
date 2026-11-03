@@ -97,9 +97,51 @@ class NothingAbsentReadsGood(unittest.TestCase):
         self.assertEqual([n for _, n in cases[-4:-1]], ["not_run", "stale", "stale"])  # a stale test run is its own word, not Info
 
     def test_the_pages_fall_back_to_the_absent_state(self):
-        js = states.js() + "process.stdout.write(JSON.stringify(['row', 'crop', 'line', 'check', 'gold', 'edgar'].map((m) => stateWord(m, 'no-such-state'))));"
+        shared = (PAGES / "_shared.js").read_text()
+        helpers = shared[shared.index("// ── state words"):shared.index("// ── end states-helpers")]
+        js = states.js() + helpers + "process.stdout.write(JSON.stringify(['row', 'crop', 'line', 'check', 'gold', 'edgar'].map((m) => stateWord(m, 'no-such-state'))));"
         got = json.loads(subprocess.run(["node", "-e", js], capture_output=True, text=True, check=True).stdout)
         self.assertEqual([w for _, w in got], [states.word(m, states.MACHINES[m].absent) for m in ("row", "crop", "line", "check", "gold", "edgar")])
+
+
+class PagesWithoutTheDeclarations(unittest.TestCase):
+    """A failed /pages/_states.js load must not stop a page: every page reads STATES through _shared.js's guarded helpers."""
+
+    def run_node(self, with_states: bool, tail: str) -> str:
+        shared = (PAGES / "_shared.js").read_text()
+        helpers = shared[shared.index("// ── state words"):shared.index("// ── end states-helpers")]
+        stubs = ("const h = (tag, attrs = {}, ...kids) => kids.flat(Infinity).filter((k) => k !== '' && k != null && k !== false).join('');\n"
+                 "const int = (n) => String(n); const document = {addEventListener: () => {}, getElementById: () => null}; let me = '';\n")
+        js = (states.js() if with_states else "") + stubs + helpers + (PAGES / "proof.js").read_text() + "\n" + tail
+        return subprocess.run(["node", "-e", js], capture_output=True, text=True, check=True).stdout
+
+    def test_proof_loads_and_renders_with_states_undefined(self):
+        tail = ("process.stdout.write(JSON.stringify([typeof STATES, stageCell({checked: 5, done: 2, explained: 1, blocked: 0, open: [1]}), goldWord('right'), stateWord('row', 'ok')]));")
+        typ, cell, gold, word = json.loads(self.run_node(False, tail))
+        self.assertEqual((typ, gold, word), ("undefined", "right", ["text-secondary", "ok"]))
+        self.assertIn("3", cell)
+        _, cell, gold, word = json.loads(self.run_node(True, tail))
+        self.assertEqual((gold, word), ("Right", ["text-green", "Verified"]))
+
+    def test_the_page_scripts_share_one_scope_without_a_clash(self):
+        """app.html's scripts share one global scope: a name declared twice (const) stops every page after it."""
+        import tempfile
+        html = (store.ROOT / "ledger" / "web" / "app.html").read_text()
+        srcs = re.findall(r'<script src="/pages/([\w.]+)"', html)
+        self.assertEqual(srcs[:2], ["_states.js", "_shared.js"])
+        js = "\n".join(states.js() if s == "_states.js" else (PAGES / s).read_text() for s in srcs)
+        with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as f:
+            f.write(js)
+        r = subprocess.run(["node", "--check", f.name], capture_output=True, text=True)
+        Path(f.name).unlink()
+        self.assertEqual(r.returncode, 0, r.stderr[:500])
+
+    def test_no_page_reads_the_declarations_directly(self):
+        for f in PAGES.glob("*.js"):
+            code = "\n".join(l for l in f.read_text().splitlines() if not l.lstrip().startswith("//"))
+            if f.name == "_shared.js":
+                code = code[:code.find("const stateData")] + code[code.find("const checkWord"):]
+            self.assertNotRegex(code, r"\bSTATE(S|_GROUPS|_ABSENT)\b", f.name)
 
 
 class Words(unittest.TestCase):
@@ -119,7 +161,10 @@ class Words(unittest.TestCase):
     def test_the_groups_cover_the_row_states_and_status_states(self):
         members = [s for _, ms in states.ROW.groups.values() for s in ms]
         self.assertEqual(sorted(members), sorted(n for n in states.ROW.names() if n != "unknown"))
-        self.assertEqual(set(states.ROW.groups), set(status.STATES))
+        self.assertEqual(set(states.ROW.groups), set(states.STATUS_OF_GROUP))
+        self.assertEqual(set(states.STATUS_OF_GROUP.values()), set(status.STATES))
+        for g, (_, members) in states.ROW.groups.items():  # the word Checked never covers a row nothing independent checked
+            self.assertEqual(g == "checked", all(states.ROW.get(m).kind == states.GOOD for m in members), g)
 
     def test_the_scan_reads_the_words_from_states_py(self):
         sc = claims.scan()
@@ -179,6 +224,8 @@ class Consumers(unittest.TestCase):
                    {"state": "open", "by": "rule:fact_readings_differ"}, {"state": "open", "by": "label:unresolved"}):
             self.assertEqual(ties.check_columns(st)[0], states.LADDER_CHECK[states.ladder(st)], st)
         self.assertEqual(ties.check_columns({"state": "open", "by": "label:unresolved"}), ("differs", "xbrl"))
+        self.assertEqual(set(states.LADDER_CHECK), set(states.LADDER.names()))  # every rung has a check word
+        self.assertEqual(ties.check_columns({}), ("not_checked", "none"))
 
     def test_a_checklist_line_refuses_an_undeclared_state(self):
         with self.assertRaises(ValueError):
@@ -198,6 +245,26 @@ class Consumers(unittest.TestCase):
                 w.write_text(json.dumps({"checked_at": ts}))
                 with mock.patch.object(claims, "WATCH", w):
                     self.assertEqual(bool(claims._edgar({"live": True, "now": at})), sec == "stale", hours)
+
+    @unittest.skipUnless(store.DEFAULT_DB.exists(), "no working database")
+    def test_reconcile_proposed_is_exactly_what_g6_refuses(self):
+        """S-1: Reconcile's Proposed count (rows whose word is Proposed: a run's decision to confirm, an asset type no
+        person confirmed) is the Release line "Decisions left to confirm"; the to-confirm rows are open, like G6 says."""
+        import duckdb
+        from ledger.release import checklist as cl
+        from ledger.review import workbench
+        from ledger.web import app
+        con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+        try:
+            it = workbench.items(con, app.flow("all"))
+            line = next(l for l in cl.checklist(con)["lines"] if l["id"] == "unconfirmed")
+        finally:
+            con.close()
+        wait = [r for r in it["rows"] if r["verification"] == "wait"]
+        self.assertEqual(it["by_state"].get("wait", 0), len(wait))
+        self.assertEqual(len(wait), line["count"])
+        self.assertTrue(all(r["open"] for r in wait))
+        self.assertEqual(sum(it["by_state"].values()), len(it["rows"]))
 
     def test_reconcile_rows_carry_the_row_state(self):
         src = (store.ROOT / "ledger" / "review" / "workbench.py").read_text()

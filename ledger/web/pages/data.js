@@ -60,7 +60,7 @@ async function dataPage(view, qs) {
   function mark(r) {
     // the label's word from states.CHECK; a label the server did not declare reads "Not checked", never a pass (F22)
     const why = checkWord(r.check) + (r.check === 'agree' ? ' · matches SEC XBRL' : '');
-    const k = r.check === 'agree' ? 't' : r.check === 'unresolved' || r.check === 'not_extracted' ? 'd' : STATES.check[r.check] ? 'u' : 'x';
+    const k = r.check === 'agree' ? 't' : r.check === 'unresolved' || r.check === 'not_extracted' ? 'd' : stateKnown('check', r.check) ? 'u' : 'x';
     const marks = [h('span', {class: 'mk ' + k, title: why, 'aria-label': why}, k === 'x' ? '✗' : k === 'd' ? '≠' : k === 'u' ? '○' : '✓')];
     if (r.status) marks.push(h('span', {class: 'badge bg-' + ({fix_pending: 'yellow', accepted: 'green', explained: 'azure', blocks: 'red'})[r.status] + '-lt ms-1', title: ({fix_pending: 'Fix pending', accepted: 'Accepted', explained: 'Explained', blocks: 'Blocks release'})[r.status] || r.status}, ({fix_pending: 'Fix', accepted: 'Accepted', explained: 'Explained', blocks: 'Blocks release'})[r.status] || r.status));
     return marks;

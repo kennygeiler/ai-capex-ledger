@@ -292,7 +292,7 @@ def record(ticker: str, iid: str, verdict: str, note: str, by: str, root: Path |
         if it is None:
             raise KeyError(f"no gold item {iid!r} for {ticker}")
         from ..core.states import allow, gold as gold_state
-        allow("gold", gold_state(it), verdict)  # declared moves only: a verdict never goes back to unchecked
+        allow("gold", gold_state(it), verdict)  # a move states.GOLD declares (tests.test_states.Transitions)
         it.update({"verdict": verdict, "note": str(note or "").strip(), "by": by, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
         _write(p, doc)
         return it
