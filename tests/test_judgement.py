@@ -13,7 +13,9 @@ from urllib import error, request
 
 import yaml
 
-from ledger import definitions, judgement, proof, resolutions, rules, status, store, workbench
+from ledger.review import definitions, judgement, resolutions, workbench
+from ledger.checks import proof, rules
+from ledger.core import status, store
 
 REPO_RULES = store.ROOT / "rules"
 DEF_HEADER = """# Per-company definitions: a header the writer must keep.
@@ -285,7 +287,7 @@ class Definition(unittest.TestCase):
     def test_a_scoped_definition_leaves_other_years_open(self):
         """Reconcile applies a revenue definition with periods to those years only; another year's disagreement stays
         unresolved (open on Proof). An entry without periods (before T36) still applies to every year."""
-        from ledger import reconcile
+        from ledger.checks import reconcile
         def ext(end, value, acc):
             return {"extraction_id": f"{acc}|revenue|{end}", "accession": acc, "ticker": "AAA", "field": "revenue", "period_start": f"{end[:4]}-01-01", "period_end": end,
                     "value": value, "scale": 1_000_000, "filed": f"{int(end[:4]) + 1}-02-01", "row_label": "Sales"}
@@ -330,7 +332,7 @@ class Definition(unittest.TestCase):
     def test_the_old_add_a_definition_drawer_is_gone_and_make_this_a_definition_stays(self):
         """F5: the drawer that pasted a definition the loader refused is removed; a definition is offered only where
         judgement.offers allows it (no why_not), through encodePanel."""
-        js = (store.ROOT / "ledger" / "pages" / "reconcile.js").read_text()
+        js = (store.ROOT / "ledger" / "web" / "pages" / "reconcile.js").read_text()
         for gone in ("Add a definition", "definitionDrawer", "use: cell"):
             self.assertNotIn(gone, js)
         self.assertIn("if (!o || o.why_not) continue;", js)  # what offers refuses is never offered
@@ -344,7 +346,7 @@ class Definition(unittest.TestCase):
 
 class Route(unittest.TestCase):
     def _serve(self):
-        from ledger import app
+        from ledger.web import app
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         self.addCleanup(srv.shutdown)
@@ -359,7 +361,7 @@ class Route(unittest.TestCase):
             return e.code, json.loads(e.read())
 
     def test_judgement_route(self):
-        from ledger import app
+        from ledger.web import app
         base = self._serve()
         tmp = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, tmp, True)
@@ -375,7 +377,7 @@ class Route(unittest.TestCase):
         self.assertEqual(code, 403)
         conn = mock.MagicMock(wraps=con)
         conn.close = lambda: None
-        with mock.patch.object(judgement, "RULES_DIR", rules_dir), mock.patch.object(judgement, "DEF_FILE", defs), mock.patch("ledger.app._con", return_value=conn), \
+        with mock.patch.object(judgement, "RULES_DIR", rules_dir), mock.patch.object(judgement, "DEF_FILE", defs), mock.patch("ledger.web.app._con", return_value=conn), \
                 mock.patch.object(judgement, "tracked", return_value=[{"ticker": "AAA"}]):
             code, d = self._post(base + "/api/judgement", {**body, "by": "Jane Doe"})
             self.assertEqual(code, 400)

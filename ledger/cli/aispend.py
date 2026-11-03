@@ -1,7 +1,7 @@
 """python -m ledger aispend --stage N | --ticker X …  --pack | --run | --load
 
 What every gathered text (`texts`: 10-K MD&A, 8-K earnings releases, transcripts, CFO commentary) says about AI's
-part of capex and opex (ledger/guidance.py).
+part of capex and opex (ledger/extract/guidance.py).
 --pack  writes one task per text to data/aispend/tasks/: only the passages that mention AI next to spending.
 --run   packs, then runs the AI spend reader headless on every text whose task changed (--rerun: all), writing
         data/aispend/outputs/<text_id>.json; a text the agent can't answer gets {"error": reason}.
@@ -16,9 +16,10 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
-from .. import agent, store
-from ..config import add_scope, scope
-from ..guidance import OUTPUTS, Invalid, make_task, passages, period_of, prompt_version, spend_rows, task_passages, validate_output, write_tasks
+from ..extract import agent
+from ..core import store
+from ..core.config import add_scope, scope
+from ..extract.guidance import OUTPUTS, Invalid, make_task, passages, period_of, prompt_version, spend_rows, task_passages, validate_output, write_tasks
 
 
 def _exc(ticker, subject, message):

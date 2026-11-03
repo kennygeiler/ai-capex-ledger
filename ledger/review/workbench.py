@@ -1,0 +1,301 @@
+"""The reconcile workbench (Kenny's Data Emporium, Reconcile tab): every open item of the queue as one row a person can judge
+without opening anything: ours, the reference, the delta, where each number came from, the evidence (the cited
+cell and its screenshot), and the resolution. Built from `app.flow()`; nothing is read from filings and nothing in
+it is an estimate. `/api/v1/reconcile?scope=` serves it; `/api/resolve` records one resolution, `/api/resolve/bulk` many."""
+from __future__ import annotations
+
+from . import resolutions
+from ..core import status, store
+from ..core.config import industry
+from ..checks.rules import explain_key, explained
+
+EVIDENCE = store.ROOT / "reports" / "evidence"
+CAUSES = {"fact_differs": "Differs from SEC XBRL", "fact_changed": "Changed since last release", "blocked": "Blocks release",
+          "finding_unconfirmed": "Rule findings", "new_filing": "New SEC filing", "value_missing": "Not extracted"}
+REF_LABEL = {"fact_differs": "SEC XBRL", "fact_changed": "Last release", "blocked": None, "finding_unconfirmed": "SEC XBRL", "new_filing": None, "value_missing": "SEC XBRL"}
+# a rule's finding by the rule that fired (the queue carries kind "other" and the rule id for the note rules), one short label each
+FINDING_LABEL = {"restated": "Restated", "jump": "Large year-over-year change", "row_switch": "Line renamed", "capex_intensity": "Capex high vs revenue", "opex_over_revenue": "Opex above revenue",
+                 "segment_capex_tie": "Does not tie to reported total", "segment_revenue_tie": "Does not tie to reported total", "ppe_categories_tie": "Does not tie to reported total",
+                 "fact_readings_differ": "Readings differ across filings"}
+
+
+def xbrl_name(con, accession: str, period_end: str | None, value) -> dict | None:
+    """Which us-gaap concept and member the filing's reference value came from: the instance is read (cached) and the
+    one fact with that value on that date is named. The reference may come from any of the company's filings (the
+    year's own 10-K tags it; a later one restates), newest first. None when no filing has such a fact."""
+    if value is None or not accession:
+        return None
+    try:
+        doc = con.execute("select cik, ticker from documents where accession = ?", [accession]).fetchone()
+        if not doc:
+            return None
+        want = round(float(value))
+        for cik, acc in con.execute("select cik, accession from documents where ticker = ? order by filed desc", [doc[1]]).fetchall():
+            hits = [(c, m, e) for (c, m, e), v in _instance(int(cik), acc).items() if v == want and (not period_end or e == period_end)]
+            if hits:
+                c, m, e = hits[0]
+                return {"concept": f"us-gaap:{c}", "member": m or None, "date": e, "accession": acc, "others": len(hits) - 1}
+        return None
+    except Exception:
+        return None
+
+
+_INSTANCES: dict = {}
+
+
+def _instance(cik: int, accession: str) -> dict:
+    if (cik, accession) not in _INSTANCES:
+        from ..ingest.reference.dimensions import instance_facts
+        if len(_INSTANCES) > 40:
+            _INSTANCES.clear()
+        _INSTANCES[(cik, accession)] = instance_facts(cik, accession)
+    return _INSTANCES[(cik, accession)]
+
+
+def _fact_series(con, ticker: str, field: str, dimension: str) -> list[dict]:
+    """The same fact across years: our cited value and the filing's tag."""
+    cur = con.execute("select period, value, reference, label from facts where ticker = ? and field = ? and coalesce(dimension, '') = ? order by period", [ticker, field, dimension])
+    return [{"period": r[0], "value": r[1], "reference": _num(r[2]), "label": r[3]} for r in cur.fetchall()]
+
+
+def _value_series(con, ticker: str, field: str) -> list[dict]:
+    cur = con.execute('select period, value, label from "values" where ticker = ? and field = ? order by period', [ticker, field])
+    return [{"period": r[0], "value": r[1], "reference": None, "label": r[2]} for r in cur.fetchall()]
+
+
+def _num(x):
+    try:
+        return None if x in (None, "") else float(x)
+    except (TypeError, ValueError):
+        return None
+
+
+def _value_states(con, ticker: str, field: str | None, period: str | None, idx: dict) -> list[dict]:
+    """The states (status.of_value) of the value rows a finding fired on: the field (cost_of_revenue and operating_income
+    are read to make opex, so a finding on them is about opex) and the period, or every period when it names none."""
+    if not field:
+        return []
+    f = "opex" if field in ("cost_of_revenue", "operating_income") else field
+    cur = con.execute('select field, period, label from "values" where ticker = ? and field = ?' + (" and period = ?" if period else ""), [ticker, f] + ([period] if period else []))
+    rows = cur.fetchall()
+    xref = dict(((r[0], r[1]), r[2]) for r in con.execute("select field, period, value from reference_values where ticker = ?", [ticker]).fetchall()) if _has_reference(con) else {}
+    looked = bool(xref)  # as Proof reads it (proof.company): the lookup ran when reference_values holds the ticker's rows
+    return [status.of_value({"field": r[0], "period": r[1], "label": r[2]}, resolutions.resolution_of(idx, "values", ticker, r[0], "", r[1]),
+                            {"reference": xref.get((r[0], r[1])), "looked_up": looked}) for r in rows]
+
+
+def _explained(con, tickers: list[str]) -> dict:
+    """rules.explained over the info findings of `tickers` (T36), {} when the table or the findings are absent."""
+    if not tickers or not con.execute("select count(*) from information_schema.tables where table_name = 'exceptions'").fetchone()[0]:
+        return {}
+    cur = con.execute("select * from exceptions where severity = 'info' and ticker in (select unnest(?))", [tickers])
+    rows = [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
+    if not rows:
+        return {}
+    try:
+        return explained(rows)
+    except (ValueError, OSError):
+        return {}  # a rule file that does not load explains nothing; Proof shows the error as an open item
+
+
+def _offers(con, key: str, enc: dict) -> dict | None:
+    """judgement.offers for one queue key (T36), or None where the database has no extractions table to name lines from."""
+    from . import judgement
+    from .definitions import load as load_defs
+    from ..checks.rules import load as load_rules
+    if not con.execute("select count(*) from information_schema.tables where table_name = 'extractions'").fetchone()[0]:
+        return None
+    k = resolutions.parse_key(key)
+    if not k:
+        return None
+    if not enc:
+        try:
+            enc |= {"defs": load_defs(judgement.DEF_FILE), "rules": load_rules(judgement.RULES_DIR)}
+        except (ValueError, OSError):
+            enc |= {"defs": None, "rules": None, "error": True}
+    if enc.get("error"):
+        return None  # nothing is offered while a definition or rule file does not load
+    return judgement.offers(con, k, enc["defs"], enc["rules"])
+
+
+def _has_reference(con) -> bool:
+    return bool(con.execute("select count(*) from information_schema.tables where table_name = 'reference_values'").fetchone()[0])
+
+
+def _fact_row(con, ticker: str, field: str | None, dimension: str | None, period: str | None) -> dict | None:
+    cols = [c[0] for c in con.execute("select * from facts limit 0").description]
+    r = con.execute("select * from facts where ticker = ? and field = ? and coalesce(dimension, '') = ? and period = ?", [ticker, field or "", dimension or "", period or ""]).fetchone()
+    return dict(zip(cols, r)) if r else None
+
+
+def _state(con, q: dict, idx: dict, xp: dict | None = None, lad: dict | None = None) -> dict:
+    """The queue item's state from the one definition (status.py): the same row gets the same answer on Proof. `xp` is
+    rules.explained over the scope's exceptions (T36): an explains rule on file closes the finding it names."""
+    d, res, t = q.get("detail") or {}, q.get("resolution"), q["ticker"]
+    if q["kind"] in ("fact_differs", "fact_changed"):
+        f = _fact_row(con, t, d.get("field"), d.get("dimension"), d.get("period"))
+        from ..checks.proof import _restated
+        if f is None:
+            return status.of_fact({"label": d.get("label")}, res)
+        # T92 review: the one ladder (ties.fact_state), as Proof reads the fact; the queue item's own resolution when it has one
+        from ..checks.ties import fact_state, ladder
+        lad = lad if lad is not None else ladder(con, [t])
+        index = {**idx, ("facts", t, f["field"], f["dimension"] or "", f["period"], ""): res} if res else idx
+        return fact_state(f, index, lad, _restated(con, t, f) if f.get("label") == "unresolved" and f.get("accession") else None)[0]
+    if q["kind"] == "finding_unconfirmed":
+        by_rule = (xp or {}).get(explain_key(d.get("rule"), t, d.get("field"), d.get("period"), d.get("subject")))
+        return status.of_exception({"rule_id": d.get("kind"), "severity": "warn", "message": d.get("message")}, res, _value_states(con, t, d.get("field"), d.get("period"), idx), by_rule)
+    if q["kind"] == "blocked":
+        return status.of_exception({"rule_id": d.get("rule"), "severity": "block", "message": d.get("message")}, res)
+    if q["kind"] == "value_missing":  # T65: the value row itself, open by label:not_extracted; a resolution is not live for this kind
+        return status.of_value({"field": d.get("field"), "period": d.get("period"), "label": d.get("label", "not_extracted")}, res)
+    return status.state({"reason": "a filing at the SEC the ledger has not read", "resolution": res})
+
+
+TO_CONFIRM = "to_confirm"
+
+
+def to_confirm(tickers: list[str] | None, names: dict) -> list[dict]:
+    """The decisions a run made for a person to confirm (resolutions.unconfirmed), as workbench rows: their own group,
+    first. None of them is a dataset row; each is a resolution a person has not yet made their own."""
+    out = []
+    for r in resolutions.unconfirmed():
+        k = resolutions.parse_key(r["key"])  # unconfirmed() gives live keys only, so this is never None (T62)
+        kind, ticker = k["kind"], k["ticker"]
+        where = " ".join(x for x in (k["field"], k["dimension"], k["period"], f"({k['rule_id']})" if k["rule_id"] else "") if x)
+        if tickers is not None and ticker not in tickers:
+            continue
+        out.append({"key": r["key"], "hash": r["hash"], "cause": TO_CONFIRM, "cause_label": "To confirm", "state": "to confirm",
+                    "by": f"resolution:{r.get('id', '')}", "reason": r["reason"], "open": False, "ticker": ticker, "name": names.get(ticker, ticker), "layer": industry(ticker),
+                    "field": None, "period": None, "where": f"{kind.replace('_', ' ')}: {where}", "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,
+                    "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "confirm", "impact": "the release refuses while it is unconfirmed",
+                    "resolution": {k: r.get(k) for k in ("id", "state", "by", "at", "reason")}, "evidence": {"message": r["reason"], "proposed": r["state"]}})
+    return out
+
+
+ASSET_TYPES = "asset_types"
+UNMAPPED_REASON = status.UNMAPPED
+
+
+def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
+    """The mapping stage's open items as workbench rows (T33, T63): every reported PP&E category in the scope with no
+    entry in taxonomy/asset_types.yaml, with the mapper's proposal when one stands (standard_type, evidence, confidence,
+    reason, prompt version, model), and every one whose entry has no confirmed_by, with that entry as the proposal. Each
+    carries the members a person already rejected for it, the note's words around it, the member the filer tagged
+    (`filer`) and whether the proposal differs from it (`mismatch`). The state is status.of_mapping's, so Proof counts
+    the row the same way. Approve or Edit writes the mapping, confirmed (POST /api/mapping, by the person); Reject logs
+    the member and removes an unconfirmed entry."""
+    from . import mapper
+    from .mapcard import decisions
+    out = []
+    pend = mapper.pending(con, tickers, with_verified=True)  # with the ones the company's own tag matches: listed after the open ones, a person may override
+    dec: dict = {}
+    for t in sorted({p["ticker"] for p in pend}):  # the decision card: the one function the trail reads too
+        dec[t] = decisions(con, t, [p["reported_name"] for p in pend if p["ticker"] == t])
+    for p in pend:
+        P = p["proposal"]
+        D = dec.get(p["ticker"], {}).get(p["reported_name"])
+        st = (D or {}).get("state") or status.of_mapping(None)  # the card's state: status.of_mapping with the company's tag, as Proof reads it
+        st = {"state": st["state"], "by": st["by"], "reason": st.get("reason") or ""}
+        from ..core.states import mapping as mapping_state, word
+        label = word("mapping", mapping_state(st))  # the state's word (states.MAPPING), from the state Proof counts
+        from ..core.config import SCOPE
+        if p["ticker"] not in SCOPE:
+            impact = "blocks nothing until the company is in scope (config.SCOPE)"
+        elif p["kind"] == "verified":
+            impact = "none: the company's own tag matches; a person may still confirm, choose another or reject"
+        elif p["kind"] == "to_confirm":
+            impact = "the release refuses (G6) until a person confirms, edits or rejects it"
+        else:
+            impact = "the derived PP&E rows stay unmapped; the Release checklist requires 0"
+        out.append({"key": f"{ASSET_TYPES}|{p['ticker']}|{p['reported_name']}", "hash": "", "cause": ASSET_TYPES, "cause_label": "Category mapping", "state": st["state"],
+                    "by": st["by"], "reason": st["reason"], "open": status.is_open(st), "ticker": p["ticker"], "name": names.get(p["ticker"], p["ticker"]), "layer": industry(p["ticker"]),
+                    "field": None, "period": None, "where": p["reported_name"], "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,
+                    "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "mapping", "impact": impact, "resolution": None,
+                    "evidence": {"reported_name": p["reported_name"], "mapping": p["kind"], "label": label, "proposal": P, "rejected": p["rejected"], "reproposed": p.get("reproposed") or [], "note": p["note"],
+                                 "filer": p["filer"], "mismatch": ((D or {}).get("tag") or {}).get("status") == "differs",  # the card's word: one count with the card
+                                 "decision": D}})
+    return out
+
+
+def items(con, flow: dict) -> dict:
+    """One uniform row per queue item. `measure` is usd; `ours` and `reference` are in that measure; `delta` = ours - reference.
+    Every row carries `state`, `by` and `reason` from status.state and `open` (open or blocked); `open` counts those.
+    The decisions a run left for a person to confirm come first as their own group (`to_confirm`, T3), counted apart; the
+    unmapped asset types (`asset_types`, T33) are their own group too, with `members` the list a mapping may use."""
+    names, rel = flow["names"], flow["release"]["last"]
+    idx = resolutions.by_row(items=flow["queue"])  # T62: a row with an unresolved sibling finding stays open
+    xp = _explained(con, sorted({q["ticker"] for q in flow["queue"]}))
+    from ..checks.ties import ladder
+    lad = ladder(con, sorted({q["ticker"] for q in flow["queue"]}))  # T92: the facts' ladder, read once
+    enc = {}  # the definitions and rules on file, read once for every item's offers
+    rows = []
+    from ..checks.crops import brief, cells
+    crop_of = cells(con, [((q.get("detail") or {}).get("cite") or {}).get("extraction_id") for q in flow["queue"] if q["kind"] == "fact_differs"])  # one read for every row
+    for q in flow["queue"]:
+        d = q.get("detail") or {}
+        st = _state(con, q, idx, xp, lad)
+        row = {"key": q["key"], "hash": q["hash"], "cause": q["kind"], "cause_label": CAUSES.get(q["kind"], q["kind"]), "state": st["state"], "by": st["by"], "reason": st["reason"], "open": status.is_open(st),
+               "ticker": q["ticker"], "name": names.get(q["ticker"], q["ticker"]), "layer": industry(q["ticker"]), "field": None, "period": None, "where": q["where"], "measure": None,
+               "ours": None, "ours_label": None, "reference": None, "ref_label": REF_LABEL.get(q["kind"]), "relation": "eq", "delta": None, "delta_pct": None,
+               "dollars": q.get("dollars") or 0, "new": bool(q.get("new")), "action": q["action"], "impact": q["impact"], "resolution": q.get("resolution"),
+               "evidence": {}}
+        if q["kind"] == "fact_differs":
+            c = d.get("cite") or {}
+            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": d.get("value"), "reference": _num(d.get("reference")), "ours_label": "Cited"}
+            row["series"] = _fact_series(con, q["ticker"], d.get("field"), d.get("dimension") or "")
+            pe = con.execute("select period_end from facts where ticker = ? and field = ? and coalesce(dimension, '') = ? and period = ?", [q["ticker"], d.get("field"), d.get("dimension") or "", d.get("period")]).fetchone()
+            row["evidence"] = {"cell": {k: c.get(k) for k in ("table_id", "row_label", "column_label", "cell_text", "accession")} if c else None,
+                               "crop": brief(crop_of.get(c["extraction_id"])) if c.get("extraction_id") else None,
+                               "xbrl": xbrl_name(con, c.get("accession") or "", pe[0] if pe else None, d.get("reference")),
+                               "url": d.get("url"), "release_value": d.get("release_value"), "dimension": d.get("dimension")}
+        elif q["kind"] == "fact_changed":
+            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": d.get("value"), "reference": d.get("release_value"), "ours_label": "Now"}
+            row["evidence"] = {"dimension": d.get("dimension"), "release": rel}
+        elif q["kind"] == "finding_unconfirmed":  # a rule's finding (restated, jump, row_switch, ...) the SEC's data can't confirm
+            k = d.get("kind")
+            lk = d.get("rule") if k == "other" and d.get("rule") else k  # the label names the rule that fired; the state still reads kind, as Proof does
+            numeric = k in ("restated", "jump", "opex_over_revenue") and d.get("before") is not None and d.get("after") is not None
+            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if numeric else None, "ours": d.get("after") if numeric else None,
+                    "reference": d.get("before") if numeric else None, "ours_label": {"restated": "Latest 10-K", "jump": "This year", "opex_over_revenue": "Opex"}.get(k),
+                    "ref_label": {"restated": "Earlier 10-K", "jump": "Prior year", "opex_over_revenue": "Revenue"}.get(k),
+                    "cause_label": FINDING_LABEL.get(lk, row["cause_label"])}
+            if d.get("field"):
+                row["series"] = _value_series(con, q["ticker"], d["field"])
+            row["evidence"] = {"message": d.get("message"), "kind": k, "size": d.get("size")}
+        elif q["kind"] == "blocked":
+            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if d.get("value") is not None else None, "ours": d.get("value")}
+            row["evidence"] = {"message": d.get("message"), "rule": d.get("rule")}
+        elif q["kind"] == "value_missing":
+            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": None, "reference": _num(d.get("reference")), "ours_label": "Not extracted"}
+            if d.get("field"):
+                row["series"] = _value_series(con, q["ticker"], d["field"])
+            row["evidence"] = {"label": d.get("label"), "reference": d.get("reference"), "period_end": d.get("period_end")}
+        elif q["kind"] == "new_filing":
+            row |= {"period": d.get("period")}
+            row["evidence"] = {"url": d.get("url"), "filed": d.get("filed"), "form": d.get("form")}
+        if q["kind"] in ("blocked", "finding_unconfirmed"):
+            row["encode"] = _offers(con, q["key"], enc)  # T36: what this item may be written as, once, for every company it applies to
+        if row["ours"] is not None and row["reference"] is not None:
+            try:
+                row["delta"] = row["ours"] - row["reference"]
+                row["delta_pct"] = (row["delta"] / abs(row["reference"])) if row["reference"] else None
+            except TypeError:
+                pass
+        rows.append(row)
+    confirm = to_confirm(None if flow["scope"] in ("", "all") else flow["tickers"], names)
+    rows += asset_types(con, flow.get("tickers") or sorted(names), names)  # the scope's tickers: SCOPE for "all", a layer's, or the one ticker asked for
+    from ..core.states import row as row_state
+    for r in confirm + rows:  # the row's word on the page: states.row, the one the trail and Proof read
+        r["verification"] = row_state(r["state"], r["by"])
+    open_ = [r for r in rows if r["open"]]
+    by_cause = {}
+    for r in confirm + rows:
+        by_cause.setdefault(r["cause"], {"cause": r["cause"], "label": CAUSES.get(r["cause"]) or r["cause_label"], "rows": 0, "open": 0, "dollars": 0})  # the group's own name, never its first row's
+        by_cause[r["cause"]]["rows"] += 1
+        by_cause[r["cause"]]["open"] += r["open"]
+        by_cause[r["cause"]]["dollars"] += r["dollars"]
+    causes = sorted(by_cause.values(), key=lambda c: (c["cause"] != TO_CONFIRM, -c["dollars"]))
+    from .mapper import members
+    return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": confirm + rows, "open": len(open_), "to_confirm": len(confirm), "dollars": sum(r["dollars"] for r in open_),
+            "causes": causes, "names": names, "members": members()}

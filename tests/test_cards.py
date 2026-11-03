@@ -1,8 +1,9 @@
-"""ledger/cards.py: the trail's evidence cards say, in plain words, what was found, where (a link to the row) and how
+"""ledger/web/cards.py: the trail's evidence cards say, in plain words, what was found, where (a link to the row) and how
 we know, and never change an item's state."""
 import unittest
 
-from ledger import cards, store
+from ledger.web import cards
+from ledger.core import store
 
 
 class Money(unittest.TestCase):
@@ -59,9 +60,9 @@ class How(unittest.TestCase):
         tones = {by: cards._how({"state": "checked" if not by.startswith(("label:", "definition:", "resolution:", "rule:part")) else "explained", "by": by, **kw}, "X", {})["tone"] for by, kw in cases.items()}
         self.assertEqual({by for by, t in tones.items() if t == "ok"}, set(cards.VERIFIED_BY))
         self.assertEqual((tones["located"], tones["gate"], tones["mapping:filer_tag"], tones["mapping:us-gaap:LandMember"]), ("done", "done", "company", "done"))
-        from ledger import states
+        from ledger.core import states
         self.assertEqual((states.word("row", "company"), states.word("row", "done")), ("Matches company tag", "Done"))  # their own words on the page
-        self.assertIn("stateWord('row'", (store.ROOT / "ledger" / "pages" / "trail.js").read_text())  # the trail reads them from ledger/states.py
+        self.assertIn("stateWord('row'", (store.ROOT / "ledger" / "web" / "pages" / "trail.js").read_text())  # the trail reads them from ledger/core/states.py
 
     def test_no_internal_words(self):
         for it in ({"state": "checked", "by": "xbrl", "ref": {"reference": 1}}, {"state": "checked", "by": "located"}, {"state": "checked", "by": "gate"},

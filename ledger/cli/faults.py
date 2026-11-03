@@ -1,6 +1,6 @@
 """python -m ledger faults --stage N | --ticker X … [--xbrl-off]   ->  reports/<name>-faults.json
 
-Plants every fault kind (ledger/faults.py FAULTS) on the companies' extractions and records what caught each trial.
+Plants every fault kind (ledger/checks/faults.py FAULTS) on the companies' extractions and records what caught each trial.
 `--xbrl-off` runs the same trials with xbrl_reconcile removed from the rule set and writes
 reports/<name>-faults-xbrl-off.json beside the normal report (T67): the two together say how much of the catch rate
 depends on XBRL. Each report is {subject, written, xbrl, rules, kinds, planted, caught, rule, xbrl_only, no_effect,
@@ -10,11 +10,11 @@ import json
 import time
 from datetime import datetime, timezone
 
-from .. import store
-from ..config import add_scope, scope
-from ..reconcile import fiscal_year_end
-from ..faults import FAULTS, inject, rule_set, tally
-from ..rules import load
+from ..core import store
+from ..core.config import add_scope, scope
+from ..checks.reconcile import fiscal_year_end
+from ..checks.faults import FAULTS, inject, rule_set, tally
+from ..checks.rules import load
 from .rules import context
 
 

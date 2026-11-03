@@ -1,4 +1,4 @@
-"""ledger/states.py: one place per state (docs/STATES.md). Three kinds of test, plus the consumers routed through it:
+"""ledger/core/states.py: one place per state (docs/STATES.md). Three kinds of test, plus the consumers routed through it:
 1. no illegal transition (declared moves only; a person's decision never makes a row checked);
 2. no unknown, stale or missing input reads as a good state (every machine's absent case, and the pages' fallback);
 3. every page word names exactly one state, every state has a word, and the pages read the words from states.py."""
@@ -11,9 +11,12 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
-from ledger import cards, checklist, claims, states, status, store, ties
+from ledger.web import cards
+from ledger.release import checklist, claims
+from ledger.core import states, status, store
+from ledger.checks import ties
 
-PAGES = store.ROOT / "ledger" / "pages"
+PAGES = store.ROOT / "ledger" / "web" / "pages"
 
 
 class Declarations(unittest.TestCase):
@@ -58,7 +61,7 @@ class Transitions(unittest.TestCase):
                 self.assertNotEqual(states.group(states.row(st["state"], st["by"])), "checked")
 
     def test_a_gold_verdict_never_goes_back_to_unchecked(self):
-        from ledger import gold
+        from ledger.review import gold
         with mock.patch.object(states, "allow", wraps=states.allow) as allow, self.assertRaises(Exception):
             gold.record("NOPE", "x", "right", "", "Kenny Geiler")
         for it in (i for p in sorted((store.ROOT / "gold").glob("*.json")) for i in json.loads(p.read_text()).get("items", [])):
@@ -87,7 +90,7 @@ class NothingAbsentReadsGood(unittest.TestCase):
                  ("line", checklist.tests_line(None)["state"]),
                  ("line", checklist.tests_line({"ok": True, "count": 1, "git": "abc", "dirty": True}, head="abc")["state"]),
                  ("line", checklist.tests_line({"ok": True, "count": 1, "git": "abc", "dirty": False}, head="def", changed=["ledger/x.py"])["state"])]
-        from ledger import crops
+        from ledger.checks import crops
         cases.append(("crop", crops.state(None, {}, None, None)["state"]))
         for machine, name in cases:
             self.assertNotEqual(self.kind(machine, name), states.GOOD, (machine, name))
@@ -134,7 +137,7 @@ class Words(unittest.TestCase):
     def test_the_server_serves_the_words(self):
         from http.server import ThreadingHTTPServer
         from urllib import request
-        from ledger import app
+        from ledger.web import app
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         try:
@@ -147,7 +150,7 @@ class Words(unittest.TestCase):
             self.assertEqual(d["row"]["states"]["ok"]["word"], "Verified")
         finally:
             srv.shutdown()
-        self.assertLess((store.ROOT / "ledger" / "app.html").read_text().index("/pages/_states.js"), (store.ROOT / "ledger" / "app.html").read_text().index("/pages/_shared.js"))
+        self.assertLess((store.ROOT / "ledger" / "web" / "app.html").read_text().index("/pages/_states.js"), (store.ROOT / "ledger" / "web" / "app.html").read_text().index("/pages/_shared.js"))
 
 
 class Consumers(unittest.TestCase):
@@ -197,7 +200,7 @@ class Consumers(unittest.TestCase):
                     self.assertEqual(bool(claims._edgar({"live": True, "now": at})), sec == "stale", hours)
 
     def test_reconcile_rows_carry_the_row_state(self):
-        src = (store.ROOT / "ledger" / "workbench.py").read_text()
+        src = (store.ROOT / "ledger" / "review" / "workbench.py").read_text()
         self.assertIn('r["verification"] = row_state(r["state"], r["by"])', src)
         self.assertIn("stateWord('row', r.verification)", (PAGES / "reconcile.js").read_text())
 

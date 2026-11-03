@@ -79,18 +79,18 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | values | revenue, capex, opex per company and fiscal year, from statement cells | table `values`, `releases/*/values.csv` | `docs/FIELDS.md` |
 | facts | segment capex and revenue, PP&E by category, finance leases, purchase commitments, from the notes | tables `note_extractions`, `facts`, `facts.csv` | `docs/DATA_DICTIONARY.md` |
 | texts, statements | MD&A, 8-K releases, transcripts; what each says about AI's part of spend, as verbatim quotes | tables `texts`, `ai_statements`, `ai_spend`, `ai_spend.csv` | `docs/INGESTION.md` |
-| taxonomy | one row shape for spent, committed, derived, planned and company-stated AI, every category a named standard's concept; built by code, no agent | `taxonomy/taxonomy.yaml`, `ledger/taxonomy.py`, `/api/v1/taxonomy`, `taxonomy.csv` (next release) | `docs/TAXONOMY.md` |
+| taxonomy | one row shape for spent, committed, derived, planned and company-stated AI, every category a named standard's concept; built by code, no agent | `taxonomy/taxonomy.yaml`, `ledger/release/taxonomy.py`, `/api/v1/taxonomy`, `taxonomy.csv` (next release) | `docs/TAXONOMY.md` |
 | asset-type mappings | each company's reported PP&E category mapped to a us-gaap member, with the note's words as evidence; an unmapped one is open on Proof, and so is one without a person's `confirmed_by` (T63: a proposal, to confirm) | `taxonomy/asset_types.yaml` | `docs/TAXONOMY.md` |
 | prompts | one per agent, versioned the same way | `agents/prompts/`, `agents/schemas/` | `agents/agents.json` |
 | charters | one per agent, live or retired: what it owns, what it never touches, its input and output files, model, tools, prompt versions, the checks that judge it, written from the code | `agents/charters/<id>.md`, path in `agents/agents.json` | the Rules page, `/api/agents` |
 | definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | this file, Data conventions |
 | stated figures | figures companies stated about AI, gathered from releases, calls and press, verbatim with the source; `company_stated_ai` rows | `taxonomy/stated_figures.yaml` | `docs/TAXONOMY.md` |
-| failure types | every failure type INGESTION.md logged, as data: id, cause class, origin, the check in code that catches it or `none`, count seen | `taxonomy/failures.yaml`, `ledger/failures.py` | `docs/INGESTION.md` |
-| rules, guards | the 15 checks, each with its rationale and owner; the two guards that tag part-year and program statements | `rules/*.yaml`, `ledger/rules.py`, `ledger/guards.py` | `docs/PROOF.md` |
+| failure types | every failure type INGESTION.md logged, as data: id, cause class, origin, the check in code that catches it or `none`, count seen | `taxonomy/failures.yaml`, `ledger/checks/failures.py` | `docs/INGESTION.md` |
+| rules, guards | the 15 checks, each with its rationale and owner; the two guards that tag part-year and program statements | `rules/*.yaml`, `ledger/checks/rules.py`, `ledger/checks/guards.py` | `docs/PROOF.md` |
 | resolutions | what a person decided about a queue item, keyed `kind|ticker|field|period|dimension|rule_id|subject` (`resolutions.key_for`); `status` on exported rows | `decisions/resolutions.jsonl` (tracked, append-only; `ledger resolutions migrate-keys` re-keys lines from before T62, archive under `decisions/archive/`) | `docs/PROOF.md`, `docs/API.md` |
 | releases | plain files whose content hash a person signs | `releases/v*/` | release `README.md` |
-| production | the signed releases, one table per release file plus `ledger_releases`; `current_*` views follow the highest version | Postgres at `DATABASE_URL`, `ledger/publish.py` | this file |
-| companies | the 100 companies by supply-chain layer (`group`, a reading aid); the proven set in `config.PROVEN` | `data/companies.json`, `ledger/config.py` | `docs/COMPANIES.md`, `docs/PROOF.md` |
+| production | the signed releases, one table per release file plus `ledger_releases`; `current_*` views follow the highest version | Postgres at `DATABASE_URL`, `ledger/release/publish.py` | this file |
+| companies | the 100 companies by supply-chain layer (`group`, a reading aid); the proven set in `config.PROVEN` | `data/companies.json`, `ledger/core/config.py` | `docs/COMPANIES.md`, `docs/PROOF.md` |
 
 ## The hosted copy
 
@@ -115,7 +115,7 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
 ## How to do the common things
 
 - **Add a company**: `ledger run --ticker X`. It joins stage 3. Give it an
-  industry in `ledger/config.py` `INDUSTRIES`, or it gets the `other` model.
+  industry in `ledger/core/config.py` `INDUSTRIES`, or it gets the `other` model.
 - **A resolution with a key from before T62** (`kind|ticker|where`, two pipes) is not live. `ledger resolutions migrate-keys
   --dry-run` shows what each would become; without `--dry-run` it appends the re-keyed lines and copies the unmappable ones
   to `decisions/archive/resolutions-keys-<date>.jsonl`; it removes nothing and a second run is a no-op.
@@ -152,7 +152,7 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   refuses an unsigned release or one whose files no longer match the signed hash; publishing the same version again
   replaces its rows in one transaction. Signing is the one human act and belongs to the owner; agents never sign or publish.
 - **Ask what a filing said on a date** (a backtest, no lookahead): `/api/v1/values?as_of=YYYY-MM-DD` or `/api/v1/taxonomy?as_of=…`
-  (`ledger/pit.py`, `docs/API.md`): the newest filing filed by that day, with its accession; absent where nothing was filed yet.
+  (`ledger/web/pit.py`, `docs/API.md`): the newest filing filed by that day, with its accession; absent where nothing was filed yet.
 - **Find why something is wrong**: `docs/INGESTION.md` logs every failure type found so far (72), where it showed,
   what caught it, what fixed it; `taxonomy/failures.yaml` holds each as data with its class and catching check. Add to both.
 

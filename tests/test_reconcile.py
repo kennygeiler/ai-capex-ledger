@@ -1,7 +1,7 @@
 """Fiscal-year values: one cell each; opex from one 10-K column; newest 10-K wins, first kept; no line, no value."""
 import unittest
 
-from ledger.reconcile import values_for
+from ledger.checks.reconcile import values_for
 
 
 def x(field, end, value, accn, filed):

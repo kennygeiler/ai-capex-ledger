@@ -1,4 +1,4 @@
-"""Cell crops and the in-app filing viewer (ledger/crops.py, ledger/viewer.py, pages/evidence.js).
+"""Cell crops and the in-app filing viewer (ledger/checks/crops.py, ledger/web/viewer.py, pages/evidence.js).
 
 Pre-mortem (docs/BUILD.md), one class per answer:
  1 a label standing in for a check: "Cell located" is computed on every read from the record and the current facts,
@@ -30,7 +30,8 @@ from unittest import mock
 
 import duckdb
 
-from ledger import crops, evidence, viewer
+from ledger.checks import crops, evidence
+from ledger.web import viewer
 
 FIX = Path(__file__).parent / "fixtures" / "filings" / "ORCL_10-K_2026-05-31.html"
 CHROME = Path("/Applications/Google Chrome.app").exists() or shutil.which("google-chrome")
@@ -218,7 +219,7 @@ class View(unittest.TestCase):
         self.assertEqual(crops.view(_db(), "a", self.rec, self.dir, self.root)["sec_url"], "https://www.sec.gov/x.htm")
         for bad in ("javascript:alert(1)", "https://www.sec.gov.evil.example/x", "http://www.sec.gov/x", ""):
             self.assertIsNone(crops.view(_db(url=bad), "a", self.rec, self.dir, self.root)["sec_url"], bad)
-        js = (Path(crops.__file__).parent / "pages" / "evidence.js").read_text()
+        js = (Path(crops.__file__).parents[1] / "web" / "pages" / "evidence.js").read_text()
         self.assertIn("SEC_LINK.test(e.sec_url || '') ? h('a'", js)
 
     def test_the_compare_view_has_two_sides_each_with_its_filing(self):
@@ -228,7 +229,7 @@ class View(unittest.TestCase):
         self.assertEqual((a["accession"], a["filed"]), (ACCN, "2026-06-20"))
         self.assertEqual((b["accession"], b["filed"]), ("0001341439-25-000002", "2025-06-20"))
         self.assertNotEqual(a["value"], b["value"])
-        js = (Path(crops.__file__).parent / "pages" / "evidence.js").read_text()
+        js = (Path(crops.__file__).parents[1] / "web" / "pages" / "evidence.js").read_text()
         self.assertIn("side(a, 'A'), side(b, 'B')", js)
         self.assertIn("Filing ${n} · ${e.form} filed ${day(e.filed)}", js)
 
@@ -266,7 +267,8 @@ class Viewer(unittest.TestCase):
     def test_the_route(self):
         from http.server import ThreadingHTTPServer
         from urllib import error, request
-        from ledger import app, store
+        from ledger.web import app
+        from ledger.core import store
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         self.addCleanup(srv.shutdown)
@@ -412,10 +414,10 @@ class Offline(unittest.TestCase):
 
 class Claims(unittest.TestCase):
     def test_the_evidence_claims_have_rows_and_the_page_scan_reads_the_states(self):
-        from ledger import claims
+        from ledger.release import claims
         ids = {e["id"] for e in claims.load()}
         self.assertLessEqual({"evidence_cell_located", "evidence_crop", "evidence_compare", "evidence_open_in_filing"}, ids)
-        pages = Path(crops.__file__).parent / "pages"
+        pages = Path(crops.__file__).parents[1] / "web" / "pages"
         found = claims.strings_in("evidence.js", (pages / "evidence.js").read_text()) | claims.strings_in("_shared.js", (pages / "_shared.js").read_text()) | claims.state_words()
         self.assertLessEqual({"Cell located", "Cell not located", "Crop out of date", "Crop file missing", "No crop", "Readings differ", "Readings agree"}, found)
         self.assertEqual([p for p in claims.unregistered() if "evidence" in p["where"]], [])
@@ -429,7 +431,7 @@ class RowEvidence(unittest.TestCase):
     OLD = "0001341439-25-000002"
 
     def setUp(self):
-        from ledger import store
+        from ledger.core import store
         self.tmp = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, self.tmp)
         self.root = _root(self.tmp / "root")
@@ -470,7 +472,7 @@ class RowEvidence(unittest.TestCase):
         return duckdb.connect(str(self.db))
 
     def trail(self):
-        from ledger import cards
+        from ledger.web import cards
         items = {"values": [{"what": "revenue FY2026", "state": "checked", "by": "xbrl", "ref": {"field": "revenue", "period": "FY2026", "reference": 67357000000}},
                             {"what": "capex FY2026", "state": "checked", "by": "xbrl", "ref": {"field": "capex", "period": "FY2026", "reference": 5000000}}],
                  "facts": [{"what": "ppe Land FY2025", "state": "open", "by": "rule:fact_readings_differ",
@@ -485,14 +487,15 @@ class RowEvidence(unittest.TestCase):
         return {w["extraction_id"]: w["crop"]["state"] for st in self.trail().values() for it in st["all"] for w in it["card"]["where"] if "crop" in w}
 
     def gold_states(self):
-        from ledger import app, gold
+        from ledger.web import app
+        from ledger.review import gold
         doc = {"items": [{"id": "x", "kind": "fact", "ticker": "ORCL", "field": "ppe_category", "dimension": "Land", "period": "FY2025", "value": 12000000, "verdict": None,
                           "cites": [{"extraction_id": i, "accession": ACCN, "url": "https://www.sec.gov/x.htm"} for i in ("a", "b", "c", "nope")]}]}
         with mock.patch.object(gold, "load_checked", return_value=({"ORCL": doc}, [])), mock.patch.object(app, "_con", side_effect=self.con):
             return {c["extraction_id"]: c["evidence"] for c in app.gold_view("ORCL")["items"][0]["cites"]}
 
     def reconcile_crop(self, eid):
-        from ledger import workbench
+        from ledger.review import workbench
         q = {"kind": "fact_differs", "state": "disagrees", "ticker": "ORCL", "where": "ppe_category Land FY2025", "impact": "x", "dollars": 0, "new": False, "action": "definition", "key": "k", "hash": "h",
              "detail": {"field": "ppe_category", "dimension": "Land", "period": "FY2025", "value": 12000000, "reference": 11000000, "cite": {"extraction_id": eid, "table_id": "t0003", "row_label": "Land", "column_label": "May 31, 2025", "cell_text": "9", "accession": self.OLD}, "url": "https://www.sec.gov/x.htm"}}
         flow = {"scope": "ORCL", "tickers": ["ORCL"], "names": {"ORCL": "Oracle"}, "release": {"last": None}, "changed": {"last_run": "2026-11-02"}, "queue": [q]}
@@ -532,7 +535,7 @@ class RowEvidence(unittest.TestCase):
         self.assertEqual(w["viewer"], crops.viewer_url({"accession": ACCN, "table_id": "t0000", "row_label": "Total revenues", "column_label": "Year Ended May 31, | 2026", "cell_text": "67,357"}))
         self.assertTrue(w["viewer"].startswith(f"/filing/{ACCN}?t=t0000&row=Total+revenues&col="))
         self.assertEqual(self.gold_states()["a"]["viewer"], w["viewer"])
-        js = (Path(crops.__file__).parent / "pages" / "_shared.js").read_text()
+        js = (Path(crops.__file__).parents[1] / "web" / "pages" / "_shared.js").read_text()
         self.assertIn("h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open')", js)
         self.assertIn("SEC_LINK.test(w.link || '')", js)  # sec.gov stays a second, guarded link
 
@@ -541,7 +544,7 @@ class RowEvidence(unittest.TestCase):
         """safeHref lets through a web address, the in-app viewer or a page route; javascript: and the rest are no link.
         Every href the pages build from stored data calls it."""
         import re, subprocess
-        pages = Path(crops.__file__).parent / "pages"
+        pages = Path(crops.__file__).parents[1] / "web" / "pages"
         line = next(l for l in (pages / "_shared.js").read_text().splitlines() if l.startswith("const safeHref"))
         cases = ["javascript:alert(1)", "JavaScript:alert(1)", " javascript:x", "data:text/html,x", "//evil.example/x", "/api/v1/x", "/filing/../x",
                  "https://www.sec.gov/x.htm", "http://example.com", "/filing/0001341439-26-000001?t=t0&row=a", "#evidence/compare?a=1&b=2"]
@@ -555,7 +558,7 @@ class RowEvidence(unittest.TestCase):
     def test_the_trail_render_path_reaches_citecell(self):
         """trailSource draws a cited cell with citeCell (the thumbnail or the crop's state); a filing line without a cell does not."""
         import subprocess
-        pages = Path(crops.__file__).parent / "pages"
+        pages = Path(crops.__file__).parents[1] / "web" / "pages"
         harness = """
 const h = (tag, attrs = {}, ...kids) => ({tag, attrs, kids: kids.flat(Infinity)});
 const safeHref = (u) => u; const SEC_LINK = /^https:\\/\\/www\\.sec\\.gov\\//; const int = (n) => String(n); const FIELDS = {}; const STAGE_LABEL_UI = {};
@@ -567,8 +570,8 @@ process.stdout.write(JSON.stringify(calls));"""
         self.assertEqual(json.loads(out), [["located", "Revenue"], ["stale", "Revenue"]])
 
     def test_the_pages_read_one_label_map(self):
-        """Every page says a crop's state with states.CROP (ledger/states.py, through _shared.js cropWord); no page keeps its own copy."""
-        pages = Path(crops.__file__).parent / "pages"
+        """Every page says a crop's state with states.CROP (ledger/core/states.py, through _shared.js cropWord); no page keeps its own copy."""
+        pages = Path(crops.__file__).parents[1] / "web" / "pages"
         own = [f.name for f in pages.glob("*.js") if "'Cell located'" in f.read_text() or "Crop out of date" in f.read_text()]
         self.assertEqual(own, [])
         self.assertIn("cropWord(e.state)", (pages / "evidence.js").read_text())
@@ -581,7 +584,7 @@ process.stdout.write(JSON.stringify(calls));"""
         self.assertEqual(it["card"]["compare"], {"a": "b", "b": "c"})  # filed 2025 then 2026: old → new
         self.assertEqual(it["card"]["how"]["text"], "Readings differ: $9M → $12M")
         self.assertEqual([w["filed"] for w in it["card"]["where"]], ["2025-06-20", "2026-06-20"])
-        self.assertIn("#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}", (Path(crops.__file__).parent / "pages" / "trail.js").read_text())
+        self.assertIn("#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}", (Path(crops.__file__).parents[1] / "web" / "pages" / "trail.js").read_text())
 
 
 if __name__ == "__main__":

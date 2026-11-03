@@ -14,9 +14,10 @@ from pathlib import Path
 from unittest import mock
 from urllib import error, request
 
-from ledger import checklist, store
+from ledger.release import checklist
+from ledger.core import store
 from ledger.cli import signoff
-from ledger.release import content_hash
+from ledger.release.release import content_hash
 
 FILES = {"values.csv": "ticker,field,period,value\nNVDA,capex,FY2026,5\n", "DIFF.md": "# Changes in v9.9.0\n"}
 HASH = content_hash(FILES)
@@ -59,7 +60,7 @@ class Sign(TempReleases):
         self.assertEqual(list(self.tmp.iterdir()), [])
 
     def test_refuses_while_a_required_line_is_red_and_writes_nothing(self):
-        with mock.patch.object(checklist, "checklist", return_value=_cl(False, ["gate_G6", "unconfirmed"])), mock.patch("ledger.publish.publish") as p:
+        with mock.patch.object(checklist, "checklist", return_value=_cl(False, ["gate_G6", "unconfirmed"])), mock.patch("ledger.release.publish.publish") as p:
             with self.assertRaises(ValueError) as e:
                 checklist.sign(None, "v9.9.0", "Kenny Geiler")
             self.assertIn("gate_G6", str(e.exception))
@@ -69,7 +70,7 @@ class Sign(TempReleases):
     def test_green_builds_signs_with_the_checklist_then_publishes_and_records_it(self):
         calls = []
         with mock.patch.object(checklist, "checklist", side_effect=lambda con, v, st: calls.append("checklist") or _cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()), \
-                mock.patch("ledger.publish.publish", side_effect=lambda v: calls.append(("publish", v)) or {"rows": {"values": 1}}):
+                mock.patch("ledger.release.publish.publish", side_effect=lambda v: calls.append(("publish", v)) or {"rows": {"values": 1}}):
             r = checklist.sign(None, "v9.9.0", " Kenny Geiler ")
         self.assertEqual(calls, ["checklist", "checklist", ("publish", "v9.9.0")])  # checked twice: before the write and on the folder as written
         self.assertTrue((self.tmp / "v9.9.0" / "manifest.json").exists())
@@ -83,7 +84,7 @@ class Sign(TempReleases):
 
     def test_a_failed_publish_leaves_the_signature_and_records_the_failure(self):
         with mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()), \
-                mock.patch("ledger.publish.publish", side_effect=SystemExit("Set DATABASE_URL in .env")):
+                mock.patch("ledger.release.publish.publish", side_effect=SystemExit("Set DATABASE_URL in .env")):
             r = checklist.sign(None, "v9.9.0", "K")
         self.assertFalse(r["published"])
         self.assertIn("DATABASE_URL", r["publish_error"])
@@ -94,7 +95,7 @@ class Sign(TempReleases):
 
     def test_a_red_second_pass_refuses_and_leaves_the_folder_unsigned(self):
         with mock.patch.object(checklist, "checklist", side_effect=[_cl(True), _cl(False, ["open"])]), mock.patch.object(checklist, "packet", return_value=_packet()), \
-                mock.patch("ledger.publish.publish") as p:
+                mock.patch("ledger.release.publish.publish") as p:
             with self.assertRaises(ValueError) as e:
                 checklist.sign(None, "v9.9.0", "K")
             p.assert_not_called()
@@ -131,7 +132,7 @@ class Sign(TempReleases):
 
     def test_a_record_that_fails_after_a_successful_publish_is_reported_not_undone(self):
         with mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()), \
-                mock.patch("ledger.publish.publish", return_value={"rows": {"values": 1}}), mock.patch("ledger.cli.signoff.record", side_effect=OSError("disk full")) as rec:
+                mock.patch("ledger.release.publish.publish", return_value={"rows": {"values": 1}}), mock.patch("ledger.cli.signoff.record", side_effect=OSError("disk full")) as rec:
             r = checklist.sign(None, "v9.9.0", "K")
         self.assertEqual((r["published"], r["rows"], r["record_error"]), (True, {"values": 1}, "disk full"))
         self.assertEqual(rec.call_count, 1)
@@ -155,7 +156,7 @@ class Sign(TempReleases):
     def test_two_signatures_at_once_leave_one(self):
         results = []
         with mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()), \
-                mock.patch("ledger.publish.publish", return_value={"rows": {}}):
+                mock.patch("ledger.release.publish.publish", return_value={"rows": {}}):
             def go():
                 try:
                     results.append(checklist.sign(None, "v9.9.0", "K"))
@@ -250,7 +251,7 @@ class Endpoints(unittest.TestCase):
     served before the /api/v1/ catch-all."""
 
     def _serve(self):
-        from ledger import app
+        from ledger.web import app
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
@@ -270,9 +271,9 @@ class Endpoints(unittest.TestCase):
             return e.code, json.loads(e.read())
 
     def test_readonly_refuses_with_403(self):
-        from ledger import app
+        from ledger.web import app
         base = self._serve()
-        with mock.patch.object(app, "READONLY", True), mock.patch("ledger.checklist.sign") as s:
+        with mock.patch.object(app, "READONLY", True), mock.patch("ledger.release.checklist.sign") as s:
             code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"})
             s.assert_not_called()
         self.assertEqual(code, 403)
@@ -280,7 +281,7 @@ class Endpoints(unittest.TestCase):
 
     def test_text_plain_and_foreign_origin_posts_are_refused_before_any_route(self):
         base = self._serve()
-        with mock.patch("ledger.checklist.sign") as s, mock.patch("ledger.resolutions.resolve") as r:
+        with mock.patch("ledger.release.checklist.sign") as s, mock.patch("ledger.review.resolutions.resolve") as r:
             code, body = self._post(base + "/api/release/sign", None, ctype="text/plain", raw=b'{"version":"v9.9.0","by":"K"}')
             self.assertEqual(code, 403)
             self.assertIn("application/json", body["error"])
@@ -293,7 +294,7 @@ class Endpoints(unittest.TestCase):
             self.assertEqual(code, 403)
             s.assert_not_called()
             r.assert_not_called()
-        with mock.patch("ledger.app._con", return_value=mock.MagicMock()), mock.patch("ledger.checklist.sign", return_value={"ok": 1}) as s:
+        with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch("ledger.release.checklist.sign", return_value={"ok": 1}) as s:
             for origin in (f"http://127.0.0.1:{self.port}", f"http://localhost:{self.port}", None):  # the server's own origin, or none (curl)
                 code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"}, ctype="application/json; charset=utf-8", origin=origin)
                 self.assertEqual((code, body), (200, {"ok": 1}))
@@ -301,11 +302,11 @@ class Endpoints(unittest.TestCase):
 
     def test_a_red_checklist_or_a_bad_name_refuses_with_400(self):
         base = self._serve()
-        with mock.patch("ledger.app._con", return_value=mock.MagicMock()), mock.patch("ledger.checklist.sign", side_effect=ValueError("v9.9.0 not signed: gate_G6 is red on the checklist")):
+        with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch("ledger.release.checklist.sign", side_effect=ValueError("v9.9.0 not signed: gate_G6 is red on the checklist")):
             code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"})
         self.assertEqual(code, 400)
         self.assertIn("gate_G6", body["error"])
-        with mock.patch("ledger.app._con", return_value=mock.MagicMock()), mock.patch("ledger.checklist.checklist") as cl:
+        with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch("ledger.release.checklist.checklist") as cl:
             code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": 7})  # a non-string name: refused before the checklist
             cl.assert_not_called()
         self.assertEqual(code, 400)
@@ -313,7 +314,7 @@ class Endpoints(unittest.TestCase):
 
     def test_a_list_body_or_a_bad_content_length_is_400_on_every_route(self):
         base = self._serve()
-        with mock.patch("ledger.checklist.sign") as s, mock.patch("ledger.resolutions.resolve") as r:
+        with mock.patch("ledger.release.checklist.sign") as s, mock.patch("ledger.review.resolutions.resolve") as r:
             for path in ("/api/release/sign", "/api/resolve"):
                 code, body = self._post(base + path, [1, 2])
                 self.assertEqual((code, body["error"]), (400, "send a JSON object"))
@@ -331,7 +332,7 @@ class Endpoints(unittest.TestCase):
 
     def test_checklist_get_is_not_the_v1_catch_all(self):
         base = self._serve()
-        with mock.patch("ledger.app._con", return_value=mock.MagicMock()), mock.patch("ledger.checklist.checklist", return_value=_cl(True)):
+        with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch("ledger.release.checklist.checklist", return_value=_cl(True)):
             with request.urlopen(base + "/api/v1/release/checklist?version=v9.9.0") as r:
                 self.assertEqual(json.loads(r.read())["version"], "v9.9.0")
 
@@ -340,8 +341,8 @@ class Endpoints(unittest.TestCase):
         base = self._serve()
         tmp = Path(tempfile.mkdtemp(prefix="releases-"))
         self.addCleanup(shutil.rmtree, tmp, True)
-        with mock.patch("ledger.app._con", return_value=mock.MagicMock()), mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), \
-                mock.patch.object(checklist, "checklist", return_value=_cl(False, ["unconfirmed"])), mock.patch("ledger.publish.publish") as p:
+        with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), \
+                mock.patch.object(checklist, "checklist", return_value=_cl(False, ["unconfirmed"])), mock.patch("ledger.release.publish.publish") as p:
             code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"})
             p.assert_not_called()
         self.assertEqual(code, 400)
@@ -352,9 +353,9 @@ class Endpoints(unittest.TestCase):
         base = self._serve()
         tmp = Path(tempfile.mkdtemp(prefix="releases-"))
         self.addCleanup(shutil.rmtree, tmp, True)
-        with mock.patch("ledger.app._con", return_value=mock.MagicMock()), mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), \
+        with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), \
                 mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()), \
-                mock.patch("ledger.publish.publish", side_effect=RuntimeError("connection refused")):
+                mock.patch("ledger.release.publish.publish", side_effect=RuntimeError("connection refused")):
             code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"})
         self.assertEqual(code, 200)
         self.assertEqual((body["published"], body["signed_by"]), (False, "K"))
@@ -407,7 +408,7 @@ class DryRun(unittest.TestCase):
                     self.assertEqual(code, 1)  # a red line the folder does not cause (gates, open, golden): the CLI refused too
             if cl["ok"]:
                 self.skipTest(f"{cl['version']} is green: a dry run would sign")
-            with mock.patch.object(checklist, "write") as w, mock.patch("ledger.cli.signoff.sign") as s, mock.patch("ledger.publish.publish") as p:
+            with mock.patch.object(checklist, "write") as w, mock.patch("ledger.cli.signoff.sign") as s, mock.patch("ledger.release.publish.publish") as p:
                 with self.assertRaises(ValueError) as e:
                     checklist.sign(con, None, "dry run")
                 w.assert_not_called(); s.assert_not_called(); p.assert_not_called()
@@ -522,11 +523,11 @@ class PacketColumns(unittest.TestCase):
     column tables are written from the headers that ship, and a row without a value is not in values.csv but is counted."""
 
     def _packet(self, tmp: Path, hc=None):
-        from ledger.store import TABLES, TAXONOMY
+        from ledger.core.store import TABLES, TAXONOMY
         value = {"ticker": "NVDA", "field": "capex", "period": "FY2026", "period_end": "2026-01-25", "value": 5, "basis": "as_reported", "first_reported": 5,
                  "source": "agent", "label": "agree", "extraction_ids": "0000000001-26-000001|capex|2025-01-27|2026-01-25"}
         blank = {**value, "field": "opex", "value": None, "first_reported": None, "source": "missing", "label": "not_reported", "extraction_ids": None}
-        api_cols = {  # the columns the read API serves per list (ledger/api.py fetch), the columns a release ships
+        api_cols = {  # the columns the read API serves per list (ledger/web/api.py fetch), the columns a release ships
             "values": ["ticker", "field", "period", "period_end", "value", "check_label", "basis", "first_reported", "source", "extraction_ids", "accession", "filed", "citations", "layer", "proven", "status", "flag"],
             "facts": ["ticker", "field", "dimension", "period", "period_end", "value", "check_label", "xbrl", "accession", "basis", "layer", "proven", "status", "flag"],
             "statements": ["statement_id", "ticker", "field", "period", "kind", "scope", "class", "amount_low", "amount_high", "amount_mid", "share", "quote", "source", "date", "url", "layer", "proven"],
@@ -582,7 +583,7 @@ class PacketColumns(unittest.TestCase):
         self.assertIn("1 rows without a value, not in values.csv (not_reported: 1).", p["files"]["DIFF.md"])
 
     def test_an_undocumented_column_refuses_to_ship(self):
-        from ledger.release import column_doc, readme
+        from ledger.release.release import column_doc, readme
         with self.assertRaises(KeyError):
             column_doc("values", "made_up")
         with self.assertRaises(KeyError):

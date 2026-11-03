@@ -1,7 +1,7 @@
 """The XBRL answer key: fiscal-year labels, vintages, the revenue tag choice, opex."""
 import unittest
 
-from ledger.reference.normalize import annual_series, best_vintages, derive_costs, fiscal_label
+from ledger.ingest.reference.normalize import annual_series, best_vintages, derive_costs, fiscal_label
 
 
 def fact(start, end, val, accn="a1", form="10-K", filed="2025-01-01", concept="X"):

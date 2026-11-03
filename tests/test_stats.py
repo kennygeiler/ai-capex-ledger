@@ -1,7 +1,7 @@
-"""ledger/stats.py (T53): the Wilson 95% interval on a share, with known values; None where there is no denominator."""
+"""ledger/core/stats.py (T53): the Wilson 95% interval on a share, with known values; None where there is no denominator."""
 import unittest
 
-from ledger import stats
+from ledger.core import stats
 
 
 class Wilson(unittest.TestCase):

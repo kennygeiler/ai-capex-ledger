@@ -17,7 +17,7 @@ cannot come back silently.
 
 1. An agent reads a filing and answers in JSON, citing the exact cell for every number.
 2. Code checks the answer: its shape, each citation against the parsed filing, then the rules and the answer keys.
-3. Each row lands in one state: checked, explained, open or blocked (`ledger/status.py`, one function for every page).
+3. Each row lands in one state: checked, explained, open or blocked (`ledger/core/status.py`, one function for every page).
 4. A person looks only at open rows, and decides by writing a definition, a rule or a resolution.
 5. A new kind of failure is written up as a failure type, given a check, and frozen into the golden fixtures.
 6. The golden test, the test suite and the release gates refuse any change or release that makes things worse.
@@ -32,14 +32,14 @@ cannot come back silently.
 | Synthetic cases along dimensions | `ledger faults`: six kinds of planted error on real extractions | Built |
 | Deterministic assertions first | Schema, citation checks, 20 rules, five answer keys, a rendered second read | Built |
 | Trajectory and run logs | `runs` table: model, tokens, seconds, attempts per call | Built |
-| Score per agent | `ledger/score.py`: counts with their denominators | Built (T49, merged 1 Nov) |
+| Score per agent | `ledger/checks/score.py`: counts with their denominators | Built (T49, merged 1 Nov) |
 | Confidence intervals | Wilson 95% on every share | Planned (T53) |
 | Error rate where no answer key exists | Stratified hand-checked sample, ASML first | Planned (T53) |
 | Reliability across runs (pass^k) | Same task run k times per reader | Planned (T60) |
 | Paired test before a prompt change | Old and new prompt on the same cells, per field | Planned (T61) |
 | Gates in CI | Golden check, `reports/tests.json` (`ledger test`, T30, merged 1 Nov), release gates G1–G6 | Built |
 | Live monitoring | `ledger watch` for new filings; decisions expire when their inputs change | Built; reopen on new evidence T57b |
-| Cost as a metric | `ledger/cost.py` per company and per agent; person minutes | Agent cost built; person minutes T38 |
+| Cost as a metric | `ledger/extract/cost.py` per company and per agent; person minutes | Agent cost built; person minutes T38 |
 | Close the loop | Failure → type → check → fixture → golden freeze | Built |
 
 ## Error analysis: the failure log
@@ -53,7 +53,7 @@ errors. A type whose catching check is "none" is a finding in itself: a known wa
 
 ## The golden set
 
-`ledger/golden.py`. `freeze` copies, for the proven companies, everything the code stages read (parsed tables, texts,
+`ledger/checks/golden.py`. `freeze` copies, for the proven companies, everything the code stages read (parsed tables, texts,
 the agents' answers, document rows) into `fixtures/`, and the tables the code makes from them into
 `fixtures/expected/`. `check` rebuilds the repo in a temporary folder, runs every code stage with nothing fetched and
 no agent asked, and compares every table column by column, row by row.
@@ -72,7 +72,7 @@ no agent asked, and compares every table column by column, row by row.
 ## The gold set (T82)
 
 Golden is a regression test: it says nothing changed, and it froze the Amazon blanks as expected (docs/DISCIPLINES.md).
-`gold/<TICKER>.json` (`ledger/gold.py`) is the correctness test beside it: per proven company about 10 values and 10
+`gold/<TICKER>.json` (`ledger/review/gold.py`) is the correctness test beside it: per proven company about 10 values and 10
 facts, stratified by field and year, untagged facts (no XBRL twin) oversampled to 6 of the 10, drawn with the seed
 `GOLDEN_SEED|<release version>|<ticker>` so the sample moves between releases. Each item holds the claim (ticker,
 field, dimension, period, value, the cited cells with deep link and screenshot) and a person's verdict: right, wrong or
@@ -101,7 +101,7 @@ can't say, a note, `by` on `config.PEOPLE`, `at`.
 
 ## Planted errors
 
-`ledger/faults.py` corrupts one real extraction at a time, the way agents misread statements, and records what caught
+`ledger/checks/faults.py` corrupts one real extraction at a time, the way agents misread statements, and records what caught
 it. The six kinds are the dimensions: wrong column, stale (comparative) column, wrong row, wrong scale, sign flip,
 misread digits. Each fault ends in one outcome: no effect (it never reaches a released value), caught by a rule,
 caught only by the XBRL comparison, or escaped (a released value changed and nothing fired). The latest run on the
@@ -111,9 +111,9 @@ Reports are in `reports/<companies>-faults.json`.
 ## Deterministic checks, in order
 
 1. The task hides the answer key. The reader sees only the statement tables, never an XBRL value or tag name
-   (`ledger/extract.py`), so agreement with XBRL means something.
+   (`ledger/extract/extract.py`), so agreement with XBRL means something.
 2. Shape. The answer must match its JSON schema (`agents/schemas/`); a broken answer gets one retry with the reason,
-   then is recorded as an error, never guessed (`ledger/agent.py`).
+   then is recorded as an error, never guessed (`ledger/extract/agent.py`).
 3. Citation. Every value names a table, row, column and cell; the cell must exist in the parsed filing and the cell
    times the unit must equal the value (rule `citation_resolves`).
 4. Rules. Fifteen rules in `rules/*.yaml`, each with a severity. Block: citation, column matches period, period length,
@@ -124,14 +124,14 @@ Reports are in `reports/<companies>-faults.json`.
    total), a later truth (the actual against what was planned). They are not equally strong: a twin is independent of
    the reading, while an earnings release comes from the same finance team and can share its error. T56 grades them so
    each row shows its strongest key.
-6. A second read on the rendered page. `ledger/evidence.py` opens the 10-K in Chrome as a person sees it, finds the
+6. A second read on the rendered page. `ledger/checks/evidence.py` opens the 10-K in Chrome as a person sees it, finds the
    cell by its row label and column header on the page, not through the table parser, and boxes it in a screenshot.
 
 There is no model-based grading. Everything above is code a person can read and rerun.
 
 ## Scores per agent
 
-`ledger/score.py` (T49) scores each live reader on the companies in scope: how many of its outputs are checked,
+`ledger/checks/score.py` (T49) scores each live reader on the companies in scope: how many of its outputs are checked,
 explained, open and blocked, how many agree with their structured twin where one exists, and how many planted faults
 the checks behind it caught. Every count is shown with what it is out of; the page computes the shares. On the six
 today: the statement reader has 70 of 81 rows checked and 70 of 71 agree with XBRL where a tag exists; the notes
@@ -143,7 +143,7 @@ files, its model and tools, its prompt versions, and the checks that judge it.
 ## Statistics
 
 - Intervals (T53, built for the keyed share). Every share gets a Wilson 95% interval. At 100 cells and 80% correct, the interval is about ±8
-  points, so a move from 80% to 83% is not a result. `ledger/stats.py` computes it; `score.twin.interval` carries it per reader and the
+  points, so a move from 80% to 83% is not a result. `ledger/core/stats.py` computes it; `score.twin.interval` carries it per reader and the
   Rules page writes it in text beside the share (reader 70 of 71, 92.4–99.8% on the six). Per field waits on `field` on the trail's items.
 - No answer key (T53). For a source with no structured twin (the ASML annual report's EU Taxonomy capex table is
   untagged), a person checks a stratified random sample of cells, oversampling the risky parts (the KPI table, note
@@ -164,7 +164,7 @@ unstable, a finding in its own right. Sampled, not run on every company, because
 
 Every agent call writes model, input and output tokens, seconds, attempts and the task's hash into `_run`, loaded into
 the `runs` table. The readers run with no tools (`--tools ""`), so the path an agent takes is one call and at most one
-retry: the attempt count is the trajectory. `ledger/cost.py` turns the runs into cost per step, per company and per
+retry: the attempt count is the trajectory. `ledger/extract/cost.py` turns the runs into cost per step, per company and per
 release at list price (the agents run on a subscription, so this is what the work would cost, not what was paid).
 
 ## Gates
@@ -180,7 +180,7 @@ release at list price (the agents run on a subscription, so this is what the wor
 
 - `ledger watch` asks the SEC for 10-Ks and 10-K/As the ledger has not read; `--run` reads them.
 - A person's resolution is keyed to a hash of the item's content, so it holds only while the item is unchanged; a
-  changed item comes back on its own (`ledger/resolutions.py`).
+  changed item comes back on its own (`ledger/review/resolutions.py`).
 - T57 adds the rest: every question has an owner role (data, expert or client), a scope and a count of the cells it
   governs; new evidence that agrees attaches quietly, and evidence that contradicts reopens the question and routes it
   to its owner.
@@ -189,7 +189,7 @@ release at list price (the agents run on a subscription, so this is what the wor
 
 ## Cost
 
-The measure of the pipeline is what the next company costs: agent time and tokens (`ledger/cost.py`, built) and a
+The measure of the pipeline is what the next company costs: agent time and tokens (`ledger/extract/cost.py`, built) and a
 person's minutes per stage (T38). T35 times Micron through every stage, and T52 widens to 100 companies in batches, so
 `reports/company-cost.md` shows the curve: whether company 50 costs less of a person than company 7.
 

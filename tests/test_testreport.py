@@ -1,4 +1,4 @@
-"""`ledger test` writes reports/tests.json (ledger/testreport.py) and the Release checklist's "Test run" line reads it
+"""`ledger test` writes reports/tests.json (ledger/release/testreport.py) and the Release checklist's "Test run" line reads it
 (checklist.tests_line): the writer's shape on a synthetic result, and the line on a passing, failing, stale and
 missing file. No database, no git: the sha is passed in."""
 import json
@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ledger import checklist, testreport
+from ledger.release import checklist, testreport
 
 
 class _T:
@@ -106,7 +106,7 @@ class Line(unittest.TestCase):
         self.assertIn("golden FAILED", l["note"])
 
     def test_passing_on_another_commit_or_a_dirty_tree_is_stale_and_informs(self):
-        other = checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=["ledger/rules.py", "reports/tests.json"])
+        other = checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=["ledger/checks/rules.py", "reports/tests.json"])
         self.assertEqual((other["state"], other["required"], other["ok"]), ("stale", False, False))  # its own state (states.LINE), not Info
         self.assertIn("stale", other["note"])
         self.assertIn("HEAD is abc1234", other["note"])

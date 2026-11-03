@@ -124,7 +124,7 @@ if __name__ == "__main__":
 
 class NoteLocator(unittest.TestCase):
     def test_a_renamed_ppe_table_is_a_candidate(self):
-        from ledger.notes import locate
+        from ledger.extract.notes import locate
         rows = ["Technical infrastructure(1)", "Office space", "Corporate and other assets", "Property and equipment, in service", "Less: accumulated depreciation", "Property and equipment, net"]
         t = {"id": "t0130", "before": "Property and equipment, net, consisted of the following (in millions):", "rows": [{"label": l, "cells": [{"col": 0, "text": "1", "value": 1}]} for l in rows]}
         self.assertIn("t0130", locate([t], set())["ppe"])

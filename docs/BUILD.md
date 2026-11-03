@@ -27,7 +27,7 @@ Before the pre-mortem, find the state machines the change touches in `docs/STATE
 
 `claims/claims.yaml` holds one row per claim the product makes: on a page, in the API, or in a release. Each row has the
 claim in the product's own words, where it is shown, the exact strings that show it, what backs it (functions and the
-tests that prove it), a declared status, its gaps and the ticket that closes them. `ledger/claims.py` computes the status:
+tests that prove it), a declared status, its gaps and the ticket that closes them. `ledger/release/claims.py` computes the status:
 
 - proven: built, tested, and the evidence walk passes.
 - partial: works, with the gaps listed.
@@ -55,7 +55,7 @@ without git, on the hosted copy, the Gaps page says "not enforced here").
 
 The page scan reads every page's label maps (the trail's tones, Reconcile's states, the Release line states, the XBRL and
 check words, the gold verdict words), every element styled as a status (a badge or a tone colour), app.html, the cards'
-sentences (`ledger/cards.py`) and Reconcile's causes (`ledger/workbench.py`). Each string it finds needs a row listing it
+sentences (`ledger/web/cards.py`) and Reconcile's causes (`ledger/review/workbench.py`). Each string it finds needs a row listing it
 in `shown`; each string a row lists must be in one of the ledger/ files under its `where`; a built row with nothing in
 `shown` fails. The Release line "Claims register: every shown claim has a row" is red on any of these, on an edited
 finding, or when the scan read nothing.

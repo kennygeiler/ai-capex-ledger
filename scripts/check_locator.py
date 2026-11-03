@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from ledger.ingest.filings import list_filings  # noqa: E402
 from ledger.ingest.statements import assemble, locate  # noqa: E402
 from ledger.ingest.tables import document_units, parse_tables  # noqa: E402
-from ledger.reference.normalize import company_years  # noqa: E402
+from ledger.ingest.reference.normalize import company_years  # noqa: E402
 
 
 def rounding(v: float) -> float:

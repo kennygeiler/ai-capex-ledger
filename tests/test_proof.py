@@ -1,7 +1,7 @@
 import unittest
 
-from ledger import status
-from ledger.proof import _item, amendment_without_statements, keys_of
+from ledger.core import status
+from ledger.checks.proof import _item, amendment_without_statements, keys_of
 
 
 class Amendments(unittest.TestCase):

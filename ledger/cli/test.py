@@ -1,7 +1,7 @@
 """python -m ledger test [--fast] [--verbose]
 
 Runs the unittest suite (tests/) and writes reports/tests.json for the Release page's "Test run" line (T30,
-ledger/testreport.py). --fast sets LEDGER_SKIP_GOLDEN=1, so the golden test is skipped and the report says golden null.
+ledger/release/testreport.py). --fast sets LEDGER_SKIP_GOLDEN=1, so the golden test is skipped and the report says golden null.
 Offline by default (LEDGER_OFFLINE=1, ledger/ingest/edgar.py): SEC reads come from data/raw whatever their age, anything
 uncached raises Offline, no SEC_USER_AGENT needed; --online lets a test fetch. Exit 0 only when every test passed."""
 import argparse
@@ -10,8 +10,8 @@ import sys
 import time
 import unittest
 
-from .. import store
-from ..testreport import REPORT, Result, report, write
+from ..core import store
+from ..release.testreport import REPORT, Result, report, write
 
 
 def main(argv=None) -> int:

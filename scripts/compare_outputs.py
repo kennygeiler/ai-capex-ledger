@@ -7,7 +7,7 @@ from pathlib import Path
 import duckdb
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from ledger.extract import Invalid, resolve, validate_output  # noqa: E402
+from ledger.extract.extract import Invalid, resolve, validate_output  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 run, base = Path(sys.argv[1]), ROOT / "data" / "extract" / "outputs"

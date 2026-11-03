@@ -1,20 +1,20 @@
 # The claims register: one entry per claim the product makes on a page, in the API or in a release (docs/BUILD.md).
-# ledger/claims.py loads it, checks every backed_by entry, and COMPUTES the status wherever a fact can decide it. A row
+# ledger/release/claims.py loads it, checks every backed_by entry, and COMPUTES the status wherever a fact can decide it. A row
 # with `checks` gets its status from the facts; a row without checks starts from its declared status and can only get
 # worse. docs/CLAIMS.md and the Gaps page are written from this file and claims/findings.jsonl.
 #
-# Fields (ledger/claims.py refuses an entry that lacks one, or has an unknown status or check):
+# Fields (ledger/release/claims.py refuses an entry that lacks one, or has an unknown status or check):
 #   id          short, never reused.
 #   claim       the claim as the product shows it, in its own words.
-#   where       pages (ledger/pages/<name>.js), the Python that writes the words (ledger/cards.py, ...), API routes, files.
-#   shown       the exact source strings of this claim. The page scan (ledger/claims.py scan) reads every page's label
+#   where       pages (ledger/web/pages/<name>.js), the Python that writes the words (ledger/web/cards.py, ...), API routes, files.
+#   shown       the exact source strings of this claim. The page scan (ledger/release/claims.py scan) reads every page's label
 #               maps and status texts and the cards' and causes' sentences; each string it finds needs a row listing it
 #               here, and each string here must be in one of the ledger/ files under `where`. A built row with nothing
 #               here fails too: name a string (a label, a function name) in one of its files.
 #   backed_by   functions (module.name, must import) and tests (tests.<module>.<Class>.<method>, must exist, and must
 #               not have been skipped or failed in the last `ledger test` run).
 #   status      the declared status: proven | partial | stub | stale | planned.
-#   checks      the facts that compute a status (ledger/claims.py CHECKS): gold, edgar_watch, hosted_copy,
+#   checks      the facts that compute a status (ledger/release/claims.py CHECKS): gold, edgar_watch, hosted_copy,
 #               mappings_confirmed, golden_report. Open findings on a claim (claims/findings.jsonl) cap it at partial.
 #   gaps        what is not yet true and no check measures, in product words. A claim with any gap is never proven.
 #               Gaps a check measures (counts, dates, versions) are written by the check, never typed here.
@@ -22,10 +22,10 @@
 
 - id: verified_xbrl
   claim: "Verified · matches SEC XBRL"
-  where: [ledger/states.py, ledger/pages/trail.js, ledger/pages/_shared.js, ledger/pages/data.js, ledger/cards.py, /api/v1/proof/<ticker>]
+  where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/pages/_shared.js, ledger/web/pages/data.js, ledger/web/cards.py, /api/v1/proof/<ticker>]
   shown: ["Verified", "Matches SEC XBRL", "· matches SEC XBRL"]
   backed_by:
-    functions: [ledger.status.state, ledger.cards._how, ledger.ties.fact_state]
+    functions: [ledger.core.status.state, ledger.web.cards._how, ledger.checks.ties.fact_state]
     tests:
       - tests.test_status.Definition.test_the_four_answer_keys_check_a_row_the_same_way
       - tests.test_cards.How.test_the_ladder_in_plain_words
@@ -37,10 +37,10 @@
 
 - id: verified_other
   claim: "Done · statements located, no blocking items (found, not an independent check)"
-  where: [ledger/states.py, ledger/cards.py, ledger/pages/trail.js]
+  where: [ledger/core/states.py, ledger/web/cards.py, ledger/web/pages/trail.js]
   shown: ["Statements located", "No blocking items", "Done"]
   backed_by:
-    functions: [ledger.cards._how]
+    functions: [ledger.web.cards._how]
     tests:
       - tests.test_cards.How.test_each_kind_of_evidence_in_one_sentence
       - tests.test_cards.How.test_only_sec_xbrl_and_quotes_read_verified
@@ -51,10 +51,10 @@
 
 - id: corroborated_tie
   claim: "Corroborated · ties to reported total"
-  where: [ledger/states.py, ledger/pages/trail.js, ledger/cards.py, ledger/ties.py]
+  where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/cards.py, ledger/checks/ties.py]
   shown: ["Corroborated", "Ties to reported total", "Tie to totals", "Does not tie to reported total", "Does not tie · gap"]
   backed_by:
-    functions: [ledger.ties.tolerance, ledger.ties.groups, ledger.ties.degenerate, ledger.status.evidence_gap]
+    functions: [ledger.checks.ties.tolerance, ledger.checks.ties.groups, ledger.checks.ties.degenerate, ledger.core.status.evidence_gap]
     tests:
       - tests.test_rules.NoteTies.test_within_rounding_ties_and_beyond_does_not
       - tests.test_rules.NoteTies.test_degenerate_groups_are_not_judged
@@ -69,10 +69,10 @@
 
 - id: corroborated_second_reading
   claim: "Corroborated · confirmed in a later filing"
-  where: [ledger/pages/trail.js, ledger/cards.py, ledger/ties.py]
+  where: [ledger/web/pages/trail.js, ledger/web/cards.py, ledger/checks/ties.py]
   shown: ["Confirmed in", "confirmed in 2 filings", "Readings differ"]
   backed_by:
-    functions: [ledger.ties.corroborated, ledger.ties.second_accession]
+    functions: [ledger.checks.ties.corroborated, ledger.checks.ties.second_accession]
     tests:
       - tests.test_rules.NoteTies.test_readings
       - tests.test_rules.NoteTies.test_an_amendment_is_not_a_second_reading
@@ -84,10 +84,10 @@
 
 - id: unverified_citation_only
   claim: "Unverified · citation only"
-  where: [ledger/states.py, ledger/pages/trail.js, ledger/pages/_shared.js, ledger/pages/proof.js, ledger/cards.py]
+  where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/pages/_shared.js, ledger/web/pages/proof.js, ledger/web/cards.py]
   shown: ["Unverified", "Citation only", "Unverified · citation only", "Not in SEC XBRL"]
   backed_by:
-    functions: [ledger.status.of_fact, ledger.cards._how]
+    functions: [ledger.core.status.of_fact, ledger.web.cards._how]
     tests:
       - tests.test_status.Definition.test_the_ladder_of_an_untagged_fact
       - tests.test_status.EveryCheckedRowNamesItsEvidence.test_planted_no_reference_on_a_fact_xbrl_holds
@@ -98,11 +98,11 @@
 
 - id: unverified_explained
   claim: "Unverified · explained (not reported, definition, decision, rule)"
-  where: [ledger/states.py, ledger/cards.py, ledger/pages/_shared.js]
+  where: [ledger/core/states.py, ledger/web/cards.py, ledger/web/pages/_shared.js]
   shown: ["Not reported · none in SEC XBRL", "Definition differs from SEC XBRL", "Decision on file", "Not reported", "Unverified · definition",
           "Restated in a later 10-K", "Part-year amount"]
   backed_by:
-    functions: [ledger.status.state, ledger.cards._how]
+    functions: [ledger.core.status.state, ledger.web.cards._how]
     tests:
       - tests.test_status.Definition.test_checked_explained_open_blocked
       - tests.test_cards.How.test_each_kind_of_evidence_in_one_sentence
@@ -114,11 +114,11 @@
 
 - id: needs_review
   claim: "Needs review"
-  where: [ledger/states.py, ledger/pages/trail.js, ledger/pages/_shared.js, ledger/cards.py, /api/v1/proof/<ticker>]
+  where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/pages/_shared.js, ledger/web/cards.py, /api/v1/proof/<ticker>]
   shown: ["Needs review", "to review", "Complete", "Differs from SEC XBRL", "Proposed category. Review in Reconcile.",
           "In SEC XBRL, not extracted. Re-read required.", "In SEC XBRL, not extracted", "Decide in Reconcile"]
   backed_by:
-    functions: [ledger.status.is_open, ledger.proof.company]
+    functions: [ledger.core.status.is_open, ledger.checks.proof.company]
     tests:
       - tests.test_status.Definition.test_checked_explained_open_blocked
       - tests.test_status.ProofAgreesWithReconcile.test_open_counts_agree_on_the_fixtures
@@ -129,10 +129,10 @@
 
 - id: item_states
   claim: "Item states · Verified · Unverified · Needs review · Blocks release · Proposed"
-  where: [ledger/states.py, ledger/pages/reconcile.js, ledger/pages/proof.js, ledger/status.py]
+  where: [ledger/core/states.py, ledger/web/pages/reconcile.js, ledger/web/pages/proof.js, ledger/core/status.py]
   shown: ["Verified", "Unverified", "Needs review", "Blocks release", "block release", "Proposed", "Checked", "To review", "Not checked"]
   backed_by:
-    functions: [ledger.status.state, ledger.status.of_mapping]
+    functions: [ledger.core.status.state, ledger.core.status.of_mapping]
     tests:
       - tests.test_status.Definition.test_checked_explained_open_blocked
       - tests.test_status.ProofAgreesWithReconcile.test_open_counts_agree_on_the_fixtures
@@ -144,12 +144,12 @@
 
 - id: reconcile_causes
   claim: "Reconcile causes"
-  where: [ledger/workbench.py, ledger/pages/reconcile.js]
+  where: [ledger/review/workbench.py, ledger/web/pages/reconcile.js]
   shown: ["Rule findings", "Restated", "Large year-over-year change", "Line renamed", "Capex high vs revenue", "Opex above revenue",
           "Differs from SEC XBRL", "Changed since last release", "Blocks release", "Not extracted", "New SEC filing",
           "Does not tie to reported total", "Readings differ across filings"]
   backed_by:
-    functions: [ledger.workbench.items]
+    functions: [ledger.review.workbench.items]
     tests:
       - tests.test_workbench.Workbench.test_fact_differs_row_carries_cell_and_delta
       - tests.test_workbench.Workbench.test_a_not_extracted_value_is_an_open_row_with_its_cause
@@ -160,10 +160,10 @@
 
 - id: company_proven
   claim: "Proven"
-  where: [ledger/pages/trail.js, ledger/pages/proof.js, ledger/pages/rules.js, /api/v1/proof]
+  where: [ledger/web/pages/trail.js, ledger/web/pages/proof.js, ledger/web/pages/rules.js, /api/v1/proof]
   shown: ["'Proven'", "Proven", "Ready for release", "Not in scope", "No items to review"]
   backed_by:
-    functions: [ledger.proof.company, ledger.proof.board]
+    functions: [ledger.checks.proof.company, ledger.checks.proof.board]
     tests:
       - tests.test_completeness.TheSixAreComplete.test_the_six_read_zero_and_coverage_agrees
       - tests.test_scope.Scope.test_the_board_and_the_queue_read_the_scope
@@ -175,10 +175,10 @@
 
 - id: golden_equal
   claim: "Regression test"
-  where: [ledger/pages/proof.js, ledger/golden.py, reports/golden.json]
+  where: [ledger/web/pages/proof.js, ledger/checks/golden.py, reports/golden.json]
   shown: ["Tables unchanged", "Tables changed", "Pass", "Fail"]
   backed_by:
-    functions: [ledger.golden.check, ledger.gold.compare_db, ledger.checklist.golden_line]
+    functions: [ledger.checks.golden.check, ledger.review.gold.compare_db, ledger.release.checklist.golden_line]
     tests:
       - tests.test_golden.Golden.test_code_stages_reproduce_the_expected_tables
       - tests.test_gold.Cli.test_unverified_only_exits_0_and_says_unverified
@@ -192,10 +192,10 @@
 
 - id: gold_error_rate
   claim: "Hand-check error rate"
-  where: [ledger/states.py, ledger/pages/proof.js, ledger/gold.py, /api/v1/gold]
+  where: [ledger/core/states.py, ledger/web/pages/proof.js, ledger/review/gold.py, /api/v1/gold]
   shown: ["Hand check: ", "'Hand check'", "Right", "Wrong", "Can’t say", "Unchecked", "Removed from dataset", "Now", "Note required"]
   backed_by:
-    functions: [ledger.gold.error_rate, ledger.gold.load_checked, ledger.stats.wilson]
+    functions: [ledger.review.gold.error_rate, ledger.review.gold.load_checked, ledger.core.stats.wilson]
     tests:
       - tests.test_gold.Rate.test_error_rate_has_n_and_a_wilson_interval
       - tests.test_gold.Check.test_unverified_is_counted_never_a_pass
@@ -207,10 +207,10 @@
 
 - id: edgar_checked
   claim: "SEC checked · Next 10-K expected"
-  where: [ledger/states.py, ledger/pages/trail.js, ledger/cards.py, ledger/clock.py]
+  where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/cards.py, ledger/core/clock.py]
   shown: ["SEC checked", "SEC never checked", "SEC check failed", "out of date", "Next 10-K expected"]
   backed_by:
-    functions: [ledger.cards.status_line, ledger.clock.age_hours]
+    functions: [ledger.web.cards.status_line, ledger.core.clock.age_hours]
     tests:
       - tests.test_cards.StatusLine.test_edgar_age_and_the_48_hour_threshold
       - tests.test_cards.StatusLine.test_naive_future_and_unreadable_times_read_stale
@@ -224,10 +224,10 @@
 
 - id: verification_tile
   claim: "Verification tile counts"
-  where: [ledger/pages/trail.js, ledger/cards.py]
+  where: [ledger/web/pages/trail.js, ledger/web/cards.py]
   shown: ["Tie to totals", "Citation only", "Quotes verified"]
   backed_by:
-    functions: [ledger.cards.status_line]
+    functions: [ledger.web.cards.status_line]
     tests:
       - tests.test_cards.StatusLine.test_tile_counts_come_from_the_items
       - tests.test_status.EveryCheckedRowNamesItsEvidence.test_the_ladder_on_the_six
@@ -237,10 +237,10 @@
 
 - id: coverage_tile
   claim: "Coverage"
-  where: [ledger/pages/trail.js, ledger/cards.py]
+  where: [ledger/web/pages/trail.js, ledger/web/cards.py]
   shown: ["Next 10-K expected", "new filing", "not read"]
   backed_by:
-    functions: [ledger.cards.add, ledger.cards.status_line]
+    functions: [ledger.web.cards.add, ledger.web.cards.status_line]
     tests:
       - tests.test_cards.StatusLine.test_next_10k_expected_is_a_year_after_the_period_plus_the_filing_lag
       - tests.test_cards.StatusLine.test_edgar_age_and_the_48_hour_threshold
@@ -252,10 +252,10 @@
 
 - id: last_release
   claim: "Last release · Changes since release"
-  where: [ledger/pages/trail.js, ledger/cards.py]
+  where: [ledger/web/pages/trail.js, ledger/web/cards.py]
   shown: ["def since_release"]
   backed_by:
-    functions: [ledger.cards.last_release, ledger.cards.since_release]
+    functions: [ledger.web.cards.last_release, ledger.web.cards.since_release]
     tests:
       - tests.test_cards.SinceRelease.test_added_changed_removed_against_the_signed_release
   status: partial
@@ -265,10 +265,10 @@
 
 - id: mapping_confirmed
   claim: "Category mapping confirmed"
-  where: [ledger/pages/trail.js, ledger/pages/reconcile.js, ledger/cards.py, ledger/mapcard.py, taxonomy/asset_types.yaml]
+  where: [ledger/web/pages/trail.js, ledger/web/pages/reconcile.js, ledger/web/cards.py, ledger/review/mapcard.py, taxonomy/asset_types.yaml]
   shown: ["Confirmed", "Proposed again after rejection", "To confirm", "Unmapped"]
   backed_by:
-    functions: [ledger.status.confirmed, ledger.status.of_mapping, ledger.mapper.approve]
+    functions: [ledger.core.status.confirmed, ledger.core.status.of_mapping, ledger.review.mapper.approve]
     tests:
       - tests.test_mapper.Confirmed.test_confirmed_is_a_field_check
       - tests.test_mapper.Hardening.test_a_model_never_confirms
@@ -280,10 +280,10 @@
 
 - id: mapping_filer_tag
   claim: "Matches company's own tag"
-  where: [ledger/states.py, ledger/mapcard.py, ledger/cards.py, ledger/filertag.py, ledger/status.py, ledger/taxonomy.py, ledger/store.py, ledger/pages/trail.js, ledger/pages/reconcile.js, ledger/limitations.py, ledger/claims.py, /api/v1/proof/<ticker>, /api/v1/reconcile]
+  where: [ledger/core/states.py, ledger/review/mapcard.py, ledger/web/cards.py, ledger/checks/filertag.py, ledger/core/status.py, ledger/release/taxonomy.py, ledger/core/store.py, ledger/web/pages/trail.js, ledger/web/pages/reconcile.js, ledger/release/limitations.py, ledger/release/claims.py, /api/v1/proof/<ticker>, /api/v1/reconcile]
   shown: ["Matches company tag", "Matches company's own tag", "Matches company’s own tag", "Same as proposed", "def verified", "Confirm or override in Reconcile", "def tally", "mapping_check"]
   backed_by:
-    functions: [ledger.filertag.verdicts, ledger.filertag.verdicts_ok, ledger.filertag.verified, ledger.filertag.gap, ledger.filertag.tally, ledger.status.of_mapping, ledger.status.of_fact, ledger.taxonomy.to_confirm, ledger.mapper.approve]
+    functions: [ledger.checks.filertag.verdicts, ledger.checks.filertag.verdicts_ok, ledger.checks.filertag.verified, ledger.checks.filertag.gap, ledger.checks.filertag.tally, ledger.core.status.of_mapping, ledger.core.status.of_fact, ledger.release.taxonomy.to_confirm, ledger.review.mapper.approve]
     tests:
       - tests.test_filertag.Verdict.test_one_member_every_year_is_verified
       - tests.test_cards.How.test_only_sec_xbrl_and_quotes_read_verified
@@ -318,11 +318,11 @@
 
 - id: mapping_filer_tag_conflict
   claim: "Company's own tag: differs, company-specific, ambiguous, by year, not tagged, not checked"
-  where: [ledger/mapcard.py, ledger/pages/reconcile.js, ledger/pages/_shared.js]
+  where: [ledger/review/mapcard.py, ledger/web/pages/reconcile.js, ledger/web/pages/_shared.js]
   shown: ["Differs", "Company tags", "Differs by year", "Ambiguous", "Company-specific tag", "Not tagged", "Not compared: zero value",
           "Not checked: instance not on file", "not every extracted year", "no proposal"]
   backed_by:
-    functions: [ledger.filertag.judge, ledger.filertag.compare, ledger.mapcard.tag_text]
+    functions: [ledger.checks.filertag.judge, ledger.checks.filertag.compare, ledger.review.mapcard.tag_text]
     tests:
       - tests.test_filertag.Verdict.test_a_different_member_is_a_conflict_not_a_check
       - tests.test_filertag.Guards.test_a_company_tag_with_no_proposal_is_its_own_status
@@ -333,10 +333,10 @@
 
 - id: mapping_fasb_definition
   claim: "The FASB label and definition, verbatim · Source: FASB US GAAP 2025"
-  where: [ledger/pages/_shared.js, ledger/mapcard.py, taxonomy/us_gaap_members.yaml]
+  where: [ledger/web/pages/_shared.js, ledger/review/mapcard.py, taxonomy/us_gaap_members.yaml]
   shown: ["`Source: ${D.source}`", "def member_info"]
   backed_by:
-    functions: [ledger.mapcard.member_info, ledger.mapcard.fasb, ledger.mapcard.alternatives]
+    functions: [ledger.review.mapcard.member_info, ledger.review.mapcard.fasb, ledger.review.mapcard.alternatives]
     tests:
       - tests.test_filertag.Card.test_the_card_facts_match_the_yaml_and_definitions
       - tests.test_filertag.Card.test_every_allowed_member_has_its_fasb_words
@@ -349,10 +349,10 @@
 
 - id: mapping_affects
   claim: "Affects N figures"
-  where: [ledger/pages/_shared.js, ledger/mapcard.py]
+  where: [ledger/web/pages/_shared.js, ledger/review/mapcard.py]
   shown: ["'Affects'", "def decisions"]
   backed_by:
-    functions: [ledger.mapcard.decisions]
+    functions: [ledger.review.mapcard.decisions]
     tests:
       - tests.test_filertag.Card.test_the_card_facts_match_the_yaml_and_definitions
       - tests.test_status.ProofAgreesWithReconcile.test_open_counts_agree_on_the_fixtures
@@ -363,10 +363,10 @@
 
 - id: answer_key_complete
   claim: "Answer-key values missing from the dataset = 0"
-  where: [ledger/pages/release.js, ledger/checklist.py]
+  where: [ledger/web/pages/release.js, ledger/release/checklist.py]
   shown: ["Answer-key values missing from the dataset"]
   backed_by:
-    functions: [ledger.proof.missing_from_dataset]
+    functions: [ledger.checks.proof.missing_from_dataset]
     tests:
       - tests.test_completeness.TheSixAreComplete.test_the_six_read_zero_and_coverage_agrees
       - tests.test_completeness.MissingFromDataset.test_no_answer_key_loaded_is_never_a_pass
@@ -377,10 +377,10 @@
 
 - id: label_never_a_check
   claim: "A label never counts as a check on the proven set (tested walk + planted cases)"
-  where: [/api/v1/proof, ledger/status.py, ledger/proof.py]
+  where: [/api/v1/proof, ledger/core/status.py, ledger/checks/proof.py]
   shown: ["def evidence_gap"]
   backed_by:
-    functions: [ledger.status.evidence_gap, ledger.proof.unevidenced]
+    functions: [ledger.core.status.evidence_gap, ledger.checks.proof.unevidenced]
     tests:
       - tests.test_status.ALabelNeverCountsAsACheck.test_planted_bare_labels_fail
       - tests.test_status.EveryCheckedRowNamesItsEvidence.test_the_six_as_they_are
@@ -391,10 +391,10 @@
 
 - id: late_writers
   claim: "Late writers never overwrite"
-  where: [ledger/agent.py, ledger/mapper.py, ledger/gold.py]
+  where: [ledger/extract/agent.py, ledger/review/mapper.py, ledger/review/gold.py]
   shown: ["def stale"]
   backed_by:
-    functions: [ledger.agent.stale, ledger.safewrite.safe_write]
+    functions: [ledger.extract.agent.stale, ledger.core.safewrite.safe_write]
     tests:
       - tests.test_late_writers.StaleOutput.test_repack_a_task_then_load_the_old_output_refused
       - tests.test_late_writers.LateProposal.test_a_proposal_after_a_persons_approval_changes_nothing
@@ -406,10 +406,10 @@
 
 - id: decision_author
   claim: "Decisions record person or run"
-  where: [decisions/resolutions.jsonl, ledger/resolutions.py, /api/resolve]
+  where: [decisions/resolutions.jsonl, ledger/review/resolutions.py, /api/resolve]
   shown: ["def by_person"]
   backed_by:
-    functions: [ledger.resolutions.by_person, ledger.resolutions.by_run, ledger.status.is_person]
+    functions: [ledger.review.resolutions.by_person, ledger.review.resolutions.by_run, ledger.core.status.is_person]
     tests:
       - tests.test_resolutions.Authors.test_a_person_line_by_someone_not_on_people_is_refused
       - tests.test_resolutions.Authors.test_a_run_line_never_supersedes_a_person_line
@@ -420,10 +420,10 @@
 
 - id: limitations_in_packet
   claim: "LIMITATIONS.md in every packet"
-  where: [releases/<version>/LIMITATIONS.md, ledger/limitations.py, ledger/release.py]
+  where: [releases/<version>/LIMITATIONS.md, ledger/release/limitations.py, ledger/release/release.py]
   shown: ["LIMITATIONS.md"]
   backed_by:
-    functions: [ledger.limitations.markdown, ledger.release.limitations_md]
+    functions: [ledger.release.limitations.markdown, ledger.release.release.limitations_md]
     tests:
       - tests.test_limitations.InThePacket.test_build_writes_limitations_md_with_every_entry_and_the_readme_lists_it
       - tests.test_limitations.ComputedCounts.test_a_missing_report_reads_unknown_not_zero
@@ -434,10 +434,10 @@
 
 - id: agent_scores
   claim: "Agent scores with Wilson intervals · planted-error catch rate"
-  where: [ledger/pages/rules.js, ledger/pages/proof.js, /api/agents]
+  where: [ledger/web/pages/rules.js, ledger/web/pages/proof.js, /api/agents]
   shown: ["95% CI", "Planted errors", "Matches SEC XBRL"]
   backed_by:
-    functions: [ledger.score.with_interval, ledger.stats.wilson, ledger.faults.tally]
+    functions: [ledger.checks.score.with_interval, ledger.core.stats.wilson, ledger.checks.faults.tally]
     tests:
       - tests.test_score.Synthetic.test_the_twin_interval_is_wilson_on_the_counts_and_none_without_a_denominator
       - tests.test_stats.Wilson.test_textbook_value
@@ -450,10 +450,10 @@
 
 - id: quotes_verified
   claim: "Quotes verified"
-  where: [ledger/pages/trail.js, ledger/cards.py, ledger/guidance.py, ledger/projects.py]
+  where: [ledger/web/pages/trail.js, ledger/web/cards.py, ledger/extract/guidance.py, ledger/extract/projects.py]
   shown: ["Quotes verified", "Quote matches source"]
   backed_by:
-    functions: [ledger.guidance.validate_output, ledger.projects.validate_output]
+    functions: [ledger.extract.guidance.validate_output, ledger.extract.projects.validate_output]
     tests:
       - tests.test_projects.Contract.test_quote_must_be_in_passage
       - tests.test_status.EveryCheckedRowNamesItsEvidence.test_a_quote_differing_only_in_curly_quotes_space_or_case_holds
@@ -464,10 +464,10 @@
 
 - id: point_in_time
   claim: "Point-in-time as_of"
-  where: ["/api/v1/values?as_of=", "/api/v1/taxonomy?as_of=", ledger/pit.py]
+  where: ["/api/v1/values?as_of=", "/api/v1/taxonomy?as_of=", ledger/web/pit.py]
   shown: ["def as_of"]
   backed_by:
-    functions: [ledger.pit.as_of, ledger.pit.taxonomy_as_of]
+    functions: [ledger.web.pit.as_of, ledger.web.pit.taxonomy_as_of]
     tests:
       - tests.test_pit.Synthetic.test_a_date_between_two_filings_answers_the_first
       - tests.test_pit.RealDatabase.test_no_lookahead_at_every_filing_date
@@ -478,10 +478,10 @@
 
 - id: hosted_copy
   claim: "Hosted copy"
-  where: [ledger/pages/_router.js, https://datahq-production.up.railway.app]
+  where: [ledger/web/pages/_router.js, https://datahq-production.up.railway.app]
   shown: ["Read-only"]
   backed_by:
-    functions: [ledger.app.Handler.do_POST]
+    functions: [ledger.web.app.Handler.do_POST]
     tests:
       - tests.test_checklist.Endpoints.test_readonly_refuses_with_403
   status: stale
@@ -491,10 +491,10 @@
 
 - id: rules_from_reconcile
   claim: "Make this a rule"
-  where: [ledger/pages/reconcile.js, /api/judgement]
+  where: [ledger/web/pages/reconcile.js, /api/judgement]
   shown: ["Make this a rule", "Make this a definition"]
   backed_by:
-    functions: [ledger.judgement.write_rule, ledger.judgement.write_definition, ledger.judgement.offers]
+    functions: [ledger.review.judgement.write_rule, ledger.review.judgement.write_definition, ledger.review.judgement.offers]
     tests:
       - tests.test_judgement.Propagation.test_one_explanation_closes_the_same_cause_on_another_company
       - tests.test_judgement.Propagation.test_the_rule_writer_refuses
@@ -506,10 +506,10 @@
 
 - id: release_checklist
   claim: "Release checklist line states"
-  where: [ledger/states.py, ledger/pages/release.js, ledger/checklist.py]
+  where: [ledger/core/states.py, ledger/web/pages/release.js, ledger/release/checklist.py]
   shown: ["Pass", "Fail", "Info", "Not run", "Stale"]
   backed_by:
-    functions: [ledger.checklist.checklist, ledger.checklist.tests_line, ledger.checklist.golden_line]
+    functions: [ledger.release.checklist.checklist, ledger.release.checklist.tests_line, ledger.release.checklist.golden_line]
     tests:
       - tests.test_testreport.Line.test_missing_file_is_not_run_and_does_not_block
       - tests.test_testreport.Line.test_failing_is_red_and_required_whatever_commit_it_ran_on
@@ -520,10 +520,10 @@
 
 - id: release_signoff
   claim: "Sign"
-  where: [ledger/pages/release.js, ledger/pages/proof.js, /api/release/sign]
+  where: [ledger/web/pages/release.js, ledger/web/pages/proof.js, /api/release/sign]
   shown: ["`Sign ${cl.version}`", "signed by", "not published", "Signed, not published"]
   backed_by:
-    functions: [ledger.checklist.sign, ledger.checklist.checklist]
+    functions: [ledger.release.checklist.sign, ledger.release.checklist.checklist]
     tests:
       - tests.test_checklist.Sign.test_refuses_while_a_required_line_is_red_and_writes_nothing
       - tests.test_checklist.Sign.test_two_signatures_at_once_leave_one
@@ -535,10 +535,10 @@
 
 - id: claims_register
   claim: "Known gaps"
-  where: [ledger/pages/gaps.js, ledger/pages/_router.js, /api/v1/claims, docs/CLAIMS.md]
+  where: [ledger/web/pages/gaps.js, ledger/web/pages/_router.js, /api/v1/claims, docs/CLAIMS.md]
   shown: ["'Known gaps'"]
   backed_by:
-    functions: [ledger.claims.computed, ledger.claims.unregistered, ledger.claims.findings, ledger.claims.append_only]
+    functions: [ledger.release.claims.computed, ledger.release.claims.unregistered, ledger.release.claims.findings, ledger.release.claims.append_only]
     tests:
       - tests.test_claims.Compute.test_a_declared_proven_never_survives_a_fact_against_it
       - tests.test_claims.Scan.test_every_scanned_string_has_a_row
@@ -588,10 +588,10 @@
 
 - id: evidence_cell_located
   claim: "Cell located · the stored 10-K shows the cited text under that row label and column header"
-  where: [ledger/states.py, ledger/pages/evidence.js, ledger/pages/_shared.js, ledger/viewer.py, ledger/crops.py, /api/v1/evidence/<extraction_id>, /filing/<accession>]
+  where: [ledger/core/states.py, ledger/web/pages/evidence.js, ledger/web/pages/_shared.js, ledger/web/viewer.py, ledger/checks/crops.py, /api/v1/evidence/<extraction_id>, /filing/<accession>]
   shown: ["Cell located", "Cell not located", "Crop out of date", "Crop file missing", "No crop"]
   backed_by:
-    functions: [ledger.crops.state, ledger.crops.crop_doc, ledger.evidence.same, ledger.evidence.runs_together, ledger.evidence.offline, ledger.viewer.script]
+    functions: [ledger.checks.crops.state, ledger.checks.crops.crop_doc, ledger.checks.evidence.same, ledger.checks.evidence.runs_together, ledger.checks.evidence.offline, ledger.web.viewer.script]
     tests:
       - tests.test_crops.Locator.test_found_and_not_found
       - tests.test_crops.Locator.test_a_filing_that_differs_from_its_fingerprint_is_not_cropped
@@ -613,10 +613,10 @@
 
 - id: evidence_crop
   claim: "The crop: the cited row, two rows either side and the column header, full table width, the cell boxed"
-  where: [ledger/pages/evidence.js, ledger/crops.py, reports/evidence/crops.json, /api/v1/evidence/<extraction_id>]
+  where: [ledger/web/pages/evidence.js, ledger/checks/crops.py, reports/evidence/crops.json, /api/v1/evidence/<extraction_id>]
   shown: ["Extracted", "Filing", "rows folded", "not shown"]
   backed_by:
-    functions: [ledger.crops.crop_doc, ledger.crops.merge, ledger.crops.run, ledger.crops.view, ledger.crops.located_images, ledger.evidence.load_all]
+    functions: [ledger.checks.crops.crop_doc, ledger.checks.crops.merge, ledger.checks.crops.run, ledger.checks.crops.view, ledger.checks.crops.located_images, ledger.checks.evidence.load_all]
     tests:
       - tests.test_crops.Locator.test_found_and_not_found
       - tests.test_crops.View.test_a_crop_url_only_when_located_and_current
@@ -634,10 +634,10 @@
 
 - id: evidence_compare
   claim: "Two readings side by side · filing A | filing B, each with its accession and filed date"
-  where: [ledger/pages/evidence.js, ledger/pages/trail.js, ledger/cards.py, /api/v1/evidence/<extraction_id>]
+  where: [ledger/web/pages/evidence.js, ledger/web/pages/trail.js, ledger/web/cards.py, /api/v1/evidence/<extraction_id>]
   shown: ["Readings differ", "Readings agree", "Compare filings"]
   backed_by:
-    functions: [ledger.crops.view, ledger.cards.add]
+    functions: [ledger.checks.crops.view, ledger.web.cards.add]
     tests:
       - tests.test_crops.View.test_the_compare_view_has_two_sides_each_with_its_filing
       - tests.test_crops.RowEvidence.test_readings_that_differ_link_the_oldest_and_newest_reading
@@ -649,10 +649,10 @@
 
 - id: evidence_open_in_filing
   claim: "Open in filing (in-app) · the stored 10-K, scrolled to the cell, outlined in red"
-  where: [ledger/pages/evidence.js, ledger/pages/_shared.js, ledger/viewer.py, ledger/app.py, /filing/<accession>]
+  where: [ledger/web/pages/evidence.js, ledger/web/pages/_shared.js, ledger/web/viewer.py, ledger/web/app.py, /filing/<accession>]
   shown: ["Open in filing", "Found on this page", "Not found on this page"]
   backed_by:
-    functions: [ledger.viewer.filing, ledger.viewer.script]
+    functions: [ledger.web.viewer.filing, ledger.web.viewer.script]
     tests:
       - tests.test_crops.Viewer.test_refuses_an_unknown_accession_and_traversal
       - tests.test_crops.Viewer.test_refuses_a_stored_copy_that_differs_from_its_fingerprint
@@ -667,10 +667,10 @@
 
 - id: row_evidence
   claim: "Every trail, hand-check and Reconcile row shows its cited cell: the crop with the cell boxed, or the crop's state; Open lands on the cell in the stored filing"
-  where: [ledger/states.py, ledger/pages/trail.js, ledger/pages/_shared.js, ledger/pages/proof.js, ledger/pages/reconcile.js, ledger/cards.py, ledger/crops.py, ledger/app.py, ledger/workbench.py]
+  where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/pages/_shared.js, ledger/web/pages/proof.js, ledger/web/pages/reconcile.js, ledger/web/cards.py, ledger/checks/crops.py, ledger/web/app.py, ledger/review/workbench.py]
   shown: ["Cell located", "Cell not located", "Crop out of date", "No crop", "Open in filing", "Crop unavailable"]
   backed_by:
-    functions: [ledger.crops.cells, ledger.crops.brief, ledger.crops.state, ledger.cards.add, ledger.app.gold_view, ledger.workbench.items]
+    functions: [ledger.checks.crops.cells, ledger.checks.crops.brief, ledger.checks.crops.state, ledger.web.cards.add, ledger.web.app.gold_view, ledger.review.workbench.items]
     tests:
       - tests.test_crops.RowEvidence.test_trail_gold_reconcile_and_the_api_read_one_state
       - tests.test_crops.RowEvidence.test_a_stale_or_missing_crop_is_never_a_picture_on_any_row

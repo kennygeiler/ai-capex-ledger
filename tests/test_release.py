@@ -1,8 +1,8 @@
 """Decisions re-apply only on unchanged inputs; gates refuse; same inputs, same hash; the diff names changes."""
 import unittest
 
-from ledger.release import build, content_hash, failing, gates, table, to_check, version_key
-from ledger.review import apply, open_items
+from ledger.release.release import build, content_hash, failing, gates, table, to_check, version_key
+from ledger.review.review import apply, open_items
 
 EXC = {"exception_id": "sign|NVDA|capex|FY2026", "rule_id": "sign", "severity": "block", "ticker": "NVDA", "field": "capex", "period": "FY2026", "input_hash": "h1", "message": "m"}
 VAL = {"ticker": "NVDA", "field": "capex", "period": "FY2026", "period_end": "2026-01-25", "value": -5, "source": "agent", "label": "agree", "basis": "as_reported", "first_reported": -5, "extraction_ids": ""}
@@ -96,14 +96,14 @@ class Headlines(unittest.TestCase):
         self.assertIn("| `check_label` |", b["README.md"])
 
     def test_rows_diff_counts_added_and_removed_rows_without_a_value_on_their_own(self):
-        from ledger.release import rows_diff, rows_diff_md
+        from ledger.release.release import rows_diff, rows_diff_md
         t = "ticker,field,period,value\n"
         d = rows_diff({"values.csv": t + "A,capex,FY1,5\nA,opex,FY1,\n"}, {"values.csv": t + "B,capex,FY1,\n"})["values"]
         self.assertEqual((d["added"], d["removed"], d["without_value"]), (2, 1, {"added": 1, "removed": 1}))
         self.assertIn("rows without a value: 1 of the added, 1 of the removed", rows_diff_md({"values": d}))
 
     def test_the_check_line_names_code_and_the_hand_check_file_or_its_absence(self):
-        from ledger.release import GATES, check_line
+        from ledger.release.release import GATES, check_line
         self.assertNotIn("by a person where it can't", GATES["G5"])
         line = check_line([VAL], frozenset())
         self.assertIn("By machine: the re-read of the rendered 10-K confirmed 0 of 0 cited cells", line)
@@ -117,7 +117,7 @@ class Headlines(unittest.TestCase):
 
 class SplitIds(unittest.TestCase):
     def test_commas_inside_labels(self):
-        from ledger.release import split_ids
+        from ledger.release.release import split_ids
         j = "0001692819-26-000006|revenue|2023-01-01|2023-12-31,0001692819-26-000006|cost_of_revenue_part|2023-01-01|2023-12-31|Fuel, purchased power costs, and delivery fees,0001692819-26-000006|operating_income|2023-01-01|2023-12-31"
         self.assertEqual(len(split_ids(j)), 3)
         self.assertTrue(split_ids(j)[1].endswith("delivery fees"))
@@ -129,7 +129,7 @@ class RowsDiff(unittest.TestCase):
     NEW = "ticker,fiscal_year,measure,category,reported_name,value,check,mapped\nMSFT,FY2024,spent,capex,Additions,10,explained,True\nMSFT,FY2024,planned,guidance,Capex,5,verbatim,True\nNVDA,FY2025,spent,capex,Additions,7,agree,True\n"
 
     def test_added_removed_changed_by_key_and_a_changed_check_is_named(self):
-        from ledger.release import rows_diff, rows_diff_md
+        from ledger.release.release import rows_diff, rows_diff_md
         d = rows_diff({"taxonomy.csv": self.NEW, "values.csv": "ticker,field,period,value\n"}, {"taxonomy.csv": self.OLD})
         t = d["taxonomy"]
         self.assertEqual((t["added"], t["removed"], t["changed"], t["rows"]), (1, 2, 1, 3))  # NVDA added; AMD and one of the two MSFT guidance rows removed; MSFT capex check changed
@@ -144,7 +144,7 @@ class RowsDiff(unittest.TestCase):
         self.assertEqual(rows_diff_md({}), "")
 
     def test_a_repeated_key_with_one_changed_and_one_removed(self):
-        from ledger.release import rows_diff
+        from ledger.release.release import rows_diff
         t = "ticker,fiscal_year,measure,category,reported_name,value,source,quote\n"
         old = t + "A,FY1,planned,guidance,Capex,1,s1,one\nA,FY1,planned,guidance,Capex,2,s2,two\nA,FY1,planned,guidance,Capex,3,s3,three\n"
         new = t + "A,FY1,planned,guidance,Capex,1,s1,one\nA,FY1,planned,guidance,Capex,9,s2,two\n"
@@ -153,7 +153,7 @@ class RowsDiff(unittest.TestCase):
         self.assertEqual(d["examples"]["changed"][0]["columns"], {"value": ("2", "9")})  # s2 moved; s3 left
 
     def test_a_repeated_key_pairs_the_closest_rows(self):
-        from ledger.release import rows_diff
+        from ledger.release.release import rows_diff
         t = "ticker,fiscal_year,measure,category,reported_name,value,source\n"
         d = rows_diff({"taxonomy.csv": t + "A,FY1,planned,guidance,Capex,1,s1\nA,FY1,planned,guidance,Capex,2,s2\n"}, {"taxonomy.csv": t + "A,FY1,planned,guidance,Capex,2,s2\nA,FY1,planned,guidance,Capex,1,s1\n"})
         self.assertEqual((d["taxonomy"]["added"], d["taxonomy"]["removed"], d["taxonomy"]["changed"]), (0, 0, 0))
@@ -165,13 +165,13 @@ if __name__ == "__main__":
 
 class OneThreshold(unittest.TestCase):
     def test_zero_never_widens_the_tolerance(self):
-        from ledger import config
+        from ledger.core import config
         self.assertEqual(config.rounding_unit(0), 1)
         self.assertTrue(config.restated(0, 400_000, config.rounding_unit(0)))
 
     def test_every_site_moves_with_the_one_constant(self):
         from unittest import mock
-        from ledger import config
+        from ledger.core import config
         with mock.patch.object(config, "RESTATEMENT_TOLERANCE", 10):
             self.assertFalse(config.restated(100, 104, 1))
         self.assertTrue(config.restated(100, 104, 1))

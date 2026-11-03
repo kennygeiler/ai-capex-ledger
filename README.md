@@ -36,21 +36,21 @@ Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker
 | Path | What |
 |---|---|
 | `ledger/ingest/` | SEC client, 10-K list, table parser, statement locator, restatement-note finder |
-| `ledger/agent.py`, `extract.py`, `reconcile.py` | Headless agent; tasks and citation checks; fiscal-year values |
-| `ledger/texts.py`, `sources/ir.yaml` | The text registry: MD&A, 8-K releases, investor-page PDFs; the links a person listed |
-| `ledger/guidance.py` | AI spend from the texts: passages, the quote contract, table B |
+| `ledger/extract/agent.py`, `extract.py`, `reconcile.py` | Headless agent; tasks and citation checks; fiscal-year values |
+| `ledger/ingest/texts.py`, `sources/ir.yaml` | The text registry: MD&A, 8-K releases, investor-page PDFs; the links a person listed |
+| `ledger/extract/guidance.py` | AI spend from the texts: passages, the quote contract, table B |
 | `ledger/attribution.py`, `agents/models/` | The attributor's data pack, contract and arithmetic; the six money-flow models, versioned |
 | `ledger/evaluation.py`, `gold/ai_capex.yaml` | The reference set of sourced AI-capex figures and the scoring against it |
-| `ledger/notes.py`, `reference/dimensions.py` | Facts from the notes: candidate tables, the cell contract, table B; the filing's XBRL instance with segment and category members as the answer key |
-| `ledger/steps.py`, `ledger/progress.py` | The pipeline's step list; what a run is doing, for Kenny's Data Emporium's Add page |
+| `ledger/extract/notes.py`, `reference/dimensions.py` | Facts from the notes: candidate tables, the cell contract, table B; the filing's XBRL instance with segment and category members as the answer key |
+| `ledger/core/steps.py`, `ledger/core/progress.py` | The pipeline's step list; what a run is doing, for Kenny's Data Emporium's Add page |
 | `airflow/dags/capex_ledger.py` | The same steps as an Airflow DAG (one `BashOperator` each); Airflow is not a dependency, point one at this folder |
-| `agents/agents.json`, `agents/prompts/`, `ledger/agents.py` | The named agents: model, active prompt, change history; a prompt change is saved as a new version |
-| `ledger/app.py`, `app.html`, `proof.py`, `golden.py` | Kenny's Data Emporium: Proof, a company's trail, Rules, Reconcile, Dataset, Explore; the proof model and the golden test (`docs/PROOF.md`) |
-| `ledger/rules.py`, `rules/` | Rule engine and the 20 rules (T92: three ties on the note figures and `fact_readings_differ`, `ledger/ties.py`) |
-| `ledger/evidence.py`, `scorecard.py` | Rendered-10-K re-read with boxed screenshots; what each company cost |
-| `ledger/faults.py`, `review.py`, `release.py` | Fault injection, decisions, releases |
-| `ledger/store.py` | DuckDB schema and write contracts ([docs/DATA_DICTIONARY.md](docs/DATA_DICTIONARY.md)) |
-| `ledger/reference/` | The XBRL answer key, built per company from cached SEC data |
+| `agents/agents.json`, `agents/prompts/`, `ledger/extract/agents.py` | The named agents: model, active prompt, change history; a prompt change is saved as a new version |
+| `ledger/web/app.py`, `app.html`, `proof.py`, `golden.py` | Kenny's Data Emporium: Proof, a company's trail, Rules, Reconcile, Dataset, Explore; the proof model and the golden test (`docs/PROOF.md`) |
+| `ledger/checks/rules.py`, `rules/` | Rule engine and the 20 rules (T92: three ties on the note figures and `fact_readings_differ`, `ledger/checks/ties.py`) |
+| `ledger/checks/evidence.py`, `scorecard.py` | Rendered-10-K re-read with boxed screenshots; what each company cost |
+| `ledger/checks/faults.py`, `review.py`, `release.py` | Fault injection, decisions, releases |
+| `ledger/core/store.py` | DuckDB schema and write contracts ([docs/DATA_DICTIONARY.md](docs/DATA_DICTIONARY.md)) |
+| `ledger/ingest/reference/` | The XBRL answer key, built per company from cached SEC data |
 | `agents/` | Prompt and output schema |
 | `data/extract/outputs/`, `data/notes/outputs/`, `data/aispend/outputs/` | Agent outputs, kept as evidence; `data/text/` holds each filing's MD&A |
 | `reports/`, `decisions/`, `golden/`, `releases/` | Validation pages and screenshots; review decisions; hand-checks; signed releases |

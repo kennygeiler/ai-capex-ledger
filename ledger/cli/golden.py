@@ -7,8 +7,8 @@ import argparse
 import json
 import os
 
-from .. import store
-from ..golden import FIXTURES, check, freeze
+from ..core import store
+from ..checks.golden import FIXTURES, check, freeze
 
 
 def main(argv=None) -> int:
@@ -37,7 +37,7 @@ def main(argv=None) -> int:
     from datetime import datetime, timezone
     rep = store.ROOT / "reports" / "golden.json"
     rep.parent.mkdir(parents=True, exist_ok=True)
-    from .. import gold
+    from ..review import gold
     g_ = r.get("gold")
     rep.write_text(json.dumps({"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "ok": bool(r.get("ok")) and not r.get("failed_step"), "failed_step": r.get("failed_step"),
                                "tables_ok": not r.get("failed_step") and not r.get("diffs"),
@@ -51,7 +51,7 @@ def main(argv=None) -> int:
                 print(l["err"][-1500:] or l["out"][-1500:])
         return 1
     if not r["diffs"]:
-        from ..golden import LISTS, TABLES
+        from ..checks.golden import LISTS, TABLES
         print(f"golden: every table equals fixtures/expected ({', '.join((*TABLES, *LISTS))}).")
     print(gold.summary_line(g_))  # its own line: equal tables never read as a gold pass; unverified exits 0, a gold failure 1
     if r.get("exit_ok", r["ok"]):  # tables equal and no gold verdict fails; unverified-only exits 0 (golden.json "ok" stays false)

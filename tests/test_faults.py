@@ -1,4 +1,4 @@
-"""ledger/faults.py (T67): the nine kinds on a real parsed filing and synthetic extractions; the XBRL-off rule set;
+"""ledger/checks/faults.py (T67): the nine kinds on a real parsed filing and synthetic extractions; the XBRL-off rule set;
 the report shape with `written` and by_kind; score.faults reads by_kind and xbrl_off; every sum matches its parts."""
 import json
 import shutil
@@ -8,10 +8,11 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from ledger import score, store
+from ledger.checks import score
+from ledger.core import store
 from ledger.cli.faults import report, report_path
-from ledger.faults import FAULTS, OMIT, SYSTEMATIC_OF, XBRL_RULE, omission, rows_of, rule_set, systematic, tally, trials, wrong_table
-from ledger.rules import load
+from ledger.checks.faults import FAULTS, OMIT, SYSTEMATIC_OF, XBRL_RULE, omission, rows_of, rule_set, systematic, tally, trials, wrong_table
+from ledger.checks.rules import load
 
 try:  # `unittest discover -s tests` loads the modules top-level; `python -m unittest tests.test_faults` as a package
     from test_rules import ACC, REV, ext, parsed
@@ -205,8 +206,8 @@ class InjectXbrlOff(unittest.TestCase):
     """inject(): a fault only the XBRL comparison sees reads xbrl_only with every rule, escaped with XBRL off."""
 
     def test_xbrl_only_becomes_escaped_without_the_rule(self):
-        from ledger import faults as F
-        from ledger.rules import Context
+        from ledger.checks import faults as F
+        from ledger.checks.rules import Context
         rules = load()
         xbrl_hit = {"exception_id": "x1", "input_hash": "h", "rule_id": XBRL_RULE, "severity": "block"}
         def fake_run(ctx, rs):  # the XBRL rule fires on the corrupted set only, and only when it is in the rule set

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from ledger.ingest.statements import assemble, locate
 from ledger.ingest.tables import document_units, parse_tables
-from ledger.rules import CHECKS, Context, load, run
+from ledger.checks.rules import CHECKS, Context, load, run
 
 FIX = Path(__file__).parent / "fixtures" / "filings" / "ORCL_10-K_2026-05-31.html"
 ACC = "0001193125-26-277521"
@@ -156,13 +156,13 @@ class NoteTies(unittest.TestCase):
     """T92: the parts one filing prints against the total it tags; the readings of an untagged figure across filings."""
 
     def test_segment_capex_holds(self):
-        from ledger import ties
+        from ledger.checks import ties
         g = ties.groups("segment_capex_tie", RULES["segment_capex_tie"]["params"], GOOD.facts, GOOD.note_extractions, GOOD.totals)
         self.assertEqual([(x["sum"], x["total"], x["holds"]) for x in g], [(25_000_000_000, 25_000_000_000, True)])
 
     def test_degenerate_groups_are_not_judged(self):
         """T92 review: one part equal to the total, a part labelled as a total, or all zeros prove nothing: no tie, no finding."""
-        from ledger import ties
+        from ledger.checks import ties
         p = RULES["ppe_categories_tie"]["params"]
         one = bad(lambda c: (c.note_extractions.pop(1), c.totals.update({(ACC, "PropertyPlantAndEquipmentGross", "2026-05-31"): 10_000_000})))
         self.assertEqual(ties.groups("ppe_categories_tie", p, one.facts, one.note_extractions, one.totals), [])
@@ -188,7 +188,7 @@ class NoteTies(unittest.TestCase):
         """ties.instance_totals on a real .facts.json shape: "concept\tmember\tend" keys, the company total has no member."""
         import json, tempfile
         from unittest import mock
-        from ledger import ties
+        from ledger.checks import ties
         from ledger.ingest import edgar
         d = Path(tempfile.mkdtemp())
         (d / "0001144879" / "filings").mkdir(parents=True)
@@ -205,7 +205,7 @@ class NoteTies(unittest.TestCase):
         read (dimensions.instance_facts) and the reference's (xbrl_instance.parse_instance)."""
         import tempfile
         from unittest import mock
-        from ledger.reference import dimensions, xbrl_instance
+        from ledger.ingest.reference import dimensions, xbrl_instance
         xml = b"""<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:us-gaap="http://fasb.org/us-gaap/2024">
           <xbrli:context id="tot"><xbrli:entity><xbrli:identifier scheme="x">1</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2025-05-31</xbrli:instant></xbrli:period></xbrli:context>
           <xbrli:context id="scn"><xbrli:entity><xbrli:identifier scheme="x">1</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2025-05-31</xbrli:instant></xbrli:period>
@@ -228,7 +228,7 @@ class NoteTies(unittest.TestCase):
     def test_an_amendment_is_not_a_second_reading(self):
         """T92 review: a 10-K/A re-printing the year folds into its original 10-K; only a later fiscal year's 10-K (its
         comparative column) is a second reading."""
-        from ledger import ties
+        from ledger.checks import ties
         orig = {"accession": "a1", "filed": "2025-07-30", "form": "10-K", "period": "2025-05-31", "value": 9_000_000, "scale": 1000}
         amend = {**orig, "accession": "a1a", "filed": "2025-09-01", "form": "10-K/A"}
         later = {**orig, "accession": "a2", "filed": "2026-07-30", "period": "2026-05-31"}
@@ -264,7 +264,7 @@ class NoteTies(unittest.TestCase):
         self.assertEqual(findings("ppe_categories_tie", old), [])
 
     def test_groups_carry_the_evidence(self):
-        from ledger import ties
+        from ledger.checks import ties
         g = ties.groups("ppe_categories_tie", RULES["ppe_categories_tie"]["params"], GOOD.facts, GOOD.note_extractions, GOOD.totals)
         self.assertEqual([(x["period"], x["sum"], x["total"], x["concept"], x["holds"], x["dimensions"]) for x in g],
                          [("FY2026", 30_000_000, 30_000_000, "PropertyPlantAndEquipmentGross", True, ["Buildings", "Land"])])
@@ -272,7 +272,7 @@ class NoteTies(unittest.TestCase):
         self.assertEqual((rev[0]["concept"], rev[0]["total"]), ("Revenues", 67_357_000_000))  # the largest revenue tag, not the component
 
     def test_readings(self):
-        from ledger import ties
+        from ledger.checks import ties
         by_id = {e["extraction_id"]: e for e in GOOD.note_extractions}
         two = ties.readings_of(GOOD.facts[2], by_id)
         self.assertEqual([r["accession"] for r in two], [OLD, ACC])  # oldest filing first
@@ -421,7 +421,7 @@ if __name__ == "__main__":
 
 class FiftyThreeWeekYear(unittest.TestCase):
     def test_column_named_by_prior_year_is_accepted(self):
-        from ledger import rules as R
+        from ledger.checks import rules as R
         ctx = type("C", (), {})()
         ok = {"ticker": "CDNS", "field": "capex", "column_label": "2020", "period_end": "2021-01-02", "period_start": "2019-12-29", "extraction_id": "e1"}
         bad = {**ok, "column_label": "2019", "extraction_id": "e2"}

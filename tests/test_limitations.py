@@ -7,8 +7,8 @@ from pathlib import Path
 
 import yaml
 
-from ledger import limitations
-from ledger.release import build
+from ledger.release import limitations
+from ledger.release.release import build
 
 SEEDED = ("systematic_without_xbrl", "omission_escapes", "same_filer_answer_key", "one_person", "outside_proven_set", "survivor_bias",
           "failure_types_without_check", "interpretive_fields", "older_vintages_unchecked", "asset_type_mappings_unconfirmed", "no_monitoring_thresholds", "tie_offsetting_errors")
@@ -65,11 +65,11 @@ class ComputedCounts(unittest.TestCase):
         self.assertFalse(d["xbrl"])
 
     def test_failure_types_asset_types_and_companies_are_recounted_from_their_files(self):
-        from ledger.config import SCOPE, tracked
-        from ledger.failures import load as failures
-        from ledger.taxonomy import asset_types
+        from ledger.core.config import SCOPE, tracked
+        from ledger.checks.failures import load as failures
+        from ledger.release.taxonomy import asset_types
         self.assertEqual(_count("failure_types_without_check"), sum(t["check"] == "none" for t in failures()))
-        from ledger.filertag import tally
+        from ledger.checks.filertag import tally
         entries = [e for b in asset_types().values() if isinstance(b, dict) for e in b.values()]
         c = tally()  # the one count (claims check, packet): neither confirmed_by nor the company's own tag
         self.assertEqual(_count("asset_type_mappings_unconfirmed"), c["waiting"])

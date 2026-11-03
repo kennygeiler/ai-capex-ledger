@@ -1,7 +1,7 @@
 # The 100 companies, by layer of the AI supply chain
 
 Added 29 Oct 2026 to take the ledger from 31 to 100 companies and see the pipeline work at scale. Each company sits in
-one layer; the layer picks the money-flow model the attributor reads (`ledger/config.py` `INDUSTRIES`,
+one layer; the layer picks the money-flow model the attributor reads (`ledger/core/config.py` `INDUSTRIES`,
 `agents/models/<layer>@vN.md`). A company that fits no layer gets `other`, which attributes only what the company
 states. Tickers in `data/companies.json` (group "Scale to 100", with `layer`).
 

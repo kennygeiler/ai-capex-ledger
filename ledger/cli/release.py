@@ -5,10 +5,10 @@ hash are the ones this command writes (T5, T8); the command refuses on any requi
 printed, not on the gates alone."""
 import argparse
 
-from .. import store
-from ..checklist import checklist, checklist_table, packet, write
-from ..config import SCOPE, STAGES
-from ..release import GATES, failing, table
+from ..core import store
+from ..release.checklist import checklist, checklist_table, packet, write
+from ..core.config import SCOPE, STAGES
+from ..release.release import GATES, failing, table
 
 
 def main(argv=None) -> int:

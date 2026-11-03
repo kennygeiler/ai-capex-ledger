@@ -4,9 +4,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ledger.definitions import cost_lines, load, revenue_gap_explained
-from ledger.reconcile import values_for
-from ledger.rules import Context, run, load as load_rules
+from ledger.review.definitions import cost_lines, load, revenue_gap_explained
+from ledger.checks.reconcile import values_for
+from ledger.checks.rules import Context, run, load as load_rules
 from tests.test_reconcile import DOCS, x
 from tests.test_rules import ext
 
@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
 class OpexDefinition(unittest.TestCase):
     def test_loads_and_explains(self):
-        from ledger.definitions import load, opex_gap_explained
+        from ledger.review.definitions import load, opex_gap_explained
         defs = load()
         self.assertTrue(opex_gap_explained(defs, "IRM"))
         self.assertFalse(opex_gap_explained(defs, "MSFT"))

@@ -1,7 +1,7 @@
 """python -m ledger extract --stage N | --ticker X …  --pack | --run | --load
 
 --pack  writes one task file per filing to data/extract/tasks/ (statement tables only; no XBRL).
---run   packs, then runs the agent headless (`claude -p`, ledger/agent.py) on every filing with no output yet
+--run   packs, then runs the agent headless (`claude -p`, ledger/extract/agent.py) on every filing with no output yet
         (--rerun: all of them), writing data/extract/outputs/<accession>.json; a filing the agent can't answer
         gets {"error": reason} there, so the failure is recorded, not guessed.
 --load  refuses an output whose `_run.task_sha` is not the current task's (T100: stale, answered an older task),
@@ -16,9 +16,10 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
-from .. import agent, store
-from ..config import add_scope, scope
-from ..extract import OUTPUTS, Invalid, make_task, period_start, prompt_version, resolve, validate_output, write_tasks
+from ..extract import agent
+from ..core import store
+from ..core.config import add_scope, scope
+from ..extract.extract import OUTPUTS, Invalid, make_task, period_start, prompt_version, resolve, validate_output, write_tasks
 from ..ingest.filings import report_period_ends
 
 DOCS = store.ROOT / "data" / "docs"

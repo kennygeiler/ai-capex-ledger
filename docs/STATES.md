@@ -6,7 +6,7 @@ there"; "unverified" gold read as "pass"; no "stale" state for the EDGAR check; 
 decision; two items sharing one resolution slot; a rejected mapping coming back as current; a release signed and
 published while the hosted copy stayed stale. Each machine below lists its states (with the code that produces them),
 its transitions (trigger, who may cause it, which are forbidden and whether code enforces that), the page words and API
-fields each state produces, and its risks. `ledger/states.py` declares the eight that reach a page (2 Nov 2026, branch `structure`): row (M1, the
+fields each state produces, and its risks. `ledger/core/states.py` declares the eight that reach a page (2 Nov 2026, branch `structure`): row (M1, the
 verification words), ladder (M1b), check (M1a), mapping (M5), crop (M14), gold (M7), line (M9) and edgar (M12), each with
 its states (unknown, stale and missing named, never folded into a good one), transitions, the one deciding function and
 the page word; pages read the words from `/pages/_states.js`, the claims scan from `states.words()`, agents from
@@ -357,7 +357,7 @@ prefix (163-180; with git only).
 **UI.** Gaps page severity, text, claim, ticket (gaps.js:41-47); "Findings log append-only: checked / edited / not
 enforced here" (gaps.js:29); Release "Known gaps: … open findings" (checklist.py:351). **Risk.** [LOW]
 
-## M11. A claim (`claims/claims.yaml`, `ledger/claims.py`)
+## M11. A claim (`claims/claims.yaml`, `ledger/release/claims.py`)
 
 **States.** `STATUSES = ("proven", "partial", "stale", "stub", "planned")` (claims.py:63); the worst of the reasons
 (`compute`, 348-386). Checks: gold (247-259), EDGAR (262-275; `STALE_HOURS` 48; `clock.age_hours` problems never /
@@ -486,7 +486,7 @@ Next tier (F24 to F30):
 - "unchecked" and "not_checked" name one state.
 - resolutions.jsonl, decisions.jsonl and mapping_proposals.jsonl are not checked as append-only.
 
-## Proposed design: declare the machines in code (`ledger/states.py`; eight machines built, the writer hooks and replays below still planned)
+## Proposed design: declare the machines in code (`ledger/core/states.py`; eight machines built, the writer hooks and replays below still planned)
 
 ```python
 @dataclass(frozen=True)

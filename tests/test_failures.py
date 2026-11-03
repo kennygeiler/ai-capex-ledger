@@ -4,10 +4,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ledger.failures import CLASSES, ORIGINS, by_check, known_checks, load, pareto
-from ledger.faults import FAULTS
-from ledger.proof import GUARDS
-from ledger.rules import load as load_rules
+from ledger.checks.failures import CLASSES, ORIGINS, by_check, known_checks, load, pareto
+from ledger.checks.faults import FAULTS
+from ledger.checks.proof import GUARDS
+from ledger.checks.rules import load as load_rules
 
 
 class Failures(unittest.TestCase):
@@ -77,7 +77,7 @@ class Route(unittest.TestCase):
         from http.server import ThreadingHTTPServer
         from urllib import request
 
-        from ledger import app
+        from ledger.web import app
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         self.addCleanup(srv.shutdown)

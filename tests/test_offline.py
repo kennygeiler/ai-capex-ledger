@@ -46,7 +46,7 @@ class Offline(unittest.TestCase):
         self.assertTrue(edgar.offline())
 
     def test_the_pdf_and_edgartools_paths_refuse_too(self):
-        from ledger import texts
+        from ledger.ingest import texts
         with tempfile.TemporaryDirectory() as d:
             with self.assertRaises(edgar.Offline):
                 texts._pdf_text("https://example.com/never.pdf", Path(d) / "never.txt")

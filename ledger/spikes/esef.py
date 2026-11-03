@@ -1,7 +1,7 @@
 """ESEF inline XBRL reader (T44 spike). Standard library only; not wired into the pipeline; no schema change.
 
 An ESEF annual report is one XHTML file with the tagged numbers inline (`ix:nonFraction`) and the contexts and units in
-`ix:header`. This reads the same (concept, period, unit) -> value shape that ledger/reference/dimensions.py reads from an
+`ix:header`. This reads the same (concept, period, unit) -> value shape that ledger/ingest/reference/dimensions.py reads from an
 EDGAR instance, so a later source (T45) can hand either to the same tie rules. Differences from an EDGAR instance that the
 reader has to handle, found on ASML's 2025 report: the displayed text is scaled (`scale="6"` means millions) and formatted
 (`ixt:num-dot-decimal` thousands separators, `ixt:fixed-zero` for a dash), the sign lives in `sign="-"` and never in the

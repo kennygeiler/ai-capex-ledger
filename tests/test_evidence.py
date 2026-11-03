@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ledger.evidence import read, same
+from ledger.checks.evidence import read, same
 
 FIX = Path(__file__).parent / "fixtures" / "filings" / "ORCL_10-K_2026-05-31.html"
 REV = {"extraction_id": "rev", "table_id": "t0000", "row_label": "Total revenues", "column_label": "Year Ended May 31, | 2026", "cell_text": "67,357"}
@@ -35,7 +35,7 @@ if __name__ == "__main__":
 class RunTogether(unittest.TestCase):
     def test_a_cell_that_runs_several_values_together_confirms_none_of_them(self):
         """The cited text must be the whole cell (review of the evidence viewer): a run-together cell is a reason, not a match."""
-        from ledger.evidence import runs_together, same
+        from ledger.checks.evidence import runs_together, same
         self.assertFalse(same("(2,292)(2,367)(2,828)", "(2,367)"))
         self.assertTrue(runs_together("(2,292)(2,367)(2,828)", "(2,367)"))
         self.assertFalse(runs_together("(2,292)(2,367)(2,828)", "(2,36)"))

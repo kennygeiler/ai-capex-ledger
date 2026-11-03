@@ -13,14 +13,14 @@ import json
 from datetime import date, datetime, timezone
 from urllib.parse import quote
 
-from .. import store
+from ..core import store
 from ..ingest.notes import restatement_note
-from ..config import MVP_YEARS, RELEASE_FIELDS, STAGES, add_scope, scope
-from ..release import to_check
-from ..review import decisions, latest, open_items
-from ..rules import load
-from ..scorecard import scorecard
-from ..evidence import load_all
+from ..core.config import MVP_YEARS, RELEASE_FIELDS, STAGES, add_scope, scope
+from ..release.release import to_check
+from ..review.review import decisions, latest, open_items
+from ..checks.rules import load
+from ..checks.scorecard import scorecard
+from ..checks.evidence import load_all
 
 FIELD_LABEL = {"revenue": "Revenue", "capex": "Capex", "opex": "Opex", "cost_of_revenue": "Cost of revenue", "operating_income": "Operating income"}
 METHOD_LABEL = {"reported": "As filed (one 10-K cell)", "computed": "Opex = revenue − cost of revenue − operating income, all from the same 10-K column"}

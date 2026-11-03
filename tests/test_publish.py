@@ -3,7 +3,7 @@ import json
 import unittest
 from unittest import mock
 
-from ledger import publish
+from ledger.release import publish
 
 
 class Gate(unittest.TestCase):
@@ -57,7 +57,7 @@ class Retypes(unittest.TestCase):
 
 class Adds(unittest.TestCase):
     def test_every_column_gets_an_add_if_missing(self):
-        from ledger.publish import adds
+        from ledger.release.publish import adds
         stmts = adds("ledger_facts", ["ticker", "share", "status"])
         self.assertEqual(stmts, ['ALTER TABLE ledger_facts ADD COLUMN IF NOT EXISTS "ticker" text',
                                  'ALTER TABLE ledger_facts ADD COLUMN IF NOT EXISTS "share" numeric',

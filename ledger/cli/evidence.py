@@ -2,14 +2,14 @@
 
 Re-reads every cited cell from the 10-K as rendered in Chrome, and screenshots the cells of the values a person checks.
 --faults also points each citation at a neighbouring row or column and reports how often the re-read notices.
---crops makes a picture of every cited cell, statements and notes (ledger/crops.py) -> reports/evidence/crops/ and crops.json."""
+--crops makes a picture of every cited cell, statements and notes (ledger/checks/crops.py) -> reports/evidence/crops/ and crops.json."""
 import argparse
 import json
 
-from .. import store
-from ..config import add_scope, scope
-from ..evidence import read
-from ..release import to_check
+from ..core import store
+from ..core.config import add_scope, scope
+from ..checks.evidence import read
+from ..release.release import to_check
 
 OUT = store.ROOT / "reports" / "evidence"
 
@@ -25,7 +25,7 @@ def main(argv=None) -> int:
     if a.crops:  # reads only: the database stays open to the app while the crops run
         import duckdb
         con = duckdb.connect(a.db, read_only=True)
-        from ..crops import CROPS, run
+        from ..checks.crops import CROPS, run
         res = run(con, tickers)
         miss = {k: v for k, v in res.items() if not v["located"]}
         size = sum(f.stat().st_size for f in CROPS.glob("*.png"))

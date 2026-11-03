@@ -9,8 +9,8 @@ from datetime import datetime, timezone
 
 import duckdb
 
-from .. import store
-from ..config import add_scope, scope
+from ..core import store
+from ..core.config import add_scope, scope
 from ..ingest.filings import list_filings
 from .run import main as run
 

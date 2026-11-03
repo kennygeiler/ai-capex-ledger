@@ -1,6 +1,6 @@
 """python -m ledger texts --stage N | --ticker X …   ->  the `texts` table and data/text/
 
-Gathers every text the AI spend reader reads (ledger/texts.py): each 10-K's MD&A, each 8-K earnings release
+Gathers every text the AI spend reader reads (ledger/ingest/texts.py): each 10-K's MD&A, each 8-K earnings release
 (Exhibit 99.1), and the transcripts and CFO commentary a company's investor page offers when sources/ir.yaml names
 it. Cached on disk; a text already gathered is not fetched again. Investor pages open a Chrome window briefly."""
 import argparse
@@ -8,9 +8,10 @@ import json
 import time
 from datetime import datetime, timezone
 
-from .. import store, texts
-from ..config import add_scope, scope
-from ..reconcile import fiscal_year_end
+from ..core import store
+from ..ingest import texts
+from ..core.config import add_scope, scope
+from ..checks.reconcile import fiscal_year_end
 
 
 def main(argv=None) -> int:

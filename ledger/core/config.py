@@ -1,0 +1,189 @@
+"""Which companies, years and fields; how XBRL tags map to fields (the answer key); and the company sets.
+
+Every choice here is a data decision, so each one is written down rather than buried in code.
+Tickers are resolved to CIKs live from https://www.sec.gov/files/company_tickers.json.
+"""
+import json
+import os
+from pathlib import Path
+
+
+# The brief's AI-trade set, plus Nasdaq-listed names outside the S&P 500. role: a buyer spends capex on the AI buildout,
+# a seller supplies it (chips, networking, memory). The Insights page sums by role.
+AI_SET = [
+    {"ticker": "NVDA", "name": "Nvidia", "group": "AI trade", "role": "seller"},
+    {"ticker": "MSFT", "name": "Microsoft", "group": "AI trade", "role": "buyer"},
+    {"ticker": "GOOGL", "name": "Alphabet", "group": "AI trade", "role": "buyer"},
+    {"ticker": "AMZN", "name": "Amazon", "group": "AI trade", "role": "buyer"},
+    {"ticker": "META", "name": "Meta", "group": "AI trade", "role": "buyer"},
+    {"ticker": "ORCL", "name": "Oracle", "group": "AI trade", "role": "buyer"},
+    {"ticker": "TSLA", "name": "Tesla", "group": "AI trade", "role": "buyer"},
+    {"ticker": "MU", "name": "Micron", "group": "AI trade", "role": "seller"},
+    {"ticker": "AMD", "name": "AMD", "group": "AI trade", "role": "seller"},
+    {"ticker": "SPCX", "name": "SpaceX", "group": "AI trade", "role": "buyer", "note": "Nasdaq IPO June 2026"},
+    {"ticker": "CRWV", "name": "CoreWeave", "group": "Nasdaq, not S&P 500", "role": "buyer", "note": "IPO March 2025"},
+    {"ticker": "MRVL", "name": "Marvell", "group": "Nasdaq, not S&P 500", "role": "seller"},
+    {"ticker": "ALAB", "name": "Astera Labs", "group": "Nasdaq, not S&P 500", "role": "seller", "note": "IPO March 2024"},
+    {"ticker": "CRDO", "name": "Credo", "group": "Nasdaq, not S&P 500", "role": "seller"},
+    {"ticker": "IREN", "name": "IREN", "group": "Nasdaq, not S&P 500", "role": "buyer", "note": "Moved from 20-F to 10-K in 2025"},
+    {"ticker": "APLD", "name": "Applied Digital", "group": "Nasdaq, not S&P 500", "role": "buyer"},
+    {"ticker": "CIFR", "name": "Cipher Digital", "group": "Nasdaq, not S&P 500", "role": "buyer"},
+    {"ticker": "WULF", "name": "TeraWulf", "group": "Nasdaq, not S&P 500", "role": "buyer"},
+    {"ticker": "CORZ", "name": "Core Scientific", "group": "Nasdaq, not S&P 500", "role": "buyer"},
+]
+
+# The supply-chain layer each company was picked under, which the taxonomy rows carry as `group`: a reading aid, not
+# a standard (docs/TAXONOMY.md). A company not listed here is "other".
+INDUSTRIES = {
+    "hyperscaler": ["MSFT", "GOOGL", "AMZN", "META", "ORCL"],
+    "neocloud": ["CRWV", "NBIS"],
+    "miner_to_hpc": ["IREN", "APLD", "CIFR", "WULF", "CORZ", "HUT", "RIOT", "MARA", "CLSK", "BTBT", "SLNH", "GLXY", "BTDR"],
+    "chip_seller": ["NVDA", "AMD", "AVGO", "MRVL", "ALAB", "CRDO", "INTC", "QCOM", "TXN", "ARM", "MPWR", "RMBS", "SITM", "SNPS", "CDNS"],
+    "chip_equipment": ["LRCX", "AMAT", "KLAC", "TER", "ENTG", "ONTO", "AEIS", "ACLS"],
+    "component_supplier": ["MU", "ANET", "CSCO", "WDC", "STX", "SNDK", "SMCI", "DELL", "HPE", "NTAP", "CIEN", "COHR", "LITE", "AAOI", "FN", "JBL", "FLEX", "CLS", "PENG"],
+    "datacenter_build": ["VRT", "ETN", "NVT", "MOD", "JCI", "PWR", "FIX", "EME", "GEV", "POWL", "BE"],
+    "datacenter_landlord": ["EQIX", "DLR", "IRM"],
+    "power": ["VST", "CEG", "NRG", "TLN"],
+    "ai_software": ["CRM", "NOW", "ADBE", "SNOW", "PLTR", "DDOG"],
+}
+
+
+def industry(ticker: str) -> str:
+    return next((k for k, ts in INDUSTRIES.items() if ticker in ts), "other")
+
+
+# Companies whose history sits under an older CIK (reorganizations). Facts from these CIKs are merged in.
+PREDECESSORS = {
+    "XOM": [{"cik": 34088, "name": "Exxon Mobil Corp", "note": "Reorganized under ExxonMobil Holdings Corp (new CIK) in 2026."}],
+}
+
+# XBRL concepts tried for each line item, in priority order. Per company the pipeline ranks them by recent
+# coverage and takes the best one available for each fiscal year. The bank revenue tag sits last.
+CONCEPTS = {
+    "revenue": [
+        "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "Revenues",
+        "RevenueFromContractWithCustomerIncludingAssessedTax",
+        "SalesRevenueNet",
+        "RevenuesNetOfInterestExpense",
+    ],
+    "cost_of_revenue": ["CostOfRevenue", "CostOfGoodsAndServicesSold", "CostOfGoodsSold", "CostOfServices"],
+    "operating_income": ["OperatingIncomeLoss"],
+    "opex_reported": ["OperatingExpenses"],
+    "costs_and_expenses": ["CostsAndExpenses"],
+    "capex": [
+        "PaymentsToAcquirePropertyPlantAndEquipment",
+        "PaymentsToAcquireProductiveAssets",
+        "PaymentsToAcquireOtherPropertyPlantAndEquipment",
+        "PaymentsToAcquireOtherProductiveAssets",  # Verizon
+    ],
+    # Fallback inputs for opex when a company has no operating-income line.
+    "sga": ["SellingGeneralAndAdministrativeExpense"],
+    "rnd": ["ResearchAndDevelopmentExpense", "ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost"],
+    "noninterest_expense": ["NoninterestExpense"],  # banks' operating expenses
+}
+
+# Forms whose XBRL facts the answer key accepts (it keeps full-year facts only). S-1 / 424B4 fill history for recent IPOs.
+FORMS_PRIMARY = {"10-Q", "10-K", "10-Q/A", "10-K/A", "10-KT"}
+FORMS_FALLBACK = {"S-1", "S-1/A", "424B4"}
+
+# A full fiscal year, in days (52/53-week years included).
+YEAR_DAYS = (350, 380)
+
+
+# ── MVP (docs/PRD.md) ──────────────────────────────────────────────────────────
+# The AI set, 5 fiscal years from 10-K filings only.
+# Companies added in Kenny's Data Emporium (or `ledger add`), kept in data/companies.json. They run through the same pipeline and
+# join the full set, so the next release includes them once a person signs it.
+ADDED = (Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[2]) / "data" / "companies.json"
+# The proven set (docs/PROOF.md): five companies, one per failure path the pipeline has met, on which every stage is
+# proven end to end before anything is widened. The golden test freezes their inputs and expected tables.
+PROVEN = ["MSFT", "GOOGL", "AMZN", "NVDA", "APLD", "AMD"]
+PROVEN_WHY = {"MSFT": "PP&E growth method, a stated ceiling (at most 50%), software and finance leases inside the category",
+              "GOOGL": "a category rename, a restatement between filings, a planning floor against a point figure",
+              "AMZN": "a category split with no restated comparative",
+              "NVDA": "the seller side: stated AI revenue against a segment, no AI capex",
+              "APLD": "segment accrual capex above cash capex, a miner turned HPC host",
+              "AMD": "one method per series: a one-year stated Instinct figure against the Data Center segment every year"}
+
+
+# The people who may sign a release, confirm an asset-type mapping or write a resolution that counts as a person's (T80):
+# fail closed, so a name not on this list (a model, an agent, a run, a typo) never stands behind a row. T69: a resolution
+# carries `author_kind` (person from /api/resolve, which refuses a `by` not on this list; run from any agent writer); the
+# name is the check only for lines written before the field.
+PEOPLE = ["Kenny Geiler"]
+
+
+# The scope (docs/TICKETS.md T2): the companies Kenny's Data Emporium, the read API with no ticker filter, the Proof board, Reconcile's
+# "all", `ledger release` and the published tables show. The proven set until widened one company at a time (T35);
+# every other company stays in the database and answers an explicit `?ticker=`. Never a subset of PROVEN.
+SCOPE = list(PROVEN)
+
+
+def added() -> list[dict]:
+    return json.loads(ADDED.read_text()) if ADDED.exists() else []
+
+
+def tracked() -> list[dict]:
+    """Every company the ledger follows: the AI set plus any added since. Read fresh, so the app sees a new one."""
+    known = {c["ticker"] for c in AI_SET}
+    return AI_SET + [c for c in added() if c["ticker"] not in known]
+
+
+MVP_YEARS = ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026"]
+RELEASE_FIELDS = ["revenue", "capex", "opex"]  # what ships; opex = revenue − cost of revenue − operating income (docs/FIELDS.md)
+GOLDEN_SEED = 20261027  # seeds the random spot-checks a person (or the rendered-10-K re-read) confirms
+
+# One restatement threshold (T64). A later filing's figure is `restated` when it moves from the first-reported one by more
+# than this many rounding units of the figure: for a 10-K cell its stated scale (thousands, millions), for an XBRL fact
+# the unit it is rounded to (`rounding_unit`). Half a unit is the most that rounding alone can move a figure, so anything
+# beyond it is a change the filer made (Meta's 0.8% capex change counts; a same-day amendment that re-rounds does not).
+# Applied by reconcile.values_for (values.basis), notes (facts.basis), the `restated` rule and
+# reference.normalize.best_vintages (reference_values.restated); nothing else holds a threshold. Before T64 normalize used 0.1% of the first figure and
+# the dictionary said 1%; only the code's half-unit was ever enforced on a shipped row.
+RESTATEMENT_TOLERANCE = 0.5
+
+# The note fields (ledger/extract/notes.py FIELDS, store facts and exceptions): one definition (T92 review).
+NOTE_FIELDS = ("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments")
+
+
+def rounding_unit(v: int) -> int:
+    """The unit a figure is rounded to: 1,000,000, 1,000 or 1, read from the figure itself."""
+    if v == 0:  # a zero says nothing about its rounding; never let it widen the tolerance
+        return 1
+    return 1_000_000 if v % 1_000_000 == 0 else 1_000 if v % 1_000 == 0 else 1
+
+
+def restated(first: int, latest: int, unit: int) -> bool:
+    """True when `latest` moved from `first` by more than RESTATEMENT_TOLERANCE rounding units of size `unit`."""
+    return abs(latest - first) > unit * RESTATEMENT_TOLERANCE
+
+# Named company sets: one company, then 5, then every tracked company. Stage 3 is read at call time, so a company
+# added in Kenny's Data Emporium joins it without a restart.
+STAGES = (1, 2, 3)
+_FIXED = {1: ["NVDA"], 2: ["NVDA", "MSFT", "CRWV", "ORCL", "APLD"]}
+
+
+def stage_tickers(n: int) -> list[str]:
+    return list(_FIXED[n]) if n in _FIXED else [c["ticker"] for c in tracked()]
+
+
+def add_scope(ap) -> None:
+    """Every command runs on a stage or on any tickers (`--ticker X Y`)."""
+    ap.add_argument("--stage", type=int, choices=STAGES, help="a named company set (default 1)")
+    ap.add_argument("--ticker", nargs="+", help="any tickers, instead of a stage")
+
+
+def scope(a) -> tuple[list[str], str]:
+    """(tickers, name). The name labels output files: 'stage2', or the tickers joined, e.g. 'AMD'."""
+    if a.ticker:
+        ts = sorted({t.upper() for t in a.ticker})
+        return ts, "-".join(ts)
+    return stage_tickers(a.stage or 1), f"stage{a.stage or 1}"
+
+
+# List prices per million tokens for the cost report (`ledger cost`), from Anthropic's price list on the date given.
+# The agents run on a Claude subscription, so these are what the same work would cost on the API, not what was paid.
+PRICES = {"claude-opus-5-5": {"input": 4.00, "output": 20.00, "cache_read": 0.20, "as_of": "2026-10-06"},
+          "claude-sonnet-5-5": {"input": 2.00, "output": 10.00, "cache_read": 0.20, "as_of": "2026-10-06"},
+          "claude-haiku-5-5": {"input": 0.10, "output": 0.50, "cache_read": 0.01, "as_of": "2026-10-06"}}

@@ -6,7 +6,7 @@ reason otherwise."""
 import os
 import unittest
 
-from ledger import publish
+from ledger.release import publish
 
 
 def _url() -> str | None:

@@ -1,7 +1,7 @@
 """A listed PDF link names its quarter; that quarter lands on the company's own calendar."""
 import unittest
 
-from ledger.texts import _quarter
+from ledger.ingest.texts import _quarter
 
 
 class Quarter(unittest.TestCase):
