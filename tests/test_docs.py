@@ -3,6 +3,8 @@ route serves top-level docs/*.md only, every link in the overview and the operat
 every state word, and the shown docs carry no chat voice."""
 import json
 import re
+import shutil
+import subprocess
 import threading
 import unittest
 import urllib.error
@@ -111,6 +113,23 @@ class Read(unittest.TestCase):
         for f in ("docs.js", "_markdown.js"):
             text = (ROOT / "ledger" / "web" / "pages" / f).read_text()
             self.assertNotRegex(text, r"innerHTML|outerHTML|insertAdjacentHTML|document\.write", f)
+
+    @unittest.skipUnless(shutil.which("node"), "no node")
+    def test_every_doc_renders_and_terminates(self):
+        """_markdown.js over every top-level doc in node, with a stub h(): it returns, and gives blocks (a shared regex
+        state once made a bold link loop forever and hang the page)."""
+        js = (ROOT / "ledger" / "web" / "pages" / "_markdown.js").read_text()
+        prog = ("const h=(tag,attrs={},...kids)=>({tag,attrs,kids:kids.flat(Infinity)}); const safeHref=(u)=>u;\n" + js +
+                "\nconst fs=require('fs'); const out={}; for (const f of fs.readdirSync(process.argv[1]).filter((f)=>f.endsWith('.md')))"
+                " out[f]=mdRender(fs.readFileSync(process.argv[1]+'/'+f,'utf8'),{files:{'MAP.md':'map'}}).length;"
+                " out['bold-link']=mdRender('**[a `b`](MAP.md)** and [c](../ledger/web/) http://x.example/y.',{files:{'MAP.md':'map'}}).length;"
+                " process.stdout.write(JSON.stringify(out));")
+        r = subprocess.run(["node", "-e", prog, str(ROOT / "docs")], capture_output=True, text=True, timeout=30)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        out = json.loads(r.stdout)
+        self.assertEqual(out.pop("bold-link"), 1)
+        for f, n in out.items():
+            self.assertGreater(n, 0, f)
 
 
 def _resolves(href: str) -> str | None:

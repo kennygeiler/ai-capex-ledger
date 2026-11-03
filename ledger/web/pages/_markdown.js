@@ -21,9 +21,9 @@ const MD_INLINE = /`([^`]+)`|\*\*([^*]+)\*\*|\[([^\]]+)\]\(([^)\s]+)\)|(https?:\
 
 function mdInline(text, files) {
   const out = [];
+  const rx = new RegExp(MD_INLINE.source, 'g');  // one per call: labels recurse, and a shared lastIndex would restart the outer scan
   let last = 0, m;
-  MD_INLINE.lastIndex = 0;
-  while ((m = MD_INLINE.exec(text))) {
+  while ((m = rx.exec(text))) {
     if (m.index > last) out.push(text.slice(last, m.index));
     if (m[1] != null) out.push(h('code', {}, m[1]));
     else if (m[2] != null) out.push(h('b', {}, mdInline(m[2], files)));
@@ -34,7 +34,7 @@ function mdInline(text, files) {
       const href = t && (/^\/docs\/[A-Za-z0-9_-]+\.md$/.test(t.href) ? t.href : safeHref(t.href));  // a doc's raw text, or what the shared guard allows
       out.push(href ? h('a', {href, target: t.ext ? '_blank' : null, rel: t.ext ? 'noopener' : null}, kids) : h('span', {}, kids));
     }
-    last = MD_INLINE.lastIndex;
+    last = rx.lastIndex;
   }
   if (last < text.length) out.push(text.slice(last));
   return out;
