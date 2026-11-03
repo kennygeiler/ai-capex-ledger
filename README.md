@@ -120,7 +120,7 @@ Detail: [docs/EVALS.md](docs/EVALS.md).
 - **Per-agent scores** (`ledger/checks/score.py`, Rules page). Each reader's outputs counted checked, explained, open and
   blocked, agreement with its twin where one exists, with denominators and a Wilson interval.
 - **Tests.** `ledger test` runs the suite offline and writes `reports/tests.json`, which the Release page reads
-  (last recorded run: 645 tests, 0 failing, 1 skipped).
+  (last recorded run: 661 tests, 0 failing, 1 skipped).
 
 ## Data model
 
