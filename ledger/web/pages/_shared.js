@@ -301,16 +301,23 @@ function cropMarks(img) {
   const blue = red ? box((r, gg, b) => r < 90 && gg > 70 && gg < 140 && b > 200) : null;
   const plain = (i) => px[i] + px[i + 1] + px[i + 2] < 330 && Math.max(px[i], px[i + 1], px[i + 2]) - Math.min(px[i], px[i + 1], px[i + 2]) < 40;
   let inkH = null;
-  if (red) {  // the figure's dark rows inside the box's 3 px border (the row's yellow tint shifts the ink's hue: dark, not red, is enough)
+  if (red) {  // the figure's digit height inside the box's 3 px border: per ink column its top-to-bottom run, the median taken,
+    // so a $ sign, parentheses or a footnote mark (taller or higher than the digits) do not count; the row's yellow tint
+    // shifts the ink's hue, so dark and not red is enough
     const b = Math.ceil(8 / k), fig = (i) => px[i] + px[i + 1] + px[i + 2] < 330 && !(px[i] > 150 && px[i + 1] < 110);
-    let y0 = -1, y1 = -1;
-    for (let y = red.y0 + b; y <= red.y1 - b; y++) for (let x = red.x0 + b; x <= red.x1 - b; x++) if (fig(at(x, y))) { if (y0 < 0) y0 = y; y1 = y; break; }
-    if (y0 >= 0) inkH = (y1 - y0 + 1) * k;
+    const hs = [];
+    for (let x = red.x0 + b; x <= red.x1 - b; x++) {
+      let y0 = -1, y1 = -1;
+      for (let y = red.y0 + b; y <= red.y1 - b; y++) if (fig(at(x, y))) { if (y0 < 0) y0 = y; y1 = y; }
+      if (y0 >= 0) hs.push(y1 - y0 + 1);
+    }
+    if (hs.length) { hs.sort((p, q) => p - q); inkH = hs[Math.floor(hs.length * 0.6)] * k; }
   }
   return {W, H, k, cw, ch, px, at, plain, red, blue, inkH};
 }
-// the least scale (css px per natural px) at which the cited figure reads at FIG_PX
-const legibleScale = (m, px = FIG_PX) => (m && m.inkH ? px * DIGIT_EM / m.inkH : 0);
+// the least scale (css px per natural px) at which the cited figure reads at `px`; a figure whose ink is not found is drawn at
+// the filing's own size (the crops are taken at device scale 2)
+const legibleScale = (m, px = FIG_PX) => (m && m.inkH ? px * DIGIT_EM / m.inkH : 0.5);
 // the thumbnail: the cited row with the row above and below, its label and the column header, at a size the figure reads
 // (V7). The columns and rows in between are folded out (a grey seam marks each fold); the full crop is one click away (cropBox).
 function focusCell(img) {
