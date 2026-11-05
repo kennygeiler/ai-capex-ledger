@@ -58,6 +58,8 @@ class RuleFindingGroups(unittest.TestCase):
         self.assertEqual(_call(pre, "prefillReason(A)", [rs(f("b", "2025-07-30"))]), "Later filing’s reading used · 10-K 2025-07-30")
         self.assertEqual(_call(pre, "prefillReason(A)", [rs(f("b", "2025-07-30")), rs(f("b", "2025-07-30"))]), "Later filing’s reading used")
         self.assertEqual(_call(pre, "prefillReason(A)", [rs(f("a", "2024-08-30"))]), "")  # the dataset uses the older reading: nothing to prefill
+        same = {"cause": "finding_unconfirmed", "evidence": {"restatement": {"used": f("b", "2025-07-30"), "steps": [{"filings": [f("a", "2024-08-30")]}, {"filings": [f("b", "2025-07-30"), f("c", "2026-07-29")]}]}}}
+        self.assertEqual(_call(pre, "prefillReason(A)", [same]), "")  # review 3: the last step's figure, but cited from b, not the newest filing c
         self.assertEqual(_call(pre, "prefillReason(A)", [rs(f("b", "2025-07-30")), {"cause": "finding_unconfirmed", "evidence": {}}]), "")  # a mixed batch
         self.assertEqual(_call(pre, "prefillReason(A)", [{"cause": "fact_differs", "evidence": rs(f("b", "x"))["evidence"]}]), "")
 
