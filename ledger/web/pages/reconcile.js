@@ -68,7 +68,7 @@ async function reconcilePage(view, qs) {
   const toConfirm = (r) => r.cause === 'to_confirm';
   const isAsset = (r) => r.cause === 'asset_types';  // T33: an unmapped asset type with the mapper's proposal; T63: or an entry no person confirmed. Approve, Edit or Reject
   // the company's own tag (mapcard.decisions' card, ledger/checks/filertag.py): a different us-gaap member is a conflict
-  const filerNote = (r) => { const T = (r.evidence.decision || {}).tag; if (!T) return ''; return T.status === 'differs' ? h('span', {class: 'small text-red', title: T.text}, `Company tags ${T.member.replace('us-gaap:', '')}`) : h('span', {class: 'small text-secondary'}, T.text); };
+  const filerNote = (r) => { const T = (r.evidence.decision || {}).tag; if (!T) return ''; return T.status === 'differs' ? h('span', {class: 'small ' + MAP_TAG.differs, title: T.text}, `Company tags ${T.member.replace('us-gaap:', '')}`) : h('span', {class: 'small text-secondary'}, T.text); };
   let rows = d.rows.filter((r) => withResolved || isOpen(r) || toConfirm(r) || isAsset(r));  // an asset type the company's own tag matches stays listed, after the open ones, so a person can override it
   if (fCause) rows = rows.filter((r) => r.cause === fCause);
   if (fLayer) rows = rows.filter((r) => r.layer === fLayer);
@@ -153,13 +153,13 @@ async function reconcilePage(view, qs) {
       const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.cause === 'finding_unconfirmed' ? h('div', {class: 'text-secondary small'}, [r.evidence.dimension, group === 'company' ? '' : r.cause_label].filter(Boolean).join(' · ')) : r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : ''];
       const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} · ${r.resolution.by} · ${day(r.resolution.at)}`) : ''];
       const P = isAsset(r) ? r.evidence.proposal : null;
-      const ours = isAsset(r) ? [P ? [h('span', {style: 'overflow-wrap:anywhere', title: P.standard_type}, memberWords(P.standard_type)), ' ', r.evidence.mapping === 'verified' ? h('span', {class: 'small text-green'}, 'Matches company’s own tag') : P.confidence ? h('span', {class: 'text-secondary small'}, `Confidence ${P.confidence}`) : h('span', {class: 'small text-orange'}, 'Proposed')] : h('span', {class: 'text-secondary small'}, 'No proposal'), h('div', {class: 'small'}, filerNote(r), P && filerNote(r) ? h('span', {class: 'text-secondary'}, ' · ') : '', P ? h('span', {class: 'text-secondary', title: P.evidence}, `“${P.evidence}”`) : '')] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
+      const ours = isAsset(r) ? [P ? [h('span', {style: 'overflow-wrap:anywhere', title: P.standard_type}, memberWords(P.standard_type)), ' ', r.evidence.mapping === 'verified' ? h('span', {class: 'small text-green'}, 'Matches company’s own tag') : P.confidence ? h('span', {class: 'text-secondary small'}, `Confidence ${P.confidence}`) : h('span', {class: 'small text-secondary'}, 'Proposed')] : h('span', {class: 'text-secondary small'}, 'No proposal'), h('div', {class: 'small'}, filerNote(r), P && filerNote(r) ? h('span', {class: 'text-secondary'}, ' · ') : '', P ? h('span', {class: 'text-secondary', title: P.evidence}, `“${P.evidence}”`) : '')] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
         h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
         isAsset(r) ? h('td', {colspan: assetCard ? null : 4}, ours) : [h('td', {class: 'num'}, ours),
         h('td', {class: 'num'}, r.reference == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[r.relation] || '', num(r, r.reference)], r.ref_label && r.reference != null ? h('div', {class: 'text-secondary small'}, r.ref_label) : ''),
         h('td', {class: 'w-1'}, r.ours != null && r.reference != null ? gapBar(r) : ''),
-        h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, '—') : [h('span', {class: 'fw-semibold' + (r.cause === 'fact_differs' ? ' text-red' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : ''])],
+        h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, '—') : [h('span', {class: 'fw-semibold'}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : ''])],
         h('td', {class: toConfirm(r) ? 'confirm' : null}, res));
       trs.push({tr, r, detail: null});
       tbody.append(tr);
@@ -349,14 +349,14 @@ async function reconcilePage(view, qs) {
     if (E.basis) {  // segment_basis_mixed: the year's segments, the filing each comes from, and the cutover that restated the series
       const B = E.basis, C = B.cutover || {};
       cards.push(col(8, dtable(`${r.period} · segments by filing`, [{t: 'Segment', k: 'dimension'}, {t: 'As filed', num: 1, k: 'cell_text'}, {t: 'From', f: (x) => `${x.form} ${x.filed}`},
-        {t: 'Basis', f: (x) => (x.mixed ? h('span', {class: 'text-orange'}, `Before ${C.form || '10-K'} ${C.filed || ''}`) : 'Current')}, {t: '', f: (x) => (x.restated ? h('span', {class: 'small text-secondary'}, x.restated) : '')}], B.rows)));
+        {t: 'Basis', f: (x) => (x.mixed ? h('span', {class: stateWord('row', 'bad')[0]}, `Before ${C.form || '10-K'} ${C.filed || ''}`) : 'Current')}, {t: '', f: (x) => (x.restated ? h('span', {class: 'small text-secondary'}, x.restated) : '')}], B.rows)));
     }
     const yr = S.find((s) => s.period === r.period) || {};
     if (r.cause === 'fact_differs') {
       const c = E.cell;
       const X = E.xbrl, cellAcc = c ? c.accession : null;
       const lines = [{what: 'Cited', value: r.ours, src: c ? `“${c.row_label}”` : '', _cls: 'fw-semibold'},
-        {what: 'SEC XBRL', value: r.reference, src: X ? [h('span', {title: `${X.concept}${X.member ? ' / ' + X.member : ''} · ${X.accession}`}, [memberWords(X.concept), X.member ? memberWords(X.member) : '', X.date].filter(Boolean).join(' · ')), cellAcc && X.accession !== cellAcc ? h('div', {class: 'text-body mt-1'}, 'Restated in a later 10-K') : ''] : 'Not found in SEC XBRL'}, E.release_value != null ? {what: `In ${d.release}`, value: Number(E.release_value), src: 'Last release'} : null, {what: 'Difference', value: r.delta, src: pctSigned(r.delta_pct), _cls: 'text-red'}].filter(Boolean);
+        {what: 'SEC XBRL', value: r.reference, src: X ? [h('span', {title: `${X.concept}${X.member ? ' / ' + X.member : ''} · ${X.accession}`}, [memberWords(X.concept), X.member ? memberWords(X.member) : '', X.date].filter(Boolean).join(' · ')), cellAcc && X.accession !== cellAcc ? h('div', {class: 'text-body mt-1'}, 'Restated in a later 10-K') : ''] : 'Not found in SEC XBRL'}, E.release_value != null ? {what: `In ${d.release}`, value: Number(E.release_value), src: 'Last release'} : null, {what: 'Difference', value: r.delta, src: pctSigned(r.delta_pct), _cls: 'fw-semibold'}].filter(Boolean);
       const maxL = Math.max(1, ...lines.filter((l) => l.what !== 'Difference').map((l) => Math.abs(l.value || 0)));
       cards.push(col(4, dtable(`${r.period} · Cited vs SEC XBRL`, [{t: '', f: (x) => [h('div', {}, x.what), x.src ? h('div', {class: 'text-secondary small fw-normal'}, x.src) : '']}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Difference' ? signed(r, x.value) : [bar(x.value, maxL, x.what === 'Cited' ? '' : 'ref'), usd(x.value)])}], lines),
         h('div', {class: 'card mt-3'}, h('div', {class: 'card-body py-2'}, gapBar(r, true), h('div', {class: 'd-flex justify-content-between small text-secondary'}, h('span', {}, 'Cited ', h('b', {class: 'text-primary'}, usd(r.ours))), h('span', {}, 'SEC XBRL ', h('b', {}, usd(r.reference))))))));
@@ -368,12 +368,12 @@ async function reconcilePage(view, qs) {
           h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')))),
 ));
       const maxY = Math.max(1e-9, ...S.flatMap((s) => [Math.abs(s.value || 0), Math.abs(s.reference || 0)]));
-      cards.push(col(4, dtable('By year', [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Cited', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: 'SEC XBRL', num: 1, f: (s) => (s.reference == null ? h('span', {class: 'text-secondary'}, '—') : [bar(s.reference, maxY, 'ref'), usd(s.reference)])}, {t: 'Difference', num: 1, f: (s) => (s.reference == null || s.value == null ? '' : h('span', {class: s.label === 'unresolved' ? 'text-red' : ''}, signed({measure: 'usd'}, s.value - s.reference)))}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null})))));
+      cards.push(col(4, dtable('By year', [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Cited', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: 'SEC XBRL', num: 1, f: (s) => (s.reference == null ? h('span', {class: 'text-secondary'}, '—') : [bar(s.reference, maxY, 'ref'), usd(s.reference)])}, {t: 'Difference', num: 1, f: (s) => (s.reference == null || s.value == null ? '' : h('span', {class: s.label === 'unresolved' ? stateWord('check', 'unresolved')[0] : ''}, signed({measure: 'usd'}, s.value - s.reference)))}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null})))));
     } else if (r.cause === 'fact_changed') {
       const before = {what: E.release || 'Release', value: r.reference};
       const after = {what: 'Now', value: r.ours, _cls: 'fw-semibold'};
       const maxL = Math.max(1, Math.abs(before.value || 0), Math.abs(after.value || 0));
-      cards.push(col(5, dtable(`${r.period} · Last release vs now`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Difference' ? signed(r, x.value) : [bar(x.value, maxL, x === before ? 'ref' : ''), usd(x.value)])}], [before, after, {what: 'Difference', value: r.delta, _cls: 'text-red'}])));
+      cards.push(col(5, dtable(`${r.period} · Last release vs now`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Difference' ? signed(r, x.value) : [bar(x.value, maxL, x === before ? 'ref' : ''), usd(x.value)])}], [before, after, {what: 'Difference', value: r.delta, _cls: 'fw-semibold'}])));
       cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')));
     } else if (r.cause === 'value_missing') {
       cards.push(col(5, dtable(`${r.period} · Not extracted`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.value == null ? '—' : usd(x.value))}], [{what: 'Cited', value: null}, {what: 'SEC XBRL', value: r.reference, _cls: 'fw-semibold'}])));
@@ -381,7 +381,7 @@ async function reconcilePage(view, qs) {
     } else if (r.cause === 'finding_unconfirmed' || r.cause === 'blocked') {
       if (r.measure) {
         const maxL = Math.max(1, Math.abs(r.ours || 0), Math.abs(r.reference || 0));
-        cards.push(col(4, dtable(r.cause_label, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Difference' ? [signed(r, x.value), E.kind === 'jump' && E.size != null ? h('span', {class: 'text-secondary small'}, ` ${Number(E.size).toFixed(1)}×`) : ''] : [bar(x.value, maxL, x.what === r.ours_label ? '' : 'ref'), usd(x.value)])}], [{what: r.ref_label || 'Before', value: r.reference}, {what: r.ours_label || 'After', value: r.ours, _cls: 'fw-semibold'}, {what: 'Difference', value: r.delta, _cls: 'text-red'}])));
+        cards.push(col(4, dtable(r.cause_label, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Difference' ? [signed(r, x.value), E.kind === 'jump' && E.size != null ? h('span', {class: 'text-secondary small'}, ` ${Number(E.size).toFixed(1)}×`) : ''] : [bar(x.value, maxL, x.what === r.ours_label ? '' : 'ref'), usd(x.value)])}], [{what: r.ref_label || 'Before', value: r.reference}, {what: r.ours_label || 'After', value: r.ours, _cls: 'fw-semibold'}, {what: 'Difference', value: r.delta, _cls: 'fw-semibold'}])));
       }
       if (S.length > 1) { const maxY = Math.max(1e-9, ...S.map((s) => Math.abs(s.value || 0))); cards.push(col(4, dtable(`${LABEL[r.field] || r.field} by year`, [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Value', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null}))))); }
       const facts = messageFacts(E.message);  // V11: the finding's figures as labelled cells (the server's text when its shape is unknown)
@@ -397,7 +397,7 @@ async function reconcilePage(view, qs) {
       const N = E.note;
       cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-body py-3'}, E.decision ? mappingDecision(E.decision, mappingActions(r)) : mappingActions(r),
         E.rejected && E.rejected.length ? h('p', {class: 'small text-secondary mt-2 mb-0'}, `Rejected: ${E.rejected.map(memberWords).join(', ')}`) : '',
-        E.reproposed && E.reproposed.length ? h('p', {class: 'small text-orange mt-1 mb-0'}, `Proposed again after rejection: ${E.reproposed.map(memberWords).join(', ')}`) : ''))));
+        E.reproposed && E.reproposed.length ? h('p', {class: 'small mt-1 mb-0 ' + stateWord('row', 'bad')[0]}, `Proposed again after rejection: ${E.reproposed.map(memberWords).join(', ')}`) : ''))));
       cards.push(col(4, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Note wording')),
         h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0 small'}, N && N.before ? `…${N.before}` : 'Note text unavailable'), h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail'))))));
     }

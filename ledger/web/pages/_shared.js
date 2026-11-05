@@ -245,8 +245,9 @@ new MutationObserver((ms) => {
 
 // ── The category-mapping decision card (ledger/review/mapcard.py): the same on the trail and in Reconcile ──────────────
 // D is mapcard.decisions' card; `actions` (Reconcile only) is a node placed under it. Labels, values, statuses.
-const MAP_STATE = {checked: 'text-green', open: 'text-orange', blocked: 'text-red'};
-const MAP_TAG = {same: 'text-green', differs: 'text-red', ambiguous: 'text-orange', inconsistent: 'text-orange'};
+// V13: a mapping waiting on a person is Proposed's tone, a tag that differs is the review tone; red only when it blocks
+const MAP_STATE = {checked: 'text-green', open: stateWord('row', 'wait')[0], blocked: stateWord('row', 'blocked')[0]};
+const MAP_TAG = {same: 'text-green', differs: stateWord('row', 'bad')[0], ambiguous: stateWord('row', 'bad')[0], inconsistent: stateWord('row', 'bad')[0]};
 function mappingDecision(D, actions) {
   const L = D.line || {}, P = D.proposed, T = D.tag || {};
   const item = (title, ...body) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, title), h('div', {class: 'datagrid-content', style: 'overflow-wrap:anywhere'}, body));
@@ -329,8 +330,8 @@ function restatedLine(r, compare) {
   const used = (r.used || {}).extraction_id;
   const word = String(r.line || '').split(':')[0] || 'Restated';
   return h('div', {class: 'small restated'}, h('div', {class: 'text-orange fw-medium'}, word, link ? [h('span', {class: 'text-secondary fw-normal'}, ' · '), link] : ''),
-    h('table', {class: 'readings'}, h('tbody', {}, steps.map((st) => { const f = (st.filings || [])[0] || {}, isUsed = (st.filings || []).some((x) => x.extraction_id === used);
-      return h('tr', {}, h('td', {class: 'num'}, st.cell_text), h('td', {class: 'text-secondary'}, `${f.form || ''} ${f.filed || ''}`.trim()), h('td', {class: isUsed ? 'fw-medium' : 'text-secondary'}, isUsed ? 'Used' : '')); }))));
+    h('div', {class: 'readings cols-3'}, steps.map((st) => { const f = (st.filings || [])[0] || {}, isUsed = (st.filings || []).some((x) => x.extraction_id === used);
+      return [h('span', {class: 'num'}, st.cell_text), h('span', {class: 'text-secondary'}, `${f.form || ''} ${f.filed || ''}`.trim()), h('span', {class: isUsed ? 'fw-medium' : ''}, isUsed ? 'Used' : '')]; })));
 }
 // a figure calculated from several cells (ledger/checks/calc.py): the formula with its result, the arithmetic on the real
 // inputs, and each cross-check (the filing's own total, SEC XBRL) in states.CROSSCHECK's tone. The trail and the gold set.
