@@ -53,7 +53,12 @@ const PAGE_ROWS = 100;
 function table(cols, rows, {key, onRow, detail, page} = {}) {
   const tb = h('tbody');
   let list = rows, at = 0;
-  const pager = page && rows.length > page ? h('div', {class: 'pager small text-secondary', role: 'navigation', 'aria-label': 'Pages'}) : null;
+  // the pager's buttons are built once and updated in place, so Next and Previous keep keyboard focus
+  const to = (i) => { const last = Math.max(0, Math.ceil(list.length / page) - 1); at = Math.min(last, Math.max(0, i)) * page; draw(); tb.closest('.card').scrollIntoView({block: 'start'}); };
+  const pg = page && rows.length > page ? {range: h('span', {'aria-live': 'polite'}), of: h('span', {}),
+    prev: h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', onclick: () => to(Math.floor(at / page) - 1)}, 'Previous'),
+    next: h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', onclick: () => to(Math.floor(at / page) + 1)}, 'Next')} : null;
+  const pager = pg ? h('div', {class: 'pager small text-secondary', role: 'navigation', 'aria-label': 'Pages'}, pg.range, pg.prev, pg.of, pg.next) : null;
   const draw = () => {
     tb.replaceChildren();
     const shown = pager ? list.slice(at, at + page) : list;
@@ -68,13 +73,13 @@ function table(cols, rows, {key, onRow, detail, page} = {}) {
         tr.after(h('tr', {class: 'detail'}, h('td', {colspan: cols.length}, detail(r))));
       });
     }
-    if (pager) {
+    if (pg) {
       const last = Math.max(0, Math.ceil(list.length / page) - 1), n = Math.floor(at / page);
-      const to = (i) => { at = Math.min(last, Math.max(0, i)) * page; draw(); tb.closest('.card').scrollIntoView({block: 'start'}); };
-      pager.replaceChildren(h('span', {}, `Rows ${int(at + 1)}–${int(Math.min(list.length, at + page))} of ${int(list.length)}`),
-        h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', disabled: n === 0 || null, onclick: () => to(n - 1)}, 'Previous'),
-        h('span', {}, `Page ${int(n + 1)} of ${int(last + 1)}`),
-        h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', disabled: n === last || null, onclick: () => to(n + 1)}, 'Next'));
+      pg.range.textContent = `Rows ${int(at + 1)}–${int(Math.min(list.length, at + page))} of ${int(list.length)}`;
+      pg.of.textContent = `Page ${int(n + 1)} of ${int(last + 1)}`;
+      // a button that would be disabled while it has focus hands focus to its pair, never to the page
+      const off = (b, x, other) => { if (x && document.activeElement === b) other.focus(); b.disabled = x; };
+      off(pg.prev, n === 0, pg.next); off(pg.next, n === last, pg.prev);
     }
   };
   let sort = null, dir = 1;

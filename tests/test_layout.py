@@ -153,6 +153,16 @@ class Layout(unittest.TestCase):
         top = pg.evaluate("""async () => { const t = document.querySelector('table.gold'); window.scrollTo(0, t.getBoundingClientRect().top + scrollY + 600);
             await new Promise((r) => setTimeout(r, 200)); return t.querySelector('thead th').getBoundingClientRect().top; }""")
         self.assertLessEqual(abs(top), 1)
+    def test_pager_keeps_keyboard_focus(self):
+        """Review risk 2: Next and Previous are updated in place, so focus stays on the pager."""
+        pg = self.page(1600, "data?list=taxonomy")
+        pg.wait_for_selector(".pager button", timeout=60000)
+        nxt = pg.locator(".pager button", has_text="Next")
+        nxt.focus()
+        pg.keyboard.press("Enter")
+        pg.wait_for_timeout(200)
+        self.assertEqual(pg.evaluate("document.activeElement.textContent"), "Next")
+        self.assertIn("Rows 101–200", pg.text_content(".pager"))
 
 if __name__ == "__main__":
     unittest.main()
