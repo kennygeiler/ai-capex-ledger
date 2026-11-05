@@ -1,8 +1,9 @@
 """python -m ledger review --stage N | --ticker X …                      list open exceptions
-python -m ledger review --stage N | --ticker X … decide <id> accept|override|reject --reason "..." --by "..." [--value N] [--run]
+python -m ledger review --stage N | --ticker X … decide <id> accept|override|reject --reason "..." --by "..." --as person|run [--value N]
 
---by is a person on config.PEOPLE; --run records an agent's or a run's decision (author_kind run): it closes no block
-finding, which stays open and Proposed until a person decides it (F14)."""
+--as is required, so the command says who decides: person (--by a name on config.PEOPLE) or run (an agent's or a run's
+decision, author_kind run): a run's decision closes no block finding, which stays open and Proposed until a person
+decides it (F14)."""
 import argparse
 
 from ..core import store
@@ -20,7 +21,7 @@ def main(argv=None) -> int:
     ap.add_argument("--reason", default="")
     ap.add_argument("--by", default="")
     ap.add_argument("--value", type=int)
-    ap.add_argument("--run", action="store_true", help="an agent's or a run's decision: recorded, closes no block until a person decides")
+    ap.add_argument("--as", dest="author_kind", choices=["person", "run"], help="required with decide: person (--by on config.PEOPLE) or run (an agent's decision; closes no block)")
     a = ap.parse_args(argv)
     con = store.init(a.db)
     cur = con.execute("select * from exceptions where ticker in (select unnest(?))", [scope(a)[0]])
@@ -29,8 +30,10 @@ def main(argv=None) -> int:
         exc = next((e for e in excs if e["exception_id"] == a.exception_id), None)
         if not exc or not a.by:
             ap.error("give an open exception id and --by")
+        if not a.author_kind:
+            ap.error("say who decides: --as person or --as run")
         try:
-            d = decide(exc, a.kind, a.reason, a.by, a.value, author_kind="run" if a.run else "person")
+            d = decide(exc, a.kind, a.reason, a.by, a.value, author_kind=a.author_kind)
         except ValueError as e:
             print(e)
             return 1

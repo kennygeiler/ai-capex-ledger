@@ -86,7 +86,7 @@ def company(ticker: str) -> dict:
             f.update({k: (cell.get(last[id(f)]) or {}).get(k) for k in ("table_id", "row_label", "column_label", "cell_text")})
     finally:
         con.close()
-    cur, still = latest(decisions()), {e["exception_id"] for e in open_items(excs, decisions())}
+    cur, still = latest(decisions(), {e["exception_id"] for e in excs if e["severity"] == "block"}), {e["exception_id"] for e in open_items(excs, decisions())}
     rules = {r["id"]: r for r in load_rules()}
     for e in excs:
         d = cur.get(e["exception_id"])

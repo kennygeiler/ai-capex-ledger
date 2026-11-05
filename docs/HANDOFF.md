@@ -142,9 +142,9 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   (`rules.EXPLAINABLE`, row_label_switch) and matches only exactly its set of lines; a revenue or opex definition carries
   `periods`, the year the person saw, and applies to no other. `by` is unauthenticated until T6 (the local trust
   boundary): a rule's or definition's `by` is a claim, not proof of a person, as for resolutions and gold.
-- **Decide a block finding**: `ledger review --ticker X decide <id> accept|override|reject --reason "…" --by "<name on
-  config.PEOPLE>"`; every line records `reviewer` and `author_kind`. An agent writes `--run`: its decision is recorded and
-  closes nothing that blocks; the finding stays open under G4 and Proposed (G6, Proof, Reconcile) until a person decides
+- **Decide a block finding**: `ledger review decide <id> accept|override|reject --reason "…" --by "<name on
+  config.PEOPLE>" --as person --ticker X`; `--as person|run` is required, so the command says who decides, and every
+  line records `reviewer` and `author_kind`. An agent writes `--as run`: its decision is recorded and closes nothing that blocks; the finding stays open under G4 and Proposed (G6, Proof, Reconcile) until a person decides
   it (F14). A run's decision on a warning closes it, as before.
 - **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.
 - **Release**: Kenny's Data Emporium's Release page (`#release`) is the checklist: every line that could make a signature wrong, green or

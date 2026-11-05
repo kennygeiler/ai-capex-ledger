@@ -420,7 +420,7 @@ def missing_from_dataset(con, tickers, ds: list[dict], idx: dict | None = None) 
     first = first_periods(vals)
     released = {(v["ticker"], v["field"], v["period"]): v for v in apply(vals, excs, ds)}
     pending = {(e["ticker"], e["field"], e["period"]) for e in open_items(excs, ds)}
-    cur, decided = latest(ds), {}
+    cur, decided = latest(ds, {e["exception_id"] for e in excs if e["severity"] == "block"}), {}
     for e in excs:  # the current decisions on the findings of a cell, to name who decided it
         d = cur.get(e["exception_id"])
         if d and d["input_hash"] == e["input_hash"] and e["period"]:

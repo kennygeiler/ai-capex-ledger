@@ -75,8 +75,16 @@ class DecisionAuthors(unittest.TestCase):
     def test_a_run_decision_never_supersedes_a_persons_on_the_same_input(self):
         e = _exc()
         ds = [_dec(e["exception_id"], PERSON, kind="reject"), _dec(e["exception_id"], AGENT, kind="accept", at="2026-11-02T00:00:00+00:00")]
-        self.assertEqual(self.review.latest(ds)[e["exception_id"]]["reviewer"], PERSON)
+        self.assertEqual(self.review.latest(ds, {e["exception_id"]})[e["exception_id"]]["reviewer"], PERSON)
         self.assertEqual(self.review.open_items([e], ds), [])
+
+    def test_on_a_warning_the_newest_decision_stands_as_before(self):
+        w = _exc(sev="warn")
+        ds = [_dec(w["exception_id"], PERSON, kind="reject"), _dec(w["exception_id"], AGENT, kind="accept", at="2026-11-02T00:00:00+00:00")]
+        self.assertEqual(self.review.latest(ds)[w["exception_id"]]["reviewer"], AGENT)  # F14 changes blocks only
+        self.assertEqual(self.review.latest(ds, {w["exception_id"]})[w["exception_id"]]["reviewer"], PERSON)  # as a block it would keep the person's
+        v = {"ticker": "ZZB", "field": "revenue", "period": "FY2024", "value": 5}
+        self.assertEqual(self.review.apply([v], [w], ds)[0]["value"], 5)  # the newest (an accept) stands: the reject is not applied
 
     def test_a_run_override_on_a_block_changes_no_released_value(self):
         e = _exc()
@@ -87,11 +95,13 @@ class DecisionAuthors(unittest.TestCase):
     def test_every_new_decision_records_its_author_and_kind(self):
         e = _exc()
         with self.assertRaises(ValueError):
-            self.review.decide(e, "accept", "why", "")  # no author
+            self.review.decide(e, "accept", "why", "", author_kind="person")  # no author
         with self.assertRaises(ValueError):
-            self.review.decide(e, "accept", "why", "Somebody Else")  # a person's decision by a name off config.PEOPLE
+            self.review.decide(e, "accept", "why", "Somebody Else", author_kind="person")  # a person's decision by a name off config.PEOPLE
+        with self.assertRaises(TypeError):
+            self.review.decide(e, "accept", "why", PERSON)  # no default author kind: the caller says who decides
         self.assertFalse(self.review.LOG.exists())
-        d = self.review.decide(e, "accept", "why", PERSON)
+        d = self.review.decide(e, "accept", "why", PERSON, author_kind="person")
         r = self.review.decide(e, "accept", "why", "mapper agent", author_kind="run")
         lines = [json.loads(l) for l in self.review.LOG.read_text().splitlines()]
         self.assertEqual([(l["reviewer"], l["author_kind"]) for l in lines], [(PERSON, "person"), ("mapper agent", "run")])
@@ -104,8 +114,11 @@ class DecisionAuthors(unittest.TestCase):
         con = store.init(":memory:")
         store.write(con, "exceptions", [e])
         with mock.patch.object(cli.store, "init", return_value=con), mock.patch.object(cli, "decide", wraps=self.review.decide) as dec:
-            self.assertEqual(cli.main(["decide", e["exception_id"], "accept", "--reason", "r", "--by", "Somebody Else", "--ticker", "ZZB"]), 1)
-            self.assertEqual(cli.main(["decide", e["exception_id"], "accept", "--reason", "r", "--by", "an agent", "--run", "--ticker", "ZZB"]), 0)
+            with self.assertRaises(SystemExit):  # no --as: refused, nothing written (an agent cannot borrow a person's kind by omission)
+                cli.main(["decide", e["exception_id"], "accept", "--reason", "r", "--by", PERSON, "--ticker", "ZZB"])
+            self.assertFalse(self.review.LOG.exists())
+            self.assertEqual(cli.main(["decide", e["exception_id"], "accept", "--reason", "r", "--by", "Somebody Else", "--as", "person", "--ticker", "ZZB"]), 1)
+            self.assertEqual(cli.main(["decide", e["exception_id"], "accept", "--reason", "r", "--by", "an agent", "--as", "run", "--ticker", "ZZB"]), 0)
         self.assertEqual(dec.call_args.kwargs["author_kind"], "run")
         self.assertEqual([json.loads(l)["author_kind"] for l in self.review.LOG.read_text().splitlines()], ["run"])
 
