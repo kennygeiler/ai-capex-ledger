@@ -171,7 +171,7 @@ function goldSet() {
         b.disabled = !(me || '').trim(); goldNeedsMe.add(b);
         return b;
       });
-      return h('div', {}, h('div', {class: 'btn-group seg mb-1', role: 'group', 'aria-label': `Verdict on ${it.id}`}, btns), note, msg);
+      return h('div', {}, writes(h('div', {class: 'btn-group seg mb-1', role: 'group', 'aria-label': `Verdict on ${it.id}`}, btns)), writes(note), msg);
     };
     // the items arrive hard first (gold.ordered); a header row opens each group with that group's numbers for this company
     const coGroups = Object.fromEntries(((co.rates || {}).groups || []).map((x) => [x.id, x.rate]));
@@ -215,7 +215,10 @@ function failureTypes() {
       const plot = h('div', {class: 'plot', role: 'figure', 'aria-label': aria, style: `min-height:0;height:${28 * rows.length + 48}px`});
       const tbl = dtable(title, [{t: label, f: (r) => (key === 'check' && r[key] === 'none' ? 'No check' : r[key])},
         {t: 'Types', num: 1, f: (r) => ofTotal(r.types)}, {t: 'Share', num: 1, f: (r) => pct(r.types / total)}], rows, {foot: ['All', ofTotal(total), pct(1)]});
-      return {plot, tbl, node: h('div', {class: 'col-lg-6'}, h('div', {class: 'card'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'fw-semibold'}, title), plot)), h('div', {class: 'mt-2'}, tbl))};
+      // V15: the chart's numbers fold under it (the same figures; a reader without colour or Plotly opens them), so the two
+      // columns stay level instead of one table running 500 px past the other
+      return {plot, tbl, node: h('div', {class: 'col-lg-6'}, h('div', {class: 'card'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'fw-semibold'}, title), plot,
+        h('details', {class: 'fold mt-1'}, h('summary', {}, h('span', {class: 'small text-secondary'}, 'Numbers')), h('div', {class: 'mt-2'}, tbl)))))};
     };
     const byClass = chart('Types per cause class', f.by_class, 'class', 'Cause class', `${total} failure types by cause class, number of types per class`);
     const byCheck = chart('Types per check', f.by_check, 'check', 'Check', `${total} failure types by the check that catches them`);
@@ -227,7 +230,7 @@ function failureTypes() {
     const why = h('p', {class: 'text-secondary small mt-2'}, `${NO_CHECK}: ${ofTotal(f.none)}`);
     wrap.append(head, h('div', {class: 'row g-3'}, byClass.node, byCheck.node), why, list);
     fitTables(wrap);  // drawn after the router's skin()
-    if (!window.Plotly) { for (const c of [byClass, byCheck]) c.plot.replaceChildren(h('p', {class: 'text-secondary small m-0'}, 'Chart unavailable')); return; }
+    if (!await plotlyReady()) { for (const c of [byClass, byCheck]) c.plot.replaceChildren(h('p', {class: 'text-secondary small m-0'}, 'Chart unavailable')); return; }
     const draw = (c, rows, key, nameOf) => {
       const css = getComputedStyle(document.documentElement);  // read at draw time: a theme change redraws with the new ink
       const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim(), accent = css.getPropertyValue('--accent').trim();

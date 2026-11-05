@@ -453,7 +453,7 @@ LABEL_MAPS: dict = {}
 # and tests.test_states fails when one of them is a state word (a copy that can drift from ledger/core/states.py).
 PAIR = re.compile(r"\[\s*'(?:text|bg)-[a-z-]+'\s*,\s*'([^']*)'\s*\]|\[\s*'([^']*)'\s*,\s*'(?:text|bg)-[a-z-]+'\s*\]")
 # The text of an element styled as a status (a badge or a tone colour), literal or the static parts of a template.
-TONED = re.compile(r"""h\('[a-z0-9]+',\s*\{[^{}]*class:\s*'[^']*(?:badge|text-(?:green|red|orange|teal|azure|yellow))[^']*'[^{}]*\},\s*('[^']*'|`[^`]*`)""")
+TONED = re.compile(r"""h\('[a-z0-9]+',\s*\{[^{}]*class:\s*'[^']*(?:badge|text-(?:green|red|orange|teal|azure|yellow|review|purple))[^']*'[^{}]*\},\s*('[^']*'|`[^`]*`)""")
 # Strings a page shows that the two rules above cannot see (a class picked at run time, a heading).
 WATCHED = ("'Proven'", "Ready for release", "Not in scope", "Next 10-K expected", "Tables unchanged", "Tables changed", "Hand check: ", "'Hand check'",
            "No items to review", "Quotes verified", "95% CI", "Planted errors", "Matches SEC XBRL", "Read-only", "Make this a rule", "Make this a definition",

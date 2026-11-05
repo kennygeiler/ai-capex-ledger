@@ -198,7 +198,7 @@ class VisualContract(unittest.TestCase):
         """V3: every either/or choice is .seg, at least 28 px tall with 10 px sides; its selected segment is a neutral fill, never
         the primary action's colour."""
         css = self.css()
-        self.assertIn(".seg > .btn { min-height: 1.75rem; padding: 0 .625rem;", css)
+        self.assertIn(".seg > .btn { min-height: 1.75rem; padding: 0 .75rem;", css)  # V23: 12 px sides, on the 4 px scale (V3 asks at least 8)
         sel = re.search(r"\.seg > \.btn\.active[^{]*\{([^}]*)\}", css).group(1)
         self.assertIn("background: color-mix(in srgb, var(--tblr-body-color) 13%, var(--tblr-bg-surface))", sel)
         self.assertNotIn("primary", sel)
@@ -232,14 +232,14 @@ class VisualContract(unittest.TestCase):
         css = self.css()
         self.assertIn(".table > thead > tr > th { position: sticky; top: 0;", css)
         self.assertIn(".table-responsive.fit { overflow: visible; }", css)
-        self.assertIn(".table-responsive.wide { max-height: calc(100vh - 2rem); overflow: auto; }", css)
+        self.assertIn(".table-responsive.wide { max-height: calc(100vh - 6rem); overflow: auto; }", css)  # F-VS3: the pager and page foot fit under it
         self.assertIn("fitTables(root);", (PAGES / "_shared.js").read_text())
 
     def test_dataset_rows_page_at_most_100(self):
         """V4: Dataset Rows draws one page of at most 100 rows, with a pager."""
         n = int(re.search(r"^const PAGE_ROWS = (\d+);", (PAGES / "_shared.js").read_text(), re.M).group(1))
         self.assertLessEqual(n, 100)
-        self.assertIn("table(tcols, rows, {detail, page: PAGE_ROWS})", (PAGES / "data.js").read_text())
+        self.assertIn("table(filled(rows).map(tcol), rows, {detail, page: PAGE_ROWS})", (PAGES / "data.js").read_text())
 
     def test_page_head_band(self):
         """V5: the scope line sits in the page container above main, not in its own container under the navbar."""
@@ -256,6 +256,161 @@ class VisualContract(unittest.TestCase):
         self.assertIn("class: 'card bulkbar', hidden: true", rec)
         self.assertIn("colspan: t.tr.closest('table').querySelectorAll('thead th').length", rec)
         self.assertNotIn("colspan: 8", rec)
+
+
+class VisualContract2(unittest.TestCase):
+    """V9-V23 (docs/ux-visual/problems.md, measured in docs/ux-visual/verification/V9-V23.md): the drawing rules. The measured
+    side is tests.test_layout."""
+
+    def test_read_only_hides_every_write_control(self):
+        """F-VT4: one mark (data-write, writes()) and one rule (body.readonly) hide every write control in a read-only copy;
+        every page that posts marks its controls."""
+        self.assertIn("body.readonly [data-write] { display: none !important; }", APP.read_text())
+        self.assertIn("document.body.classList.add('readonly')", (PAGES / "_router.js").read_text())
+        self.assertIn("const needsMe = (btn) => { btn.disabled = !isSigner(me); NEEDS_ME.add(btn); return writes(btn); };", (PAGES / "reconcile.js").read_text())
+        for f in PAGES.glob("*.js"):
+            if "method: 'POST'" in f.read_text():
+                self.assertIn("writes(", f.read_text(), f.name)
+
+    def test_no_gradient(self):
+        """Review 6: gradients are on the owner's banned list; a wide table's edge is a solid border (.more-l / .more-r)."""
+        for f in [APP, *PAGES.glob("*.js")]:
+            self.assertNotIn("gradient(", f.read_text(), f.name)
+        self.assertIn(".table-responsive.wide.more-r { border-right-color: var(--tblr-secondary); }", APP.read_text())
+
+    def test_redrawn_tables_keep_the_kit(self):
+        """V17: Find, Show rows and a bar click redraw with table(), whose sort headers carry the kit's classes; the buttons
+        those pages draw after the router's skin() carry their own (never a bare native button)."""
+        shared = (PAGES / "_shared.js").read_text()
+        self.assertIn("th.append(h('button', {type: 'button', class: 'btn btn-link btn-sm p-0 align-baseline'", shared)
+        for f in ("explore.js", "data.js"):
+            for m in re.finditer(r"h\('button', \{type: 'button', class: '([^']*)'", (PAGES / f).read_text()):
+                classes = m.group(1).split()
+                self.assertIn("btn", classes, f)
+                self.assertTrue({"btn-primary", "btn-link", "btn-outline-secondary", "btn-ghost-secondary"} & set(classes), (f, m.group(1)))
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class ExploreColours(unittest.TestCase):
+    """V20 / DE28: a series' colour is fixed by what it is (a company by its place in the scope), never by the order a browser
+    first saw it (the old localStorage register gave viewers different colours for the same company)."""
+
+    def colours(self, scope, calls):
+        js = line("explore.js", "const COLORS") + "\nconst INDUSTRY = {hyperscaler: 1, neocloud: 1, miner_to_hpc: 1, chip_seller: 1};\n" + block("explore.js", "const colorOf = ", "\n};") + \
+            "\nconst a = JSON.parse(process.argv[process.argv.length - 1]); const SCOPE = a[0];\nprocess.stdout.write(JSON.stringify(a[1].map(([d, n, v]) => colorOf(d, n, v))));"
+        return json.loads(node(js, json.dumps([scope, calls])))
+
+    def test_a_company_keeps_its_colour_whatever_else_is_drawn(self):
+        scope = ["MSFT", "GOOGL", "AMZN", "NVDA", "APLD", "AMD"]
+        got = self.colours(scope, [["ticker", "AMD", []], ["ticker", "APLD", []], ["ticker", "AMD", ["AMD"]], ["layer", "hyperscaler", []], ["layer", "hyperscaler", ["x"]]])
+        self.assertEqual(got[0], got[2])
+        self.assertNotEqual(got[0], got[1])
+        self.assertEqual(got[3], got[4])
+        six = self.colours(scope, [["ticker", t, []] for t in scope])
+        self.assertEqual(len(set(six)), 6)  # the six companies in scope never share a colour
+        self.assertNotIn("localStorage", (PAGES / "explore.js").read_text())
+
+    def test_controls_are_labelled_and_the_chart_waits_for_plotly(self):
+        js = (PAGES / "explore.js").read_text()
+        self.assertIn("const sel = (label, key, opts, {blank} = {}) => h('label', {class: 'exf'}, h('span', {class: 'exl'}, label)", js)
+        self.assertNotIn("'then'", js)
+        self.assertNotIn("`x: ${t}`", js)
+        self.assertIn("if (!await plotlyReady())", js)
+        self.assertIn("if (!await plotlyReady())", (PAGES / "proof.js").read_text())
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class FiguresInCells(unittest.TestCase):
+    """V11: the server's finding text and a tie's detail are taken apart into labelled values; nothing is recomputed, and a
+    text of an unknown shape is shown as written (null here)."""
+
+    def run_js(self, fn, args):
+        js = "const LABEL = {opex: 'Opex'};\n" + line("_shared.js", "const memberWords") + "\n" + block("_shared.js", f"function {fn}(", "\n}") + \
+            f"\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[process.argv.length - 1]).map({fn})));"
+        return json.loads(node(js, json.dumps(args)))
+
+    def test_a_tie_finding_becomes_cells(self):
+        got = self.run_js("messageFacts", [
+            "2 parts in 0001144879-26-000048 sum to $2,989.9M; the filing tags PaymentsToAcquireProductiveAssets $2,865.8M for 2026-05-31 (gap $124.2M, tolerance on the sum ±$1,500)",
+            "opex moves 4.69× from FY2025 (83,985,000) to FY2026 (394,144,000)",
+            "something else entirely"])
+        self.assertEqual([k for k, *_ in got[0]], ["Parts", "Sum of parts", "Tagged as", "Tagged total", "Period end", "Gap", "Tolerance"])
+        self.assertEqual(dict((k, v) for k, v, *_ in got[0])["Sum of parts"], "$2,989.9M")
+        self.assertEqual(dict((k, v) for k, v, *_ in got[0])["Gap"], "$124.2M")
+        self.assertEqual(got[1], [["Field", "Opex"], ["FY2025", "83,985,000"], ["FY2026", "394,144,000"], ["Change", "4.69×"]])
+        self.assertIsNone(got[2])
+
+    def test_a_ties_parts_become_a_list(self):
+        got = self.run_js("tieParts", ["7 parts · tolerance ±$4,000 · Building $30.2M; Land $1.1M", "The two cost lines above gross profit."])
+        self.assertEqual(got[0], {"n": "7 parts", "tolerance": "±$4,000", "parts": [["Building", "$30.2M"], ["Land", "$1.1M"]]})
+        self.assertIsNone(got[1])
+
+    def test_the_rules_score_is_cells(self):
+        js = (PAGES / "rules.js").read_text()
+        self.assertNotIn("`Caught ${of(f.caught, f.planted)} · Missed", js)
+        for label in ("item('Caught', of(f.caught, f.planted))", "item('Missed', int(f.escaped))", "item('Caught without SEC XBRL', int(off.caught))", "item('Matches SEC XBRL', of(sc.twin.agree, sc.twin.of)"):
+            self.assertIn(label, js)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class MoneyUnits(unittest.TestCase):
+    """V16: one unit per place. A chart's tooltip and Data table use the axis's unit; a Grid's cells one unit; Dataset Rows'
+    money columns to the dollar with a $ (never a bare integer); the hand check's exact figures as filed are untouched."""
+
+    def fmt(self, cases):
+        js = block("_shared.js", "const usd = (n) => {", "\n};") + "\n" + block("_shared.js", "const usdIn = ", "\n};") + \
+            "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[process.argv.length - 1]).map(([n, u]) => usdIn(n, u))));"
+        return json.loads(node(js, json.dumps(cases)))
+
+    def test_one_unit(self):
+        self.assertEqual(self.fmt([[119016000000, "B"], [390000, "M"], [9800000, "M"], [-1500, "M"], [None, "M"], [513983000000, "M"]]),
+                         ["$119.0B", "$0.39M", "$9.8M", "−$0.0015M", "—", "$513,983M"])
+        # review 1: a B place with mixed magnitudes never prints $0.0B for a smaller figure
+        self.assertEqual(self.fmt([[4000000, "B"], [0, "B"], [950000000, "B"], [1000000000, "B"], [-2500000, "B"], [390000, "B"]]),
+                         ["$4M", "$0", "$950M", "$1.0B", "−$2.5M", "$0.39M"])
+
+    def test_the_places_use_it(self):
+        ex, data = (PAGES / "explore.js").read_text(), (PAGES / "data.js").read_text()
+        self.assertIn("isShare ? pct(v) : usdIn(v, suffix)", ex)
+        self.assertNotIn("row(s)", ex)
+        self.assertIn("usdIn(r.value, gridUnit)", data)
+        self.assertIn("MONEY_KEYS.has(k) && (!r.unit || /^usd$/i.test(r.unit)) ? usdExact(v)", data)
+        self.assertIn("usdExact", (PAGES / "proof.js").read_text())  # the hand check reads to the dollar, as before
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class MachineWords(unittest.TestCase):
+    """V22: a member's code name reads as words; a server line naming one keeps its words and reads the code as words."""
+
+    def test_member_codes_read_as_words(self):
+        js = line("_shared.js", "const memberWords") + "\n" + line("_shared.js", "const memberText") + \
+            "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[process.argv.length - 1]).map(memberText)));"
+        got = json.loads(node(js, json.dumps(["Company-specific tag: amzn:ServersAndNetworkingEquipmentMember", "us-gaap:LandMember and goog:TechnicalInfrastructureMember", "no code here"])))
+        self.assertEqual(got, ["Company-specific tag: Servers and networking equipment", "Land and Technical infrastructure", "no code here"])
+
+    def test_the_accession_is_printed_on_evidence(self):
+        """Review 2: an accession number is a filing's id the owner checks, not a machine word: printed under Filing on
+        Evidence and on each side of the compare (V22's link stays besides)."""
+        ev = (PAGES / "evidence.js").read_text()
+        self.assertIn("const accessionLine = (acc) => (acc ? h('div', {class: 'small text-secondary accession'}, `Accession ${acc}`) : '');", ev)
+        self.assertEqual(ev.count("accessionLine(e.accession)"), 2)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class AgentVersions(unittest.TestCase):
+    """Review 5: an agent with prompt versions and no recorded change still shows its versions."""
+
+    def card(self, a):
+        js = """const h = (tag, attrs = {}, ...kids) => kids.flat(Infinity).filter((k) => k !== '' && k != null).join(' ');
+const dtable = () => '[table]'; const day = (x) => x;\n""" + line("_shared.js", "const int") + "\n" + line("_shared.js", "const plural") + "\n" + \
+            (PAGES / "rules.js").read_text().split("async function rulesPage")[0] + "\nprocess.stdout.write(agentCard(JSON.parse(process.argv[process.argv.length - 1])));"
+        return node(js, json.dumps(a))
+
+    def test_versions_without_history(self):
+        base = {"id": "x", "name": "X", "job": "j", "llm": {"model": "m"}, "prompt": "p@v2", "charter_blocks": [], "runs": {"companies": [], "total": {}}}
+        self.assertIn("versions v1, v2", self.card({**base, "versions": ["p@v1", "p@v2"], "history": []}))
+        self.assertIn("No change recorded", self.card({**base, "versions": ["p@v1"], "history": []}))
+        self.assertIn("1 change · versions v1", self.card({**base, "versions": ["p@v1"], "history": [{"at": "2026-11-01", "by": "K", "change": "c"}]}))
 
 
 @unittest.skipUnless(shutil.which("node"), "no node")

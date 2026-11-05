@@ -36,6 +36,26 @@ class Declarations(unittest.TestCase):
                     self.assertEqual(s.kind == states.GOOD, r.kind == states.GOOD, (mid, s.name, s.alias))
 
 
+class Colour(unittest.TestCase):
+    """V13 (docs/ux-visual/problems.md): red only for a BAD state (what blocks a release or failed); every open state a person
+    must look at in one hue; a proposal in its own; the hue is defined once in app.html."""
+
+    def test_red_is_only_for_bad_states(self):
+        for mid, m in states.MACHINES.items():
+            for s in m.states:
+                r = states.resolve(mid, s.name)
+                if r.tone == "text-red":
+                    self.assertEqual(r.kind, states.BAD, (mid, s.name))
+
+    def test_needs_review_is_one_hue(self):
+        review = states.resolve("row", "bad").tone
+        self.assertNotEqual(review, "text-red")
+        self.assertNotEqual(review, states.resolve("row", "wait").tone)  # Needs review and Proposed sit side by side
+        for mid, name in (("check", "unresolved"), ("check", "not_extracted"), ("mapping", "unmapped")):
+            self.assertEqual(states.resolve(mid, name).tone, review, (mid, name))
+        self.assertIn(".text-review { color: var(--review) !important; }", (store.ROOT / "ledger" / "web" / "app.html").read_text())
+
+
 class Transitions(unittest.TestCase):
     """(1) No illegal transition."""
 

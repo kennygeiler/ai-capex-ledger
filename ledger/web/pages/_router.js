@@ -37,7 +37,7 @@ window.addEventListener('hashchange', route);
 route();
 // T29, the first line: what this copy shows. Scope, the last run, read-only or local; one line under the nav.
 hq().then((d) => {
-  if (d.readonly) $('#me').closest('span').replaceWith(h('span', {class: 'text-azure small'}, 'Read-only'));
+  if (d.readonly) { $('#me').closest('span').replaceWith(h('span', {class: 'text-azure small'}, 'Read-only')); document.body.classList.add('readonly'); }  // F-VT4: every [data-write] hides
   const hl = (d.health && d.health[0]) || {};
   const n = hl.companies != null ? hl.companies : (SCOPE.length || null);
   // V5: the line sits in the page's container (app.html), on the H1's left edge; its height is reserved before this lands

@@ -29,6 +29,8 @@ import json
 from dataclasses import dataclass, field
 
 GOOD, NEUTRAL, OPEN, BAD = "good", "neutral", "open", "bad"
+# V13 (docs/ux-visual/problems.md): red (text-red) is kept for a BAD state, what blocks a release or failed; every open state a
+# person must look at reads in one hue, text-review (app.html); a proposal waiting on a person is text-purple
 UNKNOWN, STALE, MISSING = "unknown", "stale", "missing"  # never good: not looked up / not run, out of date, gone
 KINDS = (GOOD, NEUTRAL, OPEN, BAD, UNKNOWN, STALE, MISSING)
 NEVER_GOOD = (UNKNOWN, STALE, MISSING)
@@ -81,8 +83,8 @@ ROW = Machine("row", "M1", "ledger.core.states.row", (
     _s("company", GOOD, "Matches company tag", "text-cyan", meaning="a category the company's own XBRL tag matches"),
     _s("done", NEUTRAL, "Done", "text-secondary", meaning="found or confirmed, not checked: statements located, no blocking items, a person's confirmation"),
     _s("info", NEUTRAL, "Unverified", "text-azure", meaning="explained: a citation only, a definition, a decision, an info rule"),
-    _s("wait", OPEN, "Proposed", "text-orange", meaning="a proposal no person has confirmed (a mapping, a run's decision)"),
-    _s("bad", OPEN, "Needs review", "text-red", meaning="open: neither checked nor explained"),
+    _s("wait", OPEN, "Proposed", "text-purple", meaning="a proposal no person has confirmed (a mapping, a run's decision)"),
+    _s("bad", OPEN, "Needs review", "text-review", meaning="open: neither checked nor explained"),
     _s("blocked", BAD, "Blocks release", "text-red", meaning="a block rule fired or a person's decision blocks"),
     _s("unknown", UNKNOWN, "Not checked", "text-secondary", meaning="no state was computed for the row"),
 ), frozenset({("bad", "info"), ("bad", "blocked"), ("info", "bad"), ("info", "blocked"), ("blocked", "info"), ("blocked", "bad"),
@@ -202,11 +204,11 @@ def ladder(st: dict) -> str:
 # ── check: a value's reconcile label against the SEC's XBRL (reconcile.values_for) ────────────────────────────────
 CHECK = Machine("check", "M1a", "ledger.checks.reconcile.values_for", (
     _s("agree", GOOD, alias="row.ok", meaning="the cell agrees with the SEC's XBRL value"),
-    _s("unresolved", OPEN, "Differs from SEC XBRL", "text-orange", meaning="the cell differs from the SEC's XBRL value"),
+    _s("unresolved", OPEN, "Differs from SEC XBRL", "text-review", meaning="the cell differs from the SEC's XBRL value"),
     _s("definition_gap", NEUTRAL, "Unverified · definition", "text-azure", meaning="differs, and a definition on file says why"),
     _s("no_reference", NEUTRAL, "Unverified · citation only", "text-azure", meaning="no XBRL value to compare"),
     _s("not_reported", NEUTRAL, "Not reported", "text-secondary", meaning="the company reports no such line and XBRL has none"),
-    _s("not_extracted", OPEN, "In SEC XBRL, not extracted", "text-red", meaning="XBRL holds a value the reader did not extract (T65)"),
+    _s("not_extracted", OPEN, "In SEC XBRL, not extracted", "text-review", meaning="XBRL holds a value the reader did not extract (T65)"),
     _s("unknown", UNKNOWN, alias="row.unknown", meaning="no label: the row was not reconciled"),
 ), frozenset({("unknown", s) for s in ("agree", "unresolved", "definition_gap", "no_reference", "not_reported", "not_extracted")}
              | {("unresolved", "definition_gap"), ("definition_gap", "unresolved"), ("unresolved", "agree"), ("agree", "unresolved"),
@@ -223,7 +225,7 @@ MAPPING = Machine("mapping", "M5", "ledger.core.status.of_mapping", (
     _s("confirmed", NEUTRAL, alias="row.done", meaning="a person confirmed the member (confirmed_by)"),
     _s("filer_tag", GOOD, alias="row.company", meaning="the company's own XBRL tags the category with the proposed member"),
     _s("to_confirm", OPEN, alias="row.wait", meaning="an entry no person confirmed (T63)"),
-    _s("unmapped", OPEN, "Unmapped", "text-red", meaning="no entry in taxonomy/asset_types.yaml (the trail says the row's word, Needs review)"),
+    _s("unmapped", OPEN, "Unmapped", "text-review", meaning="no entry in taxonomy/asset_types.yaml (the trail says the row's word, Needs review)"),
 ), frozenset({("unmapped", "to_confirm"), ("unmapped", "confirmed"), ("to_confirm", "confirmed"), ("to_confirm", "unmapped"),
               ("to_confirm", "filer_tag"), ("filer_tag", "confirmed")}),
     absent="unmapped",
@@ -267,7 +269,7 @@ def gold(item: dict | None) -> str:
 GOLD_GROUP = Machine("gold_group", "M17", "ledger.review.gold.group", (
     _s("no_counterpart", NEUTRAL, "No SEC counterpart", "text-azure", meaning="no XBRL value to compare (no_reference, not_reported): the person is the only check"),
     _s("definition", NEUTRAL, "Definition differs", "text-azure", meaning="an XBRL value exists and differs (definition_gap, unresolved)"),
-    _s("not_extracted", OPEN, "Not extracted", "text-red", meaning="XBRL holds a value the reader did not extract (not_extracted)"),
+    _s("not_extracted", OPEN, "Not extracted", "text-review", meaning="XBRL holds a value the reader did not extract (not_extracted)"),
     _s("not_reconciled", UNKNOWN, "Not reconciled", "text-secondary", meaning="no label, or a label off the list: the row was never compared"),
     _s("calculated", GOOD, "Calculated", "text-teal", meaning="agrees with SEC XBRL, and its calculation from several cells holds (calc.holds)"),
     _s("xbrl", GOOD, "Matches SEC XBRL", "text-green", meaning="agrees with SEC XBRL: already machine-checked"),
@@ -294,7 +296,7 @@ RESTATED, SUPERSEDED, SOURCE_NOT_FOUND, SEGMENT_BASIS_MIXED = (DISPLAY[k][0] for
 CROSSCHECK = Machine("crosscheck", "M18", "ledger.checks.calc.state", (
     _s("matches", GOOD, "matches", "text-green", meaning="the filing's own total, or SEC XBRL, equals the calculation within rounding"),
     _s("explained", NEUTRAL, "includes", "text-secondary", meaning="the filing's own total differs by exactly one formula input, sign-aware, and by no other line (a wider measure: Amazon's total includes cost of sales)"),
-    _s("differs", OPEN, "differs by", "text-orange", meaning="the other total differs; the page names the line of that amount only when exactly one line is"),
+    _s("differs", OPEN, "differs by", "text-review", meaning="the other total differs; the page names the line of that amount only when exactly one line is"),
     _s("none", UNKNOWN, "No total to compare", "text-secondary", meaning="the filing prints no such total in that column, or XBRL has no value"),
 ), frozenset({(a, b) for a in ("none", "matches", "explained", "differs") for b in ("none", "matches", "explained", "differs") if a != b and b != "none"}),
     absent="none")
@@ -335,7 +337,7 @@ def edgar(checked_at, at=None) -> tuple[str, float | None, str | None]:
 COMPANY = Machine("company", "M19", "ledger.core.states.company", (
     _s("filed", NEUTRAL, "Filings read", "text-secondary", meaning="a followed company with at least one filing read; its stages decide whether it is proven"),
     _s("unfiled", UNKNOWN, "No filings yet", "text-orange", meaning="a followed company (config.tracked) with no filing read: nothing to prove, never Proven"),
-    _s("unknown", UNKNOWN, "Unknown company", "text-red", meaning="a ticker the ledger does not follow and has read no filing for: no trail"),
+    _s("unknown", UNKNOWN, "Unknown company", "text-review", meaning="a ticker the ledger does not follow and has read no filing for: no trail"),
 ), frozenset({("unknown", "unfiled"), ("unknown", "filed"), ("unfiled", "filed")}),
     absent="unknown")
 

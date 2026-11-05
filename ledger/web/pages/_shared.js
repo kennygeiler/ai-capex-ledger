@@ -23,6 +23,19 @@ const usd = (n) => {
 };
 // the figure to the dollar (cards.exact), where two different figures would print the same in usd
 const usdExact = (n) => { if (n == null || n === '') return '—'; const x = Number(n), a = Math.floor(Math.abs(x) + 0.5); return `${x < 0 && a ? '−' : ''}$${a.toLocaleString('en-US')}`; };
+// V16: money in the unit the reader already has (a chart's axis, a table column): B or M, the exact dollars beside it on hover.
+// Under a million in an M column keeps two significant digits ($0.39M), so one column never mixes $390,000 with $9.8M.
+const usdIn = (n, unit) => {
+  if (n == null || n === '') return '—';
+  const x = Number(n), a = Math.abs(x), sign = x < 0 && a ? '−' : '';
+  // a figure under a billion in a B place falls back to the M rule: $4M never reads $0.0B (review 1)
+  if (unit === 'B' && a >= 1e9) return `${sign}$${(a / 1e9).toLocaleString('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1})}B`;
+  if (unit === 'B') unit = 'M';
+  if (unit === 'M' && a && a < 1e6) return `${sign}$${Number((a / 1e6).toPrecision(2))}M`;
+  return usd(x);
+};
+// the read API's money columns (Dataset Rows): shown to the dollar with its sign, never as a bare integer
+const MONEY_KEYS = new Set(['value', 'value_high', 'change_from_prior', 'amount_low', 'amount_high', 'amount_mid', 'xbrl']);
 const day = (s) => (s ? new Date(String(s).slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'}) : '—');
 const when = (s) => (s ? new Date(s).toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'}) : '—');
 // One name per field, every page (trail, Reconcile, Dataset, Explore, gold, evidence)
@@ -42,9 +55,19 @@ let me = 'Kenny Geiler';
 try { me = localStorage.getItem('datahq-me') || me; } catch {}
 $('#me').value = me;
 $('#me').addEventListener('input', (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} });
+// F-VT4: marks a control (or the block holding several) as one that writes; hidden in a read-only copy (app.html)
+const writes = (el) => { if (el && el.setAttribute) el.setAttribute('data-write', ''); return el; };
 let NAMES = {}, SCOPE = [];
-// the jump box offers the scope only (T2); a ticker typed from outside it still navigates, an explicit ask
-api('/api/data?t=&f=none').then((d) => { SCOPE = d.scope || Object.keys(d.names); NAMES = Object.fromEntries(SCOPE.filter((t) => d.names[t]).map((t) => [t, d.names[t]])); $('#tickers').replaceChildren(...Object.entries(NAMES).map(([t, n]) => h('option', {value: t}, n))); });
+// the jump box offers the scope only (T2); a ticker typed from outside it still navigates, an explicit ask. scopeReady: a page
+// that needs the scope (Explore's fixed colours) waits for it
+const scopeReady = api('/api/data?t=&f=none').then((d) => { SCOPE = d.scope || Object.keys(d.names); NAMES = Object.fromEntries(SCOPE.filter((t) => d.names[t]).map((t) => [t, d.names[t]])); $('#tickers').replaceChildren(...Object.entries(NAMES).map(([t, n]) => h('option', {value: t}, n))); }).catch(() => {});
+// V20: Plotly loads deferred from its CDN, after the first route has started; a chart waits for it (at most 8 s) instead of
+// saying "Chart unavailable" on a cold deep link
+function plotlyReady(ms = 8000) {
+  if (window.Plotly) return Promise.resolve(true);
+  const s = document.querySelector('script[src*="plotly"]');
+  return new Promise((res) => { if (!s) { res(false); return; } const done = () => res(!!window.Plotly); s.addEventListener('load', done, {once: true}); s.addEventListener('error', done, {once: true}); setTimeout(done, ms); });
+}
 $('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().toUpperCase(); const t = NAMES[v] ? v : Object.keys(NAMES).find((k) => NAMES[k].toUpperCase() === v) || (/^[A-Z.\-]{1,6}$/.test(v) ? v : null); if (t) { e.target.value = ''; go(`data?ticker=${t}`); } });
 
 // `page`: rows per page (V4: Dataset Rows draws at most 100 at a time), a pager under the table; a sort reorders every row
@@ -52,7 +75,7 @@ $('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().t
 const PAGE_ROWS = 100;
 function table(cols, rows, {key, onRow, detail, page} = {}) {
   const tb = h('tbody');
-  let list = rows, at = 0;
+  let list = rows, at = 0, head = null;
   // the pager's buttons are built once and updated in place, so Next and Previous keep keyboard focus
   const to = (i) => { const last = Math.max(0, Math.ceil(list.length / page) - 1); at = Math.min(last, Math.max(0, i)) * page; draw(); tb.closest('.card').scrollIntoView({block: 'start'}); };
   const pg = page && rows.length > page ? {range: h('span', {'aria-live': 'polite'}), of: h('span', {}),
@@ -73,6 +96,9 @@ function table(cols, rows, {key, onRow, detail, page} = {}) {
         tr.after(h('tr', {class: 'detail'}, h('td', {colspan: cols.length}, detail(r))));
       });
     }
+    // V9: a column that is empty on the page shown narrows to 3 rem (its name cut, whole on hover); the pages keep one column set
+    if (pager && head) cols.forEach((c, i) => { const empty = shown.length > 1 && [...tb.rows].every((tr) => !tr.classList.contains('detail') && /^[—\s]*$/.test(tr.cells[i].textContent));
+      head.cells[i].classList.toggle('empty', empty); head.cells[i].title = empty ? c.t : ''; for (const tr of tb.rows) if (tr.cells[i]) tr.cells[i].classList.toggle('empty', empty); });
     if (pg) {
       const last = Math.max(0, Math.ceil(list.length / page) - 1), n = Math.floor(at / page);
       pg.range.textContent = `Rows ${int(at + 1)}–${int(Math.min(list.length, at + page))} of ${int(list.length)}`;
@@ -83,7 +109,7 @@ function table(cols, rows, {key, onRow, detail, page} = {}) {
     }
   };
   let sort = null, dir = 1;
-  const head = h('tr', {}, cols.map((c) => {
+  head = h('tr', {}, cols.map((c) => {
     const th = h('th', {class: [c.n && 'n', c.wide && 'wide'].filter(Boolean).join(' ') || null});
     if (c.sort === false) th.append(c.t);
     else th.append(h('button', {type: 'button', class: 'btn btn-link btn-sm p-0 align-baseline', style: 'color:inherit', onclick: () => {
@@ -165,11 +191,13 @@ function closeDrawer() { const had = document.querySelector('.drawer'); document
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('td.cell')) { e.preventDefault(); e.target.click(); } });
 
 // a card with a title and a table; cols: {t, k|f, num, w}
-function dtable(title, cols, rows, {foot, note} = {}) {
+// `bare`: the table alone under a plain heading, for a table inside a card (V15: never a bordered card inside a card)
+function dtable(title, cols, rows, {foot, note, bare} = {}) {
   const tbl = h('table', {class: 'table table-sm table-vcenter card-table'},
     h('thead', {}, h('tr', {}, cols.map((c) => h('th', {class: c.num ? 'num' : null, style: c.w ? `width:${c.w}` : null}, c.t)))),
     h('tbody', {}, rows.map((r) => h('tr', {class: r._cls || null}, cols.map((c) => h('td', {class: [c.num && 'num', c.strong && 'fw-semibold'].filter(Boolean).join(' ') || null}, c.f ? c.f(r) : r[c.k] ?? '—'))))),
     foot ? h('tfoot', {}, h('tr', {}, foot.map((x, i) => h('td', {class: (cols[i] && cols[i].num ? 'num ' : '') + 'fw-semibold'}, x)))) : '');
+  if (bare) return h('div', {class: 'bare-table'}, title ? h('div', {class: 'd-flex align-items-baseline gap-3 mb-1'}, h('h3', {class: 'm-0'}, title), note ? h('span', {class: 'text-secondary small'}, note) : '') : '', h('div', {class: 'table-responsive'}, tbl));
   return h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, title), note ? h('span', {class: 'ms-auto text-secondary small'}, note) : ''), h('div', {class: 'table-responsive'}, tbl));
 }
 
@@ -184,6 +212,14 @@ const TABLES = [
   ['projects', 'Projects', 'Named projects'],
   ['companies', 'Companies', 'Companies, industry and SIC code'],
 ];
+// a US GAAP member as words (V22: "PropertyPlantAndEquipmentGross" never on screen): "Property plant and equipment gross"
+const memberWords = (m) => { if (!m) return ''; const w = m.split(':').pop().replace(/Member$/, '').replace(/([a-z0-9])([A-Z])|([A-Z])([A-Z][a-z])/g, '$1$3 $2$4').split(' '); return [w[0], ...w.slice(1).map((x) => (x.length > 1 && x === x.toUpperCase() ? x : x.toLowerCase()))].join(' '); };
+const memberLabel = memberWords;
+// a server line that names a member by its code ("Company-specific tag: amzn:ServersAndNetworkingEquipmentMember"): the code
+// read as words; the line as written stays on hover
+const memberText = (t) => String(t || '').replace(/\b(?:[a-z][\w-]*:)?[A-Z][A-Za-z0-9]*Member\b/g, (m) => memberWords(m));
+// a list's column name as a label (V22: no snake_case on screen); the API, CSV and JSON keep the key itself
+const colName = (k) => { const w = String(k).replaceAll('_', ' '); return w.charAt(0).toUpperCase() + w.slice(1); };
 const RAW_NUM = new Set(['value', 'value_high', 'change_from_prior', 'share', 'amount_low', 'amount_high', 'amount_mid', 'xbrl', 'capacity_mw', 'scale', 'sic', 'gpus']);
 
 // ── Navigation and the kit's theme ──────────────────────────────────────────
@@ -213,7 +249,25 @@ function fitTables(root = document) {
     if (!el.isConnected) return;
     el.classList.remove('fit', 'wide');
     const t = el.querySelector(':scope > table');
-    el.classList.add(t && t.scrollWidth > el.clientWidth + 1 ? 'wide' : 'fit');
+    const wide = t && t.scrollWidth > el.clientWidth + 1;
+    el.classList.add(wide ? 'wide' : 'fit');
+    if (wide) el.style.setProperty('--box-w', `${el.clientWidth}px`); else el.style.removeProperty('--box-w');  // V10: an opened row's detail stays this wide
+    moreEdges(el);
+    if (wide && !el.dataset.edges) { el.dataset.edges = '1'; el.addEventListener('scroll', () => moreEdges(el), {passive: true}); }
+  });
+  cutTitles(root);
+}
+// review 6: which side of a wide box has more columns (a solid edge there, app.html)
+function moreEdges(el) {
+  const wide = el.classList.contains('wide');
+  el.classList.toggle('more-l', wide && el.scrollLeft > 1);
+  el.classList.toggle('more-r', wide && el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+}
+// F-VS5: a line cut with an ellipsis to keep a row short carries its whole text on hover (a title of its own, or the cell's
+// title when it has one); the opened row shows it whole. Measured again on resize, with the tables.
+function cutTitles(root = document) {
+  root.querySelectorAll('table.rec tr.item > td, table.rec tr.item > td > div, .cut, .cite-line').forEach((el) => {
+    if (el.scrollWidth > el.clientWidth + 1 && !el.title && !el.querySelector('[title]')) el.title = el.textContent.trim();
   });
 }
 let fitTimer;
@@ -228,13 +282,15 @@ new MutationObserver((ms) => {
 
 // ── The category-mapping decision card (ledger/review/mapcard.py): the same on the trail and in Reconcile ──────────────
 // D is mapcard.decisions' card; `actions` (Reconcile only) is a node placed under it. Labels, values, statuses.
-const MAP_STATE = {checked: 'text-green', open: 'text-orange', blocked: 'text-red'};
-const MAP_TAG = {same: 'text-green', differs: 'text-red', ambiguous: 'text-orange', inconsistent: 'text-orange'};
+// V13: a mapping waiting on a person is Proposed's tone, a tag that differs is the review tone; red only when it blocks
+const MAP_STATE = {checked: 'text-green', open: stateWord('row', 'wait')[0], blocked: stateWord('row', 'blocked')[0]};
+const MAP_TAG = {same: 'text-green', differs: stateWord('row', 'bad')[0], ambiguous: stateWord('row', 'bad')[0], inconsistent: stateWord('row', 'bad')[0]};
 function mappingDecision(D, actions) {
   const L = D.line || {}, P = D.proposed, T = D.tag || {};
   const item = (title, ...body) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, title), h('div', {class: 'datagrid-content', style: 'overflow-wrap:anywhere'}, body));
   const series = (L.series || []).map((s) => `${s.period} ${usd(s.value)}`).join(' · ');
-  const def = (m) => h('details', {class: 'mt-1'}, h('summary', {class: 'small', style: 'cursor:pointer', title: m.definition}, `${m.label} · `, h('span', {class: 'font-monospace small'}, m.member), h('span', {class: 'text-secondary'}, ` · ${m.why}`)), h('div', {class: 'small text-secondary mt-1'}, m.definition));
+  // V22: a member reads as its label; its US GAAP code name is on hover, never beside the words in mono
+  const def = (m) => h('details', {class: 'mt-1'}, h('summary', {class: 'small', style: 'cursor:pointer', title: `${m.member} · ${m.definition || ''}`}, m.label, h('span', {class: 'text-secondary'}, ` · ${m.why}`)), h('div', {class: 'small text-secondary mt-1'}, m.definition));
   return h('div', {class: 'mapcard'},
     h('div', {class: 'd-flex align-items-baseline flex-wrap gap-2 mb-2'}, h('span', {class: 'fw-semibold'}, D.name),
       h('span', {class: (MAP_STATE[D.state.state] || 'text-secondary') + ' small fw-medium'}, D.state.label)),
@@ -242,11 +298,11 @@ function mappingDecision(D, actions) {
       item('Company line', L.latest ? [h('span', {class: 'fw-medium'}, usd(L.latest.value)), ` ${L.latest.period}`] : '—',
         L.link ? h('a', {href: safeHref(L.link), target: '_blank', rel: 'noopener', class: 'ms-2 small'}, 'Open ↗') : '',
         series ? h('div', {class: 'small text-secondary'}, series) : ''),
-      item('Proposed', P ? [h('span', {class: 'fw-medium'}, P.label || P.member), ' ', h('span', {class: 'font-monospace small text-secondary'}, P.member),
+      item('Proposed', P ? [h('span', {class: 'fw-medium', title: P.member}, P.label || memberWords(P.member)),
         P.definition ? h('div', {class: 'small mt-1'}, P.definition) : '', P.definition ? h('div', {class: 'small text-secondary'}, `Source: ${D.source}`) : ''] : h('span', {class: 'text-secondary'}, 'None')),
-      item('Company’s own tag', h('span', {class: MAP_TAG[T.status] || 'text-secondary'}, T.text),
+      item('Company’s own tag', h('span', {class: MAP_TAG[T.status] || 'text-secondary', title: T.text}, memberText(T.text)),
         T.definition && T.status === 'differs' ? h('div', {class: 'small mt-1'}, T.definition) : '',
-        T.accession ? h('div', {class: 'small text-secondary'}, `XBRL instance ${T.accession} · ${T.period_end}`) : ''),
+        T.accession ? h('div', {class: 'small text-secondary', title: `Accession ${T.accession}`}, `XBRL instance · ${T.period_end}`) : ''),
       item('Basis', D.basis ? `“${D.basis}”` : '—', h('div', {class: 'small text-secondary'}, [D.by, D.at].filter(Boolean).join(' · '), D.confirmed_by ? ` · confirmed ${D.confirmed_by} ${D.confirmed_at || ''}` : '')),
       item('Alternatives', (D.alternatives || []).length ? D.alternatives.map(def) : h('span', {class: 'text-secondary'}, 'None')),
       item('Affects', D.affects ? D.affects.text : '—')),
@@ -280,12 +336,40 @@ function citeCell(w, what) {
   return h('div', {class: 'cite'}, w.role ? h('div', {class: 'cite-role small fw-medium'}, w.role) : '', thumb, w.mark ? h('div', {class: 'cite-mark small fw-medium text-orange'}, w.mark) : '',
     h('div', {class: 'cite-line small'}, `${w.form || '10-K'} ${w.filed || ''}`.trim(), links.map((l) => (l ? [' · ', l] : ''))));
 }
-// a fact whose readings disagree across filings (ledger/checks/ties.py restatement): the server's line, exact figures as filed,
-// and the pair to compare. Shown whatever the row's state; the words come from the server (states.RESTATED, SUPERSEDED).
+// V11: a figure is a labelled value cell, never only a word in a sentence. Each reading below is the server's own text taken
+// apart by its known shape (ledger/checks/ties.py fail_message, rules.py jump); a text of any other shape is shown as written.
+// The figures stay as the server wrote them (as filed, or its money format): nothing is recomputed here.
+function messageFacts(msg) {
+  const s = String(msg || '');
+  let m = s.match(/^(\d+) parts? in (\S+) sum to (\S+); the filing tags (.+?) (\S+) for (\S+) \(gap (\S+), tolerance on the sum ±(\S+)\)$/);
+  if (m) return [['Parts', m[1]], ['Sum of parts', m[3]], ['Tagged as', memberWords(m[4].split(',')[0]) + (m[4].includes(',') ? ` (${m[4].split(', ').slice(1).join(', ')})` : ''), `${m[4]} · ${m[2]}`], ['Tagged total', m[5]], ['Period end', m[6]], ['Gap', m[7]], ['Tolerance', `±${m[8]}`]];
+  m = s.match(/^(\w+) moves ([\d.]+)× from (\S+) \(([\d,.-]+)\) to (\S+) \(([\d,.-]+)\)$/);
+  if (m) return [['Field', LABEL[m[1]] || m[1]], [m[3], m[4]], [m[5], m[6]], ['Change', `${m[2]}×`]];
+  return null;
+}
+// a tie's detail (cards.py: "7 parts · tolerance ±$4,000 · Building $30.2M; Land $1.1M"): the parts as a two-column list
+function tieParts(detail) {
+  const bits = String(detail || '').split(' · ');
+  if (bits.length < 3 || !/^\d+ parts?$/.test(bits[0]) || !/^tolerance /.test(bits[1])) return null;
+  const parts = bits.slice(2).join(' · ').split('; ').map((p) => { const i = p.lastIndexOf(' '); return i > 0 ? [p.slice(0, i), p.slice(i + 1)] : [p, '']; });
+  return {n: bits[0], tolerance: bits[1].replace(/^tolerance /, ''), parts};
+}
+function valueCells(pairs, cls = '') {
+  return h('div', {class: 'datagrid value-cells ' + cls}, pairs.map(([k, v, title]) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, k), h('div', {class: 'datagrid-content fw-medium', title: title || null}, v))));
+}
+// a fact whose readings disagree across filings (ledger/checks/ties.py restatement): each reading on its own line, the figure
+// exactly as filed beside its filing, the one the dataset uses marked; the pair to compare. Shown whatever the row's state;
+// the word is the server's (the line's head: states.RESTATED). Without readings, the server's line as written.
 function restatedLine(r, compare) {
   if (!r) return '';
-  const link = compare && r.compare ? [' · ', h('a', {href: `#evidence/compare?a=${encodeURIComponent(r.compare.a)}&b=${encodeURIComponent(r.compare.b)}`}, 'Compare filings')] : '';
-  return h('div', {class: 'small text-orange restated'}, r.line, link);
+  const link = compare && r.compare ? h('a', {href: `#evidence/compare?a=${encodeURIComponent(r.compare.a)}&b=${encodeURIComponent(r.compare.b)}`}, 'Compare filings') : '';
+  const steps = r.steps || [];
+  if (!steps.length) return h('div', {class: 'small text-orange restated'}, r.line, link ? [' · ', link] : '');
+  const used = (r.used || {}).extraction_id;
+  const word = String(r.line || '').split(':')[0] || 'Restated';
+  return h('div', {class: 'small restated'}, h('div', {class: 'text-orange fw-medium'}, word, link ? [h('span', {class: 'text-secondary fw-normal'}, ' · '), link] : ''),
+    h('div', {class: 'readings cols-3'}, steps.map((st) => { const f = (st.filings || [])[0] || {}, isUsed = (st.filings || []).some((x) => x.extraction_id === used);
+      return [h('span', {class: 'num'}, st.cell_text), h('span', {class: 'text-secondary'}, `${f.form || ''} ${f.filed || ''}`.trim()), h('span', {class: isUsed ? 'fw-medium' : ''}, isUsed ? 'Used' : '')]; })));
 }
 // a figure calculated from several cells (ledger/checks/calc.py): the formula with its result, the arithmetic on the real
 // inputs, and each cross-check (the filing's own total, SEC XBRL) in states.CROSSCHECK's tone. The trail and the gold set.

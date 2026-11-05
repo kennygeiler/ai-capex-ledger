@@ -19,12 +19,17 @@ function evFiling(e) {
       SEC_LINK.test(e.sec_url || '') ? h('a', {class: 'small', href: safeHref(e.sec_url), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗') : ''));
 }
 
+// an accession number, as filed with the SEC: small, under the filing it names
+const accessionLine = (acc) => (acc ? h('div', {class: 'small text-secondary accession'}, `Accession ${acc}`) : '');
+
 function evExtracted(e) {
   return h('div', {class: 'ev-side'},
     h('div', {class: 'ev-value'}, usdExact(e.value)),
     evKv('Cited cell', h('span', {class: 'mono'}, e.cell_text)), evKv('Row', e.row_label), evKv('Column', e.column_label.split('|').map((s) => s.trim()).join(' · ')),
     evKv('Units', e.scale > 1 ? `stated × ${int(e.scale)}` : 'as stated'), evKv('Period', evPeriod(e)),
-    evKv('Filing', `${e.form} · ${e.accession} · filed ${day(e.filed)}`), evKv('Source', e.kind === 'note' ? 'Notes to the financial statements' : 'Financial statements'));
+    // the accession number is the filing's own id, one the owner checks against EDGAR: printed under the filing (review 2,
+    // an exception to V22), the link to it besides
+    evKv('Filing', [`${e.form} · filed ${day(e.filed)}`, SEC_LINK.test(e.sec_url || '') ? [' · ', h('a', {href: safeHref(e.sec_url), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗')] : '', accessionLine(e.accession)]), evKv('Source', e.kind === 'note' ? 'Notes to the financial statements' : 'Financial statements'));
 }
 
 async function evidencePage(view, arg, qs) {
@@ -43,12 +48,12 @@ async function evidenceCompare(view, q) {
   const differ = a.value !== b.value;
   const fmt = differ && usd(a.value) === usd(b.value) ? usdExact : usd;  // two different readings never print the same
   const side = (e, n) => h('section', {},
-    h('h2', {}, `Filing ${n} · ${e.form} filed ${day(e.filed)}`), h('div', {class: 'text-secondary small mb-2 mono'}, e.accession),
+    h('h2', {class: 'mb-0'}, `Filing ${n} · ${e.form} filed ${day(e.filed)}`), h('div', {class: 'mb-2'}, accessionLine(e.accession)),
     h('div', {class: 'ev-value'}, fmt(e.value), h('span', {class: 'text-secondary small fw-normal ms-2'}, `cited ${e.cell_text}`)),
     evFiling(e));
   view.append(h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
       h('div', {class: 'col'}, h('h1', {class: 'page-title'}, evWhat(a), h('span', {class: 'text-secondary ms-2 fw-normal'}, a.ticker)),
-        h('div', {class: 'small mt-1'}, differ ? h('span', {class: 'text-orange fw-medium'}, 'Readings differ') : h('span', {class: 'text-green fw-medium'}, 'Readings agree'),
+        h('div', {class: 'small mt-1'}, differ ? h('span', {class: 'text-review fw-medium'}, 'Readings differ') : h('span', {class: 'text-green fw-medium'}, 'Readings agree'),
           h('span', {class: 'text-secondary'}, ` · ${a.row_label} · ${evPeriod(a)}${evPeriod(a) !== evPeriod(b) ? ' and ' + evPeriod(b) : ''}`)), restatedLine(a.restatement || b.restatement)))),
     h('div', {class: 'ev-grid ev-wide'}, side(a, 'A'), side(b, 'B')));
 }
