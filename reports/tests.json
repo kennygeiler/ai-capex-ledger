@@ -1,14 +1,15 @@
 {
  "ok": true,
- "count": 876,
+ "count": 879,
  "failures": [],
  "skipped": 1,
  "skipped_ids": [
   "tests.test_publish_pg.RetypeUnderAView.test_text_column_becomes_boolean_although_current_view_depends_on_it"
  ],
  "golden": true,
- "at": "2026-11-05T22:56:13+00:00",
- "git": "aacb5fd",
+ "at": "2026-11-05T23:32:22+00:00",
+ "git": "340bd6f",
  "dirty": false,
- "seconds": 374.3
+ "code": "02f8c6df52a0fc41",
+ "seconds": 576.7
 }
