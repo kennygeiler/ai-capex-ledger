@@ -28,7 +28,9 @@ const usdExact = (n) => { if (n == null || n === '') return '—'; const x = Num
 const usdIn = (n, unit) => {
   if (n == null || n === '') return '—';
   const x = Number(n), a = Math.abs(x), sign = x < 0 && a ? '−' : '';
-  if (unit === 'B') return `${sign}$${(a / 1e9).toLocaleString('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1})}B`;
+  // a figure under a billion in a B place falls back to the M rule: $4M never reads $0.0B (review 1)
+  if (unit === 'B' && a >= 1e9) return `${sign}$${(a / 1e9).toLocaleString('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1})}B`;
+  if (unit === 'B') unit = 'M';
   if (unit === 'M' && a && a < 1e6) return `${sign}$${Number((a / 1e6).toPrecision(2))}M`;
   return usd(x);
 };

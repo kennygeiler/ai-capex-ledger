@@ -349,6 +349,9 @@ class MoneyUnits(unittest.TestCase):
     def test_one_unit(self):
         self.assertEqual(self.fmt([[119016000000, "B"], [390000, "M"], [9800000, "M"], [-1500, "M"], [None, "M"], [513983000000, "M"]]),
                          ["$119.0B", "$0.39M", "$9.8M", "−$0.0015M", "—", "$513,983M"])
+        # review 1: a B place with mixed magnitudes never prints $0.0B for a smaller figure
+        self.assertEqual(self.fmt([[4000000, "B"], [0, "B"], [950000000, "B"], [1000000000, "B"], [-2500000, "B"], [390000, "B"]]),
+                         ["$4M", "$0", "$950M", "$1.0B", "−$2.5M", "$0.39M"])
 
     def test_the_places_use_it(self):
         ex, data = (PAGES / "explore.js").read_text(), (PAGES / "data.js").read_text()
