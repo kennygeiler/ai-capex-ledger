@@ -268,6 +268,7 @@
   .readings { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 0 1rem; }
   .readings.cols-3 { grid-template-columns: auto auto auto; }
   .readings > .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .table th.empty, .table td.empty { max-width: 3rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .row-detail { --tblr-datagrid-item-width: 14rem; gap: .6rem 1.25rem; }
   .cut { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   /* the Proof board (V6) */

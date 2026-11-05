@@ -71,7 +71,7 @@ $('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().t
 const PAGE_ROWS = 100;
 function table(cols, rows, {key, onRow, detail, page} = {}) {
   const tb = h('tbody');
-  let list = rows, at = 0;
+  let list = rows, at = 0, head = null;
   // the pager's buttons are built once and updated in place, so Next and Previous keep keyboard focus
   const to = (i) => { const last = Math.max(0, Math.ceil(list.length / page) - 1); at = Math.min(last, Math.max(0, i)) * page; draw(); tb.closest('.card').scrollIntoView({block: 'start'}); };
   const pg = page && rows.length > page ? {range: h('span', {'aria-live': 'polite'}), of: h('span', {}),
@@ -92,6 +92,9 @@ function table(cols, rows, {key, onRow, detail, page} = {}) {
         tr.after(h('tr', {class: 'detail'}, h('td', {colspan: cols.length}, detail(r))));
       });
     }
+    // V9: a column that is empty on the page shown narrows to 3 rem (its name cut, whole on hover); the pages keep one column set
+    if (pager && head) cols.forEach((c, i) => { const empty = shown.length > 1 && [...tb.rows].every((tr) => !tr.classList.contains('detail') && /^[—\s]*$/.test(tr.cells[i].textContent));
+      head.cells[i].classList.toggle('empty', empty); head.cells[i].title = empty ? c.t : ''; for (const tr of tb.rows) if (tr.cells[i]) tr.cells[i].classList.toggle('empty', empty); });
     if (pg) {
       const last = Math.max(0, Math.ceil(list.length / page) - 1), n = Math.floor(at / page);
       pg.range.textContent = `Rows ${int(at + 1)}–${int(Math.min(list.length, at + page))} of ${int(list.length)}`;
@@ -102,7 +105,7 @@ function table(cols, rows, {key, onRow, detail, page} = {}) {
     }
   };
   let sort = null, dir = 1;
-  const head = h('tr', {}, cols.map((c) => {
+  head = h('tr', {}, cols.map((c) => {
     const th = h('th', {class: [c.n && 'n', c.wide && 'wide'].filter(Boolean).join(' ') || null});
     if (c.sort === false) th.append(c.t);
     else th.append(h('button', {type: 'button', class: 'btn btn-link btn-sm p-0 align-baseline', style: 'color:inherit', onclick: () => {

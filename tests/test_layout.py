@@ -218,7 +218,7 @@ class Layout(unittest.TestCase):
     def test_empty_columns_and_the_empty_state(self):
         """V9: no column of dashes on the trail (Filings had Value "—" ×5), Reconcile by company, Dataset Rows; an empty Grid
         says which filters left it empty and Export CSV is off; Reconcile by-company rows stay at 44 px at 1280."""
-        for hash_ in ("proof/APLD", "proof/MSFT", "reconcile?group=company", "data?list=statements"):
+        for hash_ in ("proof/APLD", "proof/MSFT", "reconcile?group=company", "data?list=statements", "data?list=taxonomy"):
             with self.subTest(page=hash_):
                 pg = self.page(1280, hash_)
                 pg.wait_for_selector("main table tbody tr", timeout=60000)
