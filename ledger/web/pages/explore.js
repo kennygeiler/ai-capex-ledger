@@ -10,6 +10,8 @@ const EX_TYPES = {bars: 'bars', stacked: 'stacked bars', lines: 'lines', share: 
 const colorReg = (() => { let m = {}; try { m = JSON.parse(localStorage.getItem('datahq-colors') || '{}'); } catch {} return (name) => { if (name === 'Other') return '#9aa39d'; if (m[name] == null) { m[name] = Object.keys(m).length; try { localStorage.setItem('datahq-colors', JSON.stringify(m)); } catch {} } return COLORS[m[name] % COLORS.length]; }; })();
 // the list request behind the chart, and its JSON / CSV export: every filter the controls hold (Measure, Category, Standard type on the taxonomy; Field, Kind, Layer, Tickers; From / To), server side
 const listUrl = (st) => { const p = new URLSearchParams(); for (const k of ['field', 'kind', 'layer', 'ticker', 'from', 'to']) if (st[k]) p.set(k, st[k]); if (st.measure === 'taxonomy') for (const [k, q_] of [['tmeasure', 'measure'], ['category', 'category'], ['standard_type', 'standard_type']]) if (st[k]) p.set(q_, st[k]); return `/api/v1/${st.measure}?${p}`; };
+// F-BF10: the one test of "year complete for the set": {year: {n, of, complete}}, n the companies with a row that year, of the companies with a row in any year of the chart
+const yearCoverage = (rows, key) => { const all = new Set(), by = {}; for (const r of rows) { if (!r.ticker) continue; all.add(r.ticker); if (r[key] != null) (by[r[key]] = by[r[key]] || new Set()).add(r.ticker); } return Object.fromEntries(Object.entries(by).map(([y, s]) => [y, {n: s.size, of: all.size, complete: s.size === all.size}])); };
 async function explorePage(view, arg, qs) {
   const {rows: saved} = await api('/api/v1/views');
   const q = parseQ(qs || '');
@@ -76,13 +78,18 @@ async function explorePage(view, arg, qs) {
   if (!pts.length) { plot.replaceChildren(h('p', {class: 'msg'}, 'No rows match')); return; }
   const css = getComputedStyle(document.documentElement);
   const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim();
-  const xLabel = (x) => (st.x === 'layer' ? INDUSTRY[x] || x : st.x === 'standard_type' ? x.replace('Member', '') : st.x === 'ticker' && NAMES[x] ? `${NAMES[x]} ${x}` : x);
+  // a year fewer companies have filed is drawn hatched and lighter and labelled with its count, never as a complete bar
+  const cov = st.x === 'fiscal_year' || st.x === 'period' ? yearCoverage(pts, st.x) : {};
+  const partial = (x) => !!cov[x] && !cov[x].complete;
+  const xLabel = (x) => (partial(x) ? `${x} · ${cov[x].n} of ${cov[x].of} companies` : st.x === 'layer' ? INDUSTRY[x] || x : st.x === 'standard_type' ? x.replace('Member', '') : st.x === 'ticker' && NAMES[x] ? `${NAMES[x]} ${x}` : x);
   const disp = (n) => (st.series === 'layer' ? INDUSTRY[n] || n : st.series === 'standard_type' ? n.replace('Member', '') : st.series === 'ticker' && NAMES[n] ? `${NAMES[n]} ${n}` : n);
   const traces = seriesNames.map((n) => {
     const ys = xs.map((x) => { const c = cell[`${n}|${x}`]; if (!c) return null; return st.type === 'share' ? (totals[x] ? 100 * c.sum / totals[x] : null) : c.sum / unit; });
-    const custom = xs.map((x) => { const c = cell[`${n}|${x}`]; return c ? [fmtv(c.sum), c.rows.length, totals[x] && !isShare ? pct(c.sum / totals[x]) : '—'] : ['—', 0, '—']; });
-    const base = {name: disp(n), x: xs, y: ys, customdata: custom, marker: {color: colorReg(n)}, line: {color: colorReg(n), width: 2}, hovertemplate: `<b>%{customdata[0]}</b> ${st.series ? disp(n) : ''}${st.series && seriesNames.length > 1 ? ', %{customdata[2]} of the ' + EX_AXES[st.x] : ''}<br>%{customdata[1]} row(s)<extra></extra>`};
-    return st.type === 'lines' ? {...base, type: 'scatter', mode: 'lines+markers', marker: {color: colorReg(n), size: 7}, connectgaps: false} : {...base, type: 'bar'};
+    const custom = xs.map((x) => { const c = cell[`${n}|${x}`]; const f = partial(x) ? `<br>${cov[x].n} of ${cov[x].of} companies` : ''; return c ? [fmtv(c.sum), c.rows.length, totals[x] && !isShare ? pct(c.sum / totals[x]) : '—', f] : ['—', 0, '—', f]; });
+    const base = {name: disp(n), x: xs, y: ys, customdata: custom, marker: {color: colorReg(n)}, line: {color: colorReg(n), width: 2}, hovertemplate: `<b>%{customdata[0]}</b> ${st.series ? disp(n) : ''}${st.series && seriesNames.length > 1 ? ', %{customdata[2]} of the ' + EX_AXES[st.x] : ''}<br>%{customdata[1]} row(s)%{customdata[3]}<extra></extra>`};
+    const faded = xs.map((x) => (partial(x) ? 0.45 : 1));
+    return st.type === 'lines' ? {...base, type: 'scatter', mode: 'lines+markers', marker: {color: colorReg(n), size: 7, opacity: faded, symbol: xs.map((x) => (partial(x) ? 'circle-open' : 'circle'))}, connectgaps: false}
+      : {...base, type: 'bar', marker: {color: colorReg(n), opacity: faded, pattern: {shape: xs.map((x) => (partial(x) ? '/' : '')), fgcolor: bg, solidity: 0.35}}};
   });
   const layout = {paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: {family: css.getPropertyValue('--font'), color: muted, size: 12}, margin: {l: 56, r: 16, t: 8, b: 40}, height: 400,
     barmode: st.type === 'bars' ? 'group' : 'stack', bargap: .25, bargroupgap: .06, hovermode: st.type === 'lines' ? 'x unified' : 'closest', showlegend: seriesNames.length > 1 || !!st.series,
@@ -91,6 +98,8 @@ async function explorePage(view, arg, qs) {
       title: {text: st.type === 'share' ? 'share of the total, %' : `${st.measure === 'taxonomy' ? (st.category || st.tmeasure || 'taxonomy rows').replace(/_/g, ' ') + (st.value === 'change' ? ', change from the prior year' : '') : EXM[st.measure].label}${st.field ? ', ' + (LABEL[st.field] || st.field) : ''}, $${suffix === 'B' ? 'billion' : 'million'}`, font: {color: muted, size: 11}}},
     hoverlabel: {bgcolor: bg, bordercolor: faint, font: {color: fg, family: css.getPropertyValue('--font')}}, dragmode: 'zoom'};
   if (!window.Plotly) { plot.replaceChildren(h('p', {class: 'msg bad'}, 'Chart unavailable')); showRows(pts); return; }
+  const gaps = xs.filter(partial);
+  if (gaps.length) plot.before(h('p', {class: 'small text-orange m-0', id: 'partial-years'}, `Incomplete: ${gaps.map(xLabel).join(', ')}`));
   await Plotly.newPlot(plot, traces, layout, {displayModeBar: 'hover', displaylogo: false, responsive: true, modeBarButtonsToRemove: ['lasso2d', 'select2d', 'autoScale2d', 'toImage'], scrollZoom: false});
   // the plotted numbers, as a table a person can copy
   const numbers = h('details', {class: 'mt-2'}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Data'),

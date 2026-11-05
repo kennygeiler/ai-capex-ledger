@@ -130,5 +130,33 @@ class ExploreExport(unittest.TestCase):
         self.assertIn("h('a', {href: url + '&format=csv', class: 'small'}, 'CSV')", js)
 
 
+@unittest.skipUnless(shutil.which("node"), "no node")
+class PartialYears(unittest.TestCase):
+    """F-BF10: Explore summed FY2026 over the 3 of 6 companies that had filed it and drew it as a complete bar, which read
+    as a capex collapse. yearCoverage is the one test of a year complete for the set; a partial year is hatched, lighter and
+    labelled "FY2026 · 3 of 6 companies"."""
+
+    def cov(self, rows, key="fiscal_year"):
+        js = line("explore.js", "const yearCoverage") + "\nprocess.stdout.write(JSON.stringify(yearCoverage(JSON.parse(process.argv[process.argv.length - 1]), 'fiscal_year')));"
+        return json.loads(node(js, json.dumps(rows)))
+
+    def test_a_year_fewer_companies_filed_is_not_complete(self):
+        six = ["MSFT", "GOOGL", "AMZN", "NVDA", "APLD", "AMD"]
+        rows = [{"ticker": t, "fiscal_year": "FY2025", "value": 1} for t in six] + [{"ticker": t, "fiscal_year": "FY2026", "value": 1} for t in ("MSFT", "NVDA", "APLD")]
+        rows += [{"ticker": "MSFT", "fiscal_year": "FY2025", "value": 2}]  # two rows of one company count once
+        got = self.cov(rows)
+        self.assertEqual(got["FY2025"], {"n": 6, "of": 6, "complete": True})
+        self.assertEqual(got["FY2026"], {"n": 3, "of": 6, "complete": False})
+
+    def test_one_company_is_always_complete(self):
+        self.assertEqual(self.cov([{"ticker": "A", "fiscal_year": "FY2024"}]), {"FY2024": {"n": 1, "of": 1, "complete": True}})
+
+    def test_the_chart_marks_partial_years(self):
+        js = (PAGES / "explore.js").read_text()
+        self.assertIn("partial(x) ? `${x} · ${cov[x].n} of ${cov[x].of} companies`", js)
+        self.assertIn("pattern: {shape: xs.map((x) => (partial(x) ? '/' : ''))", js)
+        self.assertIn("`Incomplete: ${gaps.map(xLabel).join(', ')}`", js)
+
+
 if __name__ == "__main__":
     unittest.main()
