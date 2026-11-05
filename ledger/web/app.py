@@ -278,36 +278,46 @@ def _flow(scope: str) -> dict:
 
 
 def live_hand_check(at_check: dict | None) -> dict:
-    """{gold, gold_live, gold_at_check}: every verdict in gold/*.json against the working tables now (gold.compare_db, the
-    function `ledger golden --check` and the Release line read), so a verdict given on Proof counts with no CLI run. With the
-    database busy, the report's own hand check, marked not live."""
+    """{gold, gold_live, gold_at_check, gold_error}: every verdict in gold/*.json against the working tables now
+    (gold.compare_db, the function `ledger golden --check` and the Release line read), so a verdict given on Proof counts
+    with no CLI run. Anything that stops the live read (a busy database, a file that does not read, a compare that raises)
+    gives the report's own hand check, gold_live false and the error named, as checklist.hand_check_line reads it red."""
     from ..review import gold
     try:
         con = _con()
-    except Busy:
-        return {"gold": at_check, "gold_live": False, "gold_at_check": at_check}
+        try:
+            c = gold.compare_db(con)
+        finally:
+            con.close()
+    except Exception as e:
+        return {"gold": at_check, "gold_live": False, "gold_at_check": at_check, "gold_error": f"{e.__class__.__name__}: {str(e)[:200]}"}
+    return {"gold": {k: c.get(k) for k in ("ok", "holds", "state", "failures", "checked", "right", "wrong", "cant_say", "unverified", "items")}, "gold_live": True,
+            "gold_at_check": at_check, "gold_error": None}
+
+
+def golden_view() -> dict:
+    """/api/v1/golden (F-BF16): the regression test as the last `ledger golden --check` left it, its fields named for what
+    they cover: tables_ok (the tables only, never the hand check), regression_at (that run's date), failed_step, diffs,
+    steps, tickers; and the hand check read live (live_hand_check). No top-level ok or at: one could be read as covering both."""
+    f = store.ROOT / "reports" / "golden.json"
     try:
-        c = gold.compare_db(con)
-    finally:
-        con.close()
-    return {"gold": {k: c.get(k) for k in ("ok", "holds", "state", "failures", "checked", "right", "wrong", "cant_say", "unverified", "items")}, "gold_live": True, "gold_at_check": at_check}
+        rep = json.loads(f.read_text()) if f.exists() else None
+    except (OSError, ValueError):
+        rep = None
+    rep = rep if isinstance(rep, dict) else None
+    tables_ok = None if rep is None else bool(rep.get("tables_ok") if "tables_ok" in rep else rep.get("ok")) and not rep.get("failed_step")
+    out = {"tables_ok": tables_ok, "regression_at": rep and rep.get("at"), **{k: (rep or {}).get(k) for k in ("failed_step", "diffs", "steps", "tickers")},
+           "fixtures": (store.ROOT / "fixtures" / "seed.json").exists()}
+    return {**out, **live_hand_check((rep or {}).get("gold"))}
 
 
-UNKNOWN_COMPANY = "Unknown company"
-
-
-def known_company(con, ticker: str) -> bool:
-    """A ticker the ledger follows (config.tracked) or has read a filing for. Anything else is an unknown company: the
-    trail answers 404, since an empty trail would read Proven and Ready for release for nothing."""
+def company_state(con, ticker: str) -> str:
+    """states.company for a ticker: followed (config.tracked) and how many filings the database holds for it. A database
+    error is raised, never read as unknown: the route's _guard turns Busy into a 503 (F-BF15)."""
     t = (ticker or "").strip().upper()
-    if not t:
-        return False
-    if t in {c["ticker"] for c in tracked()}:
-        return True
-    try:
-        return bool(con.execute("select count(*) from documents where ticker = ?", [t]).fetchone()[0])
-    except duckdb.Error:
-        return False
+    n = con.execute("select count(*) from documents where ticker = ?", [t]).fetchone()[0] if t else 0
+    from ..core.states import company
+    return company(t in {c["ticker"] for c in tracked()}, n)
 
 
 # ── T82: the gold set on the Proof page. Read: GET /api/v1/gold?t=; write: POST /api/gold/verdict (one writer, gold.record) ──
@@ -594,16 +604,15 @@ class Handler(BaseHTTPRequestHandler):
         if name in ("proof", "rules", "golden"):  # the proof pages, docs/PROOF.md
             from ..checks import proof
             if name == "golden":  # the regression test as `ledger golden --check` left it; its hand check replaced by the live one (F-BF2)
-                f = store.ROOT / "reports" / "golden.json"
-                rep = json.loads(f.read_text()) if f.exists() else {"ok": None, "at": None}
-                return self._json({**rep, **live_hand_check(rep.get("gold")), "fixtures": (store.ROOT / "fixtures" / "seed.json").exists()})
+                return self._json(golden_view())
             con = _con()
             try:
                 if name == "rules":
                     return self._json(proof.rules(con))
                 from . import cards  # T-cards: what we found, where, how we know, per trail item
-                if len(parts) == 2 and not known_company(con, parts[1]):  # F-BF6: a ticker nobody follows has no trail, never a green one
-                    return self._json({"error": UNKNOWN_COMPANY, "ticker": parts[1].upper()}, HTTPStatus.NOT_FOUND)
+                if len(parts) == 2 and company_state(con, parts[1]) == "unknown":  # F-BF6: a ticker nobody follows has no trail, never a green one
+                    from ..core.states import word
+                    return self._json({"error": word("company", "unknown"), "state": "unknown", "ticker": parts[1].upper()}, HTTPStatus.NOT_FOUND)
                 return self._json(cards.add(con, proof.company(con, parts[1])) if len(parts) == 2 else proof.board(con))
             finally:
                 con.close()

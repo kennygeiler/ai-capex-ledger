@@ -22,20 +22,22 @@ function stageCell(st) {
     blocked ? [h('span', {class: 'text-secondary'}, ' · '), h('span', {class: S('blocked'), title: G.blocked}, `${int(blocked)} block release`)] : '');
 }
 // T82: the regression test's tables and the hand check's verdicts are two lines, never one: equal tables with nothing checked is not a pass
-const tablesOk = (g) => (g.tables_ok != null ? g.tables_ok : g.ok && !(g.gold && g.gold.failures && g.gold.failures.length));
+const tablesOk = (g) => g.tables_ok === true;  // /api/v1/golden: tables_ok covers the tables only, regression_at is that run's date (F-BF16)
 const goldState = (x) => (!x ? 'not run' : x.state === 'fail' ? `${int(x.failures.length)} failing` : x.state === 'pass' ? `all ${int(x.items)} hold` : `${int(x.items - x.unverified)} of ${int(x.items)} checked`);
 const goldTone = (x) => (!x ? 'text-secondary' : x.state === 'fail' ? 'text-red' : x.state === 'pass' ? 'text-green' : 'text-orange');
 const KEY_WORD = {twin: 'SEC XBRL', second_source: 'Other company document', tie: 'Ties to total', later_truth: 'Later actual', second_reading: 'Later filing'};
 async function proofPage(view, qs) {
   const q = parseQ(qs || '');  // ?gold=TICKER&item=ID: the Release page's Hand check Fix in, opened at that company's first unchecked item (F-BF11)
-  const [b, g] = await Promise.all([api('/api/v1/proof'), api('/api/v1/golden').catch(() => ({ok: null}))]);
+  const [b, g] = await Promise.all([api('/api/v1/proof'), api('/api/v1/golden').catch(() => ({tables_ok: null}))]);
   const proven = b.proven.filter((c) => c.proven).length;
   // the regression test says nothing changed since the freeze, never that a number is right; the hand check sits beside it
   const FROZEN = 'Nothing changed since the freeze; not a correctness check';
-  const regression = g.ok == null ? h('span', {class: 'text-secondary', title: FROZEN}, 'Tables: not compared')
-    : h('span', {class: tablesOk(g) ? 'text-secondary' : 'text-red', title: FROZEN}, `${tablesOk(g) ? 'Tables unchanged' : 'Tables changed'} · ${day(g.at)}`);
-  const hand = h('a', {href: '#gold', class: goldTone(g.gold), title: g.gold && g.gold.failures && g.gold.failures.length ? g.gold.failures.slice(0, 5).join('\n') : 'Hand-checked sample',
-    onclick: (e) => { e.preventDefault(); const el = document.getElementById('gold'); if (el) el.scrollIntoView(); }}, `Hand check: ${goldState(g.gold)}`);
+  const regression = g.tables_ok == null ? h('span', {class: 'text-secondary', title: FROZEN}, 'Tables: not compared')
+    : h('span', {class: tablesOk(g) ? 'text-secondary' : 'text-red', title: FROZEN}, `${tablesOk(g) ? 'Tables unchanged' : 'Tables changed'} · ${day(g.regression_at)}`);
+  // the hand check is read live; when the live read fails the API falls back to the last check's, and the page says so (F-BF16)
+  const notLive = g.gold_live === false;
+  const hand = h('a', {href: '#gold', class: notLive ? 'text-orange' : goldTone(g.gold), title: notLive ? g.gold_error || '' : g.gold && g.gold.failures && g.gold.failures.length ? g.gold.failures.slice(0, 5).join('\n') : 'Hand-checked sample',
+    onclick: (e) => { e.preventDefault(); const el = document.getElementById('gold'); if (el) el.scrollIntoView(); }}, `Hand check: ${goldState(g.gold)}${notLive ? ' · Not live' : ''}`);
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'}, h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Proof'),
     h('div', {class: 'small'}, h('b', {}, `${proven} of ${b.proven.length} proven`))),
     h('div', {class: 'col-auto small d-flex gap-3'}, regression, hand)));
@@ -59,7 +61,7 @@ async function proofPage(view, qs) {
     {t: 'To review at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.open))}, {t: 'Unmapped at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.unmapped))}, {t: 'Companies', f: (r) => atSigning(r, (c) => `${int(c.scope.length)}: ${c.scope.join(', ')}`)},
     {t: 'Packet', f: (r) => (r.packet ? h('a', {href: `/packet/${r.version}.zip`}, 'Download') : '')}], [...rel.releases].reverse().slice(0, 6), {note: h('a', {href: '#release'}, 'Next release')});
   const golden = h('details', {class: 'card mt-3'}, h('summary', {class: 'card-header py-2', style: 'cursor:pointer'}, h('h3', {class: 'card-title m-0'}, 'Regression test'),
-      h('span', {class: 'ms-3 text-secondary small', title: FROZEN}, g.ok == null ? 'Not compared' : `${tablesOk(g) ? 'Tables unchanged' : 'Tables changed'} · ${when(g.at)}${g.gold ? ` · Hand check: ${goldState(g.gold)}` : ''}`)),
+      h('span', {class: 'ms-3 text-secondary small', title: FROZEN}, g.tables_ok == null ? 'Not compared' : `${tablesOk(g) ? 'Tables unchanged' : 'Tables changed'} · ${when(g.regression_at)}`)),  // the snapshot's date on the regression part only; the hand check is live, in the header (F-BF16)
     h('div', {class: 'card-body py-2'},
       g.steps ? dtable('Steps', [{t: 'Step', k: 'step'}, {t: 'Result', num: 1, f: (x) => (x.exit === 0 ? h('span', {class: 'text-green'}, 'Pass') : h('span', {class: 'text-red'}, `Fail (${x.exit})`))}], g.steps) : '',
       g.diffs && Object.keys(g.diffs).length ? h('div', {class: 'mt-2'}, dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Added', num: 1, k: 'n_only_in_run'}, {t: 'Missing', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v})))) : ''));

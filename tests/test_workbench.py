@@ -114,16 +114,16 @@ class ChartViews(unittest.TestCase):
         views.FILE = self._file
 
     def test_chart_view_saves_its_spec(self):
-        v = views.save({"name": "AI capex by layer", "measure": "taxonomy", "filters": {"category": "capex"}, "group": None, "show": "chart", "chart": {"x": "period", "series": "layer", "type": "stacked"}}, "Kenny")
+        v = views.save({"name": "AI capex by layer", "measure": "taxonomy", "filters": {"category": "capex"}, "group": None, "show": "chart", "chart": {"x": "period", "series": "layer", "type": "stacked"}}, "Kenny Geiler")
         self.assertEqual(v["chart"], {"x": "period", "series": "layer", "type": "stacked", "value": ""})
-        g = views.save({"name": "Grid", "measure": "values", "filters": {}, "group": None, "show": "grid", "chart": {"x": "period", "series": "", "type": "bars"}}, "Kenny")
+        g = views.save({"name": "Grid", "measure": "values", "filters": {}, "group": None, "show": "grid", "chart": {"x": "period", "series": "", "type": "bars"}}, "Kenny Geiler")
         self.assertNotIn("chart", g)
 
     def test_chart_view_rejects_a_bad_axis(self):
         with self.assertRaises(ValueError):
-            views.save({"name": "Bad", "measure": "taxonomy", "filters": {}, "group": None, "show": "chart", "chart": {"x": "colour", "series": "", "type": "bars"}}, "Kenny")
+            views.save({"name": "Bad", "measure": "taxonomy", "filters": {}, "group": None, "show": "chart", "chart": {"x": "colour", "series": "", "type": "bars"}}, "Kenny Geiler")
         with self.assertRaises(ValueError):
-            views.save({"name": "Bad", "measure": "taxonomy", "filters": {}, "group": None, "show": "chart"}, "Kenny")
+            views.save({"name": "Bad", "measure": "taxonomy", "filters": {}, "group": None, "show": "chart"}, "Kenny Geiler")
 
 
 if __name__ == "__main__":

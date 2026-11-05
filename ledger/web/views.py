@@ -38,10 +38,18 @@ def get(view_id: str) -> dict:
     return v
 
 
+def _person(by) -> None:
+    """F-BF18: a saved view is written or deleted by a name on config.PEOPLE (status.is_person, T80), like every other write."""
+    from ..core.status import is_person
+    if not is_person(by):
+        raise ValueError(f"{str(by or '').strip()!r} is not on config.PEOPLE, the people who may save or delete a view")
+
+
 def save(view: dict, by: str) -> dict:
     name = (view.get("name") or "").strip()
-    if not name or not by.strip():
+    if not name or not str(by or "").strip():
         raise ValueError("a view needs a name and who saved it")
+    _person(by)
     vid = view.get("id") or re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")[:40]
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,39}", vid):
         raise ValueError("a view id is lowercase letters, digits and dashes")
@@ -76,8 +84,9 @@ def save(view: dict, by: str) -> dict:
 
 
 def delete(view_id: str, by: str) -> None:
+    _person(by)
     d = load()
     old = get(view_id)
-    d["history"].append({**old, "deleted_by": by, "deleted_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
+    d["history"].append({**old, "deleted_by": by.strip(), "deleted_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
     d["views"] = [v for v in d["views"] if v["id"] != view_id]
     _save(d)

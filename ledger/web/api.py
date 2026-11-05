@@ -97,17 +97,35 @@ def _split(v: str) -> set[str]:
     return {x.strip() for x in v.split(",") if x.strip()}
 
 
+FISCAL_YEAR = re.compile(r"^FY\d{4}$")
+
+
+def year_range(q: dict) -> tuple[str | None, str | None]:
+    """(from, to) of a request, each FY plus four digits (FY2023), or None when not asked. A value of any other shape, or
+    a from after the to, is a ValueError (400): a range read as text would compare "2024" or "fy24" wrongly (F-BF17)."""
+    out = []
+    for k in RANGE:
+        v = str(q.get(k) or "").strip().upper()
+        if v and not FISCAL_YEAR.match(v):
+            raise ValueError(f"{k} must be a fiscal year like FY2024, not {q.get(k)!r}")
+        out.append(v or None)
+    if out[0] and out[1] and out[0] > out[1]:
+        raise ValueError(f"from {out[0]} is after to {out[1]}")
+    return out[0], out[1]
+
+
 def apply(rows: list[dict], q: dict) -> list[dict]:
     """Filters, then group. Filter values match case-insensitively; a row without the column is kept."""
     for k in FILTERS:
         if q.get(k):
             want = {x.upper() for x in _split(q[k])}
             rows = [r for r in rows if k not in r or ("" if r.get(k) is None else str(r[k])).upper() in want]  # False is a value, not empty (has_value=false)
+    lo, hi = year_range(q)
     year = lambda r: str(r.get("period") or r.get("fiscal_year") or "").upper()
-    if q.get("from"):
-        rows = [r for r in rows if not year(r) or year(r) >= q["from"].strip().upper()]
-    if q.get("to"):
-        rows = [r for r in rows if not year(r) or year(r) <= q["to"].strip().upper()]
+    if lo:
+        rows = [r for r in rows if not year(r) or year(r) >= lo]
+    if hi:
+        rows = [r for r in rows if not year(r) or year(r) <= hi]
     g = q.get("group")
     if g:
         if g not in FILTERS:

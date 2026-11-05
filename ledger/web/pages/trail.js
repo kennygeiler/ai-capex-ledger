@@ -72,6 +72,7 @@ function stageCard(id, st, waiting, body) {
 
 async function trailPage(view, ticker) {
   const c = await api('/api/v1/proof/' + encodeURIComponent(ticker));
+  const unfiled = c.filing_state && c.filing_state !== 'filed';  // states.company: nothing read is never Proven or Ready for release (F-BF15)
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)),
       h('div', {class: 'small mt-1'}, [['ok', ' SEC XBRL or the quoted source'], ['corroborated', ' ties to totals or confirmed in 2 filings'], ['company', '', 'The company’s own XBRL tags this category'],
@@ -79,7 +80,8 @@ async function trailPage(view, ticker) {
           const [cls, word] = rowWord(s);
           return [h('span', {class: cls + (i ? ' ms-3' : ''), title: title || null}, '● ' + word), after ? h('span', {class: 'text-secondary'}, after) : ''];
         }), c.in_proven_set ? '' : h('span', {class: 'text-secondary ms-3'}, 'Not in scope'))),
-    h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-orange fw-medium'}, `${int(c.open)} to review`),
+    h('div', {class: 'col-auto'}, unfiled ? h('span', {class: stateWord('company', c.filing_state)[0] + ' fw-medium'}, stateWord('company', c.filing_state)[1])
+      : c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-orange fw-medium'}, `${int(c.open)} to review`),
       h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-3'}, 'Reconcile'), h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'))));
   const waitingTotal = Object.values(c.stages).reduce((n, st) => n + (st.open || []).length, 0);
   const s = c.summary || {}, S = c.status || {};
@@ -95,7 +97,7 @@ async function trailPage(view, ticker) {
        h('details', {}, h('summary', {class: 'text-secondary', style: 'cursor:pointer'}, 'Details'), h('div', {class: 'text-secondary'}, [...since.added.map((x) => '+ ' + x), ...since.changed.map((x) => '~ ' + x), ...since.removed.map((x) => '− ' + x)].map((x) => h('div', {}, x))))].filter(Boolean)
     : ['None'];
   const why = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-3'},
-    h('div', {class: 'd-flex align-items-baseline flex-wrap gap-2 mb-2'}, h('h3', {class: 'card-title m-0'}, waitingTotal ? 'Before release' : 'Ready for release'),
+    h('div', {class: 'd-flex align-items-baseline flex-wrap gap-2 mb-2'}, h('h3', {class: 'card-title m-0'}, unfiled ? stateWord('company', c.filing_state)[1] : waitingTotal ? 'Before release' : 'Ready for release'),
       h('span', {class: 'text-secondary small'}, `As of ${S.as_of || ''}`), waitingTotal ? h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-auto'}, 'Review in Reconcile →') : ''),
     h('div', {class: 'row g-3'},
       tile('Coverage',
