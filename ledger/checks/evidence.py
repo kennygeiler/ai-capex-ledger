@@ -5,6 +5,7 @@ person who must look sees exactly where."""
 import hashlib
 import json
 import re
+import weakref
 from pathlib import Path
 
 DIR = Path(__file__).resolve().parents[2] / "reports" / "evidence"
@@ -119,20 +120,32 @@ _SAME = r"""(a, b) => {
   return n(a) === n(b);
 }"""
 
-# A rendered filing loads nothing from the network: file: URLs continue, everything else is aborted.
+# A rendered filing loads nothing but itself: the exact file:// URI of the document being read continues, everything else
+# (a remote image, a font, another file on this machine) is aborted. F-BF12: any file: URL used to continue.
+_DOC: "weakref.WeakKeyDictionary" = weakref.WeakKeyDictionary()  # page -> the one document URI it may load
+
+
 def offline(page) -> list[str]:
-    """Route every request of this page: the stored filing (file:) loads, anything else (a remote image, a font) is
-    aborted before it leaves the machine. Returns the list the aborted URLs are appended to."""
+    """Route every request of this page: only the document `goto_doc` opened loads; anything else, a remote URL or any
+    other file: URL, is aborted before it is read. Returns the list the aborted URLs are appended to."""
     blocked: list[str] = []
 
     def handle(route):
-        if route.request.url.startswith("file:"):
+        if route.request.url == _DOC.get(page):
             route.continue_()
         else:
             blocked.append(route.request.url)
             route.abort()
     page.route("**/*", handle)
     return blocked
+
+
+def goto_doc(page, doc: Path) -> str:
+    """Open the stored filing `doc` on a page `offline` routes: its exact file:// URI becomes the one request allowed."""
+    uri = doc.resolve().as_uri()
+    _DOC[page] = uri
+    page.goto(uri, wait_until="load")
+    return uri
 
 
 def read(doc: Path, cites: list[dict], shots: set[str], out_dir: Path) -> dict:
@@ -144,7 +157,7 @@ def read(doc: Path, cites: list[dict], shots: set[str], out_dir: Path) -> dict:
         b = p.chromium.launch(channel="chrome")
         page = b.new_page(viewport={"width": 1000, "height": 900}, device_scale_factor=1.5)
         offline(page)
-        page.goto(doc.resolve().as_uri(), wait_until="load")
+        goto_doc(page, doc)
         for e in cites:
             r = page.evaluate(_LOCATE, [int(e["table_id"][1:]), e["row_label"], e["column_label"], e["cell_text"]])
             hit = bool(r and r["cell"] and same(r["seen"], e["cell_text"]))

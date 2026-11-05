@@ -17,13 +17,14 @@ import inspect
 import json
 import os
 import tempfile
+import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlencode
 
 from ..core import store
 from . import evidence
-from .evidence import _BOX, _LOCATE, _SAME, CROPS_FILE, offline, runs_together, same
+from .evidence import _BOX, _LOCATE, _SAME, CROPS_FILE, goto_doc, offline, runs_together, same
 from ..core.safewrite import locked, replace_text
 
 DIR = store.ROOT / "reports" / "evidence"
@@ -146,7 +147,7 @@ def crop_doc(doc: Path, doc_sha: str, cites: list[dict], out_dir: Path, page=Non
             finally:
                 b.close()
     out_dir.mkdir(parents=True, exist_ok=True)
-    page.goto(doc.resolve().as_uri(), wait_until="load")
+    goto_doc(page, doc)
     res = {}
     for e in cites:
         r = page.evaluate(_LOCATE, [int(e["table_id"][1:]) if e["table_id"][1:].isdigit() else -1, e["row_label"], e["column_label"], e["cell_text"]])
@@ -223,6 +224,7 @@ def state(entry: dict | None, cite: dict, doc_sha: str | None, doc_file: Path | 
 
 
 _MEMO: dict = {}
+_MEMO_LOCK = threading.Lock()  # F-BF12: the app serves requests on threads; a reader never sees `rec` from one file and `by_img` from another
 
 
 def record_now(path: Path | None = None) -> dict:
@@ -233,16 +235,18 @@ def record_now(path: Path | None = None) -> dict:
         key = (str(path), st.st_size, st.st_mtime_ns)
     except OSError:
         return {}
-    if _MEMO.get("key") != key:
-        rec = load(path)
-        _MEMO.update(key=key, rec=rec, by_img={v["img"]: k for k, v in rec.items() if v.get("img")})
-    return _MEMO["rec"]
+    with _MEMO_LOCK:
+        if _MEMO.get("key") != key:
+            rec = load(path)
+            _MEMO.update(key=key, rec=rec, by_img={v["img"]: k for k, v in rec.items() if v.get("img")})
+        return _MEMO["rec"]
 
 
 def extraction_of(img: str, path: Path | None = None) -> str | None:
     """The extraction id whose crop is this picture, from the record indexed by picture name (memoised with it)."""
     record_now(path)
-    return (_MEMO.get("by_img") or {}).get(img)
+    with _MEMO_LOCK:
+        return (_MEMO.get("by_img") or {}).get(img)
 
 
 def located_images(record: dict | None = None, img_dir: Path | None = None) -> set[str]:

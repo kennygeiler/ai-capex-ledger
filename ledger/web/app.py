@@ -517,13 +517,16 @@ class Handler(BaseHTTPRequestHandler):
                 from ..checks import crops
                 eid = crops.extraction_of(f.name)
                 if eid:
-                    con = _con()
-                    try:
-                        e = crops.cells(con, [eid]).get(eid)
-                    finally:
-                        con.close()
-                    if e and e["state"] == "located" and (e.get("crop") or {}).get("url") == f"/evidence/crops/{f.name}":
-                        return self._send(HTTPStatus.OK, f.read_bytes(), "image/png")
+                    def crop():  # F-BF12: inside _guard, so a busy database is a 503, not a dropped connection
+                        con = _con()
+                        try:
+                            e = crops.cells(con, [eid]).get(eid)
+                        finally:
+                            con.close()
+                        if e and e["state"] == "located" and (e.get("crop") or {}).get("url") == f"/evidence/crops/{f.name}":
+                            return self._send(HTTPStatus.OK, f.read_bytes(), "image/png")
+                        return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
+                    return self._guard(crop)
         if u.path.startswith("/filing/"):  # Open in filing (in-app): the stored 10-K with the cell outlined (ledger/web/viewer.py)
             return self._guard(lambda: self._filing(u.path.removeprefix("/filing/")))
         if u.path.startswith("/docs/"):  # a doc as plain text: docs/<NAME>.md only, top level, read by ledger/web/docs.py read()

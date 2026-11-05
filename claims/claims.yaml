@@ -699,6 +699,9 @@
   backed_by:
     functions: [ledger.checks.crops.crop_doc, ledger.checks.crops.merge, ledger.checks.crops.run, ledger.checks.crops.view, ledger.checks.crops.located_images, ledger.checks.evidence.load_all]
     tests:
+      - tests.test_hardening.OnlyTheDocument.test_another_local_file_and_a_remote_url_are_aborted
+      - tests.test_hardening.CropRouteBusy.test_a_busy_database_is_a_503_not_a_dropped_connection
+      - tests.test_hardening.MemoLock.test_record_now_and_extraction_of_hold_the_lock
       - tests.test_crops.Locator.test_found_and_not_found
       - tests.test_crops.View.test_a_crop_url_only_when_located_and_current
       - tests.test_crops.Merge.test_an_older_run_never_replaces_a_newer_one

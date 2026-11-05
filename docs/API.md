@@ -25,15 +25,15 @@ The measures (`docs/TAXONOMY.md`) are the `taxonomy` list: spent, committed and 
 
 The proof pages (`docs/PROOF.md`): `/api/v1/proof` is the board (the proven set's stage counts and the rest in one line), `/api/v1/proof/<ticker>`
 a company's trail (per stage: checked, explained, open items with what they need), `/api/v1/rules` every rule, guard and definition with what it closed
-and the open items by what is missing, `/api/v1/golden` the golden test's last result, `/api/v1/failures` the failure types as data (T54, `taxonomy/failures.yaml`): `total`, `by_class`, `by_origin` and `by_check` (each a list of `{<key>, types}` largest first, a bar being a number of types, never instances; `none` is a check of its own), `none` (how many types no check in code catches) and `types` (id, name, class, origin, check, count; a null count stays null). Answer keys (T56, `docs/PROOF.md`): the board, each company
+and the open items by what is missing, `/api/v1/golden` the regression test's last result (`reports/golden.json`, as `ledger golden --check` wrote it) with its `gold` replaced by the hand check read live from `gold/*.json` (`gold.compare_db` on the working database; `gold_live: true`, the report's own under `gold_at_check`; with the database busy, the report's and `gold_live: false`), `/api/v1/gold` (`?t=TICKER`) the hand check: per item `cites`, each with `evidence`, the cited cell's crop as every page reads it (`crops.brief`: `{state, reason, url, viewer, sec_url, filed, form}`, `url` only while the crop is located), `/api/v1/failures` the failure types as data (T54, `taxonomy/failures.yaml`): `total`, `by_class`, `by_origin` and `by_check` (each a list of `{<key>, types}` largest first, a bar being a number of types, never instances; `none` is a check of its own), `none` (how many types no check in code catches) and `types` (id, name, class, origin, check, count; a null count stays null). Answer keys (T56, `docs/PROOF.md`): the board, each company
 on it and each stage of a trail carry `keys`, `{twin, second_source, tie, later_truth, none, rows}`, rows counted once by the strongest key that vouches
 for them, `none` for a row no key vouches for (a quote, a mapping, an explanation, an open item), so the five sum to `rows`; the board and a trail also carry
 `key_grade`, the keys in strength order (five since T92: twin, second source, tie, later truth, second reading) with `id`, `label` and `why`. Every trail item carries `key` (the strongest answer key behind its `by`, or null) and
 `keys` (every key that vouches for it; one today).
 
 One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconcile workbench's rows (`docs/PROOF.md`): one per open
-item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), the cause, the evidence (cell, screenshot, quote, inputs) and the
-resolution. `POST /api/resolve` records one decision `{key, hash, state, reason, by}`; `POST /api/resolve/bulk` takes `{items: [{key, hash}], state, reason, by}`.
+item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), the cause, the evidence (cell, `crop` as `crops.brief` gives it, quote, inputs; the re-read screenshot `evidence.png` is no longer served) and the
+resolution, and `bulk`: true when `POST /api/resolve/bulk` takes the row's key (never a Category mapping row). `POST /api/resolve` records one decision `{key, hash, state, reason, by}`; `POST /api/resolve/bulk` takes `{items: [{key, hash}], state, reason, by}`.
 Both write `author_kind: person` (T69) and refuse (400) a `by` not on `config.PEOPLE`; an agent or replication writer calls
 `resolutions.resolve(..., author_kind="run")`, and its line waits on Reconcile's "to confirm" group and fails gate G6 until a person decides
 the key. Bulk checks every item before writing any: one bad item is a 400 and nothing is written. A run line never supersedes a
@@ -44,20 +44,25 @@ The feed also carries the mapping stage's open items (T33): one row per reported
 (cause `asset_types`, key `asset_types|<ticker>|<reported_name>`, `evidence: {reported_name, proposal, rejected, note}` where `proposal` is the
 mapper's latest standing line from `decisions/mapping_proposals.jsonl`: `standard_type`, `evidence`, `confidence`, `reason`, `prompt_version`,
 `model`, `at`), and `members`, the us-gaap members a mapping may use (the list in the header of `taxonomy/asset_types.yaml`).
-`POST /api/mapping` `{ticker, reported_name, standard_type, evidence, by}` writes that entry to `taxonomy/asset_types.yaml` under `by` with
+`POST /api/mapping` `{ticker, reported_name, standard_type, evidence, by, expected}` writes that entry to `taxonomy/asset_types.yaml` under `by` with
 today's date (the one writer of the file): 400 when `standard_type` is not in `members`, when the (ticker, reported_name) already has an
-entry, or when a field is empty; the reply is the entry written. `POST /api/mapping/reject` `{ticker, reported_name, standard_type, by,
-reason}` appends a `rejected` line to the proposals log so the next `ledger mapper` run does not propose that member again.
+entry, when a field is empty, when `by` is not on `config.PEOPLE`, or when `expected` is missing; the reply is the entry written.
+`expected` is the entry the page showed, `{standard_type, at}`, or `null` for none: when the file's entry no longer matches it, the write is
+refused with 409 (`stale: true`) and the page reloads. `POST /api/mapping/reject` `{ticker, reported_name, standard_type, by,
+reason}` appends a `rejected` line to the proposals log so the next `ledger mapper` run does not propose that member again; 400 when
+`by` is not on `config.PEOPLE`.
 
 The Release page (`docs/PROOF.md`): `/api/v1/release/checklist` (optional `?version=vX.Y.Z`; default the minor bump of the last
 release folder) is the checklist as JSON: `version`, `previous`, `scope`, `hash` (of the packet built in memory), `ok`, `red` (the
-required lines that fail), `lines` (each `{id, label, required, count, state: pass|fail|info|not_run, ok, link, note, detail}`),
-`gates` (`table` per gate per company, `failing`), `diff` (per list: `rows`, `added`, `removed`, `changed`, `key`, `columns_added`,
+required lines that fail), `lines` (each `{id, label, required, count, state: pass|fail|info|not_run|stale, ok, link, note, detail}`; `link` is the page
+that fixes the line, empty for a line fixed on Release itself or on disk, and a `detail` row may carry its own `link`; `hand_check` is read live
+from `gold/*.json`, `regression` from `reports/golden.json`),
+`people` (the names Sign accepts, `config.PEOPLE`), `gates` (`table` per gate per company, `failing`), `diff` (per list: `rows`, `added`, `removed`, `changed`, `key`, `columns_added`,
 `columns_removed`, `examples`), `golden` and `tests` (the two report files as they are, `tests` from `reports/tests.json` as `ledger test` writes it:
 `{ok, count, failures: ["test id: first line of the error"], skipped, golden: true|false|null, at, git, dirty, seconds}`, null when
 not run; the `tests` line is `pass` on this commit, `fail` on any failure, `info` with a "stale" note on another commit or a dirty tree). `POST /api/release/sign` `{version, by}` builds `releases/<version>/`, signs it as
 `by` with the checklist stored under `checklist` in `SIGNOFF.json`, and publishes; 403 on the read-only copy, 400 while any
-required line is red (checked twice: before the write and on the folder as written) or `by` is empty or not a string; one
+required line is red (checked twice: before the write and on the folder as written) or `by` is empty, not a string or not on `config.PEOPLE`; one
 signature at a time. The reply says `published` and, when the publish failed after the signature landed, `publish_error`;
 `SIGNOFF.json` records the same (`published`, `published_at` and `rows` on success; `published: false` and `publish_error` on
 failure; rerun `ledger publish`). `/api/outputs` carries per release `checklist: {open, unmapped, scope, unconfirmed, at}` from
