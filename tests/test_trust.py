@@ -249,6 +249,44 @@ def resolutions_mod():
     return resolutions
 
 
+class SignedOnTheCodeTested(unittest.TestCase):
+    """F20: the golden report named no commit and its line never read stale."""
+
+    def test_golden_on_another_commit_or_a_dirty_tree_is_stale_and_blocks(self):
+        from ledger.release.checklist import regression_line
+        ok = {"tables_ok": True, "at": "2026-11-05T00:00:00+00:00", "diffs": {}, "git": "abc1234", "dirty": False}
+        self.assertEqual(regression_line(ok, head="abc1234", changed=[])["state"], "pass")
+        self.assertEqual(regression_line(ok, head="def5678", changed=["ledger/checks/proof.py"])["state"], "stale")
+        self.assertEqual(regression_line({**ok, "dirty": True}, head="abc1234")["state"], "stale")
+        self.assertEqual(regression_line({k: v for k, v in ok.items() if k != "git"}, head="abc1234")["state"], "stale")  # a report from before F20
+        self.assertEqual(regression_line(ok, head="def5678", changed=["reports/golden.json", "docs/CLAIMS.md", "reports/tests.json"])["state"], "pass")  # the run's record only
+        self.assertEqual(regression_line(ok, head="def5678", changed=None)["state"], "stale")  # a commit this checkout does not know
+        self.assertEqual(regression_line(ok, head=None)["state"], "info")  # no git (the hosted copy): never a verified pass
+        self.assertEqual(regression_line({**ok, "tables_ok": False}, head="abc1234")["state"], "fail")
+        for st in ("stale", "info"):
+            self.assertFalse({"stale": regression_line(ok, head="def5678", changed=["x.py"]), "info": regression_line(ok, head=None)}[st]["ok"])
+
+    def test_golden_check_records_its_commit(self):
+        from ledger.cli import golden
+        tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp, True)
+        (tmp / "fixtures").mkdir()
+        (tmp / "fixtures" / "seed.json").write_text(json.dumps({"tickers": ["MSFT"]}))
+        g = {"ok": False, "holds": True, "state": "unverified", "failures": [], "checked": 0, "right": 0, "wrong": 0, "cant_say": 0, "unverified": 1, "items": 1}
+        r = {"ok": True, "diffs": {}, "log": [], "gold": g, "exit_ok": True}
+        with mock.patch.object(golden, "check", return_value=r), mock.patch.object(golden, "FIXTURES", tmp / "fixtures"), mock.patch.object(golden.store, "ROOT", tmp), \
+                mock.patch("ledger.release.testreport.git_state", return_value=("abc1234", False)):
+            golden.main(["--check"])
+        rep = json.loads((tmp / "reports" / "golden.json").read_text())
+        self.assertEqual((rep["git"], rep["dirty"]), ("abc1234", False))
+
+    def test_writing_a_report_never_makes_the_tree_dirty(self):
+        from ledger.release.testreport import _dirty_line
+        self.assertFalse(_dirty_line(" M reports/golden.json"))
+        self.assertFalse(_dirty_line(" M reports/tests.json"))
+        self.assertTrue(_dirty_line(" M ledger/checks/proof.py"))
+
+
 
 
 if __name__ == "__main__":

@@ -403,9 +403,10 @@ answer is derived from the same cells.
   definition of open), answer-key values missing from the dataset (T81, 0 required: an XBRL value with no released
   value, nothing open and no person's decision; a company with no XBRL answer loaded counts once), decisions a run left to confirm, unmapped asset types (0 required), rows with no value by measure
   (informs), the rows added / removed / changed per list against the previous release (informs; `DIFF.md` carries the same
-  table), the golden test (`reports/golden.json`, required equal) and the last test run (`reports/tests.json`, written
-  by `ledger test`: count, failures, golden, commit; absent reads "not run" and does not block; failing is red; passed on
-  another commit or a dirty tree reads "stale" and informs until `ledger test` runs again), the previous
+  table), every verified or explained row naming a record on file (F16, required, walked on the live tables), the golden
+  test (`reports/golden.json`, required equal, on the commit being signed: another commit or a dirty tree reads "stale"
+  and blocks, F20) and the last test run (`reports/tests.json`, written by `ledger test`: count, failures, golden, commit;
+  absent reads "not run", failing is red, passed on another commit or a dirty tree reads "stale"; each blocks), the previous
   release folders readable (a folder before this version without a manifest of the right shape or a `values.csv` is a red
   line, "previous release vX is broken: delete and rebuild", and the diff runs against the last readable one; a folder whose
   name is not a version is not a release), and the packet as
@@ -416,7 +417,7 @@ answer is derived from the same cells.
   rebuild", one without `manifest.json` "unsigned, broken; delete and rebuild"; "a shipped release is never edited" is said
   only of a signed one. The Sign button enables only when every required line is green; it writes `releases/<version>/`
   whole (a temporary folder renamed into place), builds the checklist again on the folder as written and refuses if anything
-  went red, signs as the name in the header's signer box (recorded as given; who may press it is a later ticket, auth),
+  went red, signs as the name in the header's signer box (empty until chosen; refused unless on `config.PEOPLE`, F18; who may press it is a later ticket, auth),
   stores the checklist as it was in `SIGNOFF.json` under `checklist`, and publishes; a publish that fails after the signature
   is recorded there (`published: false`, `publish_error`) and stays on screen, and Proof says "signed, not published" until
   `ledger publish` succeeds. One signature at a time; a signature is never replaced. Refused with 403 on the read-only copy

@@ -10,8 +10,9 @@ the diff in rows from the previous release (release.rows_diff), the limitations 
 not written. `required` lines must pass before the Sign button enables; the rest inform.
 
 reports/tests.json (`ledger test` writes it, testreport.py): {"ok", "count", "failures", "skipped", "golden", "at", "git", "dirty"}.
-Absent means "not run": grey, does not block. Failing: red. Passing on another commit or a dirty tree: stale, informs
-(tests_line)."""
+Absent: "not run", blocks. Failing: red. Passing on another commit or a dirty tree: stale, blocks (tests_line).
+reports/golden.json (`ledger golden --check`) carries the same {"git", "dirty"}: equal tables on another commit or a dirty
+tree are stale and block (regression_line, F20)."""
 import csv
 import io
 import json
@@ -328,17 +329,41 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     return _line("tests", "Test run", True, 0, "pass", "proof", base, detail)
 
 
-def regression_line(g: dict | None) -> dict:
+RECORD_FILES = ("reports/tests.json", "reports/golden.json", "docs/CLAIMS.md")  # what the record-then-commit cycle commits after a golden run
+
+
+def regression_line(g: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     """"Regression test" (required): the proven six rebuilt from frozen inputs equal fixtures/expected, as the last
     `ledger golden --check` found it (reports/golden.json), with its date. It says nothing changed since the freeze, never
     that a number is right: the hand check is its own line (hand_check_line), read live. A report from before T82's
-    split (no tables_ok) is read strictly."""
+    split (no tables_ok) is read strictly.
+    F20: the report names the commit it ran on (`git`) and whether the tree was dirty. Equal tables pass only on this HEAD
+    with a clean tree, or on a commit whose successors changed only the run records (RECORD_FILES: the golden and test
+    reports and docs/CLAIMS.md, the files committed after a run); anything else is "stale" and blocks. A report with no
+    commit (written before F20) is stale. Without git here (the hosted copy) the commit is not compared: informs, never a
+    verified pass. `head` and `changed` are read from the checkout unless a test passes them."""
     if g is None:
         return _line("regression", "Regression test", True, 1, "fail", "proof", "Regression test not run")
     tables = bool(g.get("tables_ok") if "tables_ok" in g else (g.get("ok") and g.get("gold"))) and not g.get("failed_step")
-    note = ("Tables unchanged since freeze" if tables else "Tables changed since freeze") + (f", failed at {g['failed_step']}" if g.get("failed_step") else "") + f"; checked {str(g.get('at') or '')[:10] or 'never'}"
+    sha = g.get("git")
+    note = ("Tables unchanged since freeze" if tables else "Tables changed since freeze") + (f", failed at {g['failed_step']}" if g.get("failed_step") else "") \
+        + f"; checked {str(g.get('at') or '')[:10] or 'never'}" + (f", on {sha}" if sha else "")
     detail = [{"table": k, "only_in_run": v.get("n_only_in_run"), "only_in_expected": v.get("n_only_in_expected")} for k, v in (g.get("diffs") or {}).items()]
-    return _line("regression", "Regression test", True, 0 if tables else (len(detail) or 1), "pass" if tables else "fail", "proof", note, detail)
+    if not tables:
+        return _line("regression", "Regression test", True, len(detail) or 1, "fail", "proof", note, detail)
+    head = _head() if head is _LOOKUP else head
+    if not head:
+        return _line("regression", "Regression test", True, 0, "info", "proof", f"commit not compared: no git; {note}", detail)
+    if not sha:
+        return _line("regression", "Regression test", True, 0, "stale", "proof", f"Stale: commit not recorded; {note}", detail)
+    moved = sha != head
+    if moved:
+        ch = _changed_since(sha) if changed is _LOOKUP else changed
+        moved = ch is None or any(p not in RECORD_FILES for p in ch)
+    if moved or g.get("dirty"):
+        why = "dirty tree" if g.get("dirty") else f"HEAD is {head}"
+        return _line("regression", "Regression test", True, 0, "stale", "proof", f"Stale: {why}; {note}", detail)
+    return _line("regression", "Regression test", True, 0, "pass", "proof", note, detail)
 
 
 def hand_check_line(con, docs: dict | None = None, problems: list | None = None) -> dict:

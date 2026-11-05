@@ -4,7 +4,8 @@ Release page's "Test run" line reads (checklist.py).
 Shape: {"ok": bool, "count": int, "failures": ["test id: first line of the error", ...], "skipped": int, "skipped_ids": [test ids],
         "golden": true | false | null (ran and passed | ran and failed | skipped, --fast or no fixtures),
         "at": ISO UTC, "git": short sha of HEAD or null (no git, as on the hosted copy), "dirty": bool | null}.
-The checklist compares `git` with its own HEAD: a run on another commit or a dirty tree is stale and informs, never signs."""
+The checklist compares `git` with its own HEAD: a run on another commit or a dirty tree is stale and blocks the signature.
+`ledger golden --check` records the same {git, dirty} in reports/golden.json (F20), read the same way by the Regression line."""
 import json
 import subprocess
 import traceback
@@ -15,6 +16,7 @@ from ..core import store
 
 REPORT = store.ROOT / "reports" / "tests.json"
 GOLDEN_TEST = "tests.test_golden.Golden.test_code_stages_reproduce_the_expected_tables"
+REPORT_FILES = ("reports/tests.json", "reports/golden.json")  # what `ledger test` and `ledger golden --check` write: a change to either is the record, not the code
 CODE_DIRS = ("ledger/", "tests/", "taxonomy/", "fixtures/")  # an untracked file here makes the tree dirty: the suite ran on it, the commit lacks it
 
 
@@ -46,7 +48,8 @@ class Result(unittest.TextTestResult):
 def git_state(root=None) -> tuple:
     """(short sha of HEAD, dirty) from the working tree at `root`; (None, None) without git or a repository. Dirty: any
     tracked change but the report file itself (writing it is what the run does), or an untracked file under a folder the
-    tests cover (CODE_DIRS): a new module or fixture nobody committed is code the run tested and the commit lacks."""
+    tests cover (CODE_DIRS): a new module or fixture nobody committed is code the run tested and the commit lacks. The
+    two report files (REPORT_FILES) never make it dirty: writing them is what a run does."""
     root = root or store.ROOT
     try:
         sha = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=root, capture_output=True, text=True, timeout=10)
@@ -59,11 +62,11 @@ def git_state(root=None) -> tuple:
 
 
 def _dirty_line(line: str) -> bool:
-    """One `git status --porcelain` line: a tracked change other than reports/tests.json, or an untracked file under CODE_DIRS."""
+    """One `git status --porcelain` line: a tracked change other than a report file (REPORT_FILES), or an untracked file under CODE_DIRS."""
     if not line.strip():
         return False
     code, path = line[:2], line[3:].strip().split(" -> ")[-1]
-    if path == "reports/tests.json":
+    if path in REPORT_FILES:
         return False
     if code == "??":
         return any(path.startswith(d) for d in CODE_DIRS)
