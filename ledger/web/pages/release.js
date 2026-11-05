@@ -7,8 +7,10 @@ const PAGE_NAME = {proof: 'Proof', reconcile: 'Reconcile', data: 'Dataset', gaps
 // what a line's detail holds, as a table whose columns are the detail's own keys
 function lineDetail(l) {
   if (!l.detail || !l.detail.length) return h('p', {class: 'text-secondary small m-0'}, 'No items');
-  const keys = [...new Set(l.detail.flatMap((r) => Object.keys(r)))];
-  const cols = keys.map((k) => ({t: k.replaceAll('_', ' '), k, num: typeof l.detail[0][k] === 'number', f: (r) => (Array.isArray(r[k]) ? (r[k].length ? r[k].join(', ') : '—') : typeof r[k] === 'number' ? int(r[k]) : r[k] == null || r[k] === '' ? '—' : String(r[k]))}));
+  // a row's `link` (the page that fixes that one item or company) is not a column: it makes the row's first cell a link (F-BF11)
+  const keys = [...new Set(l.detail.flatMap((r) => Object.keys(r)))].filter((k) => k !== 'link');
+  const text = (r, k) => (Array.isArray(r[k]) ? (r[k].length ? r[k].join(', ') : '—') : typeof r[k] === 'number' ? int(r[k]) : r[k] == null || r[k] === '' ? '—' : String(r[k]));
+  const cols = keys.map((k, i) => ({t: k.replaceAll('_', ' '), k, num: typeof l.detail[0][k] === 'number', f: (r) => (i === 0 && r.link ? h('a', {href: '#' + r.link}, text(r, k)) : text(r, k))}));
   return dtable(l.label, cols, l.detail);
 }
 

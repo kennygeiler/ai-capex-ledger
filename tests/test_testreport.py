@@ -95,7 +95,7 @@ class Line(unittest.TestCase):
     def test_passing_on_head_is_green_and_required_with_golden_and_sha_in_the_note(self):
         l = checklist.tests_line(_rep(), head="abc1234")
         self.assertEqual((l["state"], l["required"], l["ok"], l["count"]), ("pass", True, True, 0))
-        self.assertIn("golden ok", l["note"])
+        self.assertIn("regression test ok", l["note"])
         self.assertIn("abc1234", l["note"])
         self.assertIn("120 tests", l["note"])
 
@@ -103,7 +103,7 @@ class Line(unittest.TestCase):
         l = checklist.tests_line(_rep(ok=False, failures=["t.a: AssertionError: x", "t.b: KeyError: 'y'"], golden=False, git="0ld0000"), head="abc1234")
         self.assertEqual((l["state"], l["required"], l["ok"], l["count"]), ("fail", True, False, 2))
         self.assertEqual(l["detail"], [{"test": "t.a: AssertionError: x"}, {"test": "t.b: KeyError: 'y'"}])
-        self.assertIn("golden FAILED", l["note"])
+        self.assertIn("regression test FAILED", l["note"])
 
     def test_passing_on_another_commit_or_a_dirty_tree_is_stale_and_blocks(self):
         other = checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=["ledger/checks/rules.py", "reports/tests.json"])
@@ -130,7 +130,7 @@ class Line(unittest.TestCase):
         self.assertEqual(checklist.tests_line(_rep(ok=False, failures=["t.a: x"], git=None), head=None)["state"], "fail")  # a failure is red even without git
 
     def test_golden_skipped_points_at_the_golden_line(self):
-        self.assertIn("golden skipped, see the Golden line", checklist.tests_line(_rep(golden=None), head="abc1234", changed=[])["note"])
+        self.assertIn("regression test skipped, see its own line", checklist.tests_line(_rep(golden=None), head="abc1234", changed=[])["note"])
 
     def test_dirty_counts_untracked_files_under_the_code_folders_only(self):
         import shutil

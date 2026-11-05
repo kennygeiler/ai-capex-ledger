@@ -246,10 +246,10 @@
 
 - id: golden_equal
   claim: "Regression test"
-  where: [ledger/web/pages/proof.js, ledger/checks/golden.py, reports/golden.json]
-  shown: ["Tables unchanged", "Tables changed", "Pass", "Fail"]
+  where: [ledger/web/pages/proof.js, ledger/checks/golden.py, ledger/release/checklist.py, reports/golden.json]
+  shown: ["Tables unchanged", "Tables changed", "Pass", "Fail", "Regression test", "tables unchanged since freeze", "tables changed since freeze"]
   backed_by:
-    functions: [ledger.checks.golden.check, ledger.review.gold.compare_db, ledger.release.checklist.golden_line]
+    functions: [ledger.checks.golden.check, ledger.review.gold.compare_db, ledger.release.checklist.regression_line]
     tests:
       - tests.test_golden.Golden.test_code_stages_reproduce_the_expected_tables
       - tests.test_gold.Cli.test_unverified_only_exits_0_and_says_unverified
@@ -580,7 +580,7 @@
   where: [ledger/core/states.py, ledger/web/pages/release.js, ledger/release/checklist.py]
   shown: ["Pass", "Fail", "Info", "Not run", "Stale", "Test run", "Claims doc current"]
   backed_by:
-    functions: [ledger.release.checklist.checklist, ledger.release.checklist.tests_line, ledger.release.checklist.golden_line, ledger.release.checklist.doc_line]
+    functions: [ledger.release.checklist.checklist, ledger.release.checklist.tests_line, ledger.release.checklist.regression_line, ledger.release.checklist.hand_check_line, ledger.release.checklist.doc_line]
     tests:
       - tests.test_testreport.Line.test_missing_file_is_not_run_and_blocks
       - tests.test_testreport.Line.test_passing_on_another_commit_or_a_dirty_tree_is_stale_and_blocks
@@ -863,4 +863,19 @@
   status: partial
   gaps:
     - The saved view "What companies state about AI, in dollars" has no chart and shows "No rows match" (ux-paths catalog, Known broken flows).
+  ticket: none
+
+- id: hand_check_live
+  claim: "Hand check on Release and in Proof's header: N of 120 with a verdict, all hold; read live from gold/*.json, so a verdict given on Proof counts at once; Fix in opens the first unchecked item's company"
+  where: [ledger/release/checklist.py, ledger/web/app.py, ledger/web/pages/proof.js, ledger/web/pages/release.js, /api/v1/release/checklist, /api/v1/golden]
+  shown: ["Hand check", "with a verdict", "all hold", "live_hand_check"]
+  backed_by:
+    functions: [ledger.release.checklist.hand_check_line, ledger.web.app.live_hand_check, ledger.review.gold.compare_db]
+    tests:
+      - tests.test_gold.LiveHandCheck.test_a_verdict_written_to_a_gold_file_changes_the_line_with_no_cli_run
+      - tests.test_gold.LiveHandCheck.test_proofs_header_reads_the_same_live_verdicts
+      - tests.test_checklist.FixIn.test_scoped_links
+  status: partial
+  gaps:
+    - A verdict is checked against the working database, not a rebuild from frozen inputs; the Regression test line says whether those still agree, as of its date.
   ticket: none

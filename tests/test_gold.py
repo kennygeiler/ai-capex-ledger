@@ -12,6 +12,8 @@ from unittest import mock
 import duckdb
 
 from ledger.review import gold
+from ledger.core import store
+from urllib.parse import quote
 from ledger.core.config import PROVEN
 
 
@@ -295,21 +297,25 @@ class Cli(unittest.TestCase):
         self.assertEqual(rep["gold"]["state"], "unverified")
         # exit 0 is the tables' check only: the report never calls unverified ok, and the Release line is red on it
         self.assertEqual((rep["ok"], rep["gold"]["ok"], rep["gold"]["holds"]), (False, False, True))
-        from ledger.release.checklist import golden_line
-        line = golden_line(rep)
+        from ledger.release.checklist import hand_check_line, regression_line
+        self.assertEqual(regression_line(rep)["state"], "pass")  # the tables' line says only that the tables are unchanged
+        with mock.patch.object(gold, "compare_db", return_value=g_):  # the hand check is its own line, red on unchecked
+            line = hand_check_line(None, {"AMZN": {"items": [Check().item(None)]}}, [])
+        self.assertIn("0 of 1 with a verdict", line["note"])
         self.assertEqual((line["state"], line["required"], line["ok"]), ("fail", True, False))
-        self.assertIn("gold unverified 1 of 1", line["note"])
 
     def test_zero_verdicts_is_never_ok(self):
         """The vacuous pass: 0 of N verdicts, nothing failing, used to read ok=true and turn the Release golden line green."""
         g_ = gold.compare({"AMZN": {"items": [Check().item(None), Check().item(None)]}}, [Check().row()], [])
         self.assertEqual((g_["ok"], g_["holds"], g_["state"], g_["checked"]), (False, True, "unverified", 0))
-        from ledger.release.checklist import golden_line
-        self.assertEqual(golden_line({"ok": False, "tables_ok": True, "gold": g_})["state"], "fail")
-        self.assertEqual(golden_line({"ok": True, "tables_ok": True, "gold": {**g_, "state": "pass", "unverified": 0}})["state"], "pass")
-        self.assertEqual(golden_line({"ok": True, "tables_ok": False, "gold": {**g_, "state": "pass"}})["state"], "fail")
-        self.assertEqual(golden_line(None)["state"], "fail")
-        self.assertEqual(golden_line({"ok": True, "at": "x"})["state"], "fail")  # a report from before gold: no gold state, never green
+        from ledger.release.checklist import hand_check_line, regression_line
+        with mock.patch.object(gold, "compare_db", return_value=g_):
+            self.assertEqual(hand_check_line(None, {}, [])["state"], "fail")
+        with mock.patch.object(gold, "compare_db", return_value={**g_, "state": "pass", "unverified": 0}):
+            self.assertEqual(hand_check_line(None, {}, [])["state"], "pass")
+        self.assertEqual(regression_line({"ok": True, "tables_ok": False})["state"], "fail")
+        self.assertEqual(regression_line(None)["state"], "fail")
+        self.assertEqual(regression_line({"ok": True, "at": "x"})["state"], "fail")  # a report from before gold: no gold state, never green
 
 
 class Rate(unittest.TestCase):
@@ -403,3 +409,56 @@ class Files(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LiveHandCheck(unittest.TestCase):
+    """F-BF2: Release's Hand check line and Proof's header read the verdicts in gold/*.json live, through gold.compare_db,
+    so a verdict given on Proof counts with no `ledger golden --check` run; the Regression test line keeps reading the
+    report, with its date."""
+
+    def setUp(self):
+        if not store.DEFAULT_DB.exists() or os.environ.get("LEDGER_SKIP_DB"):
+            self.skipTest("no database")
+        self.root = Path(tempfile.mkdtemp(prefix="gold-"))
+        self.addCleanup(shutil.rmtree, self.root, True)
+        for f in gold.GOLD.glob("*.json"):
+            shutil.copy(f, self.root / f.name)
+        p = mock.patch.object(gold, "GOLD", self.root)
+        p.start()
+        self.addCleanup(p.stop)
+        docs, _ = gold.load_checked()
+        self.open_ = [(t, it) for t, d in sorted(docs.items()) for it in d["items"] if not gold.has_verdict(it)]
+        if not self.open_:  # every real item has a verdict: clear one in the copy, so there is something to give
+            t = sorted(docs)[0]
+            d = json.loads((self.root / f"{t}.json").read_text())
+            d["items"][0].update({"verdict": None, "note": "", "by": None, "at": None})
+            (self.root / f"{t}.json").write_text(json.dumps(d))
+            self.open_ = [(t, d["items"][0])]
+
+    def line(self):
+        from ledger.release.checklist import hand_check_line
+        con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+        try:
+            return hand_check_line(con)
+        finally:
+            con.close()
+
+    def test_a_verdict_written_to_a_gold_file_changes_the_line_with_no_cli_run(self):
+        t, it = self.open_[0]
+        before = self.line()
+        self.assertEqual((before["label"], before["state"]), ("Hand check", "fail"))
+        self.assertEqual(before["link"], f"proof?gold={self.open_[0][0]}")  # Fix in: the first unchecked item's company
+        self.assertIn({"company": t, "item": gold.what(it), "link": f"proof?gold={t}&item={quote(it['id'], safe='')}"}, before["detail"])
+        n = int(before["note"].split(" of ")[0])
+        gold.record(t, it["id"], "right", "", "Kenny Geiler")
+        after = self.line()
+        self.assertTrue(after["note"].startswith(f"{n + 1} of "), after["note"])
+        self.assertNotIn(it["id"], json.dumps(after["detail"]).replace("%7C", "|"))
+
+    def test_proofs_header_reads_the_same_live_verdicts(self):
+        from ledger.web import app
+        t, it = self.open_[0]
+        n = app.live_hand_check(None)["gold"]["unverified"]
+        gold.record(t, it["id"], "right", "", "Kenny Geiler")
+        live = app.live_hand_check({"state": "unverified", "unverified": n})
+        self.assertEqual((live["gold_live"], live["gold"]["unverified"], live["gold_at_check"]["unverified"]), (True, n - 1, n))

@@ -273,6 +273,22 @@ def _flow(scope: str) -> dict:
             "industries": sorted(INDUSTRIES) + ["other"], "scope_tickers": list(SCOPE), "names": {c["ticker"]: c["name"] for c in tracked()}}
 
 
+def live_hand_check(at_check: dict | None) -> dict:
+    """{gold, gold_live, gold_at_check}: every verdict in gold/*.json against the working tables now (gold.compare_db, the
+    function `ledger golden --check` and the Release line read), so a verdict given on Proof counts with no CLI run. With the
+    database busy, the report's own hand check, marked not live."""
+    from ..review import gold
+    try:
+        con = _con()
+    except Busy:
+        return {"gold": at_check, "gold_live": False, "gold_at_check": at_check}
+    try:
+        c = gold.compare_db(con)
+    finally:
+        con.close()
+    return {"gold": {k: c.get(k) for k in ("ok", "holds", "state", "failures", "checked", "right", "wrong", "cant_say", "unverified", "items")}, "gold_live": True, "gold_at_check": at_check}
+
+
 UNKNOWN_COMPANY = "Unknown company"
 
 
@@ -570,9 +586,10 @@ class Handler(BaseHTTPRequestHandler):
             name, fmt = name[:-4], "csv"
         if name in ("proof", "rules", "golden"):  # the proof pages, docs/PROOF.md
             from ..checks import proof
-            if name == "golden":
+            if name == "golden":  # the regression test as `ledger golden --check` left it; its hand check replaced by the live one (F-BF2)
                 f = store.ROOT / "reports" / "golden.json"
-                return self._json({**(json.loads(f.read_text()) if f.exists() else {"ok": None, "at": None}), "fixtures": (store.ROOT / "fixtures" / "seed.json").exists()})
+                rep = json.loads(f.read_text()) if f.exists() else {"ok": None, "at": None}
+                return self._json({**rep, **live_hand_check(rep.get("gold")), "fixtures": (store.ROOT / "fixtures" / "seed.json").exists()})
             con = _con()
             try:
                 if name == "rules":

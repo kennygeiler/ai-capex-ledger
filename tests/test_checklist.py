@@ -390,6 +390,33 @@ class Endpoints(unittest.TestCase):
         self.assertEqual((s["published"], s["publish_error"]), (False, "connection refused"))
 
 
+def fix_in_links_land_on_their_item(t, cl):
+    """F-BF11: every Fix in opens the place that fixes the line: Hand check on Proof's hand check at the first unchecked
+    company, Needs review on Reconcile's rule findings, Proposed on Category mapping when it holds any; a line fixed on
+    Release itself (or on disk) has no Fix in; a per-company row in a line's detail links to that company."""
+    L = {l["id"]: l for l in cl["lines"]}
+    hc = L["hand_check"]
+    if hc["state"] != "pass":
+        first = next((d["company"] for d in hc["detail"] if "company" in d), None)
+        if first:
+            t.assertEqual(hc["link"], f"proof?gold={first}")
+    t.assertEqual(L["open"]["link"], "reconcile?cause=finding_unconfirmed")
+    if cl["gates"]["table"]["G6"] and any(d.get("key", "").startswith("asset_types|") for d in L["gate_G6"]["detail"]):
+        t.assertEqual(L["gate_G6"]["link"], "reconcile?cause=asset_types")
+    t.assertEqual((L["limitations"]["link"], L["previous"]["link"]), ("", ""))
+    t.assertFalse([l["id"] for l in cl["lines"] if (l["link"] or "").split("?")[0] == "release"])
+    for d in L["open"]["detail"]:
+        if "ticker" in d:
+            t.assertEqual(d["link"], f"reconcile?cause=finding_unconfirmed&scope={d['ticker']}")
+
+
+class FixIn(unittest.TestCase):
+    def test_scoped_links(self):
+        self.assertEqual(checklist._scoped("proof", "APLD"), "proof/APLD")
+        self.assertEqual(checklist._scoped("reconcile", "APLD"), "reconcile?scope=APLD")
+        self.assertEqual(checklist._scoped("reconcile?cause=asset_types", "APLD"), "reconcile?cause=asset_types&scope=APLD")
+
+
 class DryRun(unittest.TestCase):
     """On the real database (git-ignored; skipped without it). The checklist's hash equals what `ledger release` writes,
     into a temporary releases folder; and while any required line is red, Sign refuses before it writes, signs or
@@ -408,7 +435,8 @@ class DryRun(unittest.TestCase):
         try:
             with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), mock.patch.object(store, "init", return_value=con):
                 cl = checklist.checklist(con)
-                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "golden", "tests", "previous", "packet"])
+                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "hand_check", "regression", "tests", "previous", "packet"])
+                fix_in_links_land_on_their_item(self, cl)  # F-BF11
                 comp = next(l for l in cl["lines"] if l["id"] == "complete")  # T81: required, and 0 on the six
                 self.assertEqual((comp["required"], comp["state"], comp["count"]), (True, "pass", 0), comp["detail"][:3])
                 lim = next(l for l in cl["lines"] if l["id"] == "limitations")  # T68: informs, never red
@@ -471,7 +499,7 @@ class Parity(unittest.TestCase):
     def test_g6_links_to_the_page_that_holds_its_items_and_lists_every_key(self):
         unc = [{"key": "finding_unconfirmed|X|capex|||jump|", "state": "explain", "reason": "a run decided"}]
         utc = [{"ticker": "X", "reported_name": "Land", "standard_type": "us-gaap:LandMember", "by": "mapper"}]
-        self.assertEqual(checklist.g6_link(unc, utc), "reconcile")
+        self.assertEqual(checklist.g6_link(unc, utc), "reconcile?cause=asset_types")  # F-BF11: Proposed opens Category mapping
         self.assertEqual(checklist.g6_link(unc, []), "reconcile?cause=to_confirm")
         self.assertEqual(checklist.g6_link([], utc), "reconcile?cause=asset_types")
         d = checklist.g6_detail(unc, utc)
