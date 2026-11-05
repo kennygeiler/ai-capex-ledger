@@ -13,7 +13,7 @@ from . import filertag, ties
 from ..core import status, store
 from ..extract.notes import FIELDS as NOTE_FIELDS
 from .guards import part_year, program_words
-from ..review.review import decisions, open_items
+from ..review.review import decisions, open_items, proposed
 from .rules import explain_key, explained
 from ..release.taxonomy import asset_types, rows as taxonomy_rows
 from ..core.config import PROVEN, PROVEN_WHY, SCOPE, industry, tracked
@@ -23,7 +23,7 @@ STAGE_LABEL = {"ingest": "Filings", "values": "Statement figures", "facts": "Not
                "planned": "Guidance and projects", "release": "Release"}
 NEEDS = {"values": "Definition or unit rule", "facts": "Definition", "finding": "Definition or rule", "mapping": "Category mapping",
          "mapping_confirm": "Proposed category", "readings": "Readings differ", "tie": "Does not tie to total", "basis": "Segment basis",
-         "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision"}  # what an open item needs, as the Rules page groups it
+         "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision", "decision_confirm": "Proposed decision"}  # what an open item needs, as the Rules page groups it
 
 
 # The exceptions a loader writes when a stage failed (cli/extract, cli/notes, cli/aispend, cli/projects): failures, never
@@ -204,7 +204,13 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     stages["planned"] = _stage(items, extra={"guidance": sum(r["category"] == "guidance" for r in planned), "projects": sum(r["category"] == "project" for r in planned)})
 
     # release: blocks from decisions and block-severity rules; the company's gate is one item
+    # F14: a block a run or an agent decided is Proposed (to confirm), still open, until a person decides it
+    prop = {e["exception_id"]: e["decision"] for e in proposed(exc, decisions())}
     items = [_item(f"{e['rule_id']}: {e['field'] or ''} {e['period'] or ''}".strip(), status.of_exception(e), e["message"][:200], NEEDS["release"])
+             if e["exception_id"] not in prop else
+             _item(f"{e['rule_id']}: {e['field'] or ''} {e['period'] or ''}".strip().rstrip(":") + ", to confirm",
+                   status.state({"label": "to_confirm", "reason": f"{prop[e['exception_id']].get('kind')} by {prop[e['exception_id']].get('reviewer')}; no person has decided it"}),
+                   e["message"][:200], NEEDS["decision_confirm"])
              for e in exc if e["severity"] == "block" and e["rule_id"] not in FAILURES and e["exception_id"] not in decided]
     items += [_item(f"blocks: {' '.join(k[2:5]).strip()}", status.state({"resolution": r}), r["reason"][:200], NEEDS["decision"]) for k, r in idx.items() if k[1] == t and r["state"] == "blocks"]
     if rset[1]:  # a rule file that does not load: open, never a crash, and no rule explains anything until it is fixed
@@ -216,7 +222,9 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     name = next((c["name"] for c in tracked() if c["ticker"] == t), t)
     from ..core.states import company as company_state
     filing = company_state(any(c["ticker"] == t for c in tracked()), len(docs))  # F-BF15: nothing read is never Proven
-    return {"ticker": t, "name": name, "layer": industry(t), "proven": open_total == 0 and filing == "filed", "filing_state": filing, "open": open_total, "why": PROVEN_WHY.get(t, ""), "in_proven_set": t in PROVEN,
+    # F11: Proven on the trail and the board means a company in the proven set (config.PROVEN) with nothing open; one
+    # outside the set reads its counts, never Proven beside "Not in scope" (F28: the API's `proven` column is set membership)
+    return {"ticker": t, "name": name, "layer": industry(t), "proven": t in PROVEN and open_total == 0 and filing == "filed", "filing_state": filing, "open": open_total, "why": PROVEN_WHY.get(t, ""), "in_proven_set": t in PROVEN,
             "stages": stages, "keys": keys, "key_grade": KEY_GRADE, "definitions": sorted((defs or {}).get(t, {}).keys())}
 
 
@@ -412,7 +420,7 @@ def missing_from_dataset(con, tickers, ds: list[dict], idx: dict | None = None) 
     first = first_periods(vals)
     released = {(v["ticker"], v["field"], v["period"]): v for v in apply(vals, excs, ds)}
     pending = {(e["ticker"], e["field"], e["period"]) for e in open_items(excs, ds)}
-    cur, decided = latest(ds), {}
+    cur, decided = latest(ds, {e["exception_id"] for e in excs if e["severity"] == "block"}), {}
     for e in excs:  # the current decisions on the findings of a cell, to name who decided it
         d = cur.get(e["exception_id"])
         if d and d["input_hash"] == e["input_hash"] and e["period"]:

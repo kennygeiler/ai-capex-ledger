@@ -1,5 +1,11 @@
 """Decisions on exceptions. Append-only log in decisions/decisions.jsonl; the latest decision per exception
-counts, and only while the exception's input hash is unchanged (a changed input reopens it)."""
+counts, and only while the exception's input hash is unchanged (a changed input reopens it).
+
+F14: every decision records its author (`reviewer`) and who that is (`author_kind`: person or run, as resolutions do,
+T69). A decision closes a block finding only when a person made it (`by_person`); one a run or an agent made, or one
+whose words say "to confirm", is a proposal: the block stays open (gate G4) and counts as Proposed on Proof, Reconcile
+and the Release checklist (gate G6) until a person decides it. A line written before the field existed is read by the
+old rule (resolutions.by_person on `reviewer` and `reason`); no line is rewritten."""
 import json
 import uuid
 from datetime import datetime, timezone
@@ -7,32 +13,82 @@ from datetime import datetime, timezone
 from ..core.store import KINDS, ROOT
 
 LOG = ROOT / "decisions" / "decisions.jsonl"
+AUTHOR_KINDS = ("person", "run")
 
 
 def decisions() -> list[dict]:
     return [json.loads(l) for l in LOG.read_text().splitlines() if l.strip()] if LOG.exists() else []
 
 
-def latest(ds: list[dict]) -> dict:
-    out = {}
+def by_person(d: dict) -> bool:
+    """A decision a person made, failing closed: resolutions.by_person on its reviewer and reason (author_kind when the
+    line carries it; before it, a name on config.PEOPLE with no "to confirm")."""
+    from .resolutions import by_person as _person
+    return _person({"by": d.get("reviewer"), "reason": d.get("reason"), **({"author_kind": d["author_kind"]} if "author_kind" in d else {})})
+
+
+def latest(ds: list[dict], blocks=frozenset()) -> dict:
+    """The decision that stands per exception: the newest. For a block finding (its id in `blocks`) a run's decision
+    never supersedes a person's on the same input hash (as resolutions.latest): a proposal written after a person decided
+    changes nothing (F14). Warn and info findings keep the newest line, as before F14."""
+    out, person = {}, {}
     for d in ds:
         out[d["exception_id"]] = d
+        if d["exception_id"] in blocks and by_person(d):
+            person[(d["exception_id"], d.get("input_hash"))] = d
+    for k, d in out.items():
+        p = person.get((k, d.get("input_hash")))
+        if p is not None and not by_person(d):
+            out[k] = p
     return out
 
 
+def _blocks(exceptions: list[dict]) -> set:
+    return {e["exception_id"] for e in exceptions if e.get("severity") == "block"}
+
+
+def current(e: dict, cur: dict) -> dict | None:
+    """The standing decision on exception `e` while its input hash is unchanged, else None."""
+    d = cur.get(e["exception_id"])
+    return d if d and d.get("input_hash") == e["input_hash"] else None
+
+
+def closes(e: dict, d: dict | None) -> bool:
+    """A decision closes its finding: any current decision closes a warn; only a person's closes a block (F14)."""
+    return d is not None and (e["severity"] != "block" or by_person(d))
+
+
 def open_items(exceptions: list[dict], ds: list[dict]) -> list[dict]:
-    """Block and warn exceptions without a current decision, blocking first, latest fiscal year first."""
-    cur = latest(ds)
-    todo = [e for e in exceptions if e["severity"] != "info" and cur.get(e["exception_id"], {}).get("input_hash") != e["input_hash"]]
+    """Block and warn exceptions no decision closes (`closes`), blocking first, latest fiscal year first. A block with
+    only a run's decision stays here: G4 fails on it and `proposed` names it."""
+    cur = latest(ds, _blocks(exceptions))
+    todo = [e for e in exceptions if e["severity"] != "info" and not closes(e, current(e, cur))]
     return sorted(todo, key=lambda e: (e["severity"] != "block", -int((e["period"] or "FY0000")[2:]), e["ticker"], e["exception_id"]))
 
 
-def decide(exc: dict, kind: str, reason: str, by: str, value: int | None = None) -> dict:
+def proposed(exceptions: list[dict], ds: list[dict]) -> list[dict]:
+    """The block exceptions whose current decision a run or an agent made: [{**exception, "decision": d}]. Each is
+    Proposed (left to confirm) on Proof, Reconcile and gate G6, and still open under G4, until a person decides it."""
+    cur = latest(ds, _blocks(exceptions))
+    return [{**e, "decision": d} for e in exceptions if e["severity"] == "block" and (d := current(e, cur)) and not by_person(d)]
+
+
+def decide(exc: dict, kind: str, reason: str, by: str, value: int | None = None, *, author_kind: str) -> dict:
+    """Append one decision under its author. `author_kind` has no default, so every caller says who it is: person (`ledger
+    review … decide … --as person`): `by` must be on config.PEOPLE (status.is_person) or nothing is written; run (`--as
+    run`): an agent's or a run's decision, recorded, closing no block."""
     if kind not in KINDS or not reason.strip() or (kind == "override") != (value is not None):
         raise ValueError("kind must be accept, override (with --value) or reject, with a reason")
-    prev = latest(decisions()).get(exc["exception_id"])
+    if not str(by or "").strip():
+        raise ValueError("a decision needs its author's name")
+    if author_kind not in AUTHOR_KINDS:
+        raise ValueError(f"author_kind must be one of {AUTHOR_KINDS}, not {author_kind!r}")
+    from ..core.status import is_person
+    if author_kind == "person" and not is_person(by):
+        raise ValueError(f"{by.strip()!r} is not on config.PEOPLE, the people whose decisions count; an agent records author_kind run")
+    prev = latest(decisions(), _blocks([exc])).get(exc["exception_id"])
     d = {"decision_id": uuid.uuid4().hex[:12], "exception_id": exc["exception_id"], "kind": kind, "value": value, "reason": reason,
-         "reviewer": by, "decided_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "input_hash": exc["input_hash"],
+         "reviewer": by.strip(), "author_kind": author_kind, "decided_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "input_hash": exc["input_hash"],
          "supersedes": prev["decision_id"] if prev else None}
     LOG.parent.mkdir(exist_ok=True)
     with LOG.open("a") as f:
@@ -41,11 +97,12 @@ def decide(exc: dict, kind: str, reason: str, by: str, value: int | None = None)
 
 
 def apply(values: list[dict], exceptions: list[dict], ds: list[dict]) -> list[dict]:
-    """Released values: an override or reject decision on a value's exception replaces the agent value."""
-    cur, by_key = latest(ds), {}
+    """Released values: an override or reject decision that closes a value's exception (`closes`) replaces the agent
+    value; a run's decision on a block changes nothing until a person makes it theirs."""
+    cur, by_key = latest(ds, _blocks(exceptions)), {}
     for e in exceptions:
-        d = cur.get(e["exception_id"])
-        if d and d["input_hash"] == e["input_hash"] and d["kind"] != "accept" and e["period"]:
+        d = current(e, cur)
+        if closes(e, d) and d["kind"] != "accept" and e["period"]:
             by_key[(e["ticker"], e["field"], e["period"])] = d
     out = []
     for v in values:

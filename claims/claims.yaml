@@ -115,7 +115,7 @@
 - id: needs_review
   claim: "Needs review"
   where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/pages/_shared.js, ledger/web/cards.py, /api/v1/proof/<ticker>]
-  shown: ["Needs review", "Complete", "Differs from SEC XBRL", "Proposed category. Review in Reconcile.",
+  shown: ["Needs review", "Complete", "Differs from SEC XBRL", "Proposed category. Review in Reconcile.", "Proposed decision. Review in Reconcile.",
           "In SEC XBRL, not extracted. Re-read required.", "In SEC XBRL, not extracted", "Decide in Reconcile"]
   backed_by:
     functions: [ledger.core.status.is_open, ledger.checks.proof.company]
@@ -169,6 +169,7 @@
     tests:
       - tests.test_api.UnknownCompany.test_a_made_up_ticker_is_404_unknown_company
       - tests.test_api.CompanyStates.test_a_followed_ticker_with_no_filings_is_never_proven
+      - tests.test_trust.ProvenMeansTheProvenSet.test_nothing_open_outside_the_proven_set_is_not_proven
       - tests.test_api.CompanyStates.test_a_ticker_nobody_follows_is_unknown
       - tests.test_api.CompanyStates.test_a_busy_database_is_503_not_unknown
       - tests.test_completeness.TheSixAreComplete.test_the_six_read_zero_and_coverage_agrees
@@ -451,12 +452,14 @@
   ticket: T81
 
 - id: label_never_a_check
-  claim: "A label never counts as a check on the proven set (tested walk + planted cases)"
-  where: [/api/v1/proof, ledger/core/status.py, ledger/checks/proof.py]
-  shown: ["def evidence_gap"]
+  claim: "A label never counts as a check on the proven set (tested walk + planted cases, and a required Release line on the live data)"
+  where: [/api/v1/proof, ledger/core/status.py, ledger/checks/proof.py, ledger/release/checklist.py]
+  shown: ["def evidence_gap", "Verified or explained with no record behind it"]
   backed_by:
-    functions: [ledger.core.status.evidence_gap, ledger.checks.proof.unevidenced]
+    functions: [ledger.core.status.evidence_gap, ledger.checks.proof.unevidenced, ledger.release.checklist.evidence_line]
     tests:
+      - tests.test_trust.EvidenceOnTheChecklist.test_a_dangling_record_is_a_red_required_line
+      - tests.test_trust.EvidenceOnTheChecklist.test_the_live_checklist_carries_the_line_and_the_six_read_zero
       - tests.test_status.ALabelNeverCountsAsACheck.test_planted_bare_labels_fail
       - tests.test_status.EveryCheckedRowNamesItsEvidence.test_the_six_as_they_are
       - tests.test_status.EveryCheckedRowNamesItsEvidence.test_planted_not_reported_with_an_xbrl_value
@@ -481,13 +484,17 @@
 
 - id: decision_author
   claim: "Decisions record person or run"
-  where: [decisions/resolutions.jsonl, ledger/review/resolutions.py, /api/resolve]
+  where: [decisions/resolutions.jsonl, decisions/decisions.jsonl, ledger/review/resolutions.py, ledger/review/review.py, /api/resolve]
   shown: ["def by_person"]
   backed_by:
-    functions: [ledger.review.resolutions.by_person, ledger.review.resolutions.by_run, ledger.core.status.is_person]
+    functions: [ledger.review.resolutions.by_person, ledger.review.resolutions.by_run, ledger.core.status.is_person, ledger.review.review.by_person, ledger.review.review.proposed]
     tests:
       - tests.test_resolutions.Authors.test_a_person_line_by_someone_not_on_people_is_refused
       - tests.test_resolutions.Authors.test_a_run_line_never_supersedes_a_person_line
+      - tests.test_trust.DecisionAuthors.test_a_run_decision_never_closes_a_block_and_is_proposed
+      - tests.test_trust.DecisionAuthors.test_every_new_decision_records_its_author_and_kind
+      - tests.test_trust.DecisionAuthors.test_g4_and_g6_both_name_a_proposed_block
+      - tests.test_trust.DecisionAuthors.test_proof_and_reconcile_read_it_proposed
   status: partial
   gaps:
     - The name is the one typed in the signer box; nobody signs in.
@@ -588,6 +595,9 @@
   backed_by:
     functions: [ledger.release.checklist.checklist, ledger.release.checklist.tests_line, ledger.release.checklist.regression_line, ledger.release.checklist.hand_check_line, ledger.release.checklist.doc_line]
     tests:
+      - tests.test_trust.SignedOnTheCodeTested.test_golden_on_other_code_or_a_dirty_tree_is_stale_and_blocks
+      - tests.test_trust.SignedOnTheCodeTested.test_in_a_real_repository_a_run_binds_to_its_code
+      - tests.test_trust.SignedOnTheCodeTested.test_golden_check_records_its_commit
       - tests.test_testreport.Line.test_missing_file_is_not_run_and_blocks
       - tests.test_testreport.Line.test_passing_on_another_commit_or_a_dirty_tree_is_stale_and_blocks
       - tests.test_claims.Doc.test_a_stale_or_union_merged_claims_doc_blocks_signing
@@ -612,6 +622,10 @@
       - tests.test_pages_js.SignButton.test_enabled_only_for_a_name_on_the_list_with_every_required_line_green
       - tests.test_pages_js.SignButton.test_the_page_rechecks_on_every_input_to_the_signer_box
       - tests.test_checklist.HistoricSignatures.test_signed_releases_read_and_check_with_nobody_on_the_list
+      - tests.test_trust.EveryWriteNamesAPerson.test_the_page_has_no_default_signer
+      - tests.test_trust.EveryWriteNamesAPerson.test_the_command_line_signature_checks_the_people_list
+      - tests.test_trust.SignedOnTheCodeTested.test_the_command_line_signature_passes_the_page_gate
+      - tests.test_trust.EveryWriteNamesAPerson.test_every_write_route_is_400_for_a_name_off_the_list_and_writes_nothing
   status: partial
   gaps:
     - The signer is a typed name; nobody signs in.
@@ -981,4 +995,19 @@
   gaps:
     - Findings are not grouped by company, field and check; each batch still needs the Field filter (STORY-027).
     - A decision still starts on Accept; a bulk save with no deliberate choice records Accept.
+  ticket: none
+
+- id: app_code_current
+  claim: "App code differs from checkout"
+  where: [ledger/web/pages/_shared.js, ledger/web/app.py, /api/hq]
+  shown: ["App code differs from checkout · restart"]
+  backed_by:
+    functions: [ledger.web.app.code_status, ledger.web.app.code_fingerprint, ledger.web.app._stamp]
+    tests:
+      - tests.test_trust.StaleServer.test_hq_says_when_the_checkout_code_differs
+      - tests.test_trust.StaleServer.test_the_queue_is_rebuilt_after_a_decision
+      - tests.test_trust.StaleServer.test_the_stamp_moves_when_any_input_file_changes
+  status: partial
+  gaps:
+    - "Compares the Python under ledger/ only; pages and app.html are served from disk on every request, so they are never older."
   ticket: none

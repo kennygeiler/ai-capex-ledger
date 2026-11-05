@@ -35,6 +35,14 @@ def _packet(version="v9.9.0") -> dict:
     return {"version": version, "files": dict(FILES), "hash": HASH, "manifest": {"version": version, "hash": HASH, "files": sorted(FILES)}}
 
 
+def _clean_checkout(case):
+    """Patch checklist._live to a clean checkout for `case` (Sign refuses on uncommitted code first, F20)."""
+    for p in (mock.patch.object(checklist, "_live", return_value={"head": "abc1234", "dirty": False, "code": "c1"}),
+              mock.patch.object(checklist, "preflight", return_value={"head": "abc1234", "dirty": False, "code": "c1"})):
+        p.start()
+        case.addCleanup(p.stop)
+
+
 class TempReleases(unittest.TestCase):
     """Every test here signs into its own releases folder: checklist.RELEASES and signoff.RELEASES point at it."""
 
@@ -43,6 +51,10 @@ class TempReleases(unittest.TestCase):
         self.addCleanup(shutil.rmtree, self.tmp, True)
         for m in (checklist, signoff):
             patcher = mock.patch.object(m, "RELEASES", self.tmp)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        for patcher in (mock.patch.object(checklist, "_live", return_value={"head": "abc1234", "dirty": False, "code": "c1"}),  # a clean checkout: Sign reads it first (F20)
+                        mock.patch.object(checklist, "preflight", return_value={"head": "abc1234", "dirty": False, "code": "c1"})):  # its gate holds (tests.test_trust tests it)
             patcher.start()
             self.addCleanup(patcher.stop)
 
@@ -191,7 +203,7 @@ class SignoffFile(TempReleases):
             (d / n).write_text(t)
         (d / "manifest.json").write_text(json.dumps({"version": "v9.9.0", "hash": HASH, "files": sorted(FILES)}))
         with self.assertRaises(ValueError):
-            signoff.sign("v8.0.0", "K")  # no such release
+            signoff.sign("v8.0.0", "Kenny Geiler")  # no such release
         s = signoff.sign("v9.9.0", "Kenny Geiler", _cl(True))
         got = self.signoff_json()
         self.assertEqual((s["version"], got["signed_by"], got["checklist"]["scope"]), ("v9.9.0", "Kenny Geiler", ["MSFT", "NVDA"]))
@@ -202,12 +214,14 @@ class SignoffFile(TempReleases):
         got = self.signoff_json()
         self.assertEqual((got["signed_by"], got["published"], got["publish_error"]), ("Kenny Geiler", False, "no url"))  # record never touches the signed fields
         (d / "SIGNOFF.json").unlink()
-        self.assertEqual(signoff.main(["v9.9.0", "--by", "CLI"]), 0)
+        self.assertEqual(signoff.main(["v9.9.0", "--by", "CLI"]), 1)  # F18: a name off config.PEOPLE never signs, from the command line either
+        self.assertFalse((d / "SIGNOFF.json").exists())
+        self.assertEqual(signoff.main(["v9.9.0", "--by", "Kenny Geiler"]), 0)
         self.assertNotIn("checklist", self.signoff_json())  # the command line signs without one
         (d / "SIGNOFF.json").unlink()
         (d / "values.csv").write_text("ticker\nY\n")
         with self.assertRaises(ValueError):
-            signoff.sign("v9.9.0", "K")  # the files no longer match their hash
+            signoff.sign("v9.9.0", "Kenny Geiler")  # the files no longer match their hash
 
 
 class Versions(TempReleases):
@@ -260,6 +274,9 @@ class Endpoints(unittest.TestCase):
     """The HTTP layer: every POST needs Content-Type application/json and, when a browser names an Origin, this server's
     own; /api/release/sign is 403 on the read-only copy and 400 on a red checklist or a bad name; the checklist GET is
     served before the /api/v1/ catch-all."""
+
+    def setUp(self):
+        _clean_checkout(self)
 
     def _serve(self):
         from ledger.web import app
@@ -422,6 +439,9 @@ class DryRun(unittest.TestCase):
     into a temporary releases folder; and while any required line is red, Sign refuses before it writes, signs or
     publishes. When the checklist is green there is nothing to dry-run without writing, so that part skips."""
 
+    def setUp(self):
+        _clean_checkout(self)
+
     @unittest.skipUnless(store.DEFAULT_DB.exists() and not os.environ.get("LEDGER_SKIP_DB"), "no data/ledger.duckdb")
     def test_the_checklist_hash_is_what_the_cli_writes_and_sign_refuses_while_red(self):
         import duckdb
@@ -435,7 +455,7 @@ class DryRun(unittest.TestCase):
         try:
             with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), mock.patch.object(store, "init", return_value=con):
                 cl = checklist.checklist(con)
-                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "hand_check", "regression", "tests", "previous", "packet"])
+                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "evidenced", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "hand_check", "regression", "tests", "previous", "packet"])
                 fix_in_links_land_on_their_item(self, cl)  # F-BF11
                 comp = next(l for l in cl["lines"] if l["id"] == "complete")  # T81: required, and 0 on the six
                 self.assertEqual((comp["required"], comp["state"], comp["count"]), (True, "pass", 0), comp["detail"][:3])

@@ -355,7 +355,7 @@ document.addEventListener("click", (e) => {
   if (b) { if (b.dataset.company) { state.company = b.dataset.company; state.open.clear(); } if (b.dataset.field) state.field = b.dataset.field; if (b.dataset.show) state.show = b.dataset.show; return render(); }
   if (e.target.closest("#expand")) { const vis = [...document.querySelectorAll("tr.main")].map((r) => r.dataset.k); const all = vis.every((k) => state.open.has(k)); vis.forEach((k) => all ? state.open.delete(k) : state.open.add(k)); return render(); }
   if (e.target.closest("#export")) {
-    const out = { stage: D.stage, exported_at: new Date().toISOString(), checker: prompt("Your name, for the record:", "Kenny Geiler") || "",
+    const out = { stage: D.stage, exported_at: new Date().toISOString(), checker: prompt("Your name, for the record:", "") || "",
       values: D.values.map((v) => ({ ticker: v.ticker, field: v.field, period: v.period, value: v.value, input_hash: v.input_hash, ...(checks[key(v)] || { verified: false }) })) };
     const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 1)], { type: "application/json" }));
     a.download = `${D.name}-handcheck.json`; a.click(); return;

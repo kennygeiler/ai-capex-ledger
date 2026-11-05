@@ -205,6 +205,14 @@ a person decided (proof.py:361-363,412).
 exceptions (`xbrl_reconcile` ×10, `statement_tie` ×2) for FCX, HUT, LITE, NRG, SYM, TLN and VST. They are outside SCOPE
 at the audit; inside it they would pass G4 and vanish from Proof. G6 does not count them; it reads resolutions only.
 
+**Since F14 (branch `trust`).** `decide` refuses a decision with no author and writes `author_kind`, which every caller
+names (`ledger review … decide … --as person|run`, required; person only for a name on config.PEOPLE). `review.closes`: a current decision
+closes a warn finding, and a block finding only when a person made it (`review.by_person`: `author_kind`, or for a line
+before the field the resolutions rule, a name on config.PEOPLE with no "to confirm"). A run's decision on a block is
+`review.proposed`: open under G4, a G6 item `decisions|<ticker>|<exception id>`, Proposed on Proof (release stage, "to
+confirm") and on Reconcile's blocks group, and `apply` ignores its override or reject. On a block finding a run's decision
+never supersedes a person's on the same input hash; warn and info findings keep the newest line, as before. The 12 accepts above now read Proposed for their seven companies; no line was rewritten.
+
 **UI.** `/api/company` `status` "note" / "open" / "decided", and `decision {kind, reason, reviewer, decided_at}`
 (app.py:84-85). Values change silently in the packet.
 **Risks.**
@@ -499,15 +507,15 @@ Counts are of the entries listed above.
    G4 and the queue. 12 current block "accepts" are by "Claude Code, for Kenny Geiler to confirm"; there is no G6 for them.
 2. **[HIGH] M1/M2:** A changed item's resolution counts everywhere but Reconcile (resolutions.py:202-210), and two queue
    items share one row slot there (176-184).
-3. **[HIGH] M1:** The T80 evidence walk runs only in a test on frozen fixtures (tests/test_status.py:441).
+3. **[HIGH] M1:** The T80 evidence walk runs only in a test on frozen fixtures (tests/test_status.py:441). Closed by F16: a required Release line runs it on the live tables.
 4. **[HIGH] M1b:** A fact whose instance was never loaded reads "explained, citation only" (status.py:247-248; ties.py:194-195,216-217).
 5. **[HIGH] M8:** The signer is not checked (checklist.py:484; cli/signoff.py:47), and the page pre-fills "Kenny Geiler"
-   (_shared.js:30) for every decision, verdict and mapping.
+   (_shared.js:30) for every decision, verdict and mapping. Closed by F18: no default name; signoff and every write check config.PEOPLE.
 6. **[HIGH] M8/M12:** A release signs and publishes while the hosted copy is stale or unrecorded.
 7. **[HIGH] M9:** Tests not run or stale do not block; golden carries no commit, so an old golden reads green and later
-   verdicts are not reflected.
+   verdicts are not reflected. Closed by F20: both lines require the commit being signed and a clean tree; the hand check is live.
 8. **[HIGH] M14:** A stale server has no state; the `_FLOW` stamp misses decisions.jsonl, watch.json, rules/,
-   definitions/ and taxonomy/.
+   definitions/ and taxonomy/. Closed by F21: the stamp covers them; /api/hq compares running and checkout code.
 9. **[HIGH] M1a:** The data page shows ✓ "checked" for open rows; the trail's "Needs review" covers open and blocked,
    and its "Unverified" / "citation only" covers every kind of explanation.
 10. **[MED-HIGH] M12/M4:** watch.json drives Reconcile's new-filing items with no age check and no reconciliation
@@ -587,11 +595,11 @@ return names from the declarations, so no state can appear undeclared.
 `checklist.claims_lines` (checklist.py:329-354). Alternatively, a sibling required line, "State machines: every log replays
 legally, every UI word maps to one state, every reader names its unknown state", runs these checks live, not from
 tests.json. Add the missing gates as required lines:
-- tests stale = fail;
-- golden commit ≠ HEAD = fail;
+- tests stale = fail (built);
+- golden commit ≠ HEAD = fail (built, F20: stale, which blocks);
 - watch older than 48 h = fail;
 - hosted ≠ latest signed = fail after publish, or a "deployed" step in `sign`;
-- run-authored current decisions in decisions.jsonl counted in G6.
+- run-authored current decisions in decisions.jsonl counted in G6 (built, F14).
 
 ## Display words (not states)
 

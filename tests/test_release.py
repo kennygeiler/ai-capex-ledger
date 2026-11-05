@@ -6,7 +6,8 @@ from ledger.review.review import apply, open_items
 
 EXC = {"exception_id": "sign|NVDA|capex|FY2026", "rule_id": "sign", "severity": "block", "ticker": "NVDA", "field": "capex", "period": "FY2026", "input_hash": "h1", "message": "m"}
 VAL = {"ticker": "NVDA", "field": "capex", "period": "FY2026", "period_end": "2026-01-25", "value": -5, "source": "agent", "label": "agree", "basis": "as_reported", "first_reported": -5, "extraction_ids": ""}
-DEC = {"exception_id": EXC["exception_id"], "kind": "override", "value": 5, "input_hash": "h1", "decision_id": "d1"}
+DEC = {"exception_id": EXC["exception_id"], "kind": "override", "value": 5, "input_hash": "h1", "decision_id": "d1",
+       "reviewer": "Kenny Geiler"}  # F14: a block closes only on a person's decision (tests.test_trust.DecisionAuthors holds a run's)
 
 
 class Decisions(unittest.TestCase):

@@ -10,8 +10,9 @@ the diff in rows from the previous release (release.rows_diff), the limitations 
 not written. `required` lines must pass before the Sign button enables; the rest inform.
 
 reports/tests.json (`ledger test` writes it, testreport.py): {"ok", "count", "failures", "skipped", "golden", "at", "git", "dirty"}.
-Absent means "not run": grey, does not block. Failing: red. Passing on another commit or a dirty tree: stale, informs
-(tests_line)."""
+Absent: "not run", blocks. Failing: red. Passing on another commit or a dirty tree: stale, blocks (tests_line).
+reports/golden.json (`ledger golden --check`) carries the same {"git", "dirty"}: equal tables on another commit or a dirty
+tree are stale and block (regression_line, F20)."""
 import csv
 import io
 import json
@@ -32,7 +33,7 @@ from ..checks.evidence import load_all
 from ..extract.extract import prompt_version
 from ..ingest.tables import PARSER_VERSION
 from .release import GATES, RELEASES, build, content_hash, failing, gates, limitations_md, readme, rows_diff, rows_diff_md, version_key
-from ..review.review import apply, decisions, open_items
+from ..review.review import apply, decisions, open_items, proposed
 from ..checks.rules import load as load_rules
 
 VERSION = re.compile(r"^v\d+\.\d+\.\d+$")
@@ -51,7 +52,7 @@ def _scoped(link: str, ticker: str) -> str:
 
 GATE_SHORT = {"G1": "All filings read", "G4": "Every block has a decision", "G5": "Values confirmed on filing", "G6": "No proposal left to confirm"}
 # each line's Details: one short line in product words, no file paths (the files behind each line: docs/OPERATIONS.md, "The Release lines")
-GATE_NOTE = {"G1": "Every filing read, or its failure logged and settled", "G4": "Every block finding has a current decision",
+GATE_NOTE = {"G1": "Every filing read, or its failure logged and settled", "G4": "Every block finding has a current decision by a person",
              "G5": "Values SEC XBRL cannot vouch for, and a sample of those it can, confirmed on the filing", "G6": "Category mappings and run decisions waiting for a person"}
 
 
@@ -138,7 +139,7 @@ def packet(con, version: str, stage: int = 3) -> dict:
     cells = {e["extraction_id"]: e["cell_text"] for e in exts}
     confirmed = {i for i, r in load_all().items() if r["match"] and cells.get(i) == r["cell"]}
     hc = json.loads(hc_path.read_text()) if hc_path.exists() else None
-    g = gates(values, open_items(excs, ds), hc, confirmed, resolutions.unconfirmed(), mappings=taxonomy.to_confirm(con, list(SCOPE)))
+    g = gates(values, open_items(excs, ds), hc, confirmed, resolutions.unconfirmed(), mappings=taxonomy.to_confirm(con, list(SCOPE)), proposed=proposed(excs, ds))
     prev_dir = previous_of(version)
     previous = list(csv.DictReader((prev_dir / "values.csv").open())) if prev_dir else None
     ai = _rows(con, "select * from ai_spend where ticker in (select unnest(?))", tickers)
@@ -291,54 +292,77 @@ def _line(id_, label, required, count, state, link, note="", detail=None) -> dic
     return {"id": id_, "label": label, "required": required, "count": count, "state": state, "ok": state == "pass", "link": link, "note": note, "detail": detail or []}
 
 
-_LOOKUP = object()  # tests_line's default: read HEAD from this checkout; tests pass a sha or None instead
+_LOOKUP = object()  # tests_line's and regression_line's default: read the checkout now (_live); tests pass a dict instead
 
 
-def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
-    """The "Test run" line (T30) from reports/tests.json as `ledger test` writes it (testreport.py). Three cases:
-    The line is required in every case: only a passing run on the code being signed lets a release sign.
-    absent or unreadable: "not run", blocks.
-    Ran and failed: red, whatever commit it ran on: a known failure never signs.
-    Ran and passed on this HEAD with a clean tree: green. Passed on another commit, or on a dirty tree: "stale", blocks
-    with the note "run `ledger test`", since the code it tested is not the code being signed. One forgiveness: when every commit since the run changed only reports/tests.json (the commit
-    that records the run), the code is the same and the line is green. Without git on either side (the hosted copy has
-    no .git) the commit cannot be compared: informs, "commit not compared: no git", never a verified pass.
-    `head` and `changed` are read from the checkout unless a test passes them."""
+def _live() -> dict:
+    """{head, dirty, code} of this checkout now (testreport.code_state): read at every checklist and before every Sign."""
+    from .testreport import code_state
+    return code_state()
+
+
+def provenance_state(rep: dict, live: dict) -> tuple | None:
+    """None when a run's report is bound to the code being signed, else (state, why). Bound means: git on both sides,
+    a clean checkout now (uncommitted code is not what the run tested; a `git status` that fails reads dirty), a run on
+    a clean tree, and the report's code hash (testreport.code_hash: HEAD's tracked files less the run records) equal to
+    the checkout's now. A commit that changes only the run records (reports/tests.json, reports/golden.json,
+    docs/CLAIMS.md) keeps the hash; any other commit moves it. A report with no code hash (before this check) is stale.
+    Without git on either side (the hosted copy) nothing is compared: "info", never a verified pass. The hash proves the
+    code is the code the report names, not that the run happened: a report written by hand can name it (F-TR2)."""
+    if not rep.get("git") or not live.get("head"):
+        return "info", "commit not compared: no git"
+    if live.get("dirty") is not False:
+        return "stale", "Stale: uncommitted code in the checkout"
+    if rep.get("dirty") is not False:
+        return "stale", "Stale: dirty tree"
+    if not rep.get("code"):
+        return "stale", "Stale: code not recorded"
+    if rep["code"] != live.get("code"):
+        return "stale", f"Stale: code changed since the run, HEAD is {live['head']}"
+    return None
+
+
+def tests_line(t: dict | None, live=_LOOKUP) -> dict:
+    """The "Test run" line (T30) from reports/tests.json as `ledger test` writes it (testreport.py). Required in every
+    case: only a passing run on the code being signed lets a release sign.
+    Absent or unreadable: "not run", blocks. Ran and failed: red, whatever code it ran on: a known failure never signs.
+    Ran and passed: green only when provenance_state binds it to the checkout now (F20); else "stale" (or "info"
+    without git), which blocks. `live` is read from the checkout (_live) unless a test passes it."""
     if t is None:
         return _line("tests", "Test run", True, 0, "not_run", "proof", "Test run not run")
     fails = t.get("failures") or []
     golden = t.get("golden")
     g_note = {True: "regression test ok", False: "regression test FAILED"}.get(golden, "regression test skipped, see its own line")
     sha = t.get("git")
-    head = _head() if head is _LOOKUP else head
     base = f"{t.get('count')} tests, {len(fails)} failing, {g_note}, {t.get('at')}" + (f", on {sha}" if sha else "")
     detail = [{"test": f} for f in fails]
     if not t.get("ok"):
         return _line("tests", "Test run", True, len(fails), "fail", "proof", base, detail)
-    if not sha or not head:  # no git on one side (the hosted copy ships no .git): the commit cannot be compared, so this is never a verified pass
-        return _line("tests", "Test run", True, 0, "info", "proof", f"commit not compared: no git; {base}", detail)
-    moved = sha != head
-    if moved:
-        ch = _changed_since(sha) if changed is _LOOKUP else changed
-        moved = ch is None or any(p != "reports/tests.json" for p in ch)
-    stale = moved or bool(t.get("dirty"))
-    if stale:
-        why = "dirty tree" if t.get("dirty") else f"HEAD is {head}"
-        return _line("tests", "Test run", True, 0, "stale", "proof", f"Stale: {why}; {base}", detail)
+    bad = provenance_state(t, _live() if live is _LOOKUP else live)
+    if bad:
+        return _line("tests", "Test run", True, 0, bad[0], "proof", f"{bad[1]}; {base}", detail)
     return _line("tests", "Test run", True, 0, "pass", "proof", base, detail)
 
 
-def regression_line(g: dict | None) -> dict:
+def regression_line(g: dict | None, live=_LOOKUP) -> dict:
     """"Regression test" (required): the proven six rebuilt from frozen inputs equal fixtures/expected, as the last
     `ledger golden --check` found it (reports/golden.json), with its date. It says nothing changed since the freeze, never
     that a number is right: the hand check is its own line (hand_check_line), read live. A report from before T82's
-    split (no tables_ok) is read strictly."""
+    split (no tables_ok) is read strictly. F20: equal tables pass only when provenance_state binds the report to the
+    checkout now; else "stale" (or "info" without git), which blocks. `live` is read from the checkout unless passed."""
     if g is None:
         return _line("regression", "Regression test", True, 1, "fail", "proof", "Regression test not run")
     tables = bool(g.get("tables_ok") if "tables_ok" in g else (g.get("ok") and g.get("gold"))) and not g.get("failed_step")
-    note = ("Tables unchanged since freeze" if tables else "Tables changed since freeze") + (f", failed at {g['failed_step']}" if g.get("failed_step") else "") + f"; checked {str(g.get('at') or '')[:10] or 'never'}"
+    sha = g.get("git")
+    note = ("Tables unchanged since freeze" if tables else "Tables changed since freeze") + (f", failed at {g['failed_step']}" if g.get("failed_step") else "") \
+        + f"; checked {str(g.get('at') or '')[:10] or 'never'}" + (f", on {sha}" if sha else "")
     detail = [{"table": k, "only_in_run": v.get("n_only_in_run"), "only_in_expected": v.get("n_only_in_expected")} for k, v in (g.get("diffs") or {}).items()]
-    return _line("regression", "Regression test", True, 0 if tables else (len(detail) or 1), "pass" if tables else "fail", "proof", note, detail)
+    if not tables:
+        return _line("regression", "Regression test", True, len(detail) or 1, "fail", "proof", note, detail)
+    bad = provenance_state(g, _live() if live is _LOOKUP else live)
+    if bad:
+        return _line("regression", "Regression test", True, 0, bad[0], "proof", f"{bad[1]}; {note}", detail)
+    return _line("regression", "Regression test", True, 0, "pass", "proof", note, detail)
 
 
 def hand_check_line(con, docs: dict | None = None, problems: list | None = None) -> dict:
@@ -409,15 +433,21 @@ def doc_line(doc=None, text=None) -> dict:
     return _line("claims_doc", label, True, 1, "fail", "gaps", "Missing" if have is None else "Differs from the register")
 
 
-def _head() -> str | None:
-    """Short sha of this checkout's HEAD, or None without git (the hosted copy ships no .git)."""
-    from .testreport import git_state
-    return git_state()[0]
+EVIDENCE_LABEL = "Verified or explained with no record behind it"
 
 
-def _changed_since(sha: str) -> list | None:
-    from .testreport import changed_since
-    return changed_since(sha)
+def evidence_line(con, companies: list[dict] | None = None) -> dict:
+    """The required line for F16: proof.unevidenced over config.SCOPE on the live tables, the walk the fixtures test runs.
+    `companies` is the scope's company trails (proof.board's "proven" list), built here when not given. A row whose `by` names no record, or one that is not on file, is a dangling citation: red, one detail per row with the
+    trail that shows it. A walk that raises is red, never a crash and never a pass."""
+    try:
+        gaps = proof.unevidenced(con, SCOPE, companies=proof.board(con)["proven"] if companies is None else companies)
+    except Exception as e:
+        return _line("evidenced", EVIDENCE_LABEL, True, 1, "fail", "proof", f"could not walk: {e.__class__.__name__}: {str(e)[:160]}")
+    first = gaps[0]["ticker"] if gaps else ""
+    return _line("evidenced", EVIDENCE_LABEL, True, len(gaps), "pass" if not gaps else "fail", f"proof/{first}" if first else "proof",
+                 "Every verified or explained row names a record on file",
+                 [{"company": g["ticker"], "stage": g["stage"], "item": g["what"], "state": g["state"], "by": g["by"], "gap": g["gap"], "link": f"proof/{g['ticker']}"} for g in gaps])
 
 
 def review_counts(board: dict, unconfirmed: list, unmapped: list = ()) -> dict:
@@ -443,18 +473,23 @@ def packet_detail(files: dict) -> list[dict]:
              **({"link": f"data?list={n[:-4]}"} if n.endswith(".csv") and n[:-4] in RELEASE_LISTS else {})} for n, text in sorted(files.items())]
 
 
-def g6_link(unconfirmed: list, mappings: list) -> str:
+def g6_link(unconfirmed: list, mappings: list, decided: list = ()) -> str:
     """The page that fixes G6's items: Reconcile with every cause when it holds both a run's decisions and asset types,
-    else the one group that holds them."""
+    else the one group that holds them; a run's decision on a block finding (F14) is on Reconcile's blocks group."""
+    if not mappings and not unconfirmed and decided:
+        return "reconcile?cause=blocked"
     return "reconcile?cause=asset_types" if mappings or not unconfirmed else "reconcile?cause=to_confirm"  # F-BF11: Category mapping when it holds any
 
 
-def g6_detail(unconfirmed: list, mappings: list) -> list[dict]:
-    """G6's items one per key: the key, its state, the reason and the page that fixes it."""
+def g6_detail(unconfirmed: list, mappings: list, decided: list = ()) -> list[dict]:
+    """G6's items one per key: the key, its state, the reason and the page that fixes it. `decided`: review.proposed,
+    a block finding a run or an agent decided (F14)."""
     from ..core.states import word
     return ([{"company": (resolutions.parse_key(r["key"]) or {}).get("ticker", ""), "key": r["key"], "state": r["state"], "reason": (r.get("reason") or "")[:160], "link": "reconcile?cause=to_confirm"} for r in unconfirmed]
             + [{"company": m["ticker"], "key": f"asset_types|{m['ticker']}|{m['reported_name']}", "state": word("row", "wait"), "reason": f"{m.get('standard_type')} proposed by {m.get('by')}",
-                "link": f"reconcile?scope={m['ticker']}&cause=asset_types"} for m in mappings])
+                "link": f"reconcile?scope={m['ticker']}&cause=asset_types"} for m in mappings]
+            + [{"company": e["ticker"], "key": f"decisions|{e['ticker']}|{e['exception_id']}", "state": word("row", "wait"),
+                "reason": f"{e['decision'].get('kind')} by {e['decision'].get('reviewer')}: {(e['decision'].get('reason') or '')[:120]}", "link": f"reconcile?scope={e['ticker']}&cause=blocked"} for e in decided])
 
 
 def checklist(con, version: str | None = None, stage: int = 3) -> dict:
@@ -471,6 +506,7 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     bad = failing(p["gates"])
     unc = resolutions.unconfirmed()  # a run's decisions to confirm (T3): Reconcile's "To confirm" rows, Proposed there too
     utc = taxonomy.to_confirm(con, list(SCOPE))  # T63: the asset-type mappings no person confirmed, the rest of G6
+    dpr = proposed(_rows(con, "select * from exceptions where ticker in (select unnest(?))", [list(SCOPE)]), decisions())  # F14: a run's decision on a block, G6 and G4
     # open, proposed and blocked in scope (T1): the one per-company count (workbench.company_counts over the Proof board,
     # states.buckets), the function the Proof board, the trail and Reconcile's header count with. Each line is one bucket,
     # named as every page names it, and its detail is that bucket per company, linked to the page that fixes it (F-FL2):
@@ -484,9 +520,9 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
         n = sum(len(v) for v in by_t.values())
         detail = [{"company": t, "items": len(items), "example": items[0] if items else "", **({"link": _scoped(GATE_FIX[gid], t)} if items else {})} for t, items in by_t.items()]
         if gid == "G6":  # the Proposed bucket: one row per item (company, key, state, reason), each with the page that fixes it
-            detail = g6_detail(unc, utc)
+            detail = g6_detail(unc, utc, dpr)
         no_hc = gid == "G5" and any(v == ["no hand-check file"] for v in by_t.values())
-        lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", g6_link(unc, utc) if gid == "G6" else GATE_FIX[gid],
+        lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", g6_link(unc, utc, dpr) if gid == "G6" else GATE_FIX[gid],
                            GATE_NOTE[gid] + (" · Hand-check file for this stage missing · export from Proof" if no_hc else ""), detail))
     lines.append(_line("open", word("row", "bad"), True, open_, "pass" if open_ == 0 else "fail", NEEDS_REVIEW_FIX,
                        "Neither verified nor explained, and nothing proposed" + (f"; {len(um)} are categories with no mapping" if um else ""),
@@ -499,6 +535,9 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     lines.append(_line("complete", "Answer-key values missing from the dataset", True, len(miss), "pass" if not miss else "fail", "reconcile",
                        "SEC XBRL holds a value the release does not ship, with nothing open or decided",
                        [{"ticker": m["ticker"], "field": m["field"], "period": m["period"], "reference": m["reference"], "why": m["why"]} for m in miss]))
+    # F16: every verified or explained row in scope names a record that exists (proof.unevidenced, status.evidence_gap),
+    # walked on the live data on every checklist, not only on the frozen fixtures in a test; 0 dangling is the pass
+    lines.append(evidence_line(con, board["proven"]))  # the board's `proven` key holds the scope's company trails (proof.board), not the proven-only ones
     # rows with no value, by measure (T15: informational)
     tax = list(csv.DictReader(io.StringIO(p["files"]["taxonomy.csv"])))
     nv = {}
@@ -522,10 +561,11 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     lines.extend(claims_lines())
     # the hand check, read live from gold/*.json (F-BF2), the regression test from its report, and the last test run (T30)
     g = _report(GOLDEN)
+    live = _live()  # the checkout now, read once: both run lines compare their report with it
     lines.append(hand_check_line(con))
-    lines.append(regression_line(g))
+    lines.append(regression_line(g, live))
     t = _report(TESTS)
-    lines.append(tests_line(t))
+    lines.append(tests_line(t, live))
     # a release folder before this one the checklist cannot read: the diff would lie, so it is a red line, not a 500
     broken = broken_before(version)
     lines.append(_line("previous", "Previous releases readable", True, len(broken), "fail" if broken else "pass", "",  # a folder under releases/, fixed on disk: no Fix in to Release itself (F-BF11)
@@ -571,6 +611,20 @@ def _compact(cl: dict) -> dict:
     return {**cl, "diff": {k: {kk: vv for kk, vv in x.items() if kk != "examples"} for k, x in cl["diff"].items()}}
 
 
+def preflight() -> dict:
+    """The checks every signature passes first, the page's Sign and `ledger signoff` alike (one code path): the checkout
+    now has no uncommitted code (_live; a `git status` that fails reads dirty), and the Regression test and Test run
+    lines, read against that checkout, pass (provenance_state: each report bound to the code being signed). Raises
+    ValueError naming what is wrong; returns the checkout read."""
+    live = _live()
+    if live.get("dirty") is not False:
+        raise ValueError("not signed: the checkout has uncommitted code; commit it, rerun the checks, then sign")
+    bad = [l for l in (regression_line(_report(GOLDEN), live), tests_line(_report(TESTS), live)) if not l["ok"]]
+    if bad:
+        raise ValueError("not signed: " + "; ".join(f"{l['label']} reads {l['state']} ({l['note'][:120]})" for l in bad))
+    return live
+
+
 def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
     """The Sign button (T6): build the checklist; refuse (ValueError → 400) while any required line is red or no name is
     given; else write releases/<version>/, build the checklist again on what is now on disk and refuse if anything went
@@ -585,6 +639,7 @@ def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
     from ..core.status import is_person
     if not is_person(by):  # F-BF5: like every other write, a name on config.PEOPLE (T80), checked before the checklist is built
         raise ValueError(f"{by.strip()!r} is not on config.PEOPLE, the people who may sign a release")
+    preflight()  # F20: the checkout and the run lines, before anything is built; the one gate `ledger signoff` reads too
     with _LOCK:
         cl = checklist(con, version, stage)
         if not cl["ok"]:

@@ -28,7 +28,7 @@ what to do when a Release line is red. Setup and the objects are in [Start here]
 4. After a definition or rule, run `ledger rules` (or `ledger reconcile`), then commit the changed file. The commit message says what was decided and why.
 5. A new kind of failure gets a row in `docs/INGESTION.md` and `taxonomy/failures.yaml`, a check that catches it, and a test.
 
-The name in the signer box is the author of every decision. It must be on `config.PEOPLE`; there is no sign-in yet, so the name is a claim, not proof of a person.
+The name in the signer box is the author of every decision. The box is empty until a name is typed (remembered in this browser); every write refuses a name off `config.PEOPLE`. There is no sign-in yet, so the name is a claim, not proof of a person.
 
 ## Grading the gold set
 
@@ -55,6 +55,8 @@ After any merge, in this order, committing after each:
 2. `ledger claims` (regenerates `docs/CLAIMS.md`).
 3. `ledger test` on that commit (rewrites `reports/tests.json`).
 
+Each run records the commit, the tree and a code hash (every tracked file less the two reports and `docs/CLAIMS.md`). Both lines read the checkout at every checklist: uncommitted code, a run on a dirty tree, or a hash that differs from the checkout's reads stale and blocks the signature; committing only the three record files keeps the hash (F20). Sign and `ledger signoff` pass one gate first (`checklist.preflight`): no uncommitted code, and both run lines pass.
+
 Then open [Release](#release). The checklist builds the packet in memory and shows every line that could make a signature wrong. When every required line is green, the Sign button writes `releases/<version>/`, signs as the name in the signer box, stores the checklist in `SIGNOFF.json` and publishes. From the command line: `ledger release vX.Y.Z` builds and prints the gate table, `ledger signoff vX.Y.Z --by "<name>"` signs, `ledger publish vX.Y.Z` pushes a signed release to Postgres.
 
 ## When a Release line is red
@@ -65,14 +67,15 @@ Each line's Details is one short line in product words; the files each line read
 | Line | Meaning | Reads | What to do |
 |---|---|---|---|
 | All filings read (G1) | A filing ended in a failure that is still open | `exceptions` (the loaders' failures) | On Proof, find the failed step; rerun it (`--run`, then `--load`) or log the failure type |
-| Every block has a decision (G4) | A block-severity rule fired with no current decision | `exceptions`, `decisions/decisions.jsonl` | Decide each item on Reconcile |
+| Every block has a decision (G4) | A block-severity rule fired with no current decision by a person (a run's or an agent's decision is Proposed, F14) | `exceptions`, `decisions/decisions.jsonl` | Decide each item on Reconcile, or `ledger review decide <id> … --by "<name on config.PEOPLE>" --as person` |
 | Values confirmed on filing (G5) | A value XBRL cannot vouch for was not confirmed on the rendered filing | `reports/evidence/`, `golden/stage<N>-handcheck.json` | `ledger evidence --ticker X`; where the re-read cannot confirm, a person confirms in the hand-check file |
-| Proposed (G6) | A run's decision or a category mapping has no person's confirmation; per company, the Proposed count every page shows | `decisions/resolutions.jsonl` ("to confirm"), `taxonomy/asset_types.yaml` (no `confirmed_by`) | Reconcile, Category mapping (Proposed) and "To confirm" |
+| Proposed (G6) | A run's decision (a resolution, or a decision on a block finding) or a category mapping has no person's confirmation; per company, the Proposed count every page shows | `decisions/resolutions.jsonl` ("to confirm"), `decisions/decisions.jsonl` (a block decided by a run: `author_kind` run, or a `reviewer` off config.PEOPLE or "to confirm"), `taxonomy/asset_types.yaml` (no `confirmed_by`) | Reconcile, Category mapping (Proposed) and "To confirm" |
 | Needs review | Rows neither checked nor explained, nothing proposed (an unmapped category is one); per company, the Needs review count every page shows | the Proof board (`proof.board`), `taxonomy/asset_types.yaml` | Reconcile; an unmapped category: `ledger mapper X`, then approve |
 | Blocks release | A block rule or a decision refuses the release; per company, the Blocks release count every page shows | the Proof board | Reconcile |
 | Answer-key values missing from the dataset | XBRL holds a value the dataset does not ship and nothing accounts for it | `reference_values`, `values`, `decisions/` | Rerun the reader for the filing, or resolve the row on Reconcile |
+| Verified or explained with no record behind it | A verified or explained row in scope names no record, or one not on file (F16; the walk `proof.unevidenced` on the live tables) | the Proof board, `decisions/resolutions.jsonl`, `definitions/companies.yaml`, `rules/`, `taxonomy/asset_types.yaml`, `texts` | Open the trail the detail links; restore the record or reopen the row |
 | Hand check | An item has no verdict, or a verdict no longer holds | `gold/*.json`, live | Give or re-check the verdict on Proof |
-| Regression test | Tables differ from the frozen expectation | `reports/golden.json`; the line's detail on Release lists each step's result and each table that differs (added, missing) | Fix the code, or freeze on purpose with the reason |
+| Regression test | Tables differ from the frozen expectation, or the check is not bound to this checkout (stale, F20: uncommitted code, a run on a dirty tree, a report with no code hash, or a code hash that differs) | `reports/golden.json` (`git`, `dirty`, `code`); the line's detail on Release lists each step's result and each table that differs (added, missing) | Fix the code, or freeze on purpose with the reason; `ledger golden --check` on the commit being signed |
 | Test run | Failed, not run, or run on another commit or a dirty tree | `reports/tests.json` | `ledger test` on the commit being signed. Required since a00b67f; releases up to v1.8.0 were signed while the line only informed, and their `SIGNOFF.json` records it as not run with `required: false` |
 | Claims register | A shown string has no row in `claims/claims.yaml`, or a finding was edited | `claims/claims.yaml`, `claims/findings.jsonl` | Register the string; restore the finding log |
 | Claims doc current | `docs/CLAIMS.md` differs from the register (a test run no longer changes it: the run, the golden report and the gold count are read live) | `docs/CLAIMS.md` | `ledger claims`, then commit |

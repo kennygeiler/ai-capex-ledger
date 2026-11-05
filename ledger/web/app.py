@@ -86,7 +86,7 @@ def company(ticker: str) -> dict:
             f.update({k: (cell.get(last[id(f)]) or {}).get(k) for k in ("table_id", "row_label", "column_label", "cell_text")})
     finally:
         con.close()
-    cur, still = latest(decisions()), {e["exception_id"] for e in open_items(excs, decisions())}
+    cur, still = latest(decisions(), {e["exception_id"] for e in excs if e["severity"] == "block"}), {e["exception_id"] for e in open_items(excs, decisions())}
     rules = {r["id"]: r for r in load_rules()}
     for e in excs:
         d = cur.get(e["exception_id"])
@@ -193,10 +193,61 @@ def data_csv(d: dict) -> str:
 _FLOW: dict = {}
 
 
+def _inputs() -> list:
+    """Every file the queue and the counts read besides the database (F21): the decisions on exceptions, the mapping
+    proposals, the EDGAR check (data/watch.json), the rules, the definitions, the taxonomy files (the mappings), and the
+    evidence, faults and release files the snapshot reads."""
+    from ..checks.rules import RULES_DIR
+    from ..review import definitions, mapper, review
+    from .hq import WATCH
+    return [review.LOG, mapper.PROPOSALS, WATCH, definitions.FILE, *sorted(RULES_DIR.glob("*.yaml")), *sorted((store.ROOT / "taxonomy").glob("*.yaml")),
+            # what hq.snapshot reads, each file stat-ed (a folder's mtime misses a file rewritten in place): the re-reads and
+            # crops (reports/evidence/*.json), the faults reports, and every release's manifest, signature and values
+            *sorted(EVIDENCE.glob("*.json")), *sorted((store.ROOT / "reports").glob("*-faults.json")),
+            *sorted(f for d in RELEASES.glob("v*") if d.is_dir() for f in (d / "manifest.json", d / "SIGNOFF.json", d / "values.csv", d / "facts.csv"))]
+
+
 def _stamp() -> tuple:
-    """What the app depends on: the database, the resolutions, the releases, the added companies, the evidence."""
-    paths = [store.DEFAULT_DB, resolutions.LOG, RELEASES, ADDED, EVIDENCE]
-    return tuple(p.stat().st_mtime_ns if p.exists() else 0 for p in paths)
+    """What the app depends on: the database, the resolutions, the releases, the added companies, the evidence, and every
+    input file (_inputs, F21): a decision, an EDGAR check, a rule, a definition or a mapping written after the queue was
+    built gives a new stamp, so the next read builds it again. A file's mtime and size; 0 for one that is not there."""
+    paths = [store.DEFAULT_DB, resolutions.LOG, RELEASES, ADDED, EVIDENCE, *_inputs()]
+    return tuple((str(p), *((p.stat().st_mtime_ns, p.stat().st_size) if p.exists() else (0, 0))) for p in paths)
+
+
+# ── F21: the code the server runs against the code in the checkout. Pages load new scripts on every request; the Python
+# is what the server imported at start. A content hash of ledger/**/*.py, cached per (mtime, size) so a check reads only
+# what changed. ─────────────────────────────────────────────────────────────────────────────────────────────────────
+CODE = store.ROOT / "ledger"
+_CODE_HASH: dict = {}
+
+
+def code_fingerprint(root=None) -> str:
+    """sha256 over every ledger/**/*.py, path and bytes, sorted by path: same code, same fingerprint, whatever the mtimes."""
+    root = Path(root or CODE)
+    h, seen = hashlib.sha256(), {}
+    for f in sorted(root.rglob("*.py")):
+        st = f.stat()
+        k = (str(f), st.st_mtime_ns, st.st_size)
+        seen[k] = _CODE_HASH.get(k) or hashlib.sha256(f.read_bytes()).hexdigest()
+        h.update(f.relative_to(root).as_posix().encode() + b"\0" + seen[k].encode() + b"\n")
+    for k in [k for k in _CODE_HASH if k[0].startswith(str(root)) and k not in seen]:  # the files' old versions: dropped
+        del _CODE_HASH[k]
+    _CODE_HASH.update(seen)
+    return h.hexdigest()[:16]
+
+
+RUNNING_CODE = code_fingerprint()  # at import: the server's start
+
+
+def code_status() -> dict:
+    """{running, checkout, state}: state `current` when the server runs the checkout's code, `differs` when the checkout's
+    code changed since the server started, forward or back (restart it), `unknown` when the checkout cannot be read."""
+    try:
+        now = code_fingerprint()
+    except OSError:
+        return {"running": RUNNING_CODE, "checkout": None, "state": "unknown"}
+    return {"running": RUNNING_CODE, "checkout": now, "state": "current" if now == RUNNING_CODE else "differs"}
 
 
 def flow(scope: str) -> dict:
@@ -258,7 +309,8 @@ def _flow(scope: str) -> dict:
         queue.append({"kind": "new_filing", "key": resolutions.key_for("new_filing", f["ticker"], f["form"], f["period"]), "state": "new", "ticker": f["ticker"], "where": f"{f['form']} for the year ended {f['period']}", "impact": "values, facts and statements for the year", "action": "run", "detail": f})
     for e in hqd["questions"]:
         if e["ticker"] in tickers:
-            queue.append({"kind": "blocked", "key": resolutions.key_for("blocked", e["ticker"], e["field"], e["period"], rule_id=e["rule"], subject=e.get("subject")), "state": "blocked", "ticker": e["ticker"], "where": f"{e['field'] or ''} {e['period'] or ''}".strip() or e["rule"], "impact": "blocks the release", "action": "definition", "detail": e})
+            queue.append({"kind": "blocked", "key": resolutions.key_for("blocked", e["ticker"], e["field"], e["period"], rule_id=e["rule"], subject=e.get("subject")), "state": "blocked", "ticker": e["ticker"], "where": f"{e['field'] or ''} {e['period'] or ''}".strip() or e["rule"], "impact": "blocks the release", "action": "definition",
+                          "detail": {k: v for k, v in e.items() if k != "proposed"}, "proposed": e.get("proposed")})  # F14: a run's decision, off the hash (the item is the same finding)
     for f in facts_changed[:30]:
         queue.append({"kind": "fact_changed", "key": resolutions.key_for("fact_changed", f["ticker"], f["field"], f["period"], f["dimension"]), "state": "moved", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "), "impact": "the next release", "dollars": 0, "new": True, "action": "release",
                       "detail": {**f, "release_value": (lambda v: None if v in (None, "") else float(v))(rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"])))}})
@@ -523,7 +575,7 @@ class Handler(BaseHTTPRequestHandler):
         if u.path in ("/", "/index.html"):
             return self._send(HTTPStatus.OK, PAGE.read_bytes(), "text/html; charset=utf-8")
         if u.path == "/api/hq":
-            return self._guard(lambda: self._json(self._hq()))
+            return self._guard(lambda: self._json({**self._hq(), "code": code_status()}))  # F21: running vs checkout code
         if u.path == "/api/company":
             return self._guard(lambda: self._json(company(q.get("t", ""))))
         if u.path == "/api/agents":

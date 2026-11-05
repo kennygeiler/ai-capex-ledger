@@ -298,7 +298,7 @@ class Cli(unittest.TestCase):
         # exit 0 is the tables' check only: the report never calls unverified ok, and the Release line is red on it
         self.assertEqual((rep["ok"], rep["gold"]["ok"], rep["gold"]["holds"]), (False, False, True))
         from ledger.release.checklist import hand_check_line, regression_line
-        self.assertEqual(regression_line(rep)["state"], "pass")  # the tables' line says only that the tables are unchanged
+        self.assertEqual(regression_line({**rep, "git": "abc1234", "dirty": False, "code": "c1"}, live={"head": "abc1234", "dirty": False, "code": "c1"})["state"], "pass")  # the tables' line says only that the tables are unchanged (on this commit, F20)
         with mock.patch.object(gold, "compare_db", return_value=g_):  # the hand check is its own line, red on unchecked
             line = hand_check_line(None, {"AMZN": {"items": [Check().item(None)]}}, [])
         self.assertIn("0 of 1 with a verdict", line["note"])

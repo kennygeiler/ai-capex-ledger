@@ -148,6 +148,9 @@ def _state(con, q: dict, idx: dict, xp: dict | None = None, lad: dict | None = N
         by_rule = (xp or {}).get(explain_key(d.get("rule"), t, d.get("field"), d.get("period"), d.get("subject")))
         return status.of_exception({"rule_id": d.get("kind"), "severity": "warn", "message": d.get("message")}, res, _value_states(con, t, d.get("field"), d.get("period"), idx), by_rule)
     if q["kind"] == "blocked":
+        p = q.get("proposed")  # F14: a run's or an agent's decision on the block: Proposed, as on Proof, unless a person's resolution blocks it
+        if p and (res or {}).get("state") != "blocks":
+            return status.state({"label": "to_confirm", "reason": f"{p.get('kind')} by {p.get('reviewer')}; no person has decided it"})
         return status.of_exception({"rule_id": d.get("rule"), "severity": "block", "message": d.get("message")}, res)
     if q["kind"] == "value_missing":  # T65: the value row itself, open by label:not_extracted; a resolution is not live for this kind
         return status.of_value({"field": d.get("field"), "period": d.get("period"), "label": d.get("label", "not_extracted")}, res)

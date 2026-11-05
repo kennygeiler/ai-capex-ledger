@@ -142,13 +142,29 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   (`rules.EXPLAINABLE`, row_label_switch) and matches only exactly its set of lines; a revenue or opex definition carries
   `periods`, the year the person saw, and applies to no other. `by` is unauthenticated until T6 (the local trust
   boundary): a rule's or definition's `by` is a claim, not proof of a person, as for resolutions and gold.
+- **Decide a block finding**: `ledger review decide <id> accept|override|reject --reason "…" --by "<name on
+  config.PEOPLE>" --as person --ticker X`; `--as person|run` is required, so the command says who decides, and every
+  line records `reviewer` and `author_kind`. An agent writes `--as run`: its decision is recorded and closes nothing that blocks; the finding stays open under G4 and Proposed (G6, Proof, Reconcile) until a person decides
+  it (F14). A run's decision on a warning closes it, as before.
 - **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.
 - **Release**: Kenny's Data Emporium's Release page (`#release`) is the checklist: every line that could make a signature wrong, green or
   red with its count and the page that fixes it, and the packet built in memory. Its Sign button (enabled only when every
-  required line is green) writes `releases/<version>/`, signs as the name in the signer box, stores the checklist as it
+  required line is green and the signer box holds a name on `config.PEOPLE`) writes `releases/<version>/`, signs as that name, stores the checklist as it
   was in `SIGNOFF.json`, and publishes; that is the one place a release is signed (`docs/PROOF.md`). Its test line reads
   `reports/tests.json`, which `ledger test` writes: run it on the commit being signed, or the line reads stale. The line is required since a00b67f;
-  releases up to v1.8.0 were signed while it only informed (their `SIGNOFF.json` records it not run, `required: false`). Two required lines replace the old Golden line: Hand check reads every verdict in `gold/*.json` live (a verdict given on Proof counts at once, no CLI run) and is green only when every item has a verdict and every verdict holds, so nothing signs until a person gives them; Regression test reads `reports/golden.json` (tables unchanged since the freeze, with its date), so run `ledger golden --check` on the commit being signed (it still exits 0 on unverified-only). The command line
+  releases up to v1.8.0 were signed while it only informed (their `SIGNOFF.json` records it not run, `required: false`). Two required lines replace the old Golden line: Hand check reads every verdict in `gold/*.json` live (a verdict given on Proof counts at once, no CLI run) and is green only when every item has a verdict and every verdict holds, so nothing signs until a person gives them; Regression test reads `reports/golden.json` (tables unchanged since the freeze, with its date and, since F20, the commit, tree and code hash it ran on): equal tables on other code or a dirty tree, or a report with no code hash, read stale and block, so run `ledger golden --check` on the commit being signed (it still exits 0 on unverified-only). A required line "Verified or explained with no record behind it" walks every verified or explained row in scope for the record it names, on the live tables (F16).
+  **Signing, in order** (F18, F20): (1) commit the code; (2) `ledger golden --check`, commit `reports/golden.json`; (3)
+  `ledger claims`, commit `docs/CLAIMS.md` when it changed; (4) `ledger test`, commit `reports/tests.json`. Each run
+  records a code hash (`testreport.code_hash`: every tracked file HEAD holds, less `reports/tests.json`,
+  `reports/golden.json` and `docs/CLAIMS.md`); the Test run and Regression lines read the checkout at every checklist and
+  pass only when it is clean (no uncommitted code; a `git status` that fails reads dirty), the run was on a clean tree,
+  and the report's hash equals the checkout's. Committing the three record files keeps the hash; any other commit moves
+  it and the lines read stale. Neither report file makes the tree dirty. The hash proves the code is the code the report
+  names, not that the run happened: a report written by hand can name the right hash (F-TR2). (5) The signer types a
+  name in the signer box (empty by default, remembered in this browser) and presses Sign; or `ledger signoff vX.Y.Z --by
+  "<name>"`. Both pass one gate first (`checklist.preflight`): no uncommitted code, and the Regression test and Test run
+  lines pass on this checkout; anything else refuses before anything is built or signed. Every write, from the page or
+  `signoff`, refuses a name off `config.PEOPLE` (400 on the page, exit 1 on the command line). The command line
   does the same in pieces: `ledger release vX.Y.Z` builds the packet for `config.SCOPE`, prints the gate table (one row
   per company, G1 G4 G5 G6) and refuses on any failing row (`--stage N` only names the hand-check file); `ledger signoff
   vX.Y.Z --by "<name>"` signs without a checklist; `ledger publish vX.Y.Z` pushes the signed files to production and
@@ -161,6 +177,11 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
 
 ## Operating notes
 
+- **A server older than the checkout**: the app imports its Python at start; pages and scripts are read on every request.
+  `/api/hq` returns `code {running, checkout, state}` and the page shows "App code differs from checkout · restart" under
+  the scope line when the code under `ledger/` changed since the server started, newer or reverted (F21). Reconcile's queue cache is keyed on
+  the database and every input file (decisions, mapping proposals, `data/watch.json`, `rules/`, `definitions/`,
+  `taxonomy/`), so a write to any of them rebuilds it on the next read.
 - **Worktrees share `data/raw`, `data/docs` and `data/text` with the main checkout through symlinks.** A builder on an
   older base that runs `ledger ingest` rewrites the shared parses with old code (this has reverted the shared AMZN parses
   to tables@12 once). Run `ingest` only on current main, or give the worktree its own data copy; after any ingest,

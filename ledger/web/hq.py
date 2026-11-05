@@ -11,7 +11,7 @@ from datetime import date, timedelta
 from ..core import store
 from ..core.config import SCOPE, industry, stage_tickers, tracked
 from ..release.release import releases as release_dirs
-from ..review.review import apply, decisions, open_items
+from ..review.review import apply, decisions, open_items, proposed
 from ..checks.rules import load as load_rules
 from ..checks.scorecard import scorecard
 from ..checks.evidence import load_all
@@ -45,7 +45,9 @@ def snapshot(con, stage: int = 3, tickers: list[str] | None = None) -> dict:
     exts = rows(con, "select extraction_id from extractions where ticker in (select unnest(?))", t)
     vals = rows(con, 'select * from "values" where ticker in (select unnest(?))', t)
     excs = rows(con, "select * from exceptions where ticker in (select unnest(?))", t)
-    todo = open_items(excs, decisions())
+    ds = decisions()
+    todo = open_items(excs, ds)
+    prop = {e["exception_id"]: e["decision"] for e in proposed(excs, ds)}  # F14: a block a run or an agent decided, Proposed until a person decides
     ev = load_all()
     from ..checks.faults import rows_of  # the T67 report is a dict with `rows`; older reports are the bare list
     faults = rows_of(json.loads((store.ROOT / "reports" / f"{name}-faults.json").read_text()))
@@ -157,7 +159,8 @@ def snapshot(con, stage: int = 3, tickers: list[str] | None = None) -> dict:
                                for v in sorted(vals, key=lambda v: v["period"]) if v["ticker"] == e["ticker"] and v["label"] == "definition_gap"]}
         questions.append({"detail": detail, "exception_id": e["exception_id"], "ticker": e["ticker"], "company": names.get(e["ticker"], e["ticker"]), "rule": e["rule_id"], "severity": e["severity"],
                           "title": rule_text.get(e["rule_id"], {}).get("title", e["rule_id"]), "why": WHY.get(e["rule_id"], "Code can't decide this."),
-                          "field": e["field"], "period": e["period"], "subject": e.get("subject"), "message": e["message"]})  # rule and subject: the queue's key (T62)
+                          "field": e["field"], "period": e["period"], "subject": e.get("subject"), "message": e["message"],  # rule and subject: the queue's key (T62)
+                          **({"proposed": {k: prop[e["exception_id"]].get(k) for k in ("kind", "reviewer", "reason", "decided_at")}} if e["exception_id"] in prop else {})})
 
     # What happened at the companies: restatements, big moves the SEC's data confirms, opex above revenue.
     findings = []

@@ -63,7 +63,7 @@ def build(con, tickers: list[str], name: str) -> dict:
         return notes[accn]
 
     ev = load_all()
-    check, cur = to_check(vals), latest(decisions())
+    check, cur = to_check(vals), latest(decisions(), {e["exception_id"] for e in excs if e["severity"] == "block"})
     decided = {(e["ticker"], e["field"], e["period"]): cur[e["exception_id"]] for e in excs
                if e["period"] and cur.get(e["exception_id"], {}).get("input_hash") == e["input_hash"]}
     rows = []

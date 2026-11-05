@@ -51,8 +51,10 @@ async function api(path, opts) {
   if (!r.ok) { const e = new Error(d.error || r.statusText); e.status = r.status; throw e; }  // 409: the record changed since the page loaded
   return d;
 }
-let me = 'Kenny Geiler';
-try { me = localStorage.getItem('datahq-me') || me; } catch {}
+// F18: no default signer; empty until a name is chosen, then remembered in this browser. Every write is refused (400)
+// for a name off the people list (config.PEOPLE), on the server
+let me = '';
+try { me = localStorage.getItem('datahq-me') || ''; } catch {}
 $('#me').value = me;
 $('#me').addEventListener('input', (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} });
 // F-VT4: marks a control (or the block holding several) as one that writes; hidden in a read-only copy (app.html)
@@ -143,6 +145,12 @@ function sources(v) {
 // ── Shared ──────────────────────────────────────────────────────────────────
 let hqCache = null;
 const hq = async (fresh) => (hqCache = !fresh && hqCache ? hqCache : await api('/api/hq'));
+// F21: the server runs the code it started with; when the checkout's code differs (newer or reverted), one line under the scope line says so
+hq().then((d) => {
+  if (!d.code || d.code.state !== 'differs' || document.getElementById('codeline')) return;
+  const s = document.getElementById('scopeline');
+  if (s) s.after(h('div', {class: 'text-orange small', id: 'codeline', role: 'status'}, 'App code differs from checkout · restart'));
+}).catch(() => {});
 const pct = (x) => (x == null ? '—' : x < .001 ? '<0.1%' : `${(100 * x).toFixed(x < .1 ? 1 : 0)}%`);
 const fig = (l, n, s, bad) => h('div', {class: 'fig'}, h('div', {class: 'l'}, l), h('div', {class: 'n' + (bad ? ' bad' : '')}, n), h('div', {class: 's' + (bad ? ' bad' : '')}, s));
 const INDUSTRY = {hyperscaler: 'Hyperscaler', neocloud: 'Neocloud', miner_to_hpc: 'Miner to HPC', chip_seller: 'Chip design', chip_equipment: 'Chip equipment', component_supplier: 'Memory, networking, servers', datacenter_build: 'Data-center build', datacenter_landlord: 'Data-center landlord', power: 'Power producer', ai_software: 'AI software', other: 'Adopters and other'};
