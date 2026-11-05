@@ -169,6 +169,7 @@
     tests:
       - tests.test_api.UnknownCompany.test_a_made_up_ticker_is_404_unknown_company
       - tests.test_api.CompanyStates.test_a_followed_ticker_with_no_filings_is_never_proven
+      - tests.test_trust.ProvenMeansTheProvenSet.test_nothing_open_outside_the_proven_set_is_not_proven
       - tests.test_api.CompanyStates.test_a_ticker_nobody_follows_is_unknown
       - tests.test_api.CompanyStates.test_a_busy_database_is_503_not_unknown
       - tests.test_completeness.TheSixAreComplete.test_the_six_read_zero_and_coverage_agrees

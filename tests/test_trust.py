@@ -22,6 +22,29 @@ def _dec(eid, by, kind="accept", h="h1", value=None, at="2026-11-01T00:00:00+00:
             "decided_at": at, "input_hash": h, "supersedes": None, **kw}
 
 
+class ProvenMeansTheProvenSet(unittest.TestCase):
+    """F11: a company outside config.PROVEN with nothing open read Proven on its trail beside "Not in scope"."""
+
+    def _con(self, ticker):
+        con = store.init(":memory:")
+        con.execute("insert into documents (accession, ticker, cik, form, period, filed, url, sha256, bytes, parser_version, table_count, tables_path, income_tables, cash_flow_tables) "
+                    "values (?, ?, 1, '10-K', '2024-12-31', '2025-02-01', 'u', 's', 1, 'p', 40, 't', 't1', 't2')",
+                    [f"{ticker}-1", ticker])
+        return con
+
+    def test_nothing_open_outside_the_proven_set_is_not_proven(self):
+        from ledger.checks import proof
+        fake = [{"ticker": "ZZOUT", "name": "Outside Co"}]
+        con = self._con("ZZOUT")
+        with mock.patch.object(proof, "tracked", return_value=fake), mock.patch.object(proof, "asset_types", return_value={}), mock.patch.object(proof, "decisions", return_value=[]):
+            co = proof.company(con, "ZZOUT", idx={}, defs={}, rset=([], None))
+            self.assertEqual(co["open"], 0)
+            self.assertFalse(co["in_proven_set"])
+            self.assertFalse(co["proven"])  # the old code said True: open == 0 alone
+            with mock.patch.object(proof, "PROVEN", ["ZZOUT"]):
+                self.assertTrue(proof.company(con, "ZZOUT", idx={}, defs={}, rset=([], None))["proven"])  # in the set, nothing open: Proven
+
+
 class DecisionAuthors(unittest.TestCase):
     """F14: a decision by an agent or "to confirm" closed a block finding; now it is Proposed until a person decides."""
 
@@ -116,6 +139,8 @@ class DecisionAuthors(unittest.TestCase):
         self.assertEqual(row(st["state"], st["by"]), "wait")
         st = workbench._state(con, {**q, "proposed": None}, {})
         self.assertEqual(row(st["state"], st["by"]), "blocked")
+
+
 
 
 if __name__ == "__main__":

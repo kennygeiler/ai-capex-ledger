@@ -222,7 +222,9 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     name = next((c["name"] for c in tracked() if c["ticker"] == t), t)
     from ..core.states import company as company_state
     filing = company_state(any(c["ticker"] == t for c in tracked()), len(docs))  # F-BF15: nothing read is never Proven
-    return {"ticker": t, "name": name, "layer": industry(t), "proven": open_total == 0 and filing == "filed", "filing_state": filing, "open": open_total, "why": PROVEN_WHY.get(t, ""), "in_proven_set": t in PROVEN,
+    # F11: Proven on the trail and the board means a company in the proven set (config.PROVEN) with nothing open; one
+    # outside the set reads its counts, never Proven beside "Not in scope" (F28: the API's `proven` column is set membership)
+    return {"ticker": t, "name": name, "layer": industry(t), "proven": t in PROVEN and open_total == 0 and filing == "filed", "filing_state": filing, "open": open_total, "why": PROVEN_WHY.get(t, ""), "in_proven_set": t in PROVEN,
             "stages": stages, "keys": keys, "key_grade": KEY_GRADE, "definitions": sorted((defs or {}).get(t, {}).keys())}
 
 
