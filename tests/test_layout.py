@@ -419,5 +419,15 @@ class Layout(unittest.TestCase):
                     pg.wait_for_timeout(600)
                     self.assertEqual(pg.evaluate(self.OFF_SCALE), [])
 
+    def test_wide_box_stays_on_screen_at_the_page_end(self):
+        """F-VS3: Dataset Rows scrolls inside its card; with the page scrolled to its end, the box and its header are on screen."""
+        for w in WIDTHS:
+            with self.subTest(width=w):
+                pg = self.page(w, "data?list=taxonomy")
+                pg.wait_for_selector(".table-responsive.wide thead th", timeout=60000)
+                top = pg.evaluate("""async () => { window.scrollTo(0, document.documentElement.scrollHeight); await new Promise((r) => setTimeout(r, 200));
+                    return document.querySelector('.table-responsive.wide thead th').getBoundingClientRect().top; }""")
+                self.assertGreaterEqual(top, 0)
+
 if __name__ == "__main__":
     unittest.main()

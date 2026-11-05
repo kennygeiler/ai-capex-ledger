@@ -251,7 +251,7 @@
      wrapper .fit); one wider than its card scrolls inside the card, both ways, its header pinned (.wide) */
   .table > thead > tr > th { position: sticky; top: 0; z-index: 3; background-color: var(--tblr-bg-surface); box-shadow: inset 0 -1px 0 var(--tblr-border-color); }
   .table-responsive.fit { overflow: visible; }
-  .table-responsive.wide { max-height: calc(100vh - 2rem); overflow: auto; }
+  .table-responsive.wide { max-height: calc(100vh - 6rem); overflow: auto; }  /* F-VS3: room for the pager and the page foot, so at the page end the box and its header stay on screen */
   /* V10: a table wider than its card says so: a shade on the edge that has more columns, gone at that end (the shades scroll
      with the content, the covers stay put) */
   .table-responsive.wide { background:

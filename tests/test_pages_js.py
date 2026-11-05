@@ -232,7 +232,7 @@ class VisualContract(unittest.TestCase):
         css = self.css()
         self.assertIn(".table > thead > tr > th { position: sticky; top: 0;", css)
         self.assertIn(".table-responsive.fit { overflow: visible; }", css)
-        self.assertIn(".table-responsive.wide { max-height: calc(100vh - 2rem); overflow: auto; }", css)
+        self.assertIn(".table-responsive.wide { max-height: calc(100vh - 6rem); overflow: auto; }", css)  # F-VS3: the pager and page foot fit under it
         self.assertIn("fitTables(root);", (PAGES / "_shared.js").read_text())
 
     def test_dataset_rows_page_at_most_100(self):
