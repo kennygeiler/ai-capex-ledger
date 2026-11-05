@@ -231,5 +231,36 @@ class DatasetVerification(unittest.TestCase):
                          [{"view": "grid", "list": "facts", "t": "APLD", "check": "unresolved"}, {"list": "facts", "ticker": "APLD", "check": "agree"}])
 
 
+class ReadOnlyScopeLine(unittest.TestCase):
+    """#14: the read-only copy's scope line names the release it serves and its code, and flags an older release than the
+    latest signed or code other than the checkout's, from the deploy record (claims/hosted.json); nothing is fetched."""
+
+    def status(self, record, last, head):
+        from unittest import mock
+        from ledger.release import claims
+        with mock.patch.object(claims, "_hosted_record", return_value=record), mock.patch.object(claims, "latest_signed", return_value=last), \
+                mock.patch.object(claims, "_head", return_value=head), mock.patch.object(claims, "_same_code", side_effect=lambda a, b: bool(a and b and b.startswith(a))):
+            return claims.copy_status()
+
+    def test_what_the_copy_serves_and_when_it_is_stale(self):
+        rec = {"release": "v1.8.0", "commit": "c0635f3", "deployed_at": "2026-11-03T02:27:34+00:00"}
+        s = self.status(rec, "v1.8.0", "c0635f3aaaa")
+        self.assertEqual((s["release"], s["commit"], s["older"], s["code"]), ("v1.8.0", "c0635f3", False, "same"))
+        s = self.status(rec, "v1.9.0", "901b9b9ffff")
+        self.assertEqual((s["older"], s["code"], s["head"]), (True, "differs", "901b9b9"))
+        self.assertEqual(self.status(rec, "v1.8.0", None)["code"], "unknown")  # the hosted image has no git: never called same
+        s = self.status(None, "v1.8.0", "x")
+        self.assertEqual((s["recorded"], s["code"], s["older"]), (False, "unknown", None))
+
+    @unittest.skipUnless(shutil.which("node"), "no node")
+    def test_the_line(self):
+        js = ("const h = (tag, attrs, ...kids) => ({tag, cls: attrs.class, text: kids.flat(Infinity).join('')});\n" + block("_router.js", "const copyLine", "\n};") +
+              "\nconst A = JSON.parse(process.argv[process.argv.length - 1]);\nprocess.stdout.write(JSON.stringify(A.map((c) => copyLine(c).flat(Infinity).filter((x) => x !== '').map((x) => (typeof x === 'string' ? x : `[${x.text}]`)).join(''))));")
+        got = json.loads(node(js, json.dumps([None, {"recorded": False}, {"recorded": True, "release": "v1.8.0", "commit": "c0635f3", "older": False, "code": "same"},
+                                              {"recorded": True, "release": "v1.8.0", "commit": "c0635f3", "older": True, "latest_signed": "v1.9.0", "code": "differs", "head": "901b9b9"}])))
+        self.assertEqual(got, ["", " · [Deploy not recorded]", " · Serves v1.8.0 · Code c0635f3", " · Serves v1.8.0 · Code c0635f3 · [Older than v1.9.0] · [Code differs from 901b9b9]"])
+        self.assertIn('"copy": copy_status() if READONLY else None', (PAGES.parent / "app.py").read_text())
+
+
 if __name__ == "__main__":
     unittest.main()

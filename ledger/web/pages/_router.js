@@ -42,11 +42,20 @@ async function route(ev) {
 }
 window.addEventListener('hashchange', route);
 route();
+// report #14: on the read-only copy, which release it serves and its code, and what makes it stale: an older release than
+// the latest signed one, or code other than the checkout's (claims.copy_status, from the deploy record; nothing fetched)
+const copyLine = (c) => {
+  if (!c) return [];
+  if (!c.recorded) return [' · ', h('span', {class: 'text-orange'}, 'Deploy not recorded')];
+  return [` · Serves ${c.release || '—'}`, c.commit ? ` · Code ${String(c.commit).slice(0, 7)}` : '',
+    c.older ? [' · ', h('span', {class: 'text-orange'}, `Older than ${c.latest_signed}`)] : '',
+    c.code === 'differs' ? [' · ', h('span', {class: 'text-orange'}, `Code differs from ${c.head}`)] : ''];
+};
 // T29, the first line: what this copy shows. Scope, the last run, read-only or local; one line under the nav.
 hq().then((d) => {
   if (d.readonly) { $('#me').closest('span').replaceWith(h('span', {class: 'text-azure small'}, 'Read-only')); document.body.classList.add('readonly'); }  // F-VT4: every [data-write] hides
   const hl = (d.health && d.health[0]) || {};
   const n = hl.companies != null ? hl.companies : (SCOPE.length || null);
   // V5: the line sits in the page's container (app.html), on the H1's left edge; its height is reserved before this lands
-  $('#scopeline').replaceChildren(h('a', {href: '#data', class: 'text-reset'}, n == null ? '…' : `${int(n)} companies`), ' · ', `Data as of ${day(hl.run_at)}`, d.readonly ? ' · Read-only' : '');
+  $('#scopeline').replaceChildren(h('a', {href: '#data', class: 'text-reset'}, n == null ? '…' : `${int(n)} companies`), ' · ', `Data as of ${day(hl.run_at)}`, ...(d.readonly ? [' · Read-only', ...copyLine(d.copy)].flat(Infinity).filter((x) => x !== '') : []));
 }).catch(() => {});

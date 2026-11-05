@@ -726,7 +726,8 @@ class Handler(BaseHTTPRequestHandler):
     def _hq(self):
         con = _con()
         try:
-            return {**snapshot(con, STAGE), "readonly": READONLY}
+            from ..release.claims import copy_status
+            return {**snapshot(con, STAGE), "readonly": READONLY, "copy": copy_status() if READONLY else None}  # report #14: what the read-only copy serves
         finally:
             con.close()
 

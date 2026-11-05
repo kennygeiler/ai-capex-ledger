@@ -356,7 +356,7 @@
 - id: mapping_filer_tag
   claim: "Matches company's own tag"
   where: [ledger/core/states.py, ledger/review/mapcard.py, ledger/web/cards.py, ledger/checks/filertag.py, ledger/core/status.py, ledger/release/taxonomy.py, ledger/core/store.py, ledger/web/pages/trail.js, ledger/web/pages/reconcile.js, ledger/release/limitations.py, ledger/release/claims.py, /api/v1/proof/<ticker>, /api/v1/reconcile]
-  shown: ["Matches company tag", "Matches company's own tag", "Matches company’s own tag", "Same as proposed", "def verified", "Confirm or override in Reconcile", "def tally", "mapping_check"]
+  shown: ["Matches company tag", "Matches company's own tag", "Matches company’s own tag", "Same as proposed", "def verified", "def tally", "mapping_check"]
   backed_by:
     functions: [ledger.checks.filertag.verdicts, ledger.checks.filertag.verdicts_ok, ledger.checks.filertag.verified, ledger.checks.filertag.gap, ledger.checks.filertag.tally, ledger.core.status.of_mapping, ledger.core.status.of_fact, ledger.release.taxonomy.to_confirm, ledger.review.mapper.approve]
     tests:
@@ -553,12 +553,14 @@
 
 - id: hosted_copy
   claim: "Hosted copy"
-  where: [ledger/web/pages/_router.js, https://datahq-production.up.railway.app]
-  shown: ["Read-only"]
+  where: [ledger/web/pages/_router.js, ledger/release/claims.py, /api/hq, https://datahq-production.up.railway.app]
+  shown: ["Read-only", "Serves", "Older than", "Code differs from", "Deploy not recorded"]
   backed_by:
-    functions: [ledger.web.app.Handler.do_POST]
+    functions: [ledger.web.app.Handler.do_POST, ledger.release.claims.copy_status]
     tests:
       - tests.test_checklist.Endpoints.test_readonly_refuses_with_403
+      - tests.test_flow2.ReadOnlyScopeLine.test_what_the_copy_serves_and_when_it_is_stale
+      - tests.test_flow2.ReadOnlyScopeLine.test_the_line
   status: stale
   checks: [hosted_copy]
   gaps: []
