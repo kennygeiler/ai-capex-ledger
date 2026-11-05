@@ -108,9 +108,9 @@ class Line(unittest.TestCase):
     def test_passing_on_another_commit_or_a_dirty_tree_is_stale_and_blocks(self):
         other = checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=["ledger/checks/rules.py", "reports/tests.json"])
         self.assertEqual((other["state"], other["required"], other["ok"]), ("stale", True, False))  # its own state (states.LINE), and it blocks
-        self.assertIn("stale", other["note"])
+        self.assertIn("Stale", other["note"])
         self.assertIn("HEAD is abc1234", other["note"])
-        self.assertIn("ledger test", other["note"])
+        self.assertEqual(other["link"], "proof")  # the page names no command: Fix in leads on (flow review #14)
         self.assertEqual(checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=None)["state"], "stale")  # unknown sha: stale
         dirty = checklist.tests_line(_rep(dirty=True), head="abc1234", changed=[])
         self.assertEqual((dirty["state"], dirty["required"]), ("stale", True))

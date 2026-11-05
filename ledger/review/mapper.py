@@ -301,21 +301,14 @@ def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, 
     def change(lines: list[str], data: dict):
         old = (data.get(ticker) or {}).get(reported_name)
         if expected is not _UNSET:
-            now = {"standard_type": old.get("standard_type"), "at": str(old["at"]) if old.get("at") is not None else None} if old and old.get("standard_type") else None
-            want = {"standard_type": (expected or {}).get("standard_type"), "at": str((expected or {}).get("at")) if (expected or {}).get("at") is not None else None} if expected else None
-            if now != want:
-                raise Stale(f"{ticker} {reported_name!r} changed since the page was loaded: on file {now or 'no entry'}, the page showed {want or 'no entry'}; reload")
-        if old and confirmed(old):
-            raise ValueError(f"{ticker} {reported_name!r} is already mapped to {old.get('standard_type')} and confirmed by {old['confirmed_by']}")
+            _check_expected(old, expected, ticker, reported_name)
+        _check_unconfirmed(old, ticker, reported_name)
         if old and old.get("standard_type"):  # a proposal in the file (T63): confirm it, or replace it with the person's member
             if reported_name not in {u["reported_name"] for u in _to_confirm(con, ticker)}:
                 raise ValueError(f"{ticker} {reported_name!r} is not one of the company's reported PP&E categories with an unconfirmed mapping; nothing written")
             i = _entry_index(lines, ticker, reported_name)
             if old.get("standard_type") == standard_type:
-                if not lines[i].rstrip().endswith("}"):
-                    raise ValueError("the entry is not one flow-mapping line; confirm it by hand")
-                lines[i] = lines[i].rstrip()[:-1] + f", confirmed_by: {_scalar(by)}, confirmed_at: {day}}}"
-                new = {**old, "confirmed_by": by, "confirmed_at": day}
+                new = _confirm_line(lines, i, old, by, day)
                 out.update({"kind": "confirmed", "ticker": ticker, "reported_name": reported_name, **{k: (str(v) if v is not None else v) for k, v in new.items()}})
             else:
                 lines[i] = _line(reported_name, standard_type, evidence, by, day)
@@ -347,30 +340,115 @@ def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, 
     return {k: v for k, v in out.items() if k != "kind"}
 
 
+def _check_expected(old: dict | None, expected, ticker: str, reported_name: str) -> None:
+    """Stale unless the file's entry is what the page showed ({standard_type, at}, or None for no entry)."""
+    now = {"standard_type": old.get("standard_type"), "at": str(old["at"]) if old.get("at") is not None else None} if old and old.get("standard_type") else None
+    want = {"standard_type": (expected or {}).get("standard_type"), "at": str((expected or {}).get("at")) if (expected or {}).get("at") is not None else None} if expected else None
+    if now != want:
+        raise Stale(f"{ticker} {reported_name!r} changed since the page was loaded: on file {now or 'no entry'}, the page showed {want or 'no entry'}; reload")
+
+
+def _check_unconfirmed(old: dict | None, ticker: str, reported_name: str) -> None:
+    if old and confirmed(old):
+        raise ValueError(f"{ticker} {reported_name!r} is already mapped to {old.get('standard_type')} and confirmed by {old['confirmed_by']}")
+
+
+def _confirm_line(lines: list[str], i: int, old: dict, by: str, day: str) -> dict:
+    """Add confirmed_by and confirmed_at to the entry's own line (the proposer's by, at and evidence kept)."""
+    if not lines[i].rstrip().endswith("}"):
+        raise ValueError("the entry is not one flow-mapping line; confirm it by hand")
+    lines[i] = lines[i].rstrip()[:-1] + f", confirmed_by: {_scalar(by)}, confirmed_at: {day}}}"
+    return {**old, "confirmed_by": by, "confirmed_at": day}
+
+
+BULK_MAX = 100  # one "Approve all" at most; the page sends the categories one card shows
+
+
+def matched(con, tickers: list[str]) -> set:
+    """{(ticker, reported_name)} of the entries no person confirmed whose member the company's own XBRL tag matches
+    (status.of_mapping's filer_tag state): taxonomy.to_confirm with the verified ones, less those still to confirm. The
+    server's own verdict, read once per batch; never the page's word."""
+    def read(c):
+        every = {(e["ticker"], e["reported_name"]) for e in to_confirm(c, tickers, with_verified=True)}
+        return every - {(e["ticker"], e["reported_name"]) for e in to_confirm(c, tickers)}
+    if con is not None:
+        return read(con)
+    import duckdb
+    c = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+    try:
+        return read(c)
+    finally:
+        c.close()
+
+
 def approve_many(items: list, by: str, path: Path | None = None, log: Path | None = None, at: str | None = None, con=None) -> dict:
-    """Reconcile's "Approve all N" on the categories the company's own tag matches (docs/ux-flow/report.md #5): each item
-    written by `approve`, one after another, with the `expected` the page showed, so every check of a single Approve holds
-    for each (the person on config.PEOPLE, the member on the list, a stale entry refused). Every item must confirm the
-    member the page showed (standard_type equal to expected.standard_type): a bulk confirms, it never changes a member.
-    Stops at the first refusal and raises it, the same type (Stale is 409 on the route, ValueError 400), its message
-    naming how many were written before it and the item it stopped at; nothing after it is written."""
+    """Reconcile's "Approve all N" on Matches company tag (docs/ux-flow/report.md #5). Everything is checked in one pass
+    before anything is written, on one read of the file and one query: the person (config.PEOPLE), 1 to BULK_MAX items
+    with no repeat, each confirming the member the page showed (standard_type equal to expected.standard_type: a bulk
+    never changes a member), each member on the file's list, and each item one the server itself finds the company's own
+    tag matches (`matched`): a Proposed or unmapped category in the batch refuses the whole batch (400), whatever the page
+    sent. Then one write under the file's lock confirms every entry on its own line, with the same checks a single
+    Approve makes (`_check_expected`: a stale entry is 409; `_check_unconfirmed`; `_confirm_line`) on that snapshot, and
+    the parsed file must equal the snapshot except those entries, or nothing is written: k of N is N or 0. Each is
+    logged `confirmed`, as approve logs one."""
+    import yaml
+    from ..core.safewrite import safe_write
+    p = path or ASSET_TYPES
     if not isinstance(items, list) or not items:
         raise ValueError("send `items`: the categories to approve, each {ticker, reported_name, standard_type, evidence, expected}")
-    person(by)  # before anything is written
+    if len(items) > BULK_MAX:
+        raise ValueError(f"{len(items)} items: approve at most {BULK_MAX} at once")
+    by = person(str(by or ""))
+    norm_items, seen = [], set()
     for it in items:
-        exp = it.get("expected") if isinstance(it, dict) else None
-        if not isinstance(exp, dict) or not exp.get("standard_type") or exp.get("standard_type") != it.get("standard_type"):
-            raise ValueError("each item confirms the member the page showed: standard_type must equal expected.standard_type")
-    done = []
-    for it in items:
-        try:
-            approve(str(it.get("ticker", "")), str(it.get("reported_name", "")), str(it.get("standard_type", "")), str(it.get("evidence") or it.get("reported_name") or ""), by,
-                    path=path, log=log, at=at, con=con, expected=it["expected"])
-        except ValueError as e:
-            msg = f"Approved {len(done)} of {len(items)}; stopped at {str(it.get('ticker', '')).upper()} {it.get('reported_name', '')!r}: {e}"
-            raise type(e)(msg) from e
-        done.append({"ticker": str(it.get("ticker", "")).upper(), "reported_name": it.get("reported_name")})
-    return {"approved": len(done), "items": done}
+        if not isinstance(it, dict):
+            raise ValueError("each item is {ticker, reported_name, standard_type, evidence, expected}")
+        t, n, m = str(it.get("ticker", "")).strip().upper(), str(it.get("reported_name", "")).strip(), str(it.get("standard_type", "")).strip()
+        exp = it.get("expected")
+        if not t or not n or not m:
+            raise ValueError("each item needs the ticker, the reported name and the member")
+        if not isinstance(exp, dict) or exp.get("standard_type") != m:
+            raise ValueError(f"{t} {n!r}: a bulk confirms the member the page showed; standard_type must equal expected.standard_type")
+        if (t, n) in seen:
+            raise ValueError(f"{t} {n!r} is in the batch twice")
+        seen.add((t, n))
+        norm_items.append((t, n, m, exp))
+    allowed = set(members(p))
+    off = [f"{t} {n!r} ({m})" for t, n, m, _ in norm_items if m not in allowed]
+    if off:
+        raise ValueError(f"not members on the list in taxonomy/asset_types.yaml: {', '.join(off)}; nothing written")
+    ok = matched(con, sorted({t for t, *_ in norm_items}))
+    not_matched = [f"{t} {n!r}" for t, n, *_ in norm_items if (t, n) not in ok]
+    if not_matched:
+        raise ValueError(f"not a category the company's own tag matches: {', '.join(not_matched)}; approve it on its own row. Nothing written")
+    day = at or date.today().isoformat()
+    written: list[dict] = []
+
+    def mutate(text):
+        text = text or ""
+        lines = text.splitlines()
+        before = yaml.safe_load(text) or {}
+        expect = json.loads(json.dumps({k: (v or {}) for k, v in before.items()}, default=str, sort_keys=True))
+        for t, n, m, exp in norm_items:
+            _ticker_line(lines, t)
+            old = (before.get(t) or {}).get(n)
+            _check_expected(old, exp, t, n)
+            _check_unconfirmed(old, t, n)
+            new = _confirm_line(lines, _entry_index(lines, t, n), old, by, day)
+            expect[t][n] = json.loads(json.dumps(new, default=str, sort_keys=True))
+            written.append({"kind": "confirmed", "ticker": t, "reported_name": n, **{k: (str(v) if v is not None else v) for k, v in new.items()}})
+        new_text = "\n".join(lines) + "\n"
+        after = json.loads(json.dumps({k: (v or {}) for k, v in (yaml.safe_load(new_text) or {}).items()}, default=str, sort_keys=True))
+        if after != expect:
+            raise ValueError("the file would change more than the entries approved; nothing written")
+        return new_text
+    try:
+        safe_write(p, p.with_name(f".{p.name}.lock"), mutate)
+    except ValueError as e:
+        raise type(e)(f"Approved 0 of {len(norm_items)}; nothing written: {e}") from e
+    for line in written:
+        _append(line, log)
+    return {"approved": len(written), "items": [{"ticker": w["ticker"], "reported_name": w["reported_name"]} for w in written]}
 
 
 def _line(reported_name: str, standard_type: str, evidence: str, by: str, day: str) -> str:

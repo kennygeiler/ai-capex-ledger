@@ -94,6 +94,46 @@ class OneNumber(unittest.TestCase):
         got = buckets([("A", "bad"), ("A", "wait"), ("A", "wait"), ("A", "ok"), ("B", "info"), ("B", "blocked")])
         self.assertEqual(got, {"A": {"bad": 1, "wait": 2, "blocked": 0}, "B": {"bad": 0, "wait": 0, "blocked": 1}})
         self.assertEqual(buckets([]), {})
+        self.assertEqual(buckets([("A", "unknown")]), {"A": {"bad": 1, "wait": 0, "blocked": 0}})  # Not checked is open work, never counted nowhere
+        with self.assertRaises(ValueError):
+            buckets([("A", "no such word")])
+
+    def test_a_decision_key_that_does_not_parse_raises(self):
+        from ledger.review.workbench import company_counts
+        with self.assertRaises(ValueError):
+            company_counts({"proven": []}, [{"key": "not a key"}])
+
+    @unittest.skipUnless(REAL_DB, "no data/ledger.duckdb")
+    def test_counts_read_their_inputs_once_per_stamp(self):
+        from ledger.checks import proof
+        from ledger.web import app
+        app._COUNTS_IN.clear()
+        con = app._con()
+        try:
+            b = proof.board(con)
+            with mock.patch("ledger.release.taxonomy.unmapped", return_value=[]) as um:
+                app.with_counts(con, b)
+                app.with_counts(con, b)
+            self.assertEqual(um.call_count, 1)
+        finally:
+            con.close()
+            app._COUNTS_IN.clear()
+
+    @unittest.skipUnless(REAL_DB, "no data/ledger.duckdb")
+    def test_needs_review_names_each_unmapped_category_and_proposed_lists_each_item(self):
+        from ledger.release import checklist
+        from ledger.web import app
+        con = app._con()
+        try:
+            with mock.patch.object(checklist.taxonomy, "unmapped", return_value=[{"ticker": "GOOGL", "reported_name": "A made-up category"}]):
+                cl = checklist.checklist(con)
+        finally:
+            con.close()
+        lines = {l["id"]: l for l in cl["lines"]}
+        self.assertIn({"company": "GOOGL", "unmapped_category": "A made-up category", "link": "reconcile?cause=asset_types&scope=GOOGL"}, lines["open"]["detail"])
+        g6 = lines["gate_G6"]["detail"]
+        self.assertEqual(len(g6), lines["gate_G6"]["count"])
+        self.assertTrue(all({"company", "key", "state", "reason", "link"} <= set(d) for d in g6))
 
     def test_company_counts_add_a_runs_decisions_and_categories_no_page_lists(self):
         from ledger.review.workbench import company_counts
@@ -121,8 +161,9 @@ class OneNumber(unittest.TestCase):
         finally:
             con.close()
         lines = {l["id"]: l for l in cl["lines"]}
-        det = lambda lid, k: {d["company"]: d[k] for d in lines[lid]["detail"]}
-        release = {t: {"bad": det("open", "needs_review").get(t, 0), "wait": det("gate_G6", "proposed").get(t, 0), "blocked": det("blocked", "blocks_release").get(t, 0)} for t in SCOPE}
+        det = lambda lid, k: {d["company"]: d[k] for d in lines[lid]["detail"] if k in d}
+        g6 = lambda t: sum(d["company"] == t for d in lines["gate_G6"]["detail"])  # one row per proposed item, each naming its company
+        release = {t: {"bad": det("open", "needs_review").get(t, 0), "wait": g6(t), "blocked": det("blocked", "blocks_release").get(t, 0)} for t in SCOPE}
         self.assertEqual(sorted(board), sorted(SCOPE))
         for t in SCOPE:
             self.assertEqual(board[t], trail[t], t)
@@ -191,9 +232,26 @@ process.stdout.write(JSON.stringify({act: act.map((l) => l.id), rest: rest.map((
         self.assertEqual(got["rest"], ["g1", "packet", "diff"])
         self.assertEqual(got["sum"], "2 checks pass · 1 informational")
 
+    @unittest.skipUnless(shutil.which("node"), "no node")
+    def test_each_company_keeps_its_gate_counts_and_result(self):
+        js = line("release.js", "const gateRows") + """
+process.stdout.write(JSON.stringify(gateRows(JSON.parse(process.argv[process.argv.length - 1]))));"""
+        cl = {"gates": {"table": {"G1": {"A": [], "B": ["x"]}, "G6": {"A": [], "B": ["k1", "k2"]}}}}
+        self.assertEqual(json.loads(node(js, json.dumps(cl))), [{"company": "A", "G1": 0, "G6": 0, "result": "pass"}, {"company": "B", "G1": 1, "G6": 2, "result": "fail"}])
+        page = (Path(store.ROOT) / "ledger" / "web" / "pages" / "release.js").read_text()
+        self.assertIn("lines.querySelector('tbody').append(byCo);", page)  # inside the folded passing area
+
+    def test_no_command_on_the_page(self):
+        from ledger.release import checklist
+        notes = [checklist.tests_line(None)["note"], checklist.regression_line(None)["note"],
+                 checklist.tests_line({"ok": True, "count": 1, "git": "0ld0000", "at": "x"}, head="abc1234", changed=["ledger/x.py"])["note"],
+                 checklist.doc_line(text="a", doc=Path("/nonexistent/CLAIMS.md"))["note"]]
+        for n in notes:
+            self.assertNotIn("ledger ", n, n)
+
     def test_no_gate_card_and_each_list_once(self):
         js = (Path(store.ROOT) / "ledger" / "web" / "pages" / "release.js").read_text()
-        for gone in ("Release checks by company", "gatesTable", "diffTable", "dtable(`Packet"):
+        for gone in ("Release checks by company", "gatesTable(", "diffTable", "dtable(`Packet"):
             self.assertNotIn(gone, js)
         self.assertIn("{detail: (l) => (l.summary ? '' : lineDetail(l))}", js)  # the packet files and the diff live in their lines' details only
         self.assertIn("button, status", js)  # Sign stays in the header
@@ -230,49 +288,85 @@ class MappingQueue(unittest.TestCase):
         rows = [("Equipment", "MachineryAndEquipmentMember"), ("Land", "LandMember"), ("Building", "TechnologyEquipmentMember")]
         return [{"ticker": "AMD", "reported_name": n, "standard_type": m, "evidence": n.lower(), "expected": {"standard_type": m, "at": stale.get(n, "2026-11-01")}} for n, m in rows]
 
-    def test_each_item_goes_through_approve_with_its_expected(self):
+    def matched(self, *names):
         from ledger.review import mapper
-        with mock.patch.object(mapper, "approve", wraps=mapper.approve) as ap:
-            out = mapper.approve_many(self.items(), "A Tester", path=self.path, log=self.log, at="2026-11-05")
-        self.assertEqual(out["approved"], 3)
-        self.assertEqual([c.kwargs["expected"] for c in ap.call_args_list], [i["expected"] for i in self.items()])
-        import yaml
-        d = yaml.safe_load(self.path.read_text())["AMD"]
-        self.assertEqual({n: (e["standard_type"], e.get("confirmed_by")) for n, e in d.items()},
-                         {"Equipment": ("MachineryAndEquipmentMember", "A Tester"), "Land": ("LandMember", "A Tester"), "Building": ("TechnologyEquipmentMember", "A Tester")})
+        return mock.patch.object(mapper, "matched", return_value={("AMD", n) for n in names})
 
-    def test_it_stops_at_a_stale_entry_and_writes_nothing_after_it(self):
+    def test_every_entry_confirmed_in_one_write_with_the_single_approve_checks(self):
         from ledger.review import mapper
-        with self.assertRaises(mapper.Stale) as c:  # Land changed since the page loaded (its `at` differs): 409 on the route
-            mapper.approve_many(self.items(Land="2026-10-30"), "A Tester", path=self.path, log=self.log, at="2026-11-05")
-        self.assertIn("Approved 1 of 3; stopped at AMD 'Land'", str(c.exception))
         import yaml
+        with self.matched("Equipment", "Land", "Building"), mock.patch.object(mapper, "_check_expected", wraps=mapper._check_expected) as ce:
+            out = mapper.approve_many(self.items(), "A Tester", path=self.path, log=self.log, at="2026-11-05")
+        self.assertEqual((out["approved"], [i["reported_name"] for i in out["items"]]), (3, ["Equipment", "Land", "Building"]))
+        self.assertEqual([c.args[1] for c in ce.call_args_list], [i["expected"] for i in self.items()])  # each checked against what the page showed
         d = yaml.safe_load(self.path.read_text())["AMD"]
-        self.assertEqual([n for n, e in d.items() if e.get("confirmed_by")], ["Equipment"])  # the one before it stands, nothing after it is written
+        self.assertEqual({n: (e["standard_type"], e.get("confirmed_by"), e["by"]) for n, e in d.items()},
+                         {"Equipment": ("MachineryAndEquipmentMember", "A Tester", "Claude Fable 5.1"), "Land": ("LandMember", "A Tester", "Claude Fable 5.1"),
+                          "Building": ("TechnologyEquipmentMember", "A Tester", "Claude Fable 5.1")})
+        self.assertEqual([l["kind"] for l in mapper.load_proposals(self.log)], ["confirmed"] * 3)
+
+    def test_a_stale_entry_refuses_the_batch_and_writes_nothing(self):
+        from ledger.review import mapper
+        with self.matched("Equipment", "Land", "Building"), self.assertRaises(mapper.Stale) as c:  # Land changed since the page loaded: 409 on the route
+            mapper.approve_many(self.items(Land="2026-10-30"), "A Tester", path=self.path, log=self.log, at="2026-11-05")
+        self.assertIn("Approved 0 of 3; nothing written", str(c.exception))
+        self.assertEqual(self.path.read_text(), HEADER)
+
+    def test_a_category_the_server_does_not_find_matching_refuses_the_batch(self):
+        from ledger.review import mapper
+        with self.matched("Equipment", "Building"), self.assertRaises(ValueError) as c:  # Land is Proposed on the server, whatever the page sent
+            mapper.approve_many(self.items(), "A Tester", path=self.path, log=self.log)
+        self.assertIn("not a category the company's own tag matches: AMD 'Land'", str(c.exception))
+        self.assertEqual(self.path.read_text(), HEADER)
 
     def test_a_name_off_the_people_list_writes_nothing(self):
         from ledger.review import mapper
-        with self.assertRaises(ValueError):
+        with self.matched("Equipment", "Land", "Building"), self.assertRaises(ValueError):
             mapper.approve_many(self.items(), "Somebody Else", path=self.path, log=self.log)
         self.assertEqual(self.path.read_text(), HEADER)
 
-    def test_a_bulk_never_changes_a_member(self):
+    def test_a_bulk_never_changes_a_member_repeats_nothing_and_has_a_cap(self):
         from ledger.review import mapper
         items = self.items()
         items[1]["standard_type"] = "ConstructionInProgressMember"  # a different member than the page showed
-        with self.assertRaises(ValueError):
-            mapper.approve_many(items, "A Tester", path=self.path, log=self.log)
+        with self.matched("Equipment", "Land", "Building"):
+            for bad in (items, [], self.items() + self.items()[:1], self.items() * 40):
+                with self.assertRaises(ValueError):
+                    mapper.approve_many(bad, "A Tester", path=self.path, log=self.log)
         self.assertEqual(self.path.read_text(), HEADER)
-        with self.assertRaises(ValueError):
-            mapper.approve_many([], "A Tester", path=self.path, log=self.log)
 
-    def test_the_route_calls_approve_many(self):
-        import inspect
+    def test_the_route_refuses_a_proposed_item_with_400_and_writes_nothing(self):
+        import threading
+        from http.server import ThreadingHTTPServer
+        from urllib import error, request
+        from ledger.review import mapper
         from ledger.web import app
-        src = inspect.getsource(app.Handler.do_POST)
-        self.assertIn('"/api/mapping/bulk"', src)
-        self.assertIn("mapper.approve_many(body.get(\"items\")", src)
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.shutdown)
+        url = f"http://127.0.0.1:{srv.server_address[1]}/api/mapping/bulk"
 
+        def post(body):
+            req = request.Request(url, data=json.dumps(body).encode(), headers={"Content-Type": "application/json"}, method="POST")
+            try:
+                with request.urlopen(req) as r:
+                    return r.status, json.loads(r.read())
+            except error.HTTPError as e:
+                return e.code, json.loads(e.read())
+        # the server's verdict: Equipment and Building match the company's tag; Land is still to confirm (Proposed)
+        tc = lambda con, tickers, with_verified=False: [{"ticker": "AMD", "reported_name": n} for n in (("Equipment", "Land", "Building") if with_verified else ("Land",))]
+        with mock.patch.object(mapper, "ASSET_TYPES", self.path), mock.patch.object(mapper, "PROPOSALS", self.log), mock.patch.object(mapper, "to_confirm", side_effect=tc), \
+                mock.patch("ledger.web.app._con", return_value=mock.MagicMock()):
+            code, d = post({"items": self.items(), "by": "A Tester"})
+            self.assertEqual(code, 400)
+            self.assertIn("AMD 'Land'", d["error"])
+            self.assertEqual(self.path.read_text(), HEADER)  # zero bytes written
+            self.assertFalse(self.log.exists())
+            code, d = post({"items": [i for i in self.items() if i["reported_name"] != "Land"], "by": "A Tester"})
+            self.assertEqual((code, d["approved"]), (200, 2))
+            code, d = post({"items": [i for i in self.items() if i["reported_name"] == "Equipment"], "by": "A Tester"})  # the same again: already confirmed
+            self.assertEqual(code, 400)  # already confirmed by a person: refused, as a single Approve refuses it
+            self.assertIn("already mapped", d["error"])
     @unittest.skipUnless(shutil.which("node"), "no node")
     def test_choose_another_starts_empty_or_on_the_companys_tag(self):
         js = line("reconcile.js", "const bare") + "\n" + line("reconcile.js", "const chooseDefault") + """

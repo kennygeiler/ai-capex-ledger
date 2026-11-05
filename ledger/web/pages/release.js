@@ -20,6 +20,15 @@ const LINE_ORDER = {fail: 0, stale: 1, not_run: 2, pass: 3, info: 4};
 const splitLines = (lines) => { const sorted = [...lines].sort((a, b) => (LINE_ORDER[a.state] ?? 0) - (LINE_ORDER[b.state] ?? 0)); return {act: sorted.filter((l) => l.state !== 'pass' && l.state !== 'info'), rest: sorted.filter((l) => l.state === 'pass' || l.state === 'info')}; };
 const passSummary = (rest) => { const p = rest.filter((l) => l.state === 'pass').length, i = rest.length - p; return `${p} check${p === 1 ? '' : 's'} pass` + (i ? ` · ${i} informational` : ''); };
 
+// {company, gate: items, result} per company from the packet's gate table, each gate named by its line's label
+const gateRows = (cl) => { const g = cl.gates.table, ids = Object.keys(g), cos = Object.keys(g[ids[0]] || {}); return cos.map((t) => ({company: t, ...Object.fromEntries(ids.map((x) => [x, g[x][t].length])), result: ids.some((x) => g[x][t].length) ? 'fail' : 'pass'})); };
+function gatesByCompany(cl) {
+  const ids = Object.keys(cl.gates.table), name = (x) => (cl.lines.find((l) => l.id === 'gate_' + x) || {}).label || x;
+  return h('table', {class: 'table table-sm mb-0'}, h('thead', {}, h('tr', {}, h('th', {}, 'Company'), ids.map((x) => h('th', {class: 'n'}, name(x))), h('th', {}, 'Result'))),
+    h('tbody', {}, gateRows(cl).map((r) => h('tr', {}, h('td', {}, h('a', {href: '#proof/' + r.company}, r.company)), ids.map((x) => h('td', {class: 'n'}, r[x] ? h('span', {class: 'text-red fw-medium'}, int(r[x])) : h('span', {class: 'text-secondary'}, '0'))),
+      h('td', {}, stateBadge({state: r.result}))))));
+}
+
 // [enabled, why] for the Sign button: every required line green and a signer on the people list (config.PEOPLE, sent with the checklist)
 const signState = (cl, name) => { const n = (name || '').trim(), red = cl.lines.filter((l) => l.required && !l.ok).length; return red ? [false, `${red} required check${red === 1 ? '' : 's'} failing`] : !n ? [false, 'Enter a signer name'] : !(cl.people || []).includes(n) ? [false, 'Not on the signer list'] : [true, `Signs and publishes ${cl.version}`]; };
 
@@ -66,8 +75,11 @@ async function releasePage(view, qs) {
     {t: 'Details', sort: false, f: (l) => (l.summary ? '' : h('span', {class: 'text-secondary small'}, l.note))},
     {t: 'Fix in', sort: false, f: (l) => { if (l.summary || !l.link || l.ok || l.state === 'info') return ''; const pg = l.link.split('?')[0].split('/')[0]; return h('a', {href: '#' + l.link, class: 'text-nowrap', onclick: (e) => e.stopPropagation()}, PAGE_NAME[pg] || pg); }},
   ], [...act, SUMMARY, ...rest], {detail: (l) => (l.summary ? '' : lineDetail(l))});
+  // the gates per company, Pass or Fail each, folded with the passing lines (the facts the old by-company card held)
+  const byCo = h('tr', {class: 'gates-by-company'}, h('td', {colspan: 6}, gatesByCompany(cl)));
+  lines.querySelector('tbody').append(byCo);
   // the summary row opens and closes the passing lines (and any line detail opened under them); it never opens a detail of its own
-  const trs = [...lines.querySelectorAll('tbody > tr')], sumTr = trs[act.length], restTrs = trs.slice(act.length + 1);
+  const trs = [...lines.querySelectorAll('tbody > tr')], sumTr = trs[act.length], restTrs = trs.slice(act.length + 1);  // the by-company row is the last of them
   const fold = (shut) => { for (const tr of restTrs) { tr.hidden = shut; const nx = tr.nextElementSibling; if (shut && nx && nx.classList.contains('detail')) { nx.remove(); tr.classList.remove('open'); } } sumTr.setAttribute('aria-expanded', String(!shut)); sumTr.firstChild.firstChild.textContent = shut ? '▸' : '▾'; };
   sumTr.onclick = () => { const nx = sumTr.nextElementSibling; if (nx && nx.classList.contains('detail')) { nx.remove(); sumTr.classList.remove('open'); } fold(!restTrs[0] || !restTrs[0].hidden); };  // runs after the table's own row handler, and takes back the empty detail it adds
   fold(true);

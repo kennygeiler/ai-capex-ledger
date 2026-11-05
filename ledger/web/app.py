@@ -284,6 +284,9 @@ def _flow(scope: str) -> dict:
             "industries": sorted(INDUSTRIES) + ["other"], "scope_tickers": list(SCOPE), "names": {c["ticker"]: c["name"] for c in tracked()}}
 
 
+_COUNTS_IN: dict = {}  # with_counts' inputs (a run's decisions to confirm, the unmapped names), by tickers and _stamp()
+
+
 def with_counts(con, x: dict) -> dict:
     """The Proof board (`proven` list) or one trail with its open buckets (workbench.company_counts, states.buckets): each
     company's `counts`, and each trail stage's own `counts`, so a page says Needs review 7 · Proposed 4 with the words and
@@ -294,8 +297,13 @@ def with_counts(con, x: dict) -> dict:
     from ..core.states import buckets, row
     cos = x["proven"] if isinstance(x.get("proven"), list) else [x]  # the board's `proven` is its companies; a trail's is a flag
     tickers = [c["ticker"] for c in cos]
-    unc = [r for r in res_.unconfirmed() if (res_.parse_key(r["key"]) or {}).get("ticker") in tickers]
-    per = company_counts({"proven": cos}, unc, tax_.unmapped(con, tickers))
+    key = (tuple(tickers), _stamp(), tax_.ASSET_TYPES.stat().st_mtime_ns if tax_.ASSET_TYPES.exists() else 0)  # read once per _flow stamp (and mapping file)
+    if key not in _COUNTS_IN:
+        if len(_COUNTS_IN) > 24:
+            _COUNTS_IN.clear()
+        _COUNTS_IN[key] = ([r for r in res_.unconfirmed() if (res_.parse_key(r["key"]) or {}).get("ticker") in tickers], tax_.unmapped(con, tickers))
+    unc, um = _COUNTS_IN[key]
+    per = company_counts({"proven": cos}, unc, um)
     for c in cos:
         c["counts"] = per[c["ticker"]]
         for st in (c.get("stages") or {}).values():

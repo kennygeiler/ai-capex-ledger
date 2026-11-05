@@ -910,6 +910,9 @@
       - tests.test_flow.OneNumber.test_proof_board_trail_reconcile_and_release_say_the_same_numbers_for_every_company
       - tests.test_flow.OneNumber.test_pages_say_buckets_not_a_to_review_total
       - tests.test_flow.OneNumber.test_bucket_parts_leave_zeros_out_in_one_order
+      - tests.test_flow.OneNumber.test_a_decision_key_that_does_not_parse_raises
+      - tests.test_flow.OneNumber.test_counts_read_their_inputs_once_per_stamp
+      - tests.test_flow.OneNumber.test_needs_review_names_each_unmapped_category_and_proposed_lists_each_item
       - tests.test_flow.StaleRulesTable.test_reconcile_lists_every_live_reading_that_differs_even_with_no_exception_row
       - tests.test_checklist.Parity.test_release_lines_equal_reconcile_header_buckets_on_the_real_database
   status: partial
@@ -922,7 +925,8 @@
   where: [ledger/web/pages/release.js, ledger/release/checklist.py, docs/OPERATIONS.md]
   shown: ["checks pass", "informational", "Fingerprint", "GATE_NOTE", "Neither verified nor explained, and nothing proposed", "Category mappings and run decisions waiting for a person",
           "A block rule or a person's decision holds the release", "Kept with an empty value", "Rows added, removed or changed, by list", "Known limitations with no mitigation", "Matches the register",
-          "Built, not yet written", "Compared with"]
+          "Built, not yet written", "Compared with", "Hand-check file for this stage missing · export from Proof", "Test run not run", "Regression test not run",
+          "unmapped_category", "gatesByCompany", "Result"]
   backed_by:
     functions: [ledger.release.checklist.checklist]
     tests:
@@ -930,29 +934,33 @@
       - tests.test_flow.ReleasePage.test_the_notes_without_a_database_are_product_copy
       - tests.test_flow.ReleasePage.test_failing_lines_first_and_the_rest_folded_under_one_row
       - tests.test_flow.ReleasePage.test_no_gate_card_and_each_list_once
+      - tests.test_flow.ReleasePage.test_each_company_keeps_its_gate_counts_and_result
+      - tests.test_flow.ReleasePage.test_no_command_on_the_page
   status: partial
   gaps:
-    - The gate lines' details list every company, zero or not; the old by-company card's Pass/Fail per company is not shown as one word.
+    - The gates by company sit folded with the passing lines; a company that fails a gate shows its count there and in the failing line's detail.
   ticket: none
 
 - id: mapping_queue
-  claim: "Category mapping is two cards, Proposed and Matches company tag; Approve all N shows the list, takes one confirm and writes each approval through the same writer with what the page showed, stopping at the first refusal; Choose another starts empty, or on the company's own tag when it differs"
+  claim: "Category mapping is two cards, Proposed and Matches company tag; Approve all N shows the list and takes one confirm; the server re-derives each item's verdict (the company's own tag matches), the person, the member and what the page showed, all before the first write, refuses the whole batch on any one (400, or 409 when stale), and writes every confirmation in one locked write or none; Choose another starts empty, or on the company's own tag when it differs"
   where: [ledger/web/pages/reconcile.js, ledger/review/mapper.py, ledger/web/app.py, docs/API.md, /api/mapping/bulk]
-  shown: ["Category mapping · Proposed", "Category mapping · Matches company tag", "Approve all", "Choose a category", "Couldn’t approve", "categories", "approve_many", "Reload"]
+  shown: ["Category mapping · Proposed", "Category mapping · Matches company tag", "Approve all", "Choose a category", "Approved", "bulkResult", "categories", "approve_many", "BULK_MAX", "Reload"]
   backed_by:
-    functions: [ledger.review.mapper.approve_many, ledger.review.mapper.approve]
+    functions: [ledger.review.mapper.approve_many, ledger.review.mapper.matched, ledger.review.mapper.approve]
     tests:
-      - tests.test_flow.MappingQueue.test_each_item_goes_through_approve_with_its_expected
-      - tests.test_flow.MappingQueue.test_it_stops_at_a_stale_entry_and_writes_nothing_after_it
+      - tests.test_flow.MappingQueue.test_every_entry_confirmed_in_one_write_with_the_single_approve_checks
+      - tests.test_flow.MappingQueue.test_a_stale_entry_refuses_the_batch_and_writes_nothing
+      - tests.test_flow.MappingQueue.test_a_category_the_server_does_not_find_matching_refuses_the_batch
       - tests.test_flow.MappingQueue.test_a_name_off_the_people_list_writes_nothing
-      - tests.test_flow.MappingQueue.test_a_bulk_never_changes_a_member
-      - tests.test_flow.MappingQueue.test_the_route_calls_approve_many
+      - tests.test_flow.MappingQueue.test_a_bulk_never_changes_a_member_repeats_nothing_and_has_a_cap
+      - tests.test_flow.MappingQueue.test_the_route_refuses_a_proposed_item_with_400_and_writes_nothing
       - tests.test_flow.MappingQueue.test_choose_another_starts_empty_or_on_the_companys_tag
       - tests.test_flow.MappingQueue.test_approve_all_lists_only_matching_categories_with_what_the_page_showed
       - tests.test_flow.MappingQueue.test_mapping_cards_draw_no_number_columns_and_one_action_set
   status: partial
   gaps:
-    - Approve all writes one entry at a time; a refusal part-way leaves the ones before it approved, and says how many.
+    - The verdict is read when the batch arrives; a company tag that changes on disk between the read and the write is not re-read (the entries themselves are re-checked under the lock).
+    - The proposals log is appended after the write, one line per entry; a failure there leaves the file confirmed and the log short.
   ticket: none
 
 - id: reconcile_rule_findings

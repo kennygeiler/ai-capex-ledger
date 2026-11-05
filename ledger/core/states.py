@@ -141,9 +141,13 @@ def buckets(pairs) -> dict:
     (tests.test_flow.OneNumber). A company whose rows are all settled still gets its zeros."""
     out: dict = {}
     for t, w in pairs:
+        if w not in ROW.names():
+            raise ValueError(f"{w!r} is not a row word (states.ROW)")
         b = out.setdefault(t, dict.fromkeys(BUCKETS, 0))
         if w in b:
             b[w] += 1
+        elif ROW.get(w).kind in NEVER_GOOD:  # a row nothing decided (Not checked) is open work: Needs review, never counted nowhere
+            b["bad"] += 1
     return out
 
 

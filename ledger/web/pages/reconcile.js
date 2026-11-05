@@ -9,6 +9,8 @@ const causeKey = (r) => (isMatch(r) ? 'asset_types_match' : r.cause);
 const expectedOf = (r) => (r.evidence.mapping === 'unmapped' || !r.evidence.proposal ? null : {standard_type: r.evidence.proposal.standard_type, at: r.evidence.proposal.at || null});
 // "Approve all N": one item per matching category, each confirming the member shown, with the entry the page showed
 const bulkApproveItems = (rows) => rows.filter((r) => isMatch(r) && r.evidence.proposal && expectedOf(r)).map((r) => ({ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: r.evidence.proposal.standard_type, evidence: r.evidence.proposal.evidence || r.evidence.reported_name, expected: expectedOf(r)}));
+// what an Approve all wrote, from the server's reply: "Approved 18 of 18: AMZN Land, …"
+const bulkResult = (out, n) => `Approved ${out.approved} of ${n}` + ((out.items || []).length ? `: ${out.items.map((x) => `${x.ticker} ${x.reported_name}`).join(', ')}` : '');
 // Choose another starts empty, or on the company's own tag when it differs from the proposal and is on the list; never the first option
 const bare = (m) => String(m || '').replace(/^us-gaap:/, '');
 const chooseDefault = (tag, members) => (tag && tag.status === 'differs' && members.map(bare).includes(bare(tag.member)) ? bare(tag.member) : '');
@@ -80,11 +82,12 @@ async function reconcilePage(view, qs) {
   const causes = CAUSE_ORDER.filter((c) => d.rows.some((r) => r.cause === c)), layers = [...new Set(d.rows.map((r) => r.layer))].sort(), fields = [...new Set(d.rows.map((r) => r.field).filter(Boolean))].sort();
   const sel = (label, value, opts, key) => h('select', {class: 'form-select form-select-sm', 'aria-label': label, onchange: (e) => setQ({[key]: e.target.value})}, opts.map(([v, t]) => h('option', {value: v, selected: v === value || null}, t)));
   const openRows = rows.filter(isOpen);
-  const nState = (s) => (d.by_state || {})[s] || 0;  // the server counts by states.row, the word each row shows
+  const nState = (s) => Object.values(d.by_company || {}).reduce((n, c) => n + (c[s] || 0), 0);  // the one per-company count (states.buckets), summed over the scope
   const stat = (label, n, cls, always) => (n || always ? h('span', {class: 'me-3'}, h('span', {class: 'text-secondary'}, label + ' '), h('span', {class: (cls || '') + ' fw-medium'}, int(n))) : '');
   const header = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'small mt-1'},
       ...OPEN_BUCKETS.map((s, i) => { const [cls, word] = stateWord('row', s); return stat(word, nState(s), cls, i === 0); }),  // the one per-company count's buckets (states.buckets), as Proof and Release say them
+      (() => { const [cls, word] = stateWord('row', 'info'); return stat(word, (d.by_state || {}).info || 0, cls); })(),  // explained rows: an info stat, never part of the open buckets
       h('span', {class: 'text-secondary me-3'}, `Last run ${day(d.last_run)}`), d.release ? h('span', {class: 'text-secondary me-3'}, `Last release ${d.release}`) : '',
       h('span', {class: 'text-secondary', title: 'j k move · Enter opens · a e f b decide · space selects'}, 'Keyboard')))));
   const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},
@@ -112,9 +115,9 @@ async function reconcilePage(view, qs) {
         go_.disabled = true; status.classList.remove('text-red'); status.textContent = 'Saving…';
         try {
           const out = await api('/api/mapping/bulk', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({items, by: me})});
-          status.textContent = `Approved ${int(out.approved)}.`; setTimeout(route, 400);
-        } catch (err) {
-          status.classList.add('text-red'); status.replaceChildren(`Couldn’t approve: ${err.message}.`, ' ', h('button', {type: 'button', class: 'btn btn-sm btn-link p-0 align-baseline', onclick: route}, 'Reload'));
+          status.textContent = bulkResult(out, items.length); setTimeout(route, 1200);
+        } catch (err) {  // the server checks everything before it writes and writes all or none: the message says Approved 0 of N and why
+          status.classList.add('text-red'); status.replaceChildren(`${err.message}.`, ' ', h('button', {type: 'button', class: 'btn btn-sm btn-link p-0 align-baseline', onclick: route}, 'Reload'));
         }
       }}, `Approve ${int(items.length)}`));
       approveAllPanel.replaceChildren(

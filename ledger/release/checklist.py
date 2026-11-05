@@ -305,7 +305,7 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     no .git) the commit cannot be compared: informs, "commit not compared: no git", never a verified pass.
     `head` and `changed` are read from the checkout unless a test passes them."""
     if t is None:
-        return _line("tests", "Test run", True, 0, "not_run", "proof", "not run: run ledger test")
+        return _line("tests", "Test run", True, 0, "not_run", "proof", "Test run not run")
     fails = t.get("failures") or []
     golden = t.get("golden")
     g_note = {True: "regression test ok", False: "regression test FAILED"}.get(golden, "regression test skipped, see its own line")
@@ -324,7 +324,7 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     stale = moved or bool(t.get("dirty"))
     if stale:
         why = "dirty tree" if t.get("dirty") else f"HEAD is {head}"
-        return _line("tests", "Test run", True, 0, "stale", "proof", f"stale ({why}): run ledger test; {base}", detail)
+        return _line("tests", "Test run", True, 0, "stale", "proof", f"Stale: {why}; {base}", detail)
     return _line("tests", "Test run", True, 0, "pass", "proof", base, detail)
 
 
@@ -334,7 +334,7 @@ def regression_line(g: dict | None) -> dict:
     that a number is right: the hand check is its own line (hand_check_line), read live. A report from before T82's
     split (no tables_ok) is read strictly."""
     if g is None:
-        return _line("regression", "Regression test", True, 1, "fail", "proof", "Not run: run ledger golden --check")
+        return _line("regression", "Regression test", True, 1, "fail", "proof", "Regression test not run")
     tables = bool(g.get("tables_ok") if "tables_ok" in g else (g.get("ok") and g.get("gold"))) and not g.get("failed_step")
     note = ("Tables unchanged since freeze" if tables else "Tables changed since freeze") + (f", failed at {g['failed_step']}" if g.get("failed_step") else "") + f"; checked {str(g.get('at') or '')[:10] or 'never'}"
     detail = [{"table": k, "only_in_run": v.get("n_only_in_run"), "only_in_expected": v.get("n_only_in_expected")} for k, v in (g.get("diffs") or {}).items()]
@@ -406,7 +406,7 @@ def doc_line(doc=None, text=None) -> dict:
         return _line("claims_doc", label, True, 1, "fail", "gaps", f"could not compare: {e.__class__.__name__}: {str(e)[:160]}")
     if have == want:
         return _line("claims_doc", label, True, 0, "pass", "gaps", "Matches the register")
-    return _line("claims_doc", label, True, 1, "fail", "gaps", "Missing: run ledger claims and commit" if have is None else "Differs from the register: run ledger claims and commit")
+    return _line("claims_doc", label, True, 1, "fail", "gaps", "Missing" if have is None else "Differs from the register")
 
 
 def _head() -> str | None:
@@ -443,8 +443,9 @@ def g6_link(unconfirmed: list, mappings: list) -> str:
 
 def g6_detail(unconfirmed: list, mappings: list) -> list[dict]:
     """G6's items one per key: the key, its state, the reason and the page that fixes it."""
-    return ([{"key": r["key"], "state": r["state"], "reason": (r.get("reason") or "")[:160], "link": "reconcile?cause=to_confirm"} for r in unconfirmed]
-            + [{"key": f"asset_types|{m['ticker']}|{m['reported_name']}", "state": "to confirm", "reason": f"{m.get('standard_type')} proposed by {m.get('by')}",
+    from ..core.states import word
+    return ([{"company": (resolutions.parse_key(r["key"]) or {}).get("ticker", ""), "key": r["key"], "state": r["state"], "reason": (r.get("reason") or "")[:160], "link": "reconcile?cause=to_confirm"} for r in unconfirmed]
+            + [{"company": m["ticker"], "key": f"asset_types|{m['ticker']}|{m['reported_name']}", "state": word("row", "wait"), "reason": f"{m.get('standard_type')} proposed by {m.get('by')}",
                 "link": f"reconcile?scope={m['ticker']}&cause=asset_types"} for m in mappings])
 
 
@@ -470,19 +471,19 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     um = taxonomy.unmapped(con, list(SCOPE))     # T14: the unmapped asset types, counted under Needs review whether or not the board lists them
     rc = review_counts(board, unc, um)
     open_, blocked, per_co = rc["bad"], rc["blocked"], rc["per_company"]  # rc["wait"] is the G6 line's count (tests.test_checklist.Parity)
-    unc_t = lambda t: [r for r in unc if (resolutions.parse_key(r["key"]) or {}).get("ticker") == t]
     for gid in GATES:
         by_t = p["gates"][gid]
         n = sum(len(v) for v in by_t.values())
         detail = [{"company": t, "items": len(items), "example": items[0] if items else "", **({"link": _scoped(GATE_FIX[gid], t)} if items else {})} for t, items in by_t.items()]
-        if gid == "G6":  # the Proposed bucket, per company (the count every page shows), each with the page that holds its items
-            detail = [{"company": x["ticker"], "proposed": x["proposed"], "link": _scoped(g6_link(unc_t(x["ticker"]), [m for m in utc if m["ticker"] == x["ticker"]]), x["ticker"])} for x in per_co if x["proposed"]]
+        if gid == "G6":  # the Proposed bucket: one row per item (company, key, state, reason), each with the page that fixes it
+            detail = g6_detail(unc, utc)
         no_hc = gid == "G5" and any(v == ["no hand-check file"] for v in by_t.values())
         lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", g6_link(unc, utc) if gid == "G6" else GATE_FIX[gid],
-                           GATE_NOTE[gid] + ("; no hand-check file for this stage" if no_hc else ""), detail))
+                           GATE_NOTE[gid] + (" · Hand-check file for this stage missing · export from Proof" if no_hc else ""), detail))
     lines.append(_line("open", word("row", "bad"), True, open_, "pass" if open_ == 0 else "fail", NEEDS_REVIEW_FIX,
                        "Neither verified nor explained, and nothing proposed" + (f"; {len(um)} are categories with no mapping" if um else ""),
-                       [{"company": x["ticker"], "needs_review": x["open"], "link": _scoped(NEEDS_REVIEW_FIX, x["ticker"])} for x in per_co if x["open"]]))
+                       [{"company": x["ticker"], "needs_review": x["open"], "link": _scoped(NEEDS_REVIEW_FIX, x["ticker"])} for x in per_co if x["open"]]
+                       + [{"company": m["ticker"], "unmapped_category": m["reported_name"], "link": _scoped("reconcile?cause=asset_types", m["ticker"])} for m in um]))
     lines.append(_line("blocked", word("row", "blocked"), True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "A block rule or a person's decision holds the release",
                        [{"company": x["ticker"], "blocks_release": x["blocked"], "link": _scoped("reconcile", x["ticker"])} for x in per_co if x["blocked"]]))
     # completeness against the answer key (T81): an XBRL value with no released value and nothing open is a silent blank

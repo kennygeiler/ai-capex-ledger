@@ -251,7 +251,11 @@ def company_counts(board: dict, unconfirmed=(), unmapped=()) -> dict:
     from ..core.states import BUCKETS, buckets, row
     on_board = {(c["ticker"], i.get("name")) for c in board["proven"] for i in (c["stages"].get("mapping") or {}).get("all", [])}
     pairs = [(c["ticker"], row(i["state"], i.get("by"))) for c in board["proven"] for s in c["stages"].values() for i in s["all"]]
-    pairs += [(k["ticker"], "wait") for k in (resolutions.parse_key(r["key"]) for r in unconfirmed) if k]
+    for r in unconfirmed:  # unconfirmed() gives live keys only; one that does not parse is a bug to see, never a count to drop
+        k = resolutions.parse_key(r["key"])
+        if not k:
+            raise ValueError(f"a decision to confirm with a key that does not parse: {r['key']!r}")
+        pairs.append((k["ticker"], "wait"))
     pairs += [(m["ticker"], "bad") for m in unmapped if (m["ticker"], m["reported_name"]) not in on_board]
     out = buckets(pairs)
     for c in board["proven"]:
