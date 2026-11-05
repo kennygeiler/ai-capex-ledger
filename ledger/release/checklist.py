@@ -537,6 +537,9 @@ def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
     from .publish import NotPublishable, publish
     if not isinstance(by, str) or not by.strip():
         raise ValueError("a signature needs a name")
+    from ..core.status import is_person
+    if not is_person(by):  # F-BF5: like every other write, a name on config.PEOPLE (T80), checked before the checklist is built
+        raise ValueError(f"{by.strip()!r} is not on config.PEOPLE, the people who may sign a release")
     with _LOCK:
         cl = checklist(con, version, stage)
         if not cl["ok"]:

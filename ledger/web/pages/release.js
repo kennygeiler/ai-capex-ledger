@@ -26,16 +26,21 @@ function diffTable(cl) {
     {t: 'Columns', f: (r) => [r.columns_added.length ? `+${r.columns_added.length}` : '', r.columns_removed.length ? `−${r.columns_removed.length}` : ''].filter(Boolean).join(' ') || '—'}], rows);
 }
 
+// [enabled, why] for the Sign button: every required line green and a signer on the people list (config.PEOPLE, sent with the checklist)
+const signState = (cl, name) => { const n = (name || '').trim(), red = cl.lines.filter((l) => l.required && !l.ok).length; return red ? [false, `${red} required check${red === 1 ? '' : 's'} failing`] : !n ? [false, 'Enter a signer name'] : !(cl.people || []).includes(n) ? [false, 'Not on the signer list'] : [true, `Signs and publishes ${cl.version}`]; };
+
 async function releasePage(view, qs) {
   const q = parseQ(qs || '');
   const cl = await api('/api/v1/release/checklist' + (q.version ? `?version=${encodeURIComponent(q.version)}` : ''));
   const required = cl.lines.filter((l) => l.required), green = required.filter((l) => l.ok).length;
-  const canSign = cl.ok && !!(me || '').trim();
-  const why = !cl.ok ? `${required.length - green} required check${required.length - green === 1 ? '' : 's'} failing` : !(me || '').trim() ? 'Enter a signer name' : `Signs and publishes ${cl.version}`;
+  let [canSign, why] = signState(cl, me);
   const status = h('div', {class: 'text-secondary small', id: 'signmsg', role: 'status', 'aria-live': 'polite'}, why);
+  // the Signer box is read on every keystroke: Sign enables and disables with the name, never fixed at render (F-BF5)
+  const recheck = () => { if (!button.isConnected || button.dataset.busy) return; [canSign, why] = signState(cl, me); button.disabled = !canSign; button.title = why; status.replaceChildren(why); };
+  document.addEventListener('input', (e) => { if (e.target.id === 'me') recheck(); });
   const button = h('button', {type: 'button', class: 'btn btn-primary', disabled: !canSign, title: why, onclick: async () => {
     if (!confirm(`Sign and publish ${cl.version} as ${me}?`)) return;
-    button.disabled = true;
+    button.disabled = true; button.dataset.busy = '1';
     status.textContent = `Signing ${cl.version}…`;
     try {
       const r = await api('/api/release/sign', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({version: cl.version, by: me})});
@@ -44,7 +49,8 @@ async function releasePage(view, qs) {
       if (r.published) setTimeout(() => go('proof'), 2500);  // a failed publish stays on screen
     } catch (e) {
       status.replaceChildren(h('span', {class: 'text-red'}, e.message));
-      button.disabled = !canSign;
+      delete button.dataset.busy;
+      button.disabled = !signState(cl, me)[0];
     }
   }}, `Sign ${cl.version}`);
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},

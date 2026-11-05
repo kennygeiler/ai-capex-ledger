@@ -593,13 +593,17 @@
 - id: release_signoff
   claim: "Sign"
   where: [ledger/web/pages/release.js, ledger/web/pages/proof.js, /api/release/sign]
-  shown: ["`Sign ${cl.version}`", "signed by", "not published", "Signed, not published"]
+  shown: ["`Sign ${cl.version}`", "signed by", "not published", "Signed, not published", "Enter a signer name", "Not on the signer list"]
   backed_by:
     functions: [ledger.release.checklist.sign, ledger.release.checklist.checklist]
     tests:
       - tests.test_checklist.Sign.test_refuses_while_a_required_line_is_red_and_writes_nothing
       - tests.test_checklist.Sign.test_two_signatures_at_once_leave_one
       - tests.test_checklist.Sign.test_a_failed_publish_leaves_the_signature_and_records_the_failure
+      - tests.test_checklist.Sign.test_refuses_a_name_off_config_people_before_the_checklist
+      - tests.test_checklist.Endpoints.test_a_name_off_config_people_is_400_on_sign_and_mapping_reject
+      - tests.test_pages_js.SignButton.test_enabled_only_for_a_name_on_the_list_with_every_required_line_green
+      - tests.test_pages_js.SignButton.test_the_page_rechecks_on_every_input_to_the_signer_box
   status: partial
   gaps:
     - The signer is a typed name; nobody signs in.

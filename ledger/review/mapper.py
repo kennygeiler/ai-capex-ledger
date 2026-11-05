@@ -119,6 +119,8 @@ def reject(ticker: str, reported_name: str, standard_type: str, by: str, reason:
     written meanwhile is seen and the confirmed line is never removed."""
     if not ticker.strip() or not reported_name.strip() or not standard_type.strip() or not by.strip():
         raise ValueError("a rejection needs the ticker, the reported name, the member rejected and a name")
+    if not is_person(by):  # F-BF5: the same name check as Approve and every other write (T80)
+        raise ValueError(f"{by.strip()!r} is not on config.PEOPLE, the people who may reject a mapping")
     ticker, reported_name, standard_type, by = ticker.strip().upper(), reported_name.strip(), standard_type.strip(), by.strip()
     y = yaml_path or ASSET_TYPES
     removed = {}

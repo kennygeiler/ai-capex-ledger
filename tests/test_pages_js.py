@@ -81,5 +81,30 @@ class BulkSelect(unittest.TestCase):
         self.assertNotIn("for (const r of open) selected.add(r.key)", js)
 
 
+@unittest.skipUnless(shutil.which("node"), "no node")
+class SignButton(unittest.TestCase):
+    """F-BF5: Sign's enabled state was fixed at render; typing a name changed nothing. signState decides it from the
+    checklist and the Signer box, and the page re-reads it on every input to the box."""
+
+    def state(self, cl, name):
+        js = line("release.js", "const signState") + "\nconst a = JSON.parse(process.argv[process.argv.length - 1]);\nprocess.stdout.write(JSON.stringify(signState(a[0], a[1])));"
+        return json.loads(node(js, json.dumps([cl, name])))
+
+    CL = {"version": "v1.9.0", "people": ["Kenny Geiler"], "lines": [{"required": True, "ok": True}, {"required": False, "ok": False}]}
+
+    def test_enabled_only_for_a_name_on_the_list_with_every_required_line_green(self):
+        self.assertEqual(self.state(self.CL, "Kenny Geiler"), [True, "Signs and publishes v1.9.0"])
+        self.assertEqual(self.state(self.CL, " Kenny Geiler "), [True, "Signs and publishes v1.9.0"])
+        self.assertEqual(self.state(self.CL, ""), [False, "Enter a signer name"])
+        self.assertEqual(self.state(self.CL, "Mallory"), [False, "Not on the signer list"])
+        red = {**self.CL, "lines": [{"required": True, "ok": False}]}
+        self.assertEqual(self.state(red, "Kenny Geiler"), [False, "1 required check failing"])
+
+    def test_the_page_rechecks_on_every_input_to_the_signer_box(self):
+        js = (PAGES / "release.js").read_text()
+        self.assertIn("document.addEventListener('input', (e) => { if (e.target.id === 'me') recheck(); });", js)
+        self.assertIn("button.disabled = !canSign", js)
+
+
 if __name__ == "__main__":
     unittest.main()

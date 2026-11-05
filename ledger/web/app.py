@@ -460,7 +460,8 @@ class Handler(BaseHTTPRequestHandler):
             def cl():
                 con = _con()
                 try:
-                    return checklist(con, q.get("version") or None, STAGE)
+                    from ..core.config import PEOPLE  # who may sign: the page disables Sign for any other name (F-BF5), the server refuses it
+                    return {**checklist(con, q.get("version") or None, STAGE), "people": list(PEOPLE)}
                 finally:
                     con.close()
             return self._guard(lambda: self._json(cl()))
