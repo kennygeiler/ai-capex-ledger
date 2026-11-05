@@ -7,8 +7,8 @@
   "tests.test_publish_pg.RetypeUnderAView.test_text_column_becomes_boolean_although_current_view_depends_on_it"
  ],
  "golden": true,
- "at": "2026-11-05T07:07:17+00:00",
- "git": "b76aa9e",
+ "at": "2026-11-05T07:11:15+00:00",
+ "git": "6a41b97",
  "dirty": false,
- "seconds": 174.7
+ "seconds": 170.9
 }
