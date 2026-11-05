@@ -25,7 +25,18 @@ const signerWhy = (name) => (!(name || '').trim() ? 'Enter a signer name' : 'Not
 const needsMe = (btn) => { btn.disabled = !isSigner(me); NEEDS_ME.add(btn); return writes(btn); };
 document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of NEEDS_ME) b.disabled = !isSigner(me); });
 const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Block release'};
-const RES_HELP = {accept: 'Right as it stands', explain: 'Right, with the reason kept', fix: 'Wrong; stays open until re-read', blocks: 'Blocks release until settled'};
+const RES_HELP = {accept: 'Right as it stands', explain: 'Right, with the reason kept', fix: 'Wrong; stays open until the next run', blocks: 'Blocks release until settled'};
+// what a decision does to the item, shown beside the choice before Save (STORY-027: Fix read as fixed while the item stayed open)
+const RES_EFFECT = {accept: 'Closes the item', explain: 'Closes the item · reason kept', fix: 'Item stays open until the next run', blocks: 'Blocks release until settled'};
+// a decision starts unchosen (STORY-027: Accept came preselected); Save waits for one. A saved row reopens on its own decision
+const startState = (r) => (r && r.resolution ? r.resolution.state : null);
+// STORY-027: rule findings in groups of company + field + check, so one tick selects a batch and no Field filter is needed
+const ruleGroupKey = (r) => (r.cause === 'finding_unconfirmed' ? `${r.ticker}|${r.field || ''}|${r.cause_label}` : null);
+const ruleOrder = (a, b) => a.ticker.localeCompare(b.ticker) || (a.field || '').localeCompare(b.field || '') || String(a.cause_label).localeCompare(String(b.cause_label)) || String(b.period || '').localeCompare(String(a.period || ''));
+const ruleGroups = (rows) => { const m = new Map(); for (const r of rows) { const k = ruleGroupKey(r); if (!m.has(k)) m.set(k, []); m.get(k).push(r); } return [...m].map(([key, list]) => ({key, rows: list})); };
+// a "Readings differ" row whose dataset already uses the newest filing's reading: that fact is the reason, prefilled (the decision is still the person's)
+const laterReading = (r) => { const R = (r.evidence || {}).restatement, u = R && R.used; if (r.cause !== 'finding_unconfirmed' || !u || !(R.steps || []).length) return null; return R.steps[R.steps.length - 1].filings.some((f) => f.extraction_id === u.extraction_id) ? u : null; };
+const prefillReason = (items) => (items.length && items.every(laterReading) ? (items.length === 1 ? `Later filing’s reading used · ${laterReading(items[0]).form || '10-K'} ${laterReading(items[0]).filed || ''}`.trim() : 'Later filing’s reading used') : '');
 const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yellow-lt', blocks: 'bg-red-lt'};
 // the one definition of open (status.state, docs/PROOF.md): every row carries state, by and verification (states.row, the
 // word the trail and Proof use for the same row); the page only shows them, in ledger/core/states.py's words (/pages/_states.js)
@@ -97,6 +108,7 @@ async function reconcilePage(view, qs) {
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'small mt-1'},
       ...OPEN_BUCKETS.map((s, i) => { const [cls, word] = stateWord('row', s); return stat(word, nState(s), cls, i === 0, s); }),  // the one per-company count's buckets (states.buckets), as Proof and Release say them
       (() => { const [cls, word] = stateWord('row', 'info'); return stat(word, (d.by_state || {}).info || 0, cls, false, 'info'); })(),  // explained rows: an info stat, never part of the open buckets
+      h('a', {href: '#release', class: 'me-3' + (openRows.length ? '' : ' fw-semibold'), title: 'Open items this list shows'}, `${int(openRows.length)} left · Release`),  // STORY-027: the way back once the queue is cleared
       h('span', {class: 'text-secondary me-3'}, `Last run ${day(d.last_run)}`), d.release ? h('span', {class: 'text-secondary me-3'}, `Last release ${d.release}`) : '',
       // V14: the keys are a disclosure reachable by Tab, not a hover-only title
       h('details', {class: 'keys d-inline-block'}, h('summary', {class: 'text-secondary'}, 'Keyboard'), h('span', {class: 'text-secondary ms-2'}, 'j k move · Enter opens · Esc closes · a e f b decide · space selects'))))));
@@ -113,6 +125,7 @@ async function reconcilePage(view, qs) {
   const selected = new Set();
   let cur = -1;
   const trs = [];
+  const groupBoxes = [];  // each rule group's tick and the keys it selects
   const bulk = writes(h('div', {class: 'card bulkbar', hidden: true}));  // V8: fixed over the page bottom, never in the flow above the rows
   const groups = new Map();
   // "Approve all N" on Matches company tag: shows the list it will approve, one confirm, then each through the same writer
@@ -141,7 +154,7 @@ async function reconcilePage(view, qs) {
     return btn;
   }
   const keyOf = (r) => (group === 'cause' ? causeKey(r) : r.ticker);
-  const ordered = [...rows].sort((a, b) => (group === 'cause' ? CAUSE_ORDER.indexOf(causeKey(a)) - CAUSE_ORDER.indexOf(causeKey(b)) || (isAsset(a) && isAsset(b) ? Number(b.open) - Number(a.open) : 0) || b.dollars - a.dollars || a.ticker.localeCompare(b.ticker) : a.name.localeCompare(b.name) || CAUSE_ORDER.indexOf(a.cause) - CAUSE_ORDER.indexOf(b.cause) || b.dollars - a.dollars));
+  const ordered = [...rows].sort((a, b) => (group === 'cause' ? CAUSE_ORDER.indexOf(causeKey(a)) - CAUSE_ORDER.indexOf(causeKey(b)) || (isAsset(a) && isAsset(b) ? Number(b.open) - Number(a.open) : 0) || (ruleGroupKey(a) && ruleGroupKey(b) ? ruleOrder(a, b) : 0) || b.dollars - a.dollars || a.ticker.localeCompare(b.ticker) : a.name.localeCompare(b.name) || CAUSE_ORDER.indexOf(a.cause) - CAUSE_ORDER.indexOf(b.cause) || b.dollars - a.dollars));
   for (const r of ordered) groups.set(keyOf(r), [...(groups.get(keyOf(r)) || []), r]);
   const cards = [];
   for (const [g, list] of groups) {
@@ -150,7 +163,10 @@ async function reconcilePage(view, qs) {
     const selectable = bulkKeys(open);
     const tbody = h('tbody');
     const assetCard = group === 'cause' && (g === 'asset_types' || g === 'asset_types_match');  // a mapping card: no Dataset, SEC XBRL, Gap or Difference columns, always — on its rows
+    const ruleCard = group === 'cause' && g === 'finding_unconfirmed';
+    const groupOf = new Map(ruleCard ? ruleGroups(list).map((x) => [x.rows[0], x]) : []);  // the group header goes above its first row
     for (const r of list) {
+      if (groupOf.has(r)) tbody.append(ruleGroupRow(groupOf.get(r)));
       const i = trs.length;
       const cb = !bulkable(r) ? '' : writes(h('input', {class: 'form-check-input m-0', type: 'checkbox', tabindex: -1, 'aria-label': `Select ${r.name} ${r.field ? (LABEL[r.field] || r.field) : r.where}${r.period ? ' ' + r.period : ''}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }}));  // a mapping is approved one at a time, never in bulk (bulkable)
       const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, tabindex: -1, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label];
@@ -181,7 +197,14 @@ async function reconcilePage(view, qs) {
           assetCard ? h('th', {}, 'Proposed') : [h('th', {class: 'num'}, 'Dataset'), h('th', {class: 'num'}, group === 'cause' && (g === 'fact_differs' || g === 'value_missing') ? 'SEC XBRL' : 'Compared with'), h('th', {}, 'Gap'), h('th', {class: 'num'}, 'Difference')], h('th', {}, 'Decision'))),
         tbody))));
   }
-  function paint() { wrap.querySelectorAll('.decision-panel').forEach((x) => { x.hidden = selected.size > 0; }); for (const t of trs) { const c = t.tr.querySelector('input[type=checkbox]'); if (c) c.checked = selected.has(t.r.key); } bulk.hidden = selected.size === 0; const selRows = [...selected].map((k) => trs.find((t) => t.r.key === k).r); bulk.replaceChildren(h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 small text-secondary'}, h('b', {class: 'text-body'}, int(selected.size)), ' selected'), h('div', {class: 'col'}, resolutionForm(null, [...selected].map((k) => trs.find((t) => t.r.key === k).r), () => { selected.clear(); paint(); })), h('div', {class: 'col-auto'}, h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary', onclick: () => { selected.clear(); paint(); }}, 'Clear'))))); }
+  // a group's header row: one tick selects the group's open rows for one decision; its words are the rows' own (name, field label, check)
+  function ruleGroupRow(gr) {
+    const r = gr.rows[0], keys = bulkKeys(gr.rows.filter(isOpen));
+    const cb = keys.length ? writes(h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${LABEL[r.field] || r.field || ''} ${r.cause_label}`, onclick: (e) => { e.stopPropagation(); for (const k of keys) (e.target.checked ? selected.add(k) : selected.delete(k)); paint(); }})) : '';
+    if (cb) groupBoxes.push({cb, keys});
+    return h('tr', {class: 'rule-group'}, h('td', {class: 'w-1'}, cb), h('td', {colspan: 7, class: 'small'}, h('span', {class: 'fw-semibold'}, `${r.name} · ${r.field ? (LABEL[r.field] || r.field) : r.where} · ${r.cause_label}`), h('span', {class: 'text-secondary ms-2'}, `${int(gr.rows.length)} ${gr.rows.length === 1 ? 'row' : 'rows'}`)));
+  }
+  function paint() { for (const g of groupBoxes) { const n = g.keys.filter((k) => selected.has(k)).length; g.cb.checked = n === g.keys.length; g.cb.indeterminate = n > 0 && n < g.keys.length; } wrap.querySelectorAll('.decision-panel').forEach((x) => { x.hidden = selected.size > 0; }); for (const t of trs) { const c = t.tr.querySelector('input[type=checkbox]'); if (c) c.checked = selected.has(t.r.key); } bulk.hidden = selected.size === 0; const selRows = [...selected].map((k) => trs.find((t) => t.r.key === k).r); bulk.replaceChildren(h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 small text-secondary'}, h('b', {class: 'text-body'}, int(selected.size)), ' selected'), h('div', {class: 'col'}, resolutionForm(null, [...selected].map((k) => trs.find((t) => t.r.key === k).r), () => { selected.clear(); paint(); })), h('div', {class: 'col-auto'}, h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary', onclick: () => { selected.clear(); paint(); }}, 'Clear'))))); }
   function paintCur() { trs.forEach((t, j) => t.tr.classList.toggle('cur', j === cur)); }
   function toggle(i, force) {
     const t = trs[i]; cur = i; paintCur();
@@ -328,11 +351,13 @@ async function reconcilePage(view, qs) {
   }
   function resolutionForm(r, many, done) {
     const items = many || [r];
-    let state = r && r.resolution ? r.resolution.state : 'accept';
-    const btns = Object.keys(RES_LABEL).map((s) => h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary' + (s === state ? ' active' : ''), 'data-state': s, 'aria-pressed': String(s === state), title: RES_HELP[s], onclick: (e) => { state = s; e.currentTarget.parentNode.querySelectorAll('.btn').forEach((b) => { b.classList.toggle('active', b.dataset.state === s); b.setAttribute('aria-pressed', String(b.dataset.state === s)); }); }}, RES_LABEL[s]));
-    const reason = h('input', {type: 'text', class: 'form-control form-control-sm', name: 'reason', autocomplete: 'off', placeholder: many ? `Why, for all ${items.length}, e.g. accrual capex, cash basis differs` : 'e.g. includes finance leases, note 7', 'aria-label': 'Reason', value: r && r.resolution ? r.resolution.reason : '', onkeydown: (e) => { if (e.key === 'Enter') save.click(); }});
+    let state = startState(r);
+    const effect = h('span', {class: 'small text-secondary decision-effect', 'aria-live': 'polite'}, state ? RES_EFFECT[state] : 'No decision chosen');
+    const btns = Object.keys(RES_LABEL).map((s) => h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary' + (s === state ? ' active' : ''), 'data-state': s, 'aria-pressed': String(s === state), title: RES_HELP[s], onclick: (e) => { state = s; save.disabled = false; effect.textContent = RES_EFFECT[s]; effect.classList.toggle('text-orange', s === 'fix'); e.currentTarget.parentNode.querySelectorAll('.btn').forEach((b) => { b.classList.toggle('active', b.dataset.state === s); b.setAttribute('aria-pressed', String(b.dataset.state === s)); }); }}, RES_LABEL[s]));
+    const reason = h('input', {type: 'text', class: 'form-control form-control-sm', name: 'reason', autocomplete: 'off', placeholder: 'Reason', 'aria-label': 'Reason', value: r && r.resolution ? r.resolution.reason : prefillReason(items), onkeydown: (e) => { if (e.key === 'Enter') save.click(); }});
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
-    const save = h('button', {type: 'button', class: 'btn btn-sm btn-primary', onclick: async () => {
+    const save = h('button', {type: 'button', class: 'btn btn-sm btn-primary', disabled: !state, title: state ? null : 'Choose a decision first', onclick: async () => {
+      if (!state) return;
       if (!reason.value.trim()) { reason.focus(); status.textContent = 'Reason required'; return; }
       save.disabled = true; status.textContent = 'Saving…';
       try {
@@ -341,11 +366,11 @@ async function reconcilePage(view, qs) {
         status.classList.remove('text-red'); FOCUS_KEY = nextKey(trs.map((t) => t.r.key), items.map((x) => x.key)); if (done) done();
         if (!many && (state === 'accept' || state === 'explain') && canEncode(r)) {  // T36: offer to write it once before the row leaves the list
           status.replaceChildren(h('div', {class: 'mb-2'}, 'Saved. Apply to every company?'), encodePanel(r, reason.value), h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary mt-2', onclick: route}, 'Done'));
-        } else { status.textContent = 'Saved.'; setTimeout(route, 250); }
+        } else { const left = openRows.length - (state === 'accept' || state === 'explain' ? items.filter(isOpen).length : 0); status.replaceChildren(`Saved · ${int(left)} left · `, h('a', {href: '#release'}, 'Release')); setTimeout(route, left ? 250 : 1500); }
       } catch (e) { status.textContent = `Couldn’t save: ${e.message}. Try again.`; status.classList.add('text-red'); }
-      finally { save.disabled = false; }
+      finally { save.disabled = !state; }
     }}, many ? `Save for ${items.length}` : 'Save');
-    return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-auto'}, h('div', {class: 'btn-group seg', role: 'group', 'aria-label': 'Decision'}, btns)), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, reason, save)), h('div', {class: 'col-12'}, status));
+    return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-auto'}, h('div', {class: 'btn-group seg', role: 'group', 'aria-label': 'Decision'}, btns)), h('div', {class: 'col-auto'}, effect), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, reason, save)), h('div', {class: 'col-12'}, status));
   }
   function evidence(r) {
     const E = r.evidence || {}, S = r.series || [], cards = [];
@@ -413,7 +438,7 @@ async function reconcilePage(view, qs) {
     return h('div', {class: 'row g-3'}, cards, decision, once);
   }
   requestAnimationFrame(() => cutTitles(wrap));  // F-VS5: measured once the rows are laid out
-  wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No items to review'))]));
+  wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No items to review · ', h('a', {href: '#release'}, 'Release')))]));
   // V14: no row reads as current until one has focus (a save's next row does)
   if (trs.length) { const at = trs.findIndex((t) => t.r.key === FOCUS_KEY); cur = at; paintCur(); if (FOCUS_KEY && at >= 0) { trs[cur].tr.focus({preventScroll: true}); trs[cur].tr.scrollIntoView({block: 'center'}); } FOCUS_KEY = null; }
 }
