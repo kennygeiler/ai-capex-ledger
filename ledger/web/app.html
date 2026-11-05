@@ -208,6 +208,8 @@
   table.proof-board td.stage { white-space: nowrap; }
   .state-key { display: flex; flex-wrap: wrap; gap: .25rem 1rem; }
   .state-key > span { white-space: nowrap; }
+  .state-key > span[data-tip] { position: relative; cursor: help; }
+  .state-key > span[data-tip]:hover::after, .state-key > span[data-tip]:focus-visible::after { content: attr(data-tip); position: absolute; left: 0; top: calc(100% + .35rem); z-index: 1060; width: max-content; max-width: 22rem; white-space: normal; padding: .3rem .5rem; border-radius: var(--tblr-border-radius); background: var(--tblr-body-color); color: var(--tblr-bg-surface); font-weight: 400; }
   .pager { display: flex; align-items: center; gap: .75rem; padding: .5rem .75rem; }
   @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
   /* docs: the repository's markdown (pages/_markdown.js), the overview's flow diagram (pages/docs.js) */
