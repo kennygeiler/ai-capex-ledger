@@ -118,13 +118,13 @@ async function rowsView(view, q) {
   const tickSel = h('select', {'aria-label': 'Company', onchange: (e) => setQ({ticker: e.target.value})},
     h('option', {value: ''}, 'Every company'), Object.entries(NAMES).map(([t, n]) => h('option', {value: t, selected: t === ticker || null}, `${n} ${t}`)));
   const search = h('input', {type: 'text', placeholder: 'Find in rows', 'aria-label': 'Find in rows', style: 'width:16rem'});
-  const count = h('span', {class: 'text-secondary small'});
+  const count = h('span', {'aria-live': 'polite'});  // V18: the one row count, under the list's name; it follows Find ("129 rows of 617")
   const head = h('div', {class: 'page-header mb-3'}, h('div', {class: 'row align-items-center g-2'},
-    h('div', {class: 'col'}, h('div', {class: 'hrow mb-2'}, dataSwitch({...q, list: name, ticker}, 'rows'), h('h2', {class: 'm-0'}, TABLES.find(([k]) => k === name)[1])), h('div', {class: 'text-secondary small'}, `${int(d.rows.length)} rows · USD`)),
+    h('div', {class: 'col'}, h('div', {class: 'hrow mb-2'}, dataSwitch({...q, list: name, ticker}, 'rows'), h('h2', {class: 'm-0'}, TABLES.find(([k]) => k === name)[1])), h('div', {class: 'text-secondary small'}, count, ' · USD')),
     h('div', {class: 'col-auto'}, h('a', {href: csv, class: 'btn btn-outline-secondary btn-sm'}, 'CSV'), ' ', h('a', {href: `/api/v1/${name}` + (qs ? `?${qs}` : ''), target: '_blank', rel: 'noopener', class: 'btn btn-outline-secondary btn-sm'}, 'JSON'))));
   const valueSel = name === 'taxonomy' ? h('select', {'aria-label': 'Rows with a value', onchange: (e) => setQ({has_value: e.target.value})},
     [['', 'Every row'], ['true', 'With a value'], ['false', 'Without a value']].map(([v, t]) => h('option', {value: v, selected: v === hasValue || null}, t))) : '';
-  const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, valueSel, search, count);
+  const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, valueSel, search);
 
   const fmt = (k, v) => v == null || v === '' ? h('span', {class: 'text-secondary'}, '—') : typeof v === 'boolean' ? (v ? 'yes' : 'no') : typeof v === 'number' ? (Number.isInteger(v) ? v.toLocaleString('en-US') : v.toLocaleString('en-US', {maximumFractionDigits: 4})) : k === 'ticker' ? h('a', {href: `#proof/${v}`}, v) : /^https?:/.test(String(v)) ? h('a', {href: v, target: '_blank', rel: 'noopener'}, 'open') : String(v).length > 90 ? h('span', {title: String(v)}, String(v).slice(0, 90) + '…') : String(v);
   const tcol = (k) => ({t: colName(k), k, n: RAW_NUM.has(k) ? 1 : 0, f: (r) => fmt(k, r[k])});

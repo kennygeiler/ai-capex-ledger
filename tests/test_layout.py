@@ -8,6 +8,7 @@ first screen, Reconcile's rows and jumps, Dataset paging.
 V9-V23 (measured in docs/ux-visual/verification/V9-V23.md): content in its column, empty columns, the navbar at 1280, Rules
 length, filter marks, colour by state."""
 import os
+import re
 import shutil
 import threading
 import unittest
@@ -245,6 +246,25 @@ class Layout(unittest.TestCase):
             got = p.eval_on_selector_all("main thead button", "bs => bs.map((b) => [b.classList.contains('btn-link') && b.classList.contains('btn'), getComputedStyle(b).borderTopStyle])")
             self.assertTrue(got)
             self.assertTrue(all(k and st != "outset" for k, st in got), got[:3])
+
+    def test_counts_follow_what_is_shown(self):
+        """V18: with a filter on, Reconcile's header reads "N of total" for a bucket the filter narrows (the total unchanged);
+        Dataset's one count sits under the list name and follows Find."""
+        pg = self.page(1600, "reconcile")
+        pg.wait_for_selector("table.rec tr.item", timeout=60000)
+        whole = pg.text_content("main .page-header .small")
+        n = int(re.search(r"Needs review (\d+)", whole).group(1))
+        pg2 = self.page(1600, "reconcile?field=segment_capex")
+        pg2.wait_for_selector("main .page-header .small", timeout=60000)
+        shown = pg2.eval_on_selector_all("table.rec tr.item", "rs => rs.length")
+        self.assertIn(f"Needs review {shown if shown < n else n}" + (f" of {n}" if shown < n else ""), pg2.text_content("main .page-header .small").replace("\u00a0", " "))
+        pg3 = self.page(1600, "data?list=taxonomy")
+        pg3.wait_for_selector("main tbody tr", timeout=60000)
+        pg3.fill("main input[aria-label='Find in rows']", "NVDA")
+        pg3.wait_for_timeout(500)
+        head = pg3.text_content("main .page-header")
+        self.assertRegex(head, r"[\d,]+ rows of [\d,]+ · USD")
+        self.assertEqual(len(re.findall(r"[\d,]+ rows\b", pg3.text_content("main"))), 1)  # one count, not one per place
 
 if __name__ == "__main__":
     unittest.main()

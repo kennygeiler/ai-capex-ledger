@@ -83,11 +83,15 @@ async function reconcilePage(view, qs) {
   const sel = (label, value, opts, key) => h('select', {class: 'form-select form-select-sm', 'aria-label': label, onchange: (e) => setQ({[key]: e.target.value})}, opts.map(([v, t]) => h('option', {value: v, selected: v === value || null}, t)));
   const openRows = rows.filter(isOpen);
   const nState = (s) => Object.values(d.by_company || {}).reduce((n, c) => n + (c[s] || 0), 0);  // the one per-company count (states.buckets), summed over the scope
-  const stat = (label, n, cls, always) => (n || always ? h('span', {class: 'me-3'}, h('span', {class: 'text-secondary'}, label + ' '), h('span', {class: (cls || '') + ' fw-medium'}, int(n))) : '');
+  // V18: with a filter on, each count says how many of its rows the page shows: "Needs review 7 of 18" (the total is the one
+  // per-company count, flow #4; the shown part counts the listed rows in the same bucket)
+  const filtered = !!(fCause || fLayer || fField || q.kind);
+  const shownIn = (s) => rows.filter((r) => r.verification === s).length;
+  const stat = (label, n, cls, always, s) => (n || always ? h('span', {class: 'me-3'}, h('span', {class: 'text-secondary'}, label + ' '), filtered && s && shownIn(s) !== n ? [h('span', {class: (cls || '') + ' fw-medium'}, int(shownIn(s))), h('span', {class: 'text-secondary'}, ` of ${int(n)}`)] : h('span', {class: (cls || '') + ' fw-medium'}, int(n))) : '');
   const header = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'small mt-1'},
-      ...OPEN_BUCKETS.map((s, i) => { const [cls, word] = stateWord('row', s); return stat(word, nState(s), cls, i === 0); }),  // the one per-company count's buckets (states.buckets), as Proof and Release say them
-      (() => { const [cls, word] = stateWord('row', 'info'); return stat(word, (d.by_state || {}).info || 0, cls); })(),  // explained rows: an info stat, never part of the open buckets
+      ...OPEN_BUCKETS.map((s, i) => { const [cls, word] = stateWord('row', s); return stat(word, nState(s), cls, i === 0, s); }),  // the one per-company count's buckets (states.buckets), as Proof and Release say them
+      (() => { const [cls, word] = stateWord('row', 'info'); return stat(word, (d.by_state || {}).info || 0, cls, false, 'info'); })(),  // explained rows: an info stat, never part of the open buckets
       h('span', {class: 'text-secondary me-3'}, `Last run ${day(d.last_run)}`), d.release ? h('span', {class: 'text-secondary me-3'}, `Last release ${d.release}`) : '',
       h('span', {class: 'text-secondary', title: 'j k move · Enter opens · a e f b decide · space selects'}, 'Keyboard')))));
   const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},
