@@ -141,6 +141,35 @@ class DecisionAuthors(unittest.TestCase):
         self.assertEqual(row(st["state"], st["by"]), "blocked")
 
 
+class EvidenceOnTheChecklist(unittest.TestCase):
+    """F16: the walk that every verified or explained row names a record on file ran only in a test on frozen fixtures."""
+
+    def test_a_dangling_record_is_a_red_required_line(self):
+        from ledger.release import checklist
+        gap = {"ticker": "MSFT", "stage": "values", "what": "capex FY2024", "state": "explained", "by": "resolution:gone", "gap": "no such resolution"}
+        with mock.patch.object(checklist.proof, "unevidenced", return_value=[gap]) as u:
+            l = checklist.evidence_line(None, {"proven": []})
+        u.assert_called_once()
+        self.assertEqual((l["id"], l["required"], l["state"], l["count"], l["link"]), ("evidenced", True, "fail", 1, "proof/MSFT"))
+        self.assertEqual(l["detail"][0]["gap"], "no such resolution")
+        with mock.patch.object(checklist.proof, "unevidenced", return_value=[]):
+            self.assertEqual(checklist.evidence_line(None, {"proven": []})["state"], "pass")
+        with mock.patch.object(checklist.proof, "unevidenced", side_effect=RuntimeError("boom")):
+            self.assertEqual(checklist.evidence_line(None, {"proven": []})["state"], "fail")  # a walk that cannot run never passes
+
+    @unittest.skipUnless(store.DEFAULT_DB.exists() and not __import__("os").environ.get("LEDGER_SKIP_DB"), "no data/ledger.duckdb")
+    def test_the_live_checklist_carries_the_line_and_the_six_read_zero(self):
+        from ledger.release import checklist
+        from ledger.web import app
+        con = app._con()
+        try:
+            lines = {l["id"]: l for l in checklist.checklist(con)["lines"]}
+        finally:
+            con.close()
+        self.assertTrue(lines["evidenced"]["required"])
+        self.assertEqual((lines["evidenced"]["state"], lines["evidenced"]["count"]), ("pass", 0), lines["evidenced"]["detail"][:3])
+
+
 
 
 if __name__ == "__main__":

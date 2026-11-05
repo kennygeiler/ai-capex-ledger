@@ -420,6 +420,23 @@ def _changed_since(sha: str) -> list | None:
     return changed_since(sha)
 
 
+EVIDENCE_LABEL = "Verified or explained with no record behind it"
+
+
+def evidence_line(con, board: dict | None = None) -> dict:
+    """The required line for F16: proof.unevidenced over config.SCOPE on the live tables, the walk the fixtures test runs.
+    A row whose `by` names no record, or one that is not on file, is a dangling citation: red, one detail per row with the
+    trail that shows it. A walk that raises is red, never a crash and never a pass."""
+    try:
+        gaps = proof.unevidenced(con, SCOPE, companies=(board or proof.board(con))["proven"])
+    except Exception as e:
+        return _line("evidenced", EVIDENCE_LABEL, True, 1, "fail", "proof", f"could not walk: {e.__class__.__name__}: {str(e)[:160]}")
+    first = gaps[0]["ticker"] if gaps else ""
+    return _line("evidenced", EVIDENCE_LABEL, True, len(gaps), "pass" if not gaps else "fail", f"proof/{first}" if first else "proof",
+                 "Every verified or explained row names a record on file",
+                 [{"company": g["ticker"], "stage": g["stage"], "item": g["what"], "state": g["state"], "by": g["by"], "gap": g["gap"], "link": f"proof/{g['ticker']}"} for g in gaps])
+
+
 def review_counts(board: dict, unconfirmed: list, unmapped: list = ()) -> dict:
     """{bad, wait, blocked, per_company, off_board}: the per-company buckets (workbench.company_counts, the function the
     Proof board and the trail read) summed: Needs review, Proposed (a run's decisions to confirm included; no Proof item
@@ -497,6 +514,9 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     lines.append(_line("complete", "Answer-key values missing from the dataset", True, len(miss), "pass" if not miss else "fail", "reconcile",
                        "SEC XBRL holds a value the release does not ship, with nothing open or decided",
                        [{"ticker": m["ticker"], "field": m["field"], "period": m["period"], "reference": m["reference"], "why": m["why"]} for m in miss]))
+    # F16: every verified or explained row in scope names a record that exists (proof.unevidenced, status.evidence_gap),
+    # walked on the live data on every checklist, not only on the frozen fixtures in a test; 0 dangling is the pass
+    lines.append(evidence_line(con, board))
     # rows with no value, by measure (T15: informational)
     tax = list(csv.DictReader(io.StringIO(p["files"]["taxonomy.csv"])))
     nv = {}

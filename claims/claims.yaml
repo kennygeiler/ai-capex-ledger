@@ -452,12 +452,14 @@
   ticket: T81
 
 - id: label_never_a_check
-  claim: "A label never counts as a check on the proven set (tested walk + planted cases)"
-  where: [/api/v1/proof, ledger/core/status.py, ledger/checks/proof.py]
-  shown: ["def evidence_gap"]
+  claim: "A label never counts as a check on the proven set (tested walk + planted cases, and a required Release line on the live data)"
+  where: [/api/v1/proof, ledger/core/status.py, ledger/checks/proof.py, ledger/release/checklist.py]
+  shown: ["def evidence_gap", "Verified or explained with no record behind it"]
   backed_by:
-    functions: [ledger.core.status.evidence_gap, ledger.checks.proof.unevidenced]
+    functions: [ledger.core.status.evidence_gap, ledger.checks.proof.unevidenced, ledger.release.checklist.evidence_line]
     tests:
+      - tests.test_trust.EvidenceOnTheChecklist.test_a_dangling_record_is_a_red_required_line
+      - tests.test_trust.EvidenceOnTheChecklist.test_the_live_checklist_carries_the_line_and_the_six_read_zero
       - tests.test_status.ALabelNeverCountsAsACheck.test_planted_bare_labels_fail
       - tests.test_status.EveryCheckedRowNamesItsEvidence.test_the_six_as_they_are
       - tests.test_status.EveryCheckedRowNamesItsEvidence.test_planted_not_reported_with_an_xbrl_value
