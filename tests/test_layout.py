@@ -250,14 +250,31 @@ class Layout(unittest.TestCase):
     def test_counts_follow_what_is_shown(self):
         """V18: with a filter on, Reconcile's header reads "N of total" for a bucket the filter narrows (the total unchanged);
         Dataset's one count sits under the list name and follows Find."""
+        # review 4 and 3: the shown part is the rows in that state (the Decision cell's word), not every listed row; an
+        # explained row (Unverified) is settled and listed only with Show settled, and still counts as matched
+        def head(pg):
+            t = pg.text_content("main .page-header .small").replace("\u00a0", " ")
+            return {w: (int(m.group(1)), int(m.group(2) or m.group(1))) for w in ("Needs review", "Unverified") if (m := re.search(w + r" (\d+)(?: of (\d+))?", t))}
+        def in_state(pg, word):
+            return pg.eval_on_selector_all("table.rec tr.item", "(rs, w) => rs.filter((r) => r.cells[r.cells.length - 1].textContent.trim().startsWith(w)).length", word)
         pg = self.page(1600, "reconcile")
         pg.wait_for_selector("table.rec tr.item", timeout=60000)
-        whole = pg.text_content("main .page-header .small")
-        n = int(re.search(r"Needs review (\d+)", whole).group(1))
-        pg2 = self.page(1600, "reconcile?field=segment_capex")
-        pg2.wait_for_selector("main .page-header .small", timeout=60000)
-        shown = pg2.eval_on_selector_all("table.rec tr.item", "rs => rs.length")
-        self.assertIn(f"Needs review {shown if shown < n else n}" + (f" of {n}" if shown < n else ""), pg2.text_content("main .page-header .small").replace("\u00a0", " "))
+        whole = head(pg)
+        for hash_ in ("reconcile?field=segment_capex&resolved=1", "reconcile?cause=fact_differs&resolved=1"):
+            with self.subTest(page=hash_):
+                pg2 = self.page(1600, hash_)
+                pg2.wait_for_selector("main .page-header .small", timeout=60000)
+                pg2.wait_for_timeout(300)
+                got = head(pg2)
+                for word in ("Needs review", "Unverified"):
+                    shown, total = got[word]
+                    self.assertEqual(total, whole[word][1])  # the total is the unfiltered count
+                    self.assertEqual(shown, in_state(pg2, word))  # the shown part is the rows in that state
+        # without Show settled the explained rows are hidden; the count still says how many the filter matches (was "0 of 6")
+        pg3 = self.page(1600, "reconcile?cause=fact_differs")
+        pg3.wait_for_selector("main .page-header .small", timeout=60000)
+        self.assertEqual(head(pg3)["Unverified"], got["Unverified"])
+        self.assertGreater(got["Unverified"][0], 0)
         pg3 = self.page(1600, "data?list=taxonomy")
         pg3.wait_for_selector("main tbody tr", timeout=60000)
         pg3.fill("main input[aria-label='Find in rows']", "NVDA")
