@@ -7,8 +7,13 @@ const REPO_URL = 'https://github.com/kennygeiler/ai-capex-ledger/blob/main/';
 
 // a doc's link target as the app opens it: an app route, a doc page, a served doc's raw text, the repository on
 // GitHub, or a web address. Any other scheme (javascript:, data:, mailto:) is no link.
+// a heading's anchor: its words, lower case, joined by hyphens ("The hosted copy" -> the-hosted-copy)
+const mdSlug = (t) => String(t).toLowerCase().replace(/[`*]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+// a doc's reference written as code, `docs/MAP.md` (report #12): rendered as the link a [label](MAP.md) link would be
+const MD_DOC_REF = /^(?:\.\.\/)?docs\/[A-Za-z0-9_/-]+\.md$/;
 function mdHref(href, ctx) {
   if (/^https?:\/\//i.test(href)) return {href, ext: true};
+  if (ctx.anchors && ctx.page && /^#[a-z0-9-]+$/.test(href) && ctx.anchors.has(href.slice(1))) return {href: `#docs/${ctx.page}?at=${href.slice(1)}`};  // a heading on this page: stays on it
   if (/^#[a-z]/.test(href)) return {href};
   if (href.startsWith('#') || /^[a-z][a-z0-9+.-]*:/i.test(href) || href.startsWith('//')) return null;
   const p = href.split('#')[0];
@@ -30,7 +35,11 @@ function mdInline(text, ctx) {
   let last = 0, m;
   while ((m = rx.exec(text))) {
     if (m.index > last) out.push(text.slice(last, m.index));
-    if (m[1] != null) out.push(h('code', {}, m[1]));
+    if (m[1] != null) {
+      const t = MD_DOC_REF.test(m[1]) ? mdHref('/' + m[1].replace(/^\.\.\//, ''), ctx) : null;
+      const ref = t && (/^\/docs\/[A-Za-z0-9_-]+\.md$/.test(t.href) ? t.href : safeHref(t.href));
+      out.push(ref ? h('a', {href: ref, target: t.ext ? '_blank' : null, rel: t.ext ? 'noopener' : null}, h('code', {}, m[1])) : h('code', {}, m[1]));
+    }
     else if (m[2] != null) out.push(h('b', {}, mdInline(m[2], ctx)));
     else {
       const label = m[3] != null ? m[3] : m[5];
@@ -74,7 +83,8 @@ function mdList(lines, ctx) {
 }
 
 function mdRender(text, opts = {}) {
-  const ctx = {files: opts.files || {}, served: opts.served || []};
+  const anchors = new Set(text.split('\n').map((l) => l.match(/^#{1,4}\s+(.*)$/)).filter(Boolean).map((m) => mdSlug(m[1])));
+  const ctx = {files: opts.files || {}, served: opts.served || [], page: opts.page || null, anchors};
   const lines = text.replace(/\r\n/g, '\n').split('\n');
   const out = [];
   let i = 0;
@@ -93,7 +103,7 @@ function mdRender(text, opts = {}) {
     const hd = line.match(/^(#{1,4})\s+(.*)$/);
     if (hd) {
       const n = hd[1].length;
-      out.push(h('h' + n, {class: n === 1 ? 'page-title mb-3' : null}, mdInline(hd[2], ctx)));
+      out.push(h('h' + n, {class: n === 1 ? 'page-title mb-3' : null, id: n > 1 ? mdSlug(hd[2]) : null, 'data-land': n > 1 && opts.at === mdSlug(hd[2]) ? '' : null}, mdInline(hd[2], ctx)));  // ?at=<anchor> lands here (_router.js)
       i++;
       continue;
     }

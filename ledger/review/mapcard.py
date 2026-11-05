@@ -1,6 +1,6 @@
-"""The category-mapping decision card: one per reported PP&E category, the same on the trail (Category mapping) and in
-Reconcile's asset types group. `decisions(con, ticker)` is the one function both read, so the two pages cannot show a
-category two ways.
+"""The category-mapping decision card: one per reported PP&E category, on Reconcile's Category mapping cards (the trail
+shows each category as one row and links the stage to Reconcile). `decisions(con, ticker)` is the one function that
+builds it, so a category is never shown two ways.
 
 A card puts beside the proposed us-gaap member what a person needs to judge it: the company's line (its name, the latest
 balance and the years before, a link to the cell in the filing), the standard's own label and definition (verbatim from

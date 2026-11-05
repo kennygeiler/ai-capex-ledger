@@ -327,6 +327,21 @@ def _hosted(ctx) -> list:
     return out
 
 
+def copy_status() -> dict:
+    """What a copy of the app serves, for its scope line (report #14): the release and commit the deploy record names
+    (claims/hosted.json), the latest signed release on disk, and whether the code is this checkout's. `code` is same,
+    differs, or unknown (no record, or no git here: the hosted image ships none, so the copy cannot compare itself).
+    Nothing is fetched: the record is the deploy's own, and a copy older than it can say only what it holds."""
+    h = _hosted_record()
+    last = latest_signed()
+    if h is None:
+        return {"recorded": False, "release": None, "commit": None, "deployed_at": None, "latest_signed": last, "older": None, "code": "unknown"}
+    head = _head()
+    code = "unknown" if not head or not h.get("commit") else "same" if _same_code(h.get("commit"), head) else "differs"
+    return {"recorded": True, "release": h.get("release"), "commit": h.get("commit"), "deployed_at": h.get("deployed_at"), "latest_signed": last,
+            "older": bool(last) and h.get("release") != last, "code": code, "head": head[:7] if head else None}
+
+
 def _mappings(ctx) -> list:
     """Asset-type mappings neither a person confirmed nor the company's own tag checks: filertag.tally, the one count
     every packet's limitations line reads too. When the company tags could not be read, nothing counts as verified and

@@ -54,7 +54,7 @@ each in `ledger/cli/` (they do the table writes: `store.write`).
 | notes extraction logic | `ledger/extract/notes.py` (contract, loader); the prompt is a new version in `agents/prompts/` (never in place) | `ledger notes --run` then `--load`; `golden --check` |
 | a rule | `rules/<id>.yaml`; a new check function in `ledger/checks/rules.py` | `ledger rules`; `golden --check` |
 | a company-specific definition | `definitions/companies.yaml` (who, why, `periods`), or "Make this a definition" on Reconcile | `ledger reconcile`, `ledger rules` |
-| a category mapping | Reconcile's asset types group (writes `taxonomy/asset_types.yaml` confirmed), or `ledger mapper <T>` for proposals | any taxonomy read |
+| a category mapping | Reconcile's Category mapping cards (writes `taxonomy/asset_types.yaml` confirmed), or `ledger mapper <T>` for proposals | any taxonomy read |
 | UI copy, a state's label | a state word: `ledger/core/states.py` only; other copy: `ledger/web/pages/<page>.js` or `web/cards.py`; register every shown string in `claims/claims.yaml` | `ledger claims`; `tests.test_states`, `tests.test_claims` |
 | a new state | declare it in `ledger/core/states.py` (kind, word, moves), return it from the machine's deciding function | `tests/test_states.py` |
 | adding a company | `ledger run --ticker X`; its industry in `ledger/core/config.py` `INDUSTRIES` | `docs/COMPANIES.md` |

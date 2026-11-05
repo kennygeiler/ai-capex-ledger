@@ -256,7 +256,9 @@ class GoldenView(unittest.TestCase):
         js = (store.ROOT / "ledger" / "web" / "pages" / "proof.js").read_text()
         self.assertNotIn("g.ok", js)
         self.assertNotIn("g.at)", js)
-        self.assertIn("${when(g.regression_at)}`)),", js)  # the Regression test card's line ends at its date: no hand check beside it
+        # the one regression line (the header's; the card that repeated it went with flow #11) ends at its date, the hand check is its own link
+        self.assertIn("${tablesOk(g) ? 'Tables unchanged' : 'Tables changed'} · ${day(g.regression_at)}`);  // the one regression line", js)
+        self.assertNotIn("'Regression test'", js)
         self.assertIn("' · Not live'", js)
 
 
