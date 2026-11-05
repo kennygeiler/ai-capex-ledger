@@ -158,6 +158,10 @@
   .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .table thead th { font-size: .72rem; letter-spacing: .03em; }
   tr.item { cursor: pointer; }
+  /* V19: a filter moved off its default reads as set: the primary's edge and a light fill, its value in medium weight */
+  .form-select.is-set { border-color: var(--tblr-primary); background-color: color-mix(in srgb, var(--tblr-primary) 7%, var(--tblr-bg-surface)); font-weight: 500; }
+  .filterbar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+  .filterbar .form-select { width: auto; max-width: 10rem; }
   /* Reconcile (V4, V8): fixed columns with set widths, so opening a row moves no header; a collapsed row is two short lines
      at most (44 px), each cut with an ellipsis, the full text on hover and in the opened row */
   table.rec { table-layout: fixed; width: 100%; }

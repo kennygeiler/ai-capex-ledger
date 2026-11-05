@@ -15,15 +15,20 @@ async function dataPage(view, qs) {
   // one line of controls: field, companies (a group or a custom list), kind, years hidden unless set
   const GROUPS = [['all', 'All companies'], ['buyer', 'Buyers'], ['seller', 'Sellers'], ...Object.keys(INDUSTRY).map((k) => ['ind:' + k, INDUSTRY[k]]), ['custom', 'Custom…']];
   const groupOf = () => { const set = new Set(sel.t); if (set.size === all.length) return 'all'; for (const r of ['buyer', 'seller']) if (all.filter((t) => meta.roles[t] === r).every((t) => set.has(t)) && [...set].every((t) => meta.roles[t] === r)) return r; for (const k of Object.keys(INDUSTRY)) if (all.filter((t) => meta.industries[t] === k).every((t) => set.has(t)) && [...set].every((t) => meta.industries[t] === k)) return 'ind:' + k; return 'custom'; };
-  const groupSel = h('select', {'aria-label': 'Companies', onchange: (e) => { const v = e.target.value; if (v === 'custom') { openPicker(); return; } sel.t = all.filter((t) => v === 'all' || meta.roles[t] === v || (v.startsWith('ind:') && meta.industries[t] === v.slice(4))); setQ(); }},
+  // V19: the select reads Custom only once a custom list is applied: choosing Custom… opens the picker and the select keeps
+  // the group in force until Apply; a group other than all companies, a kind other than every measure, reads as set
+  const groupSel = h('select', {'aria-label': 'Companies', class: groupOf() === 'all' ? null : 'is-set', onchange: (e) => { const v = e.target.value; if (v === 'custom') { e.target.value = groupOf(); openPicker(); return; } sel.t = all.filter((t) => v === 'all' || meta.roles[t] === v || (v.startsWith('ind:') && meta.industries[t] === v.slice(4))); setQ(); }},
     GROUPS.map(([k, v]) => h('option', {value: k, selected: groupOf() === k || null}, v)));
   const fieldSel = h('select', {'aria-label': 'Field', onchange: (e) => { sel.f = [e.target.value]; setQ(); }}, Object.entries(FIELDS).map(([k, v]) => h('option', {value: k, selected: sel.f[0] === k || null}, v)));
-  const kindSel = h('select', {'aria-label': 'Kind', onchange: (e) => { sel.k = e.target.value === 'all' ? ALL_KINDS : [e.target.value]; setQ(); }},
+  const kindSel = h('select', {'aria-label': 'Kind', class: sel.k.length === ALL_KINDS.length ? null : 'is-set', onchange: (e) => { sel.k = e.target.value === 'all' ? ALL_KINDS : [e.target.value]; setQ(); }},
     [['all', 'Every measure'], ['spent', 'Spent'], ['committed', 'Committed'], ['derived', 'Derived'], ['planned', 'Planned']].map(([k, v]) => h('option', {value: k, selected: (sel.k.length === ALL_KINDS.length ? 'all' : sel.k[0]) === k || null}, v)));
   function openPicker() {
-    drawer(h('h3', {}, 'Companies'), h('div', {class: 'controls'}, Object.entries(groups).map(([ind, ts]) => h('div', {}, h('div', {class: 'muted small', style: 'margin-bottom:.2rem'}, INDUSTRY[ind] || ind),
-      h('div', {class: 'picks'}, ts.map((t) => h('label', {}, h('input', {type: 'checkbox', checked: sel.t.includes(t) || null, onchange: (e) => { sel.t = e.target.checked ? [...sel.t, t] : sel.t.filter((x) => x !== t); }}), ' ', t)))))),
-      h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn btn-primary btn-sm', onclick: () => { closeDrawer(); setQ(); }}, 'Apply')));
+    let pick = [...sel.t];  // the list being picked; the page's own list changes only on Apply
+    const boxes = () => [...document.querySelectorAll('.drawer .picks input[type=checkbox]')];
+    const every = (on) => { for (const b of boxes()) b.checked = on; pick = on ? [...all] : []; };
+    drawer(h('h3', {}, 'Companies'), h('div', {class: 'hrow mb-2'}, h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', onclick: () => every(true)}, 'All'), h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', onclick: () => every(false)}, 'None')), h('div', {class: 'controls'}, Object.entries(groups).map(([ind, ts]) => h('div', {}, h('div', {class: 'muted small', style: 'margin-bottom:.2rem'}, INDUSTRY[ind] || ind),
+      h('div', {class: 'picks'}, ts.map((t) => h('label', {}, h('input', {type: 'checkbox', checked: sel.t.includes(t) || null, onchange: (e) => { pick = e.target.checked ? [...pick, t] : pick.filter((x) => x !== t); }}), ' ', t)))))),
+      h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn btn-primary btn-sm', onclick: () => { if (!pick.length) return; sel.t = pick; closeDrawer(); setQ(); }}, 'Apply')));
   }
   const groups = {};
   for (const t of all) (groups[meta.industries[t]] ||= []).push(t);
@@ -115,14 +120,14 @@ async function rowsView(view, q) {
 
   const side = h('div', {class: 'list-group list-group-transparent sidelist mb-3'}, TABLES.map(([k, label, what]) =>
     h('a', {href: `#data?list=${k}` + (ticker ? `&ticker=${ticker}` : ''), class: 'list-group-item list-group-item-action d-block' + (k === name ? ' active' : ''), 'aria-current': k === name ? 'page' : null, title: what}, h('div', {}, label), h('div', {class: 'text-secondary small cut'}, what))));
-  const tickSel = h('select', {'aria-label': 'Company', onchange: (e) => setQ({ticker: e.target.value})},
+  const tickSel = h('select', {'aria-label': 'Company', class: ticker ? 'is-set' : null, onchange: (e) => setQ({ticker: e.target.value})},
     h('option', {value: ''}, 'Every company'), Object.entries(NAMES).map(([t, n]) => h('option', {value: t, selected: t === ticker || null}, `${n} ${t}`)));
   const search = h('input', {type: 'text', placeholder: 'Find in rows', 'aria-label': 'Find in rows', style: 'width:16rem'});
   const count = h('span', {'aria-live': 'polite'});  // V18: the one row count, under the list's name; it follows Find ("129 rows of 617")
   const head = h('div', {class: 'page-header mb-3'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('div', {class: 'hrow mb-2'}, dataSwitch({...q, list: name, ticker}, 'rows'), h('h2', {class: 'm-0'}, TABLES.find(([k]) => k === name)[1])), h('div', {class: 'text-secondary small'}, count, ' · USD')),
     h('div', {class: 'col-auto'}, h('a', {href: csv, class: 'btn btn-outline-secondary btn-sm'}, 'CSV'), ' ', h('a', {href: `/api/v1/${name}` + (qs ? `?${qs}` : ''), target: '_blank', rel: 'noopener', class: 'btn btn-outline-secondary btn-sm'}, 'JSON'))));
-  const valueSel = name === 'taxonomy' ? h('select', {'aria-label': 'Rows with a value', onchange: (e) => setQ({has_value: e.target.value})},
+  const valueSel = name === 'taxonomy' ? h('select', {'aria-label': 'Rows with a value', class: hasValue ? 'is-set' : null, onchange: (e) => setQ({has_value: e.target.value})},
     [['', 'Every row'], ['true', 'With a value'], ['false', 'Without a value']].map(([v, t]) => h('option', {value: v, selected: v === hasValue || null}, t))) : '';
   const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, valueSel, search);
 

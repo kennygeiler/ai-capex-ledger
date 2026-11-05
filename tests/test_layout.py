@@ -279,5 +279,32 @@ class Layout(unittest.TestCase):
             return rs.length ? Math.max(...rs.map((r) => r.top)) - Math.min(...rs.map((r) => r.top)) : 0; })""")
         self.assertTrue(all(d < 4 for d in lines), lines)
 
+    def test_one_line_at_1280_and_filters_that_show(self):
+        """V12: the navbar is 56 px and one line at 1280 on every page; Reconcile's filter bar is one line at 1280.
+        V19: a filter off its default reads as set and is counted beside Clear; Grid's Companies reads Custom only after Apply."""
+        for hash_ in ("proof", "rules", "reconcile", "data", "explore", "release", "gaps", "docs"):
+            with self.subTest(page=hash_):
+                pg = self.page(1280, hash_, height=800)
+                pg.wait_for_selector("main .route > *", timeout=60000)
+                m = pg.evaluate("""() => ({h: document.querySelector('header.navbar').getBoundingClientRect().height,
+                    wrapped: [...document.querySelectorAll('.navbar .nav-link')].filter((a) => { const r = document.createRange(); r.selectNodeContents(a); return r.getClientRects().length > 1; }).length})""")
+                self.assertLessEqual(m["h"], 56.5)
+                self.assertEqual(m["wrapped"], 0)
+        for w in WIDTHS:
+            with self.subTest(page="reconcile filtered", width=w):
+                pg = self.page(w, "reconcile?field=segment_capex&cause=finding_unconfirmed")
+                pg.wait_for_selector(".filterbar select", timeout=60000)
+                m = pg.evaluate("""() => { const f = document.querySelector('.filterbar'), R = [...f.children].map((e) => e.getBoundingClientRect());
+                    return {spread: Math.max(...R.map((r) => r.top)) - Math.min(...R.map((r) => r.top)), set: f.querySelectorAll('select.is-set').length, clear: (f.querySelector('button') || {}).textContent}; }""")
+                self.assertLess(m["spread"], 8)  # one line: every control's top within a few px
+                self.assertEqual(m["set"], 2)
+                self.assertEqual(m["clear"], "Clear 2")
+        pg = self.page(1600, "data?view=grid")
+        pg.wait_for_selector("main select[aria-label=Companies]", timeout=60000)
+        pg.select_option("main select[aria-label=Companies]", "custom")
+        pg.wait_for_selector(".drawer", timeout=10000)
+        pg.keyboard.press("Escape")
+        self.assertEqual(pg.eval_on_selector("main select[aria-label=Companies]", "s => s.options[s.selectedIndex].text"), "All companies")
+
 if __name__ == "__main__":
     unittest.main()

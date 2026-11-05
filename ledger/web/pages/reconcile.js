@@ -79,7 +79,10 @@ async function reconcilePage(view, qs) {
   const kinds = [...new Set(d.rows.map((r) => r.evidence && r.evidence.kind).filter(Boolean))].sort();
   const KINDL = {restated: 'Restated', jump: 'Large year-over-year change', row_switch: 'Line renamed', capex_intensity: 'Capex high vs revenue', opex_over_revenue: 'Opex above revenue'};
   const causes = CAUSE_ORDER.filter((c) => d.rows.some((r) => r.cause === c)), layers = [...new Set(d.rows.map((r) => r.layer))].sort(), fields = [...new Set(d.rows.map((r) => r.field).filter(Boolean))].sort();
-  const sel = (label, value, opts, key) => h('select', {class: 'form-select form-select-sm', 'aria-label': label, onchange: (e) => setQ({[key]: e.target.value})}, opts.map(([v, t]) => h('option', {value: v, selected: v === value || null}, t)));
+  // V19: a filter moved off its default is marked (.is-set) and counted beside Clear, which puts every filter back
+  const DEFAULTS = {scope: 'all', cause: '', layer: '', field: '', kind: ''};
+  const sel = (label, value, opts, key) => h('select', {class: 'form-select form-select-sm' + (key in DEFAULTS && value !== DEFAULTS[key] ? ' is-set' : ''), 'aria-label': label, onchange: (e) => setQ({[key]: e.target.value})}, opts.map(([v, t]) => h('option', {value: v, selected: v === value || null}, t)));
+  const nSet = Object.entries(DEFAULTS).filter(([k, v]) => ({scope, cause: fCause, layer: fLayer, field: fField, kind: q.kind || ''})[k] !== v).length;
   const openRows = rows.filter(isOpen);
   const nState = (s) => Object.values(d.by_company || {}).reduce((n, c) => n + (c[s] || 0), 0);  // the one per-company count (states.buckets), summed over the scope
   // V18: with a filter on, each count says how many of its rows the page shows: "Needs review 7 of 18" (the total is the one
@@ -93,14 +96,16 @@ async function reconcilePage(view, qs) {
       (() => { const [cls, word] = stateWord('row', 'info'); return stat(word, (d.by_state || {}).info || 0, cls, false, 'info'); })(),  // explained rows: an info stat, never part of the open buckets
       h('span', {class: 'text-secondary me-3'}, `Last run ${day(d.last_run)}`), d.release ? h('span', {class: 'text-secondary me-3'}, `Last release ${d.release}`) : '',
       h('span', {class: 'text-secondary', title: 'j k move · Enter opens · a e f b decide · space selects'}, 'Keyboard')))));
-  const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},
-    h('div', {class: 'col-auto'}, sel('Scope', scope, [['all', 'All companies'], ...layers.map((l) => [l, INDUSTRY[l] || l]), ...[...new Set([...(d.scope_tickers || []), ...(scope !== 'all' && d.names[scope] ? [scope] : [])])].sort().map((t) => [t, `${d.names[t] || t} (${t})`])], 'scope')),
-    h('div', {class: 'col-auto'}, sel('Group by', group, [['cause', 'Grouped by cause'], ['company', 'Grouped by company']], 'group')),
-    h('div', {class: 'col-auto'}, sel('Cause', fCause, [['', 'Every cause'], ...causes.map((c) => [c, d.causes.find((x) => x.cause === c)?.label || c])], 'cause')),
-    h('div', {class: 'col-auto'}, sel('Industry', fLayer, [['', 'Every industry'], ...layers.map((l) => [l, INDUSTRY[l] || l])], 'layer')),
-    h('div', {class: 'col-auto'}, sel('Field', fField, [['', 'Every field'], ...fields.map((f) => [f, LABEL[f] || f])], 'field')),
-    kinds.length ? h('div', {class: 'col-auto'}, sel('Check', fKind, [['', 'Every check'], ...kinds.map((k) => [k, KINDL[k] || k.replaceAll('_', ' ')])], 'kind')) : '',
-    h('div', {class: 'col-auto ms-auto'}, h('label', {class: 'form-check form-switch m-0'}, h('input', {class: 'form-check-input', type: 'checkbox', checked: withResolved || null, onchange: (e) => setQ({resolved: e.target.checked ? '1' : ''})}), h('span', {class: 'form-check-label small'}, `Show ${int(hidden)} settled`))))));
+  // V12 / V19: one line at 1280, no card around it; the Scope list is All or one company (the industries are the Industry filter's)
+  const controls = h('div', {class: 'filterbar mb-3', role: 'group', 'aria-label': 'Filters'},
+    sel('Scope', scope, [['all', 'All companies'], ...(scope !== 'all' && !d.names[scope] ? [[scope, INDUSTRY[scope] || scope]] : []), ...[...new Set([...(d.scope_tickers || []), ...(scope !== 'all' && d.names[scope] ? [scope] : [])])].sort().map((t) => [t, `${d.names[t] || t} (${t})`])], 'scope'),
+    sel('Group by', group, [['cause', 'By cause'], ['company', 'By company']], 'group'),
+    sel('Cause', fCause, [['', 'Every cause'], ...causes.map((c) => [c, d.causes.find((x) => x.cause === c)?.label || c])], 'cause'),
+    sel('Industry', fLayer, [['', 'Every industry'], ...layers.map((l) => [l, INDUSTRY[l] || l])], 'layer'),
+    sel('Field', fField, [['', 'Every field'], ...fields.map((f) => [f, LABEL[f] || f])], 'field'),
+    kinds.length ? sel('Check', fKind, [['', 'Every check'], ...kinds.map((k) => [k, KINDL[k] || colName(k)])], 'kind') : '',
+    nSet ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary', title: 'Every filter back to its default', onclick: () => setQ({scope: 'all', cause: '', layer: '', field: '', kind: ''})}, `Clear ${int(nSet)}`) : '',
+    h('label', {class: 'form-check form-switch m-0 ms-auto'}, h('input', {class: 'form-check-input', type: 'checkbox', checked: withResolved || null, onchange: (e) => setQ({resolved: e.target.checked ? '1' : ''})}), h('span', {class: 'form-check-label small'}, `Show ${int(hidden)} settled`)));
   const selected = new Set();
   let cur = -1;
   const trs = [];
