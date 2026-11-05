@@ -231,5 +231,20 @@ class Layout(unittest.TestCase):
         self.assertIn("Kind = Planned", pg.text_content("main .card-body"))
         self.assertTrue(pg.locator("main button", has_text="Export CSV").is_disabled())
 
+    def test_redrawn_tables_keep_the_kit(self):
+        """V17: after Find (Dataset) and Show rows (Explore) every header button carries the kit's classes, none is outset."""
+        pg = self.page(1600, "data?list=taxonomy")
+        pg.wait_for_selector("main thead button", timeout=60000)
+        pg.fill("main input[aria-label='Find in rows']", "NVDA")
+        pg.wait_for_timeout(500)
+        pg2 = self.page(1600, "explore")
+        pg2.wait_for_selector("main .plot .main-svg", timeout=60000)
+        pg2.click("text=Show rows")
+        pg2.wait_for_selector("main thead button", timeout=60000)
+        for p in (pg, pg2):
+            got = p.eval_on_selector_all("main thead button", "bs => bs.map((b) => [b.classList.contains('btn-link') && b.classList.contains('btn'), getComputedStyle(b).borderTopStyle])")
+            self.assertTrue(got)
+            self.assertTrue(all(k and st != "outset" for k, st in got), got[:3])
+
 if __name__ == "__main__":
     unittest.main()

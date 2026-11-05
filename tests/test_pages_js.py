@@ -258,6 +258,22 @@ class VisualContract(unittest.TestCase):
         self.assertNotIn("colspan: 8", rec)
 
 
+class VisualContract2(unittest.TestCase):
+    """V9-V23 (docs/ux-visual/problems.md, measured in docs/ux-visual/verification/V9-V23.md): the drawing rules. The measured
+    side is tests.test_layout."""
+
+    def test_redrawn_tables_keep_the_kit(self):
+        """V17: Find, Show rows and a bar click redraw with table(), whose sort headers carry the kit's classes; the buttons
+        those pages draw after the router's skin() carry their own (never a bare native button)."""
+        shared = (PAGES / "_shared.js").read_text()
+        self.assertIn("th.append(h('button', {type: 'button', class: 'btn btn-link btn-sm p-0 align-baseline'", shared)
+        for f in ("explore.js", "data.js"):
+            for m in re.finditer(r"h\('button', \{type: 'button', class: '([^']*)'", (PAGES / f).read_text()):
+                classes = m.group(1).split()
+                self.assertIn("btn", classes, f)
+                self.assertTrue({"btn-primary", "btn-link", "btn-outline-secondary", "btn-ghost-secondary"} & set(classes), (f, m.group(1)))
+
+
 @unittest.skipUnless(shutil.which("node"), "no node")
 class HandCheckNote(unittest.TestCase):
     """V4 / PB9: the note box shows only after Wrong or Can't say, or when a note is on file; never for Right or unchecked."""

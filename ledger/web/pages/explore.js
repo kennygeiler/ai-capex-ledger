@@ -72,8 +72,8 @@ async function explorePage(view, arg, qs) {
   const delMsg = h('span', {class: 'small bad', role: 'status'});
   const saveRow = h('div', {class: 'hrow', style: 'gap:1rem'}, h('span', {class: 'muted small'}, `${int(pts.length)} row${pts.length === 1 ? '' : 's'}${folded.size ? `, ${folded.size} smaller series folded into Other` : ''}`),
     h('a', {href: url, target: '_blank', rel: 'noopener', class: 'small'}, 'JSON'), h('a', {href: url + '&format=csv', class: 'small'}, 'CSV'),
-    h('button', {type: 'button', class: 'btn', onclick: () => saveView()}, current ? 'Save changes' : 'Save as view'),
-    current ? h('button', {type: 'button', class: 'small', 'aria-live': 'polite', onclick: async (e) => { const b = e.currentTarget; if (b.dataset.armed) { delete b.dataset.armed; b.disabled = true; try { await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me})}); go('#explore'); } catch (err) { delMsg.textContent = err.message; b.disabled = false; b.textContent = 'Delete'; } } else { delMsg.textContent = ''; b.dataset.armed = '1'; b.textContent = 'Confirm delete'; setTimeout(() => { if (b.dataset.armed) { delete b.dataset.armed; b.textContent = 'Delete'; } }, 5000); } }}, 'Delete') : '', delMsg);
+    h('button', {type: 'button', class: 'btn btn-primary btn-sm', onclick: () => saveView()}, current ? 'Save changes' : 'Save as view'),
+    current ? h('button', {type: 'button', class: 'btn btn-link btn-sm p-0 align-baseline small', 'aria-live': 'polite', onclick: async (e) => { const b = e.currentTarget; if (b.dataset.armed) { delete b.dataset.armed; b.disabled = true; try { await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me})}); go('#explore'); } catch (err) { delMsg.textContent = err.message; b.disabled = false; b.textContent = 'Delete'; } } else { delMsg.textContent = ''; b.dataset.armed = '1'; b.textContent = 'Confirm delete'; setTimeout(() => { if (b.dataset.armed) { delete b.dataset.armed; b.textContent = 'Delete'; } }, 5000); } }}, 'Delete') : '', delMsg);
   body.append(saveRow, plot, under);
   if (!pts.length) { plot.replaceChildren(h('p', {class: 'msg'}, 'No rows match')); return; }
   const css = getComputedStyle(document.documentElement);
@@ -108,7 +108,7 @@ async function explorePage(view, arg, qs) {
   plot.on('plotly_click', (ev) => { const p = ev.points[0]; const n = seriesNames[p.curveNumber]; const c = cell[`${n}|${p.x}`]; if (c) showRows(c.rows, `${n === 'total' ? '' : disp(n) + ', '}${xLabel(p.x)}`); });
   showRows(null);
   function showRows(list, title) {
-    if (!list) { under.replaceChildren(h('p', {class: 'muted small', style: 'margin-top:.6rem'}, h('button', {type: 'button', class: 'small', title: 'Click a bar or point for its rows · drag to zoom · double-click to reset', onclick: () => showRows(pts, 'Every row')}, 'Show rows'))); return; }
+    if (!list) { under.replaceChildren(h('p', {class: 'muted small', style: 'margin-top:.6rem'}, h('button', {type: 'button', class: 'btn btn-link btn-sm p-0 align-baseline small', title: 'Click a bar or point for its rows · drag to zoom · double-click to reset', onclick: () => showRows(pts, 'Every row')}, 'Show rows'))); return; }
     const cols = [{t: 'Company', k: 'ticker', f: (r) => h('a', {href: `#proof/${r.ticker}`}, NAMES[r.ticker] || r.ticker)}, {t: 'Year', f: (r) => r.period || r.fiscal_year || '—'}];
     for (const c of ['measure', 'category', 'reported_name', 'standard_type', 'field', 'kind', 'project_kind', 'relation', 'dimension', 'status', 'check', 'check_method', 'source_kind', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: c.replaceAll('_', ' '), k: c, f: (r) => r[c] ?? '—'});
     cols.push({t: 'Value', n: 1, f: (r) => fmtv(val(r)), s: (r) => val(r)});
@@ -120,7 +120,7 @@ async function explorePage(view, arg, qs) {
     const note = h('input', {type: 'text', name: 'view-note', autocomplete: 'off', value: current ? current.note || '' : '', placeholder: 'e.g. Spent, cash-flow line'});
     const msg = h('p', {class: 'msg small'});
     drawer(h('h3', {}, current ? 'Save changes' : 'Save as view'), h('div', {class: 'form'}, h('label', {}, 'Name', name), h('label', {}, 'Note', note)),
-      h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: async () => {
+      h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn btn-primary btn-sm', onclick: async () => {
         const filters = Object.fromEntries(['field', 'kind', 'layer', 'ticker'].filter((k) => st[k]).map((k) => [k, st[k]]));
     if (st.measure === 'taxonomy') for (const [k, q_] of [['tmeasure', 'measure'], ['category', 'category'], ['standard_type', 'standard_type']]) if (st[k]) filters[q_] = st[k];
         try {

@@ -23,7 +23,7 @@ async function dataPage(view, qs) {
   function openPicker() {
     drawer(h('h3', {}, 'Companies'), h('div', {class: 'controls'}, Object.entries(groups).map(([ind, ts]) => h('div', {}, h('div', {class: 'muted small', style: 'margin-bottom:.2rem'}, INDUSTRY[ind] || ind),
       h('div', {class: 'picks'}, ts.map((t) => h('label', {}, h('input', {type: 'checkbox', checked: sel.t.includes(t) || null, onchange: (e) => { sel.t = e.target.checked ? [...sel.t, t] : sel.t.filter((x) => x !== t); }}), ' ', t)))))),
-      h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: () => { closeDrawer(); setQ(); }}, 'Apply')));
+      h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn btn-primary btn-sm', onclick: () => { closeDrawer(); setQ(); }}, 'Apply')));
   }
   const groups = {};
   for (const t of all) (groups[meta.industries[t]] ||= []).push(t);
@@ -94,7 +94,7 @@ async function dataPage(view, qs) {
   const sel_ = (el) => el.options[el.selectedIndex].text;
   const none = h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, `No rows for ${[['Field', sel_(fieldSel)], ['Companies', sel_(groupSel)], ['Kind', sel_(kindSel)]].map(([k, v]) => `${k} = ${v}`).join(' · ')}`));
   view.append(h('div', {class: 'stack', style: 'gap:1rem'},
-    h('div', {class: 'hrow'}, dataSwitch(q, 'grid'), fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv, disabled: !list.length || null}, 'Export CSV'),
+    h('div', {class: 'hrow'}, dataSwitch(q, 'grid'), fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn btn-primary btn-sm', onclick: exportCsv, disabled: !list.length || null}, 'Export CSV'),
       h('span', {class: 'muted small'}, `${list.length} rows · USD · ✓ Verified · ○ Unverified · ≠ Differs from SEC XBRL`)),
     list.length ? grid : none));
 }
