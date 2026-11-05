@@ -93,6 +93,23 @@ class PacketOnRelease(unittest.TestCase):
         self.assertIn("r === latest ? h('a', {href: packetHref(r.version), class: 'btn btn-sm btn-outline-primary'}", page)
         self.assertIn("view.append(head, lines, releases);", page)
 
+    def test_a_signed_unpublished_release_is_not_the_primary_and_every_signature_redraws(self):
+        rel = lambda v, published: {"version": v, "signed_by": "K", "packet": True, "published": published}
+        pick = lambda rels: _call(line("release.js", "const latestSigned"), "(latestSigned(A) || {}).version || null", rels)
+        self.assertEqual(pick([rel("v1.7.0", True), rel("v1.8.0", False)]), "v1.7.0")  # review 6: v1.8.0 reads "not published"
+        self.assertEqual(pick([rel("v1.7.0", None)]), "v1.7.0")  # signed before the page recorded publishing
+        page = (PAGES / "release.js").read_text()
+        self.assertIn("if (next) status.append(' · ', h('a', {href: packetHref(r.version), class: 'btn btn-sm btn-primary'}, next.label));\n      api('/api/outputs').then(", page)  # review 5
+
+    def test_the_regression_steps_and_differences_sit_under_its_line(self):
+        pre = line("release.js", "const goldenSteps") + "\n" + line("release.js", "const goldenDiffs")
+        g = {"steps": [{"step": "ingest", "exit": 0}, {"step": "rules", "exit": 2}], "diffs": {"facts": {"n_only_in_run": 3, "n_only_in_expected": 1}}}
+        self.assertEqual(_call(pre, "[goldenSteps(A), goldenDiffs(A)]", g), [[{"step": "ingest", "result": "Pass"}, {"step": "rules", "result": "Fail (2)"}], [{"table": "facts", "added": 3, "missing": 1}]])
+        self.assertEqual(_call(pre, "[goldenSteps(A), goldenDiffs(A)]", None), [[], []])
+        page = (PAGES / "release.js").read_text()
+        self.assertIn("l.id === 'regression' ? regressionDetail(golden) : lineDetail(l)", page)  # review 4: the card Proof dropped, restored here
+        self.assertIn("the line's detail on Release lists each step's result", (PAGES.parents[2] / "docs" / "OPERATIONS.md").read_text())
+
     def test_packet_files_link_to_their_dataset_list(self):
         from ledger.release.checklist import packet_detail
         got = {r["file"]: r.get("link") for r in packet_detail({"values.csv": "h\na\n", "ai_spend.csv": "h\n", "README.md": "x", "taxonomy.csv": "h\n"})}

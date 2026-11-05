@@ -72,7 +72,7 @@ Each line's Details is one short line in product words; the files each line read
 | Blocks release | A block rule or a decision refuses the release; per company, the Blocks release count every page shows | the Proof board | Reconcile |
 | Answer-key values missing from the dataset | XBRL holds a value the dataset does not ship and nothing accounts for it | `reference_values`, `values`, `decisions/` | Rerun the reader for the filing, or resolve the row on Reconcile |
 | Hand check | An item has no verdict, or a verdict no longer holds | `gold/*.json`, live | Give or re-check the verdict on Proof |
-| Regression test | Tables differ from the frozen expectation | `reports/golden.json` | Fix the code, or freeze on purpose with the reason |
+| Regression test | Tables differ from the frozen expectation | `reports/golden.json`; the line's detail on Release lists each step's result and each table that differs (added, missing) | Fix the code, or freeze on purpose with the reason |
 | Test run | Failed, not run, or run on another commit or a dirty tree | `reports/tests.json` | `ledger test` on the commit being signed. Required since a00b67f; releases up to v1.8.0 were signed while the line only informed, and their `SIGNOFF.json` records it as not run with `required: false` |
 | Claims register | A shown string has no row in `claims/claims.yaml`, or a finding was edited | `claims/claims.yaml`, `claims/findings.jsonl` | Register the string; restore the finding log |
 | Claims doc current | `docs/CLAIMS.md` differs from the register (a test run no longer changes it: the run, the golden report and the gold count are read live) | `docs/CLAIMS.md` | `ledger claims`, then commit |

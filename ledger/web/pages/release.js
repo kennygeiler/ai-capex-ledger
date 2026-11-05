@@ -14,6 +14,18 @@ function lineDetail(l) {
   return dtable(l.label, cols, l.detail);
 }
 
+// review 4: the regression test's steps (pass or fail per step) and its differences (table, added, missing), the tables
+// Proof's Regression test card held, sit under the Regression test line here; /api/v1/golden is the last `ledger golden --check`
+const goldenSteps = (g) => ((g && g.steps) || []).map((x) => ({step: x.step, result: x.exit === 0 ? 'Pass' : `Fail (${x.exit})`}));
+const goldenDiffs = (g) => Object.entries((g && g.diffs) || {}).map(([name, v]) => ({table: name, added: v.n_only_in_run, missing: v.n_only_in_expected}));
+function regressionDetail(g) {
+  const steps = goldenSteps(g), diffs = goldenDiffs(g);
+  if (!steps.length && !diffs.length) return h('p', {class: 'text-secondary small m-0'}, 'No regression run on record');
+  return h('div', {class: 'row g-3'},
+    steps.length ? h('div', {class: 'col-md-6'}, dtable('Steps', [{t: 'Step', k: 'step'}, {t: 'Result', f: (x) => h('span', {class: x.result === 'Pass' ? 'text-green' : 'text-red'}, x.result)}], steps, {bare: true})) : '',
+    h('div', {class: 'col-md-6'}, diffs.length ? dtable('Differences', [{t: 'Table', k: 'table'}, {t: 'Added', num: 1, f: (x) => int(x.added)}, {t: 'Missing', num: 1, f: (x) => int(x.missing)}], diffs, {bare: true}) : h('p', {class: 'text-secondary small m-0'}, 'No table differs from the freeze')));
+}
+
 // the lines in the order a signer acts on them: failing required lines first (fail, stale, not run), then one "N checks
 // pass" row whose passing and informational lines stay folded until it is opened (docs/ux-flow/report.md #2)
 const LINE_ORDER = {fail: 0, stale: 1, not_run: 2, pass: 3, info: 4};
@@ -34,7 +46,7 @@ const signState = (cl, name) => { const n = (name || '').trim(), red = cl.lines.
 
 // the signed releases, newest first, and the one whose packet a reader downloads: the newest signed (report #8: the
 // downloads moved here from Proof; one primary, the rest plain links)
-const latestSigned = (rels) => [...rels].reverse().find((r) => r.signed_by && r.packet) || null;
+const latestSigned = (rels) => [...rels].reverse().find((r) => r.signed_by && r.packet && r.published !== false) || null;  // signed, not published: no primary (it reads "not published"), as after a failed publish (review 6)
 const packetHref = (v) => `/packet/${encodeURIComponent(v)}.zip`;
 // after a signature the page stays on Release with the packet's download; a failed publish says so and offers none
 const signedNext = (r) => (r.published ? {href: packetHref(r.version), label: `Download ${r.version}`} : null);
@@ -53,7 +65,7 @@ document.addEventListener('input', (e) => { if (e.target.id === 'me' && releaseR
 
 async function releasePage(view, qs) {
   const q = parseQ(qs || '');
-  const [cl, out] = await Promise.all([api('/api/v1/release/checklist' + (q.version ? `?version=${encodeURIComponent(q.version)}` : '')), api('/api/outputs').catch(() => ({releases: []}))]);
+  const [cl, out, golden] = await Promise.all([api('/api/v1/release/checklist' + (q.version ? `?version=${encodeURIComponent(q.version)}` : '')), api('/api/outputs').catch(() => ({releases: []})), api('/api/v1/golden').catch(() => null)]);
   const releases = h('div', {}, releasesTable(out.releases || []));
   const required = cl.lines.filter((l) => l.required), green = required.filter((l) => l.ok).length;
   let [canSign, why] = signState(cl, me);
@@ -69,7 +81,8 @@ async function releasePage(view, qs) {
       status.replaceChildren(h('span', {class: 'text-green'}, `${r.version} signed by ${r.signed_by} · ${when(r.signed_at)} · ${r.hash.slice(0, 8)}`), ' · ',
         r.published ? `Published: ${Object.entries(r.rows || {}).map(([k, v]) => `${int(v)} ${k}`).join(', ')}` : h('span', {class: 'text-red'}, `Signed, not published: ${r.publish_error}`));
       const next = signedNext(r);  // the page stays on Release: the packet's download sits where the signature landed
-      if (next) { status.append(' · ', h('a', {href: packetHref(r.version), class: 'btn btn-sm btn-primary'}, next.label)); api('/api/outputs').then((o) => releases.replaceChildren(releasesTable(o.releases || []))).catch(() => {}); }
+      if (next) status.append(' · ', h('a', {href: packetHref(r.version), class: 'btn btn-sm btn-primary'}, next.label));
+      api('/api/outputs').then((o) => releases.replaceChildren(releasesTable(o.releases || []))).catch(() => {});  // every signature redraws the table, published or not (review 5)
     } catch (e) {
       status.replaceChildren(h('span', {class: 'text-red'}, e.message));
       delete button.dataset.busy;
@@ -91,7 +104,7 @@ async function releasePage(view, qs) {
     {t: 'Required', sort: false, f: (l) => (l.summary ? '' : l.required ? 'Required' : h('span', {class: 'text-secondary'}, 'Optional'))},
     {t: 'Details', sort: false, f: (l) => (l.summary ? '' : h('span', {class: 'text-secondary small'}, l.note))},
     {t: 'Fix in', sort: false, f: (l) => { if (l.summary || !l.link || l.ok || l.state === 'info') return ''; const pg = l.link.split('?')[0].split('/')[0]; return h('a', {href: '#' + l.link, class: 'text-nowrap', onclick: (e) => e.stopPropagation()}, PAGE_NAME[pg] || pg); }},
-  ], [...act, SUMMARY, ...rest], {detail: (l) => (l.summary ? '' : lineDetail(l))});
+  ], [...act, SUMMARY, ...rest], {detail: (l) => (l.summary ? '' : l.id === 'regression' ? regressionDetail(golden) : lineDetail(l))});
   // the gates per company, Pass or Fail each, folded with the passing lines (the facts the old by-company card held)
   const byCo = h('tr', {class: 'gates-by-company'}, h('td', {colspan: 6}, gatesByCompany(cl)));
   lines.querySelector('tbody').append(byCo);
