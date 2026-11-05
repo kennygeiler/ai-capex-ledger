@@ -157,7 +157,7 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   `ledger claims`, commit `docs/CLAIMS.md` when it changed; (4) `ledger test`, commit `reports/tests.json`. The Test run
   line forgives commits that changed only `reports/tests.json`; the Regression line forgives commits that changed only
   `reports/golden.json`, `reports/tests.json` and `docs/CLAIMS.md`; neither report file makes the tree dirty. Any other
-  commit after a run reads stale. (5) Type your name in the signer box (empty by default, remembered in this browser) and
+  commit after a run reads stale. (5) The signer types a name in the signer box (empty by default, remembered in this browser) and
   Sign, or `ledger signoff vX.Y.Z --by "<name>"`. Every write, from the page or `signoff`, refuses a name off
   `config.PEOPLE` (400 on the page, exit 1 on the command line). The command line
   does the same in pieces: `ledger release vX.Y.Z` builds the packet for `config.SCOPE`, prints the gate table (one row
