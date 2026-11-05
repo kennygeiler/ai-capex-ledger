@@ -402,5 +402,22 @@ class Layout(unittest.TestCase):
                     pg.wait_for_timeout(500)
                 self.assertEqual(pg.evaluate(self.MACHINE), [])
 
+    # paddings, margins and gaps off a 4 px scale (the layout audit's spacing.offScale), Plotly's own modebar left out
+    OFF_SCALE = """() => { const out = new Set(); for (const e of [...document.querySelectorAll('body *')].slice(0, 3000)) {
+        const r = e.getBoundingClientRect(); if (r.width < 1 || r.height < 1 || e.closest('.modebar')) continue; const cs = getComputedStyle(e);
+        for (const p of ['paddingTop', 'paddingLeft', 'marginTop', 'rowGap', 'columnGap']) { const v = Math.round(parseFloat(cs[p])); if (v > 2 && v < 200 && v % 4) out.add(v + ' ' + p + ' ' + e.tagName.toLowerCase() + '.' + String(e.className).split(' ').slice(0, 2).join('.')); } }
+        return [...out]; }"""
+
+    def test_spacing_on_the_scale(self):
+        """V23: every padding, margin and gap on every page is on the 4 px scale (4 / 8 / 12 / 16 / 24 …)."""
+        ev = "0001144879-24-000216%7Cppe_category%7COther%20equipment%20and%20fixtures%7C2024-05-31"
+        for hash_ in ("proof", "proof?gold=APLD", "proof/APLD", "rules", "reconcile", "data", "data?view=grid", "explore", "release", "gaps", "docs", "evidence/" + ev):
+            for w in WIDTHS:
+                with self.subTest(page=hash_, width=w):
+                    pg = self.page(w, hash_)
+                    pg.wait_for_selector("main .route > *", timeout=60000)
+                    pg.wait_for_timeout(600)
+                    self.assertEqual(pg.evaluate(self.OFF_SCALE), [])
+
 if __name__ == "__main__":
     unittest.main()

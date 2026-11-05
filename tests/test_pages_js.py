@@ -198,7 +198,7 @@ class VisualContract(unittest.TestCase):
         """V3: every either/or choice is .seg, at least 28 px tall with 10 px sides; its selected segment is a neutral fill, never
         the primary action's colour."""
         css = self.css()
-        self.assertIn(".seg > .btn { min-height: 1.75rem; padding: 0 .625rem;", css)
+        self.assertIn(".seg > .btn { min-height: 1.75rem; padding: 0 .75rem;", css)  # V23: 12 px sides, on the 4 px scale (V3 asks at least 8)
         sel = re.search(r"\.seg > \.btn\.active[^{]*\{([^}]*)\}", css).group(1)
         self.assertIn("background: color-mix(in srgb, var(--tblr-body-color) 13%, var(--tblr-bg-surface))", sel)
         self.assertNotIn("primary", sel)
