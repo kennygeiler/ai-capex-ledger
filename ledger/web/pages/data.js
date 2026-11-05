@@ -43,12 +43,13 @@ async function dataPage(view, qs) {
   for (const r of rows) { if (!years.includes(r.period)) continue; const k = seriesKey(r); if (!series.has(k)) series.set(k, {ticker: r.ticker, field: r.field, dimension: r.dimension, y: {}}); series.get(k).y[r.period] = r; }
   const list = [...series.values()].sort((a, b) => Math.max(0, ...Object.values(b.y).map((r) => r.value)) - Math.max(0, ...Object.values(a.y).map((r) => r.value)));
   const maxV = Math.max(1, ...rows.map((r) => r.value));
+  const gridUnit = rows.some((r) => Math.abs(r.value) >= 1e6) ? 'M' : null;  // V16: one unit for the grid's cells; the exact dollars on hover and in the drawer
 
   // panel
   async function showProv(r) {
     const p = r.prov;
     const bits = [h('h3', {style: 'margin:0 0 .4rem'}, `${d.names[r.ticker]}, ${FIELDS[r.field] || r.field}${r.dimension ? ', ' + r.dimension : ''}, ${r.period}`),
-      h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('Value', usd(r.value), r.range ? `${usd(r.range[0])} – ${usd(r.range[1])}` : KINDS[r.kind]),
+      h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('Value', usdExact(r.value), r.range ? `${usd(r.range[0])} – ${usd(r.range[1])}` : KINDS[r.kind]),
         fig('Verification', r.check ? checkWord(r.check) : '—', `${p.table} table`)),
       p.inputs ? h('p', {class: 'muted small mono', style: 'margin-bottom:.6rem'}, p.inputs) : '',
       p.xbrl != null ? h('p', {class: 'muted small'}, `SEC XBRL: ${usd(p.xbrl)}`) : '',
@@ -78,7 +79,7 @@ async function dataPage(view, qs) {
       years.map((y) => {
         const r = s.y[y];
         if (!r) return h('td', {class: 'n muted'}, '');
-        const c = h('td', {class: 'n c', role: 'button'}, h('div', {}, usd(r.value), mark(r)));
+        const c = h('td', {class: 'n c', role: 'button', title: usdExact(r.value)}, h('div', {}, usdIn(r.value, gridUnit), mark(r)));
         c.classList.add('cell'); c.tabIndex = 0;
         if (changed.has(`${r.ticker}|${r.field}|${r.period}`)) c.classList.add('moved');
         c.addEventListener('click', () => showProv(r));
@@ -131,8 +132,8 @@ async function rowsView(view, q) {
     [['', 'Every row'], ['true', 'With a value'], ['false', 'Without a value']].map(([v, t]) => h('option', {value: v, selected: v === hasValue || null}, t))) : '';
   const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, valueSel, search);
 
-  const fmt = (k, v) => v == null || v === '' ? h('span', {class: 'text-secondary'}, '—') : typeof v === 'boolean' ? (v ? 'yes' : 'no') : typeof v === 'number' ? (Number.isInteger(v) ? v.toLocaleString('en-US') : v.toLocaleString('en-US', {maximumFractionDigits: 4})) : k === 'ticker' ? h('a', {href: `#proof/${v}`}, v) : /^https?:/.test(String(v)) ? h('a', {href: v, target: '_blank', rel: 'noopener'}, 'open') : String(v).length > 90 ? h('span', {title: String(v)}, String(v).slice(0, 90) + '…') : String(v);
-  const tcol = (k) => ({t: colName(k), k, n: RAW_NUM.has(k) ? 1 : 0, f: (r) => fmt(k, r[k])});
+  const fmt = (k, v, r = {}) => v == null || v === '' ? h('span', {class: 'text-secondary'}, '—') : typeof v === 'boolean' ? (v ? 'yes' : 'no') : typeof v === 'number' && MONEY_KEYS.has(k) && (!r.unit || /^usd$/i.test(r.unit)) ? usdExact(v) : typeof v === 'number' ? (Number.isInteger(v) ? v.toLocaleString('en-US') : v.toLocaleString('en-US', {maximumFractionDigits: 4})) : k === 'ticker' ? h('a', {href: `#proof/${v}`}, v) : /^https?:/.test(String(v)) ? h('a', {href: v, target: '_blank', rel: 'noopener'}, 'open') : String(v).length > 90 ? h('span', {title: String(v)}, String(v).slice(0, 90) + '…') : String(v);
+  const tcol = (k) => ({t: colName(k), k, n: RAW_NUM.has(k) ? 1 : 0, f: (r) => fmt(k, r[k], r)});
   // V10: an opened row lists its fields in the visible part of the box (the wrapper's width, never the 40-column table's)
   const detail = (r) => h('div', {class: 'datagrid row-detail small'}, keys.map((k) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title', title: k}, colName(k)), h('div', {class: 'datagrid-content brk'}, r[k] == null || r[k] === '' ? '—' : String(r[k])))));
   const holder = h('div', {});

@@ -337,6 +337,29 @@ class FiguresInCells(unittest.TestCase):
 
 
 @unittest.skipUnless(shutil.which("node"), "no node")
+class MoneyUnits(unittest.TestCase):
+    """V16: one unit per place. A chart's tooltip and Data table use the axis's unit; a Grid's cells one unit; Dataset Rows'
+    money columns to the dollar with a $ (never a bare integer); the hand check's exact figures as filed are untouched."""
+
+    def fmt(self, cases):
+        js = block("_shared.js", "const usd = (n) => {", "\n};") + "\n" + block("_shared.js", "const usdIn = ", "\n};") + \
+            "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[process.argv.length - 1]).map(([n, u]) => usdIn(n, u))));"
+        return json.loads(node(js, json.dumps(cases)))
+
+    def test_one_unit(self):
+        self.assertEqual(self.fmt([[119016000000, "B"], [390000, "M"], [9800000, "M"], [-1500, "M"], [None, "M"], [513983000000, "M"]]),
+                         ["$119.0B", "$0.39M", "$9.8M", "−$0.0015M", "—", "$513,983M"])
+
+    def test_the_places_use_it(self):
+        ex, data = (PAGES / "explore.js").read_text(), (PAGES / "data.js").read_text()
+        self.assertIn("isShare ? pct(v) : usdIn(v, suffix)", ex)
+        self.assertNotIn("row(s)", ex)
+        self.assertIn("usdIn(r.value, gridUnit)", data)
+        self.assertIn("MONEY_KEYS.has(k) && (!r.unit || /^usd$/i.test(r.unit)) ? usdExact(v)", data)
+        self.assertIn("usdExact", (PAGES / "proof.js").read_text())  # the hand check reads to the dollar, as before
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
 class HandCheckNote(unittest.TestCase):
     """V4 / PB9: the note box shows only after Wrong or Can't say, or when a note is on file; never for Right or unchecked."""
 

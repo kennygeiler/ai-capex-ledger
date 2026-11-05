@@ -23,6 +23,17 @@ const usd = (n) => {
 };
 // the figure to the dollar (cards.exact), where two different figures would print the same in usd
 const usdExact = (n) => { if (n == null || n === '') return '—'; const x = Number(n), a = Math.floor(Math.abs(x) + 0.5); return `${x < 0 && a ? '−' : ''}$${a.toLocaleString('en-US')}`; };
+// V16: money in the unit the reader already has (a chart's axis, a table column): B or M, the exact dollars beside it on hover.
+// Under a million in an M column keeps two significant digits ($0.39M), so one column never mixes $390,000 with $9.8M.
+const usdIn = (n, unit) => {
+  if (n == null || n === '') return '—';
+  const x = Number(n), a = Math.abs(x), sign = x < 0 && a ? '−' : '';
+  if (unit === 'B') return `${sign}$${(a / 1e9).toLocaleString('en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1})}B`;
+  if (unit === 'M' && a && a < 1e6) return `${sign}$${Number((a / 1e6).toPrecision(2))}M`;
+  return usd(x);
+};
+// the read API's money columns (Dataset Rows): shown to the dollar with its sign, never as a bare integer
+const MONEY_KEYS = new Set(['value', 'value_high', 'change_from_prior', 'amount_low', 'amount_high', 'amount_mid', 'xbrl']);
 const day = (s) => (s ? new Date(String(s).slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'}) : '—');
 const when = (s) => (s ? new Date(s).toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'}) : '—');
 // One name per field, every page (trail, Reconcile, Dataset, Explore, gold, evidence)

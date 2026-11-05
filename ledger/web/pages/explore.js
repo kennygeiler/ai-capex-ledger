@@ -78,7 +78,7 @@ async function explorePage(view, arg, qs) {
   const totals = Object.fromEntries(xs.map((x) => [x, seriesNames.reduce((s, n) => s + ((cell[`${n}|${x}`] || {}).sum || 0), 0)]));
   const big = Math.max(0, ...Object.values(cell).map((c) => Math.abs(c.sum))) >= 1e9;
   const unit = isShare ? 0.01 : big ? 1e9 : 1e6, suffix = isShare ? '%' : big ? 'B' : 'M';
-  const fmtv = (v) => (v == null ? '—' : isShare ? pct(v) : usd(v));
+  const fmtv = (v) => (v == null ? '—' : isShare ? pct(v) : usdIn(v, suffix));  // V16: the axis's unit governs the tooltip and the Data table
   const plot = h('div', {class: 'plot', role: 'figure', 'aria-label': `${m.label} by ${EX_AXES[st.x]}${st.series ? ' and ' + EX_AXES[st.series] : ''}`});
   const under = h('div', {});
   const url = listUrl(st);
@@ -99,8 +99,8 @@ async function explorePage(view, arg, qs) {
   const seriesAll = st.series ? [...new Set(all.rows.map((r) => String(r[st.series] ?? '—')))].sort() : [];  // every value the column holds, filters or not: a value keeps its colour
   const traces = seriesNames.map((n) => {
     const ys = xs.map((x) => { const c = cell[`${n}|${x}`]; if (!c) return null; return st.type === 'share' ? (totals[x] ? 100 * c.sum / totals[x] : null) : c.sum / unit; });
-    const custom = xs.map((x) => { const c = cell[`${n}|${x}`]; const f = partial(x) ? `<br>${cov[x].n} of ${cov[x].of} companies` : ''; return c ? [fmtv(c.sum), c.rows.length, totals[x] && !isShare ? pct(c.sum / totals[x]) : '—', f] : ['—', 0, '—', f]; });
-    const base = {name: disp(n), x: xs, y: ys, customdata: custom, marker: {color: colorOf(st.series, n, seriesAll)}, line: {color: colorOf(st.series, n, seriesAll), width: 2}, hovertemplate: `<b>%{customdata[0]}</b> ${st.series ? disp(n) : ''}${st.series && seriesNames.length > 1 ? ', %{customdata[2]} of the ' + EX_AXES[st.x] : ''}<br>%{customdata[1]} row(s)%{customdata[3]}<extra></extra>`};
+    const custom = xs.map((x) => { const c = cell[`${n}|${x}`]; const f = partial(x) ? `<br>${cov[x].n} of ${cov[x].of} companies` : ''; return c ? [fmtv(c.sum), plural(c.rows.length, 'row'), totals[x] && !isShare ? pct(c.sum / totals[x]) : '—', f] : ['—', '0 rows', '—', f]; });
+    const base = {name: disp(n), x: xs, y: ys, customdata: custom, marker: {color: colorOf(st.series, n, seriesAll)}, line: {color: colorOf(st.series, n, seriesAll), width: 2}, hovertemplate: `<b>%{customdata[0]}</b> ${st.series ? disp(n) : ''}${st.series && seriesNames.length > 1 ? ', %{customdata[2]} of the ' + EX_AXES[st.x] : ''}<br>%{customdata[1]}%{customdata[3]}<extra></extra>`};
     const faded = xs.map((x) => (partial(x) ? 0.55 : 1));
     return st.type === 'lines' ? {...base, type: 'scatter', mode: 'lines+markers', marker: {color: colorOf(st.series, n, seriesAll), size: 7, opacity: faded, symbol: xs.map((x) => (partial(x) ? 'circle-open' : 'circle'))}, connectgaps: false}
       : {...base, type: 'bar', marker: {color: colorOf(st.series, n, seriesAll), opacity: faded, pattern: {shape: xs.map((x) => (partial(x) ? '/' : '')), fillmode: 'overlay', fgcolor: bg, solidity: 0.3}}};
@@ -118,7 +118,7 @@ async function explorePage(view, arg, qs) {
   await Plotly.newPlot(plot, traces, layout, {displayModeBar: 'hover', displaylogo: false, responsive: true, modeBarButtonsToRemove: ['lasso2d', 'select2d', 'autoScale2d', 'toImage'], scrollZoom: false});
   // the plotted numbers, as a table a person can copy
   const numbers = h('details', {class: 'mt-2'}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Data'),
-    h('div', {class: 'mt-2'}, table([{t: st.series ? EX_AXES[st.series] : 'series', sort: false, f: (n) => disp(n)}, ...xs.map((x) => ({t: xLabel(x), n: 1, sort: false, f: (n) => { const c = cell[`${n}|${x}`]; return c ? (st.type === 'share' && totals[x] ? pct(c.sum / totals[x]) : fmtv(c.sum)) : '—'; }}))], seriesNames)));
+    h('div', {class: 'mt-2'}, table([{t: st.series ? EX_AXES[st.series] : 'series', sort: false, f: (n) => disp(n)}, ...xs.map((x) => ({t: xLabel(x), n: 1, sort: false, f: (n) => { const c = cell[`${n}|${x}`]; return c ? (st.type === 'share' && totals[x] ? pct(c.sum / totals[x]) : h('span', {title: usdExact(c.sum)}, fmtv(c.sum))) : '—'; }}))], seriesNames)));
   under.before(numbers);
   plot.on('plotly_click', (ev) => { const p = ev.points[0]; const n = seriesNames[p.curveNumber]; const c = cell[`${n}|${p.x}`]; if (c) showRows(c.rows, `${n === 'total' ? '' : disp(n) + ', '}${xLabel(p.x)}`); });
   showRows(null);
@@ -126,7 +126,7 @@ async function explorePage(view, arg, qs) {
     if (!list) { under.replaceChildren(h('p', {class: 'muted small', style: 'margin-top:.6rem'}, h('button', {type: 'button', class: 'btn btn-link btn-sm p-0 align-baseline small', title: 'Click a bar or point for its rows · drag to zoom · double-click to reset', onclick: () => showRows(pts, 'Every row')}, 'Show rows'))); return; }
     const cols = [{t: 'Company', k: 'ticker', f: (r) => h('a', {href: `#proof/${r.ticker}`}, NAMES[r.ticker] || r.ticker)}, {t: 'Year', f: (r) => r.period || r.fiscal_year || '—'}];
     for (const c of ['measure', 'category', 'reported_name', 'standard_type', 'field', 'kind', 'project_kind', 'relation', 'dimension', 'status', 'check', 'check_method', 'source_kind', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: c.replaceAll('_', ' '), k: c, f: (r) => r[c] ?? '—'});
-    cols.push({t: 'Value', n: 1, f: (r) => fmtv(val(r)), s: (r) => val(r)});
+    cols.push({t: 'Value', n: 1, f: (r) => (val(r) == null ? '—' : h('span', {title: usdExact(val(r))}, usdIn(val(r), 'M'))), s: (r) => val(r)});  // one unit for the column
     if (list.some((r) => r.basis || r.quote)) cols.push({t: 'Basis', sort: false, f: (r) => { const b = r.basis || r.quote || ''; return h('span', {class: 'small brk', title: b.length > 160 ? b : null}, b.length > 160 ? b.slice(0, 159).trimEnd() + '…' : b); }, wide: 1});  // V10: a cut ends in an ellipsis
     under.replaceChildren(h('div', {class: 'sechead', style: 'margin-top:1rem'}, h('h2', {}, title || 'Rows'), h('span', {class: 'muted small'}, `${int(list.length)} row${list.length === 1 ? '' : 's'}${list.length > 300 ? ' · first 300' : ''}`)), table(cols, list.slice(0, 300)));
   }
