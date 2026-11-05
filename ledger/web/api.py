@@ -114,12 +114,18 @@ def year_range(q: dict) -> tuple[str | None, str | None]:
     return out[0], out[1]
 
 
+def column(r: dict, k: str) -> str:
+    """The column a filter reads on a row: `check` is the verdict column of every list, `check` on the taxonomy and
+    `check_label` on values and facts (report #13: one Verification filter, whatever the list calls the column)."""
+    return "check_label" if k == "check" and "check" not in r and "check_label" in r else k
+
+
 def apply(rows: list[dict], q: dict) -> list[dict]:
     """Filters, then group. Filter values match case-insensitively; a row without the column is kept."""
     for k in FILTERS:
         if q.get(k):
             want = {x.upper() for x in _split(q[k])}
-            rows = [r for r in rows if k not in r or ("" if r.get(k) is None else str(r[k])).upper() in want]  # False is a value, not empty (has_value=false)
+            rows = [r for r in rows if column(r, k) not in r or ("" if r.get(column(r, k)) is None else str(r[column(r, k)])).upper() in want]  # False is a value, not empty (has_value=false)
     lo, hi = year_range(q)
     year = lambda r: str(r.get("period") or r.get("fiscal_year") or "").upper()
     if lo:

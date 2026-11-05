@@ -465,6 +465,14 @@ def review_counts(board: dict, unconfirmed: list, unmapped: list = ()) -> dict:
             "per_company": [{"ticker": t, "open": x["bad"], "proposed": x["wait"], "blocked": x["blocked"]} for t, x in per.items()]}
 
 
+def packet_detail(files: dict) -> list[dict]:
+    """The packet line's rows: file, bytes, rows; a CSV the Dataset lists links to that list (report #8: a reader compares
+    a file's row count with the list in one click). A file with no list (ai_spend.csv, the reports) has no link."""
+    from ..web.api import RELEASE_LISTS
+    return [{"file": n, "bytes": len(text.encode()), "rows": max(0, text.count("\n") - 1) if n.endswith(".csv") else None,
+             **({"link": f"data?list={n[:-4]}"} if n.endswith(".csv") and n[:-4] in RELEASE_LISTS else {})} for n, text in sorted(files.items())]
+
+
 def g6_link(unconfirmed: list, mappings: list, decided: list = ()) -> str:
     """The page that fixes G6's items: Reconcile with every cause when it holds both a run's decisions and asset types,
     else the one group that holds them; a run's decision on a block finding (F14) is on Reconcile's blocks group."""
@@ -571,7 +579,7 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
                "signed": f"{version} is already signed: use a new version", "broken": f"The {version} folder is incomplete: delete and rebuild",
                "different": f"An unsigned {version} folder differs from this packet: delete and rebuild"}[fstate]  # folder_state's own note names the folder, for the CLI
     lines.append(_line("packet", f"Packet {version}", True, len(p["files"]), pk_state, "data", pk_note,
-                       [{"file": n, "bytes": len(text.encode()), "rows": max(0, text.count("\n") - 1) if n.endswith(".csv") else None} for n, text in sorted(p["files"].items())]))
+                       packet_detail(p["files"])))
     required = [l for l in lines if l["required"]]
     return {"version": version, "previous": p["previous"], "scope": list(SCOPE), "stage": stage, "hash": p["hash"], "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "ok": all(l["ok"] for l in required), "red": [l["id"] for l in required if not l["ok"]], "lines": lines,

@@ -132,7 +132,7 @@
   .cropbox-fig img { display: block; max-width: 100%; height: auto; background: #fff; }
   .src { display: grid; gap: .3rem; margin-bottom: .9rem; max-width: 60rem; }
   .src img { max-width: min(100%, 40rem); border-radius: 4px; margin-top: .3rem; border: 1px solid var(--tblr-border-color); }
-  pre.raw { white-space: pre-wrap; word-break: break-word; font: .78rem/1.5 var(--tblr-font-monospace); max-height: 30rem; overflow: auto; margin: .5rem 0 0; background: var(--tblr-bg-surface-secondary); color: var(--tblr-body-color); padding: .6rem .75rem; border-radius: var(--tblr-border-radius); }  /* F-BF8: Tabler's pre ink is light, for its dark pre; on this surface the text vanished */
+  pre.raw { white-space: pre-wrap; word-break: break-word; font: .78rem/1.5 var(--tblr-font-monospace); max-height: 30rem; overflow: auto; margin: .5rem 0 0; background: var(--tblr-bg-surface-secondary); color: var(--tblr-body-color); padding: .5rem .75rem; border-radius: var(--tblr-border-radius); }  /* V23: on the 4 px scale. F-BF8: Tabler's pre ink is light, for its dark pre; on this surface the text vanished */
   .msg { color: var(--tblr-secondary); padding: 2rem 0; }
   ul.plain { margin: .25rem 0 0; padding-left: 1rem; }
   ul.plain li { margin: .15rem 0; }
@@ -294,6 +294,7 @@
   @media (max-width: 700px) { .docs { grid-template-columns: 1fr; } .docs .viewlist { position: static; flex-direction: row; flex-wrap: wrap; } }
   .md { max-width: 62rem; line-height: 1.6; }
   .md h2 { font-size: 1.05rem; margin: 1.75rem 0 .5rem; }
+  .md h2, .md h3, .md h4 { scroll-margin-top: 1rem; }  /* a ?at= anchor lands with air above it */
   .md h3 { font-size: .95rem; margin: 1.25rem 0 .4rem; }
   .md h4 { font-size: .875rem; margin: 1rem 0 .3rem; }
   .md p, .md ul, .md ol, .md blockquote { margin: 0 0 .75rem; }

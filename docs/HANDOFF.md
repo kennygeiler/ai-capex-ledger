@@ -123,8 +123,8 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   to `decisions/archive/resolutions-keys-<date>.jsonl`; it removes nothing and a second run is a no-op.
 - **Map a reported asset type**: Proof shows it open under Mapping. `ledger mapper <TICKER>` (T33; `--dry-run` writes the
   task only) asks the mapper agent for a us-gaap member per unmapped category with the note's words as evidence; the
-  proposals land in `decisions/mapping_proposals.jsonl` and on Reconcile's "asset types" group (`#reconcile?scope=<TICKER>`,
-  in scope or not), where Approve or Edit writes the entry to `taxonomy/asset_types.yaml` under the signer's name (`POST
+  proposals land in `decisions/mapping_proposals.jsonl` and on Reconcile's Category mapping cards (`#reconcile?scope=<TICKER>`,
+  in scope or not), where Approve or Choose another writes the entry to `taxonomy/asset_types.yaml` under the signer's name (`POST
   /api/mapping`: the one writer; a member off the header's list or a second entry for the same name is refused) and
   Reject logs the member so the next run proposes another (T100: a delayed proposal of a rejected member is never current;
   Reconcile shows it as "re-proposed after rejection", and a proposal after an approval changes nothing). Or write the entry by hand, with the note's own words as
@@ -132,7 +132,7 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   is a classification, never a number; a proposal is nothing until a person approves it. T63: an entry counts as checked
   only with `confirmed_by` and `confirmed_at` (Approve writes both; an agent never does). One without them, like the 47
   an agent proposed in one batch, is open on Proof as "to confirm", fails gate G6, and sits in the same Reconcile
-  group: Approve confirms its line, Edit replaces it confirmed, Reject removes it and logs the member.
+  group: Approve confirms its line, Choose another replaces it confirmed, Reject removes it and logs the member.
 - **Settle a disagreement with the SEC's data**: add a definition for the company in `definitions/companies.yaml`
   (who, why), rerun `reconcile` and `rules`. Never accept the same thing twice.
 - **Write an explanation once (T36)**: on Reconcile, after Explain or Accept, "Make this a rule" (an info `explains` rule in

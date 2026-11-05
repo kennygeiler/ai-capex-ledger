@@ -316,7 +316,7 @@ class ExploreColours(unittest.TestCase):
         self.assertNotIn("'then'", js)
         self.assertNotIn("`x: ${t}`", js)
         self.assertIn("if (!await plotlyReady())", js)
-        self.assertIn("if (!await plotlyReady())", (PAGES / "proof.js").read_text())
+        self.assertIn("if (!await plotlyReady())", (PAGES / "rules.js").read_text())  # the failure-type charts moved from Proof to Rules (flow #11)
 
 
 @unittest.skipUnless(shutil.which("node"), "no node")

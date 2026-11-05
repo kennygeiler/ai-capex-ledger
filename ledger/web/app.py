@@ -149,6 +149,7 @@ def data(q: dict) -> dict:
     want_f = set(q.get("f", "").split(",")) - {""}
     want_y = set(q.get("y", "").upper().split(",")) - {""}
     want_k = set(q.get("k", "").split(",")) - {""}
+    want_c = set(q.get("check", "").split(",")) - {""}  # the Verification filter (report #13): a check label, or `flag` for a row that differs from SEC XBRL
     con = _con()
     try:
         rows = []
@@ -169,12 +170,24 @@ def data(q: dict) -> dict:
         r["status"] = (resolutions.status_of(idx, "facts", r["ticker"], r["field"], r["dimension"], r["period"]) if t == "facts"
                        else resolutions.status_of(idx, "values", r["ticker"], r["field"], "", r["period"]) if t == "values" else "")
         r["flag"] = "differs_from_xbrl" if r.get("check") == "unresolved" else ""
-    rows = [r for r in rows if (not want_t or r["ticker"] in want_t) and (not want_f or r["field"] in want_f) and (not want_y or r["period"] in want_y) and (not want_k or r["kind"] in want_k)]
+    rows = [r for r in rows if (not want_t or r["ticker"] in want_t) and (not want_f or r["field"] in want_f) and (not want_y or r["period"] in want_y) and (not want_k or r["kind"] in want_k)
+            and (not want_c or r["check"] in want_c or ("flag" in want_c and r["flag"]))]
     cos = [c for c in tracked() if c["ticker"] in want_t]
     names = {c["ticker"]: c["name"] for c in cos}
     fields = sorted({r["field"] for r in rows} if q.get("t") else set(FIELD_KIND))
     return {"rows": rows, "names": names, "industries": {c["ticker"]: industry(c["ticker"]) for c in cos}, "roles": {c["ticker"]: c.get("role", "other") for c in cos},
             "scope": list(SCOPE), "fields": fields, "kinds": ["spent", "committed", "derived", "planned"]}
+
+
+DATA_CSV = ("ticker", "company", "field", "dimension", "period", "kind", "value", "check", "basis", "source_url", "provenance")
+
+
+def data_csv(d: dict) -> str:
+    """The Grid's rows as CSV, the columns its export always had, one row per cell the filters keep."""
+    from . import api
+    p = lambda r: r["prov"]
+    return api.to_csv([dict(zip(DATA_CSV, (r["ticker"], d["names"].get(r["ticker"], r["ticker"]), r["field"], r["dimension"], r["period"], r["kind"], r["value"], r.get("check"),
+                                          r["basis"], p(r).get("url"), p(r).get("inputs") or p(r).get("extractions") or p(r).get("text")))) for r in d["rows"]])
 
 
 _FLOW: dict = {}
@@ -586,6 +599,8 @@ class Handler(BaseHTTPRequestHandler):
         if u.path == "/api/flow":
             return self._guard(lambda: self._json(flow(q.get("scope", "all"))))
         if u.path == "/api/data":
+            if q.get("format") == "csv":  # the Grid's export, built here as the Rows' CSV is (report #13: one export path)
+                return self._guard(lambda: self._send(HTTPStatus.OK, data_csv(data(q)).encode(), "text/csv; charset=utf-8"))
             return self._guard(lambda: self._json(data(q)))
         if u.path == "/api/v1/release/checklist":  # the Release page (T5): the next version's checklist, or ?version=
             from ..release.checklist import checklist
@@ -763,7 +778,8 @@ class Handler(BaseHTTPRequestHandler):
     def _hq(self):
         con = _con()
         try:
-            return {**snapshot(con, STAGE), "readonly": READONLY}
+            from ..release.claims import copy_status
+            return {**snapshot(con, STAGE), "readonly": READONLY, "copy": copy_status() if READONLY else None}  # report #14: what the read-only copy serves
         finally:
             con.close()
 
