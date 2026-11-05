@@ -47,4 +47,4 @@ flowchart LR
 - Run it, review it, release it: [Operating guide](OPERATIONS.md).
 - The words on the pages: [Glossary](#docs/glossary).
 - Every rule and gate: [Rules and checks](#docs/rules).
-- Where the code lives: [Map](MAP.md). Taking the system over: [Handoff](HANDOFF.md).
+- Where the code lives: [Map](MAP.md). Taking the system over: [Start here](HANDOFF.md).

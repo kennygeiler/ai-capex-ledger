@@ -52,14 +52,14 @@ function flowDiagram(src) {
   return h('div', {class: 'flow-wrap'}, root);
 }
 
-async function docsPage(view, arg) {
+async function docsPage(view, arg, qs) {
   const idx = await api('/api/v1/docs');
   const slug = idx.pages.some((p) => p.slug === arg) ? arg : idx.pages[0].slug;
   const pg = await api(`/api/v1/docs/${encodeURIComponent(slug)}`);
   const side = h('nav', {class: 'viewlist', 'aria-label': 'Docs pages'}, idx.pages.map((p) =>
     h('a', {href: `#docs/${p.slug}`, class: 'viewrow' + (p.slug === slug ? ' on' : ''), 'aria-current': p.slug === slug ? 'page' : null}, p.title)));
   const source = h('p', {class: 'text-secondary small mt-4'}, pg.file ? ['Source: ', h('a', {href: `/docs/${pg.file.replace(/^docs\//, '')}`}, pg.file)] : 'Written from code on every request');
-  const article = h('article', {class: 'md'}, mdRender(pg.markdown, {files: idx.files, served: idx.served, diagram: flowDiagram}), source);
+  const article = h('article', {class: 'md'}, mdRender(pg.markdown, {files: idx.files, served: idx.served, diagram: flowDiagram, page: slug, at: parseQ(qs || '').at || null}), source);
   const title = article.querySelector('h1');
   if (title) { title.remove(); title.classList.add('page-title'); }
   view.append(h('div', {class: 'page-header'}, title || h('h1', {class: 'page-title'}, (idx.pages.find((p) => p.slug === slug) || {}).title || 'Docs')), h('div', {class: 'views docs'}, h('div', {}, side), article));

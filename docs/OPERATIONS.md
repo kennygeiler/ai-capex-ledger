@@ -1,7 +1,7 @@
 # Operating guide
 
 The routine work of running the ledger: the daily review, grading the gold set, adding a company, cutting a release, and
-what to do when a Release line is red. Setup and the objects are in [Handoff](HANDOFF.md); what each word means is in the
+what to do when a Release line is red. Setup and the objects are in [Start here](HANDOFF.md); what each word means is in the
 [Glossary](#docs/glossary). Commands are `uv run python -m ledger <command>`, shortened here to `ledger <command>`.
 
 ## Never
@@ -24,7 +24,7 @@ what to do when a Release line is red. Setup and the objects are in [Handoff](HA
    - **Make this a rule** or **Make this a definition** when the same reason will recur: the explanation is written once (`rules/` or `definitions/companies.yaml`) and applies on every run.
    - **Fix** when the figure is wrong: the item stays open until the pipeline produces the right one.
    - **Block release** when the figure must not ship.
-   - For an asset-type proposal: **Approve**, **Edit** or **Reject**. Only an approval writes `confirmed_by`.
+   - For a Category mapping proposal: **Approve**, **Choose another** or **Reject**. Only an approval writes `confirmed_by`.
 4. After a definition or rule, run `ledger rules` (or `ledger reconcile`), then commit the changed file. The commit message says what was decided and why.
 5. A new kind of failure gets a row in `docs/INGESTION.md` and `taxonomy/failures.yaml`, a check that catches it, and a test.
 

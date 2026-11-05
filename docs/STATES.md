@@ -259,7 +259,7 @@ taxonomy/*.yaml, mapping_proposals.jsonl or gold/.
 
 **UI.** Reconcile asset rows: badge 'to confirm' (reconcile.js:96), "no proposal yet", "Re-proposed after rejection: …"
 (308), "Rejected before: …" (307), filer "not checked: the filer's XBRL instance is not on disk" / "nothing for this
-category in its XBRL" / "ambiguous: …" (51), buttons Approve / Reject / Edit / Map / "Write as …" (167-195). Proof "<name>:
+category in its XBRL" / "ambiguous: …" (51), buttons Approve / Reject / Choose another / Map / "Write as …" (reconcile.js mappingCell, mappingActions). Proof "<name>:
 <member>, to confirm" / "<name>: no standard asset type" (proof.py:174-176). Cards "Confirmed: <member>", "Proposed
 category. Review in Reconcile.", "→ unmapped" (cards.py:72,100,173). Taxonomy `check`, `mapped` (taxonomy.py:87,209-211).
 Release: an unmapped name counts on the Needs review line, listed on Proof or not (checklist.py `review_counts`); a
@@ -323,8 +323,8 @@ with a checklist, published true.
 | published → hosted deployed | `railway up` + `ledger claims --deployed` | person | **not part of signing**; only the informational "Known gaps" line (checklist.py:351-353) |
 | a signed release's files edited | file edit | anyone | caught at publish (hash) |
 
-**UI.** Proof releases table "<by>, <date>", plus ", not published" only when `published === false`, or "not signed"
-(proof.js:46), with "Open at signing", "No entry at signing", "In scope". The trail's "Last release" (trail.js:83) comes
+**UI.** Release's releases table "<by>, <date>", plus ", not published" only when `published === false`, or "not signed"
+(release.js releasesTable), with "To review at signing", "Unmapped at signing", "Companies". The trail's "Last release" (trail.js:83) comes
 from `cards.last_release`, **which skips a signed release with no checklist** (cards.py:219). The Release page status
 "signed by … · published: …" / "not published: …; the signature stands, run ledger publish" (release.js:43-44). Packet
 line notes (checklist.py:438-443). `/api/outputs` `published` (app.py:323).

@@ -17,16 +17,16 @@ NAME = re.compile(r"[A-Za-z0-9_-]+\.md")
 
 # The sidebar, in order: (slug, title, file in docs/ or None for a page written from code). A doc that is stale or
 # superseded is left off the sidebar rather than shown; it stays readable at /docs/<NAME>.md.
-SIDEBAR = (
+SIDEBAR = (  # reading order (report #12, STORY-068): Start here first, and the default #docs route; one name per page
+    ("handoff", "Start here", "HANDOFF.md"),
     ("overview", "How it works", "OVERVIEW.md"),
     ("operations", "Operating guide", "OPERATIONS.md"),
-    ("glossary", "Glossary", None),
     ("map", "Map", "MAP.md"),
-    ("states", "States", "STATES.md"),
+    ("glossary", "Glossary", None),
     ("rules", "Rules and checks", None),
+    ("states", "States", "STATES.md"),
     ("evals", "Evaluation", "EVALS.md"),
     ("claims", "Known limitations", "CLAIMS.md"),
-    ("handoff", "Handoff", "HANDOFF.md"),
 )
 SLUGS = {s for s, _, _ in SIDEBAR}
 # Served as raw text at /docs/<NAME>.md: the sidebar's files and the reference docs the README and the sidebar docs link

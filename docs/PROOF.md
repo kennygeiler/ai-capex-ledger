@@ -237,7 +237,7 @@ accrual and runs above cash capex, $14M to $304M). Not judged: six groups with n
 in its FY2025 10-K; AMZN PP&E FY2021–FY2023, and FY2024 in its FY2024 10-K) and four with one part (APLD PP&E FY2021,
 APLD segment revenue FY2023, and FY2024 and FY2025 in its FY2026 10-K).
 
-Under it, "Failure types" (T54): the 72 types `docs/INGESTION.md` logged, as `taxonomy/failures.yaml` codes them, two bar charts
+On the Rules page, under the rules, "Failure types" (T54): the 72 types `docs/INGESTION.md` logged, as `taxonomy/failures.yaml` codes them, two bar charts
 from `/api/v1/failures` (types per cause class; types per catching check, `none` its own bar: a known way to be wrong that nothing
 guards, 45 of 72 today) with the same numbers as tables; a bar counts types, never instances, and a null count seen stays null.
 
@@ -283,7 +283,7 @@ checks it by `mapping:filer_tag` (a twin, after readings that differ and before 
 `check_method` `mapping:filer_tag`, never "no XBRL to compare". Every derived row also carries `mapping_check` (schema
 v12): `mapping:filer_tag`, `mapping:<member>` (a person's confirmed_by), `label:to_confirm` or `none`.
 
-A category the company's tag checks still appears in Reconcile's asset types, after the open ones, checked and marked
+A category the company's tag checks still appears in Reconcile's Category mapping · Matches company tag card, checked and marked
 "Matches company's own tag", with Approve · Choose another · Reject: a person can always confirm or override it. Every
 write carries what the page showed (`expected`: the entry's member and date, or none); a write against an entry that
 changed meanwhile is refused with 409 and the page reloads (`mapper.Stale`).
@@ -310,8 +310,9 @@ member in FY2023 only (GOOGL "Technical infrastructure", "Office space", "Corpor
 differ from the tag), and 13 are not tagged with the value (all 6 MSFT, all 5 AMD, AMZN "Equipment", GOOGL "Add: assets
 not yet in service").
 
-**The decision card** (`ledger/review/mapcard.py`, `decisions(con, ticker)`) is the one function the trail's Category mapping
-section and Reconcile's asset types group read: the company line (latest balance, the years, Open ↗ to the cell), the
+**The decision card** (`ledger/review/mapcard.py`, `decisions(con, ticker)`) is the one function Reconcile's Category mapping
+cards read (the trail's Category mapping stage shows each category as one row, reported name → member and its state, with one
+"Decide in Reconcile" link for the stage): the company line (latest balance, the years, Open ↗ to the cell), the
 proposed member with its FASB label and definition verbatim from `taxonomy/us_gaap_members.yaml` ("Source: FASB US GAAP
 2025"), the company's own tag, the basis, up to three alternatives (the company's own us-gaap tag when it differs, then
 members whose FASB label shares words with the reported name, said as such), and what it affects (the category's derived
@@ -388,11 +389,11 @@ answer is derived from the same cells.
 - **Rules**: every rule and definition, what it explains, how many items it closed in the latest run, and the
   failure type it came from. The open items of the five, grouped by what rule is missing. This is the work list.
 - **Reconcile**: judgement on open items, which should be nearly empty; a judgement that would be made twice becomes a definition.
-  The mapping stage's open items sit here too (the "asset types" group, T33): each unmapped reported PP&E category with the mapper
-  agent's proposed us-gaap member, the note's words and a confidence; a person's Approve or Edit writes `taxonomy/asset_types.yaml`
+  The mapping stage's open items sit here too (the Category mapping cards, T33): each unmapped reported PP&E category with the mapper
+  agent's proposed us-gaap member, the note's words and a confidence; a person's Approve or Choose another writes `taxonomy/asset_types.yaml`
   under their name, Reject logs the member. The stage's states do not change: a proposal is not a mapping, and the row stays open
   until the entry is written. T63: an entry already in the file without `confirmed_by` is a proposal too and sits in the same group
-  ("to confirm", with the entry's member and who wrote it): Approve adds `confirmed_by` and `confirmed_at` to its line, Edit replaces
+  ("to confirm", with the entry's member and who wrote it): Approve adds `confirmed_by` and `confirmed_at` to its line, Choose another replaces
   it with the person's member (confirmed), Reject removes the line and logs the member. Each row shows the member the filer itself
   tagged for the category in its XBRL instance (`mapper.filer_members`) and flags a us-gaap member that differs from the proposal.
 - **Dataset**: the grid for a consumer, marks per cell (✓ traced, ≠ differs from SEC data, ✗ disagrees with a stated figure, ! above the total, a decision as a badge), CSV export.
@@ -418,13 +419,13 @@ answer is derived from the same cells.
   whole (a temporary folder renamed into place), builds the checklist again on the folder as written and refuses if anything
   went red, signs as the name in the header's signer box (recorded as given; who may press it is a later ticket, auth),
   stores the checklist as it was in `SIGNOFF.json` under `checklist`, and publishes; a publish that fails after the signature
-  is recorded there (`published: false`, `publish_error`) and stays on screen, and Proof says "signed, not published" until
+  is recorded there (`published: false`, `publish_error`) and stays on screen, and Release's releases table says "not published" until
   `ledger publish` succeeds. One signature at a time; a signature is never replaced. Refused with 403 on the read-only copy
   and 400 while any required line is red. `ledger release` refuses on the same checklist, so the CLI never writes a folder
-  the page cannot sign. Proof's releases table reads the stored checklist back: open, unmapped and the companies in scope at
+  the page cannot sign. A published signature stays on Release with the packet's Download. Release's releases table reads the stored checklist back: open, unmapped and the companies in scope at
   signing; a release signed before the checklist says so.
   A release's `manifest.json` names what produced its rows (T66, `provenance`: the prompt versions per reader and the models over
   the shipped rows, the parser versions over the filings in scope, rows whose run is unrecorded, the commit built on and whether
   the tree was dirty, the sha256 of the definitions, taxonomy and resolutions files); v1.8.0 and earlier name the versions in use at
   build time, and v1.9.0's DIFF.md says so. A shipped release is never edited.
-- The releases table and the golden test's last run sit on Proof; the guards, the asset-type mappings and the readers on Rules; the dataset on Dataset, as a grid by year or as the raw rows of every list. Seven pages, one file each under `ledger/web/pages/`, the shell in `ledger/web/app.html`.
+- The releases table and the packet downloads sit on Release; the golden test's last run in Proof's header; the guards, the failure types, the asset-type mappings and the readers on Rules; the dataset on Dataset, as a grid by year or as the raw rows of every list. Seven pages, one file each under `ledger/web/pages/`, the shell in `ledger/web/app.html`.

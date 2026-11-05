@@ -113,5 +113,88 @@ class ProofOneJob(unittest.TestCase):
         self.assertIn("failureTypes.draw();", page)
 
 
+@unittest.skipUnless(shutil.which("node"), "no node")
+class TrailCondensed(unittest.TestCase):
+    """#10 (STORY-014): a check flag folds into its figure's row; identical rows with nothing to tell apart are one row
+    with a count; a stage with nothing open folds; one Decide in Reconcile link per stage; Back keeps the scroll."""
+
+    PRE = "\n".join(line("trail.js", p) for p in ("const ORDER", "const trailOrder", "const flagKey")) + "\n" + block("trail.js", "function foldFlags(", "\n}") + "\n" + block("trail.js", "function groupSame(", "\n}")
+
+    def test_a_check_flag_folds_into_its_figure(self):
+        fig = lambda f, p, st="checked": {"what": f"{f} {p}", "state": st, "ref": {"field": f, "period": p}}
+        flag = lambda rule, f, p, st="checked": {"what": f"{rule}: {f} {p}", "state": st, "ref": {"field": f, "period": p}, "show": {"rule": rule}, "card": {"how": {"tone": "info"}}}
+        items = [fig("opex", "FY2026", "explained"), fig("capex", "FY2025"), flag("jump", "opex", "FY2026", "explained"), flag("jump", "capex", "FY2025", "open"), flag("row_label_switch", "revenue", "FY2022")]
+        got = _call(self.PRE, "foldFlags(A).map((i) => [i.what, (i.flags || []).map((f) => f.rule), trailOrder(i)])", items)
+        self.assertEqual(got, [["opex FY2026", ["jump"], 1], ["capex FY2025", ["jump"], 0],  # an open flag makes its figure open
+                               ["row_label_switch: revenue FY2022", [], 2]])  # no figure row of its own: stays a row
+
+    def test_identical_empty_rows_are_one_row_with_a_count(self):
+        empty = lambda p: {"what": p, "state": "explained", "card": {"how": {"tone": "info", "text": "Part-year amount"}, "where": []}}
+        quoted = {"what": "FY2025", "state": "checked", "card": {"found": "“quote”", "how": {"tone": "ok"}, "where": [{}]}}
+        items = [empty("FY2025")] * 7 + [quoted, quoted, empty("FY2026")]
+        got = _call(self.PRE, "groupSame(A, (i) => i.what).map((i) => [i.what, i.count])", items)
+        self.assertEqual(got, [["FY2025", 7], ["FY2025", 1], ["FY2025", 1], ["FY2026", 1]])  # rows with a value or source are never merged
+
+    def test_one_link_per_stage_and_complete_stages_fold(self):
+        page = (PAGES / "trail.js").read_text()
+        self.assertEqual(page.count("'Decide in Reconcile →'"), 1)  # in the stage header, not on every mapping card
+        self.assertNotIn("mappingDecision(", page)  # a mapping is one row on the trail; the card is Reconcile's
+        self.assertIn("if (rest.length) body.push(h('details', {class: 'px-3 py-2'}", page)  # before: shown open when 12 or fewer
+        self.assertIn("waitingTotal ? '' : h('a', {href: `#reconcile?scope=${c.ticker}`", page)  # one Reconcile link in the head area
+
+    def test_back_returns_to_the_scroll_it_left(self):
+        js = line("_router.js", "const landAt") + """
+const A = JSON.parse(process.argv[process.argv.length - 1]);
+globalThis.history = {state: A.state};
+const view = {querySelector: (s) => (A.land ? {id: 'x'} : null)};
+process.stdout.write(JSON.stringify(landAt(A.ev ? {type: A.ev} : undefined, view)));"""
+        land = lambda **a: json.loads(node(js, json.dumps(a)))
+        self.assertEqual(land(ev="hashchange", state={"y": 640}), {"y": 640})  # Back onto an entry that kept its place
+        self.assertEqual(land(ev="hashchange", state=None), {"y": 0})  # a new link: the top
+        self.assertEqual(land(state={"y": 640}), {"y": 0})  # a page's own re-render (route()) is no Back
+        self.assertEqual(land(ev="hashchange", state=None, land=True), {"el": {"id": "x"}})
+        self.assertIn("history.replaceState({...(history.state || {}), y: Math.round(window.scrollY)}, '')", (PAGES / "_router.js").read_text())
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class DocsStartHere(unittest.TestCase):
+    """#12 (STORY-068): Start here is first and the default #docs route; `docs/X.md` written as code is a link; a link to
+    a heading on the page stays on the page (?at=) and lands there; the docs use the UI's words."""
+
+    def _links(self, md, **opts):
+        safe = line("_shared.js", "const safeHref")
+        prog = ("const h=(tag,attrs={},...kids)=>({tag,attrs,kids:kids.flat(Infinity)});\n" + safe + "\n" + (PAGES / "_markdown.js").read_text() +
+                "\nconst A = JSON.parse(process.argv[process.argv.length - 1]); const acc=[];"
+                "const walk=(n)=>{if(n&&n.tag==='a')acc.push(n.attrs.href);if(n&&n.tag&&/^h[2-4]$/.test(n.tag)&&n.attrs['data-land']!=null)acc.push('land:'+n.attrs.id);if(n&&n.kids)n.kids.forEach(walk);};"
+                "mdRender(A.md, A.opts).forEach(walk); process.stdout.write(JSON.stringify(acc));")
+        return json.loads(node(prog, json.dumps({"md": md, "opts": {"files": {"MAP.md": "map"}, "served": ["PROOF.md"], **opts}})))
+
+    def test_start_here_is_first(self):
+        from ledger.web import docs
+        self.assertEqual(docs.SIDEBAR[0], ("handoff", "Start here", "HANDOFF.md"))  # before: "Handoff", last of nine
+        self.assertEqual(docs.index()["pages"][0]["slug"], "handoff")  # docs.js opens pages[0] for a bare #docs
+        self.assertIn("idx.pages[0].slug", (PAGES / "docs.js").read_text())
+
+    def test_doc_references_in_code_are_links(self):
+        got = self._links("See `docs/MAP.md`, `docs/PROOF.md`, `docs/TICKETS.md`, `docs/archive/REPLICATION.md` and `ledger/web/app.py`.")
+        self.assertEqual(got, ["#docs/map", "/docs/PROOF.md", "https://github.com/kennygeiler/ai-capex-ledger/blob/main/docs/TICKETS.md",
+                               "https://github.com/kennygeiler/ai-capex-ledger/blob/main/docs/archive/REPLICATION.md"])  # a code path that is no doc stays code
+
+    def test_a_link_to_a_heading_stays_on_the_page_and_lands(self):
+        md = "# Start here\n\nGo to [setup](#setup) or [Proof](#proof).\n\n## Setup\n\ntext\n"
+        self.assertEqual(self._links(md, page="handoff"), ["#docs/handoff?at=setup", "#proof"])  # an app route stays an app route
+        self.assertEqual(self._links(md, page="handoff", at="setup"), ["#docs/handoff?at=setup", "#proof", "land:setup"])
+
+    def test_docs_use_the_ui_words(self):
+        root = PAGES.parents[2] / "docs"
+        for f in ("HANDOFF.md", "OPERATIONS.md", "MAP.md", "PROOF.md"):
+            text = (root / f).read_text()
+            self.assertNotIn('"asset types" group', text, f)
+            self.assertNotIn("asset types group", text, f)
+            self.assertNotIn("Approve or Edit", text, f)
+            self.assertNotIn("**Edit**", text, f)
+        self.assertNotIn("[Handoff](HANDOFF.md)", (root / "OVERVIEW.md").read_text())
+
+
 if __name__ == "__main__":
     unittest.main()
