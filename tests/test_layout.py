@@ -143,6 +143,16 @@ class Layout(unittest.TestCase):
         titles = pg.eval_on_selector_all("main h1.page-title", "hs => hs.map((x) => x.textContent)")
         self.assertEqual(titles, ["Known gaps"])
         self.assertNotIn("required checks pass", pg.text_content("main"))
+    def test_hand_check_tables_are_measured_after_their_await(self):
+        """Review risk 1: the hand check and failure-type tables are drawn after the router's skin(); their wrappers still get
+        .fit or .wide, and the hand check's header stays on screen when the page scrolls past its top."""
+        pg = self.page(1600, "proof?gold=APLD")
+        pg.wait_for_selector("table.gold tr[data-item]", timeout=60000)
+        pg.wait_for_timeout(500)
+        self.assertEqual(pg.evaluate("[...document.querySelectorAll('#gold .table-responsive, main .table-responsive')].filter((w) => !w.classList.contains('fit') && !w.classList.contains('wide')).length"), 0)
+        top = pg.evaluate("""async () => { const t = document.querySelector('table.gold'); window.scrollTo(0, t.getBoundingClientRect().top + scrollY + 600);
+            await new Promise((r) => setTimeout(r, 200)); return t.querySelector('thead th').getBoundingClientRect().top; }""")
+        self.assertLessEqual(abs(top), 1)
 
 if __name__ == "__main__":
     unittest.main()

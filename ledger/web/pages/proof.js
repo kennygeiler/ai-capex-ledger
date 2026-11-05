@@ -135,7 +135,7 @@ function goldSet() {
       return h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary' + (c.ticker === t ? ' active' : ''), 'aria-pressed': String(c.ticker === t), title: goldRate(c.rate), onclick: () => goldSet.draw(c.ticker)},
         c.ticker, h('span', {class: 'ms-1 text-secondary'}, `${done}/${c.rate.items}`));
     }));
-    if (!t) { wrap.replaceChildren(head, probs, picker); if (focus) wrap.scrollIntoView(); return; }
+    if (!t) { wrap.replaceChildren(head, probs, picker); fitTables(wrap); if (focus) wrap.scrollIntoView(); return; }
     const co = g.companies.find((c) => c.ticker === t);
     const claimName = (it) => [FIELDS[it.field] || it.field, it.dimension, it.period].filter(Boolean).join(' · ');
     const claim = (it) => h('div', {}, h('div', {class: 'fw-semibold'}, claimName(it)),
@@ -189,6 +189,7 @@ function goldSet() {
         h('colgroup', {}, h('col', {class: 'c-item'}), h('col', {class: 'c-value'}), h('col', {class: 'c-source'}), h('col', {class: 'c-verify'})),
         h('thead', {}, h('tr', {}, h('th', {}, 'Item'), h('th', {class: 'num'}, 'Value'), h('th', {}, 'Source'), h('th', {}, 'Check'))), h('tbody', {}, rows.map((x) => x.tr)))));
     wrap.replaceChildren(head, probs, picker, co.note ? h('p', {class: 'text-secondary small'}, co.note) : '', tbl);
+    fitTables(wrap);  // drawn after the router's skin(): its wrappers get .fit or .wide here, or the sticky header is dead
     if (focus) {  // the item asked for, else the company's first unchecked item, else the table
       const rowsEl = [...tbl.querySelectorAll('tr[data-item]')];
       const el = rowsEl.find((r) => r.dataset.item === focus) || rowsEl.find((r) => r.dataset.unchecked) || tbl;
@@ -225,6 +226,7 @@ function failureTypes() {
         {t: 'Companies seen', num: 1, f: (r) => (r.count == null ? h('span', {class: 'text-secondary'}, 'Not counted') : int(r.count))}], typeRows)));
     const why = h('p', {class: 'text-secondary small mt-2'}, `${NO_CHECK}: ${ofTotal(f.none)}`);
     wrap.append(head, h('div', {class: 'row g-3'}, byClass.node, byCheck.node), why, list);
+    fitTables(wrap);  // drawn after the router's skin()
     if (!window.Plotly) { for (const c of [byClass, byCheck]) c.plot.replaceChildren(h('p', {class: 'text-secondary small m-0'}, 'Chart unavailable')); return; }
     const draw = (c, rows, key, nameOf) => {
       const css = getComputedStyle(document.documentElement);  // read at draw time: a theme change redraws with the new ink

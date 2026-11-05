@@ -213,6 +213,13 @@ function fitTables(root = document) {
 }
 let fitTimer;
 window.addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(() => fitTables(), 150); });
+// a table a page draws after the router's skin() (an await later: the hand check, failure types, a redraw) is measured
+// once it is on the page, so no wrapper is left without .fit or .wide
+let fitFrame = 0;
+new MutationObserver((ms) => {
+  if (fitFrame || !ms.some((m) => [...m.addedNodes].some((n) => n.nodeType === 1 && (n.matches('.table-responsive') || n.querySelector('.table-responsive:not(.fit):not(.wide)'))))) return;
+  fitFrame = requestAnimationFrame(() => { fitFrame = 0; document.querySelectorAll('.table-responsive:not(.fit):not(.wide)').forEach((el) => fitTables(el.parentElement)); });
+}).observe(document.body, {childList: true, subtree: true});
 
 // ── The category-mapping decision card (ledger/review/mapcard.py): the same on the trail and in Reconcile ──────────────
 // D is mapcard.decisions' card; `actions` (Reconcile only) is a node placed under it. Labels, values, statuses.
