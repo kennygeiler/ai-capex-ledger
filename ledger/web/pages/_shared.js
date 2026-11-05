@@ -47,11 +47,22 @@ let NAMES = {}, SCOPE = [];
 api('/api/data?t=&f=none').then((d) => { SCOPE = d.scope || Object.keys(d.names); NAMES = Object.fromEntries(SCOPE.filter((t) => d.names[t]).map((t) => [t, d.names[t]])); $('#tickers').replaceChildren(...Object.entries(NAMES).map(([t, n]) => h('option', {value: t}, n))); });
 $('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().toUpperCase(); const t = NAMES[v] ? v : Object.keys(NAMES).find((k) => NAMES[k].toUpperCase() === v) || (/^[A-Z.\-]{1,6}$/.test(v) ? v : null); if (t) { e.target.value = ''; go(`data?ticker=${t}`); } });
 
-function table(cols, rows, {key, onRow, detail} = {}) {
+// `page`: rows per page (V4: Dataset Rows draws at most 100 at a time), a pager under the table; a sort reorders every row
+// and goes back to the first page
+const PAGE_ROWS = 100;
+function table(cols, rows, {key, onRow, detail, page} = {}) {
   const tb = h('tbody');
-  const draw = (list) => {
+  let list = rows, at = 0;
+  // the pager's buttons are built once and updated in place, so Next and Previous keep keyboard focus
+  const to = (i) => { const last = Math.max(0, Math.ceil(list.length / page) - 1); at = Math.min(last, Math.max(0, i)) * page; draw(); tb.closest('.card').scrollIntoView({block: 'start'}); };
+  const pg = page && rows.length > page ? {range: h('span', {'aria-live': 'polite'}), of: h('span', {}),
+    prev: h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', onclick: () => to(Math.floor(at / page) - 1)}, 'Previous'),
+    next: h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', onclick: () => to(Math.floor(at / page) + 1)}, 'Next')} : null;
+  const pager = pg ? h('div', {class: 'pager small text-secondary', role: 'navigation', 'aria-label': 'Pages'}, pg.range, pg.prev, pg.of, pg.next) : null;
+  const draw = () => {
     tb.replaceChildren();
-    for (const r of list) {
+    const shown = pager ? list.slice(at, at + page) : list;
+    for (const r of shown) {
       const tr = h('tr', {class: onRow || detail ? 'click' : null, tabindex: onRow || detail ? 0 : null, role: onRow || detail ? 'button' : null, onkeydown: onRow || detail ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tr.click(); } } : null}, cols.map((c) => h('td', {class: [c.n && 'n', c.wide && 'wide'].filter(Boolean).join(' ') || null}, c.f ? c.f(r) : r[c.k] ?? '—')));
       tb.append(tr);
       if (onRow) tr.addEventListener('click', () => onRow(r));
@@ -62,20 +73,29 @@ function table(cols, rows, {key, onRow, detail} = {}) {
         tr.after(h('tr', {class: 'detail'}, h('td', {colspan: cols.length}, detail(r))));
       });
     }
+    if (pg) {
+      const last = Math.max(0, Math.ceil(list.length / page) - 1), n = Math.floor(at / page);
+      pg.range.textContent = `Rows ${int(at + 1)}–${int(Math.min(list.length, at + page))} of ${int(list.length)}`;
+      pg.of.textContent = `Page ${int(n + 1)} of ${int(last + 1)}`;
+      // a button that would be disabled while it has focus hands focus to its pair, never to the page
+      const off = (b, x, other) => { if (x && document.activeElement === b) other.focus(); b.disabled = x; };
+      off(pg.prev, n === 0, pg.next); off(pg.next, n === last, pg.prev);
+    }
   };
   let sort = null, dir = 1;
   const head = h('tr', {}, cols.map((c) => {
     const th = h('th', {class: [c.n && 'n', c.wide && 'wide'].filter(Boolean).join(' ') || null});
     if (c.sort === false) th.append(c.t);
-    else th.append(h('button', {type: 'button', style: 'color:inherit', onclick: () => {
+    else th.append(h('button', {type: 'button', class: 'btn btn-link btn-sm p-0 align-baseline', style: 'color:inherit', onclick: () => {
       dir = sort === c ? -dir : (c.n ? -1 : 1); sort = c;
       const v = c.s || ((r) => r[c.k]);
-      draw([...rows].sort((a, b) => { const x = v(a), y = v(b); if (x == null || x === '') return 1; if (y == null || y === '') return -1; return (typeof x === 'number' && typeof y === 'number' ? x - y : String(x).localeCompare(String(y))) * dir; }));
+      list = [...rows].sort((a, b) => { const x = v(a), y = v(b); if (x == null || x === '') return 1; if (y == null || y === '') return -1; return (typeof x === 'number' && typeof y === 'number' ? x - y : String(x).localeCompare(String(y))) * dir; });
+      at = 0; draw();
     }}, c.t));
     return th;
   }));
-  draw(rows);
-  return h('div', {class: 'card'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-sm table-vcenter card-table table-hover'}, h('thead', {}, head), tb)));
+  draw();
+  return h('div', {class: 'card'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-sm table-vcenter card-table table-hover'}, h('thead', {}, head), tb)), pager || '');
 }
 
 
@@ -176,14 +196,35 @@ function skin(root) {
   root.querySelectorAll('input[type=text]:not(.form-control), textarea:not(.form-control)').forEach((el) => el.classList.add('form-control', 'form-control-sm'));
   root.querySelectorAll('input[type=text].form-control:not(.w-auto)').forEach((el) => { if (!el.style.flex && !el.style.width) el.classList.add('w-auto', 'd-inline-block'); });
   root.querySelectorAll('input[type=checkbox]:not(.form-check-input)').forEach((el) => el.classList.add('form-check-input'));
-  root.querySelectorAll('button.btn:not(.btn-primary):not(.btn-outline-secondary):not(.btn-ghost-secondary):not(.btn-link)').forEach((el) => el.classList.add('btn-primary', 'btn-sm'));
+  root.querySelectorAll('button.btn:not(.btn-primary):not(.btn-outline-secondary):not(.btn-ghost-secondary):not(.btn-link):not(.seg > .btn)').forEach((el) => el.classList.add('btn-primary', 'btn-sm'));
+  root.querySelectorAll('.btn-group[role=group]:not(.seg)').forEach((el) => el.classList.add('seg'));  // every either/or choice is the one segmented control (V3)
   root.querySelectorAll('button:not(.btn):not(.btn-close):not(.badge)').forEach((el) => el.classList.add('btn', 'btn-link', 'btn-sm', 'p-0', 'align-baseline'));
   root.querySelectorAll('button.badge').forEach((el) => el.classList.add('bg-secondary-lt', 'border-0'));
   root.querySelectorAll('table:not(.table)').forEach((el) => el.classList.add('table', 'table-sm', 'table-vcenter'));
   root.querySelectorAll('section:not(.card):not(.figs):not(.hrow)').forEach((el) => { if (el.querySelector(':scope > .sechead, :scope > h2')) el.classList.add('card'); });
   root.querySelectorAll('section.card > h2:first-child').forEach((el) => { const head = h('div', {class: 'sechead'}); el.replaceWith(head); head.append(el); });
   root.querySelectorAll('section.card > .card').forEach((el) => { el.classList.remove('card'); el.classList.add('card-table-wrap'); });
+  fitTables(root);
 }
+// V4: a table that fits its card lets its sticky header follow the page (.fit: no scroll box of its own); a wider one
+// scrolls inside the card at most a viewport tall, its header pinned there (.wide). Measured again on resize.
+function fitTables(root = document) {
+  root.querySelectorAll('.table-responsive').forEach((el) => {
+    if (!el.isConnected) return;
+    el.classList.remove('fit', 'wide');
+    const t = el.querySelector(':scope > table');
+    el.classList.add(t && t.scrollWidth > el.clientWidth + 1 ? 'wide' : 'fit');
+  });
+}
+let fitTimer;
+window.addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(() => fitTables(), 150); });
+// a table a page draws after the router's skin() (an await later: the hand check, failure types, a redraw) is measured
+// once it is on the page, so no wrapper is left without .fit or .wide
+let fitFrame = 0;
+new MutationObserver((ms) => {
+  if (fitFrame || !ms.some((m) => [...m.addedNodes].some((n) => n.nodeType === 1 && (n.matches('.table-responsive') || n.querySelector('.table-responsive:not(.fit):not(.wide)'))))) return;
+  fitFrame = requestAnimationFrame(() => { fitFrame = 0; document.querySelectorAll('.table-responsive:not(.fit):not(.wide)').forEach((el) => fitTables(el.parentElement)); });
+}).observe(document.body, {childList: true, subtree: true});
 
 // ── The category-mapping decision card (ledger/review/mapcard.py): the same on the trail and in Reconcile ──────────────
 // D is mapcard.decisions' card; `actions` (Reconcile only) is a node placed under it. Labels, values, statuses.
@@ -234,7 +275,7 @@ function citeCell(w, what) {
   const caption = [what, what && w.row && what.includes(w.row) ? '' : w.row, w.column, w.cell].filter(Boolean).join(' · ');
   const links = [w.viewer ? h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open') : '', SEC_LINK.test(w.link || '') ? h('a', {href: safeHref(w.link), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗') : ''];
   const thumb = c.state === 'located' && c.url
-    ? h('button', {type: 'button', class: 'crop-thumb', title: caption, onclick: () => cropBox(c.url, caption, [w.viewer ? h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener'}, 'Open in filing') : '', links[1] ? links[1].cloneNode(true) : ''])}, h('img', {src: c.url, alt: caption, loading: 'lazy', onload: (e) => focusCell(e.target)}))
+    ? h('button', {type: 'button', class: 'crop-thumb', title: caption, onclick: () => cropBox(c.url, caption, [w.viewer ? h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener'}, 'Open in filing') : '', links[1] ? links[1].cloneNode(true) : ''])}, h('img', {src: c.url, alt: caption, loading: 'lazy', onload: (e) => queueFold(e.target), onerror: (e) => cropFailed(e.target.parentElement, w.viewer)}))
     : h('div', {class: 'crop-none small'}, cropState(c));
   return h('div', {class: 'cite'}, w.role ? h('div', {class: 'cite-role small fw-medium'}, w.role) : '', thumb, w.mark ? h('div', {class: 'cite-mark small fw-medium text-orange'}, w.mark) : '',
     h('div', {class: 'cite-line small'}, `${w.form || '10-K'} ${w.filed || ''}`.trim(), links.map((l) => (l ? [' · ', l] : ''))));
@@ -254,24 +295,63 @@ function calcBlock(c) {
     c.holds ? '' : h('div', {class: stateWord('crosscheck', 'differs')[0]}, `Stored value ${usd(c.value)}`),
     (c.checks || []).map((x) => h('div', {class: stateWord('crosscheck', x.state)[0]}, x.text)));
 }
-// the thumbnail: the row's label, the column header and the boxed cell, legible. The crop boxes the cell in red
-// (#dc2626) and the column header in blue (#2563eb); the label is the first run of dark text left of the cell on its row.
-// The columns and rows in between are folded out (a grey seam marks each fold); the full crop is one click away (cropBox).
-function focusCell(img) {
-  if (img.dataset.folded) return;
-  img.dataset.folded = '1';
-  try {
-    const W = img.naturalWidth, H = img.naturalHeight, frame = img.parentElement, fw = frame.clientWidth, fh = frame.clientHeight;
-    if (!W || !H || !fw) return;
-    const k = Math.max(1, Math.floor(W / 700)), cw = Math.ceil(W / k), ch = Math.ceil(H / k);
-    const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
-    const g = cv.getContext('2d', {willReadFrequently: true}); g.drawImage(img, 0, 0, cw, ch);
-    const px = g.getImageData(0, 0, cw, ch).data;
-    const at = (x, y) => (y * cw + x) * 4;
-    const box = (test) => { let x0 = cw, y0 = ch, x1 = -1, y1 = -1; for (let y = 0; y < ch; y++) for (let x = 0; x < cw; x++) { const i = at(x, y); if (test(px[i], px[i + 1], px[i + 2])) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; } } return x1 < 0 ? null : {x0, y0, x1, y1}; };
-    const red = box((r, gg, b) => r > 190 && gg < 80 && b < 80);
-    if (!red) return;  // no box found: the whole crop, contained
-    const blue = box((r, gg, b) => r < 90 && gg > 70 && gg < 140 && b > 200);
+// V7: the cited figure renders at no less than FIG_PX css px in a thumbnail (11 px asked; 11.5 kept) and EV_FIG_PX on Evidence (12 asked)
+const FIG_PX = 11.5, EV_FIG_PX = 12.5;
+const DIGIT_EM = 0.72;  // a figure's digits stand about 0.72 em tall: font size = ink height / DIGIT_EM
+// The crop's own marks, found by colour on a downsampled copy: the cited cell boxed in red (#dc2626), its column header in
+// blue (#2563eb), and the cited figure's ink height inside the red box (natural px). Null when the canvas cannot read it.
+function cropMarks(img) {
+  const W = img.naturalWidth, H = img.naturalHeight;
+  if (!W || !H) return null;
+  const k = Math.max(1, Math.floor(W / 700)), cw = Math.ceil(W / k), ch = Math.ceil(H / k);
+  const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+  const g = cv.getContext('2d', {willReadFrequently: true}); g.drawImage(img, 0, 0, cw, ch);
+  const px = g.getImageData(0, 0, cw, ch).data;
+  const at = (x, y) => (y * cw + x) * 4;
+  const box = (test) => { let x0 = cw, y0 = ch, x1 = -1, y1 = -1; for (let y = 0; y < ch; y++) for (let x = 0; x < cw; x++) { const i = at(x, y); if (test(px[i], px[i + 1], px[i + 2])) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; } } return x1 < 0 ? null : {x0, y0, x1, y1}; };
+  const red = box((r, gg, b) => r > 190 && gg < 80 && b < 80);
+  const blue = red ? box((r, gg, b) => r < 90 && gg > 70 && gg < 140 && b > 200) : null;
+  const plain = (i) => px[i] + px[i + 1] + px[i + 2] < 330 && Math.max(px[i], px[i + 1], px[i + 2]) - Math.min(px[i], px[i + 1], px[i + 2]) < 40;
+  let inkH = null;
+  if (red) {  // the figure's digit height inside the box's 3 px border: per ink column its top-to-bottom run, the median taken,
+    // so a $ sign, parentheses or a footnote mark (taller or higher than the digits) do not count; the row's yellow tint
+    // shifts the ink's hue, so dark and not red is enough
+    const b = Math.ceil(8 / k), fig = (i) => px[i] + px[i + 1] + px[i + 2] < 330 && !(px[i] > 150 && px[i + 1] < 110);
+    const hs = [];
+    for (let x = red.x0 + b; x <= red.x1 - b; x++) {
+      let y0 = -1, y1 = -1;
+      for (let y = red.y0 + b; y <= red.y1 - b; y++) if (fig(at(x, y))) { if (y0 < 0) y0 = y; y1 = y; }
+      if (y0 >= 0) hs.push(y1 - y0 + 1);
+    }
+    if (hs.length) { hs.sort((p, q) => p - q); inkH = hs[Math.floor(hs.length * 0.6)] * k; }
+  }
+  return {W, H, k, cw, ch, px, at, plain, red, blue, inkH};
+}
+// the least scale (css px per natural px) at which the cited figure reads at `px`; a figure whose ink is not found is drawn at
+// the filing's own size (the crops are taken at device scale 2)
+// (a dash or a dot in the cell is not a figure: under MIN_INK natural px it counts as not found). Never more than twice the
+// filing's size, whatever the ink says, so no crop is drawn thousands of pixels wide.
+const MIN_INK = 10, MAX_SCALE = 1, MAX_THUMB_H = 224;
+const legibleScale = (m, px = FIG_PX) => (m && m.inkH >= MIN_INK ? Math.min(MAX_SCALE, px * DIGIT_EM / m.inkH) : 0.5);
+// the thumbnail: the cited row with the row above and below, its label and the column header, at a size the figure reads
+// (V7). The columns and rows in between are folded out (a grey seam marks each fold); the full crop is one click away (cropBox).
+// foldPlan reads the pixels once per crop and frame width (cached by URL and width: a redraw, a verdict, a revisit draws
+// from the plan); focusCell draws it. The onload work runs one crop at a time in idle time (queueFold), never 100 in a burst.
+const foldPlans = new Map();
+function foldPlan(img, fw) {
+  const key = `${img.currentSrc || img.src}|${Math.round(fw)}`;
+  if (foldPlans.has(key)) return foldPlans.get(key);
+  let plan = null;
+  try { plan = makePlan(img, fw); } catch (e) { plan = null; }  // a picture the canvas cannot read stays whole
+  if (foldPlans.size > 500) foldPlans.clear();
+  foldPlans.set(key, plan);
+  return plan;
+}
+function makePlan(img, fw) {
+    const m = cropMarks(img);
+    if (!m || !fw) return null;
+    const {W, H, k, cw, ch, px, at, plain, red, blue} = m;
+    if (!red) return null;  // no box found: the whole crop, contained
     // the label: dark columns on the cell's row, left of the box, split where a gap wider than ~15 px opens
     const dark = [];
     for (let x = 0; x < red.x0; x++) { let d = false; for (let y = red.y0 + 2; y <= red.y1 - 2 && !d; y++) { const i = at(x, y); d = px[i] + px[i + 1] + px[i + 2] < 330; } if (d) dark.push(x); }
@@ -280,12 +360,25 @@ function focusCell(img) {
     const merge = (bands) => bands.sort((p, q) => p[0] - q[0]).reduce((out, b) => { const l = out[out.length - 1]; if (l && b[0] <= l[1] + 4) l[1] = Math.max(l[1], b[1]); else out.push([...b]); return out; }, []);
     const clampX = (v) => Math.max(0, Math.min(W, v)), clampY = (v) => Math.max(0, Math.min(H, v));
     const pad = Math.max(16, (red.x1 - red.x0) * k * 0.3), rowH = (red.y1 - red.y0 + 1) * k;
-    const ys = merge([[0, clampY(blue ? (blue.y1 + 1) * k + 6 : 0)], [clampY(red.y0 * k - rowH), clampY((red.y1 + 1) * k + rowH)]].filter((b) => b[1] > b[0]));
+    // rows: the column header (its blue box) and the cited row with one row above and one below
+    // a neighbour row is taken whole: from the cited row outward, past the blank run, through the next line of text, to the
+    // blank run after it (dark pixels in the cell's column; the boxes are coloured and do not count)
+    const c0 = Math.min(red.x0, blue ? blue.x0 : red.x0), c1 = Math.max(red.x1, blue ? blue.x1 : red.x1);
+    const inkRow = (y) => { for (let x = c0; x <= c1; x++) { const i = at(x, y); if (px[i] + px[i + 1] + px[i + 2] < 330 && !(px[i] > 150 && px[i + 1] < 110) && !(px[i + 2] > 180 && px[i] < 120)) return true; } return false; };
+    const neighbour = (from, dir) => {  // downsampled y of the far edge of the next text line, or null when none is near
+      const lim = Math.ceil(2.5 * rowH / k); let y = from, n = 0;
+      while (y >= 0 && y < ch && n < lim && !inkRow(y)) { y += dir; n++; }
+      if (y < 0 || y >= ch || n >= lim) return null;
+      while (y >= 0 && y < ch && n < 2 * lim && inkRow(y)) { y += dir; n++; }
+      return Math.max(0, Math.min(ch - 1, y + dir));
+    };
+    const up = neighbour(red.y0 - 1, -1), down = neighbour(red.y1 + 1, 1);
+    const ys = merge([blue ? [clampY(blue.y0 * k - 4), clampY((blue.y1 + 1) * k + 4)] : [0, 0],
+      [clampY(up !== null && (!blue || up > blue.y1) ? up * k : red.y0 * k - 4), clampY(down !== null ? (down + 1) * k : (red.y1 + 1) * k + 4)]].filter((b) => b[1] > b[0]));
     // Column boundaries: a band's edge never cuts a neighbour's figure. `ink` marks every x where the rows shown carry dark,
     // uncoloured text (the red and blue boxes are coloured; a rule line across the table is skipped); an edge padded out
     // from the kept range stops in the middle of the blank run before the first ink, so a neighbouring value is either
     // whole outside the band or not shown at all, never a sliver.
-    const plain = (i) => px[i] + px[i + 1] + px[i + 2] < 330 && Math.max(px[i], px[i + 1], px[i + 2]) - Math.min(px[i], px[i + 1], px[i + 2]) < 40;
     const ink = new Uint8Array(cw);
     for (const [a, b] of ys) {
       for (let y = Math.floor(a / k); y < Math.min(ch, Math.ceil(b / k)); y++) {
@@ -314,16 +407,63 @@ function focusCell(img) {
     const lend = label ? gutter(label[1], 1, keep0) : null, lbeg = label ? gutter(label[0], -1, -1) : null;
     const labelBand = label ? [clampX((lbeg !== null && label[0] - lbeg <= 2 * lw ? lbeg : lbeg === null ? 0 : edge(label[0], -1, Math.ceil(10 / k))) * k),
       clampX(((lend !== null && lend - label[1] <= 2 * lw ? lend : edge(label[1], 1, Math.ceil(14 / k))) + 1) * k)] : null;
-    const xs = merge([labelBand, cellBand].filter(Boolean));
-    const gap = 10, CW = xs.reduce((n, b) => n + b[1] - b[0], 0) + gap * (xs.length - 1), CH = ys.reduce((n, b) => n + b[1] - b[0], 0) + gap * (ys.length - 1);
-    const out = document.createElement('canvas'); out.width = CW; out.height = CH;
-    const o = out.getContext('2d'); o.fillStyle = '#e5e7eb'; o.fillRect(0, 0, CW, CH);
-    let dy = 0;
-    for (const [y0, y1] of ys) { let dx = 0; for (const [x0, x1] of xs) { o.drawImage(img, x0, y0, x1 - x0, y1 - y0, dx, dy, x1 - x0, y1 - y0); dx += x1 - x0 + gap; } dy += y1 - y0 + gap; }
-    const sc = Math.min(fw / CW, fh / CH);
-    Object.assign(out.style, {display: 'block', width: `${CW * sc}px`, height: `${CH * sc}px`, margin: '0 auto'});
-    out.setAttribute('role', 'img'); out.setAttribute('aria-label', img.alt);
-    img.style.display = 'none';
-    frame.append(out);
-  } catch (e) { /* a picture the canvas cannot read stays whole */ }
+    const gap = 6, span = (bands) => bands.reduce((n, b) => n + b[1] - b[0], 0) + gap * (bands.length - 1);
+    const CH = span(ys), maxH = 128, need = legibleScale(m);
+    // the scale: the frame's fit, never under what the figure needs to read, never over 1:1 with the filing
+    const scaleFor = (bands) => Math.min(Math.max(Math.min(fw / span(bands), maxH / CH), need), Math.max(need, 0.5));
+    let xs = merge([labelBand, cellBand].filter(Boolean)), sc = scaleFor(xs);
+    if (span(xs) * sc > fw && labelBand) { xs = [cellBand]; sc = scaleFor(xs); }  // too wide at a legible size: the label goes (it is in the caption)
+    if (span(xs) * sc > fw) {  // still too wide: a window on the cell, as wide as the frame
+      const w = fw / sc, c = (Math.max(red.x0 * k, cellBand[0]) + Math.min((red.x1 + 1) * k, cellBand[1])) / 2;
+      const x0 = Math.max(0, Math.min(W - w, c - w / 2));
+      xs = [[x0, Math.min(W, x0 + w)]];
+    }
+    const CW = span(xs);
+    if (CH * sc > MAX_THUMB_H) sc = MAX_THUMB_H / CH;  // a tall strip is capped: the frame never grows past MAX_THUMB_H
+    return {xs, ys, sc, CW, CH, gap, figPx: m.inkH >= MIN_INK ? +(m.inkH / DIGIT_EM * sc).toFixed(1) : null};
+}
+function focusCell(img) {
+  if (img.dataset.folded || !img.isConnected) return;
+  img.dataset.folded = '1';
+  const frame = img.parentElement, P = foldPlan(img, frame.clientWidth);
+  if (!P) return;
+  const {xs, ys, sc, CW, CH, gap} = P;
+  const out = document.createElement('canvas'); out.width = CW; out.height = CH;
+  const o = out.getContext('2d'); o.fillStyle = '#e5e7eb'; o.fillRect(0, 0, CW, CH);
+  let dy = 0;
+  for (const [y0, y1] of ys) { let dx = 0; for (const [x0, x1] of xs) { o.drawImage(img, x0, y0, x1 - x0, y1 - y0, dx, dy, x1 - x0, y1 - y0); dx += x1 - x0 + gap; } dy += y1 - y0 + gap; }
+  Object.assign(out.style, {display: 'block', width: `${CW * sc}px`, height: `${CH * sc}px`, margin: '0 auto'});
+  out.setAttribute('role', 'img'); out.setAttribute('aria-label', img.alt);
+  if (P.figPx) out.dataset.figPx = P.figPx.toFixed(1);  // the cited figure's rendered size, for the layout check
+  img.style.display = 'none';
+  frame.style.height = `${Math.ceil(CH * sc)}px`;  // the frame takes the strip's height: no empty band, no overlap
+  frame.append(out);
+}
+const foldQueue = [];
+let folding = false;
+const idle = (f) => (window.requestIdleCallback ? requestIdleCallback(f, {timeout: 250}) : setTimeout(() => f({timeRemaining: () => 0}), 0));
+function queueFold(img) {
+  foldQueue.push(img);
+  if (folding) return;
+  folding = true;
+  // one crop at a time, as many as fit in the idle slice (at least one), so the page never stalls
+  const run = (dl) => { do { const im = foldQueue.shift(); try { focusCell(im); } catch (e) { /* stays whole */ } } while (foldQueue.length && dl.timeRemaining() > 12);
+    if (foldQueue.length) idle(run); else folding = false; };
+  idle(run);
+}
+// V7: a full crop (Evidence) drawn at least as large as its cited figure needs to read; a crop wider than its column then
+// scrolls sideways inside its frame, opened at the cell
+function legibleCrop(img) {
+  try {
+    const m = cropMarks(img), frame = img.closest('.ev-frame');
+    if (!m || !frame) return;
+    const shown = img.clientWidth / m.W, need = legibleScale(m, EV_FIG_PX), sc = Math.max(shown, need);
+    if (need > shown) { img.style.width = `${Math.ceil(m.W * need)}px`; img.style.maxWidth = 'none'; }
+    if (m.inkH >= MIN_INK) img.dataset.figPx = (m.inkH / DIGIT_EM * sc).toFixed(1);
+    if (m.red) frame.scrollLeft = Math.max(0, ((m.red.x0 + m.red.x1) / 2) * m.k * sc - frame.clientWidth / 2);
+  } catch (e) { /* a picture the canvas cannot read stays as drawn */ }
+}
+// V7: a crop that does not load is never an empty frame: it says so, with the way to the filing
+function cropFailed(frame, viewer) {
+  frame.replaceWith(h('div', {class: 'crop-none small text-secondary'}, 'Crop unavailable', viewer ? [' · ', h('a', {href: safeHref(viewer), target: '_blank', rel: 'noopener'}, 'Open in filing')] : ''));
 }

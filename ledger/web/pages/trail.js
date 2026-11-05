@@ -75,11 +75,13 @@ async function trailPage(view, ticker) {
   const unfiled = c.filing_state && c.filing_state !== 'filed';  // states.company: nothing read is never Proven or Ready for release (F-BF15)
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)),
-      h('div', {class: 'small mt-1'}, [['ok', ' SEC XBRL or the quoted source'], ['corroborated', ' ties to totals or confirmed in 2 filings'], ['company', '', 'The company’s own XBRL tags this category'],
-        ['done', '', 'Located or confirmed; not an independent check'], ['info', ' citation only'], ['wait', ''], ['bad', ' open item'], ['blocked', '']].map(([s, after, title], i) => {
+      // V6: the state key, one line at 1600, each dot and its word one unit that never wraps apart; what a state means shows on hover and focus
+      h('div', {class: 'state-key small mt-1'}, [['ok', 'SEC XBRL or the quoted source'], ['corroborated', 'Ties to totals or confirmed in 2 filings'], ['company', 'The company’s own XBRL tags this category'],
+        ['done', 'Located or confirmed; not an independent check'], ['info', 'Citation only'], ['wait', ''], ['bad', 'Open item'], ['blocked', '']].map(([s, title]) => {
           const [cls, word] = rowWord(s);
-          return [h('span', {class: cls + (i ? ' ms-3' : ''), title: title || null}, '● ' + word), after ? h('span', {class: 'text-secondary'}, after) : ''];
-        }), c.in_proven_set ? '' : h('span', {class: 'text-secondary ms-3'}, 'Not in scope'))),
+          // the meaning shows on hover and on keyboard focus (data-tip, app.html) and is read with the word
+          return h('span', {class: cls, tabindex: title ? 0 : null, 'data-tip': title || null, 'aria-label': title ? `${word}: ${title}` : null}, h('span', {'aria-hidden': 'true'}, '● '), word);
+        }), c.in_proven_set ? '' : h('span', {class: 'text-secondary'}, 'Not in scope'))),
     h('div', {class: 'col-auto'}, unfiled ? h('span', {class: stateWord('company', c.filing_state)[0] + ' fw-medium'}, stateWord('company', c.filing_state)[1])
       : c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : bucketLine(c.counts),
       h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-3'}, 'Reconcile'), h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'))));

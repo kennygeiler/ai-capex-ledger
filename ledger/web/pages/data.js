@@ -1,7 +1,7 @@
 // ── Dataset: Rows is the page (every list, every row); Grid is the company-by-year view of one field ──
-const dataSwitch = (q, which) => h('div', {class: 'btn-group', role: 'group', 'aria-label': 'View'},
-  h('a', {href: '#data' + (q.list || q.ticker || (q.t && !q.t.includes(',')) ? '?' + new URLSearchParams(Object.fromEntries(Object.entries({list: q.list, ticker: q.ticker || (q.t && !q.t.includes(',') ? q.t : '')}).filter(([, v]) => v))).toString() : ''), class: 'btn btn-sm' + (which === 'rows' ? ' active' : ''), 'aria-current': which === 'rows' ? 'page' : null}, 'Rows'),
-  h('a', {href: '#data?' + new URLSearchParams(Object.fromEntries(Object.entries({view: 'grid', t: q.t || q.ticker, f: q.f, k: q.k}).filter(([, v]) => v))).toString(), class: 'btn btn-sm' + (which === 'grid' ? ' active' : ''), 'aria-current': which === 'grid' ? 'page' : null}, 'Grid'));
+const dataSwitch = (q, which) => h('div', {class: 'btn-group seg', role: 'group', 'aria-label': 'View'},
+  h('a', {href: '#data' + (q.list || q.ticker || (q.t && !q.t.includes(',')) ? '?' + new URLSearchParams(Object.fromEntries(Object.entries({list: q.list, ticker: q.ticker || (q.t && !q.t.includes(',') ? q.t : '')}).filter(([, v]) => v))).toString() : ''), class: 'btn btn-sm btn-outline-secondary' + (which === 'rows' ? ' active' : ''), 'aria-current': which === 'rows' ? 'page' : null}, 'Rows'),
+  h('a', {href: '#data?' + new URLSearchParams(Object.fromEntries(Object.entries({view: 'grid', t: q.t || q.ticker, f: q.f, k: q.k}).filter(([, v]) => v))).toString(), class: 'btn btn-sm btn-outline-secondary' + (which === 'grid' ? ' active' : ''), 'aria-current': which === 'grid' ? 'page' : null}, 'Grid'));
 async function dataPage(view, qs) {
   const q = parseQ(qs || '');
   if (q.view !== 'grid') return rowsView(view, q);
@@ -128,8 +128,9 @@ async function rowsView(view, q) {
     const needle = search.value.trim().toLowerCase();
     const rows = needle ? d.rows.filter((r) => JSON.stringify(r).toLowerCase().includes(needle)) : d.rows;
     count.textContent = `${int(rows.length)} rows${rows.length !== d.rows.length ? ` of ${int(d.rows.length)}` : ''}`;
-    const tbl = table(tcols, rows, {detail}); tbl.classList.add('raw');
+    const tbl = table(tcols, rows, {detail, page: PAGE_ROWS}); tbl.classList.add('raw');
     holder.replaceChildren(rows.length ? tbl : h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No rows.')));
+    fitTables(holder);
   };
   let t; search.addEventListener('input', () => { clearTimeout(t); t = setTimeout(draw, 150); });
   draw();

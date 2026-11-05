@@ -69,7 +69,7 @@ async function reconcilePage(view, qs) {
   const toConfirm = (r) => r.cause === 'to_confirm';
   const isAsset = (r) => r.cause === 'asset_types';  // T33: an unmapped asset type with the mapper's proposal; T63: or an entry no person confirmed. Approve, Edit or Reject
   // the company's own tag (mapcard.decisions' card, ledger/checks/filertag.py): a different us-gaap member is a conflict
-  const filerNote = (r) => { const T = (r.evidence.decision || {}).tag; if (!T) return ''; return T.status === 'differs' ? h('div', {class: 'small text-red', title: T.text}, `Company tags ${T.member.replace('us-gaap:', '')}`) : h('div', {class: 'small text-secondary'}, T.text); };
+  const filerNote = (r) => { const T = (r.evidence.decision || {}).tag; if (!T) return ''; return T.status === 'differs' ? h('span', {class: 'small text-red', title: T.text}, `Company tags ${T.member.replace('us-gaap:', '')}`) : h('span', {class: 'small text-secondary'}, T.text); };
   let rows = d.rows.filter((r) => withResolved || isOpen(r) || toConfirm(r) || isAsset(r));  // an asset type the company's own tag matches stays listed, after the open ones, so a person can override it
   if (fCause) rows = rows.filter((r) => r.cause === fCause);
   if (fLayer) rows = rows.filter((r) => r.layer === fLayer);
@@ -101,7 +101,7 @@ async function reconcilePage(view, qs) {
   const selected = new Set();
   let cur = -1;
   const trs = [];
-  const bulk = h('div', {class: 'card mb-3', hidden: true});
+  const bulk = h('div', {class: 'card bulkbar', hidden: true});  // V8: fixed over the page bottom, never in the flow above the rows
   const groups = new Map();
   // "Approve all N" on Matches company tag: shows the list it will approve, one confirm, then each through the same writer
   // as a row's Approve (POST /api/mapping/bulk → mapper.approve with its `expected`); stops at the first refusal and says so
@@ -145,14 +145,14 @@ async function reconcilePage(view, qs) {
       const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.cause === 'finding_unconfirmed' ? h('div', {class: 'text-secondary small'}, [r.evidence.dimension, group === 'company' ? '' : r.cause_label].filter(Boolean).join(' · ')) : r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : ''];
       const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} · ${r.resolution.by} · ${day(r.resolution.at)}`) : ''];
       const P = isAsset(r) ? r.evidence.proposal : null;
-      const ours = isAsset(r) ? [P ? [h('span', {style: 'overflow-wrap:anywhere', title: P.standard_type}, memberWords(P.standard_type)), ' ', r.evidence.mapping === 'verified' ? h('span', {class: 'small text-green'}, 'Matches company’s own tag') : P.confidence ? h('span', {class: 'text-secondary small'}, `Confidence ${P.confidence}`) : h('span', {class: 'small text-orange'}, 'Proposed')] : h('span', {class: 'text-secondary small'}, 'No proposal'), P ? h('div', {class: 'text-secondary small'}, `“${P.evidence}”`) : '', filerNote(r)] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
+      const ours = isAsset(r) ? [P ? [h('span', {style: 'overflow-wrap:anywhere', title: P.standard_type}, memberWords(P.standard_type)), ' ', r.evidence.mapping === 'verified' ? h('span', {class: 'small text-green'}, 'Matches company’s own tag') : P.confidence ? h('span', {class: 'text-secondary small'}, `Confidence ${P.confidence}`) : h('span', {class: 'small text-orange'}, 'Proposed')] : h('span', {class: 'text-secondary small'}, 'No proposal'), h('div', {class: 'small'}, filerNote(r), P && filerNote(r) ? h('span', {class: 'text-secondary'}, ' · ') : '', P ? h('span', {class: 'text-secondary', title: P.evidence}, `“${P.evidence}”`) : '')] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
         h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
         isAsset(r) ? h('td', {colspan: assetCard ? null : 4}, ours) : [h('td', {class: 'num'}, ours),
         h('td', {class: 'num'}, r.reference == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[r.relation] || '', num(r, r.reference)], r.ref_label && r.reference != null ? h('div', {class: 'text-secondary small'}, r.ref_label) : ''),
         h('td', {class: 'w-1'}, r.ours != null && r.reference != null ? gapBar(r) : ''),
         h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, '—') : [h('span', {class: 'fw-semibold' + (r.cause === 'fact_differs' ? ' text-red' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : ''])],
-        h('td', {}, res));
+        h('td', {class: toConfirm(r) ? 'confirm' : null}, res));
       trs.push({tr, r, detail: null});
       tbody.append(tr);
     }
@@ -163,9 +163,10 @@ async function reconcilePage(view, qs) {
         selectable.length > 1 ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const k of selectable) selected.add(k); paint(); }}, `Select all ${int(selectable.length)}`) : '',
         matchGroup ? approveAllButton(list) : ''),
       matchGroup ? approveAllPanel : '',
-      h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover'},
-        h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, assetCard ? 'Category' : 'Item'),
-          assetCard ? h('th', {}, 'Proposed') : [h('th', {class: 'num'}, 'Dataset'), h('th', {class: 'num'}, group === 'cause' && (g === 'fact_differs' || g === 'value_missing') ? 'SEC XBRL' : 'Compared with'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Difference')], h('th', {}, 'Decision'))),
+      h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover rec'},
+        h('colgroup', {}, (assetCard ? ['2.25rem', '10rem', '22%', null, '17rem'] : ['2.25rem', '10rem', null, '9.75rem', '9.75rem', '6.5rem', '7rem', list.some(isAsset) ? '17rem' : confirmGroup || list.some(toConfirm) ? '14rem' : '9rem']).map((w) => h('col', {style: w ? `width:${w}` : null}))),
+        h('thead', {}, h('tr', {}, h('th', {}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, assetCard ? 'Category' : 'Item'),
+          assetCard ? h('th', {}, 'Proposed') : [h('th', {class: 'num'}, 'Dataset'), h('th', {class: 'num'}, group === 'cause' && (g === 'fact_differs' || g === 'value_missing') ? 'SEC XBRL' : 'Compared with'), h('th', {}, 'Gap'), h('th', {class: 'num'}, 'Difference')], h('th', {}, 'Decision'))),
         tbody))));
   }
   function paint() { wrap.querySelectorAll('.decision-panel').forEach((x) => { x.hidden = selected.size > 0; }); for (const t of trs) { const c = t.tr.querySelector('input[type=checkbox]'); if (c) c.checked = selected.has(t.r.key); } bulk.hidden = selected.size === 0; const selRows = [...selected].map((k) => trs.find((t) => t.r.key === k).r); bulk.replaceChildren(h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 small text-secondary'}, h('b', {class: 'text-body'}, int(selected.size)), ' selected'), h('div', {class: 'col'}, resolutionForm(null, [...selected].map((k) => trs.find((t) => t.r.key === k).r), () => { selected.clear(); paint(); })), h('div', {class: 'col-auto'}, h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary', onclick: () => { selected.clear(); paint(); }}, 'Clear'))))); }
@@ -176,14 +177,21 @@ async function reconcilePage(view, qs) {
     if (t.detail && force !== true) { t.detail.remove(); t.detail = null; t.tr.setAttribute('aria-expanded', 'false'); acts(t, true); return; }
     if (t.detail) return;
     for (const o of trs) if (o !== t && o.detail) { o.detail.remove(); o.detail = null; o.tr.setAttribute('aria-expanded', 'false'); acts(o, true); }  // one Decision panel at a time
-    t.detail = h('tr', {class: 'ev'}, h('td', {colspan: 8}, evidence(t.r)));
+    t.detail = h('tr', {class: 'ev'}, h('td', {colspan: t.tr.closest('table').querySelectorAll('thead th').length}, evidence(t.r)));  // the table's own column count: a wider span would add columns and move every header (V8)
     t.tr.after(t.detail); t.tr.setAttribute('aria-expanded', 'true'); acts(t, false);
+  }
+  // a row reached by j / k (or the arrows) is scrolled clear of the fixed bulk bar, never under it (V8)
+  function focusRow(tr) {
+    if (bulk.hidden) { tr.focus(); return; }
+    tr.focus({preventScroll: true});
+    const r = tr.getBoundingClientRect(), limit = bulk.getBoundingClientRect().top - 8;
+    if (r.bottom > limit) window.scrollBy({top: r.bottom - limit, behavior: 'instant'}); else if (r.top < 8) window.scrollBy({top: r.top - 8, behavior: 'instant'});
   }
   function keys(e, i) {
     if (e.target.matches('input, select, textarea, button') || e.metaKey || e.ctrlKey || e.altKey) return;
     const k = e.key;
-    if (k === 'j' || k === 'ArrowDown') { e.preventDefault(); trs[Math.min(trs.length - 1, i + 1)].tr.focus(); }
-    else if (k === 'k' || k === 'ArrowUp') { e.preventDefault(); trs[Math.max(0, i - 1)].tr.focus(); }
+    if (k === 'j' || k === 'ArrowDown') { e.preventDefault(); focusRow(trs[Math.min(trs.length - 1, i + 1)].tr); }
+    else if (k === 'k' || k === 'ArrowUp') { e.preventDefault(); focusRow(trs[Math.max(0, i - 1)].tr); }
     else if (k === 'Enter' || k === 'o') { e.preventDefault(); toggle(i); }
     else if (k === ' ') { e.preventDefault(); const r = trs[i].r; if (!bulkable(r)) return; selected.has(r.key) ? selected.delete(r.key) : selected.add(r.key); paint(); }
     else if (k === 'Escape' && trs[i].detail) { toggle(i); }
@@ -194,7 +202,7 @@ async function reconcilePage(view, qs) {
   function confirmCell(r, i) {
     const proposed = (r.evidence && r.evidence.proposed) || (r.resolution && r.resolution.state) || 'explain';
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
-    const confirm = h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: 'Confirm', onclick: async (e) => {
+    const confirm = h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: 'Confirm', onclick: async (e) => {
       e.stopPropagation(); confirm.disabled = true; status.textContent = 'Saving…';
       try {
         await api('/api/resolve', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, hash: r.hash, state: proposed, reason: 'confirmed', by: me})});
@@ -202,7 +210,9 @@ async function reconcilePage(view, qs) {
       } catch (err) { status.textContent = `Couldn’t save: ${err.message}.`; status.classList.add('text-red'); confirm.disabled = false; }
     }}, `Confirm ${RES_LABEL[proposed] || proposed}`);
     const overturn = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Change decision', onclick: (e) => { e.stopPropagation(); toggle(i, true); const f = trs[i].detail.querySelector('input[type=text]'); if (f) f.focus(); }}, 'Overturn');
-    return [h('div', {class: 'btn-list flex-nowrap'}, confirm, overturn), h('div', {class: 'text-secondary small mt-1'}, r.resolution && r.resolution.by ? `${r.resolution.by} · ${day(r.resolution.at)}` : ''), status];
+    // who proposed it and when stays on screen, one short line under the buttons (cut with an ellipsis in the collapsed row)
+    const by = r.resolution && r.resolution.by ? `Proposed by ${r.resolution.by} · ${day(r.resolution.at)}` : '';
+    return [h('div', {class: 'btn-list flex-nowrap'}, confirm, overturn), by ? h('div', {class: 'text-secondary small', title: by}, by) : '', status];
   }
   // T33: an unmapped asset type. Approve writes the proposed member with the mapper's evidence under my name; Edit opens the
   // form with the member select; Reject logs the proposed member so the next run proposes another. No animation: a
@@ -227,7 +237,7 @@ async function reconcilePage(view, qs) {
     const btns = [];
     if (P) {
       const entry = r.evidence.mapping !== 'unmapped';
-      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm ' + (isMatch(r) ? 'btn-outline-primary' : 'btn-primary'), title: isSigner(me) ? 'Approve this category' : signerWhy(me), onclick: async (e) => {  // one primary per page section: a matching row's Approve is not one
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: isSigner(me) ? 'Approve this category' : signerWhy(me), onclick: async (e) => {  // one primary per page section: a matching row's Approve is not one
         e.stopPropagation(); approve.disabled = true;
         const ok = await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence: P.evidence || r.evidence.reported_name, by: me, expected: expectedOf(r)}, status, entry ? 'Confirmed.' : 'Mapped.');
         if (!ok) approve.disabled = !isSigner(me);
@@ -239,7 +249,7 @@ async function reconcilePage(view, qs) {
       }}, 'Reject'));
       btns.push(approve, reject);
     }
-    const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-primary'), title: 'Choose a category', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
+    const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-outline-primary'), title: 'Choose a category', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
     btns.push(edit);
     return [h('div', {class: 'btn-list flex-nowrap row-actions'}, btns), status];
   }
@@ -322,7 +332,7 @@ async function reconcilePage(view, qs) {
       } catch (e) { status.textContent = `Couldn’t save: ${e.message}. Try again.`; status.classList.add('text-red'); }
       finally { save.disabled = false; }
     }}, many ? `Save for ${items.length}` : 'Save');
-    return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-auto'}, h('div', {class: 'btn-group', role: 'group', 'aria-label': 'Decision'}, btns)), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, reason, save)), h('div', {class: 'col-12'}, status));
+    return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-auto'}, h('div', {class: 'btn-group seg', role: 'group', 'aria-label': 'Decision'}, btns)), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, reason, save)), h('div', {class: 'col-12'}, status));
   }
   function evidence(r) {
     const E = r.evidence || {}, S = r.series || [], cards = [];

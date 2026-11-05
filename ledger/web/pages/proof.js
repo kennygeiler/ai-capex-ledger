@@ -8,17 +8,21 @@ function byHover(items) {
   for (const i of items || []) { const k = byText(i.by || ''); n.set(k, (n.get(k) || 0) + 1); }
   return [...n].sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ×${v}`).join(' · ');
 }
-function stageCell(st) {
-  const blocked = st.blocked || 0, open = st.open.length;  // open counts blocked too (docs/PROOF.md); blocked is named on its own beside it
-  // the counts are the page groups of states.ROW (stateGroups(), ledger/core/states.py): Checked is Verified,
-  // Corroborated and Matches company tag; Located/Done (statements located, no blocking items, a confirmation) is its own
-  // count, never under Checked or Verified (F10)
-  const G = stateGroups(), S = (s) => stateWord('row', s)[0], title = st.explained_items && st.explained_items.length ? byHover(st.explained_items) : G.explained;
-  const done = st.done || 0;
-  return h('td', {class: 'num'}, h('span', {class: S('ok') + ' fw-semibold', title: G.checked}, int(st.checked - done)), h('span', {class: 'text-secondary'}, ' · '),
-    done ? [h('span', {class: S('done'), title: G.done}, int(done)), h('span', {class: 'text-secondary'}, ' · ')] : '',
-    h('span', {class: S('info'), title}, int(st.explained)), h('span', {class: 'text-secondary'}, ' · '),
-    open ? h('span', {class: S('bad') + ' fw-semibold', title: G.open}, int(open)) : h('span', {class: 'text-secondary', title: G.open}, '0'),
+// V6: every stage cell carries the same four parts in the same order, zeros included, and the board's sub-header names them
+// (Checked · Located/Done · Unverified · To review): the counts are the page groups of states.ROW (stateGroups(),
+// ledger/core/states.py): Checked is Verified, Corroborated and Matches company tag; Located/Done (statements located, no
+// blocking items, a confirmation) is its own count, never under Checked or Verified (F10). Open counts blocked too
+// (docs/PROOF.md); blocked is named on its own after the four, with its word. Each part has its word on hover, the cell
+// all of them in its accessible name.
+const STAGE_PARTS = ['checked', 'done', 'explained', 'open'];
+const stageParts = (st) => { const done = st.done || 0; return {checked: st.checked - done, done, explained: st.explained, open: st.open.length}; };
+function stageCell(st, label) {
+  const G = stateGroups(), S = (s) => stateWord('row', s)[0], n = stageParts(st), blocked = st.blocked || 0;
+  const tone = {checked: S('ok') + ' fw-semibold', done: S('done'), explained: S('info'), open: S('bad') + ' fw-semibold'};
+  const title = {explained: st.explained_items && st.explained_items.length ? byHover(st.explained_items) : G.explained};
+  const name = [label, ...STAGE_PARTS.map((p) => `${int(n[p])} ${G[p]}`), blocked ? `${int(blocked)} ${G.blocked}` : ''].filter(Boolean).join(', ');
+  return h('td', {class: 'num stage', 'aria-label': name},
+    STAGE_PARTS.map((p, i) => [i ? h('span', {class: 'text-secondary', 'aria-hidden': 'true'}, ' · ') : '', h('span', {class: (n[p] ? tone[p] : 'text-secondary') + ' part', title: title[p] || G[p], 'aria-hidden': 'true'}, int(n[p]))]),
     blocked ? [h('span', {class: 'text-secondary'}, ' · '), h('span', {class: S('blocked'), title: G.blocked}, `${int(blocked)} block release`)] : '');
 }
 // T82: the regression test's tables and the hand check's verdicts are two lines, never one: equal tables with nothing checked is not a pass
@@ -38,16 +42,19 @@ async function proofPage(view, qs) {
   const notLive = g.gold_live === false;
   const hand = h('a', {href: '#gold', class: notLive ? 'text-orange' : goldTone(g.gold), title: notLive ? g.gold_error || '' : g.gold && g.gold.failures && g.gold.failures.length ? g.gold.failures.slice(0, 5).join('\n') : 'Hand-checked sample',
     onclick: (e) => { e.preventDefault(); const el = document.getElementById('gold'); if (el) el.scrollIntoView(); }}, `Hand check: ${goldState(g.gold)}${notLive ? ' · Not live' : ''}`);
-  const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'}, h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Proof'),
-    h('div', {class: 'small'}, h('b', {}, `${proven} of ${b.proven.length} proven`))),
+  // V6: the headline is the page's largest status, beside the H1
+  const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'}, h('div', {class: 'col d-flex align-items-baseline flex-wrap', style: 'gap:.25rem 1.25rem'}, h('h1', {class: 'page-title'}, 'Proof'),
+    h('span', {class: 'proof-headline'}, `${proven} of ${b.proven.length} proven`)),
     h('div', {class: 'col-auto small d-flex gap-3'}, regression, hand)));
-  const table_ = h('div', {class: 'card'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table'},
-    h('thead', {}, h('tr', {}, h('th', {}, 'Company'), b.stages.map((s) => h('th', {class: 'num'}, s.label)), h('th', {}, ''))),
+  // the sub-header names the four parts of every stage cell, in their order and tone, above the numbers (V6)
+  const parts = h('tr', {class: 'proof-legend'}, h('th', {}), h('th', {colspan: b.stages.length, class: 'text-center'},
+    [['ok', 'checked'], ['done', 'done'], ['info', 'explained'], ['bad', 'open']].map(([s, g], i) => [i ? h('span', {class: 'text-secondary'}, ' · ') : '', h('span', {class: stateWord('row', s)[0] + ' text-nowrap'}, stateGroups()[g])])), h('th', {}));
+  const table_ = h('div', {class: 'card'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table proof-board'},
+    h('thead', {}, h('tr', {}, h('th', {}, 'Company'), b.stages.map((s) => h('th', {class: 'num'}, s.label)), h('th', {}, 'Status')), parts),
     h('tbody', {}, b.proven.map((c) => h('tr', {class: 'item', tabindex: 0, onclick: () => go('proof/' + c.ticker), onkeydown: (e) => { if (e.key === 'Enter') go('proof/' + c.ticker); }},
-      h('td', {}, h('div', {}, h('a', {href: '#proof/' + c.ticker, onclick: (e) => e.stopPropagation()}, c.name), ' ', h('span', {class: 'text-secondary small'}, c.ticker)), h('div', {class: 'text-secondary small'}, INDUSTRY[c.layer] || c.layer)),
-      b.stages.map((s) => stageCell(c.stages[s.id])),
-      h('td', {class: 'text-nowrap'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : bucketLine(c.counts))))))));
-  const legend = h('p', {class: 'small mt-2'}, [['ok', 'checked'], ['done', 'done'], ['info', 'explained'], ['bad', 'open']].map(([s, g], i) => [i ? h('span', {class: 'text-secondary'}, ' · ') : '', h('span', {class: stateWord('row', s)[0]}, '● ' + stateGroups()[g])]));
+      h('td', {}, h('div', {class: 'text-nowrap'}, h('a', {href: '#proof/' + c.ticker, onclick: (e) => e.stopPropagation()}, c.name), ' ', h('span', {class: 'text-secondary small'}, c.ticker)), h('div', {class: 'text-secondary small text-nowrap'}, INDUSTRY[c.layer] || c.layer)),
+      b.stages.map((s) => stageCell(c.stages[s.id], s.label)),
+      h('td', {}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : bucketLine(c.counts))))))));
   // T56: rows by the strongest answer key that vouches for them, graded by independence (status.KEY_GRADE); `none` is every row no key vouches for, so a row counts once
   const grades = b.key_grade || [];
   const keyCols = [{t: 'Company', f: (c) => c.ticker}, ...grades.map((g) => ({t: h('span', {title: g.why}, KEY_WORD[g.id] || g.label), num: 1, f: (c) => int(c.keys[g.id])})),
@@ -65,7 +72,7 @@ async function proofPage(view, qs) {
     h('div', {class: 'card-body py-2'},
       g.steps ? dtable('Steps', [{t: 'Step', k: 'step'}, {t: 'Result', num: 1, f: (x) => (x.exit === 0 ? h('span', {class: 'text-green'}, 'Pass') : h('span', {class: 'text-red'}, `Fail (${x.exit})`))}], g.steps) : '',
       g.diffs && Object.keys(g.diffs).length ? h('div', {class: 'mt-2'}, dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Added', num: 1, k: 'n_only_in_run'}, {t: 'Missing', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v})))) : ''));
-  view.append(head, table_, legend, h('div', {class: 'mt-3'}, keyTable), failureTypes(), h('div', {class: 'mt-3'}, releases), golden, goldSet());
+  view.append(head, table_, h('div', {class: 'mt-3'}, keyTable), failureTypes(), h('div', {class: 'mt-3'}, releases), golden, goldSet());
   const types = failureTypes.draw();
   if ('gold' in q) types.finally(() => goldSet.draw(q.gold || undefined, {focus: q.item || 'unchecked'}));  // the sections above are drawn first, so the scroll lands
   else goldSet.draw();
@@ -76,6 +83,7 @@ const goldWord = (v) => stateWord('gold', v)[1];  // states.GOLD, read when a ro
 const GOLD_HELP = {right: 'The filing shows this number at this cell', wrong: 'The filing shows something else; note what', cant_say: 'The filing does not settle it; note why'};
 const verdictTone = (v) => stateWord('gold', v)[0];
 const goldNeedsMe = new Set();
+const noteShown = (it) => !!((it.note || '').trim() || it.verdict === 'wrong' || it.verdict === 'cant_say');  // V4: hidden for Right and unchecked items
 document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of goldNeedsMe) b.disabled = !(me || '').trim(); });
 const goldMoney = (n) => (n == null ? 'Not reported' : usdExact(n));  // the hand check compares figures by eye: always to the dollar
 // The value as the filing prints it: the cited cell's figure and its scale, when every cite shows the same figure and
@@ -109,19 +117,25 @@ function goldSet() {
     const t = g.ticker || null;
     // the headline is the group no machine checks (gold.rates headline); the others and the overall follow, the same numbers as the API
     const byGroup = Object.fromEntries((g.groups || []).map((x) => [x.id, x.rate]));
-    const groupLine = (id, strong) => h('div', {class: 'small' + (strong ? ' fw-medium' : '')}, h('span', {class: goldGroup(id)[0]}, goldGroup(id)[1]), `: ${goldRate(byGroup[id])}`);
+    // V6: the summary is a table, one row per check source (the headline group first), the same numbers as goldRate
+    const sumRow = (label, r, strong) => h('tr', {class: strong ? 'fw-medium' : null}, h('td', {}, label), h('td', {class: 'num'}, int(r.n - r.wrong)), h('td', {class: 'num'}, int(r.wrong)),
+      h('td', {class: 'num'}, int(r.cant_say)), h('td', {class: 'num'}, int(r.unverified)),
+      h('td', {class: 'num'}, r.n ? [`${(100 * r.rate).toFixed(1)}%`, h('span', {class: 'text-secondary fw-normal'}, ` · 95% CI ${(100 * r.interval[0]).toFixed(1)}–${(100 * r.interval[1]).toFixed(1)}%`)] : h('span', {class: 'text-secondary'}, '—')));
+    const sumRows = [g.headline && byGroup[g.headline] ? sumRow(h('span', {class: goldGroup(g.headline)[0]}, goldGroup(g.headline)[1]), byGroup[g.headline], true) : '',
+      ...(g.groups || []).filter((x) => x.id !== g.headline && x.rate.items).map((x) => sumRow(h('span', {class: goldGroup(x.id)[0]}, goldGroup(x.id)[1]), x.rate)),
+      sumRow('All', g.all)];
+    const summary = h('div', {class: 'card mt-2', style: 'max-width:56rem'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-sm card-table gold-summary'},
+      h('thead', {}, h('tr', {}, h('th', {}, 'Check source'), h('th', {class: 'num'}, 'Right'), h('th', {class: 'num'}, 'Wrong'), h('th', {class: 'num'}, 'Can’t say'), h('th', {class: 'num'}, 'Unchecked'), h('th', {class: 'num'}, 'Error rate'))),
+      h('tbody', {}, sumRows))));
     const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Hand check'),
-      h('div', {class: 'text-secondary small'}, '20 items per company · random sample · Unchecked never passes'),
-      h('div', {class: 'mt-1'}, g.headline && byGroup[g.headline] ? groupLine(g.headline, true) : '',
-        (g.groups || []).filter((x) => x.id !== g.headline && x.rate.items).map((x) => groupLine(x.id)),
-        h('div', {class: 'small'}, h('span', {class: 'text-secondary'}, 'All'), `: ${goldRate(g.all)}`),
-        g.groups_live === false ? h('div', {class: 'small text-orange'}, 'Groups as drawn · live tables unavailable') : ''));
-    const picker = h('div', {class: 'btn-group flex-wrap mb-2', role: 'group', 'aria-label': 'Company'}, g.companies.map((c) => {
+      h('div', {class: 'text-secondary small'}, '20 items per company · random sample · Unchecked never passes'), summary,
+      g.groups_live === false ? h('div', {class: 'small text-orange mt-1'}, 'Groups as drawn · live tables unavailable') : '');
+    const picker = h('div', {class: 'btn-group seg mb-2', role: 'group', 'aria-label': 'Company'}, g.companies.map((c) => {
       const done = c.rate.items - c.rate.unverified;
-      return h('button', {type: 'button', class: 'btn btn-sm ' + (c.ticker === t ? 'btn-primary' : 'btn-outline-secondary'), 'aria-pressed': String(c.ticker === t), title: goldRate(c.rate), onclick: () => goldSet.draw(c.ticker)},
-        c.ticker, h('span', {class: 'ms-1 ' + (c.ticker === t ? '' : 'text-secondary')}, `${done}/${c.rate.items}`));
+      return h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary' + (c.ticker === t ? ' active' : ''), 'aria-pressed': String(c.ticker === t), title: goldRate(c.rate), onclick: () => goldSet.draw(c.ticker)},
+        c.ticker, h('span', {class: 'ms-1 text-secondary'}, `${done}/${c.rate.items}`));
     }));
-    if (!t) { wrap.replaceChildren(head, probs, picker); if (focus) wrap.scrollIntoView(); return; }
+    if (!t) { wrap.replaceChildren(head, probs, picker); fitTables(wrap); if (focus) wrap.scrollIntoView(); return; }
     const co = g.companies.find((c) => c.ticker === t);
     const claimName = (it) => [FIELDS[it.field] || it.field, it.dimension, it.period].filter(Boolean).join(' · ');
     const claim = (it) => h('div', {}, h('div', {class: 'fw-semibold'}, claimName(it)),
@@ -141,11 +155,12 @@ function goldSet() {
       return citeCell({role: c.role, mark: c.mark, crop: {state: E.state, reason: E.reason, url: E.url}, viewer: E.viewer, link: c.url, form: E.form, filed: E.filed, row: c.row, column: (c.column || '').replaceAll(' | ', ' '), cell: c.cell_text}, claimName(it));
     }))) : h('span', {class: 'text-secondary small'}, '—'));
     const verdict = (it) => {
-      const note = h('input', {type: 'text', class: 'form-control form-control-sm', placeholder: 'Note (required for Wrong / Can’t say)', value: it.note || '', 'aria-label': `Note on ${it.id}`});
+      // V4: the note box shows only once it is needed: a Wrong or Can't say verdict, or a note already written
+      const note = h('input', {type: 'text', class: 'form-control form-control-sm', placeholder: 'Note (required for Wrong / Can’t say)', value: it.note || '', 'aria-label': `Note on ${it.id}`, hidden: !noteShown(it)});
       const msg = h('div', {class: 'small', role: 'status'}, it.verdict ? h('span', {class: verdictTone(it.verdict) + ' fw-medium'}, `${goldWord(it.verdict)} · ${it.by} · ${day(it.at)}`) : h('span', {class: stateWord('gold', 'unchecked')[0]}, stateWord('gold', 'unchecked')[1]));
       const btns = g.verdicts.map((v) => {
         const b = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary' + (it.verdict === v ? ' active' : ''), 'aria-pressed': String(it.verdict === v), title: (me || '').trim() ? GOLD_HELP[v] : 'Enter a signer name', onclick: async () => {
-          if (v !== 'right' && !note.value.trim()) { msg.replaceChildren(h('span', {class: 'text-red'}, 'Note required')); note.focus(); return; }
+          if (v !== 'right' && !note.value.trim()) { note.hidden = false; msg.replaceChildren(h('span', {class: 'text-red'}, 'Note required')); note.focus(); return; }
           btns.forEach((x) => { x.disabled = true; });
           try {
             const out = await api('/api/gold/verdict', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ticker: t, id: it.id, verdict: v, note: note.value, by: me})});
@@ -156,7 +171,7 @@ function goldSet() {
         b.disabled = !(me || '').trim(); goldNeedsMe.add(b);
         return b;
       });
-      return h('div', {}, h('div', {class: 'btn-group mb-1', role: 'group', 'aria-label': `Verdict on ${it.id}`}, btns), note, msg);
+      return h('div', {}, h('div', {class: 'btn-group seg mb-1', role: 'group', 'aria-label': `Verdict on ${it.id}`}, btns), note, msg);
     };
     // the items arrive hard first (gold.ordered); a header row opens each group with that group's numbers for this company
     const coGroups = Object.fromEntries(((co.rates || {}).groups || []).map((x) => [x.id, x.rate]));
@@ -174,6 +189,7 @@ function goldSet() {
         h('colgroup', {}, h('col', {class: 'c-item'}), h('col', {class: 'c-value'}), h('col', {class: 'c-source'}), h('col', {class: 'c-verify'})),
         h('thead', {}, h('tr', {}, h('th', {}, 'Item'), h('th', {class: 'num'}, 'Value'), h('th', {}, 'Source'), h('th', {}, 'Check'))), h('tbody', {}, rows.map((x) => x.tr)))));
     wrap.replaceChildren(head, probs, picker, co.note ? h('p', {class: 'text-secondary small'}, co.note) : '', tbl);
+    fitTables(wrap);  // drawn after the router's skin(): its wrappers get .fit or .wide here, or the sticky header is dead
     if (focus) {  // the item asked for, else the company's first unchecked item, else the table
       const rowsEl = [...tbl.querySelectorAll('tr[data-item]')];
       const el = rowsEl.find((r) => r.dataset.item === focus) || rowsEl.find((r) => r.dataset.unchecked) || tbl;
@@ -210,6 +226,7 @@ function failureTypes() {
         {t: 'Companies seen', num: 1, f: (r) => (r.count == null ? h('span', {class: 'text-secondary'}, 'Not counted') : int(r.count))}], typeRows)));
     const why = h('p', {class: 'text-secondary small mt-2'}, `${NO_CHECK}: ${ofTotal(f.none)}`);
     wrap.append(head, h('div', {class: 'row g-3'}, byClass.node, byCheck.node), why, list);
+    fitTables(wrap);  // drawn after the router's skin()
     if (!window.Plotly) { for (const c of [byClass, byCheck]) c.plot.replaceChildren(h('p', {class: 'text-secondary small m-0'}, 'Chart unavailable')); return; }
     const draw = (c, rows, key, nameOf) => {
       const css = getComputedStyle(document.documentElement);  // read at draw time: a theme change redraws with the new ink
