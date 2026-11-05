@@ -372,10 +372,12 @@ class MachineWords(unittest.TestCase):
         got = json.loads(node(js, json.dumps(["Company-specific tag: amzn:ServersAndNetworkingEquipmentMember", "us-gaap:LandMember and goog:TechnicalInfrastructureMember", "no code here"])))
         self.assertEqual(got, ["Company-specific tag: Servers and networking equipment", "Land and Technical infrastructure", "no code here"])
 
-    def test_no_accession_printed_on_evidence(self):
+    def test_the_accession_is_printed_on_evidence(self):
+        """Review 2: an accession number is a filing's id the owner checks, not a machine word: printed under Filing on
+        Evidence and on each side of the compare (V22's link stays besides)."""
         ev = (PAGES / "evidence.js").read_text()
-        self.assertNotIn("· ${e.accession} ·", ev)
-        self.assertNotIn("'text-secondary small mb-2 mono'}, e.accession", ev)
+        self.assertIn("const accessionLine = (acc) => (acc ? h('div', {class: 'small text-secondary accession'}, `Accession ${acc}`) : '');", ev)
+        self.assertEqual(ev.count("accessionLine(e.accession)"), 2)
 
 
 @unittest.skipUnless(shutil.which("node"), "no node")

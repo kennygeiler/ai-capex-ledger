@@ -382,10 +382,10 @@ class Layout(unittest.TestCase):
                 self.assertLessEqual(pg.evaluate("Math.abs(document.querySelector('main h1.page-title').getBoundingClientRect().left - document.querySelector('#scopeline a').getBoundingClientRect().left)"), 1)
 
     # snake_case, a US GAAP …Member code or an accession number in text on screen (code blocks, Docs and the raw Rows table
-    # are the code's own words and are left out)
+    # are the code's own words and are left out; so is Evidence's Accession line, a filing's id printed on purpose, review 2)
     MACHINE = r"""() => { const out = new Set(); const walk = (n) => { for (const c of n.childNodes) {
         if (c.nodeType === 3) { const m = c.textContent.match(/\b[a-z]+_[a-z_]+\b|\b\w+Member\b|\b\d{10}-\d{2}-\d{6}\b/g);
-          if (m && c.parentElement.getBoundingClientRect().height && !c.parentElement.closest('pre, code, .md, .mono, table.raw, .charter, details:not([open]) > :not(summary)')) m.forEach((x) => out.add(x)); }
+          if (m && c.parentElement.getBoundingClientRect().height && !c.parentElement.closest('pre, code, .md, .mono, table.raw, .charter, .accession, details:not([open]) > :not(summary)')) m.forEach((x) => out.add(x)); }
         else if (c.nodeType === 1 && !['SCRIPT', 'STYLE', 'SELECT'].includes(c.tagName)) walk(c); } }; walk(document.querySelector('main')); return [...out]; }"""
 
     def test_no_machine_words_on_screen(self):
