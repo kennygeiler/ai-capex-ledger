@@ -28,7 +28,7 @@ what to do when a Release line is red. Setup and the objects are in [Handoff](HA
 4. After a definition or rule, run `ledger rules` (or `ledger reconcile`), then commit the changed file. The commit message says what was decided and why.
 5. A new kind of failure gets a row in `docs/INGESTION.md` and `taxonomy/failures.yaml`, a check that catches it, and a test.
 
-The name in the signer box is the author of every decision. It must be on `config.PEOPLE`; there is no sign-in yet, so the name is a claim, not proof of a person.
+The name in the signer box is the author of every decision. The box is empty until a name is typed (remembered in this browser); every write refuses a name off `config.PEOPLE`. There is no sign-in yet, so the name is a claim, not proof of a person.
 
 ## Grading the gold set
 

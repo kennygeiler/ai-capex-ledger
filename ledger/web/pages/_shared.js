@@ -51,8 +51,10 @@ async function api(path, opts) {
   if (!r.ok) { const e = new Error(d.error || r.statusText); e.status = r.status; throw e; }  // 409: the record changed since the page loaded
   return d;
 }
-let me = 'Kenny Geiler';
-try { me = localStorage.getItem('datahq-me') || me; } catch {}
+// F18: no default signer; empty until a name is chosen, then remembered in this browser. Every write is refused (400)
+// for a name off the people list (config.PEOPLE), on the server
+let me = '';
+try { me = localStorage.getItem('datahq-me') || ''; } catch {}
 $('#me').value = me;
 $('#me').addEventListener('input', (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} });
 // F-VT4: marks a control (or the block holding several) as one that writes; hidden in a read-only copy (app.html)

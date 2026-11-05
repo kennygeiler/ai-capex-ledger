@@ -170,6 +170,85 @@ class EvidenceOnTheChecklist(unittest.TestCase):
         self.assertEqual((lines["evidenced"]["state"], lines["evidenced"]["count"]), ("pass", 0), lines["evidenced"]["detail"][:3])
 
 
+class EveryWriteNamesAPerson(unittest.TestCase):
+    """F18: the signer box defaulted to Kenny Geiler; agent changes and the command-line signature took any name."""
+
+    def test_the_page_has_no_default_signer(self):
+        js = (store.ROOT / "ledger" / "web" / "pages" / "_shared.js").read_text()
+        self.assertNotIn("'Kenny Geiler'", js)
+        self.assertIn("let me = '';", js)
+        self.assertNotIn('"Kenny Geiler")', (store.ROOT / "ledger" / "cli" / "report_template.html").read_text())
+
+    def test_agent_changes_refuse_a_name_off_the_people_list(self):
+        from ledger.extract import agents
+        with mock.patch.object(agents, "_save") as save, mock.patch.object(agents, "PROMPTS", Path(tempfile.mkdtemp())):
+            for name in ("", "Somebody Else", "Claude Code"):
+                with self.assertRaises(ValueError):
+                    agents.save_prompt("reader", "# x", name, "why")
+                with self.assertRaises(ValueError):
+                    agents.use_prompt("reader", "statements@v1", name)
+                with self.assertRaises(ValueError):
+                    agents.set_model("reader", "claude-opus-5-5", name)
+            save.assert_not_called()
+
+    def test_the_command_line_signature_checks_the_people_list(self):
+        from ledger.cli import signoff
+        tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp, True)
+        with mock.patch.object(signoff, "RELEASES", tmp):
+            with self.assertRaisesRegex(ValueError, "config.PEOPLE"):
+                signoff.sign("v9.9.0", "Somebody Else")
+            self.assertEqual(signoff.main(["v9.9.0", "--by", "Claude Code"]), 1)
+
+    def test_every_write_route_is_400_for_a_name_off_the_list_and_writes_nothing(self):
+        from http.server import ThreadingHTTPServer
+        import threading
+        from urllib import error, request
+        from ledger.web import app
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.shutdown)
+        base = f"http://127.0.0.1:{srv.server_address[1]}"
+
+        def post(path, body):
+            req = request.Request(base + path, data=json.dumps(body).encode(), headers={"Content-Type": "application/json"}, method="POST")
+            try:
+                with request.urlopen(req) as r:
+                    return r.status
+            except error.HTTPError as e:
+                return e.code
+        routes = {"/api/release/sign": {"version": "v9.9.0"}, "/api/resolve": {"key": "blocked|MSFT|capex|FY2024|||", "hash": "h", "state": "accept", "reason": "r"},
+                  "/api/resolve/bulk": {"items": [{"key": "blocked|MSFT|capex|FY2024|||", "hash": "h"}], "state": "accept", "reason": "r"},
+                  "/api/judgement": {"key": "blocked|MSFT|capex|FY2024|||", "as": "definition", "why": "w"},
+                  "/api/mapping": {"ticker": "MSFT", "reported_name": "Land", "standard_type": "us-gaap:LandMember", "evidence": "e", "expected": None},
+                  "/api/mapping/bulk": {"items": [{"ticker": "MSFT", "reported_name": "Land", "standard_type": "us-gaap:LandMember", "evidence": "e", "expected": None}]},
+                  "/api/mapping/reject": {"ticker": "MSFT", "reported_name": "Land", "standard_type": "us-gaap:LandMember", "reason": "r"},
+                  "/api/v1/views": {"view": {"name": "v", "list": "values"}}, "/api/v1/views/x/delete": {},
+                  "/api/gold/verdict": {"ticker": "MSFT", "id": "x", "verdict": "right"},
+                  "/api/agents/reader/prompt": {"text": "# x", "note": "n"}, "/api/agents/reader/use": {"version": "statements@v1"}, "/api/agents/reader/model": {"model": "claude-opus-5-5"}}
+        from ledger.extract import agents
+        from ledger.release import checklist
+        from ledger.review import gold, judgement, mapper
+        from ledger.web import views
+        sinks = [mock.patch.object(resolutions_mod(), "_write"), mock.patch.object(agents, "_save"), mock.patch.object(views, "_save"), mock.patch.object(gold, "_write"),
+                 mock.patch.object(mapper, "_append"), mock.patch.object(mapper, "_edit"), mock.patch.object(judgement, "write_definition"), mock.patch.object(judgement, "write_rule"),
+                 mock.patch.object(checklist, "write"), mock.patch("ledger.cli.signoff.sign"), mock.patch.object(agents, "PROMPTS", Path(tempfile.mkdtemp())),
+                 mock.patch.object(app, "_con", return_value=mock.MagicMock())]
+        ms = [p.start() for p in sinks]
+        for p in sinks:
+            self.addCleanup(p.stop)
+        for path, body in routes.items():
+            for name in ("", "Somebody Else"):
+                self.assertEqual(post(path, {**body, "by": name}), 400, (path, name))
+        for m in ms[:10]:
+            m.assert_not_called()
+
+
+def resolutions_mod():
+    from ledger.review import resolutions
+    return resolutions
+
+
 
 
 if __name__ == "__main__":

@@ -617,6 +617,9 @@
       - tests.test_pages_js.SignButton.test_enabled_only_for_a_name_on_the_list_with_every_required_line_green
       - tests.test_pages_js.SignButton.test_the_page_rechecks_on_every_input_to_the_signer_box
       - tests.test_checklist.HistoricSignatures.test_signed_releases_read_and_check_with_nobody_on_the_list
+      - tests.test_trust.EveryWriteNamesAPerson.test_the_page_has_no_default_signer
+      - tests.test_trust.EveryWriteNamesAPerson.test_the_command_line_signature_checks_the_people_list
+      - tests.test_trust.EveryWriteNamesAPerson.test_every_write_route_is_400_for_a_name_off_the_list_and_writes_nothing
   status: partial
   gaps:
     - The signer is a typed name; nobody signs in.

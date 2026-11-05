@@ -53,10 +53,18 @@ def charter(agent_id: str) -> list[dict]:
     return out
 
 
+def _person(by: str) -> None:
+    """F18: an agent change is written under a name on config.PEOPLE (status.is_person), like every other write; 400 otherwise."""
+    from ..core.status import is_person
+    if not is_person(by):
+        raise ValueError(f"{str(by or '').strip()!r} is not on config.PEOPLE, the people who may change an agent")
+
+
 def save_prompt(agent_id: str, text: str, by: str, note: str) -> str:
     """Save `text` as the next version. It is not in use until `use_prompt`: a person switches it on, on purpose."""
     if not text.strip() or not by.strip() or not note.strip():
         raise ValueError("a prompt change needs the text, who made it and why")
+    _person(by)
     cfg = load()
     a = cfg[agent_id]
     family, last = a["prompt"].split("@")[0], versions(agent_id)[-1]
@@ -70,6 +78,7 @@ def save_prompt(agent_id: str, text: str, by: str, note: str) -> str:
 
 
 def use_prompt(agent_id: str, version: str, by: str) -> None:
+    _person(by)
     if version not in versions(agent_id):
         raise ValueError(f"no prompt {version}")
     cfg = load()
@@ -78,6 +87,7 @@ def use_prompt(agent_id: str, version: str, by: str) -> None:
     _save(cfg)
 
 def set_model(agent_id: str, model: str, by: str) -> None:
+    _person(by)
     if not re.fullmatch(r"[a-z0-9][a-z0-9.\-]{2,60}", model):
         raise ValueError("a model id looks like claude-opus-5-5")
     cfg = load()

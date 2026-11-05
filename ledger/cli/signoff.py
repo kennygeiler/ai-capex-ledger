@@ -2,7 +2,7 @@
 
 The Release page signs through `sign()` too (checklist.sign), and passes the checklist as it was at signing, so
 SIGNOFF.json says what the signature meant (T6, T7). The command line records none: a signature from here carries
-only who, when and the hash."""
+only who, when and the hash. Either way the name must be on config.PEOPLE (F18)."""
 import argparse
 import json
 from datetime import datetime, timezone
@@ -11,7 +11,12 @@ from ..release.release import RELEASES, content_hash
 
 
 def sign(version: str, by: str, checklist: dict | None = None) -> dict:
-    """Write SIGNOFF.json for a built release whose files still match their hash; raise ValueError otherwise."""
+    """Write SIGNOFF.json for a built release whose files still match their hash; raise ValueError otherwise. `by` must
+    be a person on config.PEOPLE (status.is_person, F18), from the command line and the page alike: checked first."""
+    from ..core.status import is_person
+    if not is_person(by):
+        raise ValueError(f"{str(by or '').strip()!r} is not on config.PEOPLE, the people who may sign a release; not signed.")
+    by = by.strip()
     d = RELEASES / version
     if not (d / "manifest.json").exists():
         raise ValueError(f"no release {version}")
@@ -51,5 +56,5 @@ def main(argv=None) -> int:
     except ValueError as e:
         print(e)
         return 1
-    print(f"{a.version} signed by {a.by} ({s['hash'][:12]})")
+    print(f"{a.version} signed by {s['signed_by']} ({s['hash'][:12]})")
     return 0

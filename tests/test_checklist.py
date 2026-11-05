@@ -191,7 +191,7 @@ class SignoffFile(TempReleases):
             (d / n).write_text(t)
         (d / "manifest.json").write_text(json.dumps({"version": "v9.9.0", "hash": HASH, "files": sorted(FILES)}))
         with self.assertRaises(ValueError):
-            signoff.sign("v8.0.0", "K")  # no such release
+            signoff.sign("v8.0.0", "Kenny Geiler")  # no such release
         s = signoff.sign("v9.9.0", "Kenny Geiler", _cl(True))
         got = self.signoff_json()
         self.assertEqual((s["version"], got["signed_by"], got["checklist"]["scope"]), ("v9.9.0", "Kenny Geiler", ["MSFT", "NVDA"]))
@@ -202,12 +202,14 @@ class SignoffFile(TempReleases):
         got = self.signoff_json()
         self.assertEqual((got["signed_by"], got["published"], got["publish_error"]), ("Kenny Geiler", False, "no url"))  # record never touches the signed fields
         (d / "SIGNOFF.json").unlink()
-        self.assertEqual(signoff.main(["v9.9.0", "--by", "CLI"]), 0)
+        self.assertEqual(signoff.main(["v9.9.0", "--by", "CLI"]), 1)  # F18: a name off config.PEOPLE never signs, from the command line either
+        self.assertFalse((d / "SIGNOFF.json").exists())
+        self.assertEqual(signoff.main(["v9.9.0", "--by", "Kenny Geiler"]), 0)
         self.assertNotIn("checklist", self.signoff_json())  # the command line signs without one
         (d / "SIGNOFF.json").unlink()
         (d / "values.csv").write_text("ticker\nY\n")
         with self.assertRaises(ValueError):
-            signoff.sign("v9.9.0", "K")  # the files no longer match their hash
+            signoff.sign("v9.9.0", "Kenny Geiler")  # the files no longer match their hash
 
 
 class Versions(TempReleases):
