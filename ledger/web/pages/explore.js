@@ -72,10 +72,11 @@ async function explorePage(view, arg, qs) {
   const under = h('div', {});
   const q2 = new URLSearchParams(); for (const k of ['field', 'kind', 'layer', 'ticker']) if (st[k]) q2.set(k, st[k]);
   const url = `/api/v1/${st.measure}?${q2}`;
+  const delMsg = h('span', {class: 'small bad', role: 'status'});
   const saveRow = h('div', {class: 'hrow', style: 'gap:1rem'}, h('span', {class: 'muted small'}, `${int(pts.length)} row${pts.length === 1 ? '' : 's'}${folded.size ? `, ${folded.size} smaller series folded into Other` : ''}`),
     h('a', {href: url, target: '_blank', rel: 'noopener', class: 'small'}, 'JSON'), h('a', {href: url + '&format=csv', class: 'small'}, 'CSV'),
     h('button', {type: 'button', class: 'btn', onclick: () => saveView()}, current ? 'Save changes' : 'Save as view'),
-    current ? h('button', {type: 'button', class: 'small', 'aria-live': 'polite', onclick: async (e) => { const b = e.currentTarget; if (b.dataset.armed) { await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me})}); go('#explore'); } else { b.dataset.armed = '1'; b.textContent = 'Confirm delete'; setTimeout(() => { delete b.dataset.armed; b.textContent = 'Delete'; }, 5000); } }}, 'Delete') : '');
+    current ? h('button', {type: 'button', class: 'small', 'aria-live': 'polite', onclick: async (e) => { const b = e.currentTarget; if (b.dataset.armed) { delete b.dataset.armed; b.disabled = true; try { await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me})}); go('#explore'); } catch (err) { delMsg.textContent = err.message; b.disabled = false; b.textContent = 'Delete'; } } else { delMsg.textContent = ''; b.dataset.armed = '1'; b.textContent = 'Confirm delete'; setTimeout(() => { if (b.dataset.armed) { delete b.dataset.armed; b.textContent = 'Delete'; } }, 5000); } }}, 'Delete') : '', delMsg);
   body.append(saveRow, plot, under);
   if (!pts.length) { plot.replaceChildren(h('p', {class: 'msg'}, 'No rows match')); return; }
   const css = getComputedStyle(document.documentElement);

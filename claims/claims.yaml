@@ -841,3 +841,17 @@
   status: proven
   gaps: []
   ticket: none
+
+- id: explore_views
+  claim: "Explore: Save as view, Save changes and Delete write a saved view; a failed write says why beside its button"
+  where: [ledger/web/pages/explore.js, ledger/web/pages/_shared.js, ledger/web/views.py, /api/v1/views]
+  shown: ["Save as view", "Save changes", "Confirm delete", "withJson"]
+  backed_by:
+    functions: [ledger.web.views.save, ledger.web.views.delete]
+    tests:
+      - tests.test_pages_js.JsonWrites.test_a_body_gets_the_json_content_type
+      - tests.test_pages_js.JsonWrites.test_explore_writes_go_through_api
+  status: partial
+  gaps:
+    - The saved view "What companies state about AI, in dollars" has no chart and shows "No rows match" (ux-paths catalog, Known broken flows).
+  ticket: none
