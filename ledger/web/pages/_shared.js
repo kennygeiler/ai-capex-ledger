@@ -297,12 +297,40 @@ function citeCell(w, what) {
   return h('div', {class: 'cite'}, w.role ? h('div', {class: 'cite-role small fw-medium'}, w.role) : '', thumb, w.mark ? h('div', {class: 'cite-mark small fw-medium text-orange'}, w.mark) : '',
     h('div', {class: 'cite-line small'}, `${w.form || '10-K'} ${w.filed || ''}`.trim(), links.map((l) => (l ? [' · ', l] : ''))));
 }
-// a fact whose readings disagree across filings (ledger/checks/ties.py restatement): the server's line, exact figures as filed,
-// and the pair to compare. Shown whatever the row's state; the words come from the server (states.RESTATED, SUPERSEDED).
+// V11: a figure is a labelled value cell, never only a word in a sentence. Each reading below is the server's own text taken
+// apart by its known shape (ledger/checks/ties.py fail_message, rules.py jump); a text of any other shape is shown as written.
+// The figures stay as the server wrote them (as filed, or its money format): nothing is recomputed here.
+function messageFacts(msg) {
+  const s = String(msg || '');
+  let m = s.match(/^(\d+) parts? in (\S+) sum to (\S+); the filing tags (.+?) (\S+) for (\S+) \(gap (\S+), tolerance on the sum ±(\S+)\)$/);
+  if (m) return [['Parts', m[1]], ['Sum of parts', m[3]], ['Tagged as', memberWords(m[4].split(',')[0]) + (m[4].includes(',') ? ` (${m[4].split(', ').slice(1).join(', ')})` : ''), `${m[4]} · ${m[2]}`], ['Tagged total', m[5]], ['Period end', m[6]], ['Gap', m[7]], ['Tolerance', `±${m[8]}`]];
+  m = s.match(/^(\w+) moves ([\d.]+)× from (\S+) \(([\d,.-]+)\) to (\S+) \(([\d,.-]+)\)$/);
+  if (m) return [['Field', LABEL[m[1]] || m[1]], [m[3], m[4]], [m[5], m[6]], ['Change', `${m[2]}×`]];
+  return null;
+}
+// a tie's detail (cards.py: "7 parts · tolerance ±$4,000 · Building $30.2M; Land $1.1M"): the parts as a two-column list
+function tieParts(detail) {
+  const bits = String(detail || '').split(' · ');
+  if (bits.length < 3 || !/^\d+ parts?$/.test(bits[0]) || !/^tolerance /.test(bits[1])) return null;
+  const parts = bits.slice(2).join(' · ').split('; ').map((p) => { const i = p.lastIndexOf(' '); return i > 0 ? [p.slice(0, i), p.slice(i + 1)] : [p, '']; });
+  return {n: bits[0], tolerance: bits[1].replace(/^tolerance /, ''), parts};
+}
+function valueCells(pairs, cls = '') {
+  return h('div', {class: 'datagrid value-cells ' + cls}, pairs.map(([k, v, title]) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, k), h('div', {class: 'datagrid-content fw-medium', title: title || null}, v))));
+}
+// a fact whose readings disagree across filings (ledger/checks/ties.py restatement): each reading on its own line, the figure
+// exactly as filed beside its filing, the one the dataset uses marked; the pair to compare. Shown whatever the row's state;
+// the word is the server's (the line's head: states.RESTATED). Without readings, the server's line as written.
 function restatedLine(r, compare) {
   if (!r) return '';
-  const link = compare && r.compare ? [' · ', h('a', {href: `#evidence/compare?a=${encodeURIComponent(r.compare.a)}&b=${encodeURIComponent(r.compare.b)}`}, 'Compare filings')] : '';
-  return h('div', {class: 'small text-orange restated'}, r.line, link);
+  const link = compare && r.compare ? h('a', {href: `#evidence/compare?a=${encodeURIComponent(r.compare.a)}&b=${encodeURIComponent(r.compare.b)}`}, 'Compare filings') : '';
+  const steps = r.steps || [];
+  if (!steps.length) return h('div', {class: 'small text-orange restated'}, r.line, link ? [' · ', link] : '');
+  const used = (r.used || {}).extraction_id;
+  const word = String(r.line || '').split(':')[0] || 'Restated';
+  return h('div', {class: 'small restated'}, h('div', {class: 'text-orange fw-medium'}, word, link ? [h('span', {class: 'text-secondary fw-normal'}, ' · '), link] : ''),
+    h('table', {class: 'readings'}, h('tbody', {}, steps.map((st) => { const f = (st.filings || [])[0] || {}, isUsed = (st.filings || []).some((x) => x.extraction_id === used);
+      return h('tr', {}, h('td', {class: 'num'}, st.cell_text), h('td', {class: 'text-secondary'}, `${f.form || ''} ${f.filed || ''}`.trim()), h('td', {class: isUsed ? 'fw-medium' : 'text-secondary'}, isUsed ? 'Used' : '')); }))));
 }
 // a figure calculated from several cells (ledger/checks/calc.py): the formula with its result, the arithmetic on the real
 // inputs, and each cross-check (the filing's own total, SEC XBRL) in states.CROSSCHECK's tone. The trail and the gold set.

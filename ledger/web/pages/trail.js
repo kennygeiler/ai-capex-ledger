@@ -40,7 +40,10 @@ function trailVerify(c, ticker) {
   const [cls, word] = rowWord(c.how.tone);
   const line = h('div', {class: 'small'}, h('span', {class: cls + ' fw-medium'}, word), c.how.text ? h('span', {class: 'text-secondary'}, ` · ${c.how.text}`) : '');
   const more = [restatedLine(c.restatement), c.compare ? h('div', {class: 'small'}, h('a', {href: `#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}`}, 'Compare filings')) : ''];
-  return [c.how.detail ? h('details', {class: 'why'}, h('summary', {}, line), h('div', {class: 'small text-secondary mt-1'}, c.how.detail)) : line, more];
+  const tie = tieParts(c.how.detail);  // V11: a tie's parts as a list of values, the count and tolerance as cells
+  const detail = tie ? h('div', {class: 'small mt-1'}, valueCells([['Parts', tie.n.split(' ')[0]], ['Tolerance', tie.tolerance]], 'compact'), h('table', {class: 'readings mt-1'}, h('tbody', {}, tie.parts.map(([k, v]) => h('tr', {}, h('td', {class: 'text-secondary'}, k), h('td', {class: 'num'}, v))))))
+    : h('div', {class: 'small text-secondary mt-1'}, c.how.detail);
+  return [c.how.detail ? h('details', {class: 'why'}, h('summary', {}, line), detail) : line, more];
 }
 
 function trailRow(it, stage, ticker, withValue = true) {

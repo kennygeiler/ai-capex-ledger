@@ -237,6 +237,11 @@
   /* V10: an opened row of a table wider than its card shows its detail in the visible part, not across the whole width */
   .table-responsive.wide tr.detail > td > * { position: sticky; left: .75rem; max-width: calc(var(--box-w, 60rem) - 1.5rem); }
   /* V10: text cut to fit its cell ends in an ellipsis, never mid-glyph */
+  /* V11: figures in labelled cells; readings (restated, a tie's parts) as a two- or three-column list */
+  .value-cells.compact { --tblr-datagrid-item-width: 8rem; gap: .4rem 1rem; }
+  table.readings { border-collapse: collapse; }
+  table.readings td { padding: 0 .9rem 0 0; vertical-align: baseline; }
+  table.readings td.num { font-variant-numeric: tabular-nums; }
   .row-detail { --tblr-datagrid-item-width: 14rem; gap: .6rem 1.25rem; }
   .cut { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   /* the Proof board (V6) */

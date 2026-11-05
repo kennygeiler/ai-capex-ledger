@@ -304,6 +304,39 @@ class ExploreColours(unittest.TestCase):
 
 
 @unittest.skipUnless(shutil.which("node"), "no node")
+class FiguresInCells(unittest.TestCase):
+    """V11: the server's finding text and a tie's detail are taken apart into labelled values; nothing is recomputed, and a
+    text of an unknown shape is shown as written (null here)."""
+
+    def run_js(self, fn, args):
+        js = "const LABEL = {opex: 'Opex'};\n" + line("_shared.js", "const memberWords") + "\n" + block("_shared.js", f"function {fn}(", "\n}") + \
+            f"\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[process.argv.length - 1]).map({fn})));"
+        return json.loads(node(js, json.dumps(args)))
+
+    def test_a_tie_finding_becomes_cells(self):
+        got = self.run_js("messageFacts", [
+            "2 parts in 0001144879-26-000048 sum to $2,989.9M; the filing tags PaymentsToAcquireProductiveAssets $2,865.8M for 2026-05-31 (gap $124.2M, tolerance on the sum ±$1,500)",
+            "opex moves 4.69× from FY2025 (83,985,000) to FY2026 (394,144,000)",
+            "something else entirely"])
+        self.assertEqual([k for k, *_ in got[0]], ["Parts", "Sum of parts", "Tagged as", "Tagged total", "Period end", "Gap", "Tolerance"])
+        self.assertEqual(dict((k, v) for k, v, *_ in got[0])["Sum of parts"], "$2,989.9M")
+        self.assertEqual(dict((k, v) for k, v, *_ in got[0])["Gap"], "$124.2M")
+        self.assertEqual(got[1], [["Field", "Opex"], ["FY2025", "83,985,000"], ["FY2026", "394,144,000"], ["Change", "4.69×"]])
+        self.assertIsNone(got[2])
+
+    def test_a_ties_parts_become_a_list(self):
+        got = self.run_js("tieParts", ["7 parts · tolerance ±$4,000 · Building $30.2M; Land $1.1M", "The two cost lines above gross profit."])
+        self.assertEqual(got[0], {"n": "7 parts", "tolerance": "±$4,000", "parts": [["Building", "$30.2M"], ["Land", "$1.1M"]]})
+        self.assertIsNone(got[1])
+
+    def test_the_rules_score_is_cells(self):
+        js = (PAGES / "rules.js").read_text()
+        self.assertNotIn("`Caught ${of(f.caught, f.planted)} · Missed", js)
+        for label in ("item('Caught', of(f.caught, f.planted))", "item('Missed', int(f.escaped))", "item('Caught without SEC XBRL', int(off.caught))", "item('Matches SEC XBRL', of(sc.twin.agree, sc.twin.of)"):
+            self.assertIn(label, js)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
 class HandCheckNote(unittest.TestCase):
     """V4 / PB9: the note box shows only after Wrong or Can't say, or when a note is on file; never for Right or unchecked."""
 
