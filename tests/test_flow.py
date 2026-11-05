@@ -253,7 +253,7 @@ process.stdout.write(JSON.stringify(gateRows(JSON.parse(process.argv[process.arg
         js = (Path(store.ROOT) / "ledger" / "web" / "pages" / "release.js").read_text()
         for gone in ("Release checks by company", "gatesTable(", "diffTable", "dtable(`Packet"):
             self.assertNotIn(gone, js)
-        self.assertIn("{detail: (l) => (l.summary ? '' : lineDetail(l))}", js)  # the packet files and the diff live in their lines' details only
+        self.assertIn("{detail: (l) => (l.summary ? '' : l.id === 'regression' ? regressionDetail(golden) : lineDetail(l))}", js)  # the packet files and the diff live in their lines' details only; the regression line's detail is its steps and differences (flow-2 review 4)
         self.assertIn("button, status", js)  # Sign stays in the header
 
 
