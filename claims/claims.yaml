@@ -115,7 +115,7 @@
 - id: needs_review
   claim: "Needs review"
   where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/pages/_shared.js, ledger/web/cards.py, /api/v1/proof/<ticker>]
-  shown: ["Needs review", "to review", "Complete", "Differs from SEC XBRL", "Proposed category. Review in Reconcile.",
+  shown: ["Needs review", "Complete", "Differs from SEC XBRL", "Proposed category. Review in Reconcile.",
           "In SEC XBRL, not extracted. Re-read required.", "In SEC XBRL, not extracted", "Decide in Reconcile"]
   backed_by:
     functions: [ledger.core.status.is_open, ledger.checks.proof.company]
@@ -250,7 +250,7 @@
 - id: golden_equal
   claim: "Regression test"
   where: [ledger/web/pages/proof.js, ledger/checks/golden.py, ledger/release/checklist.py, reports/golden.json]
-  shown: ["Tables unchanged", "Tables changed", "Pass", "Fail", "Regression test", "tables unchanged since freeze", "tables changed since freeze"]
+  shown: ["Tables unchanged", "Tables changed", "Pass", "Fail", "Regression test", "Tables unchanged since freeze", "Tables changed since freeze"]
   backed_by:
     functions: [ledger.checks.golden.check, ledger.review.gold.compare_db, ledger.release.checklist.regression_line]
     tests:
@@ -896,4 +896,79 @@
   status: partial
   gaps:
     - A verdict is checked against the working database, not a rebuild from frozen inputs; the Regression test line says whether those still agree, as of its date.
+  ticket: none
+
+- id: one_open_count
+  claim: "One open count per company: Needs review, Proposed and Blocks release, the same numbers in the same words on the Proof board, the trail, Reconcile's header and the Release lines' details"
+  where: [ledger/core/states.py, ledger/review/workbench.py, ledger/web/app.py, ledger/web/pages/_shared.js, ledger/web/pages/proof.js, ledger/web/pages/trail.js, ledger/web/pages/reconcile.js, ledger/release/checklist.py, ledger/checks/ties.py]
+  shown: ["def buckets", "company_counts", "with_counts", "bucketLine", "OPEN_BUCKETS", "needs_review", "proposed", "blocks_release", "differ_findings"]
+  backed_by:
+    functions: [ledger.core.states.buckets, ledger.review.workbench.company_counts, ledger.web.app.with_counts, ledger.checks.ties.differ_findings, ledger.release.checklist.review_counts]
+    tests:
+      - tests.test_flow.OneNumber.test_buckets_count_each_company_with_its_zeros
+      - tests.test_flow.OneNumber.test_company_counts_add_a_runs_decisions_and_categories_no_page_lists
+      - tests.test_flow.OneNumber.test_proof_board_trail_reconcile_and_release_say_the_same_numbers_for_every_company
+      - tests.test_flow.OneNumber.test_pages_say_buckets_not_a_to_review_total
+      - tests.test_flow.OneNumber.test_bucket_parts_leave_zeros_out_in_one_order
+      - tests.test_flow.StaleRulesTable.test_reconcile_lists_every_live_reading_that_differs_even_with_no_exception_row
+      - tests.test_checklist.Parity.test_release_lines_equal_reconcile_header_buckets_on_the_real_database
+  status: partial
+  gaps:
+    - Reconcile counts its own rows and the other pages count the Proof board; the parity test holds them equal on the database it runs against, not by construction.
+  ticket: none
+
+- id: release_blocks_first
+  claim: "Release leads with the failing required lines; the passing and informational lines fold under one row that says how many pass; each line's Details is one short line with no file path; the packet's files and the row diff appear once, in their lines"
+  where: [ledger/web/pages/release.js, ledger/release/checklist.py, docs/OPERATIONS.md]
+  shown: ["checks pass", "informational", "Fingerprint", "GATE_NOTE", "Neither verified nor explained, and nothing proposed", "Category mappings and run decisions waiting for a person",
+          "A block rule or a person's decision holds the release", "Kept with an empty value", "Rows added, removed or changed, by list", "Known limitations with no mitigation", "Matches the register",
+          "Built, not yet written", "Compared with"]
+  backed_by:
+    functions: [ledger.release.checklist.checklist]
+    tests:
+      - tests.test_flow.ReleasePage.test_no_detail_names_a_file_or_a_command_in_backticks
+      - tests.test_flow.ReleasePage.test_the_notes_without_a_database_are_product_copy
+      - tests.test_flow.ReleasePage.test_failing_lines_first_and_the_rest_folded_under_one_row
+      - tests.test_flow.ReleasePage.test_no_gate_card_and_each_list_once
+  status: partial
+  gaps:
+    - The gate lines' details list every company, zero or not; the old by-company card's Pass/Fail per company is not shown as one word.
+  ticket: none
+
+- id: mapping_queue
+  claim: "Category mapping is two cards, Proposed and Matches company tag; Approve all N shows the list, takes one confirm and writes each approval through the same writer with what the page showed, stopping at the first refusal; Choose another starts empty, or on the company's own tag when it differs"
+  where: [ledger/web/pages/reconcile.js, ledger/review/mapper.py, ledger/web/app.py, docs/API.md, /api/mapping/bulk]
+  shown: ["Category mapping · Proposed", "Category mapping · Matches company tag", "Approve all", "Choose a category", "Couldn’t approve", "categories", "approve_many", "Reload"]
+  backed_by:
+    functions: [ledger.review.mapper.approve_many, ledger.review.mapper.approve]
+    tests:
+      - tests.test_flow.MappingQueue.test_each_item_goes_through_approve_with_its_expected
+      - tests.test_flow.MappingQueue.test_it_stops_at_a_stale_entry_and_writes_nothing_after_it
+      - tests.test_flow.MappingQueue.test_a_name_off_the_people_list_writes_nothing
+      - tests.test_flow.MappingQueue.test_a_bulk_never_changes_a_member
+      - tests.test_flow.MappingQueue.test_the_route_calls_approve_many
+      - tests.test_flow.MappingQueue.test_choose_another_starts_empty_or_on_the_companys_tag
+      - tests.test_flow.MappingQueue.test_approve_all_lists_only_matching_categories_with_what_the_page_showed
+      - tests.test_flow.MappingQueue.test_mapping_cards_draw_no_number_columns_and_one_action_set
+  status: partial
+  gaps:
+    - Approve all writes one entry at a time; a refusal part-way leaves the ones before it approved, and says how many.
+  ticket: none
+
+- id: reconcile_rule_findings
+  claim: "A rule finding shows its numbers in the row: the sum of the parts against the reported total, or the figure the dataset uses against the other filing's reading; after a save the next row has focus; one Decision panel at a time"
+  where: [ledger/review/workbench.py, ledger/web/pages/reconcile.js]
+  shown: ["Sum of parts", "Reported total", "Used ·", "Other ·", "Compared with", "nextKey", "decision-panel", "settled"]
+  backed_by:
+    functions: [ledger.review.workbench._finding_numbers, ledger.review.workbench.items]
+    tests:
+      - tests.test_flow.RuleFindings.test_a_failing_tie_and_two_readings_carry_their_numbers
+      - tests.test_flow.RuleFindings.test_googl_segment_revenue_shows_the_127m_gap_in_its_row
+      - tests.test_flow.RuleFindings.test_after_a_save_the_next_row_has_focus
+      - tests.test_flow.RuleFindings.test_one_decision_panel_at_a_time
+      - tests.test_flow.RuleFindings.test_filters_live_in_the_address_so_a_save_keeps_them
+  status: partial
+  gaps:
+    - Findings are not grouped by company, field and check; each batch still needs the Field filter (STORY-027).
+    - A decision still starts on Accept; a bulk save with no deliberate choice records Accept.
   ticket: none

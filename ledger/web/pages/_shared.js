@@ -121,7 +121,14 @@ function stateGroups(m = 'row') {
   return g || {checked: 'checked', done: 'done', explained: 'explained', open: 'open', blocked: 'blocked'};
 }
 // ── end states-helpers
-const checkWord = (label) => stateWord('check', label)[1];  // a value's reconcile label in states.CHECK's words
+const checkWord = (label) => stateWord('check', label)[1];
+// a company's open items by bucket (states.buckets, the API's `counts`), each in its row word and tone, zeros left out:
+// "Needs review 7 · Proposed 4". The Proof board, the trail and Reconcile's header say the same numbers with these words.
+const OPEN_BUCKETS = ['bad', 'wait', 'blocked'];
+const bucketParts = (counts) => OPEN_BUCKETS.filter((b) => (counts || {})[b]).map((b) => [b, counts[b]]);
+function bucketLine(counts) {
+  return bucketParts(counts).map(([b, n], i) => { const [cls, word] = stateWord('row', b); return [i ? h('span', {class: 'text-secondary'}, ' · ') : '', h('span', {class: cls + ' fw-medium text-nowrap'}, `${word} ${int(n)}`)]; });
+}  // a value's reconcile label in states.CHECK's words
 
 // the drawer
 let drawerOpener = null;

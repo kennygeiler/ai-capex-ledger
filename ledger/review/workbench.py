@@ -220,6 +220,45 @@ def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
     return out
 
 
+def _finding_numbers(d: dict, ticker: str, lad: dict, restated: dict) -> dict:
+    """A rule finding's key numbers for Reconcile's columns (STORY-027: every rule-finding row read "—" and the gap sat in
+    the Details prose). A tie that fails: the sum of the parts against the total the filing tags (ties.groups, the same
+    group Proof's trail reads). Readings that differ: the figure the dataset uses against the other reading
+    (ties.restatement), oldest when there are more. {} when the finding has no such numbers; nothing is estimated."""
+    rule, field_, period, subject = d.get("rule"), d.get("field"), d.get("period"), d.get("subject")
+    if rule and rule.endswith("_tie"):
+        from ..checks.ties import key as tie_key
+        g = ((lad or {}).get("groups") or {}).get(tie_key(ticker, field_ or "", period or "", subject or ""))
+        if g and g.get("sum") is not None and g.get("total") is not None:
+            return {"measure": "usd", "ours": g["sum"], "ours_label": "Sum of parts", "reference": g["total"], "ref_label": "Reported total"}
+    if rule == "fact_readings_differ":
+        rec = (restated or {}).get((ticker, field_, subject or "", period))
+        used = (rec or {}).get("used") or {}
+        others = [f for st in (rec or {}).get("steps") or [] for f in st["filings"] if f.get("extraction_id") != used.get("extraction_id")]
+        if used.get("value") is not None and others:
+            o = others[0]
+            return {"measure": "usd", "ours": used["value"], "ours_label": f"Used · {used.get('form') or '10-K'} {str(used.get('filed') or '')[:10]}",
+                    "reference": o["value"], "ref_label": f"Other · {o.get('form') or '10-K'} {str(o.get('filed') or '')[:10]}"}
+    return {}
+
+
+def company_counts(board: dict, unconfirmed=(), unmapped=()) -> dict:
+    """{ticker: {bad, wait, blocked}} (states.buckets): the Proof board's items by their row word (states.row), plus a
+    run's decisions to confirm under Proposed (Reconcile's "To confirm" rows; no Proof item carries them) and, under Needs
+    review, every unmapped asset type (taxonomy.unmapped) the board has no mapping row for. The Proof board, the trail
+    and the Release lines read this; Reconcile counts its own rows with states.buckets, and tests.test_flow.OneNumber
+    holds the two equal for every company in scope."""
+    from ..core.states import BUCKETS, buckets, row
+    on_board = {(c["ticker"], i.get("name")) for c in board["proven"] for i in (c["stages"].get("mapping") or {}).get("all", [])}
+    pairs = [(c["ticker"], row(i["state"], i.get("by"))) for c in board["proven"] for s in c["stages"].values() for i in s["all"]]
+    pairs += [(k["ticker"], "wait") for k in (resolutions.parse_key(r["key"]) for r in unconfirmed) if k]
+    pairs += [(m["ticker"], "bad") for m in unmapped if (m["ticker"], m["reported_name"]) not in on_board]
+    out = buckets(pairs)
+    for c in board["proven"]:
+        out.setdefault(c["ticker"], dict.fromkeys(BUCKETS, 0))
+    return out
+
+
 def _basis(con, tickers: list[str]) -> dict:
     """{(ticker, field, period): the year's segments as ties.segment_basis gives them, each with its filing, readings and
     restatement, plus the cutover}: what a segment_basis_mixed row's drawer shows."""
@@ -281,7 +320,8 @@ def items(con, flow: dict) -> dict:
                     "cause_label": FINDING_LABEL.get(lk, row["cause_label"])}
             if d.get("field"):
                 row["series"] = _value_series(con, q["ticker"], d["field"])
-            row["evidence"] = {"message": d.get("message"), "kind": k, "size": d.get("size")}
+            row["evidence"] = {"message": d.get("message"), "kind": k, "size": d.get("size"), **({"dimension": d.get("subject")} if d.get("rule") == "fact_readings_differ" and d.get("subject") else {})}  # two categories, one year: named apart
+            row |= _finding_numbers(d, q["ticker"], lad, restated)  # STORY-027: the gap in the columns, not only in the Details prose
         elif q["kind"] == "blocked":
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if d.get("value") is not None else None, "ours": d.get("value")}
             row["evidence"] = {"message": d.get("message"), "rule": d.get("rule")}
@@ -316,6 +356,8 @@ def items(con, flow: dict) -> dict:
         r["bulk"] = r["cause"] != ASSET_TYPES and is_live(r["key"])  # F-BF4: only what /api/resolve/bulk accepts is selectable; a category mapping never
     from ..core.states import tally  # the header's counts, by the same word every row shows: Proposed is every `wait` row (a run's
     by_state = tally(r["verification"] for r in confirm + rows)  # decision to confirm, an asset type no person confirmed), the set G6 refuses on
+    from ..core.states import buckets
+    by_company = buckets((r["ticker"], r["verification"]) for r in confirm + rows)  # the one per-company count (states.buckets), as Proof and Release read it
     open_ = [r for r in rows if r["open"]]
     by_cause = {}
     for r in confirm + rows:
@@ -326,5 +368,5 @@ def items(con, flow: dict) -> dict:
     causes = sorted(by_cause.values(), key=lambda c: (c["cause"] != TO_CONFIRM, -c["dollars"]))
     from .mapper import members
     from ..core.config import PEOPLE
-    return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": confirm + rows, "open": len(open_), "to_confirm": len(confirm), "by_state": by_state, "dollars": sum(r["dollars"] for r in open_),
+    return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": confirm + rows, "open": len(open_), "to_confirm": len(confirm), "by_state": by_state, "by_company": by_company, "dollars": sum(r["dollars"] for r in open_),
             "causes": causes, "names": names, "members": members(), "people": list(PEOPLE)}  # who may write: the page disables every write for another name (F-BF13)

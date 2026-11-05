@@ -14,19 +14,11 @@ function lineDetail(l) {
   return dtable(l.label, cols, l.detail);
 }
 
-function gatesTable(g) {
-  const gates = Object.keys(g.table), cos = Object.keys(g.table[gates[0]] || {});
-  const rows = cos.map((t) => ({ticker: t, ...Object.fromEntries(gates.map((x) => [x, g.table[x][t].length])), fails: gates.some((x) => g.table[x][t].length)}));
-  return dtable('Release checks by company', [{t: 'Company', f: (r) => h('a', {href: '#proof/' + r.ticker}, r.ticker)}, ...gates.map((x) => ({t: x, num: 1, f: (r) => (r[x] ? h('span', {class: 'text-red fw-medium'}, int(r[x])) : h('span', {class: 'text-secondary'}, '·'))})),
-    {t: 'Result', f: (r) => (r.fails ? h('span', {class: 'text-red'}, 'Fail') : h('span', {class: 'text-green'}, 'Pass'))}], rows);
-}
-
-function diffTable(cl) {
-  const rows = Object.entries(cl.diff || {}).map(([k, x]) => ({list: k + '.csv', ...x}));
-  if (!rows.length) return h('p', {class: 'text-secondary small'}, cl.previous ? '—' : 'First release');
-  return dtable(`Changes since ${cl.previous}`, [{t: 'List', k: 'list'}, {t: 'Rows', num: 1, f: (r) => int(r.rows)}, {t: 'Added', num: 1, f: (r) => int(r.added)}, {t: 'Removed', num: 1, f: (r) => int(r.removed)}, {t: 'Changed', num: 1, f: (r) => int(r.changed)},
-    {t: 'Columns', f: (r) => [r.columns_added.length ? `+${r.columns_added.length}` : '', r.columns_removed.length ? `−${r.columns_removed.length}` : ''].filter(Boolean).join(' ') || '—'}], rows);
-}
+// the lines in the order a signer acts on them: failing required lines first (fail, stale, not run), then one "N checks
+// pass" row whose passing and informational lines stay folded until it is opened (docs/ux-flow/report.md #2)
+const LINE_ORDER = {fail: 0, stale: 1, not_run: 2, pass: 3, info: 4};
+const splitLines = (lines) => { const sorted = [...lines].sort((a, b) => (LINE_ORDER[a.state] ?? 0) - (LINE_ORDER[b.state] ?? 0)); return {act: sorted.filter((l) => l.state !== 'pass' && l.state !== 'info'), rest: sorted.filter((l) => l.state === 'pass' || l.state === 'info')}; };
+const passSummary = (rest) => { const p = rest.filter((l) => l.state === 'pass').length, i = rest.length - p; return `${p} check${p === 1 ? '' : 's'} pass` + (i ? ` · ${i} informational` : ''); };
 
 // [enabled, why] for the Sign button: every required line green and a signer on the people list (config.PEOPLE, sent with the checklist)
 const signState = (cl, name) => { const n = (name || '').trim(), red = cl.lines.filter((l) => l.required && !l.ok).length; return red ? [false, `${red} required check${red === 1 ? '' : 's'} failing`] : !n ? [false, 'Enter a signer name'] : !(cl.people || []).includes(n) ? [false, 'Not on the signer list'] : [true, `Signs and publishes ${cl.version}`]; };
@@ -61,20 +53,23 @@ async function releasePage(view, qs) {
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Release'),
       h('div', {class: 'text-secondary small'}, h('b', {class: 'text-body'}, cl.version), cl.previous ? ` · Compared with ${cl.previous}` : ' · First release', ` · ${cl.scope.length} companies · `,
-        h('b', {class: 'text-body'}, `${green} of ${required.length}`), ' required checks pass')),
+        h('b', {class: 'text-body'}, `${green} of ${required.length}`), ' required checks pass', ` · Fingerprint ${cl.hash.slice(0, 8)}`)),
     h('div', {class: 'col-auto text-end'}, button, status)));
+  const {act, rest} = splitLines(cl.lines);
+  const SUMMARY = {id: '_summary', summary: true};
+  const nameOf = (l) => (l.summary ? h('span', {class: 'text-secondary text-nowrap'}, passSummary(rest)) : h('span', {class: l.required ? '' : 'text-secondary'}, l.label));
   const lines = table([
-    {t: 'State', f: stateBadge, s: (l) => ({fail: 0, stale: 1, not_run: 2, info: 3, pass: 4})[l.state] ?? 0},
-    {t: 'Check', k: 'label', f: (l) => h('span', {class: l.required ? '' : 'text-secondary'}, l.label)},
-    {t: 'Count', n: 1, k: 'count', f: (l) => (l.state === 'not_run' ? '—' : int(l.count))},
-    {t: 'Required', k: 'required', f: (l) => (l.required ? 'Required' : h('span', {class: 'text-secondary'}, 'Optional'))},
-    {t: 'Details', k: 'note', f: (l) => h('span', {class: 'text-secondary small d-block text-truncate', style: 'max-width:26rem', title: l.note}, l.note)},
-    {t: 'Fix in', sort: false, f: (l) => { if (!l.link) return ''; const pg = l.link.split('?')[0].split('/')[0]; return h('a', {href: '#' + l.link, onclick: (e) => e.stopPropagation()}, PAGE_NAME[pg] || pg); }},
-  ], cl.lines, {detail: lineDetail});
-  const files = cl.lines.find((l) => l.id === 'packet');
-  const packet = dtable(`Packet ${cl.version}`, [{t: 'File', k: 'file'}, {t: 'Rows', num: 1, f: (r) => (r.rows == null ? '—' : int(r.rows))}, {t: 'Bytes', num: 1, f: (r) => int(r.bytes)}], files ? files.detail : [],
-    {note: `Fingerprint ${cl.hash.slice(0, 8)}`});
-  const checks = h('div', {class: 'row g-3 mt-1'}, h('div', {class: 'col-12 col-xl-7'}, gatesTable(cl.gates)), h('div', {class: 'col-12 col-xl-5'}, packet));
-  view.append(head, lines,
-    checks, h('div', {class: 'mt-3'}, diffTable(cl)));
+    {t: 'State', sort: false, f: (l) => (l.summary ? h('span', {class: 'text-secondary', 'aria-hidden': 'true'}, '▸') : stateBadge(l))},
+    {t: 'Check', sort: false, f: nameOf},
+    {t: 'Count', n: 1, sort: false, f: (l) => (l.summary ? '' : l.state === 'not_run' ? '—' : int(l.count))},
+    {t: 'Required', sort: false, f: (l) => (l.summary ? '' : l.required ? 'Required' : h('span', {class: 'text-secondary'}, 'Optional'))},
+    {t: 'Details', sort: false, f: (l) => (l.summary ? '' : h('span', {class: 'text-secondary small'}, l.note))},
+    {t: 'Fix in', sort: false, f: (l) => { if (l.summary || !l.link || l.ok || l.state === 'info') return ''; const pg = l.link.split('?')[0].split('/')[0]; return h('a', {href: '#' + l.link, class: 'text-nowrap', onclick: (e) => e.stopPropagation()}, PAGE_NAME[pg] || pg); }},
+  ], [...act, SUMMARY, ...rest], {detail: (l) => (l.summary ? '' : lineDetail(l))});
+  // the summary row opens and closes the passing lines (and any line detail opened under them); it never opens a detail of its own
+  const trs = [...lines.querySelectorAll('tbody > tr')], sumTr = trs[act.length], restTrs = trs.slice(act.length + 1);
+  const fold = (shut) => { for (const tr of restTrs) { tr.hidden = shut; const nx = tr.nextElementSibling; if (shut && nx && nx.classList.contains('detail')) { nx.remove(); tr.classList.remove('open'); } } sumTr.setAttribute('aria-expanded', String(!shut)); sumTr.firstChild.firstChild.textContent = shut ? '▸' : '▾'; };
+  sumTr.onclick = () => { const nx = sumTr.nextElementSibling; if (nx && nx.classList.contains('detail')) { nx.remove(); sumTr.classList.remove('open'); } fold(!restTrs[0] || !restTrs[0].hidden); };  // runs after the table's own row handler, and takes back the empty detail it adds
+  fold(true);
+  view.append(head, lines);
 }

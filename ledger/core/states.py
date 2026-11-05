@@ -131,6 +131,22 @@ def tally(words) -> dict:
     return out
 
 
+BUCKETS = ("bad", "wait", "blocked")  # the open buckets, in this order on every page: Needs review, Proposed, Blocks release
+
+
+def buckets(pairs) -> dict:
+    """{ticker: {bad, wait, blocked}} over (ticker, row word) pairs: the one per-company open count. The Proof board, the
+    trail header, Reconcile's header and the Release lines' details all count with this and say each bucket by its row
+    word, so GOOGL reads Needs review 7 · Proposed 4 on every page, never 11 on one and 7 or 4 on another
+    (tests.test_flow.OneNumber). A company whose rows are all settled still gets its zeros."""
+    out: dict = {}
+    for t, w in pairs:
+        b = out.setdefault(t, dict.fromkeys(BUCKETS, 0))
+        if w in b:
+            b[w] += 1
+    return out
+
+
 def group(state: str) -> str:
     """The status.STATES group of a row state."""
     for g, (_, members) in ROW.groups.items():

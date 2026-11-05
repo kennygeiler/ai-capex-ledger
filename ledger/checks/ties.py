@@ -70,6 +70,23 @@ def differ_message(rs: list[dict]) -> str:
     return "readings differ across filings: " + " vs ".join(f"{money(r['value'])} in {r['accession']} (filed {str(r['filed'] or '')[:10]})" for r in rs)
 
 
+def differ_findings(facts: list[dict], extractions: list[dict]) -> list[dict]:
+    """[{ticker, field, period, subject, message}]: one per untagged fact (label no_reference) whose readings differ.
+    The rule (rules.readings_differ) writes these to `exceptions`; Reconcile's queue (app._flow) reads them live from
+    the same function, as Proof's ladder does, so a database whose rules ran before a change to the readings never shows
+    Proof one count and Reconcile another (F-FL1)."""
+    by_id = {e["extraction_id"]: e for e in extractions}
+    out = []
+    for f in facts:
+        if f.get("label") != "no_reference":
+            continue
+        rs = readings_of(f, by_id)
+        if differ(rs):
+            out.append({"ticker": f["ticker"], "field": f["field"], "period": f["period"], "subject": f.get("dimension") or "",
+                        "message": f"{f['field']} {f.get('dimension') or ''} {f['period']}: {differ_message(rs)}".replace("  ", " ")})
+    return out
+
+
 # ── restatement: one fact's readings that disagree, and which one the dataset uses ──────────────────────────────────
 def _same(a, b, scale: int) -> bool:
     return a is not None and b is not None and not config.restated(min(a, b), max(a, b), scale)

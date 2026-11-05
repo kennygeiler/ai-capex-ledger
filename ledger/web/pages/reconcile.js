@@ -1,7 +1,19 @@
 // ── Reconcile: the workbench, on Tabler (dashboard UI kit) inside its own shadow root so the kit's reset touches nothing else. ──
 // One card per cause; one row per item with ours, reference, a gap bar, delta and decision; Enter opens the evidence as
 // aligned diff tables (this year, the computation, every year) with a status badge per line, and the decision form.
-const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'value_missing', 'finding_unconfirmed', 'new_filing', 'asset_types'];
+const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'value_missing', 'finding_unconfirmed', 'new_filing', 'asset_types', 'asset_types_match'];
+// Category mapping is two cards: Proposed (needs a person) and Matches company tag (the company's own XBRL tag already agrees)
+const isMatch = (r) => r.cause === 'asset_types' && r.verification === 'company';
+const causeKey = (r) => (isMatch(r) ? 'asset_types_match' : r.cause);
+// what the page showed for a mapping entry; the server refuses a write against anything else (409)
+const expectedOf = (r) => (r.evidence.mapping === 'unmapped' || !r.evidence.proposal ? null : {standard_type: r.evidence.proposal.standard_type, at: r.evidence.proposal.at || null});
+// "Approve all N": one item per matching category, each confirming the member shown, with the entry the page showed
+const bulkApproveItems = (rows) => rows.filter((r) => isMatch(r) && r.evidence.proposal && expectedOf(r)).map((r) => ({ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: r.evidence.proposal.standard_type, evidence: r.evidence.proposal.evidence || r.evidence.reported_name, expected: expectedOf(r)}));
+// Choose another starts empty, or on the company's own tag when it differs from the proposal and is on the list; never the first option
+const bare = (m) => String(m || '').replace(/^us-gaap:/, '');
+const chooseDefault = (tag, members) => (tag && tag.status === 'differs' && members.map(bare).includes(bare(tag.member)) ? bare(tag.member) : '');
+// after a save, the next row in the list that was not saved (else the one before it), so the reader keeps their place
+const nextKey = (order, saved) => { const s = new Set(saved), last = Math.max(-1, ...order.map((k, i) => (s.has(k) ? i : -1))); return order.slice(last + 1).find((k) => !s.has(k)) || [...order.slice(0, Math.max(0, last))].reverse().find((k) => !s.has(k)) || null; };
 // T33: Approve and "Write as" need a name in the signer box, as Sign does; one listener keeps every such button in step
 const NEEDS_ME = new Set();  // the page lives in a shadow root, so the buttons are kept here, not queried from the document
 // F-BF13: a name on config.PEOPLE (the reconcile feed's `people`), as the server checks every write; any other name disables, as Sign does
@@ -72,7 +84,7 @@ async function reconcilePage(view, qs) {
   const stat = (label, n, cls, always) => (n || always ? h('span', {class: 'me-3'}, h('span', {class: 'text-secondary'}, label + ' '), h('span', {class: (cls || '') + ' fw-medium'}, int(n))) : '');
   const header = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'small mt-1'},
-      ...['bad', 'blocked', 'wait', 'info'].map((s, i) => { const [cls, word] = stateWord('row', s); return stat(word, nState(s), cls, i === 0); }),
+      ...OPEN_BUCKETS.map((s, i) => { const [cls, word] = stateWord('row', s); return stat(word, nState(s), cls, i === 0); }),  // the one per-company count's buckets (states.buckets), as Proof and Release say them
       h('span', {class: 'text-secondary me-3'}, `Last run ${day(d.last_run)}`), d.release ? h('span', {class: 'text-secondary me-3'}, `Last release ${d.release}`) : '',
       h('span', {class: 'text-secondary', title: 'j k move · Enter opens · a e f b decide · space selects'}, 'Keyboard')))));
   const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},
@@ -88,50 +100,81 @@ async function reconcilePage(view, qs) {
   const trs = [];
   const bulk = h('div', {class: 'card mb-3', hidden: true});
   const groups = new Map();
-  const keyOf = (r) => (group === 'cause' ? r.cause : r.ticker);
-  const ordered = [...rows].sort((a, b) => (group === 'cause' ? CAUSE_ORDER.indexOf(a.cause) - CAUSE_ORDER.indexOf(b.cause) || (isAsset(a) && isAsset(b) ? Number(b.open) - Number(a.open) : 0) || b.dollars - a.dollars || a.ticker.localeCompare(b.ticker) : a.name.localeCompare(b.name) || CAUSE_ORDER.indexOf(a.cause) - CAUSE_ORDER.indexOf(b.cause) || b.dollars - a.dollars));
+  // "Approve all N" on Matches company tag: shows the list it will approve, one confirm, then each through the same writer
+  // as a row's Approve (POST /api/mapping/bulk → mapper.approve with its `expected`); stops at the first refusal and says so
+  const approveAllPanel = h('div', {class: 'card-body py-2', hidden: true});
+  function approveAllButton(list) {
+    const items = bulkApproveItems(list);
+    if (!items.length) return '';
+    const btn = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary ms-auto', title: isSigner(me) ? 'Approve every category the company’s tag matches' : signerWhy(me), onclick: () => {
+      const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
+      const go_ = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', onclick: async () => {
+        go_.disabled = true; status.classList.remove('text-red'); status.textContent = 'Saving…';
+        try {
+          const out = await api('/api/mapping/bulk', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({items, by: me})});
+          status.textContent = `Approved ${int(out.approved)}.`; setTimeout(route, 400);
+        } catch (err) {
+          status.classList.add('text-red'); status.replaceChildren(`Couldn’t approve: ${err.message}.`, ' ', h('button', {type: 'button', class: 'btn btn-sm btn-link p-0 align-baseline', onclick: route}, 'Reload'));
+        }
+      }}, `Approve ${int(items.length)}`));
+      approveAllPanel.replaceChildren(
+        h('table', {class: 'table table-sm mb-2'}, h('thead', {}, h('tr', {}, h('th', {}, 'Company'), h('th', {}, 'Category'), h('th', {}, 'Member'))),
+          h('tbody', {}, items.map((x) => h('tr', {}, h('td', {}, x.ticker), h('td', {}, x.reported_name), h('td', {title: x.standard_type}, memberWords(x.standard_type)))))),
+        h('div', {class: 'd-flex align-items-center', style: 'gap:.5rem'}, go_, h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary', onclick: () => { approveAllPanel.hidden = true; }}, 'Cancel'), status));
+      approveAllPanel.hidden = false; go_.focus();
+    }}, `Approve all ${int(items.length)}`));
+    return btn;
+  }
+  const keyOf = (r) => (group === 'cause' ? causeKey(r) : r.ticker);
+  const ordered = [...rows].sort((a, b) => (group === 'cause' ? CAUSE_ORDER.indexOf(causeKey(a)) - CAUSE_ORDER.indexOf(causeKey(b)) || (isAsset(a) && isAsset(b) ? Number(b.open) - Number(a.open) : 0) || b.dollars - a.dollars || a.ticker.localeCompare(b.ticker) : a.name.localeCompare(b.name) || CAUSE_ORDER.indexOf(a.cause) - CAUSE_ORDER.indexOf(b.cause) || b.dollars - a.dollars));
   for (const r of ordered) groups.set(keyOf(r), [...(groups.get(keyOf(r)) || []), r]);
   const cards = [];
   for (const [g, list] of groups) {
-    const label = group === 'cause' ? ((d.causes.find((x) => x.cause === g) || {}).label || list[0].cause_label) : `${list[0].name} ${list[0].ticker}`;
+    const label = group === 'cause' ? (g === 'asset_types' ? 'Category mapping · Proposed' : g === 'asset_types_match' ? 'Category mapping · Matches company tag' : (d.causes.find((x) => x.cause === g) || {}).label || list[0].cause_label) : `${list[0].name} ${list[0].ticker}`;
     const open = list.filter(isOpen);
     const selectable = bulkKeys(open);
     const tbody = h('tbody');
+    const assetCard = group === 'cause' && (g === 'asset_types' || g === 'asset_types_match');  // a mapping card: no Dataset, SEC XBRL, Gap or Difference columns, always — on its rows
     for (const r of list) {
       const i = trs.length;
       const cb = !bulkable(r) ? '' : h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});  // a mapping is approved one at a time, never in bulk (bulkable)
       const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label];
-      const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && group === 'company' ? '' : r.cause === 'finding_unconfirmed' ? h('div', {class: 'text-secondary small'}, r.cause_label) : ''];
+      const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.cause === 'finding_unconfirmed' ? h('div', {class: 'text-secondary small'}, [r.evidence.dimension, group === 'company' ? '' : r.cause_label].filter(Boolean).join(' · ')) : r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : ''];
       const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} · ${r.resolution.by} · ${day(r.resolution.at)}`) : ''];
       const P = isAsset(r) ? r.evidence.proposal : null;
       const ours = isAsset(r) ? [P ? [h('span', {style: 'overflow-wrap:anywhere', title: P.standard_type}, memberWords(P.standard_type)), ' ', r.evidence.mapping === 'verified' ? h('span', {class: 'small text-green'}, 'Matches company’s own tag') : P.confidence ? h('span', {class: 'text-secondary small'}, `Confidence ${P.confidence}`) : h('span', {class: 'small text-orange'}, 'Proposed')] : h('span', {class: 'text-secondary small'}, 'No proposal'), P ? h('div', {class: 'text-secondary small'}, `“${P.evidence}”`) : '', filerNote(r)] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
         h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
-        h('td', {class: isAsset(r) ? '' : 'num'}, ours),
+        isAsset(r) ? h('td', {colspan: assetCard ? null : 4}, ours) : [h('td', {class: 'num'}, ours),
         h('td', {class: 'num'}, r.reference == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[r.relation] || '', num(r, r.reference)], r.ref_label && r.reference != null ? h('div', {class: 'text-secondary small'}, r.ref_label) : ''),
         h('td', {class: 'w-1'}, r.ours != null && r.reference != null ? gapBar(r) : ''),
-        h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, '—') : [h('span', {class: 'fw-semibold' + (r.cause === 'fact_differs' ? ' text-red' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : '']),
+        h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, '—') : [h('span', {class: 'fw-semibold' + (r.cause === 'fact_differs' ? ' text-red' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : ''])],
         h('td', {}, res));
       trs.push({tr, r, detail: null});
       tbody.append(tr);
     }
     const confirmGroup = group === 'cause' && toConfirm(list[0]);
-    const assetGroup = group === 'cause' && isAsset(list[0]);
+    const assetGroup = group === 'cause' && g === 'asset_types', matchGroup = group === 'cause' && g === 'asset_types_match';
     cards.push(h('div', {class: 'card mb-3'},
-      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} proposed` : assetGroup ? `${int(list.filter((r) => r.verification === 'wait').length)} proposed · ${int(list.filter((r) => r.verification === 'bad').length)} unmapped · ${int(list.filter((r) => r.evidence.mismatch).length)} differ from company tag · ${int(list.filter((r) => r.verification === 'company').length)} match company tag` : `${int(open.length)} to review of ${int(list.length)}`),
-        selectable.length > 1 ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const k of selectable) selected.add(k); paint(); }}, `Select all ${int(selectable.length)}`) : ''),
+      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} proposed` : assetGroup ? [`${int(list.filter((r) => r.verification === 'wait').length)} proposed`, list.some((r) => r.verification === 'bad') ? ` · ${int(list.filter((r) => r.verification === 'bad').length)} unmapped` : '', list.some((r) => r.evidence.mismatch) ? ` · ${int(list.filter((r) => r.evidence.mismatch).length)} differ from company tag` : ''] : matchGroup ? `${int(list.length)} categories` : (list.some((r) => OPEN_BUCKETS.includes(r.verification)) ? [bucketLine(list.reduce((n, r) => ({...n, [r.verification]: (n[r.verification] || 0) + 1}), {})), ` of ${int(list.length)}`] : `${int(list.length)} settled`)),  // this card's own buckets, in the words of the company count
+        selectable.length > 1 ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const k of selectable) selected.add(k); paint(); }}, `Select all ${int(selectable.length)}`) : '',
+        matchGroup ? approveAllButton(list) : ''),
+      matchGroup ? approveAllPanel : '',
       h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover'},
-        h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, 'Item'), h('th', {class: 'num'}, 'Dataset'), h('th', {class: 'num'}, 'SEC XBRL'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Difference'), h('th', {}, 'Decision'))),
+        h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, assetCard ? 'Category' : 'Item'),
+          assetCard ? h('th', {}, 'Proposed') : [h('th', {class: 'num'}, 'Dataset'), h('th', {class: 'num'}, group === 'cause' && (g === 'fact_differs' || g === 'value_missing') ? 'SEC XBRL' : 'Compared with'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Difference')], h('th', {}, 'Decision'))),
         tbody))));
   }
-  function paint() { for (const t of trs) { const c = t.tr.querySelector('input[type=checkbox]'); if (c) c.checked = selected.has(t.r.key); } bulk.hidden = selected.size === 0; const selRows = [...selected].map((k) => trs.find((t) => t.r.key === k).r); bulk.replaceChildren(h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 small text-secondary'}, h('b', {class: 'text-body'}, int(selected.size)), ' selected: ', selRows.map((r) => `${r.ticker} ${r.where}`).join('; ')), h('div', {class: 'col'}, resolutionForm(null, [...selected].map((k) => trs.find((t) => t.r.key === k).r), () => { selected.clear(); paint(); })), h('div', {class: 'col-auto'}, h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary', onclick: () => { selected.clear(); paint(); }}, 'Clear'))))); }
+  function paint() { wrap.querySelectorAll('.decision-panel').forEach((x) => { x.hidden = selected.size > 0; }); for (const t of trs) { const c = t.tr.querySelector('input[type=checkbox]'); if (c) c.checked = selected.has(t.r.key); } bulk.hidden = selected.size === 0; const selRows = [...selected].map((k) => trs.find((t) => t.r.key === k).r); bulk.replaceChildren(h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 small text-secondary'}, h('b', {class: 'text-body'}, int(selected.size)), ' selected'), h('div', {class: 'col'}, resolutionForm(null, [...selected].map((k) => trs.find((t) => t.r.key === k).r), () => { selected.clear(); paint(); })), h('div', {class: 'col-auto'}, h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary', onclick: () => { selected.clear(); paint(); }}, 'Clear'))))); }
   function paintCur() { trs.forEach((t, j) => t.tr.classList.toggle('cur', j === cur)); }
   function toggle(i, force) {
     const t = trs[i]; cur = i; paintCur();
-    if (t.detail && force !== true) { t.detail.remove(); t.detail = null; t.tr.setAttribute('aria-expanded', 'false'); return; }
+    const acts = (x, show) => { const a = x.tr.querySelector('.row-actions'); if (a) a.hidden = !show; };  // a mapping row's buttons hide while its card (with the same actions) is open
+    if (t.detail && force !== true) { t.detail.remove(); t.detail = null; t.tr.setAttribute('aria-expanded', 'false'); acts(t, true); return; }
     if (t.detail) return;
+    for (const o of trs) if (o !== t && o.detail) { o.detail.remove(); o.detail = null; o.tr.setAttribute('aria-expanded', 'false'); acts(o, true); }  // one Decision panel at a time
     t.detail = h('tr', {class: 'ev'}, h('td', {colspan: 8}, evidence(t.r)));
-    t.tr.after(t.detail); t.tr.setAttribute('aria-expanded', 'true');
+    t.tr.after(t.detail); t.tr.setAttribute('aria-expanded', 'true'); acts(t, false);
   }
   function keys(e, i) {
     if (e.target.matches('input, select, textarea, button') || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -152,7 +195,7 @@ async function reconcilePage(view, qs) {
       e.stopPropagation(); confirm.disabled = true; status.textContent = 'Saving…';
       try {
         await api('/api/resolve', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, hash: r.hash, state: proposed, reason: 'confirmed', by: me})});
-        status.textContent = 'Confirmed.'; FOCUS_KEY = r.key; setTimeout(route, 250);
+        status.textContent = 'Confirmed.'; FOCUS_KEY = nextKey(trs.map((t) => t.r.key), [r.key]); setTimeout(route, 250);
       } catch (err) { status.textContent = `Couldn’t save: ${err.message}.`; status.classList.add('text-red'); confirm.disabled = false; }
     }}, `Confirm ${RES_LABEL[proposed] || proposed}`);
     const overturn = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Change decision', onclick: (e) => { e.stopPropagation(); toggle(i, true); const f = trs[i].detail.querySelector('input[type=text]'); if (f) f.focus(); }}, 'Overturn');
@@ -163,6 +206,8 @@ async function reconcilePage(view, qs) {
   // person does this five times a company, and the row re-renders from the server's truth.
   async function postMapping(path, body, status, after) {
     status.classList.remove('text-red'); status.textContent = 'Saving…';
+    const k = trs.find((t) => t.r.ticker === body.ticker && t.r.evidence && t.r.evidence.reported_name === body.reported_name);
+    if (k) FOCUS_KEY = nextKey(trs.map((t) => t.r.key), [k.r.key]);
     try {
       await api(path, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)});
       status.textContent = after; setTimeout(route, 250);
@@ -173,15 +218,13 @@ async function reconcilePage(view, qs) {
       status.textContent = `Couldn’t save: ${err.message}.`; return false;
     }
   }
-  // what the page showed for the entry; the server refuses a write against anything else (409)
-  const expectedOf = (r) => (r.evidence.mapping === 'unmapped' || !r.evidence.proposal ? null : {standard_type: r.evidence.proposal.standard_type, at: r.evidence.proposal.at || null});
   function mappingCell(r, i) {
     const P = r.evidence.proposal;
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
     const btns = [];
     if (P) {
       const entry = r.evidence.mapping !== 'unmapped';
-      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: isSigner(me) ? 'Approve this category' : signerWhy(me), onclick: async (e) => {
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm ' + (isMatch(r) ? 'btn-outline-primary' : 'btn-primary'), title: isSigner(me) ? 'Approve this category' : signerWhy(me), onclick: async (e) => {  // one primary per page section: a matching row's Approve is not one
         e.stopPropagation(); approve.disabled = true;
         const ok = await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence: P.evidence || r.evidence.reported_name, by: me, expected: expectedOf(r)}, status, entry ? 'Confirmed.' : 'Mapped.');
         if (!ok) approve.disabled = !isSigner(me);
@@ -195,7 +238,7 @@ async function reconcilePage(view, qs) {
     }
     const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-primary'), title: 'Choose a category', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
     btns.push(edit);
-    return [h('div', {class: 'btn-list flex-nowrap'}, btns), status];
+    return [h('div', {class: 'btn-list flex-nowrap row-actions'}, btns), status];
   }
   // The decision card's actions (the card is mapcard.decisions', shared with the trail): Approve · Choose another · Reject,
   // through the same routes as the row's buttons (POST /api/mapping, /api/mapping/reject); the person check is the server's.
@@ -204,7 +247,9 @@ async function reconcilePage(view, qs) {
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
     const rejected = r.evidence.rejected || [];
     const opts = (D.members || (d.members || []).map((m) => ({member: m, label: m}))).filter((m) => !rejected.includes(m.member) && (!P || m.member !== P.standard_type));
-    const select = h('select', {class: 'form-select form-select-sm', 'aria-label': 'Standard category'}, opts.map((m) => h('option', {value: m.member, title: m.member}, m.label)));
+    const pre = chooseDefault(D.tag, opts.map((m) => m.member));
+    const select = h('select', {class: 'form-select form-select-sm', 'aria-label': 'Standard category'}, h('option', {value: '', selected: !pre || null}, 'Choose a category'),
+      opts.map((m) => h('option', {value: m.member, title: m.member, selected: bare(m.member) === pre || null}, m.label)));
     const evidence = (P && P.evidence) || r.evidence.reported_name;
     const btns = [];
     if (P) {
@@ -215,6 +260,7 @@ async function reconcilePage(view, qs) {
       btns.push(approve);
     }
     const choose = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: isSigner(me) ? 'Choose a category' : signerWhy(me), onclick: async () => {
+      if (!select.value) { select.focus(); status.textContent = 'Choose a category'; return; }
       choose.disabled = true;
       if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: select.value, evidence, by: me, expected: expectedOf(r)}, status, 'Mapped.')) choose.disabled = !isSigner(me);
     }}, P ? 'Choose another' : 'Map'));
@@ -266,7 +312,7 @@ async function reconcilePage(view, qs) {
       try {
         if (many) await api('/api/resolve/bulk', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({items: items.map((x) => ({key: x.key, hash: x.hash})), state, reason: reason.value, by: me})});
         else await api('/api/resolve', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, hash: r.hash, state, reason: reason.value, by: me})});
-        status.classList.remove('text-red'); FOCUS_KEY = many ? items[0].key : r.key; if (done) done();
+        status.classList.remove('text-red'); FOCUS_KEY = nextKey(trs.map((t) => t.r.key), items.map((x) => x.key)); if (done) done();
         if (!many && (state === 'accept' || state === 'explain') && canEncode(r)) {  // T36: offer to write it once before the row leaves the list
           status.replaceChildren(h('div', {class: 'mb-2'}, 'Saved. Apply to every company?'), encodePanel(r, reason.value), h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary mt-2', onclick: route}, 'Done'));
         } else { status.textContent = 'Saved.'; setTimeout(route, 250); }
@@ -335,10 +381,10 @@ async function reconcilePage(view, qs) {
     }
     const decision = isAsset(r)
       ? ''
-      : h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Change decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} · ${r.resolution.by} · ${day(r.resolution.at)} · ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
+      : h('div', {class: 'col-12 decision-panel', hidden: selected.size > 0}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Change decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} · ${r.resolution.by} · ${day(r.resolution.at)} · ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
     const once = canEncode(r) ? h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Apply everywhere')), h('div', {class: 'card-body py-2'}, encodePanel(r)))) : '';
     return h('div', {class: 'row g-3'}, cards, decision, once);
   }
   wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No items to review'))]));
-  if (trs.length) { cur = Math.max(0, trs.findIndex((t) => t.r.key === FOCUS_KEY)); paintCur(); if (FOCUS_KEY) { trs[cur].tr.focus({preventScroll: true}); trs[cur].tr.scrollIntoView({block: 'center'}); } FOCUS_KEY = null; }
+  if (trs.length) { const at = trs.findIndex((t) => t.r.key === FOCUS_KEY); cur = Math.max(0, at); paintCur(); if (FOCUS_KEY && at >= 0) { trs[cur].tr.focus({preventScroll: true}); trs[cur].tr.scrollIntoView({block: 'center'}); } FOCUS_KEY = null; }
 }

@@ -199,6 +199,7 @@ def flow(scope: str) -> dict:
 # T62: the key names the item (resolutions.key_for, from its fields, never from `where`); the hash says what it holds. The
 # fields hq added for the key in T62 (a finding's rule and subject; a question's subject, questions carried rule before) are
 # left out, so every hash equals its pre-T62 value and no resolution expired on the change.
+DIFFER_RULE = "fact_readings_differ"  # ties.DIFFER
 ADDED_FOR_KEY = {"finding_unconfirmed": ("rule", "subject"), "blocked": ("subject",)}
 
 
@@ -227,6 +228,8 @@ def _flow(scope: str) -> dict:
         fact_ref = {(f["ticker"], f["field"], f["dimension"], f["period"]): f for f in _rows(con, "select ticker, field, dimension, period, reference, extraction_ids from facts where ticker in (select unnest(?))", tickers)}
         missing = _rows(con, 'select v.ticker, v.field, v.period, v.period_end, v.label, r.value as reference from "values" v left join reference_values r using (ticker, field, period) '
                              "where v.label = 'not_extracted' and v.ticker in (select unnest(?)) order by v.ticker, v.field, v.period", tickers)
+        from ..checks import ties
+        differ_live = ties.differ_findings(**(lambda d: {"facts": d["facts"], "extractions": d["extractions"]})(ties.load(con, tickers, [])))  # F-FL1: read live, as Proof's ladder reads them
     finally:
         con.close()
     rel = latest_signed()
@@ -258,7 +261,11 @@ def _flow(scope: str) -> dict:
     for v in missing:  # T65: no cell read while XBRL tags a value; open on Proof by label:not_extracted, so open here too (closed by re-reading, never by a decision)
         queue.append({"kind": "value_missing", "key": resolutions.key_for("value_missing", v["ticker"], v["field"], v["period"]), "state": "missing", "ticker": v["ticker"], "where": f"{v['field']} {v['period']}", "impact": "a released value is blank while the filing tags one",
                       "action": "run", "detail": v})
-    for x in hqd["findings"]:
+    names_ = {c["ticker"]: c["name"] for c in tracked()}
+    findings = [x for x in hqd["findings"] if x.get("rule") != DIFFER_RULE] + [  # F-FL1: the readings that differ come from the ladder, never from a stale exceptions table
+        {"ticker": x["ticker"], "company": names_.get(x["ticker"]), "field": x["field"], "period": x["period"], "confirmed": False, "message": x["message"],
+         "rule": DIFFER_RULE, "subject": x["subject"], "kind": "other", "before": None, "after": None, "size": 0} for x in differ_live]
+    for x in findings:
         if x["ticker"] in tickers and not x.get("confirmed", True):
             queue.append({"kind": "finding_unconfirmed", "key": resolutions.key_for("finding_unconfirmed", x["ticker"], x["field"], x["period"], rule_id=x.get("rule") or x["kind"], subject=x.get("subject")), "state": "look", "ticker": x["ticker"], "where": f"{x['field'] or ''} {x['period'] or ''}".strip(), "impact": FINDING_LABEL.get(x.get("rule") if x["kind"] == "other" else x["kind"]) or "a value SEC XBRL cannot confirm", "action": "open", "detail": x})
     for q_ in queue:
@@ -275,6 +282,25 @@ def _flow(scope: str) -> dict:
     release = {"last": rel.name if rel else None, "blocks": len(blocks), "unresolved": len(open_), "facts_changed": len(facts_changed)}
     return {"scope": scope or "all", "tickers": tickers, "changed": changed, "queue": queue, "release": release,
             "industries": sorted(INDUSTRIES) + ["other"], "scope_tickers": list(SCOPE), "names": {c["ticker"]: c["name"] for c in tracked()}}
+
+
+def with_counts(con, x: dict) -> dict:
+    """The Proof board (`proven` list) or one trail with its open buckets (workbench.company_counts, states.buckets): each
+    company's `counts`, and each trail stage's own `counts`, so a page says Needs review 7 · Proposed 4 with the words and
+    numbers every other page uses, never one "to review" total (F-FL2)."""
+    from ..review import resolutions as res_
+    from ..review.workbench import company_counts
+    from ..release import taxonomy as tax_
+    from ..core.states import buckets, row
+    cos = x["proven"] if isinstance(x.get("proven"), list) else [x]  # the board's `proven` is its companies; a trail's is a flag
+    tickers = [c["ticker"] for c in cos]
+    unc = [r for r in res_.unconfirmed() if (res_.parse_key(r["key"]) or {}).get("ticker") in tickers]
+    per = company_counts({"proven": cos}, unc, tax_.unmapped(con, tickers))
+    for c in cos:
+        c["counts"] = per[c["ticker"]]
+        for st in (c.get("stages") or {}).values():
+            st["counts"] = buckets((c["ticker"], row(i["state"], i.get("by"))) for i in st.get("all", [])).get(c["ticker"]) or {"bad": 0, "wait": 0, "blocked": 0}
+    return x
 
 
 def live_hand_check(at_check: dict | None) -> dict:
@@ -613,7 +639,7 @@ class Handler(BaseHTTPRequestHandler):
                 if len(parts) == 2 and company_state(con, parts[1]) == "unknown":  # F-BF6: a ticker nobody follows has no trail, never a green one
                     from ..core.states import word
                     return self._json({"error": word("company", "unknown"), "state": "unknown", "ticker": parts[1].upper()}, HTTPStatus.NOT_FOUND)
-                return self._json(cards.add(con, proof.company(con, parts[1])) if len(parts) == 2 else proof.board(con))
+                return self._json(with_counts(con, cards.add(con, proof.company(con, parts[1]))) if len(parts) == 2 else with_counts(con, proof.board(con)))
             finally:
                 con.close()
         if name == "docs":  # the Docs section: the sidebar, or one page's markdown (ledger/web/docs.py)
@@ -750,6 +776,16 @@ class Handler(BaseHTTPRequestHandler):
                 finally:
                     con.close()
             return self._guard(lambda: self._json(do_approve()))
+        if u.path == "/api/mapping/bulk":  # "Approve all N" on the categories the company's tag matches: each through mapper.approve with its `expected`; stops at the first 409/400
+            from ..review import mapper
+
+            def do_bulk():
+                con = _con()
+                try:
+                    return mapper.approve_many(body.get("items"), str(body.get("by", "")), con=con)
+                finally:
+                    con.close()
+            return self._guard(lambda: self._json(do_bulk()))
         if u.path == "/api/mapping/reject":  # the member proposed is logged as rejected; the next mapper run does not propose it again
             from ..review import mapper
             return self._guard(lambda: self._json(mapper.reject(str(body.get("ticker", "")), str(body.get("reported_name", "")), str(body.get("standard_type", "")), str(body.get("by", "")), str(body.get("reason", "")))))

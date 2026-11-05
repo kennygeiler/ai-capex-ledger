@@ -347,6 +347,32 @@ def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, 
     return {k: v for k, v in out.items() if k != "kind"}
 
 
+def approve_many(items: list, by: str, path: Path | None = None, log: Path | None = None, at: str | None = None, con=None) -> dict:
+    """Reconcile's "Approve all N" on the categories the company's own tag matches (docs/ux-flow/report.md #5): each item
+    written by `approve`, one after another, with the `expected` the page showed, so every check of a single Approve holds
+    for each (the person on config.PEOPLE, the member on the list, a stale entry refused). Every item must confirm the
+    member the page showed (standard_type equal to expected.standard_type): a bulk confirms, it never changes a member.
+    Stops at the first refusal and raises it, the same type (Stale is 409 on the route, ValueError 400), its message
+    naming how many were written before it and the item it stopped at; nothing after it is written."""
+    if not isinstance(items, list) or not items:
+        raise ValueError("send `items`: the categories to approve, each {ticker, reported_name, standard_type, evidence, expected}")
+    person(by)  # before anything is written
+    for it in items:
+        exp = it.get("expected") if isinstance(it, dict) else None
+        if not isinstance(exp, dict) or not exp.get("standard_type") or exp.get("standard_type") != it.get("standard_type"):
+            raise ValueError("each item confirms the member the page showed: standard_type must equal expected.standard_type")
+    done = []
+    for it in items:
+        try:
+            approve(str(it.get("ticker", "")), str(it.get("reported_name", "")), str(it.get("standard_type", "")), str(it.get("evidence") or it.get("reported_name") or ""), by,
+                    path=path, log=log, at=at, con=con, expected=it["expected"])
+        except ValueError as e:
+            msg = f"Approved {len(done)} of {len(items)}; stopped at {str(it.get('ticker', '')).upper()} {it.get('reported_name', '')!r}: {e}"
+            raise type(e)(msg) from e
+        done.append({"ticker": str(it.get("ticker", "")).upper(), "reported_name": it.get("reported_name")})
+    return {"approved": len(done), "items": done}
+
+
 def _line(reported_name: str, standard_type: str, evidence: str, by: str, day: str) -> str:
     """One entry as the file writes it: a person's approval is also their confirmation (T63). The name is always quoted."""
     return f"  {json.dumps(reported_name)}: {{standard_type: {standard_type}, evidence: {json.dumps(evidence)}, by: {_scalar(by)}, at: {day}, confirmed_by: {_scalar(by)}, confirmed_at: {day}}}"
