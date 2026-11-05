@@ -27,3 +27,4 @@ docs/ux-*/**/*.png
 docs/ux-*/**/*.jpg
 docs/ux-*/tmp/
 docs/ux-*/**/audit.json
+reports/bugfix/
