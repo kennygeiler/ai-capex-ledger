@@ -14,7 +14,7 @@ write and are covered by tests on their pure parts.
 | 6 | Rule findings: groups, deliberate Save | STORY-027 | ~38 inputs, Field filter per batch, Accept preselected | 25 inputs, no Field filter, no preselection | pass |
 | 8 | Packet download on Release | STORY-045, 055, 064 | Sign → redirect to Proof → find Download among 6 | Sign → Download on the same page | pass |
 | 11 | Proof does one job | STORY-006, 045, 064 | ~4 screens: board, verification, failure types, releases, regression card, hand check | 1 screen at 1600×1000: board, hand check, verification folded | pass |
-| 10 | Company trail condensed | STORY-014 | 21 steps; 24,181 px with three tallies open; Back → top | ~12 steps; 18,060 px; Back keeps the scroll | pass |
+| 10 | Company trail condensed | STORY-014 | 21 steps; 24,181 px with three tallies open; Back → top | ~13 steps; 19,999 px; Back keeps the scroll | pass (after review fix 1) |
 | 12 | Docs start at Start here | STORY-068 | 18 steps; Handoff last; 6 dead doc references | 6 steps; Start here first and default; references are links | pass |
 | 13 | Dataset: one Verification filter, one export | STORY-055 | 18 steps; verdict in 2 column names; Grid filter hidden and dropped | 6 steps; one control on every list and the Grid; kept across views | pass |
 | 14 | Read-only scope line | STORY-064 | "Read-only" only | "Read-only · Serves v1.8.0 · Code c0635f3 · Code differs from …" | pass |
@@ -77,14 +77,14 @@ After, measured on `#reconcile?scope=APLD&cause=finding_unconfirmed` and `?scope
 | Measure | Before | After |
 |---|---|---|
 | Statement figures rows | 23 (flags as duplicate figures) | 15; "Large year-over-year change" folds under Opex FY2026 |
-| AI disclosures rows | 35 (7+ identical "Revenue · FY2025 · Actual") | 23; "Revenue · FY2025 · Actual · 8 rows" |
+| AI disclosures rows | 35 (7+ rows reading only "Revenue · FY2025 · Actual") | 35, each part-year row showing its own words (they are distinct statements; merging them hid that, review 2) |
 | Category mapping | 8 cards ~480 px, "Decide in Reconcile →" ×8 | one row per category, one link in the stage header |
 | Links to Reconcile on the page | 10 (header, summary, 8 cards) | 2 (summary, mapping stage) |
-| Page height, three tallies open | 24,181 px | 18,060 px (folded: 1,656 px) |
+| Page height, three tallies open | 24,181 px | 19,999 px (folded: 2,771 px) |
 | Complete stages | open when ≤12 rows | folded behind their tally |
 | Back from Dataset | scrollY 0 | scrollY kept (656 → 656 measured) |
 
-Steps 21 → about 12 (the hesitations at the duplicate rows, the 8 repeated links and the Back round trip are gone).
+Steps 21 → about 13 (the duplicate flag rows, the 8 repeated links, the identical-looking rows and the Back round trip are gone).
 All items pass. Back restores the scroll, not which tallies were open (F-FW2).
 
 ## #12 Docs (STORY-068)
@@ -127,3 +127,19 @@ The copy reads its own deploy record and the releases it holds; no network call 
 
 `tests/test_flow2.py` (one class per proposal), each failing on the code before this batch. Results of
 `ledger test` are in `reports/tests.json`.
+
+## Review follow-up
+
+An independent review of 5b22326..fb1d495 found 1 bug and 7 risks; each is fixed with a test that fails on the code it
+replaced. Measured again on the branch after the fixes.
+
+| # | Finding | Fix | Commit | Check |
+|---|---|---|---|---|
+| 1 | Bug: the trail keyed figures on field + period, so a second figure in a period (two segments, two PP&E categories) lost its row and a flag folded into the wrong one. APLD Note figures showed 15 rows for 71 items. | Key field + dimension + period; every figure is kept; a flag folds only into its one matching figure, else stays a row | 7179059 | Database, six proven companies: figure rows equal before and after (MSFT 115, GOOGL 117, AMZN 90, NVDA 166, APLD 252, AMD 135); 14 flags fold; APLD Note figures 71 rows |
+| 2 | Rows differing only in what they open (detail, restatement) were merged | Merge only rows identical in the whole card, state, reason and detail; a statement with no figure shows its words | 7179059 | APLD AI disclosures 35 rows, each part-year row with its own text |
+| 3 | The "Later filing's reading used" prefill accepted an older filing printing the newest figure | Require the newest filing's own reading | 5161a5f | Repro: used B, newest C → no prefill |
+| 4 | Proof's Regression test card held per-step results and per-table differences OPERATIONS.md points to | The Regression test line on Release opens to Steps and Differences | 5c0b777 | Release: 10 steps Pass, "No table differs from the freeze" |
+| 5 | After a signature whose publish failed, the releases table still read "Not signed" | Every signature response redraws it | 5c0b777 | Test on the handler text |
+| 6 | A signed, unpublished release got the primary Download the post-sign status withholds | latestSigned skips published = false | 5c0b777 | Test |
+| 7 | `check` on values and facts changed from no-op to filter without a record | Kept; dated entry in docs/API.md "Changes" (no version mechanism exists) | 62184a9 | Database: check=agree keeps only agree rows on both lists |
+| 8 | A folded flag's state showed by colour only | "Large year-over-year change · Unverified" in words | 7179059 | APLD Opex FY2026 |
