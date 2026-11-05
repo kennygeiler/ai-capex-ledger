@@ -323,5 +323,34 @@ class Layout(unittest.TestCase):
         bg = pg.eval_on_selector("table.rec tr.item >> nth=2", "tr => getComputedStyle(tr.cells[2]).backgroundColor")
         self.assertNotIn(bg, ("rgba(0, 0, 0, 0)", "transparent"))
 
+    # a block at least 300 × 300 px and 8 % of the viewport whose content covers under 10 % of it (the layout audit's dead
+    # space, less SVG internals and <col>: Plotly's layers and a column's box are not content holders; less a block of text
+    # alone, which is its own content, and what sits in a closed <details>, which Chrome still gives a box)
+    DEAD = """() => { const out = []; for (const e of document.querySelectorAll('main *')) { if (e.closest('svg') || e.matches('col, colgroup') || !e.children.length || e.closest('details:not([open]) > :not(summary)')) continue;
+        const r = e.getBoundingClientRect(); if (r.width < 300 || r.height < 300 || r.width * r.height < innerWidth * innerHeight * .08) continue;
+        const kids = [...e.querySelectorAll('*')].filter((k) => { const q = k.getBoundingClientRect(); return q.width && q.height; }); if (kids.length > 400) continue;
+        let cov = 0; for (const k of kids) { if (k.children.length && !k.matches('button, a, input, select, img, svg, canvas, textarea')) continue; const q = k.getBoundingClientRect();
+          cov += Math.max(0, Math.min(q.right, r.right) - Math.max(q.left, r.left)) * Math.max(0, Math.min(q.bottom, r.bottom) - Math.max(q.top, r.top)); }
+        if (cov / (r.width * r.height) < .10) out.push(e.tagName + '.' + e.className + ' ' + Math.round(r.width) + 'x' + Math.round(r.height)); } return out; }"""
+
+    def test_no_card_in_a_card_and_no_dead_blocks(self):
+        """V15: an opened Reconcile mapping row shows no bordered box inside the table's card; no dead block on Reconcile (a
+        mapping open), Rules or Proof at either width."""
+        for w in WIDTHS:
+            with self.subTest(page="reconcile mapping open", width=w):
+                pg = self.page(w, "reconcile?cause=asset_types")
+                pg.wait_for_selector("table.rec tr.item", timeout=60000)
+                pg.click("table.rec tr.item")
+                pg.wait_for_selector("tr.ev", timeout=10000)
+                boxed = pg.eval_on_selector_all(".card .card", "cs => cs.filter((c) => { const s = getComputedStyle(c); return parseFloat(s.borderTopWidth) > 0 || s.boxShadow !== 'none'; }).length")
+                self.assertEqual(boxed, 0)
+                self.assertEqual(pg.evaluate(self.DEAD), [])
+            for hash_ in ("rules", "proof"):
+                with self.subTest(page=hash_, width=w):
+                    pg = self.page(w, hash_)
+                    pg.wait_for_selector("main .route > *", timeout=60000)
+                    pg.wait_for_timeout(1500)
+                    self.assertEqual(pg.evaluate(self.DEAD), [])
+
 if __name__ == "__main__":
     unittest.main()

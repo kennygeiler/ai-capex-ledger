@@ -209,6 +209,14 @@
   details.fold > summary::before { content: "›"; display: inline-block; width: 1rem; color: var(--tblr-secondary); }
   details.fold[open] > summary::before { content: "⌄"; }
   .bare-table .table { margin-bottom: 0; }
+  /* V15 (root): a card inside a card loses its box: no border, no shadow, no fill, its parts on the outer card's edge; its
+     table's first and last cells on that edge too. One bordered box per section, whoever builds the inner one */
+  .card .card { --tblr-card-border-width: 0; border: 0; box-shadow: none; background: transparent; }
+  .card .card > .card-header, .card .card > .card-body, .card .card > .card-footer { padding-inline: 0; border: 0; background: transparent; }
+  .card .card > .card-header { padding-top: 0; min-height: 0; }
+  .card .card .table > thead > tr > th { position: static; background-color: transparent; }
+  .card .card .card-table tr > :first-child { padding-left: 0; }
+  .card .card .card-table tr > :last-child { padding-right: 0; }
   .score .datagrid { --tblr-datagrid-item-width: 7.5rem; gap: .5rem 1.5rem; }
   .score-group + .score-group { margin-top: .75rem; }
   .table .badge { white-space: nowrap; }

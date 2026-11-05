@@ -400,7 +400,7 @@ async function reconcilePage(view, qs) {
       cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-body py-3'}, E.decision ? mappingDecision(E.decision, mappingActions(r)) : mappingActions(r),
         E.rejected && E.rejected.length ? h('p', {class: 'small text-secondary mt-2 mb-0'}, `Rejected: ${E.rejected.map(memberWords).join(', ')}`) : '',
         E.reproposed && E.reproposed.length ? h('p', {class: 'small mt-1 mb-0 ' + stateWord('row', 'bad')[0]}, `Proposed again after rejection: ${E.reproposed.map(memberWords).join(', ')}`) : ''))));
-      cards.push(col(4, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Note wording')),
+      cards.push(col(12, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Note wording')),  // V15: under the decision, the row's width (a 4-column box was 5 % filled)
         h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0 small'}, N && N.before ? `…${N.before}` : 'Note text unavailable'), h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail'))))));
     }
     const decision = isAsset(r)
