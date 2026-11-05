@@ -437,7 +437,7 @@ class DryRun(unittest.TestCase):
         try:
             with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), mock.patch.object(store, "init", return_value=con):
                 cl = checklist.checklist(con)
-                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "hand_check", "regression", "tests", "previous", "packet"])
+                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "evidenced", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "hand_check", "regression", "tests", "previous", "packet"])
                 fix_in_links_land_on_their_item(self, cl)  # F-BF11
                 comp = next(l for l in cl["lines"] if l["id"] == "complete")  # T81: required, and 0 on the six
                 self.assertEqual((comp["required"], comp["state"], comp["count"]), (True, "pass", 0), comp["detail"][:3])
