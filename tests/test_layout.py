@@ -468,5 +468,38 @@ class Layout(unittest.TestCase):
                     let n = 0; for (let i = 0; i < ts.length; i++) for (let j = i + 1; j < ts.length; j++) { const a = ts[i], b = ts[j];
                       if (Math.min(a.right, b.right) - Math.max(a.left, b.left) > 4 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 4) n++; } return n; }"""), 0)
 
+    # every visible control that writes: a decision, a mapping, a verdict, a selection for a bulk decision, Sign, a view's
+    # Save or Delete (counted by what it says and does, not by the data-write mark, so the check reads the page as drawn)
+    WRITE_CONTROLS = r"""() => { const vis = (e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).visibility !== 'hidden'; };
+  const rx = /^(Approve|Reject|Save|Select all|Confirm|Overturn|Choose another|Map$|Sign |Delete|Right|Wrong|Can.t say|Make this a|Accept|Explain|Fix|Block release|Apply)/;
+  const btns = [...document.querySelectorAll('main button, .bulkbar button, .drawer button')].filter((b) => vis(b) && rx.test(b.textContent.trim()));
+  const inputs = [...document.querySelectorAll('main input[type=checkbox], main input[name=reason], main input[aria-label^="Note on"], main input[aria-label^="Why"], main select[aria-label="Standard category"]')].filter((i) => vis(i) && !i.closest('.form-switch'));
+  return {n: btns.length + inputs.length, sample: [...btns, ...inputs].slice(0, 6).map((e) => e.tagName + ' ' + (e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 20))}; }"""
+
+    def test_read_only_draws_no_write_control(self):
+        """F-VT4: with LEDGER_READONLY=1 (a hosted copy) no page draws a write control, a row opened included; the owner's
+        copy still does."""
+        from unittest import mock
+        from ledger.web import app
+        pages = (("reconcile", "table.rec tr.item"), ("reconcile?cause=asset_types", "table.rec tr.item"), ("proof?gold=APLD", None), ("release", None), ("explore/capex-by-group", None), ("proof/APLD", None))
+        owner = 0
+        for hash_, click in pages[:3]:
+            pg = self.page(1600, hash_)
+            pg.wait_for_selector("main .route > *", timeout=60000)
+            pg.wait_for_timeout(800)
+            owner += pg.evaluate(self.WRITE_CONTROLS)["n"]
+        self.assertGreater(owner, 0)  # the probe sees them where they belong
+        with mock.patch.object(app, "READONLY", True):
+            for hash_, click in pages:
+                with self.subTest(page=hash_):
+                    pg = self.page(1600, hash_)
+                    pg.wait_for_selector("body.readonly", state="attached", timeout=60000)
+                    pg.wait_for_selector("main .route > *", timeout=60000)
+                    pg.wait_for_timeout(800)
+                    if click:
+                        pg.click(click)
+                        pg.wait_for_timeout(300)
+                    self.assertEqual(pg.evaluate(self.WRITE_CONTROLS), {"n": 0, "sample": []})
+
 if __name__ == "__main__":
     unittest.main()

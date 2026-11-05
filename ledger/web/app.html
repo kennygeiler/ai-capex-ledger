@@ -31,6 +31,9 @@
   p { margin: 0; }
   .muted { color: var(--tblr-secondary); }
   .bad { color: var(--tblr-red); }
+  /* F-VT4: a read-only copy (LEDGER_READONLY=1) draws no write control: every control that writes carries data-write
+     (_shared.js writes()), and the router puts .readonly on <body> when /api/hq says so */
+  body.readonly [data-write] { display: none !important; }
   /* V13: the one hue for every open state a person must look at (states.py text-review); red is kept for what blocks a release */
   :root { --review: #b45309; }
   [data-bs-theme=dark] { --review: #f59f00; }

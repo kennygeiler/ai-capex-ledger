@@ -55,6 +55,8 @@ let me = 'Kenny Geiler';
 try { me = localStorage.getItem('datahq-me') || me; } catch {}
 $('#me').value = me;
 $('#me').addEventListener('input', (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} });
+// F-VT4: marks a control (or the block holding several) as one that writes; hidden in a read-only copy (app.html)
+const writes = (el) => { if (el && el.setAttribute) el.setAttribute('data-write', ''); return el; };
 let NAMES = {}, SCOPE = [];
 // the jump box offers the scope only (T2); a ticker typed from outside it still navigates, an explicit ask. scopeReady: a page
 // that needs the scope (Explore's fixed colours) waits for it

@@ -262,6 +262,16 @@ class VisualContract2(unittest.TestCase):
     """V9-V23 (docs/ux-visual/problems.md, measured in docs/ux-visual/verification/V9-V23.md): the drawing rules. The measured
     side is tests.test_layout."""
 
+    def test_read_only_hides_every_write_control(self):
+        """F-VT4: one mark (data-write, writes()) and one rule (body.readonly) hide every write control in a read-only copy;
+        every page that posts marks its controls."""
+        self.assertIn("body.readonly [data-write] { display: none !important; }", APP.read_text())
+        self.assertIn("document.body.classList.add('readonly')", (PAGES / "_router.js").read_text())
+        self.assertIn("const needsMe = (btn) => { btn.disabled = !isSigner(me); NEEDS_ME.add(btn); return writes(btn); };", (PAGES / "reconcile.js").read_text())
+        for f in PAGES.glob("*.js"):
+            if "method: 'POST'" in f.read_text():
+                self.assertIn("writes(", f.read_text(), f.name)
+
     def test_no_gradient(self):
         """Review 6: gradients are on the owner's banned list; a wide table's edge is a solid border (.more-l / .more-r)."""
         for f in [APP, *PAGES.glob("*.js")]:

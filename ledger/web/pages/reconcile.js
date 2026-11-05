@@ -22,7 +22,7 @@ const NEEDS_ME = new Set();  // the page lives in a shadow root, so the buttons 
 let SIGNERS = [];
 const isSigner = (name) => SIGNERS.includes((name || '').trim());
 const signerWhy = (name) => (!(name || '').trim() ? 'Enter a signer name' : 'Not on the signer list');
-const needsMe = (btn) => { btn.disabled = !isSigner(me); NEEDS_ME.add(btn); return btn; };
+const needsMe = (btn) => { btn.disabled = !isSigner(me); NEEDS_ME.add(btn); return writes(btn); };
 document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of NEEDS_ME) b.disabled = !isSigner(me); });
 const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Block release'};
 const RES_HELP = {accept: 'Right as it stands', explain: 'Right, with the reason kept', fix: 'Wrong; stays open until re-read', blocks: 'Blocks release until settled'};
@@ -113,7 +113,7 @@ async function reconcilePage(view, qs) {
   const selected = new Set();
   let cur = -1;
   const trs = [];
-  const bulk = h('div', {class: 'card bulkbar', hidden: true});  // V8: fixed over the page bottom, never in the flow above the rows
+  const bulk = writes(h('div', {class: 'card bulkbar', hidden: true}));  // V8: fixed over the page bottom, never in the flow above the rows
   const groups = new Map();
   // "Approve all N" on Matches company tag: shows the list it will approve, one confirm, then each through the same writer
   // as a row's Approve (POST /api/mapping/bulk → mapper.approve with its `expected`); stops at the first refusal and says so
@@ -152,7 +152,7 @@ async function reconcilePage(view, qs) {
     const assetCard = group === 'cause' && (g === 'asset_types' || g === 'asset_types_match');  // a mapping card: no Dataset, SEC XBRL, Gap or Difference columns, always — on its rows
     for (const r of list) {
       const i = trs.length;
-      const cb = !bulkable(r) ? '' : h('input', {class: 'form-check-input m-0', type: 'checkbox', tabindex: -1, 'aria-label': `Select ${r.name} ${r.field ? (LABEL[r.field] || r.field) : r.where}${r.period ? ' ' + r.period : ''}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});  // a mapping is approved one at a time, never in bulk (bulkable)
+      const cb = !bulkable(r) ? '' : writes(h('input', {class: 'form-check-input m-0', type: 'checkbox', tabindex: -1, 'aria-label': `Select ${r.name} ${r.field ? (LABEL[r.field] || r.field) : r.where}${r.period ? ' ' + r.period : ''}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }}));  // a mapping is approved one at a time, never in bulk (bulkable)
       const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, tabindex: -1, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label];
       const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.cause === 'finding_unconfirmed' ? h('div', {class: 'text-secondary small'}, [r.evidence.dimension, group === 'company' ? '' : r.cause_label].filter(Boolean).join(' · ')) : r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : ''];
       const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} · ${r.resolution.by} · ${day(r.resolution.at)}`) : ''];
@@ -172,7 +172,7 @@ async function reconcilePage(view, qs) {
     const assetGroup = group === 'cause' && g === 'asset_types', matchGroup = group === 'cause' && g === 'asset_types_match';
     cards.push(h('div', {class: 'card mb-3'},
       h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} proposed` : assetGroup ? [`${int(list.filter((r) => r.verification === 'wait').length)} proposed`, list.some((r) => r.verification === 'bad') ? ` · ${int(list.filter((r) => r.verification === 'bad').length)} unmapped` : '', list.some((r) => r.evidence.mismatch) ? ` · ${int(list.filter((r) => r.evidence.mismatch).length)} differ from company tag` : ''] : matchGroup ? `${int(list.length)} categories` : (list.some((r) => OPEN_BUCKETS.includes(r.verification)) ? [bucketLine(list.reduce((n, r) => ({...n, [r.verification]: (n[r.verification] || 0) + 1}), {})), ` of ${int(list.length)}`] : `${int(list.length)} settled`)),  // this card's own buckets, in the words of the company count
-        selectable.length > 1 ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const k of selectable) selected.add(k); paint(); }}, `Select all ${int(selectable.length)}`) : '',
+        selectable.length > 1 ? writes(h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const k of selectable) selected.add(k); paint(); }}, `Select all ${int(selectable.length)}`)) : '',
         matchGroup ? approveAllButton(list) : ''),
       matchGroup ? approveAllPanel : '',
       h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover rec'},
@@ -224,7 +224,7 @@ async function reconcilePage(view, qs) {
     const overturn = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Change decision', onclick: (e) => { e.stopPropagation(); toggle(i, true); const f = trs[i].detail.querySelector('input[type=text]'); if (f) f.focus(); }}, 'Overturn');
     // who proposed it and when stays on screen, one short line under the buttons (cut with an ellipsis in the collapsed row)
     const by = r.resolution && r.resolution.by ? `Proposed by ${r.resolution.by} · ${day(r.resolution.at)}` : '';
-    return [h('div', {class: 'btn-list flex-nowrap'}, confirm, overturn), by ? h('div', {class: 'text-secondary small', title: by}, by) : '', status];
+    return [writes(h('div', {class: 'btn-list flex-nowrap'}, confirm, overturn)), by ? h('div', {class: 'text-secondary small', title: by}, by) : '', status];
   }
   // T33: an unmapped asset type. Approve writes the proposed member with the mapper's evidence under my name; Edit opens the
   // form with the member select; Reject logs the proposed member so the next run proposes another. No animation: a
@@ -264,7 +264,7 @@ async function reconcilePage(view, qs) {
     // V14: the row's buttons are for the pointer; by keyboard, Enter opens the row and its card has the same actions
     const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-outline-primary'), tabindex: -1, title: 'Choose a category', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
     btns.push(edit);
-    return [h('div', {class: 'btn-list flex-nowrap row-actions'}, btns), status];
+    return [writes(h('div', {class: 'btn-list flex-nowrap row-actions'}, btns)), status];
   }
   // The decision card's actions (the card is mapcard.decisions', shared with the trail): Approve · Choose another · Reject,
   // through the same routes as the row's buttons (POST /api/mapping, /api/mapping/reject); the person check is the server's.
@@ -298,7 +298,7 @@ async function reconcilePage(view, qs) {
       }}, 'Reject'));
       btns.push(reject);
     }
-    return h('div', {class: 'mt-3'}, h('div', {class: 'd-flex flex-wrap align-items-center', style: 'gap:.5rem'}, btns), status);
+    return writes(h('div', {class: 'mt-3'}, h('div', {class: 'd-flex flex-wrap align-items-center', style: 'gap:.5rem'}, btns), status));
   }
   // T36: an explanation written once. The server decides what an item may become (row.encode, judgement.offers): a rule
   // names the finding's rule, its field and the whole lines the company reads it from; a definition names the company and
@@ -408,8 +408,8 @@ async function reconcilePage(view, qs) {
     }
     const decision = isAsset(r)
       ? ''
-      : h('div', {class: 'col-12 decision-panel', hidden: selected.size > 0}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Change decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} · ${r.resolution.by} · ${day(r.resolution.at)} · ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
-    const once = canEncode(r) ? h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Apply everywhere')), h('div', {class: 'card-body py-2'}, encodePanel(r)))) : '';
+      : writes(h('div', {class: 'col-12 decision-panel', hidden: selected.size > 0}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Change decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} · ${r.resolution.by} · ${day(r.resolution.at)} · ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r)))));
+    const once = canEncode(r) ? writes(h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Apply everywhere')), h('div', {class: 'card-body py-2'}, encodePanel(r))))) : '';
     return h('div', {class: 'row g-3'}, cards, decision, once);
   }
   requestAnimationFrame(() => cutTitles(wrap));  // F-VS5: measured once the rows are laid out

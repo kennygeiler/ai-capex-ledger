@@ -171,7 +171,7 @@ function goldSet() {
         b.disabled = !(me || '').trim(); goldNeedsMe.add(b);
         return b;
       });
-      return h('div', {}, h('div', {class: 'btn-group seg mb-1', role: 'group', 'aria-label': `Verdict on ${it.id}`}, btns), note, msg);
+      return h('div', {}, writes(h('div', {class: 'btn-group seg mb-1', role: 'group', 'aria-label': `Verdict on ${it.id}`}, btns)), writes(note), msg);
     };
     // the items arrive hard first (gold.ordered); a header row opens each group with that group's numbers for this company
     const coGroups = Object.fromEntries(((co.rates || {}).groups || []).map((x) => [x.id, x.rate]));

@@ -44,7 +44,7 @@ async function releasePage(view, qs) {
   const status = h('div', {class: 'text-secondary small', id: 'signmsg', role: 'status', 'aria-live': 'polite'}, why);
   // the Signer box is read on every keystroke: Sign enables and disables with the name, never fixed at render (F-BF5)
   releaseRecheck = () => { if (!button.isConnected || button.dataset.busy) return; [canSign, why] = signState(cl, me); button.disabled = !canSign; button.title = why; status.replaceChildren(why); };
-  const button = h('button', {type: 'button', class: 'btn btn-primary', disabled: !canSign, title: why, onclick: async () => {
+  const button = writes(h('button', {type: 'button', class: 'btn btn-primary', disabled: !canSign, title: why, onclick: async () => {
     if (!confirm(`Sign and publish ${cl.version} as ${me}?`)) return;
     button.disabled = true; button.dataset.busy = '1';
     status.textContent = `Signing ${cl.version}…`;
@@ -58,7 +58,7 @@ async function releasePage(view, qs) {
       delete button.dataset.busy;
       button.disabled = !signState(cl, me)[0];
     }
-  }}, `Sign ${cl.version}`);
+  }}, `Sign ${cl.version}`));
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Release'),
       h('div', {class: 'text-secondary small'}, h('b', {class: 'text-body'}, cl.version), cl.previous ? ` · Compared with ${cl.previous}` : ' · First release', ` · ${cl.scope.length} companies · `,
