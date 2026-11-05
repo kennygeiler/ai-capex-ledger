@@ -20,7 +20,11 @@
   .skip { position: absolute; left: -999px; top: .5rem; background: var(--tblr-bg-surface); padding: .4rem .7rem; z-index: 1100; }
   .skip:focus { left: .5rem; }
   body { font-size: .875rem; }
-  main { padding-top: 1.25rem; }
+  /* the page head (V5): the scope line sits in the page's own container, 12 px under the navbar, the H1 right under it */
+  .page-wrapper > .page-body { margin-top: 0; }
+  #scopeline { padding-top: .75rem; min-height: 2rem; line-height: 1.25rem; }
+  main { padding-top: .75rem; }
+  main .page-header { margin: 0 0 1rem !important; min-height: 0; }
   h1 { font-size: 1.25rem; font-weight: 600; margin: 0; }
   h2 { font-size: .95rem; font-weight: 600; margin: 0 0 .5rem; }
   h3 { font-size: .9rem; font-weight: 600; }
@@ -79,6 +83,7 @@
   .ev-side { display: grid; gap: .6rem; }
   .ev-value { font-size: 1.6rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
   .ev-kv { display: grid; gap: .05rem; }
+  .ev-frame { overflow-x: auto; max-width: 100%; }
   .ev-crop { display: block; width: 100%; max-width: 64rem; height: auto; border-radius: 4px; box-shadow: 0 0 0 1px var(--tblr-border-color); background: #fff; }
   /* the trail: fixed columns, the value on one line, the cited cells' crops in the row */
   table.trail { table-layout: fixed; width: 100%; }
@@ -91,16 +96,18 @@
   .calc .money-line { overflow-wrap: anywhere; }
   /* F-BF9: the hand check reads a figure to the dollar: the exact line ($215,874,000,000) needs a wider value column than the trail's */
   table.trail.gold col.c-value { width: 11.5rem; }
+  table.trail.gold > tbody > tr > td { padding-top: .4rem; padding-bottom: .4rem; }  /* V4: a Right row stays near 120 px */
+  table.trail.gold .cite { gap: .1rem; }
   table.trail tr.gold-group th { background: var(--tblr-bg-surface-secondary); text-transform: none; letter-spacing: 0; }
   table.trail-quote col.c-item { width: 20%; } table.trail-quote col.c-value { width: 34%; } table.trail-quote col.c-source { width: 22%; }
   table.trail-quote td.num { white-space: normal; text-align: left; }
   table.trail td { vertical-align: top; overflow-wrap: anywhere; }
   table.trail td.num { font-weight: 500; }
-  .cites { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: .6rem .9rem; }
+  .cites { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12.5rem), 1fr)); gap: .6rem .9rem; }
   .cite { display: grid; gap: .25rem; min-width: 0; }
   .cites > .cite-line { grid-column: 1 / -1; }
   .cite-line { font-size: .76rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--tblr-secondary); }
-  .crop-thumb { display: flex; align-items: center; position: relative; overflow: hidden; height: 7.5rem; padding: 0; border: 0; background: #fff; cursor: zoom-in; border-radius: 3px; box-shadow: 0 0 0 1px var(--tblr-border-color); width: 100%; }
+  .crop-thumb { display: flex; align-items: center; position: relative; overflow: hidden; height: 5.5rem; padding: 0; border: 0; background: #fff; cursor: zoom-in; border-radius: 3px; box-shadow: 0 0 0 1px var(--tblr-border-color); width: 100%; }
   .crop-thumb img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
   .crop-thumb:hover, .crop-thumb:focus-visible { box-shadow: 0 0 0 2px var(--tblr-primary); outline: none; }
   .crop-none { min-height: 1.25rem; }
@@ -140,6 +147,15 @@
   .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .table thead th { font-size: .72rem; letter-spacing: .03em; }
   tr.item { cursor: pointer; }
+  /* Reconcile (V4, V8): fixed columns with set widths, so opening a row moves no header; a collapsed row is two short lines
+     at most (44 px), each cut with an ellipsis, the full text on hover and in the opened row */
+  table.rec { table-layout: fixed; width: 100%; }
+  table.rec > tbody > tr.item > td { padding-top: .25rem; padding-bottom: .25rem; line-height: 1.2rem; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  table.rec > tbody > tr.item > td > div { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  table.rec > tbody > tr.item .small { line-height: .95rem; }
+  table.rec > tbody > tr.item .btn-list { flex-wrap: nowrap; gap: .25rem; }
+  .bulkbar { position: fixed; left: 50%; bottom: 1rem; transform: translateX(-50%); width: min(calc(100% - 2rem), 72rem); z-index: 1040; margin: 0; box-shadow: 0 8px 30px rgba(0, 0, 0, .18); }
+  main:has(.bulkbar:not([hidden])) { padding-bottom: 12rem; }
   tr.item:focus-visible { outline: 2px solid var(--tblr-primary); outline-offset: -2px; }
   tr.item.cur td { background: var(--tblr-active-bg, rgba(0,0,0,.03)); }
   tr.item.cur td:first-child { box-shadow: inset 3px 0 0 var(--tblr-primary); }
@@ -163,7 +179,35 @@
   details.words[open] summary { margin-bottom: .4rem; }
   .table-sm > :not(caption) > * > * { padding: .35rem .6rem; }
   .btn:active { transform: scale(.98); }
-  .btn-group .btn.active { background: var(--tblr-primary); color: #fff; border-color: var(--tblr-primary); }
+  /* controls (V3): nothing a pointer aims at is under 24 px; a link-styled button keeps its line but gets a 24 px box */
+  .btn-sm, .form-select-sm, .form-control-sm { min-height: 1.75rem; }
+  .btn-link.p-0 { min-height: 1.5rem; display: inline-flex; align-items: center; }
+  th > .btn-link.p-0 { padding: 0 .25rem !important; margin-left: -.25rem; font: inherit; text-transform: inherit; letter-spacing: inherit; }
+  th.n > .btn-link.p-0, th.num > .btn-link.p-0 { margin: 0 -.25rem 0 0; }
+  /* the one segmented control (V3): every either/or choice. The selected segment is a neutral fill, never the primary
+     action's colour; the primary fill is kept for the one action per screen (Save, Sign, Export) */
+  .seg { display: inline-flex; flex-wrap: wrap; gap: 0; }
+  .seg > .btn { min-height: 1.75rem; padding: 0 .625rem; background: var(--tblr-bg-surface); color: var(--tblr-body-color); border: 1px solid var(--tblr-border-color); box-shadow: none; font-weight: 500; }
+  .seg > .btn:hover { background: color-mix(in srgb, var(--tblr-body-color) 6%, var(--tblr-bg-surface)); }
+  .seg > .btn.active, .seg > .btn[aria-pressed=true], .seg > .btn[aria-current=page] { background: color-mix(in srgb, var(--tblr-body-color) 13%, var(--tblr-bg-surface)); color: var(--tblr-body-color); border-color: color-mix(in srgb, var(--tblr-body-color) 30%, var(--tblr-bg-surface)); font-weight: 600; z-index: 1; }
+  .seg > .btn:disabled { opacity: .55; }
+  /* focus (V3): every control reached by Tab shows a 2 px ring */
+  button:focus-visible, .btn:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--tblr-primary) !important; outline-offset: 2px; }
+  .seg > .btn:focus-visible { z-index: 2; }
+  tr.item:focus-visible, tr.click:focus-visible { outline-offset: -2px; }
+  /* long tables (V4): the header row stays on screen. A table that fits its card scrolls with the page (skin marks its
+     wrapper .fit); one wider than its card scrolls inside the card, both ways, its header pinned (.wide) */
+  .table > thead > tr > th { position: sticky; top: 0; z-index: 3; background-color: var(--tblr-bg-surface); box-shadow: inset 0 -1px 0 var(--tblr-border-color); }
+  .table-responsive.fit { overflow: visible; }
+  .table-responsive.wide { max-height: calc(100vh - 2rem); overflow: auto; }
+  /* the Proof board (V6) */
+  .proof-headline { font-size: 1.25rem; font-weight: 600; line-height: 1.4; font-variant-numeric: tabular-nums; }
+  table.proof-board thead th { position: static; white-space: normal; vertical-align: bottom; }
+  table.proof-board tr.proof-legend th { text-transform: none; letter-spacing: 0; font-size: .78rem; font-weight: 500; padding-top: 0; }
+  table.proof-board td.stage { white-space: nowrap; }
+  .state-key { display: flex; flex-wrap: wrap; gap: .25rem 1rem; }
+  .state-key > span { white-space: nowrap; }
+  .pager { display: flex; align-items: center; gap: .75rem; padding: .5rem .75rem; }
   @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
   /* docs: the repository's markdown (pages/_markdown.js), the overview's flow diagram (pages/docs.js) */
   .docs { grid-template-columns: 13rem minmax(0, 1fr); }
@@ -215,6 +259,7 @@
   </div>
 </header>
 <div class="page-wrapper"><div class="page-body"><div class="container-xl">
+  <div class="text-secondary small" id="scopeline"></div>
   <main id="view" tabindex="-1"><p class="msg">Loading…</p></main>
 </div></div></div>
 

@@ -34,7 +34,6 @@ hq().then((d) => {
   if (d.readonly) $('#me').closest('span').replaceWith(h('span', {class: 'text-azure small'}, 'Read-only'));
   const hl = (d.health && d.health[0]) || {};
   const n = hl.companies != null ? hl.companies : (SCOPE.length || null);
-  const line = h('div', {class: 'container-xl text-secondary small py-1', id: 'scopeline'},
-    h('a', {href: '#data', class: 'text-reset'}, n == null ? '…' : `${int(n)} companies`), ' · ', `Data as of ${day(hl.run_at)}`, d.readonly ? ' · Read-only' : '');
-  $('header').after(line);
+  // V5: the line sits in the page's container (app.html), on the H1's left edge; its height is reserved before this lands
+  $('#scopeline').replaceChildren(h('a', {href: '#data', class: 'text-reset'}, n == null ? '…' : `${int(n)} companies`), ' · ', `Data as of ${day(hl.run_at)}`, d.readonly ? ' · Read-only' : '');
 }).catch(() => {});
