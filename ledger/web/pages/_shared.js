@@ -250,8 +250,16 @@ function fitTables(root = document) {
     const wide = t && t.scrollWidth > el.clientWidth + 1;
     el.classList.add(wide ? 'wide' : 'fit');
     if (wide) el.style.setProperty('--box-w', `${el.clientWidth}px`); else el.style.removeProperty('--box-w');  // V10: an opened row's detail stays this wide
+    moreEdges(el);
+    if (wide && !el.dataset.edges) { el.dataset.edges = '1'; el.addEventListener('scroll', () => moreEdges(el), {passive: true}); }
   });
   cutTitles(root);
+}
+// review 6: which side of a wide box has more columns (a solid edge there, app.html)
+function moreEdges(el) {
+  const wide = el.classList.contains('wide');
+  el.classList.toggle('more-l', wide && el.scrollLeft > 1);
+  el.classList.toggle('more-r', wide && el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
 }
 // F-VS5: a line cut with an ellipsis to keep a row short carries its whole text on hover (a title of its own, or the cell's
 // title when it has one); the opened row shows it whole. Measured again on resize, with the tables.

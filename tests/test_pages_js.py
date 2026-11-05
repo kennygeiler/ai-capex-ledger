@@ -262,6 +262,12 @@ class VisualContract2(unittest.TestCase):
     """V9-V23 (docs/ux-visual/problems.md, measured in docs/ux-visual/verification/V9-V23.md): the drawing rules. The measured
     side is tests.test_layout."""
 
+    def test_no_gradient(self):
+        """Review 6: gradients are on the owner's banned list; a wide table's edge is a solid border (.more-l / .more-r)."""
+        for f in [APP, *PAGES.glob("*.js")]:
+            self.assertNotIn("gradient(", f.read_text(), f.name)
+        self.assertIn(".table-responsive.wide.more-r { border-right-color: var(--tblr-secondary); }", APP.read_text())
+
     def test_redrawn_tables_keep_the_kit(self):
         """V17: Find, Show rows and a bar click redraw with table(), whose sort headers carry the kit's classes; the buttons
         those pages draw after the router's skin() carry their own (never a bare native button)."""

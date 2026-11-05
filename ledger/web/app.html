@@ -199,7 +199,7 @@
   .gg .band { position: absolute; top: -3px; height: 14px; background: color-mix(in srgb, var(--tblr-body-color) 14%, transparent); border-radius: 2px; }
   .gg .ours { position: absolute; left: 0; top: 0; height: 8px; background: var(--tblr-primary); border-radius: 4px; }
   .gg .tick { position: absolute; top: -4px; width: 2px; height: 16px; background: var(--tblr-body-color); }
-  .gg .gap { position: absolute; top: 3px; height: 2px; background: repeating-linear-gradient(90deg, var(--review) 0 3px, transparent 3px 6px); }
+  .gg .gap { position: absolute; top: 3px; height: 0; border-top: 2px dashed var(--review); }  /* review 6: a dashed border, no gradient */
   .gg.lg { width: 100%; height: 10px; margin: .35rem 0 .2rem; }
   .gg.lg .ours { height: 10px; }
   .gg.lg .band { top: -3px; height: 16px; }
@@ -252,14 +252,11 @@
   .table > thead > tr > th { position: sticky; top: 0; z-index: 3; background-color: var(--tblr-bg-surface); box-shadow: inset 0 -1px 0 var(--tblr-border-color); }
   .table-responsive.fit { overflow: visible; }
   .table-responsive.wide { max-height: calc(100vh - 6rem); overflow: auto; }  /* F-VS3: room for the pager and the page foot, so at the page end the box and its header stay on screen */
-  /* V10: a table wider than its card says so: a shade on the edge that has more columns, gone at that end (the shades scroll
-     with the content, the covers stay put) */
-  .table-responsive.wide { background:
-      linear-gradient(to right, var(--tblr-bg-surface) 40%, transparent) left / 2.5rem 100% no-repeat local,
-      linear-gradient(to left, var(--tblr-bg-surface) 40%, transparent) right / 2.5rem 100% no-repeat local,
-      radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, .16), transparent) left / .9rem 100% no-repeat scroll,
-      radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, .16), transparent) right / .9rem 100% no-repeat scroll; }
-  .table-responsive.wide > .table { background: transparent; --tblr-table-bg: transparent; }
+  /* V10 (review 6, no gradient): a table wider than its card says so with a solid 2 px edge on the side that has more
+     columns (.more-l / .more-r, set by fitTables and on scroll); the edge is always there, transparent, so it moves nothing */
+  .table-responsive.wide { border-inline: 2px solid transparent; }
+  .table-responsive.wide.more-l { border-left-color: var(--tblr-secondary); }
+  .table-responsive.wide.more-r { border-right-color: var(--tblr-secondary); }
   /* V10: an opened row of a table wider than its card shows its detail in the visible part, not across the whole width */
   .table-responsive.wide tr.detail > td > * { position: sticky; left: .75rem; max-width: calc(var(--box-w, 60rem) - 1.5rem); }
   /* V10: text cut to fit its cell ends in an ellipsis, never mid-glyph */

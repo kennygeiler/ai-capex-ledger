@@ -205,6 +205,11 @@ class Layout(unittest.TestCase):
                     return {wide: b.classList.contains('wide'), right: d.right - b.getBoundingClientRect().right}; }""")
                 self.assertTrue(m["wide"])
                 self.assertLessEqual(m["right"], 1)  # the opened row's fields end inside the visible box
+                # review 6: a solid edge on the side with more columns: right at the start, left at the end
+                edges = pg.evaluate("""async () => { const b = document.querySelector('.table-responsive.wide'); const a = [b.classList.contains('more-l'), b.classList.contains('more-r')];
+                    b.scrollLeft = b.scrollWidth; await new Promise((r) => setTimeout(r, 100)); return [a, [b.classList.contains('more-l'), b.classList.contains('more-r')], getComputedStyle(b).backgroundImage]; }""")
+                self.assertEqual(edges[:2], [[False, True], [True, False]])
+                self.assertEqual(edges[2], "none")
 
     # a column whose every body cell is a dash (or empty, with no element in it: a gap bar is not empty)
     EMPTY_COLS = """() => [...document.querySelectorAll('main table')].flatMap((t) => {
