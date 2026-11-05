@@ -4,7 +4,9 @@ without Chrome or the database.
 F-BF9: the hand check's exact-dollar line ("In thousands · $9,320,000") overflowed its 9.5rem value column and was cut by the
 crop beside it ("$9,320,00"). F-BF8: Docs code blocks drew their text in the same colour as their background.
 V3-V8 (docs/ux-visual/problems.md, measured in docs/ux-visual/verification/V3-V8.md): the page head band, the Proof board's
-first screen, Reconcile's rows and jumps, Dataset paging."""
+first screen, Reconcile's rows and jumps, Dataset paging.
+V9-V23 (measured in docs/ux-visual/verification/V9-V23.md): content in its column, empty columns, the navbar at 1280, Rules
+length, filter marks, colour by state."""
 import os
 import shutil
 import threading
@@ -164,6 +166,44 @@ class Layout(unittest.TestCase):
         pg.wait_for_timeout(200)
         self.assertEqual(pg.evaluate("document.activeElement.textContent"), "Next")
         self.assertIn("Rows 101–200", pg.text_content(".pager"))
+
+    # content wider than its box with overflow visible, the way the layout audit counts it, less two things that are not
+    # spills: a Bootstrap .row's negative gutter (it sits in its parent's padding by design) and SVG internals (Plotly)
+    SPILLS = """() => [...document.querySelectorAll('main *')].filter((e) => {
+        if (e.closest('svg') || !e.getBoundingClientRect().width || e.clientWidth < 24) return false;
+        if (!getComputedStyle(e).overflowX.includes('visible')) return false;
+        const spill = e.scrollWidth - e.clientWidth; if (spill <= 4) return false;
+        const gutter = Math.max(0, ...[...e.querySelectorAll('.row, .list-group-transparent')].map((r) => -parseFloat(getComputedStyle(r).marginRight) || 0));
+        return spill > gutter + 1;
+    }).map((e) => e.tagName + '.' + e.className + ' ' + (e.scrollWidth - e.clientWidth))"""
+
+    def test_content_stays_in_its_column(self):
+        """V10: no spill on Evidence compare, Rules, Dataset Rows with a row open, the hand check; the compare's two filings
+        start on the H1's left edge; a table wider than its card is .wide (the edge shade says so); Rules fits in 6,000 px."""
+        ev = "0001144879-24-000216%7Cppe_category%7COther%20equipment%20and%20fixtures%7C2024-05-31"
+        ev2 = "0001144879-25-000021%7Cppe_category%7COther%20equipment%20and%20fixtures%7C2024-05-31"
+        for w in WIDTHS:
+            with self.subTest(page="compare", width=w):
+                pg = self.page(w, f"evidence/compare?a={ev}&b={ev2}")
+                pg.wait_for_selector(".ev-grid section", timeout=60000)
+                self.assertEqual(pg.evaluate(self.SPILLS), [])
+                dx = pg.evaluate("Math.abs(document.querySelector('.ev-grid').getBoundingClientRect().left - document.querySelector('main h1.page-title').getBoundingClientRect().left)")
+                self.assertLessEqual(dx, 1)
+            with self.subTest(page="rules", width=w):
+                pg = self.page(w, "rules")
+                pg.wait_for_selector("#agent-reader", timeout=60000)
+                self.assertEqual(pg.evaluate(self.SPILLS), [])
+                self.assertEqual(pg.evaluate("[...document.querySelectorAll('main .card .card')].length"), 0)  # V15: no card in a card
+                self.assertLessEqual(pg.evaluate("document.documentElement.scrollHeight"), 6000)
+            with self.subTest(page="rows", width=w):
+                pg = self.page(w, "data?list=taxonomy")
+                pg.wait_for_selector("main tbody tr.click", timeout=60000)
+                pg.click("main tbody tr.click")
+                self.assertEqual(pg.evaluate(self.SPILLS), [])
+                m = pg.evaluate("""() => { const d = document.querySelector('tr.detail .row-detail').getBoundingClientRect(), b = d && document.querySelector('tr.detail').closest('.table-responsive');
+                    return {wide: b.classList.contains('wide'), right: d.right - b.getBoundingClientRect().right}; }""")
+                self.assertTrue(m["wide"])
+                self.assertLessEqual(m["right"], 1)  # the opened row's fields end inside the visible box
 
 if __name__ == "__main__":
     unittest.main()

@@ -43,7 +43,7 @@ async function evidenceCompare(view, q) {
   const differ = a.value !== b.value;
   const fmt = differ && usd(a.value) === usd(b.value) ? usdExact : usd;  // two different readings never print the same
   const side = (e, n) => h('section', {},
-    h('h2', {}, `Filing ${n} · ${e.form} filed ${day(e.filed)}`), h('div', {class: 'text-secondary small mb-2 mono'}, e.accession),
+    h('h2', {}, `Filing ${n} · ${e.form} filed ${day(e.filed)}`),
     h('div', {class: 'ev-value'}, fmt(e.value), h('span', {class: 'text-secondary small fw-normal ms-2'}, `cited ${e.cell_text}`)),
     evFiling(e));
   view.append(h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},

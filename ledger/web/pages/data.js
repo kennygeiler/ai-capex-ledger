@@ -107,8 +107,8 @@ async function rowsView(view, q) {
   const cols = [...new Set(d.rows.flatMap((r) => Object.keys(r)))];
   const csv = `/api/v1/${name}.csv` + (qs ? `?${qs}` : '');
 
-  const side = h('div', {class: 'list-group list-group-transparent mb-3'}, TABLES.map(([k, label, what]) =>
-    h('a', {href: `#data?list=${k}` + (ticker ? `&ticker=${ticker}` : ''), class: 'list-group-item list-group-item-action d-block' + (k === name ? ' active' : '')}, h('div', {}, label), h('div', {class: 'text-secondary small brk'}, what))));
+  const side = h('div', {class: 'list-group list-group-transparent sidelist mb-3'}, TABLES.map(([k, label, what]) =>
+    h('a', {href: `#data?list=${k}` + (ticker ? `&ticker=${ticker}` : ''), class: 'list-group-item list-group-item-action d-block' + (k === name ? ' active' : ''), 'aria-current': k === name ? 'page' : null, title: what}, h('div', {}, label), h('div', {class: 'text-secondary small cut'}, what))));
   const tickSel = h('select', {'aria-label': 'Company', onchange: (e) => setQ({ticker: e.target.value})},
     h('option', {value: ''}, 'Every company'), Object.entries(NAMES).map(([t, n]) => h('option', {value: t, selected: t === ticker || null}, `${n} ${t}`)));
   const search = h('input', {type: 'text', placeholder: 'Find in rows', 'aria-label': 'Find in rows', style: 'width:16rem'});
@@ -121,8 +121,9 @@ async function rowsView(view, q) {
   const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, valueSel, search, count);
 
   const fmt = (k, v) => v == null || v === '' ? h('span', {class: 'text-secondary'}, '—') : typeof v === 'boolean' ? (v ? 'yes' : 'no') : typeof v === 'number' ? (Number.isInteger(v) ? v.toLocaleString('en-US') : v.toLocaleString('en-US', {maximumFractionDigits: 4})) : k === 'ticker' ? h('a', {href: `#proof/${v}`}, v) : /^https?:/.test(String(v)) ? h('a', {href: v, target: '_blank', rel: 'noopener'}, 'open') : String(v).length > 90 ? h('span', {title: String(v)}, String(v).slice(0, 90) + '…') : String(v);
-  const tcols = cols.map((k) => ({t: k, k, n: RAW_NUM.has(k) ? 1 : 0, f: (r) => fmt(k, r[k])}));
-  const detail = (r) => h('dl', {class: 'row mb-0 small'}, cols.flatMap((k) => [h('dt', {class: 'col-2 font-monospace text-secondary'}, k), h('dd', {class: 'col-10 brk'}, r[k] == null || r[k] === '' ? '—' : String(r[k]))]));
+  const tcols = cols.map((k) => ({t: colName(k), k, n: RAW_NUM.has(k) ? 1 : 0, f: (r) => fmt(k, r[k])}));
+  // V10: an opened row lists its fields in the visible part of the box (the wrapper's width, never the 40-column table's)
+  const detail = (r) => h('div', {class: 'datagrid row-detail small'}, cols.map((k) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title', title: k}, colName(k)), h('div', {class: 'datagrid-content brk'}, r[k] == null || r[k] === '' ? '—' : String(r[k])))));
   const holder = h('div', {});
   const draw = () => {
     const needle = search.value.trim().toLowerCase();

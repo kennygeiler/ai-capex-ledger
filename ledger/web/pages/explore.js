@@ -112,7 +112,7 @@ async function explorePage(view, arg, qs) {
     const cols = [{t: 'Company', k: 'ticker', f: (r) => h('a', {href: `#proof/${r.ticker}`}, NAMES[r.ticker] || r.ticker)}, {t: 'Year', f: (r) => r.period || r.fiscal_year || '—'}];
     for (const c of ['measure', 'category', 'reported_name', 'standard_type', 'field', 'kind', 'project_kind', 'relation', 'dimension', 'status', 'check', 'check_method', 'source_kind', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: c.replaceAll('_', ' '), k: c, f: (r) => r[c] ?? '—'});
     cols.push({t: 'Value', n: 1, f: (r) => fmtv(val(r)), s: (r) => val(r)});
-    if (list.some((r) => r.basis || r.quote)) cols.push({t: 'Basis', sort: false, f: (r) => h('span', {class: 'small brk'}, (r.basis || r.quote || '').slice(0, 160)), wide: 1});
+    if (list.some((r) => r.basis || r.quote)) cols.push({t: 'Basis', sort: false, f: (r) => { const b = r.basis || r.quote || ''; return h('span', {class: 'small brk', title: b.length > 160 ? b : null}, b.length > 160 ? b.slice(0, 159).trimEnd() + '…' : b); }, wide: 1});  // V10: a cut ends in an ellipsis
     under.replaceChildren(h('div', {class: 'sechead', style: 'margin-top:1rem'}, h('h2', {}, title || 'Rows'), h('span', {class: 'muted small'}, `${int(list.length)} row${list.length === 1 ? '' : 's'}${list.length > 300 ? ' · first 300' : ''}`)), table(cols, list.slice(0, 300)));
   }
   function saveView() {

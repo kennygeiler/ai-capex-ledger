@@ -165,11 +165,13 @@ function closeDrawer() { const had = document.querySelector('.drawer'); document
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('td.cell')) { e.preventDefault(); e.target.click(); } });
 
 // a card with a title and a table; cols: {t, k|f, num, w}
-function dtable(title, cols, rows, {foot, note} = {}) {
+// `bare`: the table alone under a plain heading, for a table inside a card (V15: never a bordered card inside a card)
+function dtable(title, cols, rows, {foot, note, bare} = {}) {
   const tbl = h('table', {class: 'table table-sm table-vcenter card-table'},
     h('thead', {}, h('tr', {}, cols.map((c) => h('th', {class: c.num ? 'num' : null, style: c.w ? `width:${c.w}` : null}, c.t)))),
     h('tbody', {}, rows.map((r) => h('tr', {class: r._cls || null}, cols.map((c) => h('td', {class: [c.num && 'num', c.strong && 'fw-semibold'].filter(Boolean).join(' ') || null}, c.f ? c.f(r) : r[c.k] ?? '—'))))),
     foot ? h('tfoot', {}, h('tr', {}, foot.map((x, i) => h('td', {class: (cols[i] && cols[i].num ? 'num ' : '') + 'fw-semibold'}, x)))) : '');
+  if (bare) return h('div', {class: 'bare-table'}, title ? h('div', {class: 'd-flex align-items-baseline gap-3 mb-1'}, h('h3', {class: 'm-0'}, title), note ? h('span', {class: 'text-secondary small'}, note) : '') : '', h('div', {class: 'table-responsive'}, tbl));
   return h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, title), note ? h('span', {class: 'ms-auto text-secondary small'}, note) : ''), h('div', {class: 'table-responsive'}, tbl));
 }
 
@@ -184,6 +186,8 @@ const TABLES = [
   ['projects', 'Projects', 'Named projects'],
   ['companies', 'Companies', 'Companies, industry and SIC code'],
 ];
+// a list's column name as a label (V22: no snake_case on screen); the API, CSV and JSON keep the key itself
+const colName = (k) => { const w = String(k).replaceAll('_', ' '); return w.charAt(0).toUpperCase() + w.slice(1); };
 const RAW_NUM = new Set(['value', 'value_high', 'change_from_prior', 'share', 'amount_low', 'amount_high', 'amount_mid', 'xbrl', 'capacity_mw', 'scale', 'sic', 'gpus']);
 
 // ── Navigation and the kit's theme ──────────────────────────────────────────
@@ -213,7 +217,9 @@ function fitTables(root = document) {
     if (!el.isConnected) return;
     el.classList.remove('fit', 'wide');
     const t = el.querySelector(':scope > table');
-    el.classList.add(t && t.scrollWidth > el.clientWidth + 1 ? 'wide' : 'fit');
+    const wide = t && t.scrollWidth > el.clientWidth + 1;
+    el.classList.add(wide ? 'wide' : 'fit');
+    if (wide) el.style.setProperty('--box-w', `${el.clientWidth}px`); else el.style.removeProperty('--box-w');  // V10: an opened row's detail stays this wide
   });
 }
 let fitTimer;

@@ -79,7 +79,8 @@
   .ev-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: start; margin-top: 1rem; }
   .ev-grid:has(> section:first-child .ev-kv) { grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr); }
   @media (max-width: 900px) { .ev-grid, .ev-grid:has(> section:first-child .ev-kv) { grid-template-columns: minmax(0, 1fr); } }
-  .ev-wide { width: min(calc(100vw - 64px), 112rem); position: relative; left: 50%; transform: translateX(-50%); }  /* two crops side by side: wider than the page column */
+  /* V10: two filings side by side stay in the page column, on the H1's left edge; each crop scrolls sideways in its own frame (V7) */
+  .ev-wide { gap: 1.5rem; }
   .ev-side { display: grid; gap: .6rem; }
   .ev-value { font-size: 1.6rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
   .ev-kv { display: grid; gap: .05rem; }
@@ -137,6 +138,9 @@
   .viewrow { display: flex; flex-direction: column; padding: .4rem .6rem; border-radius: var(--tblr-border-radius); color: var(--tblr-body-color); }
   .viewrow:hover { background: var(--tblr-bg-surface-secondary); text-decoration: none; }
   .viewrow.on { background: var(--tblr-active-bg, rgba(32,107,196,.08)); }
+  /* V10: a page's side list sits inside its column, its items one line each (the description cut, whole on hover) */
+  .sidelist { margin-inline: 0; }
+  .sidelist .list-group-item { padding: .35rem .6rem; }
   .exc select, .exc input { max-width: 15rem; }
   .plot { min-height: 400px; margin-top: .6rem; }
   .plot .modebar { opacity: .5; }
@@ -178,6 +182,15 @@
   .bar.ref { background: var(--tblr-secondary); }
   .card-header .card-title { white-space: nowrap; font-size: .85rem; }
   .card-header .small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-left: 1rem; }
+  .card-header .agent-job { white-space: normal; margin-left: 0; }  /* V10: the agent's job sits on its name's left edge */
+  /* V15: a section folded inside a card is a plain disclosure line, not a card in a card */
+  details.fold > summary { cursor: pointer; list-style: none; min-height: 1.5rem; display: flex; align-items: center; }
+  details.fold > summary::-webkit-details-marker { display: none; }
+  details.fold > summary::before { content: "›"; display: inline-block; width: 1rem; color: var(--tblr-secondary); }
+  details.fold[open] > summary::before { content: "⌄"; }
+  .bare-table .table { margin-bottom: 0; }
+  .score .datagrid { --tblr-datagrid-item-width: 7.5rem; gap: .5rem 1.5rem; }
+  .score-group + .score-group { margin-top: .75rem; }
   .table .badge { white-space: nowrap; }
   .shot { max-width: 100%; border-radius: 4px; border: 1px solid var(--tblr-border-color); }
   details.words summary { cursor: pointer; font-size: .8rem; color: var(--tblr-secondary); list-style: none; }
@@ -206,6 +219,19 @@
   .table > thead > tr > th { position: sticky; top: 0; z-index: 3; background-color: var(--tblr-bg-surface); box-shadow: inset 0 -1px 0 var(--tblr-border-color); }
   .table-responsive.fit { overflow: visible; }
   .table-responsive.wide { max-height: calc(100vh - 2rem); overflow: auto; }
+  /* V10: a table wider than its card says so: a shade on the edge that has more columns, gone at that end (the shades scroll
+     with the content, the covers stay put) */
+  .table-responsive.wide { background:
+      linear-gradient(to right, var(--tblr-bg-surface) 40%, transparent) left / 2.5rem 100% no-repeat local,
+      linear-gradient(to left, var(--tblr-bg-surface) 40%, transparent) right / 2.5rem 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, .16), transparent) left / .9rem 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, .16), transparent) right / .9rem 100% no-repeat scroll; }
+  .table-responsive.wide > .table { background: transparent; --tblr-table-bg: transparent; }
+  /* V10: an opened row of a table wider than its card shows its detail in the visible part, not across the whole width */
+  .table-responsive.wide tr.detail > td > * { position: sticky; left: .75rem; max-width: calc(var(--box-w, 60rem) - 1.5rem); }
+  /* V10: text cut to fit its cell ends in an ellipsis, never mid-glyph */
+  .row-detail { --tblr-datagrid-item-width: 14rem; gap: .6rem 1.25rem; }
+  .cut { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   /* the Proof board (V6) */
   .proof-headline { font-size: 1.25rem; font-weight: 600; line-height: 1.4; font-variant-numeric: tabular-nums; }
   table.proof-board thead th { position: static; white-space: normal; vertical-align: bottom; }
