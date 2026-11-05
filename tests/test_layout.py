@@ -127,6 +127,22 @@ class Layout(unittest.TestCase):
         self.assertTrue(pg.query_selector(".pager"))
         self.assertLessEqual(pg.evaluate("document.documentElement.scrollHeight / innerHeight"), 3)
 
+    def test_a_slow_page_never_draws_into_the_next(self):
+        """F-VS4: Release still loading when the reader moves to Known gaps: the checklist never lands on the Known gaps page."""
+        pg = self.browser.new_page(viewport={"width": 1600, "height": 1000})
+        self.addCleanup(pg.close)
+        # the checklist answers 2.5 s late (in the page, so the test thread is free to move on meanwhile)
+        pg.add_init_script("""const f0 = window.fetch; window.fetch = (u, o) => String(u).includes('/api/v1/release/checklist')
+            ? new Promise((r) => setTimeout(r, 2500)).then(() => f0(u, o)).finally(() => setTimeout(() => { window.__released = 1; }, 50)) : f0(u, o);""")
+        pg.goto(self.base + "#release")
+        pg.wait_for_timeout(300)
+        pg.evaluate("location.hash = 'gaps'")
+        pg.wait_for_selector("main h1.page-title", timeout=60000)
+        pg.wait_for_function("window.__released", timeout=60000)  # the release request has answered and its page has run on
+        pg.wait_for_timeout(1000)
+        titles = pg.eval_on_selector_all("main h1.page-title", "hs => hs.map((x) => x.textContent)")
+        self.assertEqual(titles, ["Known gaps"])
+        self.assertNotIn("required checks pass", pg.text_content("main"))
 
 if __name__ == "__main__":
     unittest.main()
