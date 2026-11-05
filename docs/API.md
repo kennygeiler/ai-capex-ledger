@@ -209,3 +209,11 @@ POST /api/v1/views/<id>/delete     {"by": "name"}  (save and delete: 400 when by
 
 `404` with `{"error", "lists"}` for an unknown list; `400` for a bad filter or view; `503` while the pipeline holds
 the database (`{"error": "the pipeline is writing to the database; try again when the run ends"}`).
+
+## Changes
+
+The read API carries no version number; a change in what a request returns is recorded here, newest first.
+
+| Date | Change |
+|---|---|
+| 2026-11-05 | `check` on `/api/v1/values` and `/api/v1/facts` (JSON and CSV) now filters on `check_label`. Before, those rows had no `check` column, so the filter kept every row (`values?check=unresolved` returned all 81). The taxonomy's `check` is unchanged; a list with neither column keeps its rows. `/api/data` takes `check` and `format=csv` (the Dataset Grid). |

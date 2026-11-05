@@ -265,6 +265,23 @@ class DatasetVerification(unittest.TestCase):
         got = api.apply(rows, {"check": "unresolved,differs"})
         self.assertEqual(got, [rows[1], rows[2], rows[3]])  # before: check_label rows were all kept; a list with no verdict column keeps its rows
 
+    @unittest.skipUnless(REAL_DB, "no data/ledger.duckdb")
+    def test_values_and_facts_answer_check_and_the_change_is_recorded(self):
+        """review 7: `check` on values and facts was a no-op (every row kept); it filters now, and docs/API.md says so, dated."""
+        from ledger.web import api, app
+        con = app._con()
+        try:
+            for name in ("values", "facts"):
+                rows = api.query(con, name, {})
+                agree = api.query(con, name, {"check": "agree"})
+                self.assertTrue(0 < len(agree) < len(rows), name)
+                self.assertTrue(all(r["check_label"] == "agree" for r in agree), name)
+        finally:
+            con.close()
+        doc = (PAGES.parents[2] / "docs" / "API.md").read_text()
+        self.assertIn("## Changes", doc)
+        self.assertIn("| 2026-11-05 | `check` on `/api/v1/values` and `/api/v1/facts`", doc)
+
     def test_the_grid_export_is_the_server_csv_with_its_columns(self):
         from ledger.web import app
         d = {"names": {"X": "Xco"}, "rows": [{"ticker": "X", "field": "capex", "dimension": "", "period": "FY2025", "kind": "spent", "value": 5, "check": "agree", "basis": "b",
