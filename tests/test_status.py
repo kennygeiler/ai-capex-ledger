@@ -566,7 +566,9 @@ class EveryCheckedRowNamesItsEvidence(unittest.TestCase):
         self.assertEqual(sum(lad.values()), r["untagged"], lad)
         self.assertGreater(lad["tie"], 0)
         self.assertGreater(lad["second_reading"], 0)
-        self.assertEqual(sorted(r["differ"]), [["APLD", "ppe_category Other equipment and fixtures FY2024: readings differ"], ["APLD", "ppe_category Other equipment and fixtures FY2025: readings differ"]])
+        self.assertEqual(sorted(r["differ"]), [["APLD", "ppe_category Networking equipment, electrical equipment, and software FY2024: readings differ"],  # F-BF1: found once its ids are read whole
+                                                ["APLD", "ppe_category Networking equipment, electrical equipment, and software FY2025: readings differ"],
+                                                ["APLD", "ppe_category Other equipment and fixtures FY2024: readings differ"], ["APLD", "ppe_category Other equipment and fixtures FY2025: readings differ"]])
 
     def test_the_company_tag_on_the_six_walks(self):
         """mapping:filer_tag on the fixtures: every category the company's own tag checks has its record on the row and
@@ -635,7 +637,7 @@ con = duckdb.connect(str(proof.store.DEFAULT_DB), read_only=True)
 q = app.flow("all")["queue"]
 pick = lambda rule, period, subj=None: next(x for x in q if x["kind"] == "finding_unconfirmed" and x["ticker"] == "APLD" and x["detail"].get("rule") == rule
                                          and x["detail"].get("period") == period and (subj is None or x["detail"].get("subject") == subj))
-differ = pick("fact_readings_differ", "FY2024")
+differ = pick("fact_readings_differ", "FY2024", "Other equipment and fixtures")  # F-BF1: the comma-bearing Networking equipment fact differs too now
 tie = pick("segment_capex_tie", "FY2023", "0001144879-24-000216")
 lines = [{"id": f"r{i}", "key": x["key"], "hash": x["hash"], "state": "explain", "reason": "checked both filings", "by": "Kenny Geiler", "author_kind": "person", "at": "2026-11-02T00:00:00+00:00"}
          for i, x in enumerate((differ, tie))]

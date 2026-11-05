@@ -5,7 +5,7 @@ Every line is what could make a signature wrong, with its count and the page tha
 from the dataset (proof.missing_from_dataset, T81: an XBRL value with no released value and nothing open), the decisions a run
 left to confirm (resolutions.unconfirmed), unmapped asset types (taxonomy.unmapped), rows with no value by measure,
 the diff in rows from the previous release (release.rows_diff), the limitations with no mitigation
-(taxonomy/limitations.yaml, T68), the golden test and the last test run
+(taxonomy/limitations.yaml, T68), the hand check (gold/*.json, live), the regression test and the last test run
 (reports/golden.json, reports/tests.json), and the packet as `ledger release` would build it, built in memory and
 not written. `required` lines must pass before the Sign button enables; the rest inform.
 
@@ -19,6 +19,7 @@ import re
 import shutil
 import threading
 from datetime import datetime, timezone
+from urllib.parse import quote
 
 from ..web import api
 from . import limitations, taxonomy
@@ -38,6 +39,16 @@ VERSION = re.compile(r"^v\d+\.\d+\.\d+$")
 GOLDEN = store.ROOT / "reports" / "golden.json"
 TESTS = store.ROOT / "reports" / "tests.json"
 GATE_FIX = {"G1": "proof", "G4": "reconcile", "G5": "proof", "G6": "reconcile?cause=asset_types"}  # the page that fixes each gate's items
+NEEDS_REVIEW_FIX = "reconcile?cause=finding_unconfirmed"  # F-BF11: Needs review opens Reconcile on its rule findings, open only (Reconcile's default)
+
+
+def _scoped(link: str, ticker: str) -> str:
+    """A Fix-in link narrowed to one company: Reconcile and Proof take ?scope=, the trail is #proof/<TICKER>."""
+    if link == "proof":
+        return f"proof/{ticker}"
+    return f"{link}{'&' if '?' in link else '?'}scope={ticker}"
+
+
 GATE_SHORT = {"G1": "All filings read", "G4": "Every block has a decision", "G5": "Values confirmed on filing", "G6": "No proposal left to confirm"}
 
 
@@ -181,7 +192,7 @@ def _provenance_rows(con, tickers: list) -> dict:
 
 def _cited(rows: list[dict], by_id: dict) -> list[dict]:
     """The distinct extraction rows a shipped list cites (values → extractions, facts → note_extractions)."""
-    from .release import split_ids
+    from ..core.ids import split_ids
     out = {}
     for r in rows:
         for i in split_ids(r.get("extraction_ids") or ""):
@@ -294,7 +305,7 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
         return _line("tests", "Test run", True, 0, "not_run", "proof", "not run (reports/tests.json; `ledger test` writes it)")
     fails = t.get("failures") or []
     golden = t.get("golden")
-    g_note = {True: "golden ok", False: "golden FAILED"}.get(golden, "golden skipped, see the Golden line")
+    g_note = {True: "regression test ok", False: "regression test FAILED"}.get(golden, "regression test skipped, see its own line")
     sha = t.get("git")
     head = _head() if head is _LOOKUP else head
     base = f"{t.get('count')} tests, {len(fails)} failing, {g_note}, {t.get('at')}" + (f", on {sha}" if sha else "")
@@ -314,23 +325,41 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     return _line("tests", "Test run", True, 0, "pass", "proof", base, detail)
 
 
-def golden_line(g: dict | None) -> dict:
-    """"Golden test": required, green only when the tables are equal AND gold passes (every item has a verdict and every
-    verdict holds). Gold unverified (0 of N verdicts, or some missing) is red: "Not a pass" means not a pass, so Sign
-    stays disabled until a person gives the verdicts. A report from before T82's split (no tables_ok) is read strictly."""
+def regression_line(g: dict | None) -> dict:
+    """"Regression test" (required): the proven six rebuilt from frozen inputs equal fixtures/expected, as the last
+    `ledger golden --check` found it (reports/golden.json), with its date. It says nothing changed since the freeze, never
+    that a number is right: the hand check is its own line (hand_check_line), read live. A report from before T82's
+    split (no tables_ok) is read strictly."""
     if g is None:
-        return _line("golden", "Golden test", True, 1, "fail", "proof", "not run")
-    tables = bool(g.get("tables_ok") if "tables_ok" in g else g.get("ok")) and not g.get("failed_step")
-    gd = g.get("gold") or {}
-    state = gd.get("state") or "not run"
-    gold_word = {"pass": f"gold pass, {gd.get('checked')} verdicts hold", "fail": f"gold FAILS, {len(gd.get('failures') or [])} verdicts",
-                 "unverified": f"gold unverified {gd.get('unverified')} of {gd.get('items')}: give the verdicts on Proof"}.get(state, "gold not run")
-    ok = tables and state == "pass"
-    note = f"tables {'equal' if tables else 'differ'}" + (f", failed at {g['failed_step']}" if g.get("failed_step") else "") + f"; {gold_word}; {g.get('at')}"
-    detail = [{"table": k, "only_in_run": v.get("n_only_in_run"), "only_in_expected": v.get("n_only_in_expected")} for k, v in (g.get("diffs") or {}).items()] \
-        + [{"gold": f} for f in gd.get("failures") or []]
-    count = 0 if ok else (len(g.get("diffs") or {}) + len(gd.get("failures") or []) + (gd.get("unverified") or 0)) or 1
-    return _line("golden", "Golden test", True, count, "pass" if ok else "fail", "proof", note, detail)
+        return _line("regression", "Regression test", True, 1, "fail", "proof", "not run: `ledger golden --check`")
+    tables = bool(g.get("tables_ok") if "tables_ok" in g else (g.get("ok") and g.get("gold"))) and not g.get("failed_step")
+    note = ("tables unchanged since freeze" if tables else "tables changed since freeze") + (f", failed at {g['failed_step']}" if g.get("failed_step") else "") + f"; checked {str(g.get('at') or '')[:10] or 'never'}"
+    detail = [{"table": k, "only_in_run": v.get("n_only_in_run"), "only_in_expected": v.get("n_only_in_expected")} for k, v in (g.get("diffs") or {}).items()]
+    return _line("regression", "Regression test", True, 0 if tables else (len(detail) or 1), "pass" if tables else "fail", "proof", note, detail)
+
+
+def hand_check_line(con, docs: dict | None = None, problems: list | None = None) -> dict:
+    """"Hand check" (required), read live (F-BF2): every verdict in gold/*.json against the working tables, by
+    gold.compare_db, the function `ledger golden --check` runs. A verdict given on Proof counts at once; no CLI run is
+    needed. Green only when every item has a verdict and every verdict holds; unchecked never passes. The detail lists
+    each unchecked item with a link to it on Proof, then each failing verdict; Fix in opens Proof's hand check at the first
+    unchecked item's company."""
+    from ..core.config import PROVEN
+    from ..review import gold
+    if docs is None:
+        docs, problems = gold.load_checked(expect=PROVEN)
+    try:
+        c = gold.compare_db(con, docs, problems=list(problems or []))
+    except Exception as e:  # a hand check that cannot be read is red, never a crash and never a pass
+        return _line("hand_check", "Hand check", True, 1, "fail", "proof?gold=", f"could not compare: {e.__class__.__name__}: {str(e)[:160]}")
+    unchecked = [(t, it) for t, d in sorted(docs.items()) for it in d.get("items", []) if not gold.has_verdict(it)]
+    done = c["items"] - c["unverified"]
+    note = f"{done} of {c['items']} with a verdict, " + ("all hold" if not c["failures"] else f"{len(c['failures'])} failing")
+    detail = [{"company": t, "item": gold.what(it), "link": f"proof?gold={t}&item={quote(it['id'], safe='')}"} for t, it in unchecked] + [{"failing": f} for f in c["failures"]]
+    failing = [f.split("|")[1] for f in c["failures"] if f.count("|") >= 2]  # a failure starts with its item id, kind|TICKER|...
+    first = unchecked[0][0] if unchecked else (failing[0] if failing else "")
+    count = c["unverified"] + len(c["failures"])
+    return _line("hand_check", "Hand check", True, count, "pass" if c["state"] == "pass" else "fail", f"proof?gold={first}" if count else "proof?gold=", note, detail)
 
 
 def claims_lines() -> list[dict]:
@@ -406,7 +435,7 @@ def review_counts(board: dict, unconfirmed: list, unmapped: list = ()) -> dict:
 def g6_link(unconfirmed: list, mappings: list) -> str:
     """The page that fixes G6's items: Reconcile with every cause when it holds both a run's decisions and asset types,
     else the one group that holds them."""
-    return "reconcile" if unconfirmed and mappings else "reconcile?cause=to_confirm" if unconfirmed else "reconcile?cause=asset_types"
+    return "reconcile?cause=asset_types" if mappings or not unconfirmed else "reconcile?cause=to_confirm"  # F-BF11: Category mapping when it holds any
 
 
 def g6_detail(unconfirmed: list, mappings: list) -> list[dict]:
@@ -433,7 +462,7 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     for gid in GATES:
         by_t = p["gates"][gid]
         n = sum(len(v) for v in by_t.values())
-        detail = [{"ticker": t, "items": len(items), "example": items[0] if items else ""} for t, items in by_t.items()]
+        detail = [{"ticker": t, "items": len(items), "example": items[0] if items else "", **({"link": _scoped(GATE_FIX[gid], t)} if items else {})} for t, items in by_t.items()]
         if gid == "G6":  # the Proposed bucket: one row per key, as the line had before T-RS, each with its page
             detail = g6_detail(unc, utc)
         lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", g6_link(unc, utc) if gid == "G6" else GATE_FIX[gid],
@@ -447,10 +476,10 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     um = taxonomy.unmapped(con, list(SCOPE))     # T14: the unmapped asset types, counted under Needs review whether or not the board lists them
     rc = review_counts(board, unc, um)
     open_, blocked, per_co = rc["bad"], rc["blocked"], rc["per_company"]  # rc["wait"] is the G6 line's count (tests.test_checklist.Parity)
-    lines.append(_line("open", word("row", "bad"), True, open_, "pass" if open_ == 0 else "fail", "reconcile",
+    lines.append(_line("open", word("row", "bad"), True, open_, "pass" if open_ == 0 else "fail", NEEDS_REVIEW_FIX,
                        "Neither verified nor explained, nothing proposed" + (f"; {len(um)} of them asset types with no entry (Reconcile, asset types)" if um else ""),
-                       [{"ticker": x["ticker"], "open": x["open"]} for x in per_co if x["open"]] + [{"unmapped": m} for m in um]))
-    lines.append(_line("blocked", word("row", "blocked"), True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "A block rule or a decision refuses the release", [{"ticker": x["ticker"], "blocked": x["blocked"]} for x in per_co if x["blocked"]]))
+                       [{"ticker": x["ticker"], "open": x["open"], "link": _scoped(NEEDS_REVIEW_FIX, x["ticker"])} for x in per_co if x["open"]] + [{"unmapped": m} for m in um]))
+    lines.append(_line("blocked", word("row", "blocked"), True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "A block rule or a decision refuses the release", [{"ticker": x["ticker"], "blocked": x["blocked"], "link": _scoped("reconcile", x["ticker"])} for x in per_co if x["blocked"]]))
     # completeness against the answer key (T81): an XBRL value with no released value and nothing open is a silent blank
     miss = proof.missing_from_dataset(con, SCOPE, decisions())
     lines.append(_line("complete", "Answer-key values missing from the dataset", True, len(miss), "pass" if not miss else "fail", "reconcile",
@@ -473,19 +502,20 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
                        [{"list": k, "rows": x["rows"], "added": x["added"], "removed": x["removed"], "changed": x["changed"], "columns_added": x["columns_added"], "columns_removed": x["columns_removed"]} for k, x in d.items()]))
     # known weaknesses with no mitigation (T68: informational, never red)
     lim = limitations.unmitigated(limitations.resolved(p["files"]))
-    lines.append(_line("limitations", "Limitations with no mitigation", False, len(lim), "info", "release",
+    lines.append(_line("limitations", "Limitations with no mitigation", False, len(lim), "info", "",  # fixed in taxonomy/limitations.yaml, not on a page: no Fix in (F-BF11)
                        "entries of taxonomy/limitations.yaml whose mitigation is none; LIMITATIONS.md in the packet lists every entry",
                        [{"id": e["id"], "closes": e["closes"]} for e in lim]))
     # the claims register (docs/BUILD.md): every claim a page shows has a row (required); what is not yet true (informs)
     lines.extend(claims_lines())
-    # golden and the last test run (T30)
+    # the hand check, read live from gold/*.json (F-BF2), the regression test from its report, and the last test run (T30)
     g = _report(GOLDEN)
-    lines.append(golden_line(g))
+    lines.append(hand_check_line(con))
+    lines.append(regression_line(g))
     t = _report(TESTS)
     lines.append(tests_line(t))
     # a release folder before this one the checklist cannot read: the diff would lie, so it is a red line, not a 500
     broken = broken_before(version)
-    lines.append(_line("previous", "Previous releases readable", True, len(broken), "fail" if broken else "pass", "release",
+    lines.append(_line("previous", "Previous releases readable", True, len(broken), "fail" if broken else "pass", "",  # a folder under releases/, fixed on disk: no Fix in to Release itself (F-BF11)
                        "; ".join(f"previous release {v} is broken: delete and rebuild" for v in broken) if broken else f"diffed against {p['previous']}" if p["previous"] else "no previous release",
                        [{"folder": v} for v in broken]))
     # the packet as it would be written
@@ -537,6 +567,9 @@ def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
     from .publish import NotPublishable, publish
     if not isinstance(by, str) or not by.strip():
         raise ValueError("a signature needs a name")
+    from ..core.status import is_person
+    if not is_person(by):  # F-BF5: like every other write, a name on config.PEOPLE (T80), checked before the checklist is built
+        raise ValueError(f"{by.strip()!r} is not on config.PEOPLE, the people who may sign a release")
     with _LOCK:
         cl = checklist(con, version, stage)
         if not cl["ok"]:

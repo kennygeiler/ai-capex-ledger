@@ -22,6 +22,7 @@ each in `ledger/cli/` (they do the table writes: `store.write`).
 |---|---|---|
 | `core/status.py` | the one definition of open: checked / explained / open / blocked (`_state`, `of_value`, `of_fact`, `of_mapping`) | row groups (M1) |
 | `core/states.py` | every state that reaches a page: its states, moves, deciding function, page word; `/pages/_states.js`, `/api/v1/states` | all ten: row, ladder, check, mapping, crop, gold, gold_group, crosscheck, line, edgar |
+| `core/ids.py` | `split_ids`: the one reader of a comma-joined `extraction_ids` (a dimension may hold a comma) | |
 | `core/store.py` | DuckDB schema, write contracts, `data/ledger.duckdb`, `docs/DATA_DICTIONARY.md` | |
 | `core/config.py` | companies, years, fields, `PROVEN`, `SCOPE`, `PEOPLE`, `INDUSTRIES` | |
 | `ingest/edgar.py` | the SEC client, its cache, `LEDGER_OFFLINE` | |

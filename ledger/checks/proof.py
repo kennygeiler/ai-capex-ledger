@@ -214,7 +214,9 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     open_total = sum(len(s["open"]) for s in stages.values())
     keys = keys_of([i for s in stages.values() for i in s["all"]])
     name = next((c["name"] for c in tracked() if c["ticker"] == t), t)
-    return {"ticker": t, "name": name, "layer": industry(t), "proven": open_total == 0, "open": open_total, "why": PROVEN_WHY.get(t, ""), "in_proven_set": t in PROVEN,
+    from ..core.states import company as company_state
+    filing = company_state(any(c["ticker"] == t for c in tracked()), len(docs))  # F-BF15: nothing read is never Proven
+    return {"ticker": t, "name": name, "layer": industry(t), "proven": open_total == 0 and filing == "filed", "filing_state": filing, "open": open_total, "why": PROVEN_WHY.get(t, ""), "in_proven_set": t in PROVEN,
             "stages": stages, "keys": keys, "key_grade": KEY_GRADE, "definitions": sorted((defs or {}).get(t, {}).keys())}
 
 

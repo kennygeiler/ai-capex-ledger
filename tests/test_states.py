@@ -91,6 +91,8 @@ class NothingAbsentReadsGood(unittest.TestCase):
                  ("line", checklist.tests_line({"ok": True, "count": 1, "git": "abc", "dirty": True}, head="abc")["state"]),
                  ("line", checklist.tests_line({"ok": True, "count": 1, "git": "abc", "dirty": False}, head="def", changed=["ledger/x.py"])["state"])]
         from ledger.checks import crops
+        cases.insert(0, ("company", states.company(False, 0)))
+        cases.insert(0, ("company", states.company(True, 0)))  # F-BF15: a followed company with nothing read is never good
         cases.append(("crop", crops.state(None, {}, None, None)["state"]))
         for machine, name in cases:
             self.assertNotEqual(self.kind(machine, name), states.GOOD, (machine, name))

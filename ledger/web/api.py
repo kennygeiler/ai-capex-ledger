@@ -15,6 +15,7 @@ from . import views as _views
 FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source", "measure", "category", "fiscal_year", "standard_type", "check",
            "source_kind", "period_kind", "has_value", "mapped", "status",
            "as_of")  # schema v11: the taxonomy rows' own columns; a boolean filter takes true / false. as_of (T55): a date; the rows carry it back
+RANGE = ("from", "to")  # F-BF7: a year range, inclusive, on a row's period or fiscal_year (FY2024); a row with neither is kept, as Explore's chart keeps it
 AS_OF_LISTS = ("values", "taxonomy")  # the lists that answer ?as_of=D (ledger/web/pit.py): the figure the newest filing filed by D gave
 AS_OF_NOTE = ("only the newest vintage of each figure is reconciled against XBRL; an as-of row from an older filing carries vintage_check "
               "'unchecked': its figure is the cell as read, not compared with its own filing's tags (docs/API.md, T55b)")  # for the response's top-level note
@@ -79,7 +80,7 @@ def _values(con) -> list[dict]:
     has no such line, or the cell is not yet extracted) is not a value and does not ship (T64; QUALITY.md counts them).
     Beside the value: `first_reported` (the first 10-K's figure), `accession` and `filed` of the filing the value comes
     from, and `citations`, every cell behind it (accession, table, row label, column label, cell text)."""
-    from ..release.release import split_ids
+    from ..core.ids import split_ids
     rows = _rows(con, 'select ticker, field, period, period_end, value, label as check_label, basis, first_reported, source, extraction_ids from "values" where value is not null order by ticker, field, period')
     ids = sorted({i for r in rows for i in split_ids(r["extraction_ids"] or "")})
     cells = {e["extraction_id"]: e for e in _rows(con, """select e.extraction_id, e.accession, d.filed, e.table_id, e.row_label, e.column_label, e.cell_text
@@ -96,12 +97,35 @@ def _split(v: str) -> set[str]:
     return {x.strip() for x in v.split(",") if x.strip()}
 
 
+FISCAL_YEAR = re.compile(r"^FY\d{4}$")
+
+
+def year_range(q: dict) -> tuple[str | None, str | None]:
+    """(from, to) of a request, each FY plus four digits (FY2023), or None when not asked. A value of any other shape, or
+    a from after the to, is a ValueError (400): a range read as text would compare "2024" or "fy24" wrongly (F-BF17)."""
+    out = []
+    for k in RANGE:
+        v = str(q.get(k) or "").strip().upper()
+        if v and not FISCAL_YEAR.match(v):
+            raise ValueError(f"{k} must be a fiscal year like FY2024, not {q.get(k)!r}")
+        out.append(v or None)
+    if out[0] and out[1] and out[0] > out[1]:
+        raise ValueError(f"from {out[0]} is after to {out[1]}")
+    return out[0], out[1]
+
+
 def apply(rows: list[dict], q: dict) -> list[dict]:
     """Filters, then group. Filter values match case-insensitively; a row without the column is kept."""
     for k in FILTERS:
         if q.get(k):
             want = {x.upper() for x in _split(q[k])}
             rows = [r for r in rows if k not in r or ("" if r.get(k) is None else str(r[k])).upper() in want]  # False is a value, not empty (has_value=false)
+    lo, hi = year_range(q)
+    year = lambda r: str(r.get("period") or r.get("fiscal_year") or "").upper()
+    if lo:
+        rows = [r for r in rows if not year(r) or year(r) >= lo]
+    if hi:
+        rows = [r for r in rows if not year(r) or year(r) <= hi]
     g = q.get("group")
     if g:
         if g not in FILTERS:

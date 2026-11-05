@@ -59,6 +59,17 @@ class Sign(TempReleases):
             cl.assert_not_called()
         self.assertEqual(list(self.tmp.iterdir()), [])
 
+    def test_refuses_a_name_off_config_people_before_the_checklist(self):
+        """F-BF5: Sign checks the name like every other write (T80): a name not on config.PEOPLE is a ValueError (400),
+        refused before the checklist is built or anything is written."""
+        with mock.patch.object(checklist, "checklist") as cl:
+            for by in ("Mallory", "claude", "kenny geiler"):
+                with self.assertRaises(ValueError) as e:
+                    checklist.sign(None, "v9.9.0", by)
+                self.assertIn("config.PEOPLE", str(e.exception))
+            cl.assert_not_called()
+        self.assertEqual(list(self.tmp.iterdir()), [])
+
     def test_refuses_while_a_required_line_is_red_and_writes_nothing(self):
         with mock.patch.object(checklist, "checklist", return_value=_cl(False, ["gate_G6", "unconfirmed"])), mock.patch("ledger.release.publish.publish") as p:
             with self.assertRaises(ValueError) as e:
@@ -85,11 +96,11 @@ class Sign(TempReleases):
     def test_a_failed_publish_leaves_the_signature_and_records_the_failure(self):
         with mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()), \
                 mock.patch("ledger.release.publish.publish", side_effect=SystemExit("Set DATABASE_URL in .env")):
-            r = checklist.sign(None, "v9.9.0", "K")
+            r = checklist.sign(None, "v9.9.0", "Kenny Geiler")
         self.assertFalse(r["published"])
         self.assertIn("DATABASE_URL", r["publish_error"])
         s = self.signoff_json()
-        self.assertEqual((s["signed_by"], s["published"]), ("K", False))
+        self.assertEqual((s["signed_by"], s["published"]), ("Kenny Geiler", False))
         self.assertIn("DATABASE_URL", s["publish_error"])
         self.assertNotIn("published_at", s)
 
@@ -97,7 +108,7 @@ class Sign(TempReleases):
         with mock.patch.object(checklist, "checklist", side_effect=[_cl(True), _cl(False, ["open"])]), mock.patch.object(checklist, "packet", return_value=_packet()), \
                 mock.patch("ledger.release.publish.publish") as p:
             with self.assertRaises(ValueError) as e:
-                checklist.sign(None, "v9.9.0", "K")
+                checklist.sign(None, "v9.9.0", "Kenny Geiler")
             p.assert_not_called()
         self.assertIn("open", str(e.exception))
         self.assertTrue((self.tmp / "v9.9.0" / "manifest.json").exists())
@@ -107,7 +118,7 @@ class Sign(TempReleases):
     def test_the_data_changing_between_checklist_and_packet_refuses(self):
         with mock.patch.object(checklist, "checklist", return_value=_cl(True, h="other")), mock.patch.object(checklist, "packet", return_value=_packet()):
             with self.assertRaises(ValueError):
-                checklist.sign(None, "v9.9.0", "K")
+                checklist.sign(None, "v9.9.0", "Kenny Geiler")
         self.assertEqual(list(self.tmp.iterdir()), [])
 
     def test_an_existing_folder_with_a_different_hash_or_a_signature_refuses(self):
@@ -117,14 +128,14 @@ class Sign(TempReleases):
         self.assertEqual(checklist.folder_state("v9.9.0", HASH)[0], "different")
         with mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()):
             with self.assertRaises(ValueError) as e:
-                checklist.sign(None, "v9.9.0", "K")
+                checklist.sign(None, "v9.9.0", "Kenny Geiler")
         self.assertIn("built before this release's checks; delete and rebuild", str(e.exception))
         (d / "manifest.json").write_text(json.dumps({"hash": HASH}))
         (d / "SIGNOFF.json").write_text("{}")
         self.assertEqual(checklist.folder_state("v9.9.0", HASH)[0], "signed")
         with mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()):
             with self.assertRaises(ValueError) as e:
-                checklist.sign(None, "v9.9.0", "K")
+                checklist.sign(None, "v9.9.0", "Kenny Geiler")
         self.assertIn("already signed", str(e.exception))
         (d / "manifest.json").unlink()
         (d / "SIGNOFF.json").unlink()
@@ -133,12 +144,12 @@ class Sign(TempReleases):
     def test_a_record_that_fails_after_a_successful_publish_is_reported_not_undone(self):
         with mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()), \
                 mock.patch("ledger.release.publish.publish", return_value={"rows": {"values": 1}}), mock.patch("ledger.cli.signoff.record", side_effect=OSError("disk full")) as rec:
-            r = checklist.sign(None, "v9.9.0", "K")
+            r = checklist.sign(None, "v9.9.0", "Kenny Geiler")
         self.assertEqual((r["published"], r["rows"], r["record_error"]), (True, {"values": 1}, "disk full"))
         self.assertEqual(rec.call_count, 1)
         self.assertEqual(rec.call_args.kwargs["published"], True)  # never a record(published=False) after a publish that succeeded
         s = self.signoff_json()
-        self.assertEqual(s["signed_by"], "K")
+        self.assertEqual(s["signed_by"], "Kenny Geiler")
         self.assertNotIn("published", s)  # the note did not land; the reply said so
 
     def test_folder_state_reads_a_manifest_of_the_right_shape_only(self):
@@ -159,7 +170,7 @@ class Sign(TempReleases):
                 mock.patch("ledger.release.publish.publish", return_value={"rows": {}}):
             def go():
                 try:
-                    results.append(checklist.sign(None, "v9.9.0", "K"))
+                    results.append(checklist.sign(None, "v9.9.0", "Kenny Geiler"))
                 except ValueError as e:
                     results.append(e)
             ts = [threading.Thread(target=go) for _ in range(4)]
@@ -169,7 +180,7 @@ class Sign(TempReleases):
                 t.join()
         self.assertEqual(sum(isinstance(r, dict) for r in results), 1)
         self.assertEqual(sum(isinstance(r, ValueError) for r in results), 3)
-        self.assertEqual(self.signoff_json()["signed_by"], "K")
+        self.assertEqual(self.signoff_json()["signed_by"], "Kenny Geiler")
 
 
 class SignoffFile(TempReleases):
@@ -274,7 +285,7 @@ class Endpoints(unittest.TestCase):
         from ledger.web import app
         base = self._serve()
         with mock.patch.object(app, "READONLY", True), mock.patch("ledger.release.checklist.sign") as s:
-            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"})
+            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "Kenny Geiler"})
             s.assert_not_called()
         self.assertEqual(code, 403)
         self.assertIn("read-only", body["error"])
@@ -285,7 +296,7 @@ class Endpoints(unittest.TestCase):
             code, body = self._post(base + "/api/release/sign", None, ctype="text/plain", raw=b'{"version":"v9.9.0","by":"K"}')
             self.assertEqual(code, 403)
             self.assertIn("application/json", body["error"])
-            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"}, origin="https://evil.example")
+            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "Kenny Geiler"}, origin="https://evil.example")
             self.assertEqual(code, 403)
             self.assertIn("own pages", body["error"])
             code, body = self._post(base + "/api/resolve", {"key": "k"}, ctype="text/plain", raw=b"{}")  # every POST, not only sign
@@ -296,14 +307,14 @@ class Endpoints(unittest.TestCase):
             r.assert_not_called()
         with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch("ledger.release.checklist.sign", return_value={"ok": 1}) as s:
             for origin in (f"http://127.0.0.1:{self.port}", f"http://localhost:{self.port}", None):  # the server's own origin, or none (curl)
-                code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"}, ctype="application/json; charset=utf-8", origin=origin)
+                code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "Kenny Geiler"}, ctype="application/json; charset=utf-8", origin=origin)
                 self.assertEqual((code, body), (200, {"ok": 1}))
             self.assertEqual(s.call_count, 3)
 
     def test_a_red_checklist_or_a_bad_name_refuses_with_400(self):
         base = self._serve()
         with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch("ledger.release.checklist.sign", side_effect=ValueError("v9.9.0 not signed: gate_G6 is red on the checklist")):
-            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"})
+            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "Kenny Geiler"})
         self.assertEqual(code, 400)
         self.assertIn("gate_G6", body["error"])
         with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch("ledger.release.checklist.checklist") as cl:
@@ -330,6 +341,21 @@ class Endpoints(unittest.TestCase):
             s.assert_not_called()
             r.assert_not_called()
 
+    def test_a_name_off_config_people_is_400_on_sign_and_mapping_reject(self):
+        """F-BF5: the server refuses Sign and a mapping Reject by a name not on config.PEOPLE, as it does every other write."""
+        base = self._serve()
+        with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch.object(checklist, "checklist") as cl, \
+                mock.patch("ledger.review.mapper._append") as ap, mock.patch("ledger.review.mapper._edit") as ed:
+            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "Mallory"})
+            self.assertEqual(code, 400)
+            self.assertIn("config.PEOPLE", body["error"])
+            code, body = self._post(base + "/api/mapping/reject", {"ticker": "MSFT", "reported_name": "Land", "standard_type": "us-gaap:LandMember", "by": "Mallory"})
+            self.assertEqual(code, 400)
+            self.assertIn("config.PEOPLE", body["error"])
+            cl.assert_not_called()
+            ap.assert_not_called()
+            ed.assert_not_called()
+
     def test_checklist_get_is_not_the_v1_catch_all(self):
         base = self._serve()
         with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch("ledger.release.checklist.checklist", return_value=_cl(True)):
@@ -343,7 +369,7 @@ class Endpoints(unittest.TestCase):
         self.addCleanup(shutil.rmtree, tmp, True)
         with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), \
                 mock.patch.object(checklist, "checklist", return_value=_cl(False, ["unconfirmed"])), mock.patch("ledger.release.publish.publish") as p:
-            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"})
+            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "Kenny Geiler"})
             p.assert_not_called()
         self.assertEqual(code, 400)
         self.assertIn("unconfirmed", body["error"])
@@ -356,12 +382,39 @@ class Endpoints(unittest.TestCase):
         with mock.patch("ledger.web.app._con", return_value=mock.MagicMock()), mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), \
                 mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()), \
                 mock.patch("ledger.release.publish.publish", side_effect=RuntimeError("connection refused")):
-            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "K"})
+            code, body = self._post(base + "/api/release/sign", {"version": "v9.9.0", "by": "Kenny Geiler"})
         self.assertEqual(code, 200)
-        self.assertEqual((body["published"], body["signed_by"]), (False, "K"))
+        self.assertEqual((body["published"], body["signed_by"]), (False, "Kenny Geiler"))
         self.assertIn("connection refused", body["publish_error"])
         s = json.loads((tmp / "v9.9.0" / "SIGNOFF.json").read_text())
         self.assertEqual((s["published"], s["publish_error"]), (False, "connection refused"))
+
+
+def fix_in_links_land_on_their_item(t, cl):
+    """F-BF11: every Fix in opens the place that fixes the line: Hand check on Proof's hand check at the first unchecked
+    company, Needs review on Reconcile's rule findings, Proposed on Category mapping when it holds any; a line fixed on
+    Release itself (or on disk) has no Fix in; a per-company row in a line's detail links to that company."""
+    L = {l["id"]: l for l in cl["lines"]}
+    hc = L["hand_check"]
+    if hc["state"] != "pass":
+        first = next((d["company"] for d in hc["detail"] if "company" in d), None)
+        if first:
+            t.assertEqual(hc["link"], f"proof?gold={first}")
+    t.assertEqual(L["open"]["link"], "reconcile?cause=finding_unconfirmed")
+    if cl["gates"]["table"]["G6"] and any(d.get("key", "").startswith("asset_types|") for d in L["gate_G6"]["detail"]):
+        t.assertEqual(L["gate_G6"]["link"], "reconcile?cause=asset_types")
+    t.assertEqual((L["limitations"]["link"], L["previous"]["link"]), ("", ""))
+    t.assertFalse([l["id"] for l in cl["lines"] if (l["link"] or "").split("?")[0] == "release"])
+    for d in L["open"]["detail"]:
+        if "ticker" in d:
+            t.assertEqual(d["link"], f"reconcile?cause=finding_unconfirmed&scope={d['ticker']}")
+
+
+class FixIn(unittest.TestCase):
+    def test_scoped_links(self):
+        self.assertEqual(checklist._scoped("proof", "APLD"), "proof/APLD")
+        self.assertEqual(checklist._scoped("reconcile", "APLD"), "reconcile?scope=APLD")
+        self.assertEqual(checklist._scoped("reconcile?cause=asset_types", "APLD"), "reconcile?cause=asset_types&scope=APLD")
 
 
 class DryRun(unittest.TestCase):
@@ -382,7 +435,8 @@ class DryRun(unittest.TestCase):
         try:
             with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), mock.patch.object(store, "init", return_value=con):
                 cl = checklist.checklist(con)
-                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "golden", "tests", "previous", "packet"])
+                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "no_value", "diff", "limitations", "claims", "claims_doc", "known_gaps", "hand_check", "regression", "tests", "previous", "packet"])
+                fix_in_links_land_on_their_item(self, cl)  # F-BF11
                 comp = next(l for l in cl["lines"] if l["id"] == "complete")  # T81: required, and 0 on the six
                 self.assertEqual((comp["required"], comp["state"], comp["count"]), (True, "pass", 0), comp["detail"][:3])
                 lim = next(l for l in cl["lines"] if l["id"] == "limitations")  # T68: informs, never red
@@ -410,7 +464,7 @@ class DryRun(unittest.TestCase):
                 self.skipTest(f"{cl['version']} is green: a dry run would sign")
             with mock.patch.object(checklist, "write") as w, mock.patch("ledger.cli.signoff.sign") as s, mock.patch("ledger.release.publish.publish") as p:
                 with self.assertRaises(ValueError) as e:
-                    checklist.sign(con, None, "dry run")
+                    checklist.sign(con, None, "Kenny Geiler")
                 w.assert_not_called(); s.assert_not_called(); p.assert_not_called()
             for lid in cl["red"]:
                 self.assertIn(lid, str(e.exception))
@@ -445,7 +499,7 @@ class Parity(unittest.TestCase):
     def test_g6_links_to_the_page_that_holds_its_items_and_lists_every_key(self):
         unc = [{"key": "finding_unconfirmed|X|capex|||jump|", "state": "explain", "reason": "a run decided"}]
         utc = [{"ticker": "X", "reported_name": "Land", "standard_type": "us-gaap:LandMember", "by": "mapper"}]
-        self.assertEqual(checklist.g6_link(unc, utc), "reconcile")
+        self.assertEqual(checklist.g6_link(unc, utc), "reconcile?cause=asset_types")  # F-BF11: Proposed opens Category mapping
         self.assertEqual(checklist.g6_link(unc, []), "reconcile?cause=to_confirm")
         self.assertEqual(checklist.g6_link([], utc), "reconcile?cause=asset_types")
         d = checklist.g6_detail(unc, utc)
@@ -648,3 +702,20 @@ class PacketColumns(unittest.TestCase):
             readme("v0.0.1", [{"ticker": "NVDA", "period": "FY2026", "value": 1}], [], {"values.csv": "ticker,made_up\nNVDA,1\n"})
         self.assertEqual(column_doc("values", "field")[0], "`revenue`, `capex`, `opex`")  # the shipped set, not the table's enum
         self.assertEqual(column_doc("taxonomy", "measure")[0], "`spent`, `committed`, `derived`, `planned`, `company_stated_ai`")
+
+
+class HistoricSignatures(unittest.TestCase):
+    """Review question 11: the PEOPLE check is on the act of signing only (checklist.sign). A release already signed is a
+    record: nothing that reads releases/*/SIGNOFF.json checks its signed_by against config.PEOPLE, so a historic signer
+    ("K", or anyone since removed from the list) stays readable and publishable. Pinned with the list emptied."""
+
+    def test_signed_releases_read_and_check_with_nobody_on_the_list(self):
+        from ledger.core import config
+        from ledger.release import publish
+        from ledger.web import app
+        signed = [d for d in checklist._releases() if (d / "SIGNOFF.json").exists()]
+        self.assertTrue(signed)
+        with mock.patch.object(config, "PEOPLE", []):
+            for d in [d for d in signed if "files" in json.loads((d / "manifest.json").read_text())]:  # manifests before the files list cannot be re-hashed, signer or not
+                self.assertEqual(publish.check(d.name)["signoff"]["signed_by"], json.loads((d / "SIGNOFF.json").read_text())["signed_by"])
+            self.assertEqual({r["version"] for r in app.outputs()["releases"] if r["signed_by"]}, {d.name for d in signed})

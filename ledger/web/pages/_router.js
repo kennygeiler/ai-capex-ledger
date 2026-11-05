@@ -9,7 +9,7 @@ async function route() {
   view.replaceChildren(h('h1', {class: 'sr'}, `Kenny's Data Emporium, ${page === 'proof' && arg ? `Company trail ${arg}` : ({proof: 'Proof', rules: 'Rules', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', explore: 'Explore', release: 'Release', gaps: 'Known gaps', docs: 'Docs', evidence: 'Evidence'})[page] || 'Data'}`));
   try {
     if (page === 'proof' && arg) await trailPage(view, arg);
-    else if (page === 'proof') await proofPage(view);
+    else if (page === 'proof') await proofPage(view, qs);
     else if (page === 'rules') await rulesPage(view);
     else if (page === 'company') await dataPage(view, `ticker=${arg || ''}`);
     else if (page === 'reconcile') await reconcilePage(view, qs);

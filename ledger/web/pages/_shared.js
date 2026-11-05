@@ -30,8 +30,10 @@ const FIELDS = {revenue: 'Revenue', capex: 'Capex', opex: 'Opex', cost_of_revenu
   ppe_category: 'PP&E by category', finance_lease_liability: 'Finance lease liabilities', purchase_commitments: 'Purchase commitments'};
 const LABEL = {...FIELDS, cost_of_revenue_part: 'Cost line'};
 
+// every write is JSON: a body gets Content-Type application/json unless the caller set one (the server refuses a write without it, 403)
+const withJson = (opts) => (opts && opts.body != null && !Object.keys(opts.headers || {}).some((k) => k.toLowerCase() === 'content-type') ? {...opts, headers: {...(opts.headers || {}), 'Content-Type': 'application/json'}} : opts);
 async function api(path, opts) {
-  const r = await fetch(path, opts);
+  const r = await fetch(path, withJson(opts));
   const d = await r.json();
   if (!r.ok) { const e = new Error(d.error || r.statusText); e.status = r.status; throw e; }  // 409: the record changed since the page loaded
   return d;

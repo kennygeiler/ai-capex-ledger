@@ -182,7 +182,7 @@ def add(con, trail: dict) -> dict:
     # main numbers: the value, the cells it was read from, the SEC's copy
     vals = {(v["field"], v["period"]): v for v in _rows(con, 'select field, period, value, extraction_ids from "values" where ticker = ?', t)}
     from ..checks import calc
-    from ..release.release import split_ids
+    from ..core.ids import split_ids
     calcs = calc.for_ticker(con, t)  # a figure calculated from several cells says so (the gold set reads the same function)
     ext = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, field, table_id, row_label, column_label, cell_text from extractions where ticker = ?", t)}
     for it in stages.get("values", {}).get("all", []):

@@ -16,6 +16,7 @@ from __future__ import annotations
 from datetime import date
 
 from ..core.config import RELEASE_FIELDS
+from ..core.ids import split_ids
 from ..checks.reconcile import _restated
 
 PARTS = {"opex": ("revenue", "cost_of_revenue", "operating_income")}
@@ -123,7 +124,7 @@ def taxonomy_as_of(con, rows: list[dict], day: str, tickers: list[str] | None = 
     from ..release.taxonomy import deep_link
     day = parse_day(day)
     pit = {(r["ticker"], r["period"]): r for r in as_of(con, day, tickers) if r["field"] == "capex"}
-    ids = {i for r in pit.values() for i in r["extraction_ids"].split(",")}
+    ids = {i for r in pit.values() for i in split_ids(r["extraction_ids"])}
     cells = {e["extraction_id"]: e for e in _rows(con, "select e.extraction_id, e.table_id, e.row_label, e.cell_text, d.url from extractions e join documents d on d.accession = e.accession where e.extraction_id in (select unnest(?))", list(ids))} if ids else {}
     out = []
     for r in rows:
@@ -131,7 +132,7 @@ def taxonomy_as_of(con, rows: list[dict], day: str, tickers: list[str] | None = 
             p = pit.get((r["ticker"], r["fiscal_year"]))
             if p is None:
                 continue
-            cell = cells.get(p["extraction_ids"].split(",")[0]) or {}
+            cell = cells.get((split_ids(p["extraction_ids"]) or [""])[0]) or {}
             same = p["accession"] == r.get("accession")
             out.append({**r, "value": p["value"], "source": p["extraction_ids"], "accession": p["accession"], "filed": p["filed"], "source_table": cell.get("table_id"),
                         "source_url": deep_link(cell.get("url"), cell.get("row_label"), cell.get("cell_text")), "has_value": True,

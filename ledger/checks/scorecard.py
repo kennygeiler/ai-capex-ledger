@@ -4,6 +4,7 @@ import json
 
 from ..review.review import decisions, open_items
 from ..core.store import ROOT
+from ..core.ids import split_ids
 from .evidence import load_all
 
 
@@ -25,7 +26,7 @@ def scorecard(con, tickers: list[str], name: str) -> list[dict]:
         mine = [d["accession"] for d in docs if d["ticker"] == t]
         rs = [runs.get(a, {}) for a in mine]
         headless = [r for r in rs if r.get("attempts")]
-        ids = [i for v in vals if v["ticker"] == t and v["extraction_ids"] for i in v["extraction_ids"].split(",")]
+        ids = [i for v in vals if v["ticker"] == t and v["extraction_ids"] for i in split_ids(v["extraction_ids"])]
         vs = [v for v in vals if v["ticker"] == t]
         out.append({"ticker": t, "filings": len(mine),
                     "agent": f"{len(headless)} headless" + (f", {len(mine) - len(headless)} in-session" if len(headless) < len(mine) else ""),

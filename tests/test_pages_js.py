@@ -1,0 +1,189 @@
+"""Page logic run in node, the pure pieces of ledger/web/pages/*.js pulled out by name (the pattern tests.test_score.Page uses).
+
+F-BF3: Explore's Save as view / Save changes / Delete sent no Content-Type and the server refused them 403. api() now adds
+application/json to any request with a body, so no page can forget it."""
+import json
+import re
+import shutil
+import subprocess
+import unittest
+from pathlib import Path
+
+PAGES = Path(__file__).resolve().parents[1] / "ledger" / "web" / "pages"
+
+
+def line(file: str, prefix: str) -> str:
+    """The one top-level line of a page script that starts with `prefix` (a `const name = ...` helper)."""
+    return next(l for l in (PAGES / file).read_text().splitlines() if l.startswith(prefix))
+
+
+def block(file: str, start: str, end: str) -> str:
+    s = (PAGES / file).read_text()
+    i = s.index(start)
+    return s[i:s.index(end, i) + len(end)]
+
+
+def node(js: str, *args) -> str:
+    return subprocess.run(["node", "-e", js, "--", *args], capture_output=True, text=True, check=True).stdout
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class JsonWrites(unittest.TestCase):
+    def run_api(self, opts) -> dict:
+        js = line("_shared.js", "const withJson") + "\n" + block("_shared.js", "async function api(", "\n}") + """
+let seen; globalThis.fetch = async (p, o) => { seen = o || null; return {ok: true, json: async () => ({})}; };
+api('/api/v1/views', JSON.parse(process.argv[process.argv.length - 1])).then(() => process.stdout.write(JSON.stringify(seen)));"""
+        return json.loads(node(js, json.dumps(opts)))
+
+    def test_a_body_gets_the_json_content_type(self):
+        got = self.run_api({"method": "POST", "body": json.dumps({"by": "Kenny Geiler"})})
+        self.assertEqual(got["headers"]["Content-Type"], "application/json")
+
+    def test_a_callers_header_is_kept(self):
+        got = self.run_api({"method": "POST", "body": "{}", "headers": {"content-type": "application/json; charset=utf-8"}})
+        self.assertEqual(got["headers"], {"content-type": "application/json; charset=utf-8"})
+
+    def test_a_get_is_unchanged(self):
+        self.assertIsNone(self.run_api(None))
+
+    def test_explore_writes_go_through_api(self):
+        """Save as view, Save changes and Delete: every POST in explore.js is an api() call, none a bare fetch; Delete
+        catches its error and shows it beside the button."""
+        js = (PAGES / "explore.js").read_text()
+        self.assertNotIn("fetch(", js)
+        posts = re.findall(r"(\w+)\([^()]*\{method: 'POST'", js)
+        self.assertEqual(sorted(set(posts)), ["api"])
+        self.assertIn("catch (err) { delMsg.textContent = err.message", js)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class BulkSelect(unittest.TestCase):
+    """F-BF4: "Select all n" and the space key selected Category mapping rows too, and /api/resolve/bulk refused the whole
+    batch (400). Only rows the bulk route takes are selectable."""
+
+    def keys(self, rows):
+        js = line("reconcile.js", "const bulkable") + "\n" + line("reconcile.js", "const bulkKeys") + \
+            "\nprocess.stdout.write(JSON.stringify(bulkKeys(JSON.parse(process.argv[process.argv.length - 1]))));"
+        return json.loads(node(js, json.dumps(rows)))
+
+    def test_mapping_rows_are_never_selected(self):
+        rows = [{"key": "finding_unconfirmed|GOOGL|capex|FY2024||jump|", "cause": "finding_unconfirmed", "bulk": True},
+                {"key": "asset_types|GOOGL|Land", "cause": "asset_types", "bulk": True},  # even if a server said so
+                {"key": "asset_types|GOOGL|Servers", "cause": "asset_types", "bulk": False},
+                {"key": "blocked|AMD|capex|FY2023||x|", "cause": "blocked"}]  # no bulk flag: not selectable
+        self.assertEqual(self.keys(rows), ["finding_unconfirmed|GOOGL|capex|FY2024||jump|"])
+
+    def test_the_page_selects_through_bulkable_only(self):
+        js = (PAGES / "reconcile.js").read_text()
+        self.assertIn("for (const k of selectable) selected.add(k)", js)
+        self.assertIn("if (!bulkable(r)) return; selected.has(r.key)", js)
+        self.assertIn("const cb = !bulkable(r) ? '' :", js)
+        self.assertNotIn("for (const r of open) selected.add(r.key)", js)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class SignButton(unittest.TestCase):
+    """F-BF5: Sign's enabled state was fixed at render; typing a name changed nothing. signState decides it from the
+    checklist and the Signer box, and the page re-reads it on every input to the box."""
+
+    def state(self, cl, name):
+        js = line("release.js", "const signState") + "\nconst a = JSON.parse(process.argv[process.argv.length - 1]);\nprocess.stdout.write(JSON.stringify(signState(a[0], a[1])));"
+        return json.loads(node(js, json.dumps([cl, name])))
+
+    CL = {"version": "v1.9.0", "people": ["Kenny Geiler"], "lines": [{"required": True, "ok": True}, {"required": False, "ok": False}]}
+
+    def test_enabled_only_for_a_name_on_the_list_with_every_required_line_green(self):
+        self.assertEqual(self.state(self.CL, "Kenny Geiler"), [True, "Signs and publishes v1.9.0"])
+        self.assertEqual(self.state(self.CL, " Kenny Geiler "), [True, "Signs and publishes v1.9.0"])
+        self.assertEqual(self.state(self.CL, ""), [False, "Enter a signer name"])
+        self.assertEqual(self.state(self.CL, "Mallory"), [False, "Not on the signer list"])
+        red = {**self.CL, "lines": [{"required": True, "ok": False}]}
+        self.assertEqual(self.state(red, "Kenny Geiler"), [False, "1 required check failing"])
+
+    def test_the_page_rechecks_on_every_input_to_the_signer_box(self):
+        js = (PAGES / "release.js").read_text()
+        top = js[:js.index("async function releasePage")]
+        body = js[js.index("async function releasePage"):]
+        self.assertIn("document.addEventListener('input', (e) => { if (e.target.id === 'me' && releaseRecheck) releaseRecheck(); });", top)  # bound once, at load
+        self.assertNotIn("addEventListener", body)  # never once per render (review item 10)
+        self.assertIn("button.disabled = !canSign", js)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class ExploreExport(unittest.TestCase):
+    """F-BF7: Explore's JSON and CSV links dropped Measure, Category, Standard type and From / To (617 rows exported, 27
+    charted). The chart's rows and both links come from one URL, listUrl, which carries every filter."""
+
+    def url(self, st):
+        js = line("explore.js", "const listUrl") + "\nprocess.stdout.write(listUrl(JSON.parse(process.argv[process.argv.length - 1])));"
+        return node(js, json.dumps(st))
+
+    def test_every_chart_filter_is_in_the_export_url(self):
+        from urllib.parse import parse_qs, urlparse
+        u = urlparse(self.url({"measure": "taxonomy", "tmeasure": "spent", "category": "capex", "standard_type": "LandMember", "from": "FY2023", "to": "FY2025",
+                               "layer": "hyperscaler", "ticker": "MSFT,GOOGL", "field": "", "kind": ""}))
+        self.assertEqual(u.path, "/api/v1/taxonomy")
+        self.assertEqual({k: v[0] for k, v in parse_qs(u.query).items()},
+                         {"measure": "spent", "category": "capex", "standard_type": "LandMember", "from": "FY2023", "to": "FY2025", "layer": "hyperscaler", "ticker": "MSFT,GOOGL"})
+
+    def test_the_chart_and_the_links_read_one_url(self):
+        js = (PAGES / "explore.js").read_text()
+        self.assertIn("const fetchRows = async () => (await api(listUrl(st))).rows;", js)
+        self.assertIn("const url = listUrl(st);", js)
+        self.assertIn("h('a', {href: url + '&format=csv', class: 'small'}, 'CSV')", js)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class PartialYears(unittest.TestCase):
+    """F-BF10: Explore summed FY2026 over the 3 of 6 companies that had filed it and drew it as a complete bar, which read
+    as a capex collapse. yearCoverage is the one test of a year complete for the set; a partial year is hatched, lighter and
+    labelled "FY2026 · 3 of 6 companies"."""
+
+    def cov(self, rows, key="fiscal_year"):
+        js = line("explore.js", "const yearCoverage") + "\nprocess.stdout.write(JSON.stringify(yearCoverage(JSON.parse(process.argv[process.argv.length - 1]), 'fiscal_year')));"
+        return json.loads(node(js, json.dumps(rows)))
+
+    def test_a_year_fewer_companies_filed_is_not_complete(self):
+        six = ["MSFT", "GOOGL", "AMZN", "NVDA", "APLD", "AMD"]
+        rows = [{"ticker": t, "fiscal_year": "FY2025", "value": 1} for t in six] + [{"ticker": t, "fiscal_year": "FY2026", "value": 1} for t in ("MSFT", "NVDA", "APLD")]
+        rows += [{"ticker": "MSFT", "fiscal_year": "FY2025", "value": 2}]  # two rows of one company count once
+        got = self.cov(rows)
+        self.assertEqual(got["FY2025"], {"n": 6, "of": 6, "complete": True})
+        self.assertEqual(got["FY2026"], {"n": 3, "of": 6, "complete": False})
+
+    def test_one_company_is_always_complete(self):
+        self.assertEqual(self.cov([{"ticker": "A", "fiscal_year": "FY2024"}]), {"FY2024": {"n": 1, "of": 1, "complete": True}})
+
+    def test_the_chart_marks_partial_years(self):
+        js = (PAGES / "explore.js").read_text()
+        self.assertIn("partial(x) ? `${x} · ${cov[x].n} of ${cov[x].of} companies`", js)
+        self.assertIn("pattern: {shape: xs.map((x) => (partial(x) ? '/' : ''))", js)
+        self.assertIn("`Incomplete: ${gaps.map(xLabel).join(', ')}`", js)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class ReconcileSigners(unittest.TestCase):
+    """F-BF13: Reconcile's Approve, Choose another and Reject (every needsMe button) disable for a name not on
+    config.PEOPLE, which the reconcile feed sends as `people`, the same as Sign."""
+
+    def run_js(self, people, names):
+        js = "let me = '';\n" + "\n".join(line("reconcile.js", p) for p in ("let SIGNERS", "const isSigner", "const signerWhy")) + \
+            "\nconst a = JSON.parse(process.argv[process.argv.length - 1]); SIGNERS = a[0];\nprocess.stdout.write(JSON.stringify(a[1].map((n) => [isSigner(n), signerWhy(n)])));"
+        return json.loads(node(js, json.dumps([people, names])))
+
+    def test_only_a_name_on_the_list_enables(self):
+        got = self.run_js(["Kenny Geiler"], ["Kenny Geiler", " Kenny Geiler ", "Mallory", ""])
+        self.assertEqual([g[0] for g in got], [True, True, False, False])
+        self.assertEqual([got[2][1], got[3][1]], ["Not on the signer list", "Enter a signer name"])
+
+    def test_every_mapping_write_button_goes_through_needs_me(self):
+        js = (PAGES / "reconcile.js").read_text()
+        self.assertEqual(js.count("const reject = needsMe(h('button'"), 2)
+        self.assertIn("const choose = needsMe(h('button'", js)
+        self.assertEqual(js.count("const approve = needsMe(h('button'"), 2)
+        self.assertNotIn("!(me || '').trim()", js)
+        self.assertIn("SIGNERS = d.people || [];", js)
+
+
+if __name__ == "__main__":
+    unittest.main()

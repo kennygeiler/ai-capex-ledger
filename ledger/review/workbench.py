@@ -310,8 +310,10 @@ def items(con, flow: dict) -> dict:
     confirm = to_confirm(None if flow["scope"] in ("", "all") else flow["tickers"], names)
     rows += asset_types(con, flow.get("tickers") or sorted(names), names)  # the scope's tickers: SCOPE for "all", a layer's, or the one ticker asked for
     from ..core.states import row as row_state
+    from .resolutions import is_live
     for r in confirm + rows:  # the row's word on the page: states.row, the one the trail and Proof read
         r["verification"] = row_state(r["state"], r["by"])
+        r["bulk"] = r["cause"] != ASSET_TYPES and is_live(r["key"])  # F-BF4: only what /api/resolve/bulk accepts is selectable; a category mapping never
     from ..core.states import tally  # the header's counts, by the same word every row shows: Proposed is every `wait` row (a run's
     by_state = tally(r["verification"] for r in confirm + rows)  # decision to confirm, an asset type no person confirmed), the set G6 refuses on
     open_ = [r for r in rows if r["open"]]
@@ -323,5 +325,6 @@ def items(con, flow: dict) -> dict:
         by_cause[r["cause"]]["dollars"] += r["dollars"]
     causes = sorted(by_cause.values(), key=lambda c: (c["cause"] != TO_CONFIRM, -c["dollars"]))
     from .mapper import members
+    from ..core.config import PEOPLE
     return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": confirm + rows, "open": len(open_), "to_confirm": len(confirm), "by_state": by_state, "dollars": sum(r["dollars"] for r in open_),
-            "causes": causes, "names": names, "members": members()}
+            "causes": causes, "names": names, "members": members(), "people": list(PEOPLE)}  # who may write: the page disables every write for another name (F-BF13)

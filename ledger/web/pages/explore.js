@@ -8,6 +8,10 @@ const EXM = {taxonomy: {label: 'All measures', value: (r) => r.value, alt: {chan
 const EX_AXES = {period: 'year', fiscal_year: 'fiscal year', ticker: 'company', layer: 'layer', field: 'field', measure: 'measure', category: 'category', standard_type: 'standard type', kind: 'kind', dimension: 'dimension', status: 'status', scope: 'scope', source: 'source', source_kind: 'source kind', period_kind: 'period kind', check: 'check'};
 const EX_TYPES = {bars: 'bars', stacked: 'stacked bars', lines: 'lines', share: 'share of total'};
 const colorReg = (() => { let m = {}; try { m = JSON.parse(localStorage.getItem('datahq-colors') || '{}'); } catch {} return (name) => { if (name === 'Other') return '#9aa39d'; if (m[name] == null) { m[name] = Object.keys(m).length; try { localStorage.setItem('datahq-colors', JSON.stringify(m)); } catch {} } return COLORS[m[name] % COLORS.length]; }; })();
+// the list request behind the chart, and its JSON / CSV export: every filter the controls hold (Measure, Category, Standard type on the taxonomy; Field, Kind, Layer, Tickers; From / To), server side
+const listUrl = (st) => { const p = new URLSearchParams(); for (const k of ['field', 'kind', 'layer', 'ticker', 'from', 'to']) if (st[k]) p.set(k, st[k]); if (st.measure === 'taxonomy') for (const [k, q_] of [['tmeasure', 'measure'], ['category', 'category'], ['standard_type', 'standard_type']]) if (st[k]) p.set(q_, st[k]); return `/api/v1/${st.measure}?${p}`; };
+// F-BF10: the one test of "year complete for the set": {year: {n, of, complete}}, n the companies with a row that year, of the companies with a row in any year of the chart
+const yearCoverage = (rows, key) => { const all = new Set(), by = {}; for (const r of rows) { if (!r.ticker) continue; all.add(r.ticker); if (r[key] != null) (by[r[key]] = by[r[key]] || new Set()).add(r.ticker); } return Object.fromEntries(Object.entries(by).map(([y, s]) => [y, {n: s.size, of: all.size, complete: s.size === all.size}])); };
 async function explorePage(view, arg, qs) {
   const {rows: saved} = await api('/api/v1/views');
   const q = parseQ(qs || '');
@@ -21,13 +25,7 @@ async function explorePage(view, arg, qs) {
   const left = h('div', {}, h('div', {class: 'hrow'}, h('span', {class: 'muted small'}, `${saved.length} saved view${saved.length === 1 ? '' : 's'}`), h('a', {href: '#explore', class: 'small'}, 'New')), list);
   const body = h('div', {class: 'exbody'});
   view.append(h('div', {class: 'views'}, left, body));
-  const fetchRows = async () => {
-    const p = new URLSearchParams();
-    for (const k of ['field', 'kind', 'layer', 'ticker']) if (st[k]) p.set(k, st[k]);
-    for (const [k, q_] of [['tmeasure', 'measure'], ['category', 'category'], ['standard_type', 'standard_type']]) if (st.measure === 'taxonomy' && st[k]) p.set(q_, st[k]);
-    const d = await api(`/api/v1/${st.measure}?${p}`);
-    return d.rows.filter((r) => (!st.from || !(r.period || r.fiscal_year) || (r.period || r.fiscal_year) >= st.from) && (!st.to || !(r.period || r.fiscal_year) || (r.period || r.fiscal_year) <= st.to));
-  };
+  const fetchRows = async () => (await api(listUrl(st))).rows;  // the chart's rows and the JSON / CSV export are one request (F-BF7)
   let all = await api(`/api/v1/${st.measure}`), rows = all.rows;
   const distinct = (c) => [...new Set(rows.map((r) => r[c]).filter((v) => v != null && v !== ''))].sort();
   const setState = (patch) => { st = {...st, ...patch}; go('explore?' + new URLSearchParams(Object.fromEntries(Object.entries(st).filter(([, v]) => v))).toString()); };
@@ -70,31 +68,38 @@ async function explorePage(view, arg, qs) {
   const fmtv = (v) => (v == null ? '—' : isShare ? pct(v) : usd(v));
   const plot = h('div', {class: 'plot', role: 'figure', 'aria-label': `${m.label} by ${EX_AXES[st.x]}${st.series ? ' and ' + EX_AXES[st.series] : ''}`});
   const under = h('div', {});
-  const q2 = new URLSearchParams(); for (const k of ['field', 'kind', 'layer', 'ticker']) if (st[k]) q2.set(k, st[k]);
-  const url = `/api/v1/${st.measure}?${q2}`;
+  const url = listUrl(st);
+  const delMsg = h('span', {class: 'small bad', role: 'status'});
   const saveRow = h('div', {class: 'hrow', style: 'gap:1rem'}, h('span', {class: 'muted small'}, `${int(pts.length)} row${pts.length === 1 ? '' : 's'}${folded.size ? `, ${folded.size} smaller series folded into Other` : ''}`),
     h('a', {href: url, target: '_blank', rel: 'noopener', class: 'small'}, 'JSON'), h('a', {href: url + '&format=csv', class: 'small'}, 'CSV'),
     h('button', {type: 'button', class: 'btn', onclick: () => saveView()}, current ? 'Save changes' : 'Save as view'),
-    current ? h('button', {type: 'button', class: 'small', 'aria-live': 'polite', onclick: async (e) => { const b = e.currentTarget; if (b.dataset.armed) { await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me})}); go('#explore'); } else { b.dataset.armed = '1'; b.textContent = 'Confirm delete'; setTimeout(() => { delete b.dataset.armed; b.textContent = 'Delete'; }, 5000); } }}, 'Delete') : '');
+    current ? h('button', {type: 'button', class: 'small', 'aria-live': 'polite', onclick: async (e) => { const b = e.currentTarget; if (b.dataset.armed) { delete b.dataset.armed; b.disabled = true; try { await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me})}); go('#explore'); } catch (err) { delMsg.textContent = err.message; b.disabled = false; b.textContent = 'Delete'; } } else { delMsg.textContent = ''; b.dataset.armed = '1'; b.textContent = 'Confirm delete'; setTimeout(() => { if (b.dataset.armed) { delete b.dataset.armed; b.textContent = 'Delete'; } }, 5000); } }}, 'Delete') : '', delMsg);
   body.append(saveRow, plot, under);
   if (!pts.length) { plot.replaceChildren(h('p', {class: 'msg'}, 'No rows match')); return; }
   const css = getComputedStyle(document.documentElement);
   const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim();
-  const xLabel = (x) => (st.x === 'layer' ? INDUSTRY[x] || x : st.x === 'standard_type' ? x.replace('Member', '') : st.x === 'ticker' && NAMES[x] ? `${NAMES[x]} ${x}` : x);
+  // a year fewer companies have filed is drawn hatched and lighter and labelled with its count, never as a complete bar
+  const cov = st.x === 'fiscal_year' || st.x === 'period' ? yearCoverage(pts, st.x) : {};
+  const partial = (x) => !!cov[x] && !cov[x].complete;
+  const xLabel = (x) => (partial(x) ? `${x} · ${cov[x].n} of ${cov[x].of} companies` : st.x === 'layer' ? INDUSTRY[x] || x : st.x === 'standard_type' ? x.replace('Member', '') : st.x === 'ticker' && NAMES[x] ? `${NAMES[x]} ${x}` : x);
   const disp = (n) => (st.series === 'layer' ? INDUSTRY[n] || n : st.series === 'standard_type' ? n.replace('Member', '') : st.series === 'ticker' && NAMES[n] ? `${NAMES[n]} ${n}` : n);
   const traces = seriesNames.map((n) => {
     const ys = xs.map((x) => { const c = cell[`${n}|${x}`]; if (!c) return null; return st.type === 'share' ? (totals[x] ? 100 * c.sum / totals[x] : null) : c.sum / unit; });
-    const custom = xs.map((x) => { const c = cell[`${n}|${x}`]; return c ? [fmtv(c.sum), c.rows.length, totals[x] && !isShare ? pct(c.sum / totals[x]) : '—'] : ['—', 0, '—']; });
-    const base = {name: disp(n), x: xs, y: ys, customdata: custom, marker: {color: colorReg(n)}, line: {color: colorReg(n), width: 2}, hovertemplate: `<b>%{customdata[0]}</b> ${st.series ? disp(n) : ''}${st.series && seriesNames.length > 1 ? ', %{customdata[2]} of the ' + EX_AXES[st.x] : ''}<br>%{customdata[1]} row(s)<extra></extra>`};
-    return st.type === 'lines' ? {...base, type: 'scatter', mode: 'lines+markers', marker: {color: colorReg(n), size: 7}, connectgaps: false} : {...base, type: 'bar'};
+    const custom = xs.map((x) => { const c = cell[`${n}|${x}`]; const f = partial(x) ? `<br>${cov[x].n} of ${cov[x].of} companies` : ''; return c ? [fmtv(c.sum), c.rows.length, totals[x] && !isShare ? pct(c.sum / totals[x]) : '—', f] : ['—', 0, '—', f]; });
+    const base = {name: disp(n), x: xs, y: ys, customdata: custom, marker: {color: colorReg(n)}, line: {color: colorReg(n), width: 2}, hovertemplate: `<b>%{customdata[0]}</b> ${st.series ? disp(n) : ''}${st.series && seriesNames.length > 1 ? ', %{customdata[2]} of the ' + EX_AXES[st.x] : ''}<br>%{customdata[1]} row(s)%{customdata[3]}<extra></extra>`};
+    const faded = xs.map((x) => (partial(x) ? 0.55 : 1));
+    return st.type === 'lines' ? {...base, type: 'scatter', mode: 'lines+markers', marker: {color: colorReg(n), size: 7, opacity: faded, symbol: xs.map((x) => (partial(x) ? 'circle-open' : 'circle'))}, connectgaps: false}
+      : {...base, type: 'bar', marker: {color: colorReg(n), opacity: faded, pattern: {shape: xs.map((x) => (partial(x) ? '/' : '')), fillmode: 'overlay', fgcolor: bg, solidity: 0.3}}};
   });
   const layout = {paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: {family: css.getPropertyValue('--font'), color: muted, size: 12}, margin: {l: 56, r: 16, t: 8, b: 40}, height: 400,
     barmode: st.type === 'bars' ? 'group' : 'stack', bargap: .25, bargroupgap: .06, hovermode: st.type === 'lines' ? 'x unified' : 'closest', showlegend: seriesNames.length > 1 || !!st.series,
-    legend: {orientation: 'h', y: -0.14, font: {color: fg}, traceorder: st.type === 'lines' || st.type === 'bars' ? 'normal' : 'reversed'}, xaxis: {type: 'category', showgrid: false, linecolor: faint, tickfont: {color: muted}, categoryorder: 'array', categoryarray: xs, tickvals: xs, ticktext: xs.map(xLabel), automargin: true, tickangle: xs.some((x) => xLabel(x).length > 12) ? -30 : 0},
+    legend: {orientation: 'h', y: -0.14, font: {color: fg}, traceorder: st.type === 'lines' || st.type === 'bars' ? 'normal' : 'reversed'}, xaxis: {type: 'category', showgrid: false, linecolor: faint, tickfont: {color: muted}, categoryorder: 'array', categoryarray: xs, tickvals: xs, ticktext: xs.map((x) => xLabel(x).replace(' · ', '<br>')), automargin: true, tickangle: xs.some((x) => !partial(x) && xLabel(x).length > 12) ? -30 : 0},
     yaxis: {gridcolor: faint, zerolinecolor: faint, tickprefix: st.type === 'share' || isShare ? '' : '$', ticksuffix: st.type === 'share' ? '%' : suffix, tickformat: ',.0f', fixedrange: false, rangemode: 'tozero',
       title: {text: st.type === 'share' ? 'share of the total, %' : `${st.measure === 'taxonomy' ? (st.category || st.tmeasure || 'taxonomy rows').replace(/_/g, ' ') + (st.value === 'change' ? ', change from the prior year' : '') : EXM[st.measure].label}${st.field ? ', ' + (LABEL[st.field] || st.field) : ''}, $${suffix === 'B' ? 'billion' : 'million'}`, font: {color: muted, size: 11}}},
     hoverlabel: {bgcolor: bg, bordercolor: faint, font: {color: fg, family: css.getPropertyValue('--font')}}, dragmode: 'zoom'};
   if (!window.Plotly) { plot.replaceChildren(h('p', {class: 'msg bad'}, 'Chart unavailable')); showRows(pts); return; }
+  const gaps = xs.filter(partial);
+  if (gaps.length) plot.before(h('p', {class: 'small text-orange m-0', id: 'partial-years'}, `Incomplete: ${gaps.map(xLabel).join(', ')}`));
   await Plotly.newPlot(plot, traces, layout, {displayModeBar: 'hover', displaylogo: false, responsive: true, modeBarButtonsToRemove: ['lasso2d', 'select2d', 'autoScale2d', 'toImage'], scrollZoom: false});
   // the plotted numbers, as a table a person can copy
   const numbers = h('details', {class: 'mt-2'}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Data'),

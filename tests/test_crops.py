@@ -476,7 +476,7 @@ class Offline(unittest.TestCase):
                 try:
                     pg = b.new_page()
                     blocked = evidence.offline(pg)
-                    pg.goto(doc.as_uri(), wait_until="load")
+                    evidence.goto_doc(pg, doc)  # the one URI the page may load (F-BF12)
                     self.assertEqual(pg.evaluate("document.images[0].naturalWidth"), 0)
                 finally:
                     b.close()

@@ -114,16 +114,16 @@ class ChartViews(unittest.TestCase):
         views.FILE = self._file
 
     def test_chart_view_saves_its_spec(self):
-        v = views.save({"name": "AI capex by layer", "measure": "taxonomy", "filters": {"category": "capex"}, "group": None, "show": "chart", "chart": {"x": "period", "series": "layer", "type": "stacked"}}, "Kenny")
+        v = views.save({"name": "AI capex by layer", "measure": "taxonomy", "filters": {"category": "capex"}, "group": None, "show": "chart", "chart": {"x": "period", "series": "layer", "type": "stacked"}}, "Kenny Geiler")
         self.assertEqual(v["chart"], {"x": "period", "series": "layer", "type": "stacked", "value": ""})
-        g = views.save({"name": "Grid", "measure": "values", "filters": {}, "group": None, "show": "grid", "chart": {"x": "period", "series": "", "type": "bars"}}, "Kenny")
+        g = views.save({"name": "Grid", "measure": "values", "filters": {}, "group": None, "show": "grid", "chart": {"x": "period", "series": "", "type": "bars"}}, "Kenny Geiler")
         self.assertNotIn("chart", g)
 
     def test_chart_view_rejects_a_bad_axis(self):
         with self.assertRaises(ValueError):
-            views.save({"name": "Bad", "measure": "taxonomy", "filters": {}, "group": None, "show": "chart", "chart": {"x": "colour", "series": "", "type": "bars"}}, "Kenny")
+            views.save({"name": "Bad", "measure": "taxonomy", "filters": {}, "group": None, "show": "chart", "chart": {"x": "colour", "series": "", "type": "bars"}}, "Kenny Geiler")
         with self.assertRaises(ValueError):
-            views.save({"name": "Bad", "measure": "taxonomy", "filters": {}, "group": None, "show": "chart"}, "Kenny")
+            views.save({"name": "Bad", "measure": "taxonomy", "filters": {}, "group": None, "show": "chart"}, "Kenny Geiler")
 
 
 if __name__ == "__main__":
@@ -151,3 +151,28 @@ class ToConfirmGroup(unittest.TestCase):
         self.assertEqual(out["causes"][0]["cause"], "to_confirm")
         self.assertEqual((out["rows"][0]["state"], out["rows"][0]["by"], out["rows"][0]["evidence"]["proposed"]), ("to confirm", "resolution:r9", "explain"))
         self.assertEqual([r["ticker"] for r in one["rows"] if r["cause"] == "to_confirm"], ["GOOGL"])  # a ticker scope shows its own
+
+
+class BulkFlag(unittest.TestCase):
+    """F-BF4: every row of Reconcile, grouped by company, that the page lets a person select goes through
+    /api/resolve/bulk's own check; a category mapping row is never selectable."""
+
+    def test_every_selectable_row_on_the_real_database_is_accepted_by_bulk(self):
+        import os
+        from ledger.core import store
+        from ledger.review import resolutions
+        from ledger.web import app
+        if not store.DEFAULT_DB.exists() or os.environ.get("LEDGER_SKIP_DB"):
+            self.skipTest("no database")
+        con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+        try:
+            rows = workbench.items(con, app.flow("all"))["rows"]
+        finally:
+            con.close()
+        self.assertTrue(any(r["cause"] == "asset_types" for r in rows))
+        self.assertFalse([r["key"] for r in rows if r["cause"] == "asset_types" and r["bulk"]])
+        picked = [r for r in rows if r["bulk"] and r["open"]]
+        self.assertTrue(picked)
+        with mock.patch.object(resolutions, "_write") as w:
+            resolutions.resolve_many([{"key": r["key"], "hash": r["hash"]} for r in picked], "accept", "test", "a test", author_kind="person")
+        self.assertEqual(len(w.call_args[0][0]), len(picked))

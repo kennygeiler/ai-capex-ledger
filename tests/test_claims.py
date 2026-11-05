@@ -449,7 +449,7 @@ class Stale(unittest.TestCase):
                 g.write_text(json.dumps({"ok": False, "tables_ok": True, "gold": {"state": "unverified", "unverified": 120, "items": 120}}))
                 r = run(e)
                 self.assertEqual(r["status"], "partial")
-                self.assertIn("Gold unverified: 120 of 120 items have no verdict", r["facts"])
+                self.assertIn("Hand check unverified: 120 of 120 items have no verdict", r["facts"])
                 g.write_text(json.dumps({"ok": False, "tables_ok": True, "gold": {"state": "fail", "failures": ["x"]}}))
                 self.assertEqual(run(e)["status"], "stub")
                 g.write_text(json.dumps({"ok": True, "tables_ok": True, "gold": {"state": "pass"}}))

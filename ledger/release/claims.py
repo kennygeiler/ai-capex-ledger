@@ -268,13 +268,13 @@ def _gold(ctx) -> list:
     from ..core.config import PROVEN
     docs, problems = gold.load_checked(gold.GOLD, expect=list(PROVEN))
     if problems:
-        return [("stub", "gold set does not read", "; ".join(problems)[:300])]
+        return [("stub", "hand check does not read", "; ".join(problems)[:300])]
     items = [i for d in docs.values() for i in d["items"]]
     k = sum(gold.has_verdict(i) for i in items)
     if not items or k == 0:
-        return [("stub", "no gold verdicts", f"0 of {len(items)} gold items have a verdict")]
+        return [("stub", "no hand-check verdicts", f"0 of {len(items)} hand-check items have a verdict")]
     if k < len(items):  # the count moves with every verdict a person gives: the static doc says where to read it
-        return [("partial", "gold verdicts incomplete", f"{k} of {len(items)} gold items have a verdict" if ctx["live"] else LIVE_ONLY)]
+        return [("partial", "hand check incomplete", f"{k} of {len(items)} hand-check items have a verdict" if ctx["live"] else LIVE_ONLY)]
     return []
 
 
@@ -345,21 +345,21 @@ TESTS_LIVE = "tests read live · see Release"  # the static view's Computed note
 
 def _golden(ctx) -> list:
     if not ctx["live"]:  # reports/golden.json is rewritten by every `ledger test` / `golden --check`: live only, as the EDGAR check
-        return [("stale", "golden checked live only", LIVE_ONLY)]
+        return [("stale", "regression test checked live only", LIVE_ONLY)]
     try:
         g = json.loads(GOLDEN_REPORT.read_text())
     except (OSError, ValueError):
-        return [("stale", "golden not run", "No golden run on file")]
+        return [("stale", "regression test not run", "No regression test run on file")]
     out = []
     tables = g.get("tables_ok", g.get("ok")) and not g.get("failed_step")
     if not tables:
-        out.append(("stub", "golden differs", f"Golden failed at {g.get('failed_step')}" if g.get("failed_step") else "Golden tables differ from the expectation"))
+        out.append(("stub", "regression test differs", f"Regression test failed at {g.get('failed_step')}" if g.get("failed_step") else "Regression test tables differ from the freeze"))
     gd = g.get("gold") or {}
     state = gd.get("state")
     if state == "fail":
-        out.append(("stub", "gold verdicts fail", f"{len(gd.get('failures') or [])} gold verdicts no longer hold"))
+        out.append(("stub", "hand-check verdicts fail", f"{len(gd.get('failures') or [])} hand-check verdicts no longer hold"))
     elif state != "pass":
-        out.append(("partial", "gold unverified", f"Gold unverified: {gd.get('unverified')} of {gd.get('items')} items have no verdict" if state else "Golden report has no gold state"))
+        out.append(("partial", "hand check unverified", f"Hand check unverified: {gd.get('unverified')} of {gd.get('items')} items have no verdict" if state else "Regression test report has no hand-check state"))
     return out
 
 

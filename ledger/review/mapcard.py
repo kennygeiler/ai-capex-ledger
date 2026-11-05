@@ -143,7 +143,7 @@ def decisions(con, ticker: str, names: list[str] | None = None) -> dict[str, dic
     """{reported_name: card} for every reported PP&E category of `ticker` (or `names`). One read of everything."""
     from ..web.cards import money
     from .mapper import members
-    from ..release.release import split_ids
+    from ..core.ids import split_ids
     t = ticker.upper()
     doc = fasb()
     entries = asset_types().get(t) or {}

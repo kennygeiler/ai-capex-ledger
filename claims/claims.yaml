@@ -153,6 +153,8 @@
     tests:
       - tests.test_workbench.Workbench.test_fact_differs_row_carries_cell_and_delta
       - tests.test_workbench.Workbench.test_a_not_extracted_value_is_an_open_row_with_its_cause
+      - tests.test_workbench.BulkFlag.test_every_selectable_row_on_the_real_database_is_accepted_by_bulk
+      - tests.test_pages_js.BulkSelect.test_mapping_rows_are_never_selected
   status: partial
   gaps:
     - The state of a tie or readings finding on Reconcile is still keyed by the finding's kind ("other"), not its rule; only the label names the rule (F-RC1).
@@ -160,11 +162,15 @@
 
 - id: company_proven
   claim: "Proven"
-  where: [ledger/web/pages/trail.js, ledger/web/pages/proof.js, ledger/web/pages/rules.js, /api/v1/proof]
-  shown: ["'Proven'", "Proven", "Ready for release", "Not in scope", "No items to review"]
+  where: [ledger/web/pages/trail.js, ledger/web/pages/proof.js, ledger/web/pages/rules.js, ledger/web/app.py, ledger/core/states.py, /api/v1/proof]
+  shown: ["'Proven'", "Proven", "Ready for release", "Not in scope", "No items to review", "Unknown company", "No filings yet", "Filings read"]
   backed_by:
-    functions: [ledger.checks.proof.company, ledger.checks.proof.board]
+    functions: [ledger.checks.proof.company, ledger.checks.proof.board, ledger.web.app.company_state, ledger.core.states.company]
     tests:
+      - tests.test_api.UnknownCompany.test_a_made_up_ticker_is_404_unknown_company
+      - tests.test_api.CompanyStates.test_a_followed_ticker_with_no_filings_is_never_proven
+      - tests.test_api.CompanyStates.test_a_ticker_nobody_follows_is_unknown
+      - tests.test_api.CompanyStates.test_a_busy_database_is_503_not_unknown
       - tests.test_completeness.TheSixAreComplete.test_the_six_read_zero_and_coverage_agrees
       - tests.test_scope.Scope.test_the_board_and_the_queue_read_the_scope
   status: partial
@@ -243,10 +249,10 @@
 
 - id: golden_equal
   claim: "Regression test"
-  where: [ledger/web/pages/proof.js, ledger/checks/golden.py, reports/golden.json]
-  shown: ["Tables unchanged", "Tables changed", "Pass", "Fail"]
+  where: [ledger/web/pages/proof.js, ledger/checks/golden.py, ledger/release/checklist.py, reports/golden.json]
+  shown: ["Tables unchanged", "Tables changed", "Pass", "Fail", "Regression test", "tables unchanged since freeze", "tables changed since freeze"]
   backed_by:
-    functions: [ledger.checks.golden.check, ledger.review.gold.compare_db, ledger.release.checklist.golden_line]
+    functions: [ledger.checks.golden.check, ledger.review.gold.compare_db, ledger.release.checklist.regression_line]
     tests:
       - tests.test_golden.Golden.test_code_stages_reproduce_the_expected_tables
       - tests.test_gold.Cli.test_unverified_only_exits_0_and_says_unverified
@@ -341,6 +347,7 @@
       - tests.test_mapper.Confirmed.test_confirmed_is_a_field_check
       - tests.test_mapper.Hardening.test_a_model_never_confirms
       - tests.test_mapper.Confirmed.test_an_unconfirmed_mapping_fails_g6_under_its_company
+      - tests.test_pages_js.ReconcileSigners.test_only_a_name_on_the_list_enables
   status: proven
   checks: [mappings_confirmed]
   gaps: []
@@ -577,7 +584,7 @@
   where: [ledger/core/states.py, ledger/web/pages/release.js, ledger/release/checklist.py]
   shown: ["Pass", "Fail", "Info", "Not run", "Stale", "Test run", "Claims doc current"]
   backed_by:
-    functions: [ledger.release.checklist.checklist, ledger.release.checklist.tests_line, ledger.release.checklist.golden_line, ledger.release.checklist.doc_line]
+    functions: [ledger.release.checklist.checklist, ledger.release.checklist.tests_line, ledger.release.checklist.regression_line, ledger.release.checklist.hand_check_line, ledger.release.checklist.doc_line]
     tests:
       - tests.test_testreport.Line.test_missing_file_is_not_run_and_blocks
       - tests.test_testreport.Line.test_passing_on_another_commit_or_a_dirty_tree_is_stale_and_blocks
@@ -591,13 +598,18 @@
 - id: release_signoff
   claim: "Sign"
   where: [ledger/web/pages/release.js, ledger/web/pages/proof.js, /api/release/sign]
-  shown: ["`Sign ${cl.version}`", "signed by", "not published", "Signed, not published"]
+  shown: ["`Sign ${cl.version}`", "signed by", "not published", "Signed, not published", "Enter a signer name", "Not on the signer list"]
   backed_by:
     functions: [ledger.release.checklist.sign, ledger.release.checklist.checklist]
     tests:
       - tests.test_checklist.Sign.test_refuses_while_a_required_line_is_red_and_writes_nothing
       - tests.test_checklist.Sign.test_two_signatures_at_once_leave_one
       - tests.test_checklist.Sign.test_a_failed_publish_leaves_the_signature_and_records_the_failure
+      - tests.test_checklist.Sign.test_refuses_a_name_off_config_people_before_the_checklist
+      - tests.test_checklist.Endpoints.test_a_name_off_config_people_is_400_on_sign_and_mapping_reject
+      - tests.test_pages_js.SignButton.test_enabled_only_for_a_name_on_the_list_with_every_required_line_green
+      - tests.test_pages_js.SignButton.test_the_page_rechecks_on_every_input_to_the_signer_box
+      - tests.test_checklist.HistoricSignatures.test_signed_releases_read_and_check_with_nobody_on_the_list
   status: partial
   gaps:
     - The signer is a typed name; nobody signs in.
@@ -692,6 +704,9 @@
   backed_by:
     functions: [ledger.checks.crops.crop_doc, ledger.checks.crops.merge, ledger.checks.crops.run, ledger.checks.crops.view, ledger.checks.crops.located_images, ledger.checks.evidence.load_all]
     tests:
+      - tests.test_hardening.OnlyTheDocument.test_another_local_file_and_a_remote_url_are_aborted
+      - tests.test_hardening.CropRouteBusy.test_a_busy_database_is_a_503_not_a_dropped_connection
+      - tests.test_hardening.MemoLock.test_record_now_and_extraction_of_hold_the_lock
       - tests.test_crops.Locator.test_found_and_not_found
       - tests.test_crops.View.test_a_crop_url_only_when_located_and_current
       - tests.test_crops.Merge.test_an_older_run_never_replaces_a_newer_one
@@ -774,6 +789,7 @@
       - tests.test_docs.Links.test_overview_and_operations_links_resolve
       - tests.test_docs.Glossary.test_every_state_word_is_defined
       - tests.test_docs.Voice.test_shown_docs_carry_no_chat_voice
+      - tests.test_layout.Layout.test_docs_code_blocks_are_readable
   status: partial
   gaps:
     - The hand-written docs are checked for links and voice, not sentence by sentence against the code; a figure quoted in a doc is as of the commit that wrote it.
@@ -784,7 +800,7 @@
   where: [ledger/core/states.py, ledger/checks/ties.py, ledger/web/cards.py, ledger/web/app.py, ledger/review/workbench.py, ledger/web/pages/_shared.js, ledger/web/pages/trail.js, ledger/web/pages/proof.js, ledger/web/pages/evidence.js, ledger/web/pages/reconcile.js, /api/v1/proof/<ticker>, /api/v1/gold, /api/v1/evidence/<id>, /api/v1/reconcile]
   shown: ["Restated", "Superseded", "Source reading not found", "dataset uses", "restatedLine"]
   backed_by:
-    functions: [ledger.checks.ties.restatement, ledger.checks.ties.restatements, ledger.checks.ties.of_reading, ledger.checks.ties.mark]
+    functions: [ledger.core.ids.split_ids, ledger.checks.ties.restatement, ledger.checks.ties.restatements, ledger.checks.ties.of_reading, ledger.checks.ties.mark]
     tests:
       - tests.test_restated.Restatement.test_the_line_says_every_figure_as_filed_and_which_one_the_dataset_uses
       - tests.test_restated.Restatement.test_agreeing_or_single_readings_say_nothing
@@ -792,6 +808,11 @@
       - tests.test_restated.DisplayOnly.test_a_tagged_fact_stays_verified_and_carries_the_line
       - tests.test_restated.OneFunction.test_every_view_says_the_same_line
       - tests.test_restated.OneFunction.test_reconcile_drawer_reads_the_same_record
+      - tests.test_ids.CommaDimension.test_restatement_found
+      - tests.test_ids.SplitIds.test_no_bare_split_on_extraction_ids_left
+      - tests.test_ids.SplitIds.test_no_sql_splits_a_comma_joined_list
+      - tests.test_ids.OnTheRealDatabase.test_the_company_feed_carries_the_cell
+      - tests.test_ids.OnTheRealDatabase.test_the_trail_cites_the_cell
   status: partial
   gaps:
     - Note figures only. A statement figure (revenue, capex, opex) cites the one filing it ships from; a restated statement figure is the `restated` rule's finding, with no Superseded crop beside it.
@@ -838,4 +859,41 @@
       - tests.test_claims.Doc.test_claims_md_is_current
   status: proven
   gaps: []
+  ticket: none
+
+- id: explore_views
+  claim: "Explore: Save as view, Save changes and Delete write a saved view; a failed write says why beside its button; JSON and CSV export the rows the chart's filters select; a year fewer companies filed is drawn hatched and labelled with its count"
+  where: [ledger/web/pages/explore.js, ledger/web/pages/_shared.js, ledger/web/views.py, ledger/web/api.py, /api/v1/views, /api/v1/<list>]
+  shown: ["Save as view", "Save changes", "Confirm delete", "withJson", "listUrl", "Incomplete", "yearCoverage"]
+  backed_by:
+    functions: [ledger.web.views.save, ledger.web.views.delete, ledger.web.api.apply]
+    tests:
+      - tests.test_pages_js.ExploreExport.test_every_chart_filter_is_in_the_export_url
+      - tests.test_api.YearRange.test_the_csv_export_of_the_real_taxonomy_equals_the_filtered_rows
+      - tests.test_api.YearRangeValidation.test_bad_values_are_refused
+      - tests.test_api.ViewWriters.test_save_and_delete_refuse_a_name_off_the_list
+      - tests.test_pages_js.PartialYears.test_a_year_fewer_companies_filed_is_not_complete
+      - tests.test_pages_js.JsonWrites.test_a_body_gets_the_json_content_type
+      - tests.test_pages_js.JsonWrites.test_explore_writes_go_through_api
+  status: partial
+  gaps:
+    - The saved view "What companies state about AI, in dollars" has no chart and shows "No rows match" (ux-paths catalog, Known broken flows).
+  ticket: none
+
+- id: hand_check_live
+  claim: "Hand check on Release and in Proof's header: N of 120 with a verdict, all hold; read live from gold/*.json, so a verdict given on Proof counts at once; Fix in opens the first unchecked item's company"
+  where: [ledger/release/checklist.py, ledger/web/app.py, ledger/web/pages/proof.js, ledger/web/pages/release.js, /api/v1/release/checklist, /api/v1/golden]
+  shown: ["Hand check", "with a verdict", "all hold", "live_hand_check", "gold-exact", "Not live", "regression_at"]
+  backed_by:
+    functions: [ledger.release.checklist.hand_check_line, ledger.web.app.live_hand_check, ledger.web.app.golden_view, ledger.review.gold.compare_db]
+    tests:
+      - tests.test_gold.LiveHandCheck.test_a_verdict_written_to_a_gold_file_changes_the_line_with_no_cli_run
+      - tests.test_gold.LiveHandCheck.test_proofs_header_reads_the_same_live_verdicts
+      - tests.test_api.GoldenView.test_fields_and_a_failing_live_read
+      - tests.test_api.GoldenView.test_proof_puts_the_snapshot_date_on_the_regression_part_only
+      - tests.test_layout.Layout.test_hand_check_value_cell_never_clips_the_exact_dollars
+      - tests.test_checklist.FixIn.test_scoped_links
+  status: partial
+  gaps:
+    - A verdict is checked against the working database, not a rebuild from frozen inputs; the Regression test line says whether those still agree, as of its date.
   ticket: none

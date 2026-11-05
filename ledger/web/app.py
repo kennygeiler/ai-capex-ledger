@@ -25,6 +25,7 @@ import duckdb
 
 from ..extract import agents
 from ..core import progress, store
+from ..core.ids import split_ids
 from ..cli.report import build
 from ..core.config import ADDED, INDUSTRIES, SCOPE, added, industry, stage_tickers, tracked
 from ..checks.evidence import load_all
@@ -77,8 +78,12 @@ def company(ticker: str) -> dict:
                    if json.loads(r["detail"] or "{}").get("ticker") == ticker]
         report = build(con, [ticker], f"stage{STAGE}")
         ai = _rows(con, "select * from ai_spend where ticker = ? order by field, period, kind", ticker)
-        facts = _rows(con, "select f.*, e.table_id, e.row_label, e.column_label, e.cell_text from facts f left join note_extractions e on e.extraction_id = split_part(f.extraction_ids, ',', -1) "
-                           "where f.ticker = ? order by f.field, f.dimension, f.period", ticker)
+        facts = _rows(con, "select f.* from facts f where f.ticker = ? order by f.field, f.dimension, f.period", ticker)
+        last = {id(f): (split_ids(f.get("extraction_ids")) or [None])[-1] for f in facts}  # the newest reading; a dimension may hold a comma (F-BF1), so never split in SQL
+        cell = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, table_id, row_label, column_label, cell_text from note_extractions where extraction_id in (select unnest(?))",
+                                                     [i for i in last.values() if i])}
+        for f in facts:
+            f.update({k: (cell.get(last[id(f)]) or {}).get(k) for k in ("table_id", "row_label", "column_label", "cell_text")})
     finally:
         con.close()
     cur, still = latest(decisions()), {e["exception_id"] for e in open_items(excs, decisions())}
@@ -244,7 +249,7 @@ def _flow(scope: str) -> dict:
     for f in facts:
         if f["label"] == "unresolved":
             fr = fact_ref.get((f["ticker"], f["field"], f["dimension"], f["period"]), {})
-            cite = cites.get((fr.get("extraction_ids") or "").split(",")[-1])
+            cite = cites.get((split_ids(fr.get("extraction_ids")) or [""])[-1])
             key = f"{f['ticker']}|{f['field']}|{f['dimension']}|{f['period']}"
             queue.append({"kind": "fact_differs", "key": resolutions.key_for("fact_differs", f["ticker"], f["field"], f["period"], f["dimension"]), "state": "disagrees", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "),
                           "impact": "a cited cell against the filing's tag", "dollars": abs((f["value"] or 0) - (float(fr["reference"]) if fr.get("reference") not in (None, "") else (f["value"] or 0))),
@@ -270,6 +275,49 @@ def _flow(scope: str) -> dict:
     release = {"last": rel.name if rel else None, "blocks": len(blocks), "unresolved": len(open_), "facts_changed": len(facts_changed)}
     return {"scope": scope or "all", "tickers": tickers, "changed": changed, "queue": queue, "release": release,
             "industries": sorted(INDUSTRIES) + ["other"], "scope_tickers": list(SCOPE), "names": {c["ticker"]: c["name"] for c in tracked()}}
+
+
+def live_hand_check(at_check: dict | None) -> dict:
+    """{gold, gold_live, gold_at_check, gold_error}: every verdict in gold/*.json against the working tables now
+    (gold.compare_db, the function `ledger golden --check` and the Release line read), so a verdict given on Proof counts
+    with no CLI run. Anything that stops the live read (a busy database, a file that does not read, a compare that raises)
+    gives the report's own hand check, gold_live false and the error named, as checklist.hand_check_line reads it red."""
+    from ..review import gold
+    try:
+        con = _con()
+        try:
+            c = gold.compare_db(con)
+        finally:
+            con.close()
+    except Exception as e:
+        return {"gold": at_check, "gold_live": False, "gold_at_check": at_check, "gold_error": f"{e.__class__.__name__}: {str(e)[:200]}"}
+    return {"gold": {k: c.get(k) for k in ("ok", "holds", "state", "failures", "checked", "right", "wrong", "cant_say", "unverified", "items")}, "gold_live": True,
+            "gold_at_check": at_check, "gold_error": None}
+
+
+def golden_view() -> dict:
+    """/api/v1/golden (F-BF16): the regression test as the last `ledger golden --check` left it, its fields named for what
+    they cover: tables_ok (the tables only, never the hand check), regression_at (that run's date), failed_step, diffs,
+    steps, tickers; and the hand check read live (live_hand_check). No top-level ok or at: one could be read as covering both."""
+    f = store.ROOT / "reports" / "golden.json"
+    try:
+        rep = json.loads(f.read_text()) if f.exists() else None
+    except (OSError, ValueError):
+        rep = None
+    rep = rep if isinstance(rep, dict) else None
+    tables_ok = None if rep is None else bool(rep.get("tables_ok") if "tables_ok" in rep else rep.get("ok")) and not rep.get("failed_step")
+    out = {"tables_ok": tables_ok, "regression_at": rep and rep.get("at"), **{k: (rep or {}).get(k) for k in ("failed_step", "diffs", "steps", "tickers")},
+           "fixtures": (store.ROOT / "fixtures" / "seed.json").exists()}
+    return {**out, **live_hand_check((rep or {}).get("gold"))}
+
+
+def company_state(con, ticker: str) -> str:
+    """states.company for a ticker: followed (config.tracked) and how many filings the database holds for it. A database
+    error is raised, never read as unknown: the route's _guard turns Busy into a 503 (F-BF15)."""
+    t = (ticker or "").strip().upper()
+    n = con.execute("select count(*) from documents where ticker = ?", [t]).fetchone()[0] if t else 0
+    from ..core.states import company
+    return company(t in {c["ticker"] for c in tracked()}, n)
 
 
 # ── T82: the gold set on the Proof page. Read: GET /api/v1/gold?t=; write: POST /api/gold/verdict (one writer, gold.record) ──
@@ -459,7 +507,8 @@ class Handler(BaseHTTPRequestHandler):
             def cl():
                 con = _con()
                 try:
-                    return checklist(con, q.get("version") or None, STAGE)
+                    from ..core.config import PEOPLE  # who may sign: the page disables Sign for any other name (F-BF5), the server refuses it
+                    return {**checklist(con, q.get("version") or None, STAGE), "people": list(PEOPLE)}
                 finally:
                     con.close()
             return self._guard(lambda: self._json(cl()))
@@ -482,13 +531,16 @@ class Handler(BaseHTTPRequestHandler):
                 from ..checks import crops
                 eid = crops.extraction_of(f.name)
                 if eid:
-                    con = _con()
-                    try:
-                        e = crops.cells(con, [eid]).get(eid)
-                    finally:
-                        con.close()
-                    if e and e["state"] == "located" and (e.get("crop") or {}).get("url") == f"/evidence/crops/{f.name}":
-                        return self._send(HTTPStatus.OK, f.read_bytes(), "image/png")
+                    def crop():  # F-BF12: inside _guard, so a busy database is a 503, not a dropped connection
+                        con = _con()
+                        try:
+                            e = crops.cells(con, [eid]).get(eid)
+                        finally:
+                            con.close()
+                        if e and e["state"] == "located" and (e.get("crop") or {}).get("url") == f"/evidence/crops/{f.name}":
+                            return self._send(HTTPStatus.OK, f.read_bytes(), "image/png")
+                        return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
+                    return self._guard(crop)
         if u.path.startswith("/filing/"):  # Open in filing (in-app): the stored 10-K with the cell outlined (ledger/web/viewer.py)
             return self._guard(lambda: self._filing(u.path.removeprefix("/filing/")))
         if u.path.startswith("/docs/"):  # a doc as plain text: docs/<NAME>.md only, top level, read by ledger/web/docs.py read()
@@ -551,14 +603,16 @@ class Handler(BaseHTTPRequestHandler):
             name, fmt = name[:-4], "csv"
         if name in ("proof", "rules", "golden"):  # the proof pages, docs/PROOF.md
             from ..checks import proof
-            if name == "golden":
-                f = store.ROOT / "reports" / "golden.json"
-                return self._json({**(json.loads(f.read_text()) if f.exists() else {"ok": None, "at": None}), "fixtures": (store.ROOT / "fixtures" / "seed.json").exists()})
+            if name == "golden":  # the regression test as `ledger golden --check` left it; its hand check replaced by the live one (F-BF2)
+                return self._json(golden_view())
             con = _con()
             try:
                 if name == "rules":
                     return self._json(proof.rules(con))
                 from . import cards  # T-cards: what we found, where, how we know, per trail item
+                if len(parts) == 2 and company_state(con, parts[1]) == "unknown":  # F-BF6: a ticker nobody follows has no trail, never a green one
+                    from ..core.states import word
+                    return self._json({"error": word("company", "unknown"), "state": "unknown", "ticker": parts[1].upper()}, HTTPStatus.NOT_FOUND)
                 return self._json(cards.add(con, proof.company(con, parts[1])) if len(parts) == 2 else proof.board(con))
             finally:
                 con.close()
@@ -618,7 +672,7 @@ class Handler(BaseHTTPRequestHandler):
                 con.close()
         if fmt == "csv":
             return self._send(HTTPStatus.OK, api.to_csv(rows).encode(), "text/csv; charset=utf-8")
-        return self._json({"list": name, "count": len(rows), "filters": {k: v for k, v in q.items() if k in api.FILTERS or k == "group"}, **({"note": api.AS_OF_NOTE} if q.get("as_of") else {}), "rows": rows})
+        return self._json({"list": name, "count": len(rows), "filters": {k: v for k, v in q.items() if k in api.FILTERS or k in api.RANGE or k == "group"}, **({"note": api.AS_OF_NOTE} if q.get("as_of") else {}), "rows": rows})
 
     def _hq(self):
         con = _con()

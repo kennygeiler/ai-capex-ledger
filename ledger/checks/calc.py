@@ -176,7 +176,7 @@ def _check(against: str, other: int | None, ours: int, tol: int, row: str | None
 def for_ticker(con, ticker: str, root: Path | None = None) -> dict:
     """{(field, period): calculation} for every calculated value of a company, read from the database and the parsed
     tables on disk. The trail's cards and the gold set read this one function."""
-    from ..release.release import split_ids
+    from ..core.ids import split_ids
 
     def rows(sql, *p):
         cur = con.execute(sql, list(p))

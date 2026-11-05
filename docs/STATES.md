@@ -413,6 +413,15 @@ no "Total operating expenses" row in that table and column, or no XBRL value).
 real inputs (to the dollar when rounded terms would not add up), each cross-check in its tone; each crop labelled with
 its role (Revenue / Cost of revenue / Operating income).
 
+## M19. A company's filing state (F-BF15, 5 Nov 2026)
+
+**States.** filed ("Filings read": at least one filing read) · unfiled ("No filings yet": in `config.tracked()`, no filing
+read) · unknown ("Unknown company": not followed, no filing read). Absent input is unknown.
+**Who decides.** `states.company(tracked, documents)`, read by `proof.company` (its `filing_state`; `proven` needs filed) and
+the trail route (`/api/v1/proof/<ticker>`: 404 with the unknown word). A database that cannot be read is a 503, never unknown.
+**UI.** The trail's head and its release card show the word instead of Proven / Ready for release; an unknown ticker's
+trail shows only the word.
+
 ## M12. Freshness of the monitoring inputs
 
 | Input | Fresh / stale rule | Read where | Not checked where |

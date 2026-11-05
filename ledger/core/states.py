@@ -21,6 +21,7 @@ The machines:
 - crosscheck a calculated figure against the filing's own total or SEC XBRL (M18): calc.state.
 - line      a Release checklist line (M9): checklist._line refuses an undeclared state.
 - edgar     the EDGAR check's freshness (M12): `edgar(checked_at, now)`, read by the trail and the claims register.
+- company   whether a ticker has a trail (M19): `company(tracked, documents)`; only a filed company can read Proven.
 """
 from __future__ import annotations
 
@@ -310,7 +311,24 @@ def edgar(checked_at, at=None) -> tuple[str, float | None, str | None]:
     return ("stale" if hours > STALE_HOURS else "fresh"), hours, None
 
 
-MACHINES = {m.id: m for m in (ROW, LADDER, CHECK, MAPPING, CROP, GOLD, GOLD_GROUP, CROSSCHECK, LINE, EDGAR)}
+# ── company: whether a ticker can have a trail at all (proof.company, the trail route; F-BF15) ──────────────────────
+COMPANY = Machine("company", "M19", "ledger.core.states.company", (
+    _s("filed", NEUTRAL, "Filings read", "text-secondary", meaning="a followed company with at least one filing read; its stages decide whether it is proven"),
+    _s("unfiled", UNKNOWN, "No filings yet", "text-orange", meaning="a followed company (config.tracked) with no filing read: nothing to prove, never Proven"),
+    _s("unknown", UNKNOWN, "Unknown company", "text-red", meaning="a ticker the ledger does not follow and has read no filing for: no trail"),
+), frozenset({("unknown", "unfiled"), ("unknown", "filed"), ("unfiled", "filed")}),
+    absent="unknown")
+
+
+def company(tracked: bool, documents: int) -> str:
+    """A ticker's company state: filed (at least one filing read, followed or not), unfiled (followed, nothing read yet)
+    or unknown (neither). Only a filed company can read Proven."""
+    if documents and documents > 0:
+        return "filed"
+    return "unfiled" if tracked else "unknown"
+
+
+MACHINES = {m.id: m for m in (ROW, LADDER, CHECK, MAPPING, CROP, GOLD, GOLD_GROUP, CROSSCHECK, LINE, EDGAR, COMPANY)}
 
 
 def allow(machine: str, frm: str, to: str) -> None:

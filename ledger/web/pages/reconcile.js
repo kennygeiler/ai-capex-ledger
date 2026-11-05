@@ -4,8 +4,12 @@
 const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'value_missing', 'finding_unconfirmed', 'new_filing', 'asset_types'];
 // T33: Approve and "Write as" need a name in the signer box, as Sign does; one listener keeps every such button in step
 const NEEDS_ME = new Set();  // the page lives in a shadow root, so the buttons are kept here, not queried from the document
-const needsMe = (btn) => { btn.disabled = !(me || '').trim(); NEEDS_ME.add(btn); return btn; };
-document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of NEEDS_ME) b.disabled = !(me || '').trim(); });
+// F-BF13: a name on config.PEOPLE (the reconcile feed's `people`), as the server checks every write; any other name disables, as Sign does
+let SIGNERS = [];
+const isSigner = (name) => SIGNERS.includes((name || '').trim());
+const signerWhy = (name) => (!(name || '').trim() ? 'Enter a signer name' : 'Not on the signer list');
+const needsMe = (btn) => { btn.disabled = !isSigner(me); NEEDS_ME.add(btn); return btn; };
+document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of NEEDS_ME) b.disabled = !isSigner(me); });
 const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Block release'};
 const RES_HELP = {accept: 'Right as it stands', explain: 'Right, with the reason kept', fix: 'Wrong; stays open until re-read', blocks: 'Blocks release until settled'};
 const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yellow-lt', blocks: 'bg-red-lt'};
@@ -35,11 +39,15 @@ const memberWords = (m) => { if (!m) return ''; const w = m.split(':').pop().rep
 const tone = (text, cls) => h('span', {class: cls + ' small text-nowrap'}, text);
 const checkBadge = (label) => { if (label == null) return ''; const [cls, word] = stateWord('check', label); return tone(word, cls); };  // states.CHECK, the Dataset's words
 const bar = (v, max, cls) => h('span', {class: 'bar ' + (cls || ''), style: `width:${Math.max(2, 44 * Math.abs(v || 0) / (max || 1)).toFixed(0)}px`});
+// F-BF4: a row is selectable for one bulk decision only when /api/resolve/bulk takes its key (workbench sets `bulk`); a category mapping never is
+const bulkable = (r) => !!r.bulk && r.cause !== 'asset_types';
+const bulkKeys = (rows) => rows.filter(bulkable).map((r) => r.key);
 async function reconcilePage(view, qs) {
   NEEDS_ME.clear();  // the last render's buttons are gone with it
   const q = parseQ(qs || '');
   const scope = q.scope || q.t || 'all', group = q.group || 'cause', fCause = q.cause || '', fLayer = q.layer || '', fField = q.field || '', withResolved = q.resolved === '1';  // ?t=MU is ?scope=MU: any one ticker the database holds, in scope or not
   const d = await api('/api/v1/reconcile?scope=' + encodeURIComponent(scope));
+  SIGNERS = d.people || []; NEEDS_ME.clear();  // the buttons of the last render are gone
   const wrap = h('div', {class: 'stack', style: 'gap:.75rem'});
   view.append(wrap);
   const setQ = (patch) => { const p = {scope, group, cause: fCause, layer: fLayer, field: fField, kind: q.kind || '', resolved: withResolved ? '1' : '', ...patch}; go('reconcile?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
@@ -87,10 +95,11 @@ async function reconcilePage(view, qs) {
   for (const [g, list] of groups) {
     const label = group === 'cause' ? ((d.causes.find((x) => x.cause === g) || {}).label || list[0].cause_label) : `${list[0].name} ${list[0].ticker}`;
     const open = list.filter(isOpen);
+    const selectable = bulkKeys(open);
     const tbody = h('tbody');
     for (const r of list) {
       const i = trs.length;
-      const cb = isAsset(r) ? '' : h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});  // a mapping is approved one at a time, never in bulk
+      const cb = !bulkable(r) ? '' : h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});  // a mapping is approved one at a time, never in bulk (bulkable)
       const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label];
       const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && group === 'company' ? '' : r.cause === 'finding_unconfirmed' ? h('div', {class: 'text-secondary small'}, r.cause_label) : ''];
       const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} · ${r.resolution.by} · ${day(r.resolution.at)}`) : ''];
@@ -110,7 +119,7 @@ async function reconcilePage(view, qs) {
     const assetGroup = group === 'cause' && isAsset(list[0]);
     cards.push(h('div', {class: 'card mb-3'},
       h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} proposed` : assetGroup ? `${int(list.filter((r) => r.verification === 'wait').length)} proposed · ${int(list.filter((r) => r.verification === 'bad').length)} unmapped · ${int(list.filter((r) => r.evidence.mismatch).length)} differ from company tag · ${int(list.filter((r) => r.verification === 'company').length)} match company tag` : `${int(open.length)} to review of ${int(list.length)}`),
-        open.length > 1 && !assetGroup ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const r of open) selected.add(r.key); paint(); }}, `Select all ${int(open.length)}`) : ''),
+        selectable.length > 1 ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const k of selectable) selected.add(k); paint(); }}, `Select all ${int(selectable.length)}`) : ''),
       h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover'},
         h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, 'Item'), h('th', {class: 'num'}, 'Dataset'), h('th', {class: 'num'}, 'SEC XBRL'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Difference'), h('th', {}, 'Decision'))),
         tbody))));
@@ -130,7 +139,7 @@ async function reconcilePage(view, qs) {
     if (k === 'j' || k === 'ArrowDown') { e.preventDefault(); trs[Math.min(trs.length - 1, i + 1)].tr.focus(); }
     else if (k === 'k' || k === 'ArrowUp') { e.preventDefault(); trs[Math.max(0, i - 1)].tr.focus(); }
     else if (k === 'Enter' || k === 'o') { e.preventDefault(); toggle(i); }
-    else if (k === ' ') { e.preventDefault(); const r = trs[i].r; selected.has(r.key) ? selected.delete(r.key) : selected.add(r.key); paint(); }
+    else if (k === ' ') { e.preventDefault(); const r = trs[i].r; if (!bulkable(r)) return; selected.has(r.key) ? selected.delete(r.key) : selected.add(r.key); paint(); }
     else if (k === 'Escape' && trs[i].detail) { toggle(i); }
     else if ('aefb'.includes(k) && k && !isAsset(trs[i].r)) { e.preventDefault(); toggle(i, true); const btn = trs[i].detail.querySelector(`[data-state=${({a: 'accept', e: 'explain', f: 'fix', b: 'blocks'})[k]}]`); btn.click(); trs[i].detail.querySelector('input[type=text]').focus(); }
   }
@@ -172,16 +181,16 @@ async function reconcilePage(view, qs) {
     const btns = [];
     if (P) {
       const entry = r.evidence.mapping !== 'unmapped';
-      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? 'Approve this category' : 'Enter a signer name', onclick: async (e) => {
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: isSigner(me) ? 'Approve this category' : signerWhy(me), onclick: async (e) => {
         e.stopPropagation(); approve.disabled = true;
         const ok = await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence: P.evidence || r.evidence.reported_name, by: me, expected: expectedOf(r)}, status, entry ? 'Confirmed.' : 'Mapped.');
-        if (!ok) approve.disabled = !(me || '').trim();
+        if (!ok) approve.disabled = !isSigner(me);
       }}, 'Approve'));
-      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async (e) => {
+      const reject = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async (e) => {
         e.stopPropagation(); reject.disabled = true;
         const ok = await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.');
-        if (!ok) reject.disabled = false;
-      }}, 'Reject');
+        if (!ok) reject.disabled = !isSigner(me);
+      }}, 'Reject'));
       btns.push(approve, reject);
     }
     const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-primary'), title: 'Choose a category', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
@@ -199,22 +208,22 @@ async function reconcilePage(view, qs) {
     const evidence = (P && P.evidence) || r.evidence.reported_name;
     const btns = [];
     if (P) {
-      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? 'Approve this category' : 'Enter a signer name', onclick: async () => {
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: isSigner(me) ? 'Approve this category' : signerWhy(me), onclick: async () => {
         approve.disabled = true;
-        if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence, by: me, expected: expectedOf(r)}, status, 'Confirmed.')) approve.disabled = !(me || '').trim();
+        if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence, by: me, expected: expectedOf(r)}, status, 'Confirmed.')) approve.disabled = !isSigner(me);
       }}, 'Approve'));
       btns.push(approve);
     }
-    const choose = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: (me || '').trim() ? 'Choose a category' : 'Enter a signer name', onclick: async () => {
+    const choose = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: isSigner(me) ? 'Choose a category' : signerWhy(me), onclick: async () => {
       choose.disabled = true;
-      if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: select.value, evidence, by: me, expected: expectedOf(r)}, status, 'Mapped.')) choose.disabled = !(me || '').trim();
+      if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: select.value, evidence, by: me, expected: expectedOf(r)}, status, 'Mapped.')) choose.disabled = !isSigner(me);
     }}, P ? 'Choose another' : 'Map'));
     btns.push(h('div', {class: 'input-group input-group-sm flex-nowrap', style: 'width:auto;max-width:30rem'}, select, choose));
     if (P) {
-      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async () => {
+      const reject = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async () => {
         reject.disabled = true;
-        if (!await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.')) reject.disabled = false;
-      }}, 'Reject');
+        if (!await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.')) reject.disabled = !isSigner(me);
+      }}, 'Reject'));
       btns.push(reject);
     }
     return h('div', {class: 'mt-3'}, h('div', {class: 'd-flex flex-wrap align-items-center', style: 'gap:.5rem'}, btns), status);
@@ -233,13 +242,13 @@ async function reconcilePage(view, qs) {
       const what = as === 'rule'
         ? [h('span', {class: 'text-secondary'}, 'Applies to: '), 'every company reading ', o.row_labels.map((l, j) => [j ? ', ' : '', `“${l}”`])]
         : [h('span', {class: 'text-secondary'}, 'Applies to: '), r.ticker, o.lines ? [' · ', o.lines.map((l, j) => [j ? ' + ' : '', `“${l}”`])] : ` · ${(o.periods || []).join(', ')}`];
-      const btn = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: (me || '').trim() ? (as === 'rule' ? 'Save as rule' : 'Save as definition') : 'Enter a signer name', onclick: async () => {
+      const btn = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: isSigner(me) ? (as === 'rule' ? 'Save as rule' : 'Save as definition') : signerWhy(me), onclick: async () => {
         if (!text.value.trim()) { text.focus(); status.textContent = 'Reason required'; return; }
         btn.disabled = true; status.classList.remove('text-red'); status.textContent = 'Writing…';
         try {
           const out = await api('/api/judgement', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, as, why: text.value, by: me})});
           status.textContent = `Saved to ${out.file}. Applies on the next run.`;
-        } catch (e) { status.textContent = `Couldn’t write: ${e.message}.`; status.classList.add('text-red'); btn.disabled = !(me || '').trim(); }
+        } catch (e) { status.textContent = `Couldn’t write: ${e.message}.`; status.classList.add('text-red'); btn.disabled = !isSigner(me); }
       }}, as === 'rule' ? 'Make this a rule' : 'Make this a definition'));
       parts.push(h('div', {class: 'col-12'}, h('div', {class: 'small mb-1'}, what), h('div', {class: 'input-group input-group-sm'}, text, btn), status));
     }
