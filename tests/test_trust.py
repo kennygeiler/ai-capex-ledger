@@ -352,8 +352,9 @@ class StaleServer(unittest.TestCase):
         from ledger.web import app
         from ledger.web.hq import WATCH
         names = {str(p) for p in app._inputs()}
-        for p in (review.LOG, WATCH, definitions.FILE, mapper.PROPOSALS, store.ROOT / "taxonomy" / "asset_types.yaml", RULES_DIR / "xbrl_reconcile.yaml"):
-            self.assertIn(str(p), names)
+        for p in (review.LOG, WATCH, definitions.FILE, mapper.PROPOSALS, store.ROOT / "taxonomy" / "asset_types.yaml", RULES_DIR / "xbrl_reconcile.yaml",
+                  store.ROOT / "reports" / "evidence" / "crops.json", store.ROOT / "reports" / "stage3-faults.json", store.ROOT / "releases" / "v1.8.0" / "SIGNOFF.json"):
+            self.assertIn(str(p), names)  # each file the snapshot reads, stat-ed itself: a folder's mtime misses an in-place rewrite
         tmp = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, tmp, True)
         f = tmp / "decisions.jsonl"
@@ -389,9 +390,9 @@ class StaleServer(unittest.TestCase):
         self.assertEqual(app.code_status()["state"], "current")
         with mock.patch.object(app, "RUNNING_CODE", "0" * 16):
             st = app.code_status()
-        self.assertEqual((st["state"], st["running"]), ("older", "0" * 16))
+        self.assertEqual((st["state"], st["running"]), ("differs", "0" * 16))
         js = (store.ROOT / "ledger" / "web" / "pages" / "_shared.js").read_text()
-        self.assertIn("App code older than checkout · restart", js)
+        self.assertIn("App code differs from checkout · restart", js)
 
 
 if __name__ == "__main__":

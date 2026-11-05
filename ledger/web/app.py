@@ -182,11 +182,16 @@ _FLOW: dict = {}
 
 def _inputs() -> list:
     """Every file the queue and the counts read besides the database (F21): the decisions on exceptions, the mapping
-    proposals, the EDGAR check (data/watch.json), the rules, the definitions and the taxonomy files (the mappings)."""
+    proposals, the EDGAR check (data/watch.json), the rules, the definitions, the taxonomy files (the mappings), and the
+    evidence, faults and release files the snapshot reads."""
     from ..checks.rules import RULES_DIR
     from ..review import definitions, mapper, review
     from .hq import WATCH
-    return [review.LOG, mapper.PROPOSALS, WATCH, definitions.FILE, *sorted(RULES_DIR.glob("*.yaml")), *sorted((store.ROOT / "taxonomy").glob("*.yaml"))]
+    return [review.LOG, mapper.PROPOSALS, WATCH, definitions.FILE, *sorted(RULES_DIR.glob("*.yaml")), *sorted((store.ROOT / "taxonomy").glob("*.yaml")),
+            # what hq.snapshot reads, each file stat-ed (a folder's mtime misses a file rewritten in place): the re-reads and
+            # crops (reports/evidence/*.json), the faults reports, and every release's manifest, signature and values
+            *sorted(EVIDENCE.glob("*.json")), *sorted((store.ROOT / "reports").glob("*-faults.json")),
+            *sorted(f for d in RELEASES.glob("v*") if d.is_dir() for f in (d / "manifest.json", d / "SIGNOFF.json", d / "values.csv", d / "facts.csv"))]
 
 
 def _stamp() -> tuple:
@@ -207,13 +212,15 @@ _CODE_HASH: dict = {}
 def code_fingerprint(root=None) -> str:
     """sha256 over every ledger/**/*.py, path and bytes, sorted by path: same code, same fingerprint, whatever the mtimes."""
     root = Path(root or CODE)
-    h = hashlib.sha256()
+    h, seen = hashlib.sha256(), {}
     for f in sorted(root.rglob("*.py")):
         st = f.stat()
         k = (str(f), st.st_mtime_ns, st.st_size)
-        if k not in _CODE_HASH:
-            _CODE_HASH[k] = hashlib.sha256(f.read_bytes()).hexdigest()
-        h.update(f.relative_to(root).as_posix().encode() + b"\0" + _CODE_HASH[k].encode() + b"\n")
+        seen[k] = _CODE_HASH.get(k) or hashlib.sha256(f.read_bytes()).hexdigest()
+        h.update(f.relative_to(root).as_posix().encode() + b"\0" + seen[k].encode() + b"\n")
+    for k in [k for k in _CODE_HASH if k[0].startswith(str(root)) and k not in seen]:  # the files' old versions: dropped
+        del _CODE_HASH[k]
+    _CODE_HASH.update(seen)
     return h.hexdigest()[:16]
 
 
@@ -221,13 +228,13 @@ RUNNING_CODE = code_fingerprint()  # at import: the server's start
 
 
 def code_status() -> dict:
-    """{running, checkout, state}: state `current` when the server runs the checkout's code, `older` when the checkout
-    changed since the server started (restart it), `unknown` when the checkout cannot be read."""
+    """{running, checkout, state}: state `current` when the server runs the checkout's code, `differs` when the checkout's
+    code changed since the server started, forward or back (restart it), `unknown` when the checkout cannot be read."""
     try:
         now = code_fingerprint()
     except OSError:
         return {"running": RUNNING_CODE, "checkout": None, "state": "unknown"}
-    return {"running": RUNNING_CODE, "checkout": now, "state": "current" if now == RUNNING_CODE else "older"}
+    return {"running": RUNNING_CODE, "checkout": now, "state": "current" if now == RUNNING_CODE else "differs"}
 
 
 def flow(scope: str) -> dict:
