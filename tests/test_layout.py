@@ -306,5 +306,22 @@ class Layout(unittest.TestCase):
         pg.keyboard.press("Escape")
         self.assertEqual(pg.eval_on_selector("main select[aria-label=Companies]", "s => s.options[s.selectedIndex].text"), "All companies")
 
+    def test_reconcile_row_affordance(self):
+        """V14: a row under the pointer is filled; no row reads as current on load; one tab stop per row (the row: its
+        checkbox, company link and mapping buttons are pointer-only, the opened row has the same actions); the keys are a
+        disclosure reachable by Tab."""
+        pg = self.page(1600, "reconcile")
+        pg.wait_for_selector("table.rec tr.item", timeout=60000)
+        m = pg.evaluate("""() => { const rows = [...document.querySelectorAll('tr.item')];
+            return {cur: document.querySelectorAll('tr.item.cur').length,
+              stops: Math.max(...rows.map((r) => [r, ...r.querySelectorAll('a, button, input, select, [tabindex]')].filter((e) => e.tabIndex >= 0 && !e.disabled).length)),
+              keys: document.querySelector('details.keys > summary').tabIndex}; }""")
+        self.assertEqual(m["cur"], 0)
+        self.assertEqual(m["stops"], 1)
+        self.assertEqual(m["keys"], 0)
+        pg.hover("table.rec tr.item >> nth=2")
+        bg = pg.eval_on_selector("table.rec tr.item >> nth=2", "tr => getComputedStyle(tr.cells[2]).backgroundColor")
+        self.assertNotIn(bg, ("rgba(0, 0, 0, 0)", "transparent"))
+
 if __name__ == "__main__":
     unittest.main()

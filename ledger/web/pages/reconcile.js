@@ -95,7 +95,8 @@ async function reconcilePage(view, qs) {
       ...OPEN_BUCKETS.map((s, i) => { const [cls, word] = stateWord('row', s); return stat(word, nState(s), cls, i === 0, s); }),  // the one per-company count's buckets (states.buckets), as Proof and Release say them
       (() => { const [cls, word] = stateWord('row', 'info'); return stat(word, (d.by_state || {}).info || 0, cls, false, 'info'); })(),  // explained rows: an info stat, never part of the open buckets
       h('span', {class: 'text-secondary me-3'}, `Last run ${day(d.last_run)}`), d.release ? h('span', {class: 'text-secondary me-3'}, `Last release ${d.release}`) : '',
-      h('span', {class: 'text-secondary', title: 'j k move · Enter opens · a e f b decide · space selects'}, 'Keyboard')))));
+      // V14: the keys are a disclosure reachable by Tab, not a hover-only title
+      h('details', {class: 'keys d-inline-block'}, h('summary', {class: 'text-secondary'}, 'Keyboard'), h('span', {class: 'text-secondary ms-2'}, 'j k move · Enter opens · Esc closes · a e f b decide · space selects'))))));
   // V12 / V19: one line at 1280, no card around it; the Scope list is All or one company (the industries are the Industry filter's)
   const controls = h('div', {class: 'filterbar mb-3', role: 'group', 'aria-label': 'Filters'},
     sel('Scope', scope, [['all', 'All companies'], ...(scope !== 'all' && !d.names[scope] ? [[scope, INDUSTRY[scope] || scope]] : []), ...[...new Set([...(d.scope_tickers || []), ...(scope !== 'all' && d.names[scope] ? [scope] : [])])].sort().map((t) => [t, `${d.names[t] || t} (${t})`])], 'scope'),
@@ -148,8 +149,8 @@ async function reconcilePage(view, qs) {
     const assetCard = group === 'cause' && (g === 'asset_types' || g === 'asset_types_match');  // a mapping card: no Dataset, SEC XBRL, Gap or Difference columns, always — on its rows
     for (const r of list) {
       const i = trs.length;
-      const cb = !bulkable(r) ? '' : h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});  // a mapping is approved one at a time, never in bulk (bulkable)
-      const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label];
+      const cb = !bulkable(r) ? '' : h('input', {class: 'form-check-input m-0', type: 'checkbox', tabindex: -1, 'aria-label': `Select ${r.name} ${r.field ? (LABEL[r.field] || r.field) : r.where}${r.period ? ' ' + r.period : ''}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});  // a mapping is approved one at a time, never in bulk (bulkable)
+      const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, tabindex: -1, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label];
       const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.cause === 'finding_unconfirmed' ? h('div', {class: 'text-secondary small'}, [r.evidence.dimension, group === 'company' ? '' : r.cause_label].filter(Boolean).join(' · ')) : r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : ''];
       const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} · ${r.resolution.by} · ${day(r.resolution.at)}`) : ''];
       const P = isAsset(r) ? r.evidence.proposal : null;
@@ -245,19 +246,20 @@ async function reconcilePage(view, qs) {
     const btns = [];
     if (P) {
       const entry = r.evidence.mapping !== 'unmapped';
-      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: isSigner(me) ? 'Approve this category' : signerWhy(me), onclick: async (e) => {  // one primary per page section: a matching row's Approve is not one
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', tabindex: -1, title: isSigner(me) ? 'Approve this category' : signerWhy(me), onclick: async (e) => {  // one primary per page section: a matching row's Approve is not one
         e.stopPropagation(); approve.disabled = true;
         const ok = await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence: P.evidence || r.evidence.reported_name, by: me, expected: expectedOf(r)}, status, entry ? 'Confirmed.' : 'Mapped.');
         if (!ok) approve.disabled = !isSigner(me);
       }}, 'Approve'));
-      const reject = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async (e) => {
+      const reject = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', tabindex: -1, title: 'Reject this category', onclick: async (e) => {
         e.stopPropagation(); reject.disabled = true;
         const ok = await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.');
         if (!ok) reject.disabled = !isSigner(me);
       }}, 'Reject'));
       btns.push(approve, reject);
     }
-    const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-outline-primary'), title: 'Choose a category', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
+    // V14: the row's buttons are for the pointer; by keyboard, Enter opens the row and its card has the same actions
+    const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-outline-primary'), tabindex: -1, title: 'Choose a category', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
     btns.push(edit);
     return [h('div', {class: 'btn-list flex-nowrap row-actions'}, btns), status];
   }
@@ -408,5 +410,6 @@ async function reconcilePage(view, qs) {
     return h('div', {class: 'row g-3'}, cards, decision, once);
   }
   wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No items to review'))]));
-  if (trs.length) { const at = trs.findIndex((t) => t.r.key === FOCUS_KEY); cur = Math.max(0, at); paintCur(); if (FOCUS_KEY && at >= 0) { trs[cur].tr.focus({preventScroll: true}); trs[cur].tr.scrollIntoView({block: 'center'}); } FOCUS_KEY = null; }
+  // V14: no row reads as current until one has focus (a save's next row does)
+  if (trs.length) { const at = trs.findIndex((t) => t.r.key === FOCUS_KEY); cur = at; paintCur(); if (FOCUS_KEY && at >= 0) { trs[cur].tr.focus({preventScroll: true}); trs[cur].tr.scrollIntoView({block: 'center'}); } FOCUS_KEY = null; }
 }

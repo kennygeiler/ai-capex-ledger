@@ -183,6 +183,10 @@
   .bulkbar { position: fixed; left: 50%; bottom: 1rem; transform: translateX(-50%); width: min(calc(100% - 2rem), 72rem); z-index: 1040; margin: 0; box-shadow: 0 8px 30px rgba(0, 0, 0, .18); }
   main:has(.bulkbar:not([hidden])) { padding-bottom: 12rem; }
   tr.item:focus-visible { outline: 2px solid var(--tblr-primary); outline-offset: -2px; }
+  /* V14: a row that opens on click shows it under the pointer */
+  tr.item:hover > td { background: color-mix(in srgb, var(--tblr-body-color) 4%, var(--tblr-bg-surface)); }
+  details.keys > summary { display: inline; cursor: pointer; list-style: none; }
+  details.keys > summary::-webkit-details-marker { display: none; }
   tr.item.cur td { background: var(--tblr-active-bg, rgba(0,0,0,.03)); }
   tr.item.cur td:first-child { box-shadow: inset 3px 0 0 var(--tblr-primary); }
   tr.ev > td { padding: 1rem 1.25rem 1.25rem; background: var(--tblr-bg-surface-secondary); cursor: default; }
