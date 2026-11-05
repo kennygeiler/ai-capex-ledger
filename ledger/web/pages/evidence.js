@@ -11,10 +11,11 @@ function evFiling(e) {
   return h('div', {class: 'ev-side'},
     h('div', {class: 'hrow'}, evState(e), e.reason ? h('span', {class: 'text-secondary small'}, e.reason) : '', e.mark ? h('span', {class: 'text-orange fw-medium small'}, e.mark) : ''),
     e.state === 'located' && crop.url
-      ? h('a', {href: safeHref(e.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing'}, h('img', {class: 'ev-crop', src: crop.url, alt: `${e.row_label}, ${e.column_label}: ${e.cell_text}, boxed in the filing`}))
+      ? h('div', {class: 'ev-frame'}, h('a', {href: safeHref(e.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing'}, h('img', {class: 'ev-crop', src: crop.url, alt: `${e.row_label}, ${e.column_label}: ${e.cell_text}, boxed in the filing`,
+          onload: (ev) => legibleCrop(ev.target), onerror: (ev) => cropFailed(ev.target.closest('.ev-frame'), e.viewer)})))
       : h('p', {class: 'msg'}, '—'),
     h('div', {class: 'small text-secondary'}, crop.at ? `Page shows ${crop.seen || '—'} · cropped ${when(crop.at)}` : '', crop.hidden ? ` · ${int(crop.hidden)} rows folded` : ''),
-    h('div', {class: 'hrow mt-1'}, h('a', {class: 'btn btn-primary btn-sm', href: safeHref(e.viewer), target: '_blank', rel: 'noopener'}, 'Open in filing'),
+    h('div', {class: 'hrow mt-1'}, h('a', {class: 'btn btn-outline-secondary btn-sm', href: safeHref(e.viewer), target: '_blank', rel: 'noopener'}, 'Open in filing'),
       SEC_LINK.test(e.sec_url || '') ? h('a', {class: 'small', href: safeHref(e.sec_url), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗') : ''));
 }
 
