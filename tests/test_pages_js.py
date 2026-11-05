@@ -56,5 +56,30 @@ api('/api/v1/views', JSON.parse(process.argv[process.argv.length - 1])).then(() 
         self.assertIn("catch (err) { delMsg.textContent = err.message", js)
 
 
+@unittest.skipUnless(shutil.which("node"), "no node")
+class BulkSelect(unittest.TestCase):
+    """F-BF4: "Select all n" and the space key selected Category mapping rows too, and /api/resolve/bulk refused the whole
+    batch (400). Only rows the bulk route takes are selectable."""
+
+    def keys(self, rows):
+        js = line("reconcile.js", "const bulkable") + "\n" + line("reconcile.js", "const bulkKeys") + \
+            "\nprocess.stdout.write(JSON.stringify(bulkKeys(JSON.parse(process.argv[process.argv.length - 1]))));"
+        return json.loads(node(js, json.dumps(rows)))
+
+    def test_mapping_rows_are_never_selected(self):
+        rows = [{"key": "finding_unconfirmed|GOOGL|capex|FY2024||jump|", "cause": "finding_unconfirmed", "bulk": True},
+                {"key": "asset_types|GOOGL|Land", "cause": "asset_types", "bulk": True},  # even if a server said so
+                {"key": "asset_types|GOOGL|Servers", "cause": "asset_types", "bulk": False},
+                {"key": "blocked|AMD|capex|FY2023||x|", "cause": "blocked"}]  # no bulk flag: not selectable
+        self.assertEqual(self.keys(rows), ["finding_unconfirmed|GOOGL|capex|FY2024||jump|"])
+
+    def test_the_page_selects_through_bulkable_only(self):
+        js = (PAGES / "reconcile.js").read_text()
+        self.assertIn("for (const k of selectable) selected.add(k)", js)
+        self.assertIn("if (!bulkable(r)) return; selected.has(r.key)", js)
+        self.assertIn("const cb = !bulkable(r) ? '' :", js)
+        self.assertNotIn("for (const r of open) selected.add(r.key)", js)
+
+
 if __name__ == "__main__":
     unittest.main()

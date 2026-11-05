@@ -153,6 +153,8 @@
     tests:
       - tests.test_workbench.Workbench.test_fact_differs_row_carries_cell_and_delta
       - tests.test_workbench.Workbench.test_a_not_extracted_value_is_an_open_row_with_its_cause
+      - tests.test_workbench.BulkFlag.test_every_selectable_row_on_the_real_database_is_accepted_by_bulk
+      - tests.test_pages_js.BulkSelect.test_mapping_rows_are_never_selected
   status: partial
   gaps:
     - The state of a tie or readings finding on Reconcile is still keyed by the finding's kind ("other"), not its rule; only the label names the rule (F-RC1).

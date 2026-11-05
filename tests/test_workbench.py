@@ -151,3 +151,28 @@ class ToConfirmGroup(unittest.TestCase):
         self.assertEqual(out["causes"][0]["cause"], "to_confirm")
         self.assertEqual((out["rows"][0]["state"], out["rows"][0]["by"], out["rows"][0]["evidence"]["proposed"]), ("to confirm", "resolution:r9", "explain"))
         self.assertEqual([r["ticker"] for r in one["rows"] if r["cause"] == "to_confirm"], ["GOOGL"])  # a ticker scope shows its own
+
+
+class BulkFlag(unittest.TestCase):
+    """F-BF4: every row of Reconcile, grouped by company, that the page lets a person select goes through
+    /api/resolve/bulk's own check; a category mapping row is never selectable."""
+
+    def test_every_selectable_row_on_the_real_database_is_accepted_by_bulk(self):
+        import os
+        from ledger.core import store
+        from ledger.review import resolutions
+        from ledger.web import app
+        if not store.DEFAULT_DB.exists() or os.environ.get("LEDGER_SKIP_DB"):
+            self.skipTest("no database")
+        con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+        try:
+            rows = workbench.items(con, app.flow("all"))["rows"]
+        finally:
+            con.close()
+        self.assertTrue(any(r["cause"] == "asset_types" for r in rows))
+        self.assertFalse([r["key"] for r in rows if r["cause"] == "asset_types" and r["bulk"]])
+        picked = [r for r in rows if r["bulk"] and r["open"]]
+        self.assertTrue(picked)
+        with mock.patch.object(resolutions, "_write") as w:
+            resolutions.resolve_many([{"key": r["key"], "hash": r["hash"]} for r in picked], "accept", "test", "a test", author_kind="person")
+        self.assertEqual(len(w.call_args[0][0]), len(picked))

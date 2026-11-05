@@ -35,6 +35,9 @@ const memberWords = (m) => { if (!m) return ''; const w = m.split(':').pop().rep
 const tone = (text, cls) => h('span', {class: cls + ' small text-nowrap'}, text);
 const checkBadge = (label) => { if (label == null) return ''; const [cls, word] = stateWord('check', label); return tone(word, cls); };  // states.CHECK, the Dataset's words
 const bar = (v, max, cls) => h('span', {class: 'bar ' + (cls || ''), style: `width:${Math.max(2, 44 * Math.abs(v || 0) / (max || 1)).toFixed(0)}px`});
+// F-BF4: a row is selectable for one bulk decision only when /api/resolve/bulk takes its key (workbench sets `bulk`); a category mapping never is
+const bulkable = (r) => !!r.bulk && r.cause !== 'asset_types';
+const bulkKeys = (rows) => rows.filter(bulkable).map((r) => r.key);
 async function reconcilePage(view, qs) {
   NEEDS_ME.clear();  // the last render's buttons are gone with it
   const q = parseQ(qs || '');
@@ -87,10 +90,11 @@ async function reconcilePage(view, qs) {
   for (const [g, list] of groups) {
     const label = group === 'cause' ? ((d.causes.find((x) => x.cause === g) || {}).label || list[0].cause_label) : `${list[0].name} ${list[0].ticker}`;
     const open = list.filter(isOpen);
+    const selectable = bulkKeys(open);
     const tbody = h('tbody');
     for (const r of list) {
       const i = trs.length;
-      const cb = isAsset(r) ? '' : h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});  // a mapping is approved one at a time, never in bulk
+      const cb = !bulkable(r) ? '' : h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});  // a mapping is approved one at a time, never in bulk (bulkable)
       const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label];
       const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && group === 'company' ? '' : r.cause === 'finding_unconfirmed' ? h('div', {class: 'text-secondary small'}, r.cause_label) : ''];
       const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} · ${r.resolution.by} · ${day(r.resolution.at)}`) : ''];
@@ -110,7 +114,7 @@ async function reconcilePage(view, qs) {
     const assetGroup = group === 'cause' && isAsset(list[0]);
     cards.push(h('div', {class: 'card mb-3'},
       h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} proposed` : assetGroup ? `${int(list.filter((r) => r.verification === 'wait').length)} proposed · ${int(list.filter((r) => r.verification === 'bad').length)} unmapped · ${int(list.filter((r) => r.evidence.mismatch).length)} differ from company tag · ${int(list.filter((r) => r.verification === 'company').length)} match company tag` : `${int(open.length)} to review of ${int(list.length)}`),
-        open.length > 1 && !assetGroup ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const r of open) selected.add(r.key); paint(); }}, `Select all ${int(open.length)}`) : ''),
+        selectable.length > 1 ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const k of selectable) selected.add(k); paint(); }}, `Select all ${int(selectable.length)}`) : ''),
       h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover'},
         h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, 'Item'), h('th', {class: 'num'}, 'Dataset'), h('th', {class: 'num'}, 'SEC XBRL'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Difference'), h('th', {}, 'Decision'))),
         tbody))));
@@ -130,7 +134,7 @@ async function reconcilePage(view, qs) {
     if (k === 'j' || k === 'ArrowDown') { e.preventDefault(); trs[Math.min(trs.length - 1, i + 1)].tr.focus(); }
     else if (k === 'k' || k === 'ArrowUp') { e.preventDefault(); trs[Math.max(0, i - 1)].tr.focus(); }
     else if (k === 'Enter' || k === 'o') { e.preventDefault(); toggle(i); }
-    else if (k === ' ') { e.preventDefault(); const r = trs[i].r; selected.has(r.key) ? selected.delete(r.key) : selected.add(r.key); paint(); }
+    else if (k === ' ') { e.preventDefault(); const r = trs[i].r; if (!bulkable(r)) return; selected.has(r.key) ? selected.delete(r.key) : selected.add(r.key); paint(); }
     else if (k === 'Escape' && trs[i].detail) { toggle(i); }
     else if ('aefb'.includes(k) && k && !isAsset(trs[i].r)) { e.preventDefault(); toggle(i, true); const btn = trs[i].detail.querySelector(`[data-state=${({a: 'accept', e: 'explain', f: 'fix', b: 'blocks'})[k]}]`); btn.click(); trs[i].detail.querySelector('input[type=text]').focus(); }
   }
