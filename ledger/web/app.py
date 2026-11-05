@@ -180,10 +180,54 @@ def data(q: dict) -> dict:
 _FLOW: dict = {}
 
 
+def _inputs() -> list:
+    """Every file the queue and the counts read besides the database (F21): the decisions on exceptions, the mapping
+    proposals, the EDGAR check (data/watch.json), the rules, the definitions and the taxonomy files (the mappings)."""
+    from ..checks.rules import RULES_DIR
+    from ..review import definitions, mapper, review
+    from .hq import WATCH
+    return [review.LOG, mapper.PROPOSALS, WATCH, definitions.FILE, *sorted(RULES_DIR.glob("*.yaml")), *sorted((store.ROOT / "taxonomy").glob("*.yaml"))]
+
+
 def _stamp() -> tuple:
-    """What the app depends on: the database, the resolutions, the releases, the added companies, the evidence."""
-    paths = [store.DEFAULT_DB, resolutions.LOG, RELEASES, ADDED, EVIDENCE]
-    return tuple(p.stat().st_mtime_ns if p.exists() else 0 for p in paths)
+    """What the app depends on: the database, the resolutions, the releases, the added companies, the evidence, and every
+    input file (_inputs, F21): a decision, an EDGAR check, a rule, a definition or a mapping written after the queue was
+    built gives a new stamp, so the next read builds it again. A file's mtime and size; 0 for one that is not there."""
+    paths = [store.DEFAULT_DB, resolutions.LOG, RELEASES, ADDED, EVIDENCE, *_inputs()]
+    return tuple((str(p), *((p.stat().st_mtime_ns, p.stat().st_size) if p.exists() else (0, 0))) for p in paths)
+
+
+# ── F21: the code the server runs against the code in the checkout. Pages load new scripts on every request; the Python
+# is what the server imported at start. A content hash of ledger/**/*.py, cached per (mtime, size) so a check reads only
+# what changed. ─────────────────────────────────────────────────────────────────────────────────────────────────────
+CODE = store.ROOT / "ledger"
+_CODE_HASH: dict = {}
+
+
+def code_fingerprint(root=None) -> str:
+    """sha256 over every ledger/**/*.py, path and bytes, sorted by path: same code, same fingerprint, whatever the mtimes."""
+    root = Path(root or CODE)
+    h = hashlib.sha256()
+    for f in sorted(root.rglob("*.py")):
+        st = f.stat()
+        k = (str(f), st.st_mtime_ns, st.st_size)
+        if k not in _CODE_HASH:
+            _CODE_HASH[k] = hashlib.sha256(f.read_bytes()).hexdigest()
+        h.update(f.relative_to(root).as_posix().encode() + b"\0" + _CODE_HASH[k].encode() + b"\n")
+    return h.hexdigest()[:16]
+
+
+RUNNING_CODE = code_fingerprint()  # at import: the server's start
+
+
+def code_status() -> dict:
+    """{running, checkout, state}: state `current` when the server runs the checkout's code, `older` when the checkout
+    changed since the server started (restart it), `unknown` when the checkout cannot be read."""
+    try:
+        now = code_fingerprint()
+    except OSError:
+        return {"running": RUNNING_CODE, "checkout": None, "state": "unknown"}
+    return {"running": RUNNING_CODE, "checkout": now, "state": "current" if now == RUNNING_CODE else "older"}
 
 
 def flow(scope: str) -> dict:
@@ -511,7 +555,7 @@ class Handler(BaseHTTPRequestHandler):
         if u.path in ("/", "/index.html"):
             return self._send(HTTPStatus.OK, PAGE.read_bytes(), "text/html; charset=utf-8")
         if u.path == "/api/hq":
-            return self._guard(lambda: self._json(self._hq()))
+            return self._guard(lambda: self._json({**self._hq(), "code": code_status()}))  # F21: running vs checkout code
         if u.path == "/api/company":
             return self._guard(lambda: self._json(company(q.get("t", ""))))
         if u.path == "/api/agents":

@@ -287,6 +287,56 @@ class SignedOnTheCodeTested(unittest.TestCase):
         self.assertTrue(_dirty_line(" M ledger/checks/proof.py"))
 
 
+class StaleServer(unittest.TestCase):
+    """F21: nothing said the app ran older code, and Reconcile's queue cache missed decisions, the EDGAR check, rules,
+    definitions and mappings."""
+
+    def test_the_stamp_moves_when_any_input_file_changes(self):
+        from ledger.checks.rules import RULES_DIR
+        from ledger.review import definitions, mapper, review
+        from ledger.web import app
+        from ledger.web.hq import WATCH
+        names = {str(p) for p in app._inputs()}
+        for p in (review.LOG, WATCH, definitions.FILE, mapper.PROPOSALS, store.ROOT / "taxonomy" / "asset_types.yaml", RULES_DIR / "xbrl_reconcile.yaml"):
+            self.assertIn(str(p), names)
+        tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp, True)
+        f = tmp / "decisions.jsonl"
+        with mock.patch.object(review, "LOG", f):
+            a = app._stamp()
+            f.write_text("{}\n")
+            self.assertNotEqual(a, app._stamp())
+
+    def test_the_queue_is_rebuilt_after_a_decision(self):
+        from ledger.review import review
+        from ledger.web import app
+        tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp, True)
+        f = tmp / "decisions.jsonl"
+        calls = []
+        with mock.patch.object(review, "LOG", f), mock.patch.object(app, "_flow", side_effect=lambda s: calls.append(s) or {"n": len(calls)}), mock.patch.dict(app._FLOW, clear=True):
+            app.flow("all")
+            app.flow("all")
+            self.assertEqual(len(calls), 1)  # nothing changed: cached
+            f.write_text(json.dumps({"exception_id": "x"}) + "\n")
+            app.flow("all")
+            self.assertEqual(len(calls), 2)  # a decision written: built again
+
+    def test_hq_says_when_the_checkout_code_differs(self):
+        from ledger.web import app
+        tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp, True)
+        (tmp / "a.py").write_text("x = 1\n")
+        fp = app.code_fingerprint(tmp)
+        self.assertEqual(fp, app.code_fingerprint(tmp))
+        (tmp / "a.py").write_text("x = 2\n")
+        self.assertNotEqual(fp, app.code_fingerprint(tmp))
+        self.assertEqual(app.code_status()["state"], "current")
+        with mock.patch.object(app, "RUNNING_CODE", "0" * 16):
+            st = app.code_status()
+        self.assertEqual((st["state"], st["running"]), ("older", "0" * 16))
+        js = (store.ROOT / "ledger" / "web" / "pages" / "_shared.js").read_text()
+        self.assertIn("App code older than checkout · restart", js)
 
 
 if __name__ == "__main__":

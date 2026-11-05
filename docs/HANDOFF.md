@@ -172,6 +172,11 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
 
 ## Operating notes
 
+- **A server older than the checkout**: the app imports its Python at start; pages and scripts are read on every request.
+  `/api/hq` returns `code {running, checkout, state}` and the page shows "App code older than checkout · restart" under
+  the scope line when the code under `ledger/` changed since the server started (F21). Reconcile's queue cache is keyed on
+  the database and every input file (decisions, mapping proposals, `data/watch.json`, `rules/`, `definitions/`,
+  `taxonomy/`), so a write to any of them rebuilds it on the next read.
 - **Worktrees share `data/raw`, `data/docs` and `data/text` with the main checkout through symlinks.** A builder on an
   older base that runs `ledger ingest` rewrites the shared parses with old code (this has reverted the shared AMZN parses
   to tables@12 once). Run `ingest` only on current main, or give the worktree its own data copy; after any ingest,

@@ -992,3 +992,18 @@
     - Findings are not grouped by company, field and check; each batch still needs the Field filter (STORY-027).
     - A decision still starts on Accept; a bulk save with no deliberate choice records Accept.
   ticket: none
+
+- id: app_code_current
+  claim: "App code older than checkout"
+  where: [ledger/web/pages/_shared.js, ledger/web/app.py, /api/hq]
+  shown: ["App code older than checkout · restart"]
+  backed_by:
+    functions: [ledger.web.app.code_status, ledger.web.app.code_fingerprint, ledger.web.app._stamp]
+    tests:
+      - tests.test_trust.StaleServer.test_hq_says_when_the_checkout_code_differs
+      - tests.test_trust.StaleServer.test_the_queue_is_rebuilt_after_a_decision
+      - tests.test_trust.StaleServer.test_the_stamp_moves_when_any_input_file_changes
+  status: partial
+  gaps:
+    - "Compares the Python under ledger/ only; pages and app.html are served from disk on every request, so they are never older."
+  ticket: none
