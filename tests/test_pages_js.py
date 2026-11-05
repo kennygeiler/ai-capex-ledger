@@ -185,5 +185,96 @@ class ReconcileSigners(unittest.TestCase):
         self.assertIn("SIGNERS = d.people || [];", js)
 
 
+APP = PAGES.parent / "app.html"
+
+
+class VisualContract(unittest.TestCase):
+    """V3-V8 (docs/ux-visual/problems.md): the shared rules every page draws with. The measured side is tests.test_layout."""
+
+    def css(self) -> str:
+        return APP.read_text()
+
+    def test_one_segmented_control(self):
+        """V3: every either/or choice is .seg, at least 28 px tall with 10 px sides; its selected segment is a neutral fill, never
+        the primary action's colour."""
+        css = self.css()
+        self.assertIn(".seg > .btn { min-height: 1.75rem; padding: 0 .625rem;", css)
+        sel = re.search(r"\.seg > \.btn\.active[^{]*\{([^}]*)\}", css).group(1)
+        self.assertIn("background: color-mix(in srgb, var(--tblr-body-color) 13%, var(--tblr-bg-surface))", sel)
+        self.assertNotIn("primary", sel)
+        self.assertNotIn(".btn-group .btn.active { background: var(--tblr-primary)", css)
+        for f in PAGES.glob("*.js"):
+            for m in re.finditer(r"class: '(btn-group[^']*)'", f.read_text()):
+                self.assertIn("seg", m.group(1).split(), f.name)
+        self.assertIn("root.querySelectorAll('.btn-group[role=group]:not(.seg)').forEach((el) => el.classList.add('seg'))", (PAGES / "_shared.js").read_text())
+
+    def test_controls_and_focus(self):
+        """V3: small buttons, selects and inputs are at least 24 px (28); a link-styled button gets a 24 px box; Tab shows a
+        2 px ring on every control, sort headers and segments included."""
+        css = self.css()
+        self.assertIn(".btn-sm, .form-select-sm, .form-control-sm { min-height: 1.75rem; }", css)
+        self.assertIn(".btn-link.p-0 { min-height: 1.5rem;", css)
+        ring = re.search(r"button:focus-visible, \.btn:focus-visible[^{]*\{([^}]*)\}", css)
+        self.assertIsNotNone(ring)
+        self.assertIn("outline: 2px solid var(--tblr-primary) !important", ring.group(1))
+        self.assertIn("[tabindex]:focus-visible", css)
+
+    def test_one_primary_fill_per_screen(self):
+        """V3: a row's own action is outlined; the primary fill is the one Save, Sign or Export."""
+        rec = (PAGES / "reconcile.js").read_text()
+        self.assertIn("const confirm = h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary'", rec)
+        self.assertNotIn("(isMatch(r) ? 'btn-outline-primary' : 'btn-primary')", rec)
+        self.assertNotIn("btn btn-primary btn-sm", (PAGES / "evidence.js").read_text())
+        self.assertNotIn("'btn-primary' : 'btn-outline-secondary'", (PAGES / "proof.js").read_text())
+
+    def test_sticky_table_headers(self):
+        """V4: every .table keeps its header row on screen; a wrapper that fits lets it follow the page, a wide one scrolls inside."""
+        css = self.css()
+        self.assertIn(".table > thead > tr > th { position: sticky; top: 0;", css)
+        self.assertIn(".table-responsive.fit { overflow: visible; }", css)
+        self.assertIn(".table-responsive.wide { max-height: calc(100vh - 2rem); overflow: auto; }", css)
+        self.assertIn("fitTables(root);", (PAGES / "_shared.js").read_text())
+
+    def test_dataset_rows_page_at_most_100(self):
+        """V4: Dataset Rows draws one page of at most 100 rows, with a pager."""
+        n = int(re.search(r"^const PAGE_ROWS = (\d+);", (PAGES / "_shared.js").read_text(), re.M).group(1))
+        self.assertLessEqual(n, 100)
+        self.assertIn("table(tcols, rows, {detail, page: PAGE_ROWS})", (PAGES / "data.js").read_text())
+
+    def test_page_head_band(self):
+        """V5: the scope line sits in the page container above main, not in its own container under the navbar."""
+        html = self.css()
+        self.assertLess(html.index('id="scopeline"'), html.index('<main id="view"'))
+        self.assertGreater(html.index('id="scopeline"'), html.index('<div class="container-xl">\n  <div'))
+        self.assertNotIn("$('header').after(", (PAGES / "_router.js").read_text())
+
+    def test_reconcile_fixed_layout_and_overlay_bulk_bar(self):
+        """V8: fixed table layout with set widths; a detail row spans the table's own columns; the bulk bar is fixed, out of the flow."""
+        css, rec = self.css(), (PAGES / "reconcile.js").read_text()
+        self.assertIn("table.rec { table-layout: fixed; width: 100%; }", css)
+        self.assertIn(".bulkbar { position: fixed;", css)
+        self.assertIn("class: 'card bulkbar', hidden: true", rec)
+        self.assertIn("colspan: t.tr.closest('table').querySelectorAll('thead th').length", rec)
+        self.assertNotIn("colspan: 8", rec)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class HandCheckNote(unittest.TestCase):
+    """V4 / PB9: the note box shows only after Wrong or Can't say, or when a note is on file; never for Right or unchecked."""
+
+    def shown(self, items):
+        js = line("proof.js", "const noteShown") + "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[process.argv.length - 1]).map(noteShown)));"
+        return json.loads(node(js, json.dumps(items)))
+
+    def test_hidden_for_right(self):
+        got = self.shown([{"verdict": "right"}, {"verdict": None}, {"verdict": "wrong"}, {"verdict": "cant_say"}, {"verdict": "right", "note": "see note 7"}, {"verdict": "right", "note": "  "}])
+        self.assertEqual(got, [False, False, True, True, True, False])
+
+    def test_the_note_input_reads_it(self):
+        js = (PAGES / "proof.js").read_text()
+        self.assertIn("'aria-label': `Note on ${it.id}`, hidden: !noteShown(it)}", js)
+        self.assertIn("note.hidden = false; msg.replaceChildren(h('span', {class: 'text-red'}, 'Note required'))", js)
+
+
 if __name__ == "__main__":
     unittest.main()

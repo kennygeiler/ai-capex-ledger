@@ -2,7 +2,9 @@
 without Chrome or the database.
 
 F-BF9: the hand check's exact-dollar line ("In thousands · $9,320,000") overflowed its 9.5rem value column and was cut by the
-crop beside it ("$9,320,00"). F-BF8: Docs code blocks drew their text in the same colour as their background."""
+crop beside it ("$9,320,00"). F-BF8: Docs code blocks drew their text in the same colour as their background.
+V3-V8 (docs/ux-visual/problems.md, measured in docs/ux-visual/verification/V3-V8.md): the page head band, the Proof board's
+first screen, Reconcile's rows and jumps, Dataset paging."""
 import os
 import shutil
 import threading
@@ -34,8 +36,8 @@ class Layout(unittest.TestCase):
         cls.pw.stop()
         cls.srv.shutdown()
 
-    def page(self, width, hash_):
-        pg = self.browser.new_page(viewport={"width": width, "height": 1000})
+    def page(self, width, hash_, height=1000):
+        pg = self.browser.new_page(viewport={"width": width, "height": height})
         self.addCleanup(pg.close)
         pg.goto(self.base + "#" + hash_)
         return pg
@@ -71,6 +73,59 @@ class Layout(unittest.TestCase):
                 self.assertGreaterEqual(ratio, 4.5)
                 self.assertIn("uv sync", pg.text_content(".md pre.raw"))
                 self.assertLessEqual(pg.evaluate("document.documentElement.scrollWidth - window.innerWidth"), 0)
+
+    def test_page_head_band(self):
+        """V5: navbar → scope line at least 12 px, scope line → H1 at most 24 px, H1 top at most 110 px, one left edge."""
+        for hash_ in ("proof", "proof/APLD", "reconcile", "gaps"):
+            with self.subTest(page=hash_):
+                pg = self.page(1600, hash_)
+                pg.wait_for_selector("main h1.page-title", timeout=60000)
+                pg.wait_for_selector("#scopeline a", timeout=60000)
+                m = pg.evaluate("""() => { const n = document.querySelector('header.navbar').getBoundingClientRect(), s = document.querySelector('#scopeline a').getBoundingClientRect(),
+                    t = document.querySelector('main h1.page-title').getBoundingClientRect(); return {gap1: s.top - n.bottom, gap2: t.top - s.bottom, top: t.top, dx: Math.abs(t.left - s.left)}; }""")
+                self.assertGreaterEqual(m["gap1"], 12)
+                self.assertLessEqual(m["gap2"], 24)
+                self.assertLessEqual(m["top"], 110)
+                self.assertLessEqual(m["dx"], 1)
+
+    def test_proof_board_first_screen(self):
+        """V5/V6: at 1280×800 all six company rows and the parts sub-header are above the fold; the headline is at least 20 px."""
+        pg = self.page(1280, "proof", height=800)
+        pg.wait_for_selector("table.proof-board tbody tr", timeout=60000)
+        m = pg.evaluate("""() => { const rows = [...document.querySelectorAll('table.proof-board tbody tr')];
+            return {n: rows.length, last: rows[rows.length - 1].getBoundingClientRect().bottom, legend: document.querySelector('tr.proof-legend').getBoundingClientRect().bottom,
+              fs: parseFloat(getComputedStyle(document.querySelector('.proof-headline')).fontSize),
+              parts: [...document.querySelectorAll('td.stage')].map((td) => td.querySelectorAll('span.part').length)}; }""")
+        self.assertLessEqual(m["last"], 800)
+        self.assertLessEqual(m["legend"], 800)
+        self.assertGreaterEqual(m["fs"], 20)
+        self.assertEqual(set(m["parts"]), {4})  # every stage cell: the same four parts
+
+    def test_reconcile_rows_and_jumps(self):
+        """V4/V8: collapsed rows at most 44 px; ticking a box moves no row; opening a row moves no header more than 1 px."""
+        for w in WIDTHS:
+            with self.subTest(width=w):
+                pg = self.page(w, "reconcile")
+                pg.wait_for_selector("table.rec tr.item", timeout=60000)
+                m = pg.evaluate("""async () => { const hs = [...document.querySelectorAll('tr.item')].map((r) => r.getBoundingClientRect().height);
+                    const cb = document.querySelector('tr.item input[type=checkbox]'); let moved = 0;
+                    if (cb) { const tr = cb.closest('tr'), y0 = tr.getBoundingClientRect().top; cb.click(); await new Promise((r) => setTimeout(r, 300)); moved = Math.abs(tr.getBoundingClientRect().top - y0); cb.click(); }
+                    let worst = 0;
+                    for (const tbl of document.querySelectorAll('table.rec')) { const tr = tbl.querySelector('tr.item'); if (!tr) continue;
+                      const xs = () => [...tbl.querySelectorAll(':scope > thead th')].map((t) => t.getBoundingClientRect().left); const a = xs(); tr.click();
+                      await new Promise((r) => setTimeout(r, 200)); worst = Math.max(worst, ...xs().map((x, i) => Math.abs(x - a[i]))); tr.click(); }
+                    return {maxH: Math.max(...hs), moved, worst}; }""")
+                self.assertLessEqual(m["maxH"], 44.5)
+                self.assertLessEqual(m["moved"], 0.5)
+                self.assertLessEqual(m["worst"], 1)
+
+    def test_dataset_rows_are_paged(self):
+        """V4: Dataset Rows draws at most 100 rows with a pager, and its header row stays on screen."""
+        pg = self.page(1600, "data?list=taxonomy")
+        pg.wait_for_selector("main table tbody tr", timeout=60000)
+        self.assertLessEqual(pg.eval_on_selector_all("main table tbody tr", "rs => rs.length"), 100)
+        self.assertTrue(pg.query_selector(".pager"))
+        self.assertLessEqual(pg.evaluate("document.documentElement.scrollHeight / innerHeight"), 3)
 
 
 if __name__ == "__main__":
