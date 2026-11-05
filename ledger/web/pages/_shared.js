@@ -208,6 +208,9 @@ const TABLES = [
 // a US GAAP member as words (V22: "PropertyPlantAndEquipmentGross" never on screen): "Property plant and equipment gross"
 const memberWords = (m) => { if (!m) return ''; const w = m.split(':').pop().replace(/Member$/, '').replace(/([a-z0-9])([A-Z])|([A-Z])([A-Z][a-z])/g, '$1$3 $2$4').split(' '); return [w[0], ...w.slice(1).map((x) => (x.length > 1 && x === x.toUpperCase() ? x : x.toLowerCase()))].join(' '); };
 const memberLabel = memberWords;
+// a server line that names a member by its code ("Company-specific tag: amzn:ServersAndNetworkingEquipmentMember"): the code
+// read as words; the line as written stays on hover
+const memberText = (t) => String(t || '').replace(/\b(?:[a-z][\w-]*:)?[A-Z][A-Za-z0-9]*Member\b/g, (m) => memberWords(m));
 // a list's column name as a label (V22: no snake_case on screen); the API, CSV and JSON keep the key itself
 const colName = (k) => { const w = String(k).replaceAll('_', ' '); return w.charAt(0).toUpperCase() + w.slice(1); };
 const RAW_NUM = new Set(['value', 'value_high', 'change_from_prior', 'share', 'amount_low', 'amount_high', 'amount_mid', 'xbrl', 'capacity_mw', 'scale', 'sic', 'gpus']);
@@ -263,7 +266,8 @@ function mappingDecision(D, actions) {
   const L = D.line || {}, P = D.proposed, T = D.tag || {};
   const item = (title, ...body) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, title), h('div', {class: 'datagrid-content', style: 'overflow-wrap:anywhere'}, body));
   const series = (L.series || []).map((s) => `${s.period} ${usd(s.value)}`).join(' · ');
-  const def = (m) => h('details', {class: 'mt-1'}, h('summary', {class: 'small', style: 'cursor:pointer', title: m.definition}, `${m.label} · `, h('span', {class: 'font-monospace small'}, m.member), h('span', {class: 'text-secondary'}, ` · ${m.why}`)), h('div', {class: 'small text-secondary mt-1'}, m.definition));
+  // V22: a member reads as its label; its US GAAP code name is on hover, never beside the words in mono
+  const def = (m) => h('details', {class: 'mt-1'}, h('summary', {class: 'small', style: 'cursor:pointer', title: `${m.member} · ${m.definition || ''}`}, m.label, h('span', {class: 'text-secondary'}, ` · ${m.why}`)), h('div', {class: 'small text-secondary mt-1'}, m.definition));
   return h('div', {class: 'mapcard'},
     h('div', {class: 'd-flex align-items-baseline flex-wrap gap-2 mb-2'}, h('span', {class: 'fw-semibold'}, D.name),
       h('span', {class: (MAP_STATE[D.state.state] || 'text-secondary') + ' small fw-medium'}, D.state.label)),
@@ -271,11 +275,11 @@ function mappingDecision(D, actions) {
       item('Company line', L.latest ? [h('span', {class: 'fw-medium'}, usd(L.latest.value)), ` ${L.latest.period}`] : '—',
         L.link ? h('a', {href: safeHref(L.link), target: '_blank', rel: 'noopener', class: 'ms-2 small'}, 'Open ↗') : '',
         series ? h('div', {class: 'small text-secondary'}, series) : ''),
-      item('Proposed', P ? [h('span', {class: 'fw-medium'}, P.label || P.member), ' ', h('span', {class: 'font-monospace small text-secondary'}, P.member),
+      item('Proposed', P ? [h('span', {class: 'fw-medium', title: P.member}, P.label || memberWords(P.member)),
         P.definition ? h('div', {class: 'small mt-1'}, P.definition) : '', P.definition ? h('div', {class: 'small text-secondary'}, `Source: ${D.source}`) : ''] : h('span', {class: 'text-secondary'}, 'None')),
-      item('Company’s own tag', h('span', {class: MAP_TAG[T.status] || 'text-secondary'}, T.text),
+      item('Company’s own tag', h('span', {class: MAP_TAG[T.status] || 'text-secondary', title: T.text}, memberText(T.text)),
         T.definition && T.status === 'differs' ? h('div', {class: 'small mt-1'}, T.definition) : '',
-        T.accession ? h('div', {class: 'small text-secondary'}, `XBRL instance ${T.accession} · ${T.period_end}`) : ''),
+        T.accession ? h('div', {class: 'small text-secondary', title: `Accession ${T.accession}`}, `XBRL instance · ${T.period_end}`) : ''),
       item('Basis', D.basis ? `“${D.basis}”` : '—', h('div', {class: 'small text-secondary'}, [D.by, D.at].filter(Boolean).join(' · '), D.confirmed_by ? ` · confirmed ${D.confirmed_by} ${D.confirmed_at || ''}` : '')),
       item('Alternatives', (D.alternatives || []).length ? D.alternatives.map(def) : h('span', {class: 'text-secondary'}, 'None')),
       item('Affects', D.affects ? D.affects.text : '—')),

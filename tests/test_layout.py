@@ -381,5 +381,26 @@ class Layout(unittest.TestCase):
                 pg.wait_for_selector("#scopeline a", timeout=60000)
                 self.assertLessEqual(pg.evaluate("Math.abs(document.querySelector('main h1.page-title').getBoundingClientRect().left - document.querySelector('#scopeline a').getBoundingClientRect().left)"), 1)
 
+    # snake_case, a US GAAP …Member code or an accession number in text on screen (code blocks, Docs and the raw Rows table
+    # are the code's own words and are left out)
+    MACHINE = r"""() => { const out = new Set(); const walk = (n) => { for (const c of n.childNodes) {
+        if (c.nodeType === 3) { const m = c.textContent.match(/\b[a-z]+_[a-z_]+\b|\b\w+Member\b|\b\d{10}-\d{2}-\d{6}\b/g);
+          if (m && c.parentElement.getBoundingClientRect().height && !c.parentElement.closest('pre, code, .md, .mono, table.raw, .charter, details:not([open]) > :not(summary)')) m.forEach((x) => out.add(x)); }
+        else if (c.nodeType === 1 && !['SCRIPT', 'STYLE', 'SELECT'].includes(c.tagName)) walk(c); } }; walk(document.querySelector('main')); return [...out]; }"""
+
+    def test_no_machine_words_on_screen(self):
+        """V22: Reconcile (a row open, a mapping open), Explore with its saved views and rows, the trail and Evidence show no
+        snake_case, no …Member code and no accession number."""
+        ev = "0001144879-24-000216%7Cppe_category%7COther%20equipment%20and%20fixtures%7C2024-05-31"
+        for hash_, click in (("reconcile", "table.rec tr.item"), ("reconcile?cause=asset_types", "table.rec tr.item"), ("explore", "text=Show rows"), ("proof/APLD", None), ("evidence/" + ev, None)):
+            with self.subTest(page=hash_):
+                pg = self.page(1600, hash_)
+                pg.wait_for_selector("main .route > *", timeout=60000)
+                pg.wait_for_timeout(800)
+                if click:
+                    pg.click(click)
+                    pg.wait_for_timeout(500)
+                self.assertEqual(pg.evaluate(self.MACHINE), [])
+
 if __name__ == "__main__":
     unittest.main()

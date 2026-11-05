@@ -20,6 +20,10 @@ const colorOf = (dim, name, values) => {
 const listUrl = (st) => { const p = new URLSearchParams(); for (const k of ['field', 'kind', 'layer', 'ticker', 'from', 'to']) if (st[k]) p.set(k, st[k]); if (st.measure === 'taxonomy') for (const [k, q_] of [['tmeasure', 'measure'], ['category', 'category'], ['standard_type', 'standard_type']]) if (st[k]) p.set(q_, st[k]); return `/api/v1/${st.measure}?${p}`; };
 // F-BF10: the one test of "year complete for the set": {year: {n, of, complete}}, n the companies with a row that year, of the companies with a row in any year of the chart
 const yearCoverage = (rows, key) => { const all = new Set(), by = {}; for (const r of rows) { if (!r.ticker) continue; all.add(r.ticker); if (r[key] != null) (by[r[key]] = by[r[key]] || new Set()).add(r.ticker); } return Object.fromEntries(Object.entries(by).map(([y, s]) => [y, {n: s.size, of: all.size, complete: s.size === all.size}])); };
+// V22: a saved view's line in words ("All measures · Capex · Fiscal year by industry"), never its keys (taxonomy, fiscal_year, layer)
+const viewMeta = (v) => { const w = (x) => { const s = String(x || '').replaceAll('_', ' '); return s.charAt(0).toUpperCase() + s.slice(1); };
+  const what = [(EXM[v.measure] || {}).label || w(v.measure), v.filters.category ? w(v.filters.category) : v.filters.measure ? w(v.filters.measure) : ''].filter(Boolean).join(' · ');
+  return v.chart ? `${what} · ${w(EX_AXES[v.chart.x] || v.chart.x)} by ${v.chart.series ? EX_AXES[v.chart.series] || v.chart.series : 'total'}` : what; };
 async function explorePage(view, arg, qs) {
   const {rows: saved} = await api('/api/v1/views');
   const q = parseQ(qs || '');
@@ -29,7 +33,7 @@ async function explorePage(view, arg, qs) {
     ...(current.chart ? {x: current.chart.x, series: current.chart.series || '', type: current.chart.type, value: current.chart.value || ''} : {x: current.group || 'period', series: current.group ? '' : 'ticker', type: current.show === 'lines' ? 'lines' : 'bars'})};
   else if (Object.keys(q).length) st = {...st, ...q};
   if (st.field === '' && !current && !Object.keys(q).length) st.field = EXM[st.measure].fieldDefault || '';
-  const list = h('div', {class: 'viewlist'}, saved.map((v) => h('a', {href: '#explore/' + v.id, class: 'viewrow' + (current && v.id === current.id ? ' on' : '')}, h('span', {}, v.name), h('span', {class: 'muted small'}, `${v.measure}${v.filters.category ? ' · ' + v.filters.category.replace(/_/g, ' ') : v.filters.measure ? ' · ' + v.filters.measure.replace('_', ' ') : ''}${v.chart ? `, ${v.chart.x.replace('_', ' ')} by ${v.chart.series || 'total'}` : ''}`))));
+  const list = h('div', {class: 'viewlist'}, saved.map((v) => h('a', {href: '#explore/' + v.id, class: 'viewrow' + (current && v.id === current.id ? ' on' : '')}, h('span', {}, v.name), h('span', {class: 'muted small'}, viewMeta(v)))));
   const left = h('div', {}, h('div', {class: 'hrow'}, h('span', {class: 'muted small'}, `${saved.length} saved view${saved.length === 1 ? '' : 's'}`), h('a', {href: '#explore', class: 'small'}, 'New')), list);
   const body = h('div', {class: 'exbody'});
   view.append(h('div', {class: 'page-header'}, h('div', {}, h('h1', {class: 'page-title'}, current ? current.name : 'Explore'), current && current.note ? h('div', {class: 'text-secondary small mt-1'}, current.note) : '')), h('div', {class: 'views'}, left, body));
@@ -125,7 +129,11 @@ async function explorePage(view, arg, qs) {
   function showRows(list, title) {
     if (!list) { under.replaceChildren(h('p', {class: 'muted small', style: 'margin-top:.6rem'}, h('button', {type: 'button', class: 'btn btn-link btn-sm p-0 align-baseline small', title: 'Click a bar or point for its rows · drag to zoom · double-click to reset', onclick: () => showRows(pts, 'Every row')}, 'Show rows'))); return; }
     const cols = [{t: 'Company', k: 'ticker', f: (r) => h('a', {href: `#proof/${r.ticker}`}, NAMES[r.ticker] || r.ticker)}, {t: 'Year', f: (r) => r.period || r.fiscal_year || '—'}];
-    for (const c of ['measure', 'category', 'reported_name', 'standard_type', 'field', 'kind', 'project_kind', 'relation', 'dimension', 'status', 'check', 'check_method', 'source_kind', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: c.replaceAll('_', ' '), k: c, f: (r) => r[c] ?? '—'});
+    for (const c of ['measure', 'category', 'reported_name', 'standard_type', 'field', 'kind', 'project_kind', 'relation', 'dimension', 'status', 'check', 'check_method', 'source_kind', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: colName(c), k: c, f: (r) => (r[c] == null ? '—' : c === 'standard_type' ? memberLabel(r[c]) : c === 'field' ? LABEL[r[c]] || colName(r[c]) : ['measure', 'category', 'kind', 'project_kind', 'status', 'source_kind', 'check', 'relation'].includes(c) ? colName(r[c]) : r[c])});  // V22: words, not keys
+    // V22: a row's source is its filing, a link (the 10-K, or SEC's page for it); the accession ids it names are on hover
+    const srcCol = cols.find((c) => c.k === 'source');
+    if (srcCol) srcCol.f = (r) => { if (r.source == null) return '—'; const n = String(r.source).split(/,(?=\d{10}-\d{2}-\d{6}\|)/).length, u = safeHref(r.source_url || r.url);
+      return u ? h('a', {href: u, target: '_blank', rel: 'noopener noreferrer', title: r.source}, n > 1 ? `${n} filings ↗` : 'Filing ↗') : h('span', {title: r.source}, n > 1 ? `${n} filings` : 'Filing'); };
     cols.push({t: 'Value', n: 1, f: (r) => (val(r) == null ? '—' : h('span', {title: usdExact(val(r))}, usdIn(val(r), 'M'))), s: (r) => val(r)});  // one unit for the column
     if (list.some((r) => r.basis || r.quote)) cols.push({t: 'Basis', sort: false, f: (r) => { const b = r.basis || r.quote || ''; return h('span', {class: 'small brk', title: b.length > 160 ? b : null}, b.length > 160 ? b.slice(0, 159).trimEnd() + '…' : b); }, wide: 1});  // V10: a cut ends in an ellipsis
     under.replaceChildren(h('div', {class: 'sechead', style: 'margin-top:1rem'}, h('h2', {}, title || 'Rows'), h('span', {class: 'muted small'}, `${int(list.length)} row${list.length === 1 ? '' : 's'}${list.length > 300 ? ' · first 300' : ''}`)), table(cols, list.slice(0, 300)));

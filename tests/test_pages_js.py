@@ -360,6 +360,22 @@ class MoneyUnits(unittest.TestCase):
 
 
 @unittest.skipUnless(shutil.which("node"), "no node")
+class MachineWords(unittest.TestCase):
+    """V22: a member's code name reads as words; a server line naming one keeps its words and reads the code as words."""
+
+    def test_member_codes_read_as_words(self):
+        js = line("_shared.js", "const memberWords") + "\n" + line("_shared.js", "const memberText") + \
+            "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[process.argv.length - 1]).map(memberText)));"
+        got = json.loads(node(js, json.dumps(["Company-specific tag: amzn:ServersAndNetworkingEquipmentMember", "us-gaap:LandMember and goog:TechnicalInfrastructureMember", "no code here"])))
+        self.assertEqual(got, ["Company-specific tag: Servers and networking equipment", "Land and Technical infrastructure", "no code here"])
+
+    def test_no_accession_printed_on_evidence(self):
+        ev = (PAGES / "evidence.js").read_text()
+        self.assertNotIn("· ${e.accession} ·", ev)
+        self.assertNotIn("'text-secondary small mb-2 mono'}, e.accession", ev)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
 class HandCheckNote(unittest.TestCase):
     """V4 / PB9: the note box shows only after Wrong or Can't say, or when a note is on file; never for Right or unchecked."""
 
