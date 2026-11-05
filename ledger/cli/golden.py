@@ -33,8 +33,8 @@ def main(argv=None) -> int:
             con.close()
         print(f"froze {len(r['tickers'])} companies ({', '.join(r['tickers'])}): {r['documents']} filings, {r['texts']} texts, {r['xbrl_facts']} XBRL facts, {r['files']} files into {FIXTURES.relative_to(store.ROOT)}/")
         return 0
-    from ..release.testreport import git_state
-    sha, dirty = git_state()  # F20: the commit the check ran on, read before it runs; the Regression line is stale on any other
+    from ..release.testreport import code_state
+    live = code_state()  # F20: the commit, tree and code hash the check ran on, read before it runs; the Regression line is stale on any other
     r = check(keep=a.keep, verbose=a.verbose)
     from datetime import datetime, timezone
     rep = store.ROOT / "reports" / "golden.json"
@@ -45,7 +45,7 @@ def main(argv=None) -> int:
                                "tables_ok": not r.get("failed_step") and not r.get("diffs"),
                                "gold": g_ and {k: g_.get(k) for k in ("ok", "holds", "state", "failures", "checked", "right", "wrong", "cant_say", "unverified", "items")},
                                "diffs": {k: {kk: vv for kk, vv in v.items()} for k, v in r.get("diffs", {}).items()}, "steps": [{"step": l["step"], "exit": l["exit"]} for l in r["log"]],
-                               "tickers": json.loads((FIXTURES / "seed.json").read_text())["tickers"], "git": sha, "dirty": dirty}, indent=1))
+                               "tickers": json.loads((FIXTURES / "seed.json").read_text())["tickers"], "git": live["head"], "dirty": live["dirty"], "code": live["code"]}, indent=1))
     if r.get("failed_step"):
         print(f"golden: step {r['failed_step']} failed; root kept at {r['root']}" if a.keep else f"golden: step {r['failed_step']} failed (rerun with --keep --verbose)")
         for l in r["log"]:

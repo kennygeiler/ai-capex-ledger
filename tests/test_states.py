@@ -108,8 +108,8 @@ class NothingAbsentReadsGood(unittest.TestCase):
                  ("mapping", states.mapping(status.of_mapping(None))),
                  ("edgar", states.edgar(None)[0]), ("edgar", states.edgar("yesterday")[0]), ("edgar", states.edgar("2026-01-01T00:00:00")[0]), ("edgar", states.edgar(old)[0]),
                  ("line", checklist.tests_line(None)["state"]),
-                 ("line", checklist.tests_line({"ok": True, "count": 1, "git": "abc", "dirty": True}, head="abc")["state"]),
-                 ("line", checklist.tests_line({"ok": True, "count": 1, "git": "abc", "dirty": False}, head="def", changed=["ledger/x.py"])["state"])]
+                 ("line", checklist.tests_line({"ok": True, "count": 1, "git": "abc", "dirty": True, "code": "c1"}, live={"head": "abc", "dirty": False, "code": "c1"})["state"]),
+                 ("line", checklist.tests_line({"ok": True, "count": 1, "git": "abc", "dirty": False, "code": "c1"}, live={"head": "def", "dirty": False, "code": "c2"})["state"])]
         from ledger.checks import crops
         cases.insert(0, ("company", states.company(False, 0)))
         cases.insert(0, ("company", states.company(True, 0)))  # F-BF15: a followed company with nothing read is never good

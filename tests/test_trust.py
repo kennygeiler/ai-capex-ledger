@@ -148,14 +148,14 @@ class EvidenceOnTheChecklist(unittest.TestCase):
         from ledger.release import checklist
         gap = {"ticker": "MSFT", "stage": "values", "what": "capex FY2024", "state": "explained", "by": "resolution:gone", "gap": "no such resolution"}
         with mock.patch.object(checklist.proof, "unevidenced", return_value=[gap]) as u:
-            l = checklist.evidence_line(None, {"proven": []})
+            l = checklist.evidence_line(None, [])
         u.assert_called_once()
         self.assertEqual((l["id"], l["required"], l["state"], l["count"], l["link"]), ("evidenced", True, "fail", 1, "proof/MSFT"))
         self.assertEqual(l["detail"][0]["gap"], "no such resolution")
         with mock.patch.object(checklist.proof, "unevidenced", return_value=[]):
-            self.assertEqual(checklist.evidence_line(None, {"proven": []})["state"], "pass")
+            self.assertEqual(checklist.evidence_line(None, [])["state"], "pass")
         with mock.patch.object(checklist.proof, "unevidenced", side_effect=RuntimeError("boom")):
-            self.assertEqual(checklist.evidence_line(None, {"proven": []})["state"], "fail")  # a walk that cannot run never passes
+            self.assertEqual(checklist.evidence_line(None, [])["state"], "fail")  # a walk that cannot run never passes
 
     @unittest.skipUnless(store.DEFAULT_DB.exists() and not __import__("os").environ.get("LEDGER_SKIP_DB"), "no data/ledger.duckdb")
     def test_the_live_checklist_carries_the_line_and_the_six_read_zero(self):
@@ -252,19 +252,61 @@ def resolutions_mod():
 class SignedOnTheCodeTested(unittest.TestCase):
     """F20: the golden report named no commit and its line never read stale."""
 
-    def test_golden_on_another_commit_or_a_dirty_tree_is_stale_and_blocks(self):
+    def test_golden_on_other_code_or_a_dirty_tree_is_stale_and_blocks(self):
         from ledger.release.checklist import regression_line
-        ok = {"tables_ok": True, "at": "2026-11-05T00:00:00+00:00", "diffs": {}, "git": "abc1234", "dirty": False}
-        self.assertEqual(regression_line(ok, head="abc1234", changed=[])["state"], "pass")
-        self.assertEqual(regression_line(ok, head="def5678", changed=["ledger/checks/proof.py"])["state"], "stale")
-        self.assertEqual(regression_line({**ok, "dirty": True}, head="abc1234")["state"], "stale")
-        self.assertEqual(regression_line({k: v for k, v in ok.items() if k != "git"}, head="abc1234")["state"], "stale")  # a report from before F20
-        self.assertEqual(regression_line(ok, head="def5678", changed=["reports/golden.json", "docs/CLAIMS.md", "reports/tests.json"])["state"], "pass")  # the run's record only
-        self.assertEqual(regression_line(ok, head="def5678", changed=None)["state"], "stale")  # a commit this checkout does not know
-        self.assertEqual(regression_line(ok, head=None)["state"], "info")  # no git (the hosted copy): never a verified pass
-        self.assertEqual(regression_line({**ok, "tables_ok": False}, head="abc1234")["state"], "fail")
-        for st in ("stale", "info"):
-            self.assertFalse({"stale": regression_line(ok, head="def5678", changed=["x.py"]), "info": regression_line(ok, head=None)}[st]["ok"])
+        live = {"head": "abc1234", "dirty": False, "code": "c1"}
+        ok = {"tables_ok": True, "at": "2026-11-05T00:00:00+00:00", "diffs": {}, "git": "abc1234", "dirty": False, "code": "c1"}
+        self.assertEqual(regression_line(ok, live)["state"], "pass")
+        self.assertEqual(regression_line(ok, {**live, "head": "def5678", "code": "c2"})["state"], "stale")  # a commit changed code
+        self.assertEqual(regression_line(ok, {**live, "head": "def5678"})["state"], "pass")  # a commit changed only the run records: same code hash
+        self.assertEqual(regression_line({**ok, "dirty": True}, live)["state"], "stale")
+        self.assertEqual(regression_line({**ok, "dirty": None}, live)["state"], "stale")  # unknown is never clean
+        self.assertEqual(regression_line(ok, {**live, "dirty": True})["state"], "stale")  # uncommitted code now
+        self.assertEqual(regression_line(ok, {**live, "dirty": None})["state"], "stale")
+        self.assertEqual(regression_line({k: v for k, v in ok.items() if k != "code"}, live)["state"], "stale")  # a report from before the binding
+        self.assertEqual(regression_line(ok, {"head": None, "dirty": None, "code": None})["state"], "info")  # no git (the hosted copy): never a verified pass
+        self.assertEqual(regression_line({**ok, "tables_ok": False}, live)["state"], "fail")
+        self.assertFalse(regression_line(ok, {"head": None, "dirty": None, "code": None})["ok"])
+
+    def test_in_a_real_repository_a_run_binds_to_its_code(self):
+        """F20 review: the lines read the checkout now, not only the flags the report stored."""
+        import subprocess
+        from ledger.release import checklist, testreport
+        root = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, root, True)
+        git = lambda *a: subprocess.run(["git", *a], cwd=root, capture_output=True, text=True, check=True)
+        git("init", "-q"); git("config", "user.email", "t@t"); git("config", "user.name", "t")
+        (root / "ledger").mkdir(); (root / "ledger" / "a.py").write_text("x = 1\n")
+        (root / "reports").mkdir(); (root / "reports" / "tests.json").write_text("{}\n")
+        git("add", "."); git("commit", "-q", "-m", "one")
+        res = unittest.TestResult()
+        res.testsRun = 1
+        with mock.patch.object(store, "ROOT", root):
+            rep = testreport.report(res)
+            self.assertEqual((rep["dirty"], bool(rep["code"])), (False, True))
+            self.assertEqual(checklist.tests_line(rep)["state"], "pass")
+            (root / "ledger" / "a.py").write_text("x = 2\n")  # an uncommitted edit after a clean run
+            line = checklist.tests_line(rep)
+            self.assertEqual(line["state"], "stale", line["note"])
+            self.assertIn("uncommitted code", line["note"])
+            with self.assertRaisesRegex(ValueError, "uncommitted code"):
+                checklist.sign(None, "v9.9.0", PERSON)  # refused before any checklist is built
+            git("commit", "-q", "-am", "two")  # committed: other code than the run's
+            self.assertEqual(checklist.tests_line(rep)["state"], "stale")
+            rep2 = testreport.report(res)
+            (root / "reports" / "tests.json").write_text(json.dumps(rep2) + "\n")
+            git("commit", "-q", "-am", "record the run")  # only the record changed: the run still binds
+            self.assertEqual(checklist.tests_line(rep2)["state"], "pass")
+            self.assertEqual(checklist.regression_line({"tables_ok": True, "git": rep2["git"], "dirty": False, "code": "deadbeefdeadbeef"})["state"], "stale")  # a hand-edited hash
+            self.assertEqual(checklist.tests_line({**rep2, "dirty": None})["state"], "stale")
+
+    def test_a_status_that_fails_reads_dirty(self):
+        from ledger.release import testreport
+        ok = mock.Mock(returncode=0, stdout="abc1234\n")
+        with mock.patch.object(testreport.subprocess, "run", side_effect=[ok, mock.Mock(returncode=128, stdout="")]):
+            self.assertEqual(testreport.git_state(), ("abc1234", True))
+        with mock.patch.object(testreport.subprocess, "run", side_effect=[ok, OSError("no")]):
+            self.assertEqual(testreport.git_state(), ("abc1234", True))
 
     def test_golden_check_records_its_commit(self):
         from ledger.cli import golden
@@ -275,10 +317,10 @@ class SignedOnTheCodeTested(unittest.TestCase):
         g = {"ok": False, "holds": True, "state": "unverified", "failures": [], "checked": 0, "right": 0, "wrong": 0, "cant_say": 0, "unverified": 1, "items": 1}
         r = {"ok": True, "diffs": {}, "log": [], "gold": g, "exit_ok": True}
         with mock.patch.object(golden, "check", return_value=r), mock.patch.object(golden, "FIXTURES", tmp / "fixtures"), mock.patch.object(golden.store, "ROOT", tmp), \
-                mock.patch("ledger.release.testreport.git_state", return_value=("abc1234", False)):
+                mock.patch("ledger.release.testreport.code_state", return_value={"head": "abc1234", "dirty": False, "code": "c1"}):
             golden.main(["--check"])
         rep = json.loads((tmp / "reports" / "golden.json").read_text())
-        self.assertEqual((rep["git"], rep["dirty"]), ("abc1234", False))
+        self.assertEqual((rep["git"], rep["dirty"], rep["code"]), ("abc1234", False, "c1"))
 
     def test_writing_a_report_never_makes_the_tree_dirty(self):
         from ledger.release.testreport import _dirty_line

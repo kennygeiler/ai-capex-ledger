@@ -35,6 +35,13 @@ def _packet(version="v9.9.0") -> dict:
     return {"version": version, "files": dict(FILES), "hash": HASH, "manifest": {"version": version, "hash": HASH, "files": sorted(FILES)}}
 
 
+def _clean_checkout(case):
+    """Patch checklist._live to a clean checkout for `case` (Sign refuses on uncommitted code first, F20)."""
+    p = mock.patch.object(checklist, "_live", return_value={"head": "abc1234", "dirty": False, "code": "c1"})
+    p.start()
+    case.addCleanup(p.stop)
+
+
 class TempReleases(unittest.TestCase):
     """Every test here signs into its own releases folder: checklist.RELEASES and signoff.RELEASES point at it."""
 
@@ -45,6 +52,9 @@ class TempReleases(unittest.TestCase):
             patcher = mock.patch.object(m, "RELEASES", self.tmp)
             patcher.start()
             self.addCleanup(patcher.stop)
+        patcher = mock.patch.object(checklist, "_live", return_value={"head": "abc1234", "dirty": False, "code": "c1"})  # a clean checkout: Sign reads it first (F20)
+        patcher.start()
+        self.addCleanup(patcher.stop)
 
     def signoff_json(self, version="v9.9.0") -> dict:
         return json.loads((self.tmp / version / "SIGNOFF.json").read_text())
@@ -263,6 +273,9 @@ class Endpoints(unittest.TestCase):
     own; /api/release/sign is 403 on the read-only copy and 400 on a red checklist or a bad name; the checklist GET is
     served before the /api/v1/ catch-all."""
 
+    def setUp(self):
+        _clean_checkout(self)
+
     def _serve(self):
         from ledger.web import app
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
@@ -423,6 +436,9 @@ class DryRun(unittest.TestCase):
     """On the real database (git-ignored; skipped without it). The checklist's hash equals what `ledger release` writes,
     into a temporary releases folder; and while any required line is red, Sign refuses before it writes, signs or
     publishes. When the checklist is green there is nothing to dry-run without writing, so that part skips."""
+
+    def setUp(self):
+        _clean_checkout(self)
 
     @unittest.skipUnless(store.DEFAULT_DB.exists() and not os.environ.get("LEDGER_SKIP_DB"), "no data/ledger.duckdb")
     def test_the_checklist_hash_is_what_the_cli_writes_and_sign_refuses_while_red(self):

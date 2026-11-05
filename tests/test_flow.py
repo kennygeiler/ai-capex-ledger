@@ -244,7 +244,7 @@ process.stdout.write(JSON.stringify(gateRows(JSON.parse(process.argv[process.arg
     def test_no_command_on_the_page(self):
         from ledger.release import checklist
         notes = [checklist.tests_line(None)["note"], checklist.regression_line(None)["note"],
-                 checklist.tests_line({"ok": True, "count": 1, "git": "0ld0000", "at": "x"}, head="abc1234", changed=["ledger/x.py"])["note"],
+                 checklist.tests_line({"ok": True, "count": 1, "git": "0ld0000", "at": "x", "dirty": False, "code": "c1"}, live={"head": "abc1234", "dirty": False, "code": "c2"})["note"],
                  checklist.doc_line(text="a", doc=Path("/nonexistent/CLAIMS.md"))["note"]]
         for n in notes:
             self.assertNotIn("ledger ", n, n)

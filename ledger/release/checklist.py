@@ -292,56 +292,64 @@ def _line(id_, label, required, count, state, link, note="", detail=None) -> dic
     return {"id": id_, "label": label, "required": required, "count": count, "state": state, "ok": state == "pass", "link": link, "note": note, "detail": detail or []}
 
 
-_LOOKUP = object()  # tests_line's default: read HEAD from this checkout; tests pass a sha or None instead
+_LOOKUP = object()  # tests_line's and regression_line's default: read the checkout now (_live); tests pass a dict instead
 
 
-def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
-    """The "Test run" line (T30) from reports/tests.json as `ledger test` writes it (testreport.py). Three cases:
-    The line is required in every case: only a passing run on the code being signed lets a release sign.
-    absent or unreadable: "not run", blocks.
-    Ran and failed: red, whatever commit it ran on: a known failure never signs.
-    Ran and passed on this HEAD with a clean tree: green. Passed on another commit, or on a dirty tree: "stale", blocks
-    with the note "run `ledger test`", since the code it tested is not the code being signed. One forgiveness: when every commit since the run changed only reports/tests.json (the commit
-    that records the run), the code is the same and the line is green. Without git on either side (the hosted copy has
-    no .git) the commit cannot be compared: informs, "commit not compared: no git", never a verified pass.
-    `head` and `changed` are read from the checkout unless a test passes them."""
+def _live() -> dict:
+    """{head, dirty, code} of this checkout now (testreport.code_state): read at every checklist and before every Sign."""
+    from .testreport import code_state
+    return code_state()
+
+
+def provenance_state(rep: dict, live: dict) -> tuple | None:
+    """None when a run's report is bound to the code being signed, else (state, why). Bound means: git on both sides,
+    a clean checkout now (uncommitted code is not what the run tested; a `git status` that fails reads dirty), a run on
+    a clean tree, and the report's code hash (testreport.code_hash: HEAD's tracked files less the run records) equal to
+    the checkout's now. A commit that changes only the run records (reports/tests.json, reports/golden.json,
+    docs/CLAIMS.md) keeps the hash; any other commit moves it. A report with no code hash (before this check) is stale.
+    Without git on either side (the hosted copy) nothing is compared: "info", never a verified pass. The hash proves the
+    code is the code the report names, not that the run happened: a report written by hand can name it (F-TR2)."""
+    if not rep.get("git") or not live.get("head"):
+        return "info", "commit not compared: no git"
+    if live.get("dirty") is not False:
+        return "stale", "Stale: uncommitted code in the checkout"
+    if rep.get("dirty") is not False:
+        return "stale", "Stale: dirty tree"
+    if not rep.get("code"):
+        return "stale", "Stale: code not recorded"
+    if rep["code"] != live.get("code"):
+        return "stale", f"Stale: code changed since the run, HEAD is {live['head']}"
+    return None
+
+
+def tests_line(t: dict | None, live=_LOOKUP) -> dict:
+    """The "Test run" line (T30) from reports/tests.json as `ledger test` writes it (testreport.py). Required in every
+    case: only a passing run on the code being signed lets a release sign.
+    Absent or unreadable: "not run", blocks. Ran and failed: red, whatever code it ran on: a known failure never signs.
+    Ran and passed: green only when provenance_state binds it to the checkout now (F20); else "stale" (or "info"
+    without git), which blocks. `live` is read from the checkout (_live) unless a test passes it."""
     if t is None:
         return _line("tests", "Test run", True, 0, "not_run", "proof", "Test run not run")
     fails = t.get("failures") or []
     golden = t.get("golden")
     g_note = {True: "regression test ok", False: "regression test FAILED"}.get(golden, "regression test skipped, see its own line")
     sha = t.get("git")
-    head = _head() if head is _LOOKUP else head
     base = f"{t.get('count')} tests, {len(fails)} failing, {g_note}, {t.get('at')}" + (f", on {sha}" if sha else "")
     detail = [{"test": f} for f in fails]
     if not t.get("ok"):
         return _line("tests", "Test run", True, len(fails), "fail", "proof", base, detail)
-    if not sha or not head:  # no git on one side (the hosted copy ships no .git): the commit cannot be compared, so this is never a verified pass
-        return _line("tests", "Test run", True, 0, "info", "proof", f"commit not compared: no git; {base}", detail)
-    moved = sha != head
-    if moved:
-        ch = _changed_since(sha) if changed is _LOOKUP else changed
-        moved = ch is None or any(p != "reports/tests.json" for p in ch)
-    stale = moved or bool(t.get("dirty"))
-    if stale:
-        why = "dirty tree" if t.get("dirty") else f"HEAD is {head}"
-        return _line("tests", "Test run", True, 0, "stale", "proof", f"Stale: {why}; {base}", detail)
+    bad = provenance_state(t, _live() if live is _LOOKUP else live)
+    if bad:
+        return _line("tests", "Test run", True, 0, bad[0], "proof", f"{bad[1]}; {base}", detail)
     return _line("tests", "Test run", True, 0, "pass", "proof", base, detail)
 
 
-RECORD_FILES = ("reports/tests.json", "reports/golden.json", "docs/CLAIMS.md")  # what the record-then-commit cycle commits after a golden run
-
-
-def regression_line(g: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
+def regression_line(g: dict | None, live=_LOOKUP) -> dict:
     """"Regression test" (required): the proven six rebuilt from frozen inputs equal fixtures/expected, as the last
     `ledger golden --check` found it (reports/golden.json), with its date. It says nothing changed since the freeze, never
     that a number is right: the hand check is its own line (hand_check_line), read live. A report from before T82's
-    split (no tables_ok) is read strictly.
-    F20: the report names the commit it ran on (`git`) and whether the tree was dirty. Equal tables pass only on this HEAD
-    with a clean tree, or on a commit whose successors changed only the run records (RECORD_FILES: the golden and test
-    reports and docs/CLAIMS.md, the files committed after a run); anything else is "stale" and blocks. A report with no
-    commit (written before F20) is stale. Without git here (the hosted copy) the commit is not compared: informs, never a
-    verified pass. `head` and `changed` are read from the checkout unless a test passes them."""
+    split (no tables_ok) is read strictly. F20: equal tables pass only when provenance_state binds the report to the
+    checkout now; else "stale" (or "info" without git), which blocks. `live` is read from the checkout unless passed."""
     if g is None:
         return _line("regression", "Regression test", True, 1, "fail", "proof", "Regression test not run")
     tables = bool(g.get("tables_ok") if "tables_ok" in g else (g.get("ok") and g.get("gold"))) and not g.get("failed_step")
@@ -351,18 +359,9 @@ def regression_line(g: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     detail = [{"table": k, "only_in_run": v.get("n_only_in_run"), "only_in_expected": v.get("n_only_in_expected")} for k, v in (g.get("diffs") or {}).items()]
     if not tables:
         return _line("regression", "Regression test", True, len(detail) or 1, "fail", "proof", note, detail)
-    head = _head() if head is _LOOKUP else head
-    if not head:
-        return _line("regression", "Regression test", True, 0, "info", "proof", f"commit not compared: no git; {note}", detail)
-    if not sha:
-        return _line("regression", "Regression test", True, 0, "stale", "proof", f"Stale: commit not recorded; {note}", detail)
-    moved = sha != head
-    if moved:
-        ch = _changed_since(sha) if changed is _LOOKUP else changed
-        moved = ch is None or any(p not in RECORD_FILES for p in ch)
-    if moved or g.get("dirty"):
-        why = "dirty tree" if g.get("dirty") else f"HEAD is {head}"
-        return _line("regression", "Regression test", True, 0, "stale", "proof", f"Stale: {why}; {note}", detail)
+    bad = provenance_state(g, _live() if live is _LOOKUP else live)
+    if bad:
+        return _line("regression", "Regression test", True, 0, bad[0], "proof", f"{bad[1]}; {note}", detail)
     return _line("regression", "Regression test", True, 0, "pass", "proof", note, detail)
 
 
@@ -434,26 +433,15 @@ def doc_line(doc=None, text=None) -> dict:
     return _line("claims_doc", label, True, 1, "fail", "gaps", "Missing" if have is None else "Differs from the register")
 
 
-def _head() -> str | None:
-    """Short sha of this checkout's HEAD, or None without git (the hosted copy ships no .git)."""
-    from .testreport import git_state
-    return git_state()[0]
-
-
-def _changed_since(sha: str) -> list | None:
-    from .testreport import changed_since
-    return changed_since(sha)
-
-
 EVIDENCE_LABEL = "Verified or explained with no record behind it"
 
 
-def evidence_line(con, board: dict | None = None) -> dict:
+def evidence_line(con, companies: list[dict] | None = None) -> dict:
     """The required line for F16: proof.unevidenced over config.SCOPE on the live tables, the walk the fixtures test runs.
-    A row whose `by` names no record, or one that is not on file, is a dangling citation: red, one detail per row with the
+    `companies` is the scope's company trails (proof.board's "proven" list), built here when not given. A row whose `by` names no record, or one that is not on file, is a dangling citation: red, one detail per row with the
     trail that shows it. A walk that raises is red, never a crash and never a pass."""
     try:
-        gaps = proof.unevidenced(con, SCOPE, companies=(board or proof.board(con))["proven"])
+        gaps = proof.unevidenced(con, SCOPE, companies=proof.board(con)["proven"] if companies is None else companies)
     except Exception as e:
         return _line("evidenced", EVIDENCE_LABEL, True, 1, "fail", "proof", f"could not walk: {e.__class__.__name__}: {str(e)[:160]}")
     first = gaps[0]["ticker"] if gaps else ""
@@ -541,7 +529,7 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
                        [{"ticker": m["ticker"], "field": m["field"], "period": m["period"], "reference": m["reference"], "why": m["why"]} for m in miss]))
     # F16: every verified or explained row in scope names a record that exists (proof.unevidenced, status.evidence_gap),
     # walked on the live data on every checklist, not only on the frozen fixtures in a test; 0 dangling is the pass
-    lines.append(evidence_line(con, board))
+    lines.append(evidence_line(con, board["proven"]))  # the board's `proven` key holds the scope's company trails (proof.board), not the proven-only ones
     # rows with no value, by measure (T15: informational)
     tax = list(csv.DictReader(io.StringIO(p["files"]["taxonomy.csv"])))
     nv = {}
@@ -565,10 +553,11 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     lines.extend(claims_lines())
     # the hand check, read live from gold/*.json (F-BF2), the regression test from its report, and the last test run (T30)
     g = _report(GOLDEN)
+    live = _live()  # the checkout now, read once: both run lines compare their report with it
     lines.append(hand_check_line(con))
-    lines.append(regression_line(g))
+    lines.append(regression_line(g, live))
     t = _report(TESTS)
-    lines.append(tests_line(t))
+    lines.append(tests_line(t, live))
     # a release folder before this one the checklist cannot read: the diff would lie, so it is a red line, not a 500
     broken = broken_before(version)
     lines.append(_line("previous", "Previous releases readable", True, len(broken), "fail" if broken else "pass", "",  # a folder under releases/, fixed on disk: no Fix in to Release itself (F-BF11)
@@ -628,6 +617,9 @@ def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
     from ..core.status import is_person
     if not is_person(by):  # F-BF5: like every other write, a name on config.PEOPLE (T80), checked before the checklist is built
         raise ValueError(f"{by.strip()!r} is not on config.PEOPLE, the people who may sign a release")
+    live = _live()
+    if live.get("dirty") is not False:  # F20: uncommitted code is not the code the runs tested; refused before anything is built
+        raise ValueError("not signed: the checkout has uncommitted code; commit it, rerun the checks, then sign")
     with _LOCK:
         cl = checklist(con, version, stage)
         if not cl["ok"]:

@@ -36,7 +36,7 @@ G = testreport.GOLDEN_TEST
 class Writer(unittest.TestCase):
     def test_shape_on_a_passing_run_with_golden(self):
         rep = testreport.report(_result(run=5, started=["a", "b", G]), seconds=31.26, git=("abc1234", False))
-        self.assertEqual(set(rep), {"ok", "count", "failures", "skipped", "skipped_ids", "golden", "at", "git", "dirty", "seconds"})
+        self.assertEqual(set(rep), {"ok", "count", "failures", "skipped", "skipped_ids", "golden", "at", "git", "dirty", "code", "seconds"})
         self.assertEqual((rep["ok"], rep["count"], rep["failures"], rep["skipped"], rep["golden"], rep["git"], rep["dirty"], rep["seconds"]),
                          (True, 5, [], 0, True, "abc1234", False, 31.3))
         self.assertTrue(rep["at"].endswith("+00:00"))
@@ -82,55 +82,60 @@ class Writer(unittest.TestCase):
             self.assertEqual(json.loads(p.read_text()), {"ok": True, "count": 1})
 
 
-def _rep(ok=True, failures=(), golden=True, git="abc1234", dirty=False):
-    return {"ok": ok, "count": 120, "failures": list(failures), "skipped": 0, "golden": golden, "at": "2026-11-02T10:00:00+00:00", "git": git, "dirty": dirty}
+def _rep(ok=True, failures=(), golden=True, git="abc1234", dirty=False, code="c1"):
+    return {"ok": ok, "count": 120, "failures": list(failures), "skipped": 0, "golden": golden, "at": "2026-11-02T10:00:00+00:00", "git": git, "dirty": dirty, "code": code}
+
+
+def _live(head="abc1234", dirty=False, code="c1"):
+    """The checkout now, as checklist._live reads it: HEAD, dirty, the code hash."""
+    return {"head": head, "dirty": dirty, "code": code}
 
 
 class Line(unittest.TestCase):
     def test_missing_file_is_not_run_and_blocks(self):
-        l = checklist.tests_line(None, head="abc1234")
+        l = checklist.tests_line(None, live=_live())
         self.assertEqual((l["state"], l["required"], l["ok"], l["count"]), ("not_run", True, False, 0))  # required: no run, no signature
         self.assertIn("not run", l["note"])
 
     def test_passing_on_head_is_green_and_required_with_golden_and_sha_in_the_note(self):
-        l = checklist.tests_line(_rep(), head="abc1234")
+        l = checklist.tests_line(_rep(), live=_live())
         self.assertEqual((l["state"], l["required"], l["ok"], l["count"]), ("pass", True, True, 0))
         self.assertIn("regression test ok", l["note"])
         self.assertIn("abc1234", l["note"])
         self.assertIn("120 tests", l["note"])
 
     def test_failing_is_red_and_required_whatever_commit_it_ran_on(self):
-        l = checklist.tests_line(_rep(ok=False, failures=["t.a: AssertionError: x", "t.b: KeyError: 'y'"], golden=False, git="0ld0000"), head="abc1234")
+        l = checklist.tests_line(_rep(ok=False, failures=["t.a: AssertionError: x", "t.b: KeyError: 'y'"], golden=False, git="0ld0000", code="c0"), live=_live())
         self.assertEqual((l["state"], l["required"], l["ok"], l["count"]), ("fail", True, False, 2))
         self.assertEqual(l["detail"], [{"test": "t.a: AssertionError: x"}, {"test": "t.b: KeyError: 'y'"}])
         self.assertIn("regression test FAILED", l["note"])
 
     def test_passing_on_another_commit_or_a_dirty_tree_is_stale_and_blocks(self):
-        other = checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=["ledger/checks/rules.py", "reports/tests.json"])
+        other = checklist.tests_line(_rep(git="0ld0000", code="c0"), live=_live())  # a commit since the run changed code: the hash moved
         self.assertEqual((other["state"], other["required"], other["ok"]), ("stale", True, False))  # its own state (states.LINE), and it blocks
         self.assertIn("Stale", other["note"])
         self.assertIn("HEAD is abc1234", other["note"])
         self.assertEqual(other["link"], "proof")  # the page names no command: Fix in leads on (flow review #14)
-        self.assertEqual(checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=None)["state"], "stale")  # unknown sha: stale
-        dirty = checklist.tests_line(_rep(dirty=True), head="abc1234", changed=[])
+        self.assertEqual(checklist.tests_line(_rep(git="0ld0000", code=None), live=_live())["state"], "stale")  # no code hash recorded: stale
+        dirty = checklist.tests_line(_rep(dirty=True), live=_live())
         self.assertEqual((dirty["state"], dirty["required"]), ("stale", True))
         self.assertIn("dirty tree", dirty["note"])
 
     def test_commits_since_the_run_that_only_recorded_it_are_forgiven(self):
-        l = checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=["reports/tests.json"])
+        l = checklist.tests_line(_rep(git="0ld0000"), live=_live())  # another sha, the same code hash: only the record changed
         self.assertEqual((l["state"], l["required"], l["ok"]), ("pass", True, True))
-        self.assertEqual(checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=[])["state"], "pass")
+        self.assertEqual(checklist.tests_line(_rep(git="abc1234"), live=_live())["state"], "pass")
 
     def test_without_git_on_either_side_the_commit_is_not_compared_and_the_line_blocks(self):
         for t, head in ((_rep(git=None, dirty=None), "abc1234"), (_rep(git="abc1234"), None), (_rep(git=None, dirty=None), None)):
-            l = checklist.tests_line(t, head=head, changed=[])
+            l = checklist.tests_line(t, live=_live(head=head, dirty=None if head is None else False, code=None if head is None else "c1"))
             self.assertEqual((l["state"], l["required"], l["ok"]), ("info", True, False))  # no git: never a verified pass, so it blocks
             self.assertIn("commit not compared: no git", l["note"])
-        self.assertNotIn(", on ", checklist.tests_line(_rep(git=None, dirty=None), head=None)["note"])
-        self.assertEqual(checklist.tests_line(_rep(ok=False, failures=["t.a: x"], git=None), head=None)["state"], "fail")  # a failure is red even without git
+        self.assertNotIn(", on ", checklist.tests_line(_rep(git=None, dirty=None), live=_live(None, None, None))["note"])
+        self.assertEqual(checklist.tests_line(_rep(ok=False, failures=["t.a: x"], git=None), live=_live(None, None, None))["state"], "fail")  # a failure is red even without git
 
     def test_golden_skipped_points_at_the_golden_line(self):
-        self.assertIn("regression test skipped, see its own line", checklist.tests_line(_rep(golden=None), head="abc1234", changed=[])["note"])
+        self.assertIn("regression test skipped, see its own line", checklist.tests_line(_rep(golden=None), live=_live())["note"])
 
     def test_dirty_counts_untracked_files_under_the_code_folders_only(self):
         import shutil

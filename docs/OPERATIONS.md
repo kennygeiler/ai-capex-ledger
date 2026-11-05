@@ -55,7 +55,7 @@ After any merge, in this order, committing after each:
 2. `ledger claims` (regenerates `docs/CLAIMS.md`).
 3. `ledger test` on that commit (rewrites `reports/tests.json`).
 
-Each run records the commit it ran on. The Test run line stays green across a commit that changed only `reports/tests.json`, the Regression line across commits that changed only the two reports and `docs/CLAIMS.md`; any other commit reads stale and blocks the signature (F20).
+Each run records the commit, the tree and a code hash (every tracked file less the two reports and `docs/CLAIMS.md`). Both lines read the checkout at every checklist: uncommitted code, a run on a dirty tree, or a hash that differs from the checkout's reads stale and blocks the signature; committing only the three record files keeps the hash (F20). Sign refuses a checkout with uncommitted code.
 
 Then open [Release](#release). The checklist builds the packet in memory and shows every line that could make a signature wrong. When every required line is green, the Sign button writes `releases/<version>/`, signs as the name in the signer box, stores the checklist in `SIGNOFF.json` and publishes. From the command line: `ledger release vX.Y.Z` builds and prints the gate table, `ledger signoff vX.Y.Z --by "<name>"` signs, `ledger publish vX.Y.Z` pushes a signed release to Postgres.
 
