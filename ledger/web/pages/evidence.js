@@ -49,7 +49,7 @@ async function evidenceCompare(view, q) {
     evFiling(e));
   view.append(h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
       h('div', {class: 'col'}, h('h1', {class: 'page-title'}, evWhat(a), h('span', {class: 'text-secondary ms-2 fw-normal'}, a.ticker)),
-        h('div', {class: 'small mt-1'}, differ ? h('span', {class: stateWord('row', 'bad')[0] + ' fw-medium'}, 'Readings differ') : h('span', {class: 'text-green fw-medium'}, 'Readings agree'),
+        h('div', {class: 'small mt-1'}, differ ? h('span', {class: 'text-review fw-medium'}, 'Readings differ') : h('span', {class: 'text-green fw-medium'}, 'Readings agree'),
           h('span', {class: 'text-secondary'}, ` · ${a.row_label} · ${evPeriod(a)}${evPeriod(a) !== evPeriod(b) ? ' and ' + evPeriod(b) : ''}`)), restatedLine(a.restatement || b.restatement)))),
     h('div', {class: 'ev-grid ev-wide'}, side(a, 'A'), side(b, 'B')));
 }
