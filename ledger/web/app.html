@@ -92,7 +92,7 @@
   /* a money figure is one line in its own column (the app's one format, at most "−$999,999.9M"); the source column clips its
      thumbnails, so a crop never paints over the value beside it */
   .money { white-space: nowrap; font-variant-numeric: tabular-nums; }
-  table.trail td:nth-child(3) { overflow: hidden; }
+  table.trail td:nth-child(3), table.trail.no-value td:nth-child(2) { overflow: hidden; }
   .cite-role { color: var(--tblr-body-color); }
   .calc .money-line { overflow-wrap: anywhere; }
   /* F-BF9: the hand check reads a figure to the dollar: the exact line ($215,874,000,000) needs a wider value column than the trail's */

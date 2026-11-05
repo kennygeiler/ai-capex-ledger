@@ -205,5 +205,31 @@ class Layout(unittest.TestCase):
                 self.assertTrue(m["wide"])
                 self.assertLessEqual(m["right"], 1)  # the opened row's fields end inside the visible box
 
+    # a column whose every body cell is a dash (or empty, with no element in it: a gap bar is not empty)
+    EMPTY_COLS = """() => [...document.querySelectorAll('main table')].flatMap((t) => {
+        const head = t.tHead && t.tHead.rows[t.tHead.rows.length - 1]; if (!head) return [];
+        const rows = [...t.tBodies].flatMap((b) => [...b.rows]).filter((r) => r.cells.length === head.cells.length && r.getBoundingClientRect().height);
+        if (rows.length < 2) return [];
+        return [...head.cells].map((th, i) => [th, i]).filter(([th, i]) => th.textContent.trim() && rows.every((r) => /^[—–·\\s-]*$/.test(r.cells[i].textContent) && !r.cells[i].querySelector('input, .gg, svg, img, canvas')))
+          .map(([th]) => th.textContent.trim() + ' ' + Math.round(th.getBoundingClientRect().width));
+    })"""
+
+    def test_empty_columns_and_the_empty_state(self):
+        """V9: no column of dashes on the trail (Filings had Value "—" ×5), Reconcile by company, Dataset Rows; an empty Grid
+        says which filters left it empty and Export CSV is off; Reconcile by-company rows stay at 44 px at 1280."""
+        for hash_ in ("proof/APLD", "proof/MSFT", "reconcile?group=company", "data?list=statements"):
+            with self.subTest(page=hash_):
+                pg = self.page(1280, hash_)
+                pg.wait_for_selector("main table tbody tr", timeout=60000)
+                pg.wait_for_timeout(300)
+                self.assertEqual([c for c in pg.evaluate(self.EMPTY_COLS) if int(c.rsplit(' ', 1)[1]) > 48], [])
+                if hash_.startswith("reconcile"):
+                    self.assertLessEqual(pg.evaluate("Math.max(...[...document.querySelectorAll('tr.item')].map((r) => r.getBoundingClientRect().height))"), 44.5)
+        pg = self.page(1600, "data?view=grid&k=planned")
+        pg.wait_for_selector("main .card-body", timeout=60000)
+        self.assertIn("No rows for Field = Capex", pg.text_content("main .card-body"))
+        self.assertIn("Kind = Planned", pg.text_content("main .card-body"))
+        self.assertTrue(pg.locator("main button", has_text="Export CSV").is_disabled())
+
 if __name__ == "__main__":
     unittest.main()

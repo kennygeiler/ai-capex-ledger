@@ -43,23 +43,24 @@ function trailVerify(c, ticker) {
   return [c.how.detail ? h('details', {class: 'why'}, h('summary', {}, line), h('div', {class: 'small text-secondary mt-1'}, c.how.detail)) : line, more];
 }
 
-function trailRow(it, stage, ticker) {
+function trailRow(it, stage, ticker, withValue = true) {
   const c = it.card || {how: {tone: 'unknown', text: it.reason || ''}, where: []};
   const [cls] = rowWord(c.how.tone);
   const what = trailWhat(it, stage);
   return h('tr', {},
     h('td', {}, h('span', {class: cls, 'aria-hidden': 'true'}, '● '), what),
-    h('td', {class: 'num'}, c.found ? (stage === 'statements' || stage === 'planned' ? c.found : h('span', {class: 'money'}, c.found)) : h('span', {class: 'text-secondary'}, '—')),
+    withValue ? h('td', {class: 'num'}, c.found ? (stage === 'statements' || stage === 'planned' ? c.found : h('span', {class: 'money'}, c.found)) : h('span', {class: 'text-secondary'}, '—')) : '',
     h('td', {}, trailSource(c, what)),
     h('td', {}, trailVerify(c, ticker)));
 }
 
 function trailTable(items, stage, ticker) {
   const quote = stage === 'statements' || stage === 'planned';  // a quote is the value: it wraps, the rest of the row narrows
-  return h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table trail' + (quote ? ' trail-quote' : '')},
-    h('colgroup', {}, h('col', {class: 'c-item'}), h('col', {class: 'c-value'}), h('col', {class: 'c-source'}), h('col', {class: 'c-verify'})),
-    h('thead', {}, h('tr', {}, h('th', {}, 'Item'), h('th', {class: 'num'}, 'Value'), h('th', {}, 'Source'), h('th', {}, 'Verification'))),
-    h('tbody', {}, items.map((it) => trailRow(it, stage, ticker)))));
+  const withValue = items.some((it) => (it.card || {}).found);  // V9: a Value column that would be "—" in every row is left out (Filings)
+  return h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table trail' + (quote ? ' trail-quote' : '') + (withValue ? '' : ' no-value')},
+    h('colgroup', {}, h('col', {class: 'c-item'}), withValue ? h('col', {class: 'c-value'}) : '', h('col', {class: 'c-source'}), h('col', {class: 'c-verify'})),
+    h('thead', {}, h('tr', {}, h('th', {}, 'Item'), withValue ? h('th', {class: 'num'}, 'Value') : '', h('th', {}, 'Source'), h('th', {}, 'Verification'))),
+    h('tbody', {}, items.map((it) => trailRow(it, stage, ticker, withValue)))));
 }
 
 function stageCard(id, st, waiting, body) {
@@ -91,7 +92,7 @@ async function trailPage(view, ticker) {
   // the state is the server's (states.edgar, the one the claims register reads); the page only adds the age
   const [secCls, secWord] = stateWord('edgar', S.sec_check), fresh = h('span', {class: secCls},
     S.sec_check === 'fresh' ? `${secWord} ${hours}h ago` : S.sec_check === 'stale' ? `${stateWord('edgar', 'fresh')[1]} ${Math.round(hours / 24)}d ago · ${secWord}` : secWord);
-  const tile = (title, ...lines) => h('div', {class: 'col-md-3'}, h('div', {class: 'text-secondary small text-uppercase mb-1'}, title), ...lines.map((l) => h('div', {class: 'small'}, l)));
+  const tile = (title, ...lines) => h('div', {class: 'col-md-4'}, h('div', {class: 'text-secondary small text-uppercase mb-1'}, title), ...lines.map((l) => h('div', {class: 'small'}, l)));
   const kv = (label, n, cls) => (n ? h('span', {class: 'd-flex justify-content-between', style: 'max-width:15rem'}, h('span', {class: cls || 'text-secondary'}, label), h('span', {class: 'num'}, int(n))) : '');
   const since = S.since;
   const sinceLines = !S.shipped ? ['—'] : (since && (since.added.length + since.changed.length + since.removed.length))
@@ -110,8 +111,9 @@ async function trailPage(view, ticker) {
         kv('Figures', S.figures, 'text-body fw-medium'), kv('Match SEC XBRL', S.matched, 'text-green'), kv('Tie to totals', S.tied, 'text-teal'),
         kv('Confirmed in 2 filings', S.second_reading, 'text-teal'), kv('Citation only', S.reading_only, 'text-azure'),
         ...bucketParts(c.counts).map(([b, n]) => kv(stateWord('row', b)[1], n, stateWord('row', b)[0])), kv('Quotes verified', S.quotes)),
-      tile('Last release', S.shipped ? S.shipped.version : 'None', S.shipped ? `Signed ${S.shipped.signed_at} · ${S.shipped.signed_by}` : ''),
-      tile('Changes since release', ...sinceLines))));
+      // V9: the release and the changes since it share one column (a whole column held "None")
+      tile('Last release', S.shipped ? S.shipped.version : 'None', S.shipped ? `Signed ${S.shipped.signed_at} · ${S.shipped.signed_by}` : '',
+        S.shipped ? h('div', {class: 'mt-2'}, h('div', {class: 'text-secondary small text-uppercase mb-1'}, 'Changes since release'), ...sinceLines.map((l) => h('div', {class: 'small'}, l))) : ''))));
   const order = (it) => ({open: 0, blocked: 0, explained: 1, checked: 2})[it.state] ?? 1;
   const cards = Object.entries(c.stages).map(([id, st]) => {
     const all = [...(st.all || [])].sort((a, b) => order(a) - order(b));

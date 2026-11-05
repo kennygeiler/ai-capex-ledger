@@ -90,10 +90,13 @@ async function dataPage(view, qs) {
     document.body.append(a); a.click(); a.remove();
   }
 
+  // V9: no rows for the filters is said, with the filters by name, and there is nothing to export
+  const sel_ = (el) => el.options[el.selectedIndex].text;
+  const none = h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, `No rows for ${[['Field', sel_(fieldSel)], ['Companies', sel_(groupSel)], ['Kind', sel_(kindSel)]].map(([k, v]) => `${k} = ${v}`).join(' · ')}`));
   view.append(h('div', {class: 'stack', style: 'gap:1rem'},
-    h('div', {class: 'hrow'}, dataSwitch(q, 'grid'), fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
+    h('div', {class: 'hrow'}, dataSwitch(q, 'grid'), fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv, disabled: !list.length || null}, 'Export CSV'),
       h('span', {class: 'muted small'}, `${list.length} rows · USD · ✓ Verified · ○ Unverified · ≠ Differs from SEC XBRL`)),
-    grid));
+    list.length ? grid : none));
 }
 
 // ── Dataset, rows view: the raw rows of every list, as the read API and the release files carry them ──
@@ -104,7 +107,10 @@ async function rowsView(view, q) {
   const setQ = (patch) => { const p = {list: name, ticker, has_value: hasValue, ...patch}; go('data?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
   const qs = new URLSearchParams(Object.fromEntries(Object.entries({ticker, has_value: hasValue}).filter(([, v]) => v))).toString();
   const d = await api(`/api/v1/${name}` + (qs ? `?${qs}` : ''));
-  const cols = [...new Set(d.rows.flatMap((r) => Object.keys(r)))];
+  // V9: a column empty in every row the table holds (the list, or what Find kept) is left out; every page of the pager has the
+  // same columns, and the key stays in the opened row, CSV and JSON
+  const keys = [...new Set(d.rows.flatMap((r) => Object.keys(r)))];
+  const filled = (rows) => keys.filter((k) => rows.some((r) => r[k] != null && r[k] !== ''));
   const csv = `/api/v1/${name}.csv` + (qs ? `?${qs}` : '');
 
   const side = h('div', {class: 'list-group list-group-transparent sidelist mb-3'}, TABLES.map(([k, label, what]) =>
@@ -121,15 +127,15 @@ async function rowsView(view, q) {
   const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, valueSel, search, count);
 
   const fmt = (k, v) => v == null || v === '' ? h('span', {class: 'text-secondary'}, '—') : typeof v === 'boolean' ? (v ? 'yes' : 'no') : typeof v === 'number' ? (Number.isInteger(v) ? v.toLocaleString('en-US') : v.toLocaleString('en-US', {maximumFractionDigits: 4})) : k === 'ticker' ? h('a', {href: `#proof/${v}`}, v) : /^https?:/.test(String(v)) ? h('a', {href: v, target: '_blank', rel: 'noopener'}, 'open') : String(v).length > 90 ? h('span', {title: String(v)}, String(v).slice(0, 90) + '…') : String(v);
-  const tcols = cols.map((k) => ({t: colName(k), k, n: RAW_NUM.has(k) ? 1 : 0, f: (r) => fmt(k, r[k])}));
+  const tcol = (k) => ({t: colName(k), k, n: RAW_NUM.has(k) ? 1 : 0, f: (r) => fmt(k, r[k])});
   // V10: an opened row lists its fields in the visible part of the box (the wrapper's width, never the 40-column table's)
-  const detail = (r) => h('div', {class: 'datagrid row-detail small'}, cols.map((k) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title', title: k}, colName(k)), h('div', {class: 'datagrid-content brk'}, r[k] == null || r[k] === '' ? '—' : String(r[k])))));
+  const detail = (r) => h('div', {class: 'datagrid row-detail small'}, keys.map((k) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title', title: k}, colName(k)), h('div', {class: 'datagrid-content brk'}, r[k] == null || r[k] === '' ? '—' : String(r[k])))));
   const holder = h('div', {});
   const draw = () => {
     const needle = search.value.trim().toLowerCase();
     const rows = needle ? d.rows.filter((r) => JSON.stringify(r).toLowerCase().includes(needle)) : d.rows;
     count.textContent = `${int(rows.length)} rows${rows.length !== d.rows.length ? ` of ${int(d.rows.length)}` : ''}`;
-    const tbl = table(tcols, rows, {detail, page: PAGE_ROWS}); tbl.classList.add('raw');
+    const tbl = table(filled(rows).map(tcol), rows, {detail, page: PAGE_ROWS}); tbl.classList.add('raw');
     holder.replaceChildren(rows.length ? tbl : h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No rows.')));
     fitTables(holder);
   };

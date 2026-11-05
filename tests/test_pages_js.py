@@ -239,7 +239,7 @@ class VisualContract(unittest.TestCase):
         """V4: Dataset Rows draws one page of at most 100 rows, with a pager."""
         n = int(re.search(r"^const PAGE_ROWS = (\d+);", (PAGES / "_shared.js").read_text(), re.M).group(1))
         self.assertLessEqual(n, 100)
-        self.assertIn("table(tcols, rows, {detail, page: PAGE_ROWS})", (PAGES / "data.js").read_text())
+        self.assertIn("table(filled(rows).map(tcol), rows, {detail, page: PAGE_ROWS})", (PAGES / "data.js").read_text())
 
     def test_page_head_band(self):
         """V5: the scope line sits in the page container above main, not in its own container under the navbar."""
