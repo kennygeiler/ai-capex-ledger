@@ -115,7 +115,7 @@
 - id: needs_review
   claim: "Needs review"
   where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/pages/_shared.js, ledger/web/cards.py, /api/v1/proof/<ticker>]
-  shown: ["Needs review", "Complete", "Differs from SEC XBRL", "Proposed category. Review in Reconcile.",
+  shown: ["Needs review", "Complete", "Differs from SEC XBRL", "Proposed category. Review in Reconcile.", "Proposed decision. Review in Reconcile.",
           "In SEC XBRL, not extracted. Re-read required.", "In SEC XBRL, not extracted", "Decide in Reconcile"]
   backed_by:
     functions: [ledger.core.status.is_open, ledger.checks.proof.company]
@@ -481,13 +481,17 @@
 
 - id: decision_author
   claim: "Decisions record person or run"
-  where: [decisions/resolutions.jsonl, ledger/review/resolutions.py, /api/resolve]
+  where: [decisions/resolutions.jsonl, decisions/decisions.jsonl, ledger/review/resolutions.py, ledger/review/review.py, /api/resolve]
   shown: ["def by_person"]
   backed_by:
-    functions: [ledger.review.resolutions.by_person, ledger.review.resolutions.by_run, ledger.core.status.is_person]
+    functions: [ledger.review.resolutions.by_person, ledger.review.resolutions.by_run, ledger.core.status.is_person, ledger.review.review.by_person, ledger.review.review.proposed]
     tests:
       - tests.test_resolutions.Authors.test_a_person_line_by_someone_not_on_people_is_refused
       - tests.test_resolutions.Authors.test_a_run_line_never_supersedes_a_person_line
+      - tests.test_trust.DecisionAuthors.test_a_run_decision_never_closes_a_block_and_is_proposed
+      - tests.test_trust.DecisionAuthors.test_every_new_decision_records_its_author_and_kind
+      - tests.test_trust.DecisionAuthors.test_g4_and_g6_both_name_a_proposed_block
+      - tests.test_trust.DecisionAuthors.test_proof_and_reconcile_read_it_proposed
   status: partial
   gaps:
     - The name is the one typed in the signer box; nobody signs in.

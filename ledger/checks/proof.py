@@ -13,7 +13,7 @@ from . import filertag, ties
 from ..core import status, store
 from ..extract.notes import FIELDS as NOTE_FIELDS
 from .guards import part_year, program_words
-from ..review.review import decisions, open_items
+from ..review.review import decisions, open_items, proposed
 from .rules import explain_key, explained
 from ..release.taxonomy import asset_types, rows as taxonomy_rows
 from ..core.config import PROVEN, PROVEN_WHY, SCOPE, industry, tracked
@@ -23,7 +23,7 @@ STAGE_LABEL = {"ingest": "Filings", "values": "Statement figures", "facts": "Not
                "planned": "Guidance and projects", "release": "Release"}
 NEEDS = {"values": "Definition or unit rule", "facts": "Definition", "finding": "Definition or rule", "mapping": "Category mapping",
          "mapping_confirm": "Proposed category", "readings": "Readings differ", "tie": "Does not tie to total", "basis": "Segment basis",
-         "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision"}  # what an open item needs, as the Rules page groups it
+         "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision", "decision_confirm": "Proposed decision"}  # what an open item needs, as the Rules page groups it
 
 
 # The exceptions a loader writes when a stage failed (cli/extract, cli/notes, cli/aispend, cli/projects): failures, never
@@ -204,7 +204,13 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     stages["planned"] = _stage(items, extra={"guidance": sum(r["category"] == "guidance" for r in planned), "projects": sum(r["category"] == "project" for r in planned)})
 
     # release: blocks from decisions and block-severity rules; the company's gate is one item
+    # F14: a block a run or an agent decided is Proposed (to confirm), still open, until a person decides it
+    prop = {e["exception_id"]: e["decision"] for e in proposed(exc, decisions())}
     items = [_item(f"{e['rule_id']}: {e['field'] or ''} {e['period'] or ''}".strip(), status.of_exception(e), e["message"][:200], NEEDS["release"])
+             if e["exception_id"] not in prop else
+             _item(f"{e['rule_id']}: {e['field'] or ''} {e['period'] or ''}".strip().rstrip(":") + ", to confirm",
+                   status.state({"label": "to_confirm", "reason": f"{prop[e['exception_id']].get('kind')} by {prop[e['exception_id']].get('reviewer')}; no person has decided it"}),
+                   e["message"][:200], NEEDS["decision_confirm"])
              for e in exc if e["severity"] == "block" and e["rule_id"] not in FAILURES and e["exception_id"] not in decided]
     items += [_item(f"blocks: {' '.join(k[2:5]).strip()}", status.state({"resolution": r}), r["reason"][:200], NEEDS["decision"]) for k, r in idx.items() if k[1] == t and r["state"] == "blocks"]
     if rset[1]:  # a rule file that does not load: open, never a crash, and no rule explains anything until it is fixed

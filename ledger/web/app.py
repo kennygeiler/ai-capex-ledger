@@ -245,7 +245,8 @@ def _flow(scope: str) -> dict:
         queue.append({"kind": "new_filing", "key": resolutions.key_for("new_filing", f["ticker"], f["form"], f["period"]), "state": "new", "ticker": f["ticker"], "where": f"{f['form']} for the year ended {f['period']}", "impact": "values, facts and statements for the year", "action": "run", "detail": f})
     for e in hqd["questions"]:
         if e["ticker"] in tickers:
-            queue.append({"kind": "blocked", "key": resolutions.key_for("blocked", e["ticker"], e["field"], e["period"], rule_id=e["rule"], subject=e.get("subject")), "state": "blocked", "ticker": e["ticker"], "where": f"{e['field'] or ''} {e['period'] or ''}".strip() or e["rule"], "impact": "blocks the release", "action": "definition", "detail": e})
+            queue.append({"kind": "blocked", "key": resolutions.key_for("blocked", e["ticker"], e["field"], e["period"], rule_id=e["rule"], subject=e.get("subject")), "state": "blocked", "ticker": e["ticker"], "where": f"{e['field'] or ''} {e['period'] or ''}".strip() or e["rule"], "impact": "blocks the release", "action": "definition",
+                          "detail": {k: v for k, v in e.items() if k != "proposed"}, "proposed": e.get("proposed")})  # F14: a run's decision, off the hash (the item is the same finding)
     for f in facts_changed[:30]:
         queue.append({"kind": "fact_changed", "key": resolutions.key_for("fact_changed", f["ticker"], f["field"], f["period"], f["dimension"]), "state": "moved", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "), "impact": "the next release", "dollars": 0, "new": True, "action": "release",
                       "detail": {**f, "release_value": (lambda v: None if v in (None, "") else float(v))(rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"])))}})

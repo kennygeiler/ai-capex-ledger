@@ -102,6 +102,8 @@ def _words(it: dict, name: str, defs: dict, found_value=None) -> dict:
     ref = it.get("ref") or {}
     if state in ("open", "blocked"):
         more = it.get("detail") or it.get("reason") or None
+        if by == "label:to_confirm" and it.get("needs") == "Proposed decision":  # F14: a block a run or an agent decided (proof NEEDS decision_confirm)
+            return {"tone": "wait", "text": "Proposed decision. Review in Reconcile.", "detail": it.get("reason") or None}
         if by == "label:to_confirm":
             return {"tone": "wait", "text": "Proposed category. Review in Reconcile.", "detail": None}
         if by == "label:not_extracted":

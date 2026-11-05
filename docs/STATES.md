@@ -205,6 +205,14 @@ a person decided (proof.py:361-363,412).
 exceptions (`xbrl_reconcile` ×10, `statement_tie` ×2) for FCX, HUT, LITE, NRG, SYM, TLN and VST. They are outside SCOPE
 at the audit; inside it they would pass G4 and vanish from Proof. G6 does not count them; it reads resolutions only.
 
+**Since F14 (branch `trust`).** `decide` refuses a decision with no author and writes `author_kind` (person, the
+default, only for a name on config.PEOPLE; run, `ledger review … decide … --run`). `review.closes`: a current decision
+closes a warn finding, and a block finding only when a person made it (`review.by_person`: `author_kind`, or for a line
+before the field the resolutions rule, a name on config.PEOPLE with no "to confirm"). A run's decision on a block is
+`review.proposed`: open under G4, a G6 item `decisions|<ticker>|<exception id>`, Proposed on Proof (release stage, "to
+confirm") and on Reconcile's blocks group, and `apply` ignores its override or reject. A run's decision never supersedes
+a person's on the same input hash. The 12 accepts above now read Proposed for their seven companies; no line was rewritten.
+
 **UI.** `/api/company` `status` "note" / "open" / "decided", and `decision {kind, reason, reviewer, decided_at}`
 (app.py:84-85). Values change silently in the packet.
 **Risks.**
@@ -591,7 +599,7 @@ tests.json. Add the missing gates as required lines:
 - golden commit ≠ HEAD = fail;
 - watch older than 48 h = fail;
 - hosted ≠ latest signed = fail after publish, or a "deployed" step in `sign`;
-- run-authored current decisions in decisions.jsonl counted in G6.
+- run-authored current decisions in decisions.jsonl counted in G6 (built, F14).
 
 ## Display words (not states)
 

@@ -32,7 +32,7 @@ from ..checks.evidence import load_all
 from ..extract.extract import prompt_version
 from ..ingest.tables import PARSER_VERSION
 from .release import GATES, RELEASES, build, content_hash, failing, gates, limitations_md, readme, rows_diff, rows_diff_md, version_key
-from ..review.review import apply, decisions, open_items
+from ..review.review import apply, decisions, open_items, proposed
 from ..checks.rules import load as load_rules
 
 VERSION = re.compile(r"^v\d+\.\d+\.\d+$")
@@ -51,7 +51,7 @@ def _scoped(link: str, ticker: str) -> str:
 
 GATE_SHORT = {"G1": "All filings read", "G4": "Every block has a decision", "G5": "Values confirmed on filing", "G6": "No proposal left to confirm"}
 # each line's Details: one short line in product words, no file paths (the files behind each line: docs/OPERATIONS.md, "The Release lines")
-GATE_NOTE = {"G1": "Every filing read, or its failure logged and settled", "G4": "Every block finding has a current decision",
+GATE_NOTE = {"G1": "Every filing read, or its failure logged and settled", "G4": "Every block finding has a current decision by a person",
              "G5": "Values SEC XBRL cannot vouch for, and a sample of those it can, confirmed on the filing", "G6": "Category mappings and run decisions waiting for a person"}
 
 
@@ -138,7 +138,7 @@ def packet(con, version: str, stage: int = 3) -> dict:
     cells = {e["extraction_id"]: e["cell_text"] for e in exts}
     confirmed = {i for i, r in load_all().items() if r["match"] and cells.get(i) == r["cell"]}
     hc = json.loads(hc_path.read_text()) if hc_path.exists() else None
-    g = gates(values, open_items(excs, ds), hc, confirmed, resolutions.unconfirmed(), mappings=taxonomy.to_confirm(con, list(SCOPE)))
+    g = gates(values, open_items(excs, ds), hc, confirmed, resolutions.unconfirmed(), mappings=taxonomy.to_confirm(con, list(SCOPE)), proposed=proposed(excs, ds))
     prev_dir = previous_of(version)
     previous = list(csv.DictReader((prev_dir / "values.csv").open())) if prev_dir else None
     ai = _rows(con, "select * from ai_spend where ticker in (select unnest(?))", tickers)
@@ -435,18 +435,23 @@ def review_counts(board: dict, unconfirmed: list, unmapped: list = ()) -> dict:
             "per_company": [{"ticker": t, "open": x["bad"], "proposed": x["wait"], "blocked": x["blocked"]} for t, x in per.items()]}
 
 
-def g6_link(unconfirmed: list, mappings: list) -> str:
+def g6_link(unconfirmed: list, mappings: list, decided: list = ()) -> str:
     """The page that fixes G6's items: Reconcile with every cause when it holds both a run's decisions and asset types,
-    else the one group that holds them."""
+    else the one group that holds them; a run's decision on a block finding (F14) is on Reconcile's blocks group."""
+    if not mappings and not unconfirmed and decided:
+        return "reconcile?cause=blocked"
     return "reconcile?cause=asset_types" if mappings or not unconfirmed else "reconcile?cause=to_confirm"  # F-BF11: Category mapping when it holds any
 
 
-def g6_detail(unconfirmed: list, mappings: list) -> list[dict]:
-    """G6's items one per key: the key, its state, the reason and the page that fixes it."""
+def g6_detail(unconfirmed: list, mappings: list, decided: list = ()) -> list[dict]:
+    """G6's items one per key: the key, its state, the reason and the page that fixes it. `decided`: review.proposed,
+    a block finding a run or an agent decided (F14)."""
     from ..core.states import word
     return ([{"company": (resolutions.parse_key(r["key"]) or {}).get("ticker", ""), "key": r["key"], "state": r["state"], "reason": (r.get("reason") or "")[:160], "link": "reconcile?cause=to_confirm"} for r in unconfirmed]
             + [{"company": m["ticker"], "key": f"asset_types|{m['ticker']}|{m['reported_name']}", "state": word("row", "wait"), "reason": f"{m.get('standard_type')} proposed by {m.get('by')}",
-                "link": f"reconcile?scope={m['ticker']}&cause=asset_types"} for m in mappings])
+                "link": f"reconcile?scope={m['ticker']}&cause=asset_types"} for m in mappings]
+            + [{"company": e["ticker"], "key": f"decisions|{e['ticker']}|{e['exception_id']}", "state": word("row", "wait"),
+                "reason": f"{e['decision'].get('kind')} by {e['decision'].get('reviewer')}: {(e['decision'].get('reason') or '')[:120]}", "link": f"reconcile?scope={e['ticker']}&cause=blocked"} for e in decided])
 
 
 def checklist(con, version: str | None = None, stage: int = 3) -> dict:
@@ -463,6 +468,7 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     bad = failing(p["gates"])
     unc = resolutions.unconfirmed()  # a run's decisions to confirm (T3): Reconcile's "To confirm" rows, Proposed there too
     utc = taxonomy.to_confirm(con, list(SCOPE))  # T63: the asset-type mappings no person confirmed, the rest of G6
+    dpr = proposed(_rows(con, "select * from exceptions where ticker in (select unnest(?))", [list(SCOPE)]), decisions())  # F14: a run's decision on a block, G6 and G4
     # open, proposed and blocked in scope (T1): the one per-company count (workbench.company_counts over the Proof board,
     # states.buckets), the function the Proof board, the trail and Reconcile's header count with. Each line is one bucket,
     # named as every page names it, and its detail is that bucket per company, linked to the page that fixes it (F-FL2):
@@ -476,9 +482,9 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
         n = sum(len(v) for v in by_t.values())
         detail = [{"company": t, "items": len(items), "example": items[0] if items else "", **({"link": _scoped(GATE_FIX[gid], t)} if items else {})} for t, items in by_t.items()]
         if gid == "G6":  # the Proposed bucket: one row per item (company, key, state, reason), each with the page that fixes it
-            detail = g6_detail(unc, utc)
+            detail = g6_detail(unc, utc, dpr)
         no_hc = gid == "G5" and any(v == ["no hand-check file"] for v in by_t.values())
-        lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", g6_link(unc, utc) if gid == "G6" else GATE_FIX[gid],
+        lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", g6_link(unc, utc, dpr) if gid == "G6" else GATE_FIX[gid],
                            GATE_NOTE[gid] + (" · Hand-check file for this stage missing · export from Proof" if no_hc else ""), detail))
     lines.append(_line("open", word("row", "bad"), True, open_, "pass" if open_ == 0 else "fail", NEEDS_REVIEW_FIX,
                        "Neither verified nor explained, and nothing proposed" + (f"; {len(um)} are categories with no mapping" if um else ""),
