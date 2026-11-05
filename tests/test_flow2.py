@@ -108,7 +108,7 @@ class ProofOneJob(unittest.TestCase):
 
     def test_rules_draws_the_failure_types(self):
         page = (PAGES / "rules.js").read_text()
-        self.assertIn("function failureTypes()", page)
+        self.assertIn("function failureTypes({titled = true} = {})", page)
         self.assertIn("...open, types);", page)  # folded under the work list, drawn on first open
         self.assertIn("if (types.open && !types.dataset.drawn) { types.dataset.drawn = '1'; failureTypes.draw(); }", page)
 
