@@ -89,6 +89,8 @@
   table.trail td:nth-child(3) { overflow: hidden; }
   .cite-role { color: var(--tblr-body-color); }
   .calc .money-line { overflow-wrap: anywhere; }
+  /* F-BF9: the hand check reads a figure to the dollar: the exact line ($215,874,000,000) needs a wider value column than the trail's */
+  table.trail.gold col.c-value { width: 11.5rem; }
   table.trail tr.gold-group th { background: var(--tblr-bg-surface-secondary); text-transform: none; letter-spacing: 0; }
   table.trail-quote col.c-item { width: 20%; } table.trail-quote col.c-value { width: 34%; } table.trail-quote col.c-source { width: 22%; }
   table.trail-quote td.num { white-space: normal; text-align: left; }
@@ -111,7 +113,7 @@
   .cropbox-fig img { display: block; max-width: 100%; height: auto; background: #fff; }
   .src { display: grid; gap: .3rem; margin-bottom: .9rem; max-width: 60rem; }
   .src img { max-width: min(100%, 40rem); border-radius: 4px; margin-top: .3rem; border: 1px solid var(--tblr-border-color); }
-  pre.raw { white-space: pre-wrap; word-break: break-word; font: .78rem/1.5 var(--tblr-font-monospace); max-height: 30rem; overflow: auto; margin: .5rem 0 0; background: var(--tblr-bg-surface-secondary); padding: .6rem .75rem; border-radius: var(--tblr-border-radius); }
+  pre.raw { white-space: pre-wrap; word-break: break-word; font: .78rem/1.5 var(--tblr-font-monospace); max-height: 30rem; overflow: auto; margin: .5rem 0 0; background: var(--tblr-bg-surface-secondary); color: var(--tblr-body-color); padding: .6rem .75rem; border-radius: var(--tblr-border-radius); }  /* F-BF8: Tabler's pre ink is light, for its dark pre; on this surface the text vanished */
   .msg { color: var(--tblr-secondary); padding: 2rem 0; }
   ul.plain { margin: .2rem 0 0; padding-left: 1.1rem; }
   ul.plain li { margin: .15rem 0; }
@@ -175,7 +177,7 @@
   .md ul, .md ol { padding-left: 1.25rem; }
   .md li { margin: .15rem 0; }
   .md code { font-size: .8rem; overflow-wrap: anywhere; }
-  .md pre.raw code { font-size: inherit; }
+  .md pre.raw code { font-size: inherit; color: inherit; background: none; padding: 0; }
   .md .scroll { margin: 0 0 1rem; }
   .md .table td, .md .table th { vertical-align: top; }
   .md blockquote { padding-left: .9rem; box-shadow: inset 2px 0 0 var(--tblr-border-color); }

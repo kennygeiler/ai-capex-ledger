@@ -129,7 +129,7 @@ function goldSet() {
       const lv = it.live, moved = lv && lv.value !== it.value;
       const f = asFiled(it);
       return h('div', {}, h('div', {class: 'money'}, f ? f.figure : goldMoney(it.value)),
-        f ? h('div', {class: 'text-secondary small money'}, `In ${f.scale} · ${goldMoney(it.value)}`) : '',
+        f ? [h('div', {class: 'text-secondary small'}, `In ${f.scale}`), h('div', {class: 'text-secondary small money gold-exact'}, goldMoney(it.value))] : '',
         !lv ? h('div', {class: 'text-secondary small'}, 'Current value unavailable') : lv.gone ? h('div', {class: 'text-red small'}, 'Removed from dataset') : moved ? h('div', {class: 'text-red small'}, `Now ${goldMoney(lv.value)}`) : lv.open ? h('div', {class: stateWord('row', 'bad')[0] + ' small'}, stateWord('row', 'bad')[1]) : '');
     };
     // the cited cell, as the trail shows it: the crop (cell boxed in red; click for full size) or its state, then Open in filing

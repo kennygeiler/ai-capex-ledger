@@ -781,6 +781,7 @@
       - tests.test_docs.Links.test_overview_and_operations_links_resolve
       - tests.test_docs.Glossary.test_every_state_word_is_defined
       - tests.test_docs.Voice.test_shown_docs_carry_no_chat_voice
+      - tests.test_layout.Layout.test_docs_code_blocks_are_readable
   status: partial
   gaps:
     - The hand-written docs are checked for links and voice, not sentence by sentence against the code; a figure quoted in a doc is as of the commit that wrote it.
@@ -869,12 +870,13 @@
 - id: hand_check_live
   claim: "Hand check on Release and in Proof's header: N of 120 with a verdict, all hold; read live from gold/*.json, so a verdict given on Proof counts at once; Fix in opens the first unchecked item's company"
   where: [ledger/release/checklist.py, ledger/web/app.py, ledger/web/pages/proof.js, ledger/web/pages/release.js, /api/v1/release/checklist, /api/v1/golden]
-  shown: ["Hand check", "with a verdict", "all hold", "live_hand_check"]
+  shown: ["Hand check", "with a verdict", "all hold", "live_hand_check", "gold-exact"]
   backed_by:
     functions: [ledger.release.checklist.hand_check_line, ledger.web.app.live_hand_check, ledger.review.gold.compare_db]
     tests:
       - tests.test_gold.LiveHandCheck.test_a_verdict_written_to_a_gold_file_changes_the_line_with_no_cli_run
       - tests.test_gold.LiveHandCheck.test_proofs_header_reads_the_same_live_verdicts
+      - tests.test_layout.Layout.test_hand_check_value_cell_never_clips_the_exact_dollars
       - tests.test_checklist.FixIn.test_scoped_links
   status: partial
   gaps:
