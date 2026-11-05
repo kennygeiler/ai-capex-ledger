@@ -7,6 +7,7 @@ import argparse
 import json
 
 from ..core import store
+from ..core.ids import split_ids
 from ..core.config import add_scope, scope
 from ..checks.evidence import read
 from ..release.release import to_check
@@ -37,7 +38,7 @@ def main(argv=None) -> int:
     exts = q("select e.*, d.cik from extractions e join documents d using(accession) where e.ticker in (select unnest(?))")
     vals = q('select * from "values" where ticker in (select unnest(?))')
     want = to_check(vals)
-    shots = {i for v in vals if (v["ticker"], v["field"], v["period"]) in want for i in (v["extraction_ids"] or "").split(",")}
+    shots = {i for v in vals if (v["ticker"], v["field"], v["period"]) in want for i in split_ids(v["extraction_ids"])}
     by_doc = {}
     for e in exts:
         by_doc.setdefault((e["cik"], e["accession"]), []).append(e)

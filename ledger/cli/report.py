@@ -14,6 +14,7 @@ from datetime import date, datetime, timezone
 from urllib.parse import quote
 
 from ..core import store
+from ..core.ids import split_ids
 from ..ingest.notes import restatement_note
 from ..core.config import MVP_YEARS, RELEASE_FIELDS, STAGES, add_scope, scope
 from ..release.release import to_check
@@ -68,7 +69,7 @@ def build(con, tickers: list[str], name: str) -> dict:
     rows = []
     for v in vals:
         srcs = []
-        for i in (v["extraction_ids"] or "").split(","):
+        for i in split_ids(v["extraction_ids"]):
             x = ext.get(i)
             if not x:
                 continue

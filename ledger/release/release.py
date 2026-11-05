@@ -42,19 +42,7 @@ def to_check(values) -> dict:
             **{k(v): "spot_check" for v in random.Random(GOLDEN_SEED).sample(agree, min(SPOT_CHECKS, len(agree)))}}
 
 
-ID_START = re.compile(r"^\d{10}-\d{2}-\d{6}\|")
-
-
-def split_ids(joined: str) -> list[str]:
-    """extraction_ids are comma-joined, and a cost-line label may itself hold a comma ("Fuel, purchased power costs, and
-    delivery fees"); a piece that does not start with an accession belongs to the id before it (type 66)."""
-    out = []
-    for piece in joined.split(","):
-        if out and ID_START.match(out[-1]) and not ID_START.match(piece):
-            out[-1] += "," + piece
-        else:
-            out.append(piece)
-    return out
+from ..core.ids import ID_START, split_ids  # noqa: E402,F401  the one reader of extraction_ids, kept importable from here
 
 
 def gates(values, open_items, handcheck, confirmed=frozenset(), unconfirmed=(), tickers=None, mappings=()) -> dict:
@@ -149,7 +137,7 @@ def build(version, values, extractions, exceptions, previous, confirmed=frozense
     w.writerow(["ticker", "field", "period", "period_end", "value", "basis", "first_reported", "source", "check_label", "citations"])  # the API's names (one name per thing); checklist.packet ships api.fetch's wider header
     for v in rows:
         cites = " ; ".join(f"{e['accession']} {e['table_id']} '{e['row_label']}' / '{e['column_label']}' = {e['cell_text']}"
-                           for i in (v["extraction_ids"] or "").split(",") if (e := ext.get(i)))
+                           for i in split_ids(v["extraction_ids"]) if (e := ext.get(i)))
         w.writerow([v["ticker"], v["field"], v["period"], v["period_end"], "" if v["value"] is None else v["value"], v["basis"],
                     "" if v["first_reported"] is None else v["first_reported"], v["source"], v["label"], cites])
     notes = [e for e in exceptions if e["severity"] == "info"]

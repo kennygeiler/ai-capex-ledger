@@ -25,6 +25,7 @@ import duckdb
 
 from ..extract import agents
 from ..core import progress, store
+from ..core.ids import split_ids
 from ..cli.report import build
 from ..core.config import ADDED, INDUSTRIES, SCOPE, added, industry, stage_tickers, tracked
 from ..checks.evidence import load_all
@@ -244,7 +245,7 @@ def _flow(scope: str) -> dict:
     for f in facts:
         if f["label"] == "unresolved":
             fr = fact_ref.get((f["ticker"], f["field"], f["dimension"], f["period"]), {})
-            cite = cites.get((fr.get("extraction_ids") or "").split(",")[-1])
+            cite = cites.get((split_ids(fr.get("extraction_ids")) or [""])[-1])
             key = f"{f['ticker']}|{f['field']}|{f['dimension']}|{f['period']}"
             queue.append({"kind": "fact_differs", "key": resolutions.key_for("fact_differs", f["ticker"], f["field"], f["period"], f["dimension"]), "state": "disagrees", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "),
                           "impact": "a cited cell against the filing's tag", "dollars": abs((f["value"] or 0) - (float(fr["reference"]) if fr.get("reference") not in (None, "") else (f["value"] or 0))),

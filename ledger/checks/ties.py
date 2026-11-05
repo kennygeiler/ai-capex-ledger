@@ -24,6 +24,7 @@ import json
 import re
 
 from ..core import config
+from ..core.ids import split_ids
 
 TIE_CHECK = "parts_tie"  # the check behind every *_tie rule on the facts (rules/ppe_categories_tie.yaml and its two siblings)
 DIFFER = "fact_readings_differ"  # the rule whose finding opens an untagged fact read two ways (status.DIFFER is the same id)
@@ -35,7 +36,7 @@ def readings_of(fact: dict, by_id: dict) -> list[dict]:
     """The readings behind a fact: [{accession, filed, form, period, value, scale}], oldest filing first, one per
     extraction id the fact lists (one per filing: an extraction id is accession|field|dimension|period_end). `period`
     is the filing's own report period (documents.period), its lineage: a 10-K/A carries its original's."""
-    out = [by_id[i] for i in (fact.get("extraction_ids") or "").split(",") if i in by_id]
+    out = [by_id[i] for i in split_ids(fact.get("extraction_ids")) if i in by_id]
     keys = ("accession", "filed", "form", "period", "value", "scale", "extraction_id", "cell_text")
     return sorted(({k: r.get(k) for k in keys} for r in out), key=lambda r: (str(r["filed"] or ""), r["accession"]))
 
@@ -128,7 +129,7 @@ def restatements(con, tickers: list[str], extraction_id: str | None = None) -> d
         return {}
     sql = "select ticker, field, dimension, period, value, accession, extraction_ids from facts where ticker in (select unnest(?))"
     facts = _rows(con, sql + (" and position(? in ',' || extraction_ids || ',') > 0" if extraction_id else ""), list(tickers), *([f",{extraction_id},"] if extraction_id else []))
-    ids = sorted({i for f in facts for i in (f["extraction_ids"] or "").split(",") if i})
+    ids = sorted({i for f in facts for i in split_ids(f["extraction_ids"])})
     if not ids:
         return {}
     ext = _rows(con, "select n.extraction_id, n.accession, n.value, n.scale, n.cell_text, d.filed, d.form, d.period from note_extractions n "

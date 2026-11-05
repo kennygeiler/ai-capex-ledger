@@ -34,7 +34,7 @@ from ..review import resolutions
 from ..core import store
 from ..core.status import confirmed
 from ..checks.guards import part_year, program_words
-from .release import split_ids
+from ..core.ids import split_ids
 
 ROOT = store.ROOT
 FILE = ROOT / "taxonomy" / "taxonomy.yaml"

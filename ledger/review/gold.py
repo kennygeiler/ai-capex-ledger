@@ -59,7 +59,7 @@ def deep_link(url, row_label, cell_text):
 
 
 def _cites(ids: str, cells: dict, urls: dict, evidence: dict) -> list[dict]:
-    from ..release.release import split_ids  # a cost-line label may hold a comma
+    from ..core.ids import split_ids  # a cost-line label may hold a comma
     out = []
     for eid in [i for i in split_ids(ids or "") if i]:
         c = cells.get(eid) or {}

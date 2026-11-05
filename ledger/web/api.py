@@ -79,7 +79,7 @@ def _values(con) -> list[dict]:
     has no such line, or the cell is not yet extracted) is not a value and does not ship (T64; QUALITY.md counts them).
     Beside the value: `first_reported` (the first 10-K's figure), `accession` and `filed` of the filing the value comes
     from, and `citations`, every cell behind it (accession, table, row label, column label, cell text)."""
-    from ..release.release import split_ids
+    from ..core.ids import split_ids
     rows = _rows(con, 'select ticker, field, period, period_end, value, label as check_label, basis, first_reported, source, extraction_ids from "values" where value is not null order by ticker, field, period')
     ids = sorted({i for r in rows for i in split_ids(r["extraction_ids"] or "")})
     cells = {e["extraction_id"]: e for e in _rows(con, """select e.extraction_id, e.accession, d.filed, e.table_id, e.row_label, e.column_label, e.cell_text

@@ -181,7 +181,7 @@ def _provenance_rows(con, tickers: list) -> dict:
 
 def _cited(rows: list[dict], by_id: dict) -> list[dict]:
     """The distinct extraction rows a shipped list cites (values → extractions, facts → note_extractions)."""
-    from .release import split_ids
+    from ..core.ids import split_ids
     out = {}
     for r in rows:
         for i in split_ids(r.get("extraction_ids") or ""):
