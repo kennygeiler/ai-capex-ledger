@@ -227,7 +227,7 @@ function failureTypes() {
     const why = h('p', {class: 'text-secondary small mt-2'}, `${NO_CHECK}: ${ofTotal(f.none)}`);
     wrap.append(head, h('div', {class: 'row g-3'}, byClass.node, byCheck.node), why, list);
     fitTables(wrap);  // drawn after the router's skin()
-    if (!window.Plotly) { for (const c of [byClass, byCheck]) c.plot.replaceChildren(h('p', {class: 'text-secondary small m-0'}, 'Chart unavailable')); return; }
+    if (!await plotlyReady()) { for (const c of [byClass, byCheck]) c.plot.replaceChildren(h('p', {class: 'text-secondary small m-0'}, 'Chart unavailable')); return; }
     const draw = (c, rows, key, nameOf) => {
       const css = getComputedStyle(document.documentElement);  // read at draw time: a theme change redraws with the new ink
       const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim(), accent = css.getPropertyValue('--accent').trim();

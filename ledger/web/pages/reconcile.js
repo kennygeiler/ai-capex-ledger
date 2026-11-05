@@ -49,7 +49,6 @@ function gapBar(r, large) {
   return el;
 }
 const badge = (text, cls) => h('span', {class: 'badge ' + (cls || 'bg-secondary-lt')}, text);
-const memberWords = (m) => { if (!m) return ''; const w = m.split(':').pop().replace(/Member$/, '').replace(/([a-z0-9])([A-Z])|([A-Z])([A-Z][a-z])/g, '$1$3 $2$4').split(' '); return [w[0], ...w.slice(1).map((x) => (x.length > 1 && x === x.toUpperCase() ? x : x.toLowerCase()))].join(' '); };
 const tone = (text, cls) => h('span', {class: cls + ' small text-nowrap'}, text);
 const checkBadge = (label) => { if (label == null) return ''; const [cls, word] = stateWord('check', label); return tone(word, cls); };  // states.CHECK, the Dataset's words
 const bar = (v, max, cls) => h('span', {class: 'bar ' + (cls || ''), style: `width:${Math.max(2, 44 * Math.abs(v || 0) / (max || 1)).toFixed(0)}px`});

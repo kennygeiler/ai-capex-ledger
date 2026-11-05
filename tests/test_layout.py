@@ -266,5 +266,18 @@ class Layout(unittest.TestCase):
         self.assertRegex(head, r"[\d,]+ rows of [\d,]+ · USD")
         self.assertEqual(len(re.findall(r"[\d,]+ rows\b", pg3.text_content("main"))), 1)  # one count, not one per place
 
+    def test_explore_controls_and_cold_chart(self):
+        """V20: a cold deep link draws its chart (Plotly is waited for); every control has a visible label; the three control
+        lines never wrap at 1600."""
+        pg = self.page(1600, "explore?measure=projects&x=ticker&type=bars")
+        pg.wait_for_selector("main .plot .main-svg", timeout=60000)
+        self.assertEqual(pg.eval_on_selector_all("main .plot p.msg", "ps => ps.length"), 0)
+        pg = self.page(1600, "explore")
+        pg.wait_for_selector("main .plot .main-svg", timeout=60000)
+        self.assertEqual(pg.eval_on_selector_all("main .exbody select, main .exbody input", "es => es.filter((e) => !(e.closest('label') && e.closest('label').querySelector('.exl').textContent.trim())).length"), 0)
+        lines = pg.eval_on_selector_all("main .exc", """cs => cs.map((c) => { const rs = [...c.querySelectorAll('select, input')].map((e) => e.getBoundingClientRect());
+            return rs.length ? Math.max(...rs.map((r) => r.top)) - Math.min(...rs.map((r) => r.top)) : 0; })""")
+        self.assertTrue(all(d < 4 for d in lines), lines)
+
 if __name__ == "__main__":
     unittest.main()

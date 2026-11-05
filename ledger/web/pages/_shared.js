@@ -43,8 +43,16 @@ try { me = localStorage.getItem('datahq-me') || me; } catch {}
 $('#me').value = me;
 $('#me').addEventListener('input', (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} });
 let NAMES = {}, SCOPE = [];
-// the jump box offers the scope only (T2); a ticker typed from outside it still navigates, an explicit ask
-api('/api/data?t=&f=none').then((d) => { SCOPE = d.scope || Object.keys(d.names); NAMES = Object.fromEntries(SCOPE.filter((t) => d.names[t]).map((t) => [t, d.names[t]])); $('#tickers').replaceChildren(...Object.entries(NAMES).map(([t, n]) => h('option', {value: t}, n))); });
+// the jump box offers the scope only (T2); a ticker typed from outside it still navigates, an explicit ask. scopeReady: a page
+// that needs the scope (Explore's fixed colours) waits for it
+const scopeReady = api('/api/data?t=&f=none').then((d) => { SCOPE = d.scope || Object.keys(d.names); NAMES = Object.fromEntries(SCOPE.filter((t) => d.names[t]).map((t) => [t, d.names[t]])); $('#tickers').replaceChildren(...Object.entries(NAMES).map(([t, n]) => h('option', {value: t}, n))); }).catch(() => {});
+// V20: Plotly loads deferred from its CDN, after the first route has started; a chart waits for it (at most 8 s) instead of
+// saying "Chart unavailable" on a cold deep link
+function plotlyReady(ms = 8000) {
+  if (window.Plotly) return Promise.resolve(true);
+  const s = document.querySelector('script[src*="plotly"]');
+  return new Promise((res) => { if (!s) { res(false); return; } const done = () => res(!!window.Plotly); s.addEventListener('load', done, {once: true}); s.addEventListener('error', done, {once: true}); setTimeout(done, ms); });
+}
 $('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().toUpperCase(); const t = NAMES[v] ? v : Object.keys(NAMES).find((k) => NAMES[k].toUpperCase() === v) || (/^[A-Z.\-]{1,6}$/.test(v) ? v : null); if (t) { e.target.value = ''; go(`data?ticker=${t}`); } });
 
 // `page`: rows per page (V4: Dataset Rows draws at most 100 at a time), a pager under the table; a sort reorders every row
@@ -186,6 +194,9 @@ const TABLES = [
   ['projects', 'Projects', 'Named projects'],
   ['companies', 'Companies', 'Companies, industry and SIC code'],
 ];
+// a US GAAP member as words (V22: "PropertyPlantAndEquipmentGross" never on screen): "Property plant and equipment gross"
+const memberWords = (m) => { if (!m) return ''; const w = m.split(':').pop().replace(/Member$/, '').replace(/([a-z0-9])([A-Z])|([A-Z])([A-Z][a-z])/g, '$1$3 $2$4').split(' '); return [w[0], ...w.slice(1).map((x) => (x.length > 1 && x === x.toUpperCase() ? x : x.toLowerCase()))].join(' '); };
+const memberLabel = memberWords;
 // a list's column name as a label (V22: no snake_case on screen); the API, CSV and JSON keep the key itself
 const colName = (k) => { const w = String(k).replaceAll('_', ' '); return w.charAt(0).toUpperCase() + w.slice(1); };
 const RAW_NUM = new Set(['value', 'value_high', 'change_from_prior', 'share', 'amount_low', 'amount_high', 'amount_mid', 'xbrl', 'capacity_mw', 'scale', 'sic', 'gpus']);

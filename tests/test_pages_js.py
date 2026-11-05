@@ -275,6 +275,35 @@ class VisualContract2(unittest.TestCase):
 
 
 @unittest.skipUnless(shutil.which("node"), "no node")
+class ExploreColours(unittest.TestCase):
+    """V20 / DE28: a series' colour is fixed by what it is (a company by its place in the scope), never by the order a browser
+    first saw it (the old localStorage register gave viewers different colours for the same company)."""
+
+    def colours(self, scope, calls):
+        js = line("explore.js", "const COLORS") + "\nconst INDUSTRY = {hyperscaler: 1, neocloud: 1, miner_to_hpc: 1, chip_seller: 1};\n" + block("explore.js", "const colorOf = ", "\n};") + \
+            "\nconst a = JSON.parse(process.argv[process.argv.length - 1]); const SCOPE = a[0];\nprocess.stdout.write(JSON.stringify(a[1].map(([d, n, v]) => colorOf(d, n, v))));"
+        return json.loads(node(js, json.dumps([scope, calls])))
+
+    def test_a_company_keeps_its_colour_whatever_else_is_drawn(self):
+        scope = ["MSFT", "GOOGL", "AMZN", "NVDA", "APLD", "AMD"]
+        got = self.colours(scope, [["ticker", "AMD", []], ["ticker", "APLD", []], ["ticker", "AMD", ["AMD"]], ["layer", "hyperscaler", []], ["layer", "hyperscaler", ["x"]]])
+        self.assertEqual(got[0], got[2])
+        self.assertNotEqual(got[0], got[1])
+        self.assertEqual(got[3], got[4])
+        six = self.colours(scope, [["ticker", t, []] for t in scope])
+        self.assertEqual(len(set(six)), 6)  # the six companies in scope never share a colour
+        self.assertNotIn("localStorage", (PAGES / "explore.js").read_text())
+
+    def test_controls_are_labelled_and_the_chart_waits_for_plotly(self):
+        js = (PAGES / "explore.js").read_text()
+        self.assertIn("const sel = (label, key, opts, {blank} = {}) => h('label', {class: 'exf'}, h('span', {class: 'exl'}, label)", js)
+        self.assertNotIn("'then'", js)
+        self.assertNotIn("`x: ${t}`", js)
+        self.assertIn("if (!await plotlyReady())", js)
+        self.assertIn("if (!await plotlyReady())", (PAGES / "proof.js").read_text())
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
 class HandCheckNote(unittest.TestCase):
     """V4 / PB9: the note box shows only after Wrong or Can't say, or when a note is on file; never for Right or unchecked."""
 

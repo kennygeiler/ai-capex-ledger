@@ -141,7 +141,14 @@
   /* V10: a page's side list sits inside its column, its items one line each (the description cut, whole on hover) */
   .sidelist { margin-inline: 0; }
   .sidelist .list-group-item { padding: .35rem .6rem; }
-  .exc select, .exc input { max-width: 15rem; }
+  /* V20: Explore's controls: each with its label above it; the rows' filters on one line, the chart's choices and the output on the next */
+  .exc { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .5rem .625rem; }
+  .exc + .exc { margin-top: .75rem; }
+  .exf { display: grid; gap: .125rem; margin: 0; }
+  .exyears { grid-auto-flow: column; gap: .625rem; }
+  .exl { font-size: .72rem; font-weight: 500; color: var(--tblr-secondary); }
+  .exc select { width: auto; max-width: 11rem; }
+  .exout { padding-bottom: .25rem; }
   .plot { min-height: 400px; margin-top: .6rem; }
   .plot .modebar { opacity: .5; }
   @media (max-width: 700px) { .views { grid-template-columns: 1fr; } }
