@@ -108,8 +108,8 @@ async function reconcilePage(view, qs) {
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'small mt-1'},
       ...OPEN_BUCKETS.map((s, i) => { const [cls, word] = stateWord('row', s); return stat(word, nState(s), cls, i === 0, s); }),  // the one per-company count's buckets (states.buckets), as Proof and Release say them
       (() => { const [cls, word] = stateWord('row', 'info'); return stat(word, (d.by_state || {}).info || 0, cls, false, 'info'); })(),  // explained rows: an info stat, never part of the open buckets
-      h('a', {href: '#release', class: 'me-3' + (openRows.length ? '' : ' fw-semibold'), title: 'Open items this list shows'}, `${int(openRows.length)} left · Release`),  // STORY-027: the way back once the queue is cleared
       h('span', {class: 'text-secondary me-3'}, `Last run ${day(d.last_run)}`), d.release ? h('span', {class: 'text-secondary me-3'}, `Last release ${d.release}`) : '',
+      h('a', {href: '#release', class: 'me-3' + (openRows.length ? '' : ' fw-semibold'), title: 'Open items this list shows'}, `${int(openRows.length)} left · Release`),  // STORY-027: the way back once the queue is cleared
       // V14: the keys are a disclosure reachable by Tab, not a hover-only title
       h('details', {class: 'keys d-inline-block'}, h('summary', {class: 'text-secondary'}, 'Keyboard'), h('span', {class: 'text-secondary ms-2'}, 'j k move · Enter opens · Esc closes · a e f b decide · space selects'))))));
   // V12 / V19: one line at 1280, no card around it; the Scope list is All or one company (the industries are the Industry filter's)
@@ -415,7 +415,9 @@ async function reconcilePage(view, qs) {
       }
       if (S.length > 1) { const maxY = Math.max(1e-9, ...S.map((s) => Math.abs(s.value || 0))); cards.push(col(4, dtable(`${LABEL[r.field] || r.field} by year`, [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Value', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null}))))); }
       const facts = messageFacts(E.message);  // V11: the finding's figures as labelled cells (the server's text when its shape is unknown)
-      cards.push(col(4, h('h3', {class: 'mb-2'}, 'Details'), facts ? valueCells(facts, 'compact') : h('div', {class: 'small'}, E.message || ''), h('div', {class: 'mt-2'}, h('a', {href: `#data?view=grid&t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'Open in Dataset'))));
+      // readings that differ: the Restated line at the top says every reading and the one used, in product words; the rule's
+      // own message (field id, accession numbers) is not repeated here (V22)
+      cards.push(col(4, h('h3', {class: 'mb-2'}, 'Details'), E.restatement ? h('div', {class: 'small text-secondary'}, r.cause_label) : facts ? valueCells(facts, 'compact') : h('div', {class: 'small'}, E.message || ''), h('div', {class: 'mt-2'}, h('a', {href: `#data?view=grid&t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'Open in Dataset'))));
     } else if (toConfirm(r)) {
       const p = r.resolution || {};
       cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, `Proposed: ${RES_LABEL[E.proposed] || E.proposed}`), h('span', {class: 'ms-2 small text-secondary'}, `${p.by || ''}, ${day(p.at)}`)),

@@ -86,25 +86,28 @@ async function rulesPage(view) {
   tbl.prepend(h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Rules'), h('span', {class: 'ms-2 text-secondary small'}, int(r.rules.length))));
   const open = r.open_by_need.length ? r.open_by_need.map((g) => h('details', {class: 'fold mb-2'}, h('summary', {}, h('span', {class: 'fw-semibold'}, g.needs), h('span', {class: 'text-secondary small ms-2'}, plural(g.items.length, 'item'))),
     h('div', {class: 'mt-2'}, dtable(g.needs, [{t: 'Company', k: 'ticker'}, {t: 'Stage', f: (o) => STAGE_LABEL_UI[o.stage] || o.stage}, {t: 'Item', k: 'what'}, {t: 'Detail', f: (o) => h('span', {class: 'text-secondary small brk'}, o.detail || '')}], g.items)))) : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No items to review'))];
-  view.append(head, agents, tbl, h('h2', {class: 'mt-4 mb-2'}, `To review · ${int(r.open)}`), ...open, failureTypes());  // report #11: moved here from Proof
-  failureTypes.draw();
+  // report #11: the failure types moved here from Proof, folded under the work list (Rules stays under 6,000 px, V10);
+  // the charts draw when the fold first opens, so Plotly measures a visible box
+  const types = h('details', {class: 'fold mt-4'}, h('summary', {}, h('span', {class: 'fw-semibold'}, 'Failure types')), failureTypes({titled: false}));
+  types.addEventListener('toggle', () => { if (types.open && !types.dataset.drawn) { types.dataset.drawn = '1'; failureTypes.draw(); } });
+  view.append(head, agents, tbl, h('h2', {class: 'mt-4 mb-2'}, `To review · ${int(r.open)}`), ...open, types);
 }
 // T54: the failure types as data. Two bar charts (one hue, a bar is a NUMBER OF TYPES, never instances) and the same numbers as tables,
 // so the section reads without colour or without Plotly. `none` is a bar of its own: a known way to be wrong that nothing guards.
 const NO_CHECK = 'No automated check';
-function failureTypes() {
+function failureTypes({titled = true} = {}) {
   const wrap = h('div', {class: 'mt-3'});  // width bounded by the page container, like the tables above
   failureTypes.draw = async () => {
     let f;
     try { f = await api('/api/v1/failures'); } catch (e) { wrap.append(h('p', {class: 'text-secondary small'}, 'Failure types unavailable')); return; }
     const total = f.total;
     const ofTotal = (n) => `${int(n)} of ${int(total)}`;
-    const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Failure types'),
+    const head = h('div', {class: 'mb-2'}, titled ? h('h2', {class: 'h3 m-0'}, 'Failure types') : '',
       h('div', {class: 'text-secondary small'}, `${int(total)} known failure types · bars count types, not occurrences`));
     const chart = (title, rows, key, label, aria) => {
       const plot = h('div', {class: 'plot', role: 'figure', 'aria-label': aria, style: `min-height:0;height:${28 * rows.length + 48}px`});
       const tbl = dtable(title, [{t: label, f: (r) => (key === 'check' && r[key] === 'none' ? 'No check' : r[key])},
-        {t: 'Types', num: 1, f: (r) => ofTotal(r.types)}, {t: 'Share', num: 1, f: (r) => pct(r.types / total)}], rows, {foot: ['All', ofTotal(total), pct(1)]});
+        {t: 'Types', num: 1, f: (r) => ofTotal(r.types)}, {t: 'Share', num: 1, f: (r) => pct(r.types / total)}], rows, {bare: true, foot: ['All', ofTotal(total), pct(1)]});  // inside the chart's card: no card in a card (V15)
       // V15: the chart's numbers fold under it (the same figures; a reader without colour or Plotly opens them), so the two
       // columns stay level instead of one table running 500 px past the other
       return {plot, tbl, node: h('div', {class: 'col-lg-6'}, h('div', {class: 'card'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'fw-semibold'}, title), plot,

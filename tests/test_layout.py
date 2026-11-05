@@ -226,7 +226,9 @@ class Layout(unittest.TestCase):
         for hash_ in ("proof/APLD", "proof/MSFT", "reconcile?group=company", "data?list=statements", "data?list=taxonomy"):
             with self.subTest(page=hash_):
                 pg = self.page(1280, hash_)
-                pg.wait_for_selector("main table tbody tr", timeout=60000)
+                pg.wait_for_selector("main table tbody tr", state="attached" if hash_.startswith("proof/") else "visible", timeout=60000)
+                if hash_.startswith("proof/"):
+                    pg.evaluate("document.querySelectorAll('main details').forEach((d) => { d.open = true; })")  # flow #10 folds complete trail stages: every table is measured open
                 pg.wait_for_timeout(300)
                 self.assertEqual([c for c in pg.evaluate(self.EMPTY_COLS) if int(c.rsplit(' ', 1)[1]) > 48], [])
                 if hash_.startswith("reconcile"):
@@ -381,7 +383,10 @@ class Layout(unittest.TestCase):
         for hash_ in ("proof", "proof/APLD", "rules", "reconcile", "data", "data?view=grid", "release", "gaps", "docs"):
             with self.subTest(page=hash_):
                 pg = self.page(1600, hash_)
-                pg.wait_for_selector("main table thead th", timeout=60000)
+                pg.wait_for_selector("main table thead th", state="attached" if hash_.startswith("proof/") else "visible", timeout=60000)
+                if hash_.startswith("proof/"):
+                    pg.evaluate("document.querySelectorAll('main details').forEach((d) => { d.open = true; })")  # the trail's folded stages (flow #10) are measured too
+                pg.wait_for_timeout(300)
                 m = pg.evaluate("""() => { const ths = [...document.querySelectorAll('main thead th')].filter((th) => th.getBoundingClientRect().height && th.textContent.trim() && !th.closest('tr.proof-legend, tr.gold-group'));
                     const styles = new Set(ths.map((th) => { const b = th.querySelector('button') || th, c = getComputedStyle(b); return c.textTransform + ' ' + c.fontSize; }));
                     const off = ths.filter((th) => { const t = th.closest('table'), td = t.tBodies[0] && t.tBodies[0].rows[0] && t.tBodies[0].rows[0].cells[th.cellIndex];
