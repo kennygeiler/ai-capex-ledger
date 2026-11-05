@@ -31,6 +31,10 @@ function diffTable(cl) {
 // [enabled, why] for the Sign button: every required line green and a signer on the people list (config.PEOPLE, sent with the checklist)
 const signState = (cl, name) => { const n = (name || '').trim(), red = cl.lines.filter((l) => l.required && !l.ok).length; return red ? [false, `${red} required check${red === 1 ? '' : 's'} failing`] : !n ? [false, 'Enter a signer name'] : !(cl.people || []).includes(n) ? [false, 'Not on the signer list'] : [true, `Signs and publishes ${cl.version}`]; };
 
+// one listener for the page's life, bound once: each render swaps in its own recheck, and an old button off the page is ignored
+let releaseRecheck = null;
+document.addEventListener('input', (e) => { if (e.target.id === 'me' && releaseRecheck) releaseRecheck(); });
+
 async function releasePage(view, qs) {
   const q = parseQ(qs || '');
   const cl = await api('/api/v1/release/checklist' + (q.version ? `?version=${encodeURIComponent(q.version)}` : ''));
@@ -38,8 +42,7 @@ async function releasePage(view, qs) {
   let [canSign, why] = signState(cl, me);
   const status = h('div', {class: 'text-secondary small', id: 'signmsg', role: 'status', 'aria-live': 'polite'}, why);
   // the Signer box is read on every keystroke: Sign enables and disables with the name, never fixed at render (F-BF5)
-  const recheck = () => { if (!button.isConnected || button.dataset.busy) return; [canSign, why] = signState(cl, me); button.disabled = !canSign; button.title = why; status.replaceChildren(why); };
-  document.addEventListener('input', (e) => { if (e.target.id === 'me') recheck(); });
+  releaseRecheck = () => { if (!button.isConnected || button.dataset.busy) return; [canSign, why] = signState(cl, me); button.disabled = !canSign; button.title = why; status.replaceChildren(why); };
   const button = h('button', {type: 'button', class: 'btn btn-primary', disabled: !canSign, title: why, onclick: async () => {
     if (!confirm(`Sign and publish ${cl.version} as ${me}?`)) return;
     button.disabled = true; button.dataset.busy = '1';

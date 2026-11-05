@@ -702,3 +702,20 @@ class PacketColumns(unittest.TestCase):
             readme("v0.0.1", [{"ticker": "NVDA", "period": "FY2026", "value": 1}], [], {"values.csv": "ticker,made_up\nNVDA,1\n"})
         self.assertEqual(column_doc("values", "field")[0], "`revenue`, `capex`, `opex`")  # the shipped set, not the table's enum
         self.assertEqual(column_doc("taxonomy", "measure")[0], "`spent`, `committed`, `derived`, `planned`, `company_stated_ai`")
+
+
+class HistoricSignatures(unittest.TestCase):
+    """Review question 11: the PEOPLE check is on the act of signing only (checklist.sign). A release already signed is a
+    record: nothing that reads releases/*/SIGNOFF.json checks its signed_by against config.PEOPLE, so a historic signer
+    ("K", or anyone since removed from the list) stays readable and publishable. Pinned with the list emptied."""
+
+    def test_signed_releases_read_and_check_with_nobody_on_the_list(self):
+        from ledger.core import config
+        from ledger.release import publish
+        from ledger.web import app
+        signed = [d for d in checklist._releases() if (d / "SIGNOFF.json").exists()]
+        self.assertTrue(signed)
+        with mock.patch.object(config, "PEOPLE", []):
+            for d in [d for d in signed if "files" in json.loads((d / "manifest.json").read_text())]:  # manifests before the files list cannot be re-hashed, signer or not
+                self.assertEqual(publish.check(d.name)["signoff"]["signed_by"], json.loads((d / "SIGNOFF.json").read_text())["signed_by"])
+            self.assertEqual({r["version"] for r in app.outputs()["releases"] if r["signed_by"]}, {d.name for d in signed})

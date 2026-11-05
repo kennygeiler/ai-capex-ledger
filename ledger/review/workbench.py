@@ -325,5 +325,6 @@ def items(con, flow: dict) -> dict:
         by_cause[r["cause"]]["dollars"] += r["dollars"]
     causes = sorted(by_cause.values(), key=lambda c: (c["cause"] != TO_CONFIRM, -c["dollars"]))
     from .mapper import members
+    from ..core.config import PEOPLE
     return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": confirm + rows, "open": len(open_), "to_confirm": len(confirm), "by_state": by_state, "dollars": sum(r["dollars"] for r in open_),
-            "causes": causes, "names": names, "members": members()}
+            "causes": causes, "names": names, "members": members(), "people": list(PEOPLE)}  # who may write: the page disables every write for another name (F-BF13)

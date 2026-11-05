@@ -4,8 +4,12 @@
 const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'value_missing', 'finding_unconfirmed', 'new_filing', 'asset_types'];
 // T33: Approve and "Write as" need a name in the signer box, as Sign does; one listener keeps every such button in step
 const NEEDS_ME = new Set();  // the page lives in a shadow root, so the buttons are kept here, not queried from the document
-const needsMe = (btn) => { btn.disabled = !(me || '').trim(); NEEDS_ME.add(btn); return btn; };
-document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of NEEDS_ME) b.disabled = !(me || '').trim(); });
+// F-BF13: a name on config.PEOPLE (the reconcile feed's `people`), as the server checks every write; any other name disables, as Sign does
+let SIGNERS = [];
+const isSigner = (name) => SIGNERS.includes((name || '').trim());
+const signerWhy = (name) => (!(name || '').trim() ? 'Enter a signer name' : 'Not on the signer list');
+const needsMe = (btn) => { btn.disabled = !isSigner(me); NEEDS_ME.add(btn); return btn; };
+document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of NEEDS_ME) b.disabled = !isSigner(me); });
 const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Block release'};
 const RES_HELP = {accept: 'Right as it stands', explain: 'Right, with the reason kept', fix: 'Wrong; stays open until re-read', blocks: 'Blocks release until settled'};
 const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yellow-lt', blocks: 'bg-red-lt'};
@@ -43,6 +47,7 @@ async function reconcilePage(view, qs) {
   const q = parseQ(qs || '');
   const scope = q.scope || q.t || 'all', group = q.group || 'cause', fCause = q.cause || '', fLayer = q.layer || '', fField = q.field || '', withResolved = q.resolved === '1';  // ?t=MU is ?scope=MU: any one ticker the database holds, in scope or not
   const d = await api('/api/v1/reconcile?scope=' + encodeURIComponent(scope));
+  SIGNERS = d.people || []; NEEDS_ME.clear();  // the buttons of the last render are gone
   const wrap = h('div', {class: 'stack', style: 'gap:.75rem'});
   view.append(wrap);
   const setQ = (patch) => { const p = {scope, group, cause: fCause, layer: fLayer, field: fField, kind: q.kind || '', resolved: withResolved ? '1' : '', ...patch}; go('reconcile?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
@@ -176,16 +181,16 @@ async function reconcilePage(view, qs) {
     const btns = [];
     if (P) {
       const entry = r.evidence.mapping !== 'unmapped';
-      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? 'Approve this category' : 'Enter a signer name', onclick: async (e) => {
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: isSigner(me) ? 'Approve this category' : signerWhy(me), onclick: async (e) => {
         e.stopPropagation(); approve.disabled = true;
         const ok = await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence: P.evidence || r.evidence.reported_name, by: me, expected: expectedOf(r)}, status, entry ? 'Confirmed.' : 'Mapped.');
-        if (!ok) approve.disabled = !(me || '').trim();
+        if (!ok) approve.disabled = !isSigner(me);
       }}, 'Approve'));
-      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async (e) => {
+      const reject = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async (e) => {
         e.stopPropagation(); reject.disabled = true;
         const ok = await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.');
-        if (!ok) reject.disabled = false;
-      }}, 'Reject');
+        if (!ok) reject.disabled = !isSigner(me);
+      }}, 'Reject'));
       btns.push(approve, reject);
     }
     const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-primary'), title: 'Choose a category', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
@@ -203,22 +208,22 @@ async function reconcilePage(view, qs) {
     const evidence = (P && P.evidence) || r.evidence.reported_name;
     const btns = [];
     if (P) {
-      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? 'Approve this category' : 'Enter a signer name', onclick: async () => {
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: isSigner(me) ? 'Approve this category' : signerWhy(me), onclick: async () => {
         approve.disabled = true;
-        if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence, by: me, expected: expectedOf(r)}, status, 'Confirmed.')) approve.disabled = !(me || '').trim();
+        if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence, by: me, expected: expectedOf(r)}, status, 'Confirmed.')) approve.disabled = !isSigner(me);
       }}, 'Approve'));
       btns.push(approve);
     }
-    const choose = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: (me || '').trim() ? 'Choose a category' : 'Enter a signer name', onclick: async () => {
+    const choose = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: isSigner(me) ? 'Choose a category' : signerWhy(me), onclick: async () => {
       choose.disabled = true;
-      if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: select.value, evidence, by: me, expected: expectedOf(r)}, status, 'Mapped.')) choose.disabled = !(me || '').trim();
+      if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: select.value, evidence, by: me, expected: expectedOf(r)}, status, 'Mapped.')) choose.disabled = !isSigner(me);
     }}, P ? 'Choose another' : 'Map'));
     btns.push(h('div', {class: 'input-group input-group-sm flex-nowrap', style: 'width:auto;max-width:30rem'}, select, choose));
     if (P) {
-      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async () => {
+      const reject = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async () => {
         reject.disabled = true;
-        if (!await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.')) reject.disabled = false;
-      }}, 'Reject');
+        if (!await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.')) reject.disabled = !isSigner(me);
+      }}, 'Reject'));
       btns.push(reject);
     }
     return h('div', {class: 'mt-3'}, h('div', {class: 'd-flex flex-wrap align-items-center', style: 'gap:.5rem'}, btns), status);
@@ -237,13 +242,13 @@ async function reconcilePage(view, qs) {
       const what = as === 'rule'
         ? [h('span', {class: 'text-secondary'}, 'Applies to: '), 'every company reading ', o.row_labels.map((l, j) => [j ? ', ' : '', `“${l}”`])]
         : [h('span', {class: 'text-secondary'}, 'Applies to: '), r.ticker, o.lines ? [' · ', o.lines.map((l, j) => [j ? ' + ' : '', `“${l}”`])] : ` · ${(o.periods || []).join(', ')}`];
-      const btn = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: (me || '').trim() ? (as === 'rule' ? 'Save as rule' : 'Save as definition') : 'Enter a signer name', onclick: async () => {
+      const btn = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: isSigner(me) ? (as === 'rule' ? 'Save as rule' : 'Save as definition') : signerWhy(me), onclick: async () => {
         if (!text.value.trim()) { text.focus(); status.textContent = 'Reason required'; return; }
         btn.disabled = true; status.classList.remove('text-red'); status.textContent = 'Writing…';
         try {
           const out = await api('/api/judgement', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, as, why: text.value, by: me})});
           status.textContent = `Saved to ${out.file}. Applies on the next run.`;
-        } catch (e) { status.textContent = `Couldn’t write: ${e.message}.`; status.classList.add('text-red'); btn.disabled = !(me || '').trim(); }
+        } catch (e) { status.textContent = `Couldn’t write: ${e.message}.`; status.classList.add('text-red'); btn.disabled = !isSigner(me); }
       }}, as === 'rule' ? 'Make this a rule' : 'Make this a definition'));
       parts.push(h('div', {class: 'col-12'}, h('div', {class: 'small mb-1'}, what), h('div', {class: 'input-group input-group-sm'}, text, btn), status));
     }

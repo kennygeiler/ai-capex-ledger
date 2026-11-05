@@ -102,7 +102,10 @@ class SignButton(unittest.TestCase):
 
     def test_the_page_rechecks_on_every_input_to_the_signer_box(self):
         js = (PAGES / "release.js").read_text()
-        self.assertIn("document.addEventListener('input', (e) => { if (e.target.id === 'me') recheck(); });", js)
+        top = js[:js.index("async function releasePage")]
+        body = js[js.index("async function releasePage"):]
+        self.assertIn("document.addEventListener('input', (e) => { if (e.target.id === 'me' && releaseRecheck) releaseRecheck(); });", top)  # bound once, at load
+        self.assertNotIn("addEventListener", body)  # never once per render (review item 10)
         self.assertIn("button.disabled = !canSign", js)
 
 
@@ -156,6 +159,30 @@ class PartialYears(unittest.TestCase):
         self.assertIn("partial(x) ? `${x} · ${cov[x].n} of ${cov[x].of} companies`", js)
         self.assertIn("pattern: {shape: xs.map((x) => (partial(x) ? '/' : ''))", js)
         self.assertIn("`Incomplete: ${gaps.map(xLabel).join(', ')}`", js)
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
+class ReconcileSigners(unittest.TestCase):
+    """F-BF13: Reconcile's Approve, Choose another and Reject (every needsMe button) disable for a name not on
+    config.PEOPLE, which the reconcile feed sends as `people`, the same as Sign."""
+
+    def run_js(self, people, names):
+        js = "let me = '';\n" + "\n".join(line("reconcile.js", p) for p in ("let SIGNERS", "const isSigner", "const signerWhy")) + \
+            "\nconst a = JSON.parse(process.argv[process.argv.length - 1]); SIGNERS = a[0];\nprocess.stdout.write(JSON.stringify(a[1].map((n) => [isSigner(n), signerWhy(n)])));"
+        return json.loads(node(js, json.dumps([people, names])))
+
+    def test_only_a_name_on_the_list_enables(self):
+        got = self.run_js(["Kenny Geiler"], ["Kenny Geiler", " Kenny Geiler ", "Mallory", ""])
+        self.assertEqual([g[0] for g in got], [True, True, False, False])
+        self.assertEqual([got[2][1], got[3][1]], ["Not on the signer list", "Enter a signer name"])
+
+    def test_every_mapping_write_button_goes_through_needs_me(self):
+        js = (PAGES / "reconcile.js").read_text()
+        self.assertEqual(js.count("const reject = needsMe(h('button'"), 2)
+        self.assertIn("const choose = needsMe(h('button'", js)
+        self.assertEqual(js.count("const approve = needsMe(h('button'"), 2)
+        self.assertNotIn("!(me || '').trim()", js)
+        self.assertIn("SIGNERS = d.people || [];", js)
 
 
 if __name__ == "__main__":
