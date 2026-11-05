@@ -161,8 +161,9 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   and the report's hash equals the checkout's. Committing the three record files keeps the hash; any other commit moves
   it and the lines read stale. Neither report file makes the tree dirty. The hash proves the code is the code the report
   names, not that the run happened: a report written by hand can name the right hash (F-TR2). (5) The signer types a
-  name in the signer box (empty by default, remembered in this browser) and presses Sign, which refuses a checkout with
-  uncommitted code before it builds anything; or `ledger signoff vX.Y.Z --by "<name>"`. Every write, from the page or
+  name in the signer box (empty by default, remembered in this browser) and presses Sign; or `ledger signoff vX.Y.Z --by
+  "<name>"`. Both pass one gate first (`checklist.preflight`): no uncommitted code, and the Regression test and Test run
+  lines pass on this checkout; anything else refuses before anything is built or signed. Every write, from the page or
   `signoff`, refuses a name off `config.PEOPLE` (400 on the page, exit 1 on the command line). The command line
   does the same in pieces: `ledger release vX.Y.Z` builds the packet for `config.SCOPE`, prints the gate table (one row
   per company, G1 G4 G5 G6) and refuses on any failing row (`--stage N` only names the hand-check file); `ledger signoff

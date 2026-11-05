@@ -622,6 +622,7 @@
       - tests.test_checklist.HistoricSignatures.test_signed_releases_read_and_check_with_nobody_on_the_list
       - tests.test_trust.EveryWriteNamesAPerson.test_the_page_has_no_default_signer
       - tests.test_trust.EveryWriteNamesAPerson.test_the_command_line_signature_checks_the_people_list
+      - tests.test_trust.SignedOnTheCodeTested.test_the_command_line_signature_passes_the_page_gate
       - tests.test_trust.EveryWriteNamesAPerson.test_every_write_route_is_400_for_a_name_off_the_list_and_writes_nothing
   status: partial
   gaps:

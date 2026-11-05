@@ -313,6 +313,47 @@ class SignedOnTheCodeTested(unittest.TestCase):
             self.assertEqual(checklist.regression_line({"tables_ok": True, "git": rep2["git"], "dirty": False, "code": "deadbeefdeadbeef"})["state"], "stale")  # a hand-edited hash
             self.assertEqual(checklist.tests_line({**rep2, "dirty": None})["state"], "stale")
 
+    def test_the_command_line_signature_passes_the_page_gate(self):
+        """`ledger signoff` reads the checkout like the page's Sign (checklist.preflight): uncommitted code, or a run line
+        that is not bound to this checkout, refuses before anything is signed."""
+        import contextlib, io, subprocess
+        from ledger.cli import signoff
+        from ledger.release import checklist, testreport
+        root = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, root, True)
+        git = lambda *a: subprocess.run(["git", *a], cwd=root, capture_output=True, text=True, check=True)
+        git("init", "-q"); git("config", "user.email", "t@t"); git("config", "user.name", "t")
+        (root / "ledger").mkdir(); (root / "ledger" / "a.py").write_text("x = 1\n")
+        (root / "reports").mkdir()
+        git("add", "."); git("commit", "-q", "-m", "one")
+        res = unittest.TestResult()
+        res.testsRun = 1
+        rel = root / "releases"
+        rel.mkdir()
+
+        def run():
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                code = signoff.main(["v9.9.0", "--by", PERSON])
+            return code, out.getvalue()
+        with mock.patch.object(store, "ROOT", root), mock.patch.object(checklist, "GOLDEN", root / "reports" / "golden.json"), \
+                mock.patch.object(checklist, "TESTS", root / "reports" / "tests.json"), mock.patch.object(signoff, "RELEASES", rel):
+            rep = testreport.report(res)
+            (root / "reports" / "tests.json").write_text(json.dumps(rep))
+            (root / "reports" / "golden.json").write_text(json.dumps({"tables_ok": True, "at": "x", "diffs": {}, "git": rep["git"], "dirty": False, "code": rep["code"]}))
+            code, out = run()
+            self.assertEqual(code, 1)
+            self.assertIn("no release v9.9.0", out)  # the gate held: it reached the signature itself
+            (root / "ledger" / "a.py").write_text("x = 2\n")
+            code, out = run()
+            self.assertEqual(code, 1)
+            self.assertIn("uncommitted code", out)
+            git("commit", "-q", "-am", "two")  # committed: the runs tested other code
+            code, out = run()
+            self.assertEqual(code, 1)
+            self.assertIn("Test run reads stale", out)
+            self.assertIn("Regression test reads stale", out)
+
     def test_a_status_that_fails_reads_dirty(self):
         from ledger.release import testreport
         ok = mock.Mock(returncode=0, stdout="abc1234\n")

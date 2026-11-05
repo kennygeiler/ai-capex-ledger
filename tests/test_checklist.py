@@ -37,9 +37,10 @@ def _packet(version="v9.9.0") -> dict:
 
 def _clean_checkout(case):
     """Patch checklist._live to a clean checkout for `case` (Sign refuses on uncommitted code first, F20)."""
-    p = mock.patch.object(checklist, "_live", return_value={"head": "abc1234", "dirty": False, "code": "c1"})
-    p.start()
-    case.addCleanup(p.stop)
+    for p in (mock.patch.object(checklist, "_live", return_value={"head": "abc1234", "dirty": False, "code": "c1"}),
+              mock.patch.object(checklist, "preflight", return_value={"head": "abc1234", "dirty": False, "code": "c1"})):
+        p.start()
+        case.addCleanup(p.stop)
 
 
 class TempReleases(unittest.TestCase):
@@ -52,9 +53,10 @@ class TempReleases(unittest.TestCase):
             patcher = mock.patch.object(m, "RELEASES", self.tmp)
             patcher.start()
             self.addCleanup(patcher.stop)
-        patcher = mock.patch.object(checklist, "_live", return_value={"head": "abc1234", "dirty": False, "code": "c1"})  # a clean checkout: Sign reads it first (F20)
-        patcher.start()
-        self.addCleanup(patcher.stop)
+        for patcher in (mock.patch.object(checklist, "_live", return_value={"head": "abc1234", "dirty": False, "code": "c1"}),  # a clean checkout: Sign reads it first (F20)
+                        mock.patch.object(checklist, "preflight", return_value={"head": "abc1234", "dirty": False, "code": "c1"})):  # its gate holds (tests.test_trust tests it)
+            patcher.start()
+            self.addCleanup(patcher.stop)
 
     def signoff_json(self, version="v9.9.0") -> dict:
         return json.loads((self.tmp / version / "SIGNOFF.json").read_text())

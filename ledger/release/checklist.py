@@ -603,6 +603,20 @@ def _compact(cl: dict) -> dict:
     return {**cl, "diff": {k: {kk: vv for kk, vv in x.items() if kk != "examples"} for k, x in cl["diff"].items()}}
 
 
+def preflight() -> dict:
+    """The checks every signature passes first, the page's Sign and `ledger signoff` alike (one code path): the checkout
+    now has no uncommitted code (_live; a `git status` that fails reads dirty), and the Regression test and Test run
+    lines, read against that checkout, pass (provenance_state: each report bound to the code being signed). Raises
+    ValueError naming what is wrong; returns the checkout read."""
+    live = _live()
+    if live.get("dirty") is not False:
+        raise ValueError("not signed: the checkout has uncommitted code; commit it, rerun the checks, then sign")
+    bad = [l for l in (regression_line(_report(GOLDEN), live), tests_line(_report(TESTS), live)) if not l["ok"]]
+    if bad:
+        raise ValueError("not signed: " + "; ".join(f"{l['label']} reads {l['state']} ({l['note'][:120]})" for l in bad))
+    return live
+
+
 def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
     """The Sign button (T6): build the checklist; refuse (ValueError → 400) while any required line is red or no name is
     given; else write releases/<version>/, build the checklist again on what is now on disk and refuse if anything went
@@ -617,9 +631,7 @@ def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
     from ..core.status import is_person
     if not is_person(by):  # F-BF5: like every other write, a name on config.PEOPLE (T80), checked before the checklist is built
         raise ValueError(f"{by.strip()!r} is not on config.PEOPLE, the people who may sign a release")
-    live = _live()
-    if live.get("dirty") is not False:  # F20: uncommitted code is not the code the runs tested; refused before anything is built
-        raise ValueError("not signed: the checkout has uncommitted code; commit it, rerun the checks, then sign")
+    preflight()  # F20: the checkout and the run lines, before anything is built; the one gate `ledger signoff` reads too
     with _LOCK:
         cl = checklist(con, version, stage)
         if not cl["ok"]:

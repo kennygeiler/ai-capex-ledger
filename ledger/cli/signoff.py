@@ -2,7 +2,8 @@
 
 The Release page signs through `sign()` too (checklist.sign), and passes the checklist as it was at signing, so
 SIGNOFF.json says what the signature meant (T6, T7). The command line records none: a signature from here carries
-only who, when and the hash. Either way the name must be on config.PEOPLE (F18)."""
+only who, when and the hash. Either way the name must be on config.PEOPLE (F18), and the command passes the same gate
+as the page's Sign first (checklist.preflight): no uncommitted code, and the run lines bound to this checkout."""
 import argparse
 import json
 from datetime import datetime, timezone
@@ -51,7 +52,9 @@ def main(argv=None) -> int:
     ap.add_argument("version")
     ap.add_argument("--by", required=True)
     a = ap.parse_args(argv)
+    from ..release.checklist import preflight
     try:
+        preflight()  # the page's Sign gate: no uncommitted code, and the Regression test and Test run lines pass on this checkout
         s = sign(a.version, a.by)
     except ValueError as e:
         print(e)
