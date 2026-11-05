@@ -69,7 +69,7 @@ async function releasePage(view, qs) {
       status.replaceChildren(h('span', {class: 'text-green'}, `${r.version} signed by ${r.signed_by} · ${when(r.signed_at)} · ${r.hash.slice(0, 8)}`), ' · ',
         r.published ? `Published: ${Object.entries(r.rows || {}).map(([k, v]) => `${int(v)} ${k}`).join(', ')}` : h('span', {class: 'text-red'}, `Signed, not published: ${r.publish_error}`));
       const next = signedNext(r);  // the page stays on Release: the packet's download sits where the signature landed
-      if (next) { status.append(' · ', h('a', {href: next.href, class: 'btn btn-sm btn-primary'}, next.label)); api('/api/outputs').then((o) => releases.replaceChildren(releasesTable(o.releases || []))).catch(() => {}); }
+      if (next) { status.append(' · ', h('a', {href: packetHref(r.version), class: 'btn btn-sm btn-primary'}, next.label)); api('/api/outputs').then((o) => releases.replaceChildren(releasesTable(o.releases || []))).catch(() => {}); }
     } catch (e) {
       status.replaceChildren(h('span', {class: 'text-red'}, e.message));
       delete button.dataset.busy;

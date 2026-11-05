@@ -13,6 +13,37 @@ const TRAIL_STAGE_HELP = {
 const rowWord = (tone) => stateWord('row', tone);
 const TRAIL_RULE = {jump: 'Large year-over-year change', restated: 'Restated', row_switch: 'Line renamed', capex_intensity: 'Capex high vs revenue', opex_over_revenue: 'Opex above revenue'};
 
+// report #10: a check flag on a figure ("jump: opex FY2026") is the same figure, value and sources again; it folds into
+// the figure's row as a line under its verification. A flag with no figure row of its own stays a row.
+const ORDER = {open: 0, blocked: 0, explained: 1, checked: 2};
+const trailOrder = (it) => Math.min(ORDER[it.state] ?? 1, ...(it.flags || []).map((f) => ORDER[f.state] ?? 1));
+const flagKey = (it) => { const r = it.ref || {}; return r.field && r.period ? `${r.field}|${r.period}` : null; };
+function foldFlags(items) {
+  const figures = new Map();
+  for (const it of items) if (!(it.show || {}).rule && flagKey(it) && !figures.has(flagKey(it))) figures.set(flagKey(it), {...it, flags: []});
+  const out = [];
+  for (const it of items) {
+    const rule = (it.show || {}).rule, fig = rule ? figures.get(flagKey(it)) : null;
+    if (fig) { fig.flags.push({rule, state: it.state, tone: ((it.card || {}).how || {}).tone}); continue; }
+    out.push(!rule && flagKey(it) ? figures.get(flagKey(it)) : it);
+  }
+  return [...new Set(out)];
+}
+// report #10: rows that read the same and carry nothing to tell apart (no value, no source: "Revenue · FY2025 · Actual",
+// Part-year amount ×8) are one row with their count; any row with a value or a source stays its own
+function groupSame(items, whatOf) {
+  const out = [], seen = new Map();
+  for (const it of items) {
+    const c = it.card || {}, how = c.how || {};
+    const key = c.found || (c.where || []).length || (it.flags || []).length ? null : JSON.stringify([whatOf(it), it.state, how.tone, how.text]);
+    if (key && seen.has(key)) { seen.get(key).count += 1; continue; }
+    const row = {...it, count: 1};
+    if (key) seen.set(key, row);
+    out.push(row);
+  }
+  return out;
+}
+
 function trailWhat(it, stage) {
   const r = it.ref || {}, s = it.show || {};
   if (stage === 'facts' && r.finding) return [FIELDS[r.field] || r.field, r.period, r.finding === 'segment_basis_mixed' ? 'Segment basis' : 'Parts vs total'].filter(Boolean).join(' · ');
@@ -40,6 +71,8 @@ function trailVerify(c, ticker) {
   const [cls, word] = rowWord(c.how.tone);
   const line = h('div', {class: 'small'}, h('span', {class: cls + ' fw-medium'}, word), c.how.text ? h('span', {class: 'text-secondary'}, ` · ${c.how.text}`) : '');
   const more = [restatedLine(c.restatement), c.compare ? h('div', {class: 'small'}, h('a', {href: `#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}`}, 'Compare filings')) : ''];
+  const flags = (c.flags || []).map((f) => h('div', {class: 'small ' + rowWord(f.tone || 'unknown')[0]}, TRAIL_RULE[f.rule] || f.rule.replaceAll('_', ' ')));  // the figure's check flags, folded in
+  more.push(...flags);
   const tie = tieParts(c.how.detail);  // V11: a tie's parts as a list of values, the count and tolerance as cells
   const detail = tie ? h('div', {class: 'small mt-1'}, valueCells([['Parts', tie.n.split(' ')[0]], ['Tolerance', tie.tolerance]], 'compact'), h('div', {class: 'readings mt-1'}, tie.parts.map(([k, v]) => [h('span', {class: 'text-secondary'}, k), h('span', {class: 'num'}, v)])))
     : h('div', {class: 'small text-secondary mt-1'}, c.how.detail);
@@ -47,35 +80,39 @@ function trailVerify(c, ticker) {
 }
 
 function trailRow(it, stage, ticker, withValue = true) {
-  const c = it.card || {how: {tone: 'unknown', text: it.reason || ''}, where: []};
+  const c = {...(it.card || {how: {tone: 'unknown', text: it.reason || ''}, where: []}), flags: it.flags};
   const [cls] = rowWord(c.how.tone);
   const what = trailWhat(it, stage);
   return h('tr', {},
-    h('td', {}, h('span', {class: cls, 'aria-hidden': 'true'}, '● '), what),
-    withValue ? h('td', {class: 'num'}, c.found ? (stage === 'statements' || stage === 'planned' ? c.found : h('span', {class: 'money'}, c.found)) : h('span', {class: 'text-secondary'}, '—')) : '',
+    h('td', {}, h('span', {class: cls, 'aria-hidden': 'true'}, '● '), what, it.count > 1 ? h('span', {class: 'text-secondary'}, ` · ${int(it.count)} rows`) : ''),
+    withValue ? h('td', {class: 'num'}, c.found ? (stage === 'statements' || stage === 'planned' || stage === 'mapping' ? c.found : h('span', {class: 'money'}, c.found)) : h('span', {class: 'text-secondary'}, '—')) : '',
     h('td', {}, trailSource(c, what)),
     h('td', {}, trailVerify(c, ticker)));
 }
 
 function trailTable(items, stage, ticker) {
-  const quote = stage === 'statements' || stage === 'planned';  // a quote is the value: it wraps, the rest of the row narrows
+  const quote = stage === 'statements' || stage === 'planned' || stage === 'mapping';  // a mapping's value is words (“Building” → member): it wraps too  // a quote is the value: it wraps, the rest of the row narrows
   const withValue = items.some((it) => (it.card || {}).found);  // V9: a Value column that would be "—" in every row is left out (Filings)
   return h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table trail' + (quote ? ' trail-quote' : '') + (withValue ? '' : ' no-value')},
     h('colgroup', {}, h('col', {class: 'c-item'}), withValue ? h('col', {class: 'c-value'}) : '', h('col', {class: 'c-source'}), h('col', {class: 'c-verify'})),
     h('thead', {}, h('tr', {}, h('th', {}, 'Item'), withValue ? h('th', {class: 'num'}, 'Value') : '', h('th', {}, 'Source'), h('th', {}, 'Verification'))),
-    h('tbody', {}, items.map((it) => trailRow(it, stage, ticker, withValue)))));
+    h('tbody', {}, groupSame(items, (it) => trailWhat(it, stage)).map((it) => trailRow(it, stage, ticker, withValue)))));
 }
 
-function stageCard(id, st, waiting, body) {
+// one "Decide in Reconcile" link per stage with open items, in its header (report #10: it was repeated on every mapping card)
+const stageLink = (id, ticker) => `#reconcile?scope=${ticker}` + (id === 'mapping' ? '&cause=asset_types' : '');
+function stageCard(id, st, waiting, body, ticker) {
   const tally = waiting.length ? bucketLine(st.counts) : h('span', {class: 'text-green'}, 'Complete');  // the stage's own buckets, in the words the company's count uses
   return h('div', {class: 'card mb-3'},
     h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0', title: TRAIL_STAGE_HELP[id] || ''}, STAGE_LABEL_UI[id] || id),
-      h('span', {class: 'ms-3 small'}, `${plural(st.items, 'item')} · `, tally)),
+      h('span', {class: 'ms-3 small'}, `${plural(st.items, 'item')} · `, tally),
+      waiting.length && ticker ? h('a', {href: stageLink(id, ticker), class: 'small ms-auto'}, 'Decide in Reconcile →') : ''),
     body.length ? h('div', {class: 'card-body p-0'}, body) : '');
 }
 
 async function trailPage(view, ticker) {
   const c = await api('/api/v1/proof/' + encodeURIComponent(ticker));
+  const waitingTotal = Object.values(c.stages).reduce((n, st) => n + (st.open || []).length, 0);
   const unfiled = c.filing_state && c.filing_state !== 'filed';  // states.company: nothing read is never Proven or Ready for release (F-BF15)
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)),
@@ -88,8 +125,7 @@ async function trailPage(view, ticker) {
         }), c.in_proven_set ? '' : h('span', {class: 'text-secondary'}, 'Not in scope'))),
     h('div', {class: 'col-auto'}, unfiled ? h('span', {class: stateWord('company', c.filing_state)[0] + ' fw-medium'}, stateWord('company', c.filing_state)[1])
       : c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : bucketLine(c.counts),
-      h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-3'}, 'Reconcile'), h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'))));
-  const waitingTotal = Object.values(c.stages).reduce((n, st) => n + (st.open || []).length, 0);
+      waitingTotal ? '' : h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-3'}, 'Reconcile'), h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'))));  // DP4: with open items, the summary's "Review in Reconcile" is the one link
   const s = c.summary || {}, S = c.status || {};
   const hours = S.sec_checked_hours_ago;
   // the state is the server's (states.edgar, the one the claims register reads); the page only adds the age
@@ -117,25 +153,15 @@ async function trailPage(view, ticker) {
       // V9: the release and the changes since it share one column (a whole column held "None")
       tile('Last release', S.shipped ? S.shipped.version : 'None', S.shipped ? `Signed ${S.shipped.signed_at} · ${S.shipped.signed_by}` : '',
         S.shipped ? h('div', {class: 'mt-2'}, h('div', {class: 'text-secondary small text-uppercase mb-1'}, 'Changes since release'), ...sinceLines.map((l) => h('div', {class: 'small'}, l))) : ''))));
-  const order = (it) => ({open: 0, blocked: 0, explained: 1, checked: 2})[it.state] ?? 1;
+  // report #10: flags fold into their figure, identical empty rows into one, a stage with nothing open folds whole,
+  // and a mapping is one row (its decision card, with the actions, is on Reconcile)
   const cards = Object.entries(c.stages).map(([id, st]) => {
-    const all = [...(st.all || [])].sort((a, b) => order(a) - order(b));
-    const waiting = all.filter((i) => order(i) === 0), rest = all.filter((i) => order(i) > 0);
+    const all = foldFlags(st.all || []).sort((a, b) => trailOrder(a) - trailOrder(b));
+    const waiting = all.filter((i) => trailOrder(i) === 0), rest = all.filter((i) => trailOrder(i) > 0);
     const body = [];
-    if (id === 'mapping') {  // one decision card per category (ledger/review/mapcard.py), the same card Reconcile shows with its actions
-      const list = (items) => h('div', {class: 'list-group list-group-flush'}, items.map((i) => h('div', {class: 'list-group-item py-3'}, i.decision ? mappingDecision(i.decision,
-        order(i) === 0 || i.by === 'mapping:filer_tag' ? h('div', {class: 'mt-2'}, h('a', {href: `#reconcile?scope=${c.ticker}&cause=asset_types`, class: 'small'}, order(i) === 0 ? 'Decide in Reconcile →' : 'Confirm or override in Reconcile →')) : '') : trailTable([i], id, c.ticker))));
-      if (waiting.length) body.push(list(waiting));
-      if (rest.length) body.push(waiting.length ? h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, tallyLine(rest)), list(rest)) : list(rest));
-      return stageCard(id, st, waiting, body);
-    }
     if (waiting.length) body.push(trailTable(waiting, id, c.ticker));
-    if (rest.length) {
-      body.push(waiting.length || rest.length > 12
-        ? h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, tallyLine(rest)), trailTable(rest, id, c.ticker))
-        : trailTable(rest, id, c.ticker));
-    }
-    return stageCard(id, st, waiting, body);
+    if (rest.length) body.push(h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, tallyLine(rest)), trailTable(rest, id, c.ticker)));
+    return stageCard(id, st, waiting, body, c.ticker);
   });
   view.append(head, why, ...cards);
 }
