@@ -168,7 +168,8 @@ same cells); the packet README names this endpoint.
 
 Every list takes `ticker`, `layer`, `period`, `field`, `kind`, `method`, `scope`, `dimension`, `source`, `measure`, `category`, `fiscal_year`, `standard_type`, `check`,
 `source_kind`, `period_kind`, `has_value`, `mapped`, `status` as comma-separated values (and values and taxonomy `as_of`, above), matched without regard to case; a boolean takes `true` or `false`
-(`has_value=false` is the rows the company named without a figure). `from=FY2023&to=FY2025` keeps the rows whose `period`
+(`has_value=false` is the rows the company named without a figure). `check` reads each list's verdict column: `check` on the
+taxonomy, `check_label` on values and facts; a list with neither (statements, projects, companies) keeps its rows. `from=FY2023&to=FY2025` keeps the rows whose `period`
 (or `fiscal_year`) lies in that range, both ends included; a row with neither is kept. Each must be FY plus four digits and `from`
 may not be after `to`, or the request is a 400. Explore's chart and its JSON and CSV links
 send one request with every filter its controls hold. `group=<column>` rolls the list up: one row per distinct
@@ -182,7 +183,12 @@ value with `rows`, `amount` (the sum of the list's amount column: value, amount_
 /api/v1/taxonomy?check=differs,unmapped
 /api/v1/taxonomy?source_kind=8-K%20release&has_value=true
 /api/v1/facts?field=segment_capex&ticker=APLD
+/api/v1/facts.csv?check=unresolved
 ```
+
+The Dataset's Grid reads `/api/data` (`t`, `f`, `k`, `y`, `check`: a check label, or `flag` for a cell that differs from SEC
+XBRL); `format=csv` is its export: ticker, company, field, dimension, period, kind, value, check, basis, source_url,
+provenance, one row per cell the filters keep.
 
 A JSON response is `{"list", "count", "filters", "rows"}`.
 

@@ -196,5 +196,40 @@ class DocsStartHere(unittest.TestCase):
         self.assertNotIn("[Handoff](HANDOFF.md)", (root / "OVERVIEW.md").read_text())
 
 
+class DatasetVerification(unittest.TestCase):
+    """#13 (STORY-055): one Verification filter bound to `check` on every list (the taxonomy's `check`, values' and
+    facts' `check_label`) and on the Grid, in the display words of ledger/core/states.py; filters kept across Rows and
+    Grid; the Grid's export is the server's CSV; one export control."""
+
+    def test_check_filters_the_verdict_column_of_every_list(self):
+        from ledger.web import api
+        rows = [{"ticker": "X", "check_label": "agree"}, {"ticker": "X", "check_label": "unresolved"}, {"ticker": "Y", "check": "differs"}, {"ticker": "Z", "quote": "q"}]
+        got = api.apply(rows, {"check": "unresolved,differs"})
+        self.assertEqual(got, [rows[1], rows[2], rows[3]])  # before: check_label rows were all kept; a list with no verdict column keeps its rows
+
+    def test_the_grid_export_is_the_server_csv_with_its_columns(self):
+        from ledger.web import app
+        d = {"names": {"X": "Xco"}, "rows": [{"ticker": "X", "field": "capex", "dimension": "", "period": "FY2025", "kind": "spent", "value": 5, "check": "agree", "basis": "b",
+                                                "prov": {"url": "https://www.sec.gov/x", "extractions": "e1"}}]}
+        self.assertEqual(app.data_csv(d), "ticker,company,field,dimension,period,kind,value,check,basis,source_url,provenance\nX,Xco,capex,,FY2025,spent,5,agree,b,https://www.sec.gov/x,e1\n")
+        page = (PAGES / "data.js").read_text()
+        self.assertNotIn("createObjectURL", page)  # before: the Grid built its CSV in the browser
+        self.assertNotIn("'JSON')", page)  # one export control
+        self.assertIn("'/api/data?' + new URLSearchParams(", page)
+
+    @unittest.skipUnless(shutil.which("node"), "no node")
+    def test_one_vocabulary_and_filters_kept_across_views(self):
+        stubs = ("const KNOWN = ['agree', 'unresolved', 'no_reference']; const stateKnown = (m, s) => m === 'check' && KNOWN.includes(s);"
+                 " const checkWord = (v) => ({agree: 'Verified', unresolved: 'Differs from SEC XBRL', no_reference: 'Unverified · citation only'})[v];"
+                 " const stateWord = (m, s) => ['', {ok: 'Verified', corroborated: 'Corroborated', info: 'Unverified', bad: 'Needs review', wait: 'Proposed', unknown: 'Not checked'}[s]];\n")
+        pre = stubs + "\n".join(line("data.js", p) for p in ("const VERDICT_ROW", "const verdictWord", "const verdictOf", "const verdictKeep", "const switchQ")) + "\n" + block("data.js", "const verdictOptions", "\n};")
+        self.assertEqual(_call(pre, "verdictOptions(A, '')", ["agree", "verbatim", "to_confirm", "corroborated", "differs", None, "agree"]),
+                         [["agree,verbatim", "Verified"], ["corroborated", "Corroborated"], ["differs", "Needs review"], ["to_confirm", "Proposed"]])  # one word, one option
+        self.assertEqual(_call(pre, "verdictOptions(A, 'unresolved,flag')", ["agree"]), [["agree", "Verified"], ["unresolved,flag", "Differs from SEC XBRL"]])  # an address from elsewhere stays named
+        self.assertEqual(_call(pre, "A.map((r) => verdictKeep(r, 'unresolved,flag'))", [{"check": "unresolved"}, {"check": "agree", "flag": "differs_from_xbrl"}, {"check_label": "agree"}]), [True, True, False])
+        self.assertEqual(_call(pre, "[switchQ(A, 'grid'), switchQ({view: 'grid', t: 'APLD', f: 'capex', check: 'agree', list: 'facts'}, 'rows')]", {"list": "facts", "ticker": "APLD", "check": "unresolved"}),
+                         [{"view": "grid", "list": "facts", "t": "APLD", "check": "unresolved"}, {"list": "facts", "ticker": "APLD", "check": "agree"}])
+
+
 if __name__ == "__main__":
     unittest.main()
