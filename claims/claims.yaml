@@ -162,11 +162,12 @@
 
 - id: company_proven
   claim: "Proven"
-  where: [ledger/web/pages/trail.js, ledger/web/pages/proof.js, ledger/web/pages/rules.js, /api/v1/proof]
-  shown: ["'Proven'", "Proven", "Ready for release", "Not in scope", "No items to review"]
+  where: [ledger/web/pages/trail.js, ledger/web/pages/proof.js, ledger/web/pages/rules.js, ledger/web/app.py, /api/v1/proof]
+  shown: ["'Proven'", "Proven", "Ready for release", "Not in scope", "No items to review", "Unknown company"]
   backed_by:
-    functions: [ledger.checks.proof.company, ledger.checks.proof.board]
+    functions: [ledger.checks.proof.company, ledger.checks.proof.board, ledger.web.app.known_company]
     tests:
+      - tests.test_api.UnknownCompany.test_a_made_up_ticker_is_404_unknown_company
       - tests.test_completeness.TheSixAreComplete.test_the_six_read_zero_and_coverage_agrees
       - tests.test_scope.Scope.test_the_board_and_the_queue_read_the_scope
   status: partial

@@ -105,3 +105,40 @@ class StatusAndFlag(unittest.TestCase):
         self.assertEqual((m["accession"], m["filed"], m["first_reported"]), ("0000789019-25-000059", "2025-07-30", 64551e6))
         self.assertEqual(m["citations"], "0000789019-25-000059 t0070 'Additions to property and equipment' / '2025' = (64,551)")
         self.assertEqual((rows[("T", "FY2022")]["accession"], rows[("T", "FY2022")]["citations"]), (None, ""))  # a cited cell the table no longer has: nothing invented
+
+
+class UnknownCompany(unittest.TestCase):
+    """F-BF6: #proof/ZZZZ read "Proven" and "Ready for release" for a ticker nobody follows. The trail API answers 404
+    "Unknown company" for it; a followed ticker still gets its trail."""
+
+    def setUp(self):
+        import os
+        import threading
+        from http.server import ThreadingHTTPServer
+        from ledger.core import store
+        from ledger.web import app
+        if not store.DEFAULT_DB.exists() or os.environ.get("LEDGER_SKIP_DB"):
+            self.skipTest("no database")
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.shutdown)
+        self.base = f"http://127.0.0.1:{srv.server_address[1]}"
+
+    def get(self, path):
+        import json
+        from urllib import error, request
+        try:
+            with request.urlopen(self.base + path) as r:
+                return r.status, json.loads(r.read())
+        except error.HTTPError as e:
+            return e.code, json.loads(e.read())
+
+    def test_a_made_up_ticker_is_404_unknown_company(self):
+        code, body = self.get("/api/v1/proof/ZZZZ")
+        self.assertEqual((code, body["error"]), (404, "Unknown company"))
+        self.assertNotIn("proven", body)
+
+    def test_a_followed_ticker_still_has_its_trail(self):
+        code, body = self.get("/api/v1/proof/apld")
+        self.assertEqual(code, 200)
+        self.assertEqual(body["ticker"], "APLD")

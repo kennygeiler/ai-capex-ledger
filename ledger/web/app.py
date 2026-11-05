@@ -273,6 +273,23 @@ def _flow(scope: str) -> dict:
             "industries": sorted(INDUSTRIES) + ["other"], "scope_tickers": list(SCOPE), "names": {c["ticker"]: c["name"] for c in tracked()}}
 
 
+UNKNOWN_COMPANY = "Unknown company"
+
+
+def known_company(con, ticker: str) -> bool:
+    """A ticker the ledger follows (config.tracked) or has read a filing for. Anything else is an unknown company: the
+    trail answers 404, since an empty trail would read Proven and Ready for release for nothing."""
+    t = (ticker or "").strip().upper()
+    if not t:
+        return False
+    if t in {c["ticker"] for c in tracked()}:
+        return True
+    try:
+        return bool(con.execute("select count(*) from documents where ticker = ?", [t]).fetchone()[0])
+    except duckdb.Error:
+        return False
+
+
 # ── T82: the gold set on the Proof page. Read: GET /api/v1/gold?t=; write: POST /api/gold/verdict (one writer, gold.record) ──
 def gold_view(ticker: str | None = None) -> dict:
     """The gold set for the Proof page. With no ticker: the companies and their error rates per group. With a ticker:
@@ -561,6 +578,8 @@ class Handler(BaseHTTPRequestHandler):
                 if name == "rules":
                     return self._json(proof.rules(con))
                 from . import cards  # T-cards: what we found, where, how we know, per trail item
+                if len(parts) == 2 and not known_company(con, parts[1]):  # F-BF6: a ticker nobody follows has no trail, never a green one
+                    return self._json({"error": UNKNOWN_COMPANY, "ticker": parts[1].upper()}, HTTPStatus.NOT_FOUND)
                 return self._json(cards.add(con, proof.company(con, parts[1])) if len(parts) == 2 else proof.board(con))
             finally:
                 con.close()
