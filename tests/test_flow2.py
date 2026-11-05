@@ -67,5 +67,51 @@ class RuleFindingGroups(unittest.TestCase):
         self.assertIn("const cb = keys.length ? writes(h('input'", page)  # the group tick is a write control: hidden on the read-only copy
 
 
+@unittest.skipUnless(shutil.which("node"), "no node")
+class PacketOnRelease(unittest.TestCase):
+    """#8: after a signature the page stays on Release with the packet's download; the releases table lives on Release
+    with one primary, the newest signed; packet file names link to their Dataset list. No test signs a real release."""
+
+    def test_after_a_signature_the_download_not_a_redirect(self):
+        pre = line("release.js", "const packetHref") + "\n" + line("release.js", "const signedNext")
+        self.assertEqual(_call(pre, "signedNext(A)", {"version": "v9.9.9-test", "published": True}), {"href": "/packet/v9.9.9-test.zip", "label": "Download v9.9.9-test"})
+        self.assertIsNone(_call(pre, "signedNext(A)", {"version": "v9.9.9-test", "published": False}))  # a failed publish offers no download
+        page = (PAGES / "release.js").read_text()
+        self.assertNotIn("go('proof')", page)  # before: setTimeout(() => go('proof'), 2500)
+        self.assertIn("const next = signedNext(r);", page)
+
+    def test_one_latest_signed_release(self):
+        rel = lambda v, by, packet=True: {"version": v, "signed_by": by, "packet": packet}
+        pick = lambda rels: _call(line("release.js", "const latestSigned"), "(latestSigned(A) || {}).version || null", rels)
+        self.assertEqual(pick([rel("v1.7.0", "K"), rel("v1.8.0", "K"), rel("v1.9.0", None, False)]), "v1.8.0")  # an unsigned next version is not it
+        self.assertIsNone(pick([rel("v1.9.0", None, False)]))
+        page = (PAGES / "release.js").read_text()
+        self.assertIn("r === latest ? h('a', {href: packetHref(r.version), class: 'btn btn-sm btn-outline-primary'}", page)
+        self.assertIn("view.append(head, lines, releases);", page)
+
+    def test_packet_files_link_to_their_dataset_list(self):
+        from ledger.release.checklist import packet_detail
+        got = {r["file"]: r.get("link") for r in packet_detail({"values.csv": "h\na\n", "ai_spend.csv": "h\n", "README.md": "x", "taxonomy.csv": "h\n"})}
+        self.assertEqual(got, {"README.md": None, "ai_spend.csv": None, "taxonomy.csv": "data?list=taxonomy", "values.csv": "data?list=values"})
+
+
+class ProofOneJob(unittest.TestCase):
+    """#11: Proof is the stage board, what is open and the hand check. Failure types on Rules, releases on Release, one
+    regression line (the header's)."""
+
+    def test_proof_draws_no_failure_types_releases_or_second_regression_line(self):
+        page = (PAGES / "proof.js").read_text()
+        for gone in ("failureTypes", "/api/outputs", "dtable('Releases'", "'Regression test'"):
+            self.assertNotIn(gone, page)
+        self.assertIn("view.append(head, table_, goldSet(), keyTable);", page)
+        self.assertIn("h('details', {class: 'fold mt-3'}, h('summary', {}, h('span', {class: 'fw-semibold'}, 'Verification source')", page)  # folded (DI6)
+
+    def test_rules_draws_the_failure_types(self):
+        page = (PAGES / "rules.js").read_text()
+        self.assertIn("function failureTypes()", page)
+        self.assertIn("...open, failureTypes());", page)
+        self.assertIn("failureTypes.draw();", page)
+
+
 if __name__ == "__main__":
     unittest.main()

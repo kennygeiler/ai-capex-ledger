@@ -37,7 +37,7 @@ async function proofPage(view, qs) {
   // the regression test says nothing changed since the freeze, never that a number is right; the hand check sits beside it
   const FROZEN = 'Nothing changed since the freeze; not a correctness check';
   const regression = g.tables_ok == null ? h('span', {class: 'text-secondary', title: FROZEN}, 'Tables: not compared')
-    : h('span', {class: tablesOk(g) ? 'text-secondary' : 'text-red', title: FROZEN}, `${tablesOk(g) ? 'Tables unchanged' : 'Tables changed'} · ${day(g.regression_at)}`);
+    : h('span', {class: tablesOk(g) ? 'text-secondary' : 'text-red', title: [FROZEN, ...Object.keys(g.diffs || {}).map((k) => `Changed: ${k}`)].join('\n')}, `${tablesOk(g) ? 'Tables unchanged' : 'Tables changed'} · ${day(g.regression_at)}`);  // the one regression line (the card that repeated it is gone, report #11)
   // the hand check is read live; when the live read fails the API falls back to the last check's, and the page says so (F-BF16)
   const notLive = g.gold_live === false;
   const hand = h('a', {href: '#gold', class: notLive ? 'text-orange' : goldTone(g.gold), title: notLive ? g.gold_error || '' : g.gold && g.gold.failures && g.gold.failures.length ? g.gold.failures.slice(0, 5).join('\n') : 'Hand-checked sample',
@@ -60,21 +60,13 @@ async function proofPage(view, qs) {
   const keyCols = [{t: 'Company', f: (c) => c.ticker}, ...grades.map((g) => ({t: h('span', {title: g.why}, KEY_WORD[g.id] || g.label), num: 1, f: (c) => int(c.keys[g.id])})),
     {t: 'Citation only', num: 1, f: (c) => int(c.keys.none)}, {t: 'Rows', num: 1, f: (c) => int(c.keys.rows)}];
   const keyRows = [...b.proven, {ticker: 'All', keys: b.keys}];
-  const keyTable = dtable('Verification source', keyCols, keyRows, {note: 'Strongest first'});
-  const rel = await api('/api/outputs').catch(() => ({releases: []}));
-  // T7: what a signature meant, from the checklist SIGNOFF.json carries; a release signed before the checklist shows —
-  const atSigning = (r, f) => (r.checklist ? f(r.checklist) : h('span', {class: 'text-secondary'}, '—'));
-  const releases = dtable('Releases', [{t: 'Version', k: 'version'}, {t: 'Signed', f: (r) => (r.signed_by ? [`${r.signed_by}, ${day(r.signed_at)}`, r.published === false ? h('span', {class: 'text-red'}, ' · not published') : ''] : h('span', {class: 'text-secondary'}, 'Not signed'))}, {t: 'Values', num: 1, f: (r) => int(r.rows.length)},
-    {t: 'To review at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.open))}, {t: 'Unmapped at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.unmapped))}, {t: 'Companies', f: (r) => atSigning(r, (c) => `${int(c.scope.length)}: ${c.scope.join(', ')}`)},
-    {t: 'Packet', f: (r) => (r.packet ? h('a', {href: `/packet/${r.version}.zip`}, 'Download') : '')}], [...rel.releases].reverse().slice(0, 6), {note: h('a', {href: '#release'}, 'Next release')});
-  const golden = h('details', {class: 'card mt-3'}, h('summary', {class: 'card-header py-2', style: 'cursor:pointer'}, h('h3', {class: 'card-title m-0'}, 'Regression test'),
-      h('span', {class: 'ms-3 text-secondary small', title: FROZEN}, g.tables_ok == null ? 'Not compared' : `${tablesOk(g) ? 'Tables unchanged' : 'Tables changed'} · ${when(g.regression_at)}`)),  // the snapshot's date on the regression part only; the hand check is live, in the header (F-BF16)
-    h('div', {class: 'card-body py-2'},
-      g.steps ? dtable('Steps', [{t: 'Step', k: 'step'}, {t: 'Result', num: 1, f: (x) => (x.exit === 0 ? h('span', {class: 'text-green'}, 'Pass') : h('span', {class: 'text-red'}, `Fail (${x.exit})`))}], g.steps) : '',
-      g.diffs && Object.keys(g.diffs).length ? h('div', {class: 'mt-2'}, dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Added', num: 1, k: 'n_only_in_run'}, {t: 'Missing', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v})))) : ''));
-  view.append(head, table_, h('div', {class: 'mt-3'}, keyTable), failureTypes(), h('div', {class: 'mt-3'}, releases), golden, goldSet());
-  const types = failureTypes.draw();
-  if ('gold' in q) types.finally(() => goldSet.draw(q.gold || undefined, {focus: q.item || 'unchecked'}));  // the sections above are drawn first, so the scroll lands
+  // DI6: the trail carries each company's verification counts; here the cross-company table folds under the board
+  const keyTable = h('details', {class: 'fold mt-3'}, h('summary', {}, h('span', {class: 'fw-semibold'}, 'Verification source'), h('span', {class: 'text-secondary small ms-2'}, 'Strongest first')),
+    h('div', {class: 'mt-2'}, dtable('Verification source', keyCols, keyRows)));
+  // report #11: Proof is the board, what is open and the hand check. Failure types are on Rules, releases and their
+  // packets on Release, and the regression test's line is the one in the header (it was repeated in a card here)
+  view.append(head, table_, goldSet(), keyTable);
+  if ('gold' in q) goldSet.draw(q.gold || undefined, {focus: q.item || 'unchecked'});
   else goldSet.draw();
 }
 // ── T82: the gold set. A hand-verified sample per proven company (gold/<TICKER>.json): golden says nothing changed, gold says
@@ -196,57 +188,6 @@ function goldSet() {
       el.classList.add('table-active');
       el.scrollIntoView({block: 'center'});
     }
-  };
-  return wrap;
-}
-// T54: the failure types as data. Two bar charts (one hue, a bar is a NUMBER OF TYPES, never instances) and the same numbers as tables,
-// so the section reads without colour or without Plotly. `none` is a bar of its own: a known way to be wrong that nothing guards.
-const NO_CHECK = 'No automated check';
-function failureTypes() {
-  const wrap = h('div', {class: 'mt-3'});  // width bounded by the page container, like the tables above
-  failureTypes.draw = async () => {
-    let f;
-    try { f = await api('/api/v1/failures'); } catch (e) { wrap.append(h('p', {class: 'text-secondary small'}, 'Failure types unavailable')); return; }
-    const total = f.total;
-    const ofTotal = (n) => `${int(n)} of ${int(total)}`;
-    const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Failure types'),
-      h('div', {class: 'text-secondary small'}, `${int(total)} known failure types · bars count types, not occurrences`));
-    const chart = (title, rows, key, label, aria) => {
-      const plot = h('div', {class: 'plot', role: 'figure', 'aria-label': aria, style: `min-height:0;height:${28 * rows.length + 48}px`});
-      const tbl = dtable(title, [{t: label, f: (r) => (key === 'check' && r[key] === 'none' ? 'No check' : r[key])},
-        {t: 'Types', num: 1, f: (r) => ofTotal(r.types)}, {t: 'Share', num: 1, f: (r) => pct(r.types / total)}], rows, {foot: ['All', ofTotal(total), pct(1)]});
-      // V15: the chart's numbers fold under it (the same figures; a reader without colour or Plotly opens them), so the two
-      // columns stay level instead of one table running 500 px past the other
-      return {plot, tbl, node: h('div', {class: 'col-lg-6'}, h('div', {class: 'card'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'fw-semibold'}, title), plot,
-        h('details', {class: 'fold mt-1'}, h('summary', {}, h('span', {class: 'small text-secondary'}, 'Numbers')), h('div', {class: 'mt-2'}, tbl)))))};
-    };
-    const byClass = chart('Types per cause class', f.by_class, 'class', 'Cause class', `${total} failure types by cause class, number of types per class`);
-    const byCheck = chart('Types per check', f.by_check, 'check', 'Check', `${total} failure types by the check that catches them`);
-    const typeRows = [...f.types].sort((a, b) => (a.class === b.class ? a.id - b.id : (f.by_class.findIndex((x) => x.class === a.class) - f.by_class.findIndex((x) => x.class === b.class))));
-    const list = h('details', {class: 'mt-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, `All ${int(total)} types`),
-      h('div', {class: 'mt-2'}, dtable('Failure types', [{t: 'Id', num: 1, k: 'id'}, {t: 'Type', k: 'name'}, {t: 'Cause class', k: 'class'}, {t: 'Origin', k: 'origin'},
-        {t: 'Check', f: (r) => (r.check === 'none' ? h('span', {class: 'text-secondary'}, 'No check') : r.check)},
-        {t: 'Companies seen', num: 1, f: (r) => (r.count == null ? h('span', {class: 'text-secondary'}, 'Not counted') : int(r.count))}], typeRows)));
-    const why = h('p', {class: 'text-secondary small mt-2'}, `${NO_CHECK}: ${ofTotal(f.none)}`);
-    wrap.append(head, h('div', {class: 'row g-3'}, byClass.node, byCheck.node), why, list);
-    fitTables(wrap);  // drawn after the router's skin()
-    if (!await plotlyReady()) { for (const c of [byClass, byCheck]) c.plot.replaceChildren(h('p', {class: 'text-secondary small m-0'}, 'Chart unavailable')); return; }
-    const draw = (c, rows, key, nameOf) => {
-      const css = getComputedStyle(document.documentElement);  // read at draw time: a theme change redraws with the new ink
-      const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim(), accent = css.getPropertyValue('--accent').trim();
-      const names = rows.map((r) => nameOf(r[key]));
-      const trace = {type: 'bar', orientation: 'h', x: rows.map((r) => r.types), y: names, text: rows.map((r) => ofTotal(r.types)), textposition: 'outside', textfont: {color: fg, size: 11}, cliponaxis: false,
-        marker: {color: accent}, hovertemplate: `%{y}: %{text} types<extra></extra>`};
-      const layout = {paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: {family: css.getPropertyValue('--font'), color: muted, size: 12}, margin: {l: 8, r: 56, t: 4, b: 28}, height: 28 * rows.length + 48, bargap: .45, showlegend: false,
-        xaxis: {gridcolor: faint, zerolinecolor: faint, tickfont: {color: muted}, range: [0, total], tickformat: ',d', fixedrange: true, title: {text: `number of types, of ${int(total)}`, font: {color: muted, size: 11}}},
-        yaxis: {type: 'category', autorange: 'reversed', automargin: true, tickfont: {color: fg}, fixedrange: true, ticksuffix: '  '},
-        hoverlabel: {bgcolor: bg, bordercolor: faint, font: {color: fg, family: css.getPropertyValue('--font')}}, dragmode: false};
-      return Plotly.newPlot(c.plot, [trace], layout, {displayModeBar: false, responsive: true});
-    };
-    // check ids as in code (period_length), the same in the bar and in the row, so a reader matches one to the other
-    const both = () => Promise.all([draw(byClass, f.by_class, 'class', (x) => x), draw(byCheck, f.by_check, 'check', (x) => (x === 'none' ? 'No check' : x))]);
-    await both();
-    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (wrap.isConnected) both(); });  // the kit's theme follows the system; redraw with the new ink
   };
   return wrap;
 }

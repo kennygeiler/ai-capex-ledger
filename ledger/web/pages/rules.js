@@ -86,5 +86,57 @@ async function rulesPage(view) {
   tbl.prepend(h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Rules'), h('span', {class: 'ms-2 text-secondary small'}, int(r.rules.length))));
   const open = r.open_by_need.length ? r.open_by_need.map((g) => h('details', {class: 'fold mb-2'}, h('summary', {}, h('span', {class: 'fw-semibold'}, g.needs), h('span', {class: 'text-secondary small ms-2'}, plural(g.items.length, 'item'))),
     h('div', {class: 'mt-2'}, dtable(g.needs, [{t: 'Company', k: 'ticker'}, {t: 'Stage', f: (o) => STAGE_LABEL_UI[o.stage] || o.stage}, {t: 'Item', k: 'what'}, {t: 'Detail', f: (o) => h('span', {class: 'text-secondary small brk'}, o.detail || '')}], g.items)))) : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No items to review'))];
-  view.append(head, agents, tbl, h('h2', {class: 'mt-4 mb-2'}, `To review · ${int(r.open)}`), ...open);
+  view.append(head, agents, tbl, h('h2', {class: 'mt-4 mb-2'}, `To review · ${int(r.open)}`), ...open, failureTypes());  // report #11: moved here from Proof
+  failureTypes.draw();
+}
+// T54: the failure types as data. Two bar charts (one hue, a bar is a NUMBER OF TYPES, never instances) and the same numbers as tables,
+// so the section reads without colour or without Plotly. `none` is a bar of its own: a known way to be wrong that nothing guards.
+const NO_CHECK = 'No automated check';
+function failureTypes() {
+  const wrap = h('div', {class: 'mt-3'});  // width bounded by the page container, like the tables above
+  failureTypes.draw = async () => {
+    let f;
+    try { f = await api('/api/v1/failures'); } catch (e) { wrap.append(h('p', {class: 'text-secondary small'}, 'Failure types unavailable')); return; }
+    const total = f.total;
+    const ofTotal = (n) => `${int(n)} of ${int(total)}`;
+    const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Failure types'),
+      h('div', {class: 'text-secondary small'}, `${int(total)} known failure types · bars count types, not occurrences`));
+    const chart = (title, rows, key, label, aria) => {
+      const plot = h('div', {class: 'plot', role: 'figure', 'aria-label': aria, style: `min-height:0;height:${28 * rows.length + 48}px`});
+      const tbl = dtable(title, [{t: label, f: (r) => (key === 'check' && r[key] === 'none' ? 'No check' : r[key])},
+        {t: 'Types', num: 1, f: (r) => ofTotal(r.types)}, {t: 'Share', num: 1, f: (r) => pct(r.types / total)}], rows, {foot: ['All', ofTotal(total), pct(1)]});
+      // V15: the chart's numbers fold under it (the same figures; a reader without colour or Plotly opens them), so the two
+      // columns stay level instead of one table running 500 px past the other
+      return {plot, tbl, node: h('div', {class: 'col-lg-6'}, h('div', {class: 'card'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'fw-semibold'}, title), plot,
+        h('details', {class: 'fold mt-1'}, h('summary', {}, h('span', {class: 'small text-secondary'}, 'Numbers')), h('div', {class: 'mt-2'}, tbl)))))};
+    };
+    const byClass = chart('Types per cause class', f.by_class, 'class', 'Cause class', `${total} failure types by cause class, number of types per class`);
+    const byCheck = chart('Types per check', f.by_check, 'check', 'Check', `${total} failure types by the check that catches them`);
+    const typeRows = [...f.types].sort((a, b) => (a.class === b.class ? a.id - b.id : (f.by_class.findIndex((x) => x.class === a.class) - f.by_class.findIndex((x) => x.class === b.class))));
+    const list = h('details', {class: 'mt-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, `All ${int(total)} types`),
+      h('div', {class: 'mt-2'}, dtable('Failure types', [{t: 'Id', num: 1, k: 'id'}, {t: 'Type', k: 'name'}, {t: 'Cause class', k: 'class'}, {t: 'Origin', k: 'origin'},
+        {t: 'Check', f: (r) => (r.check === 'none' ? h('span', {class: 'text-secondary'}, 'No check') : r.check)},
+        {t: 'Companies seen', num: 1, f: (r) => (r.count == null ? h('span', {class: 'text-secondary'}, 'Not counted') : int(r.count))}], typeRows)));
+    const why = h('p', {class: 'text-secondary small mt-2'}, `${NO_CHECK}: ${ofTotal(f.none)}`);
+    wrap.append(head, h('div', {class: 'row g-3'}, byClass.node, byCheck.node), why, list);
+    fitTables(wrap);  // drawn after the router's skin()
+    if (!await plotlyReady()) { for (const c of [byClass, byCheck]) c.plot.replaceChildren(h('p', {class: 'text-secondary small m-0'}, 'Chart unavailable')); return; }
+    const draw = (c, rows, key, nameOf) => {
+      const css = getComputedStyle(document.documentElement);  // read at draw time: a theme change redraws with the new ink
+      const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim(), accent = css.getPropertyValue('--accent').trim();
+      const names = rows.map((r) => nameOf(r[key]));
+      const trace = {type: 'bar', orientation: 'h', x: rows.map((r) => r.types), y: names, text: rows.map((r) => ofTotal(r.types)), textposition: 'outside', textfont: {color: fg, size: 11}, cliponaxis: false,
+        marker: {color: accent}, hovertemplate: `%{y}: %{text} types<extra></extra>`};
+      const layout = {paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: {family: css.getPropertyValue('--font'), color: muted, size: 12}, margin: {l: 8, r: 56, t: 4, b: 28}, height: 28 * rows.length + 48, bargap: .45, showlegend: false,
+        xaxis: {gridcolor: faint, zerolinecolor: faint, tickfont: {color: muted}, range: [0, total], tickformat: ',d', fixedrange: true, title: {text: `number of types, of ${int(total)}`, font: {color: muted, size: 11}}},
+        yaxis: {type: 'category', autorange: 'reversed', automargin: true, tickfont: {color: fg}, fixedrange: true, ticksuffix: '  '},
+        hoverlabel: {bgcolor: bg, bordercolor: faint, font: {color: fg, family: css.getPropertyValue('--font')}}, dragmode: false};
+      return Plotly.newPlot(c.plot, [trace], layout, {displayModeBar: false, responsive: true});
+    };
+    // check ids as in code (period_length), the same in the bar and in the row, so a reader matches one to the other
+    const both = () => Promise.all([draw(byClass, f.by_class, 'class', (x) => x), draw(byCheck, f.by_check, 'check', (x) => (x === 'none' ? 'No check' : x))]);
+    await both();
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (wrap.isConnected) both(); });  // the kit's theme follows the system; redraw with the new ink
+  };
+  return wrap;
 }
