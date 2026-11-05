@@ -275,7 +275,7 @@ function citeCell(w, what) {
   const caption = [what, what && w.row && what.includes(w.row) ? '' : w.row, w.column, w.cell].filter(Boolean).join(' · ');
   const links = [w.viewer ? h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open') : '', SEC_LINK.test(w.link || '') ? h('a', {href: safeHref(w.link), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗') : ''];
   const thumb = c.state === 'located' && c.url
-    ? h('button', {type: 'button', class: 'crop-thumb', title: caption, onclick: () => cropBox(c.url, caption, [w.viewer ? h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener'}, 'Open in filing') : '', links[1] ? links[1].cloneNode(true) : ''])}, h('img', {src: c.url, alt: caption, loading: 'lazy', onload: (e) => focusCell(e.target), onerror: (e) => cropFailed(e.target.parentElement, w.viewer)}))
+    ? h('button', {type: 'button', class: 'crop-thumb', title: caption, onclick: () => cropBox(c.url, caption, [w.viewer ? h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener'}, 'Open in filing') : '', links[1] ? links[1].cloneNode(true) : ''])}, h('img', {src: c.url, alt: caption, loading: 'lazy', onload: (e) => queueFold(e.target), onerror: (e) => cropFailed(e.target.parentElement, w.viewer)}))
     : h('div', {class: 'crop-none small'}, cropState(c));
   return h('div', {class: 'cite'}, w.role ? h('div', {class: 'cite-role small fw-medium'}, w.role) : '', thumb, w.mark ? h('div', {class: 'cite-mark small fw-medium text-orange'}, w.mark) : '',
     h('div', {class: 'cite-line small'}, `${w.form || '10-K'} ${w.filed || ''}`.trim(), links.map((l) => (l ? [' · ', l] : ''))));
@@ -329,18 +329,29 @@ function cropMarks(img) {
 }
 // the least scale (css px per natural px) at which the cited figure reads at `px`; a figure whose ink is not found is drawn at
 // the filing's own size (the crops are taken at device scale 2)
-const legibleScale = (m, px = FIG_PX) => (m && m.inkH ? px * DIGIT_EM / m.inkH : 0.5);
+// (a dash or a dot in the cell is not a figure: under MIN_INK natural px it counts as not found). Never more than twice the
+// filing's size, whatever the ink says, so no crop is drawn thousands of pixels wide.
+const MIN_INK = 10, MAX_SCALE = 1, MAX_THUMB_H = 224;
+const legibleScale = (m, px = FIG_PX) => (m && m.inkH >= MIN_INK ? Math.min(MAX_SCALE, px * DIGIT_EM / m.inkH) : 0.5);
 // the thumbnail: the cited row with the row above and below, its label and the column header, at a size the figure reads
 // (V7). The columns and rows in between are folded out (a grey seam marks each fold); the full crop is one click away (cropBox).
-function focusCell(img) {
-  if (img.dataset.folded) return;
-  img.dataset.folded = '1';
-  try {
-    const frame = img.parentElement, fw = frame.clientWidth;
+// foldPlan reads the pixels once per crop and frame width (cached by URL and width: a redraw, a verdict, a revisit draws
+// from the plan); focusCell draws it. The onload work runs one crop at a time in idle time (queueFold), never 100 in a burst.
+const foldPlans = new Map();
+function foldPlan(img, fw) {
+  const key = `${img.currentSrc || img.src}|${Math.round(fw)}`;
+  if (foldPlans.has(key)) return foldPlans.get(key);
+  let plan = null;
+  try { plan = makePlan(img, fw); } catch (e) { plan = null; }  // a picture the canvas cannot read stays whole
+  if (foldPlans.size > 500) foldPlans.clear();
+  foldPlans.set(key, plan);
+  return plan;
+}
+function makePlan(img, fw) {
     const m = cropMarks(img);
-    if (!m || !fw) return;
+    if (!m || !fw) return null;
     const {W, H, k, cw, ch, px, at, plain, red, blue} = m;
-    if (!red) return;  // no box found: the whole crop, contained
+    if (!red) return null;  // no box found: the whole crop, contained
     // the label: dark columns on the cell's row, left of the box, split where a gap wider than ~15 px opens
     const dark = [];
     for (let x = 0; x < red.x0; x++) { let d = false; for (let y = red.y0 + 2; y <= red.y1 - 2 && !d; y++) { const i = at(x, y); d = px[i] + px[i + 1] + px[i + 2] < 330; } if (d) dark.push(x); }
@@ -408,17 +419,37 @@ function focusCell(img) {
       xs = [[x0, Math.min(W, x0 + w)]];
     }
     const CW = span(xs);
-    const out = document.createElement('canvas'); out.width = CW; out.height = CH;
-    const o = out.getContext('2d'); o.fillStyle = '#e5e7eb'; o.fillRect(0, 0, CW, CH);
-    let dy = 0;
-    for (const [y0, y1] of ys) { let dx = 0; for (const [x0, x1] of xs) { o.drawImage(img, x0, y0, x1 - x0, y1 - y0, dx, dy, x1 - x0, y1 - y0); dx += x1 - x0 + gap; } dy += y1 - y0 + gap; }
-    Object.assign(out.style, {display: 'block', width: `${CW * sc}px`, height: `${CH * sc}px`, margin: '0 auto'});
-    out.setAttribute('role', 'img'); out.setAttribute('aria-label', img.alt);
-    if (m.inkH) out.dataset.figPx = (m.inkH / DIGIT_EM * sc).toFixed(1);  // the cited figure's rendered size, for the layout check
-    img.style.display = 'none';
-    frame.style.height = `${Math.ceil(CH * sc)}px`;  // the frame takes the strip's height: no empty band, no overlap
-    frame.append(out);
-  } catch (e) { /* a picture the canvas cannot read stays whole */ }
+    if (CH * sc > MAX_THUMB_H) sc = MAX_THUMB_H / CH;  // a tall strip is capped: the frame never grows past MAX_THUMB_H
+    return {xs, ys, sc, CW, CH, gap, figPx: m.inkH >= MIN_INK ? +(m.inkH / DIGIT_EM * sc).toFixed(1) : null};
+}
+function focusCell(img) {
+  if (img.dataset.folded || !img.isConnected) return;
+  img.dataset.folded = '1';
+  const frame = img.parentElement, P = foldPlan(img, frame.clientWidth);
+  if (!P) return;
+  const {xs, ys, sc, CW, CH, gap} = P;
+  const out = document.createElement('canvas'); out.width = CW; out.height = CH;
+  const o = out.getContext('2d'); o.fillStyle = '#e5e7eb'; o.fillRect(0, 0, CW, CH);
+  let dy = 0;
+  for (const [y0, y1] of ys) { let dx = 0; for (const [x0, x1] of xs) { o.drawImage(img, x0, y0, x1 - x0, y1 - y0, dx, dy, x1 - x0, y1 - y0); dx += x1 - x0 + gap; } dy += y1 - y0 + gap; }
+  Object.assign(out.style, {display: 'block', width: `${CW * sc}px`, height: `${CH * sc}px`, margin: '0 auto'});
+  out.setAttribute('role', 'img'); out.setAttribute('aria-label', img.alt);
+  if (P.figPx) out.dataset.figPx = P.figPx.toFixed(1);  // the cited figure's rendered size, for the layout check
+  img.style.display = 'none';
+  frame.style.height = `${Math.ceil(CH * sc)}px`;  // the frame takes the strip's height: no empty band, no overlap
+  frame.append(out);
+}
+const foldQueue = [];
+let folding = false;
+const idle = (f) => (window.requestIdleCallback ? requestIdleCallback(f, {timeout: 250}) : setTimeout(() => f({timeRemaining: () => 0}), 0));
+function queueFold(img) {
+  foldQueue.push(img);
+  if (folding) return;
+  folding = true;
+  // one crop at a time, as many as fit in the idle slice (at least one), so the page never stalls
+  const run = (dl) => { do { const im = foldQueue.shift(); try { focusCell(im); } catch (e) { /* stays whole */ } } while (foldQueue.length && dl.timeRemaining() > 12);
+    if (foldQueue.length) idle(run); else folding = false; };
+  idle(run);
 }
 // V7: a full crop (Evidence) drawn at least as large as its cited figure needs to read; a crop wider than its column then
 // scrolls sideways inside its frame, opened at the cell
@@ -428,7 +459,7 @@ function legibleCrop(img) {
     if (!m || !frame) return;
     const shown = img.clientWidth / m.W, need = legibleScale(m, EV_FIG_PX), sc = Math.max(shown, need);
     if (need > shown) { img.style.width = `${Math.ceil(m.W * need)}px`; img.style.maxWidth = 'none'; }
-    if (m.inkH) img.dataset.figPx = (m.inkH / DIGIT_EM * sc).toFixed(1);
+    if (m.inkH >= MIN_INK) img.dataset.figPx = (m.inkH / DIGIT_EM * sc).toFixed(1);
     if (m.red) frame.scrollLeft = Math.max(0, ((m.red.x0 + m.red.x1) / 2) * m.k * sc - frame.clientWidth / 2);
   } catch (e) { /* a picture the canvas cannot read stays as drawn */ }
 }

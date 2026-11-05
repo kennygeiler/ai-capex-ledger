@@ -276,5 +276,22 @@ class HandCheckNote(unittest.TestCase):
         self.assertIn("note.hidden = false; msg.replaceChildren(h('span', {class: 'text-red'}, 'Note required'))", js)
 
 
+@unittest.skipUnless(shutil.which("node"), "no node")
+class CropScale(unittest.TestCase):
+    """Review risks 6-7: a cell whose ink is a dash (a few px) once asked for a scale of 4.5, an Evidence crop 7,200 px wide.
+    Under MIN_INK the figure counts as not found (the filing's own size); no scale exceeds MAX_SCALE."""
+
+    def scale(self, inks, px):
+        js = "\n".join(line("_shared.js", p) for p in ("const FIG_PX", "const DIGIT_EM", "const MIN_INK", "const legibleScale")) + \
+            f"\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[process.argv.length - 1]).map((i) => legibleScale(i === null ? null : {{inkH: i}}, {px}))));"
+        return json.loads(node(js, json.dumps(inks)))
+
+    def test_tiny_ink_falls_back_and_nothing_is_unbounded(self):
+        got = self.scale([None, 2, 4, 9, 10, 16, 40], "EV_FIG_PX")
+        self.assertEqual(got[:4], [0.5, 0.5, 0.5, 0.5])
+        self.assertTrue(all(0 < g <= 1 for g in got))
+        self.assertAlmostEqual(got[5], 12.5 * 0.72 / 16)
+
+
 if __name__ == "__main__":
     unittest.main()
