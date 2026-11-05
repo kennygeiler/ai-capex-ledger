@@ -155,6 +155,11 @@
   table.rec > tbody > tr.item .small { line-height: .95rem; }
   table.rec > tbody > tr.item .btn-list { flex-wrap: nowrap; gap: .25rem; }
   table.rec > tbody > tr.item .gg { width: 100%; }
+  /* a confirm cell carries two buttons and the proposer's line: 24 px buttons and a tight cell keep the row at 44 px */
+  table.rec > tbody > tr.item > td.confirm { padding-top: .075rem; padding-bottom: .075rem; }
+  table.rec > tbody > tr.item > td.confirm .btn-sm { min-height: 1.5rem; padding-top: 0; padding-bottom: 0; }
+  /* with the bulk bar shown, Tab and the keys scroll a row clear of it (reconcile.js focusRow does the same for j, k) */
+  html:has(.bulkbar:not([hidden])) { scroll-padding-bottom: 11rem; }
   .bulkbar { position: fixed; left: 50%; bottom: 1rem; transform: translateX(-50%); width: min(calc(100% - 2rem), 72rem); z-index: 1040; margin: 0; box-shadow: 0 8px 30px rgba(0, 0, 0, .18); }
   main:has(.bulkbar:not([hidden])) { padding-bottom: 12rem; }
   tr.item:focus-visible { outline: 2px solid var(--tblr-primary); outline-offset: -2px; }

@@ -152,7 +152,7 @@ async function reconcilePage(view, qs) {
         h('td', {class: 'num'}, r.reference == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[r.relation] || '', num(r, r.reference)], r.ref_label && r.reference != null ? h('div', {class: 'text-secondary small'}, r.ref_label) : ''),
         h('td', {class: 'w-1'}, r.ours != null && r.reference != null ? gapBar(r) : ''),
         h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, '—') : [h('span', {class: 'fw-semibold' + (r.cause === 'fact_differs' ? ' text-red' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : ''])],
-        h('td', {}, res));
+        h('td', {class: toConfirm(r) ? 'confirm' : null}, res));
       trs.push({tr, r, detail: null});
       tbody.append(tr);
     }
@@ -180,11 +180,18 @@ async function reconcilePage(view, qs) {
     t.detail = h('tr', {class: 'ev'}, h('td', {colspan: t.tr.closest('table').querySelectorAll('thead th').length}, evidence(t.r)));  // the table's own column count: a wider span would add columns and move every header (V8)
     t.tr.after(t.detail); t.tr.setAttribute('aria-expanded', 'true'); acts(t, false);
   }
+  // a row reached by j / k (or the arrows) is scrolled clear of the fixed bulk bar, never under it (V8)
+  function focusRow(tr) {
+    if (bulk.hidden) { tr.focus(); return; }
+    tr.focus({preventScroll: true});
+    const r = tr.getBoundingClientRect(), limit = bulk.getBoundingClientRect().top - 8;
+    if (r.bottom > limit) window.scrollBy({top: r.bottom - limit, behavior: 'instant'}); else if (r.top < 8) window.scrollBy({top: r.top - 8, behavior: 'instant'});
+  }
   function keys(e, i) {
     if (e.target.matches('input, select, textarea, button') || e.metaKey || e.ctrlKey || e.altKey) return;
     const k = e.key;
-    if (k === 'j' || k === 'ArrowDown') { e.preventDefault(); trs[Math.min(trs.length - 1, i + 1)].tr.focus(); }
-    else if (k === 'k' || k === 'ArrowUp') { e.preventDefault(); trs[Math.max(0, i - 1)].tr.focus(); }
+    if (k === 'j' || k === 'ArrowDown') { e.preventDefault(); focusRow(trs[Math.min(trs.length - 1, i + 1)].tr); }
+    else if (k === 'k' || k === 'ArrowUp') { e.preventDefault(); focusRow(trs[Math.max(0, i - 1)].tr); }
     else if (k === 'Enter' || k === 'o') { e.preventDefault(); toggle(i); }
     else if (k === ' ') { e.preventDefault(); const r = trs[i].r; if (!bulkable(r)) return; selected.has(r.key) ? selected.delete(r.key) : selected.add(r.key); paint(); }
     else if (k === 'Escape' && trs[i].detail) { toggle(i); }
@@ -203,8 +210,9 @@ async function reconcilePage(view, qs) {
       } catch (err) { status.textContent = `Couldn’t save: ${err.message}.`; status.classList.add('text-red'); confirm.disabled = false; }
     }}, `Confirm ${RES_LABEL[proposed] || proposed}`);
     const overturn = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Change decision', onclick: (e) => { e.stopPropagation(); toggle(i, true); const f = trs[i].detail.querySelector('input[type=text]'); if (f) f.focus(); }}, 'Overturn');
-    if (r.resolution && r.resolution.by) confirm.title = `Proposed by ${r.resolution.by} · ${day(r.resolution.at)}`;
-    return [h('div', {class: 'btn-list flex-nowrap'}, confirm, overturn), status];
+    // who proposed it and when stays on screen, one short line under the buttons (cut with an ellipsis in the collapsed row)
+    const by = r.resolution && r.resolution.by ? `Proposed by ${r.resolution.by} · ${day(r.resolution.at)}` : '';
+    return [h('div', {class: 'btn-list flex-nowrap'}, confirm, overturn), by ? h('div', {class: 'text-secondary small', title: by}, by) : '', status];
   }
   // T33: an unmapped asset type. Approve writes the proposed member with the mapper's evidence under my name; Edit opens the
   // form with the member select; Reject logs the proposed member so the next run proposes another. No animation: a
