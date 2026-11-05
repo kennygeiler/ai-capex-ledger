@@ -88,7 +88,10 @@ async function reconcilePage(view, qs) {
   // V18: with a filter on, each count says how many of its rows the page shows: "Needs review 7 of 18" (the total is the one
   // per-company count, flow #4; the shown part counts the listed rows in the same bucket)
   const filtered = !!(fCause || fLayer || fField || q.kind);
-  const shownIn = (s) => rows.filter((r) => r.verification === s).length;
+  // the part of each count the filters keep, counted on every row the filters match, settled ones included (review 3: an
+  // explained row is settled, hidden until "Show settled", and still one the filter matches)
+  const matching = d.rows.filter((r) => (!fCause || r.cause === fCause) && (!fLayer || r.layer === fLayer) && (!fField || (r.field || '') === fField) && (!q.kind || (r.evidence && r.evidence.kind) === q.kind));
+  const shownIn = (s) => matching.filter((r) => r.verification === s).length;
   const stat = (label, n, cls, always, s) => (n || always ? h('span', {class: 'me-3'}, h('span', {class: 'text-secondary'}, label + ' '), filtered && s && shownIn(s) !== n ? [h('span', {class: (cls || '') + ' fw-medium'}, int(shownIn(s))), h('span', {class: 'text-secondary'}, ` of ${int(n)}`)] : h('span', {class: (cls || '') + ' fw-medium'}, int(n))) : '');
   const header = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'small mt-1'},
