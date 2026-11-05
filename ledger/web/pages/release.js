@@ -32,13 +32,29 @@ function gatesByCompany(cl) {
 // [enabled, why] for the Sign button: every required line green and a signer on the people list (config.PEOPLE, sent with the checklist)
 const signState = (cl, name) => { const n = (name || '').trim(), red = cl.lines.filter((l) => l.required && !l.ok).length; return red ? [false, `${red} required check${red === 1 ? '' : 's'} failing`] : !n ? [false, 'Enter a signer name'] : !(cl.people || []).includes(n) ? [false, 'Not on the signer list'] : [true, `Signs and publishes ${cl.version}`]; };
 
+// the signed releases, newest first, and the one whose packet a reader downloads: the newest signed (report #8: the
+// downloads moved here from Proof; one primary, the rest plain links)
+const latestSigned = (rels) => [...rels].reverse().find((r) => r.signed_by && r.packet) || null;
+const packetHref = (v) => `/packet/${encodeURIComponent(v)}.zip`;
+// after a signature the page stays on Release with the packet's download; a failed publish says so and offers none
+const signedNext = (r) => (r.published ? {href: packetHref(r.version), label: `Download ${r.version}`} : null);
+function releasesTable(rels) {
+  const latest = latestSigned(rels);
+  const atSigning = (r, f) => (r.checklist ? f(r.checklist) : h('span', {class: 'text-secondary'}, '—'));  // T7: what a signature meant; before the checklist, —
+  const tbl = dtable('Releases', [{t: 'Version', k: 'version'}, {t: 'Signed', f: (r) => (r.signed_by ? [`${r.signed_by}, ${day(r.signed_at)}`, r.published === false ? h('span', {class: 'text-red'}, ' · not published') : ''] : h('span', {class: 'text-secondary'}, 'Not signed'))}, {t: 'Values', num: 1, f: (r) => int(r.rows.length)},
+    {t: 'To review at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.open))}, {t: 'Unmapped at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.unmapped))}, {t: 'Companies', f: (r) => atSigning(r, (c) => `${int(c.scope.length)}: ${c.scope.join(', ')}`)},
+    {t: 'Packet', f: (r) => (!r.packet ? '' : r === latest ? h('a', {href: packetHref(r.version), class: 'btn btn-sm btn-outline-primary'}, `Download ${r.version}`) : h('a', {href: packetHref(r.version)}, 'Download'))}], [...rels].reverse().slice(0, 6));
+  return h('div', {class: 'mt-3', id: 'releases'}, tbl);
+}
+
 // one listener for the page's life, bound once: each render swaps in its own recheck, and an old button off the page is ignored
 let releaseRecheck = null;
 document.addEventListener('input', (e) => { if (e.target.id === 'me' && releaseRecheck) releaseRecheck(); });
 
 async function releasePage(view, qs) {
   const q = parseQ(qs || '');
-  const cl = await api('/api/v1/release/checklist' + (q.version ? `?version=${encodeURIComponent(q.version)}` : ''));
+  const [cl, out] = await Promise.all([api('/api/v1/release/checklist' + (q.version ? `?version=${encodeURIComponent(q.version)}` : '')), api('/api/outputs').catch(() => ({releases: []}))]);
+  const releases = h('div', {}, releasesTable(out.releases || []));
   const required = cl.lines.filter((l) => l.required), green = required.filter((l) => l.ok).length;
   let [canSign, why] = signState(cl, me);
   const status = h('div', {class: 'text-secondary small', id: 'signmsg', role: 'status', 'aria-live': 'polite'}, why);
@@ -52,7 +68,8 @@ async function releasePage(view, qs) {
       const r = await api('/api/release/sign', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({version: cl.version, by: me})});
       status.replaceChildren(h('span', {class: 'text-green'}, `${r.version} signed by ${r.signed_by} · ${when(r.signed_at)} · ${r.hash.slice(0, 8)}`), ' · ',
         r.published ? `Published: ${Object.entries(r.rows || {}).map(([k, v]) => `${int(v)} ${k}`).join(', ')}` : h('span', {class: 'text-red'}, `Signed, not published: ${r.publish_error}`));
-      if (r.published) setTimeout(() => go('proof'), 2500);  // a failed publish stays on screen
+      const next = signedNext(r);  // the page stays on Release: the packet's download sits where the signature landed
+      if (next) { status.append(' · ', h('a', {href: next.href, class: 'btn btn-sm btn-primary'}, next.label)); api('/api/outputs').then((o) => releases.replaceChildren(releasesTable(o.releases || []))).catch(() => {}); }
     } catch (e) {
       status.replaceChildren(h('span', {class: 'text-red'}, e.message));
       delete button.dataset.busy;
@@ -83,5 +100,5 @@ async function releasePage(view, qs) {
   const fold = (shut) => { for (const tr of restTrs) { tr.hidden = shut; const nx = tr.nextElementSibling; if (shut && nx && nx.classList.contains('detail')) { nx.remove(); tr.classList.remove('open'); } } sumTr.setAttribute('aria-expanded', String(!shut)); sumTr.firstChild.firstChild.textContent = shut ? '▸' : '▾'; };
   sumTr.onclick = () => { const nx = sumTr.nextElementSibling; if (nx && nx.classList.contains('detail')) { nx.remove(); sumTr.classList.remove('open'); } fold(!restTrs[0] || !restTrs[0].hidden); };  // runs after the table's own row handler, and takes back the empty detail it adds
   fold(true);
-  view.append(head, lines);
+  view.append(head, lines, releases);
 }
