@@ -246,6 +246,14 @@ function fitTables(root = document) {
     el.classList.add(wide ? 'wide' : 'fit');
     if (wide) el.style.setProperty('--box-w', `${el.clientWidth}px`); else el.style.removeProperty('--box-w');  // V10: an opened row's detail stays this wide
   });
+  cutTitles(root);
+}
+// F-VS5: a line cut with an ellipsis to keep a row short carries its whole text on hover (a title of its own, or the cell's
+// title when it has one); the opened row shows it whole. Measured again on resize, with the tables.
+function cutTitles(root = document) {
+  root.querySelectorAll('table.rec tr.item > td, table.rec tr.item > td > div, .cut, .cite-line').forEach((el) => {
+    if (el.scrollWidth > el.clientWidth + 1 && !el.title && !el.querySelector('[title]')) el.title = el.textContent.trim();
+  });
 }
 let fitTimer;
 window.addEventListener('resize', () => { clearTimeout(fitTimer); fitTimer = setTimeout(() => fitTables(), 150); });

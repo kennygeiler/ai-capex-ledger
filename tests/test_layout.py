@@ -429,5 +429,22 @@ class Layout(unittest.TestCase):
                     return document.querySelector('.table-responsive.wide thead th').getBoundingClientRect().top; }""")
                 self.assertGreaterEqual(top, 0)
 
+    def test_cut_lines_say_their_whole_text(self):
+        """F-VS5: every Reconcile cell or line cut with an ellipsis carries its whole text on hover; the trail's visible crop
+        thumbnails never overlap (thumbnails inside a closed <details> are not on screen, though Chrome boxes them)."""
+        for w in WIDTHS:
+            with self.subTest(width=w):
+                pg = self.page(w, "reconcile")
+                pg.wait_for_selector("table.rec tr.item", timeout=60000)
+                pg.wait_for_timeout(300)
+                self.assertEqual(pg.evaluate("""() => [...document.querySelectorAll('table.rec tr.item > td, table.rec tr.item > td > div')]
+                    .filter((e) => e.scrollWidth > e.clientWidth + 1 && !(e.title || e.querySelector('[title]') || e.closest('[title]'))).map((e) => e.textContent.slice(0, 40))"""), [])
+                pg = self.page(w, "proof/APLD")
+                pg.wait_for_selector(".crop-thumb", state="attached", timeout=60000)
+                pg.wait_for_timeout(800)
+                self.assertEqual(pg.evaluate("""() => { const ts = [...document.querySelectorAll('.crop-thumb')].filter((t) => !t.closest('details:not([open])')).map((t) => t.getBoundingClientRect()).filter((r) => r.width && r.height);
+                    let n = 0; for (let i = 0; i < ts.length; i++) for (let j = i + 1; j < ts.length; j++) { const a = ts[i], b = ts[j];
+                      if (Math.min(a.right, b.right) - Math.max(a.left, b.left) > 4 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 4) n++; } return n; }"""), 0)
+
 if __name__ == "__main__":
     unittest.main()

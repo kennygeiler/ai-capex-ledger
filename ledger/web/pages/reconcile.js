@@ -409,6 +409,7 @@ async function reconcilePage(view, qs) {
     const once = canEncode(r) ? h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Apply everywhere')), h('div', {class: 'card-body py-2'}, encodePanel(r)))) : '';
     return h('div', {class: 'row g-3'}, cards, decision, once);
   }
+  requestAnimationFrame(() => cutTitles(wrap));  // F-VS5: measured once the rows are laid out
   wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No items to review'))]));
   // V14: no row reads as current until one has focus (a save's next row does)
   if (trs.length) { const at = trs.findIndex((t) => t.r.key === FOCUS_KEY); cur = at; paintCur(); if (FOCUS_KEY && at >= 0) { trs[cur].tr.focus({preventScroll: true}); trs[cur].tr.scrollIntoView({block: 'center'}); } FOCUS_KEY = null; }
