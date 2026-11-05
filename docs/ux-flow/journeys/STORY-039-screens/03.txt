@@ -1,0 +1,511 @@
+Skip to content
+Kenny's Data Emporium
+Proof
+Rules
+Reconcile
+Dataset
+Explore
+Release
+Known gaps
+Docs
+Signer 
+6 companies · Data as of Nov 1, 2026
+Kenny's Data Emporium, Reconcile
+Reconcile
+Needs review 16Proposed 29Unverified 6Last run Nov 1, 2026Last release v1.8.0Keyboard
+All companies
+Chip design
+Hyperscaler
+Miner to HPC
+Grouped by cause
+Grouped by company
+Every cause
+Differs from SEC XBRL
+Rule findings
+Category mapping
+Every industry
+Chip design
+Hyperscaler
+Miner to HPC
+Every field
+Opex
+PP&E by category
+Segment capex
+Segment revenue
+Every check
+Large year-over-year change
+other
+Show 6 settled
+Category mapping
+29 proposed · 0 unmapped · 6 differ from company tag · 18 match company tag
+SELECT
+	COMPANY	ITEM	DATASET	SEC XBRL	GAP	DIFFERENCE	DECISION
+	AMD AMD	
+Building and leasehold improvements
+	Building and building improvements Proposed
+“the note's own category name (FY2021 and FY2022)”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	AMD AMD	
+Construction in progress
+	Construction in progress Proposed
+“the note's own category name”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	AMD AMD	
+Equipment
+	Machinery and equipment Proposed
+“the note's own category name: equipment (test, manufacturing and computer equipment together; the note does not split them)”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	AMD AMD	
+Land
+	Land Proposed
+“the note's own category name (FY2022 only, before the line was combined)”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	AMD AMD	
+Land, building and leasehold improvements
+	Land and building Proposed
+“the note's own category name from FY2022: land, building and leasehold improvements combined”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	Amazon AMZN	
+Equipment
+	Machinery and equipment Proposed
+“the note's category through FY2024: equipment, which the FY2025 10-K splits into servers and networking equipment, heavy equipment and other equipment; wider than technology equipment”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	Amazon AMZN	
+Other assets
+	Property plant and equipment other types Proposed
+“the note's own category name”
+Company tags OtherCapitalizedPropertyPlantAndEquipmentMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Amazon AMZN	
+Other equipment
+	Other machinery and equipment Proposed
+“the FY2025 10-K's category: other equipment”
+Company tags EquipmentMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Amazon AMZN	
+Servers and networking equipment
+	Technology equipment Proposed
+“the FY2025 10-K's category: servers and networking equipment”
+Company-specific tag: amzn:ServersAndNetworkingEquipmentMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Building
+	Building and building improvements Proposed
+“the note's own category name”
+Company tags BuildingMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Building improvements
+	Building and building improvements Proposed
+“the note's own category name”
+Company tags BuildingImprovementsMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Electric Generation and Transformers
+	Electric generation equipment Proposed
+“the note's own category name (FY2022 and FY2023 capitalisation)”
+Company-specific tag: apld:ElectricGenerationAndTransformersMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Electric generation and transformers
+	Electric generation equipment Proposed
+“the note's own category name”
+Company-specific tag: apld:ElectricGenerationAndTransformersMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Electrical infrastructure
+	Electric generation equipment Proposed
+“the FY2026 note's category name”
+Company-specific tag: apld:ElectricalInfrastructureMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Information Systems and Software
+	Technology equipment Proposed
+“the FY2022 and FY2023 notes' category name, the predecessor line”
+Company tags SoftwareAndSoftwareDevelopmentCostsMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Mechanical infrastructure
+	Machinery and equipment Proposed
+“the FY2026 note's category name (cooling and mechanical plant)”
+Company-specific tag: apld:MechanicalInfrastructureMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Networking equipment, electrical equipment, and software
+	Technology equipment Proposed
+“the note's own category name”
+Company tags SoftwareAndSoftwareDevelopmentCostsMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Alphabet GOOGL	
+Add: assets not yet in service
+	Construction in progress Proposed
+“the FY2024 10-K's line: assets not yet in service, the successor of construction in progress”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	Alphabet GOOGL	
+Corporate and other assets
+	Property plant and equipment other types Proposed
+“the FY2024 10-K's category: corporate and other assets”
+Company-specific tag: goog:CorporateAndOtherAssetsMember · not every extracted year
+	—		—	
+Approve
+Reject
+Choose another
+
+	Alphabet GOOGL	
+Office space
+	Building and building improvements Proposed
+“the FY2024 10-K's category: office space (land, buildings, leasehold improvements for offices)”
+Company-specific tag: goog:OfficeSpaceMember · not every extracted year
+	—		—	
+Approve
+Reject
+Choose another
+
+	Alphabet GOOGL	
+Technical infrastructure
+	Technology equipment Proposed
+“the FY2024 10-K's category: technical infrastructure, which the filing's own extension member goog:TechnicalInfrastructureMember tags; servers, data-center equipment and network equipment per the note”
+Company-specific tag: goog:TechnicalInfrastructureMember · not every extracted year
+	—		—	
+Approve
+Reject
+Choose another
+
+	Microsoft MSFT	
+Buildings and improvements
+	Building and building improvements Proposed
+“the note's own category name”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	Microsoft MSFT	
+Computer equipment and software
+	Technology equipment Proposed
+“the note's own category name: computer equipment and software, the line Microsoft renamed in fiscal 2025”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	Microsoft MSFT	
+Furniture and equipment
+	Furniture and fixtures Proposed
+“the note's own category name”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	Microsoft MSFT	
+Land
+	Land Proposed
+“the note's own category name”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	Microsoft MSFT	
+Leasehold improvements
+	Leasehold improvements Proposed
+“the note's own category name”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	Microsoft MSFT	
+Servers, network equipment, and software
+	Technology equipment Proposed
+“the note's own category name from fiscal 2025: servers, network equipment, and software”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	Nvidia NVDA	
+Buildings, leasehold improvements, and furniture
+	Building and building improvements Proposed
+“the note's own category name”
+Company-specific tag: nvda:BuildingsLeaseholdImprovementsAndFurnitureMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Nvidia NVDA	
+Equipment, compute hardware, and software
+	Technology equipment Proposed
+“the note's own category name: equipment, compute hardware, and software”
+Company-specific tag: nvda:EquipmentComputeHardwareAndSoftwareMember
+	—		—	
+Approve
+Reject
+Choose another
+
+	Amazon AMZN	
+Construction in progress
+	Construction in progress Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Amazon AMZN	
+Heavy equipment
+	Machinery and equipment Matches company’s own tag
+“the FY2025 10-K's category: heavy equipment (fulfillment and transportation)”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Amazon AMZN	
+Land and buildings
+	Land and building Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Construction in Progress
+	Construction in progress Matches company’s own tag
+“the note's own category name (FY2022 and FY2023 capitalisation)”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Construction in progress
+	Construction in progress Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Land
+	Land Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Land Improvements
+	Land improvements Matches company’s own tag
+“the note's own category name (FY2022 and FY2023 capitalisation)”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Land improvements
+	Land improvements Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Leasehold improvements
+	Leasehold improvements Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Other Equipment and Fixtures
+	Furniture and fixtures Matches company’s own tag
+“the note's own category name (FY2021 to FY2023 capitalisation)”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Applied Digital APLD	
+Other equipment and fixtures
+	Furniture and fixtures Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Alphabet GOOGL	
+Construction in progress
+	Construction in progress Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Alphabet GOOGL	
+Furniture and fixtures
+	Furniture and fixtures Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Alphabet GOOGL	
+Information technology assets
+	Technology equipment Matches company’s own tag
+“the note's category through FY2023: information technology assets (servers and network equipment), renamed Technical infrastructure in the FY2024 10-K”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Alphabet GOOGL	
+Land and buildings
+	Land and building Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Alphabet GOOGL	
+Leasehold improvements
+	Leasehold improvements Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Nvidia NVDA	
+Construction in process
+	Construction in progress Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another
+
+	Nvidia NVDA	
+Land
+	Land Matches company’s own tag
+“the note's own category name”
+Same as proposed
+	—		—	
+Approve
+Reject
+Choose another

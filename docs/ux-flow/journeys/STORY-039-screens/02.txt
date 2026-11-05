@@ -1,0 +1,133 @@
+Skip to content
+Kenny's Data Emporium
+Proof
+Rules
+Reconcile
+Dataset
+Explore
+Release
+Known gaps
+Docs
+Signer 
+6 companies · Data as of Nov 1, 2026
+Kenny's Data Emporium, Release
+Release
+v1.9.0 · Compared with v1.8.0 · 6 companies · 10 of 13 required checks pass
+Sign v1.9.0
+3 required checks failing
+State	Check	Count	Required	Details	FIX IN
+Pass	All filings read	0	Required	
+Every filing ended in a valid output or a logged failure, and no failure is open
+	Proof
+Pass	Every block has a decision	0	Required	
+No block exception without a current decision
+	Reconcile
+Pass	Values confirmed on filing	0	Required	
+Every value XBRL can't vouch for, plus a random sample of those it can, confirmed on the filing at the value being released: by the re-read of the rendered 10-K, or by the hand-check file (golden/stage<N>-handcheck.json) where the re-read did not confirm the cell
+	Proof
+Fail	Proposed	29	Required	
+No decision left by a run for a person to confirm (decisions/resolutions.jsonl, 'to confirm'), and no asset-type mapping without a person's confirmed_by (taxonomy/asset_types.yaml, T63)
+	Reconcile
+
+Proposed
+KEY	STATE	REASON	LINK
+asset_types|AMD|Building and leasehold improvements	to confirm	BuildingAndBuildingImprovementsMember proposed by Claude Fable 5.1	reconcile?scope=AMD&cause=asset_types
+asset_types|AMD|Construction in progress	to confirm	ConstructionInProgressMember proposed by Claude Fable 5.1	reconcile?scope=AMD&cause=asset_types
+asset_types|AMD|Equipment	to confirm	MachineryAndEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=AMD&cause=asset_types
+asset_types|AMD|Land	to confirm	LandMember proposed by Claude Fable 5.1	reconcile?scope=AMD&cause=asset_types
+asset_types|AMD|Land, building and leasehold improvements	to confirm	LandAndBuildingMember proposed by Claude Fable 5.1	reconcile?scope=AMD&cause=asset_types
+asset_types|AMZN|Equipment	to confirm	MachineryAndEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=AMZN&cause=asset_types
+asset_types|AMZN|Other assets	to confirm	PropertyPlantAndEquipmentOtherTypesMember proposed by Claude Fable 5.1	reconcile?scope=AMZN&cause=asset_types
+asset_types|AMZN|Other equipment	to confirm	OtherMachineryAndEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=AMZN&cause=asset_types
+asset_types|AMZN|Servers and networking equipment	to confirm	TechnologyEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=AMZN&cause=asset_types
+asset_types|APLD|Building	to confirm	BuildingAndBuildingImprovementsMember proposed by Claude Fable 5.1	reconcile?scope=APLD&cause=asset_types
+asset_types|APLD|Building improvements	to confirm	BuildingAndBuildingImprovementsMember proposed by Claude Fable 5.1	reconcile?scope=APLD&cause=asset_types
+asset_types|APLD|Electric Generation and Transformers	to confirm	ElectricGenerationEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=APLD&cause=asset_types
+asset_types|APLD|Electric generation and transformers	to confirm	ElectricGenerationEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=APLD&cause=asset_types
+asset_types|APLD|Electrical infrastructure	to confirm	ElectricGenerationEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=APLD&cause=asset_types
+asset_types|APLD|Information Systems and Software	to confirm	TechnologyEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=APLD&cause=asset_types
+asset_types|APLD|Mechanical infrastructure	to confirm	MachineryAndEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=APLD&cause=asset_types
+asset_types|APLD|Networking equipment, electrical equipment, and software	to confirm	TechnologyEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=APLD&cause=asset_types
+asset_types|GOOGL|Add: assets not yet in service	to confirm	ConstructionInProgressMember proposed by Claude Fable 5.1	reconcile?scope=GOOGL&cause=asset_types
+asset_types|GOOGL|Corporate and other assets	to confirm	PropertyPlantAndEquipmentOtherTypesMember proposed by Claude Fable 5.1	reconcile?scope=GOOGL&cause=asset_types
+asset_types|GOOGL|Office space	to confirm	BuildingAndBuildingImprovementsMember proposed by Claude Fable 5.1	reconcile?scope=GOOGL&cause=asset_types
+asset_types|GOOGL|Technical infrastructure	to confirm	TechnologyEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=GOOGL&cause=asset_types
+asset_types|MSFT|Buildings and improvements	to confirm	BuildingAndBuildingImprovementsMember proposed by Claude Fable 5.1	reconcile?scope=MSFT&cause=asset_types
+asset_types|MSFT|Computer equipment and software	to confirm	TechnologyEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=MSFT&cause=asset_types
+asset_types|MSFT|Furniture and equipment	to confirm	FurnitureAndFixturesMember proposed by Claude Fable 5.1	reconcile?scope=MSFT&cause=asset_types
+asset_types|MSFT|Land	to confirm	LandMember proposed by Claude Fable 5.1	reconcile?scope=MSFT&cause=asset_types
+asset_types|MSFT|Leasehold improvements	to confirm	LeaseholdImprovementsMember proposed by Claude Fable 5.1	reconcile?scope=MSFT&cause=asset_types
+asset_types|MSFT|Servers, network equipment, and software	to confirm	TechnologyEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=MSFT&cause=asset_types
+asset_types|NVDA|Buildings, leasehold improvements, and furniture	to confirm	BuildingAndBuildingImprovementsMember proposed by Claude Fable 5.1	reconcile?scope=NVDA&cause=asset_types
+asset_types|NVDA|Equipment, compute hardware, and software	to confirm	TechnologyEquipmentMember proposed by Claude Fable 5.1	reconcile?scope=NVDA&cause=asset_types
+
+Fail	Needs review	16	Required	
+Neither verified nor explained, nothing proposed
+	Reconcile
+Pass	Blocks release	0	Required	
+A block rule or a decision refuses the release
+	Reconcile
+Pass	Answer-key values missing from the dataset	0	Required	
+company, field and year (from its first 10-K) where XBRL holds a value and the release ships none, with no open item, no person's resolution and no person's review decision on it; a company with no XBRL answer loaded counts once
+	Reconcile
+Info	Rows with no value	118	Optional	
+kept with value empty and has_value false; a project without an amount, a statement in words
+	Dataset
+Info	Rows changed since v1.8.0	174	Optional	
+added + removed + changed across the lists; DIFF.md carries the same table and examples
+	Dataset
+Info	Limitations with no mitigation	2	Optional	
+entries of taxonomy/limitations.yaml whose mitigation is none; LIMITATIONS.md in the packet lists every entry
+	Release
+Pass	Claims register: every shown claim has a row	0	Required	
+scanned 13 pages and 5 other files, 119 strings; 50 claims; append-only checked against 9 commits
+	Known gaps
+Pass	Claims doc current	0	Required	
+docs/CLAIMS.md equals the register as it is now
+	Known gaps
+Info	Known gaps: 0 stub · 3 stale · 37 open findings	40	Optional	
+proven 6 · partial 38 · stale 3 · stub 0 · planned 3 · open findings 37; LIMITATIONS.md lists the stub, stale and planned claims
+	Known gaps
+Fail	Golden test	1	Required	
+tables equal; gold unverified 1 of 120: give the verdicts on Proof; 2026-11-03T21:12:16+00:00
+	Proof
+Pass	Test run	0	Required	
+725 tests, 0 failing, golden ok, 2026-11-03T21:16:44+00:00, on 8199d4e
+	Proof
+Pass	Previous releases readable	0	Required	
+diffed against v1.8.0
+	Release
+Pass	Packet v1.9.0	11	Required	
+built in memory, not written; 81 values, 617 taxonomy rows
+	Dataset
+Release checks by company
+COMPANY	G1	G4	G5	G6	RESULT
+MSFT	·	·	·	6	Fail
+GOOGL	·	·	·	4	Fail
+AMZN	·	·	·	4	Fail
+NVDA	·	·	·	2	Fail
+APLD	·	·	·	8	Fail
+AMD	·	·	·	5	Fail
+Packet v1.9.0
+Fingerprint 5c50eaf3
+FILE	ROWS	BYTES
+DIFF.md	—	5,641
+LIMITATIONS.md	—	8,108
+QUALITY.md	—	3,997
+README.md	—	21,982
+ai_spend.csv	71	18,036
+companies.csv	6	622
+facts.csv	327	48,239
+projects.csv	182	90,297
+statements.csv	227	94,916
+taxonomy.csv	617	349,958
+values.csv	81	30,925
+Changes since v1.8.0
+LIST	ROWS	ADDED	REMOVED	CHANGED	COLUMNS
+taxonomy.csv	617	0	0	164	+1
+values.csv	81	10	0	0	+4
+facts.csv	327	0	0	0	+1
+statements.csv	227	0	0	0	—
+projects.csv	182	0	0	0	—
+companies.csv	6	0	0	0	—
+ai_spend.csv	71	0	0	0	—

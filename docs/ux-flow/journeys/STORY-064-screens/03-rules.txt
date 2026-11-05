@@ -1,0 +1,292 @@
+Skip to content
+Kenny's Data Emporium
+Proof
+Rules
+Reconcile
+Dataset
+Explore
+Release
+Known gaps
+Docs
+Signer 
+6 companies · Data as of Nov 1, 2026
+Kenny's Data Emporium, Rules
+Rules
+Agents · 5
+Reader
+Reads each 10-K's income statement and cash-flow statement and returns revenue, cost of revenue (or its cost lines), operating income and capex for every year shown, each pointing at the cell it came from.
+Model claude-opus-5-5
+Prompt statements@v2
+Charter
+
+The statement reader. One call per 10-K filing, `ledger extract --run`; the stage is Values on the Proof board (ledger/checks/proof.py, `stages["values"]`).
+
+Full charter
+Score
+OUTPUTS · STATEMENT FIGURES
+Checked 80 · Unverified 1 · To review 0 · Blocks release 0 (of 81)
+SEC XBRL MATCH
+Matches SEC XBRL 80 of 81 · 98.8% (95% CI 93.3–99.8%)
+PLANTED ERRORS
+Caught 1,712 of 1,837 · Missed 1 · No effect 124 · Without the SEC XBRL check: caught 1,705, missed 8
+Planted errors by kind
+Runs per company
+COMPANY	DOCUMENTS	CALLS	INPUT TOKENS	OUTPUT TOKENS	TIME (S)	ATTEMPTS	FAILED
+MSFT	5	2	11,892	2,531	19	2	0
+GOOGL	4	4	23,755	5,261	38	4	0
+AMZN	4	4	25,077	5,507	51	4	0
+NVDA	5	2	12,001	3,078	22	2	0
+APLD	5	2	12,835	2,545	21	2	0
+AMD	5	5	32,379	7,743	65	5	0
+All 6	28	19	117,939	26,665	216	19	0
+Prompt and model history
+Versions: v1, v2
+WHEN	BY	CHANGE
+Oct 28, 2026	Kenny Geiler	statements@v1: first prompt (from git history)
+Oct 28, 2026	Kenny Geiler	statements@v2: cost lines when there is no total cost of revenue (from git history)
+Oct 28, 2026	Kenny Geiler	model claude-opus-5-5 pinned for headless runs (from git history)
+AI spend reader
+Reads the MD&A passages of each 10-K that mention AI next to capital or operating spending and returns every statement of how much goes to AI: a dollar amount, a share, or words only, each a verbatim quote.
+Model claude-opus-5-5
+Prompt aispend@v4
+Charter
+
+The reader of what a company says about AI's part of its spending. One call per gathered text, `ledger aispend --run`; the stage is Statements on the Proof board (ledger/checks/proof.py `stages["statements"]`), and its outlook statements feed the planned rows of the taxonomy.
+
+Full charter
+Score
+OUTPUTS · AI DISCLOSURES
+Checked 188 · Unverified 39 · To review 0 · Blocks release 0 (of 227)
+SEC XBRL MATCH
+No SEC XBRL counterpart
+PLANTED ERRORS
+Not measured
+Runs per company
+COMPANY	DOCUMENTS	CALLS	INPUT TOKENS	OUTPUT TOKENS	TIME (S)	ATTEMPTS	FAILED
+MSFT	31	31	106,524	18,959	183	20	0
+GOOGL	31	31	148,422	25,966	263	28	0
+AMZN	28	28	117,693	13,817	147	21	0
+NVDA	34	34	231,835	40,020	373	34	0
+APLD	32	32	176,163	30,049	288	29	0
+AMD	30	30	289,101	34,755	330	30	0
+All 6	186	186	1,069,738	163,566	1,584	162	0
+Prompt and model history
+Versions: v1, v2, v3, v4
+WHEN	BY	CHANGE
+Oct 29, 2026	Kenny Geiler	aispend@v1: first prompt
+Oct 29, 2026	Kenny Geiler	aispend@v2 saved, not in use: a sentence with no year gives fiscal_year null; code assigns the filing's year
+Oct 29, 2026	Kenny Geiler	switched to aispend@v2
+Oct 29, 2026	Kenny Geiler	aispend@v3 saved, not in use: actual means spent; expected or guided is an outlook even for the current year
+Oct 29, 2026	Kenny Geiler	switched to aispend@v3
+Oct 30, 2026	Kenny Geiler	switched to aispend@v4
+Notes reader
+Reads each 10-K's segment, property-and-equipment, lease and commitments tables and returns capex and revenue per segment, PP&E by category, finance lease liabilities and purchase commitments, each pointing at the cell it came from.
+Model claude-opus-5-5
+Prompt notes@v3
+Charter
+
+The note-table reader. One call per 10-K filing, `ledger notes --run`; the stages are Facts and Mapping on the Proof board (ledger/checks/proof.py `stages["facts"]`, `stages["mapping"]`).
+
+Full charter
+Score
+OUTPUTS · NOTE FIGURES
+Checked 300 · Unverified 25 · To review 16 · Blocks release 0 (of 341)
+SEC XBRL MATCH
+Matches SEC XBRL 204 of 209 · 97.6% (95% CI 94.5–99.0%)
+PLANTED ERRORS
+Not measured
+Runs per company
+COMPANY	DOCUMENTS	CALLS	INPUT TOKENS	OUTPUT TOKENS	TIME (S)	ATTEMPTS	FAILED
+MSFT	5	5	35,729	15,262	106	5	0
+GOOGL	4	4	25,782	11,908	85	4	0
+AMZN	4	4	35,174	12,378	90	4	0
+NVDA	5	5	32,686	18,986	129	5	0
+APLD	5	5	95,179	32,999	230	9	0
+AMD	5	5	125,720	140,474	885	5	0
+All 6	28	28	350,270	232,007	1,524	32	0
+Prompt and model history
+Versions: v1, v2, v3
+WHEN	BY	CHANGE
+Oct 29, 2026	Kenny Geiler	notes@v1: first prompt
+Oct 29, 2026	Kenny Geiler	notes@v2 saved, not in use: column labels are the whole listed string, ' | ' parts included
+Oct 29, 2026	Kenny Geiler	switched to notes@v2
+Oct 30, 2026	Kenny Geiler	switched to notes@v3
+Projects reader
+Reads the passages of each text that name a project with a size and returns every named project the company is building, buying or contracting for the AI buildout: kind, stage, size, dates, counterparty, each a verbatim quote.
+Model claude-opus-5-5
+Prompt projects@v1
+Charter
+
+The named-project reader. One call per gathered text, `ledger projects --run`; its rows are the `project` category of the Planned stage on the Proof board (ledger/checks/proof.py `stages["planned"]`, ledger/release/taxonomy.py).
+
+Full charter
+Score
+OUTPUTS · GUIDANCE AND PROJECTS
+Checked 135 · Unverified 0 · To review 0 · Blocks release 0 (of 135)
+SEC XBRL MATCH
+No SEC XBRL counterpart
+PLANTED ERRORS
+Not measured
+Runs per company
+COMPANY	DOCUMENTS	CALLS	INPUT TOKENS	OUTPUT TOKENS	TIME (S)	ATTEMPTS	FAILED
+MSFT	26	26	127,055	1,402	82	26	0
+GOOGL	27	27	107,930	2,120	102	22	0
+AMZN	24	24	119,751	5,156	114	24	0
+NVDA	29	29	143,569	8,536	152	28	0
+APLD	27	27	178,358	52,455	416	24	0
+AMD	25	25	180,554	8,902	164	25	0
+All 6	158	158	857,217	78,571	1,031	149	0
+Prompt and model history
+Versions: v1
+WHEN	BY	CHANGE
+Oct 30, 2026	Kenny Geiler	projects@v1: first version, project-level investment (docs/THESIS.md)
+Mapper
+For a company's reported PP&E categories with no entry in taxonomy/asset_types.yaml, proposes the nearest us-gaap PropertyPlantAndEquipmentByTypeAxis member with the note's own words as evidence and a confidence; a person approves, edits or rejects each on Reconcile.
+Model claude-opus-5-5
+Prompt mapper@v1
+Charter
+
+The mapping assistant (docs/TICKETS.md T33). One call per company, `ledger mapper <TICKER>`; the stage is Mapping on the Proof board (ledger/checks/proof.py `stages["mapping"]`), where every reported PP&E category is mapped to a us-gaap member or open.
+
+Full charter
+Runs per company
+COMPANY	DOCUMENTS	CALLS	INPUT TOKENS	OUTPUT TOKENS	TIME (S)	ATTEMPTS	FAILED
+MSFT	0	0	0	0	0	0	0
+GOOGL	0	0	0	0	0	0	0
+AMZN	0	0	0	0	0	0	0
+NVDA	0	0	0	0	0	0	0
+APLD	0	0	0	0	0	0	0
+AMD	0	0	0	0	0	0	0
+All 6	0	0	0	0	0	0	0
+Prompt and model history
+Versions: v1
+WHEN	BY	CHANGE
+Nov 1, 2026	Claude Fable 5.1	mapper@v1: first prompt (T33, the mapping assistant)
+Rules
+KIND	RULE	DESCRIPTION	SEVERITY	HITS	FAILURE TYPE
+Rule	citation resolves	Every agent value cites a table, row, column and cell that exist in the parsed filing, and the cell × unit (with the field's sign rule) equals the value.	block	0	
+Rule	column matches period	The cited column's label agrees with the period the value claims (end date or year, and length).	block	0	
+Rule	cost lines summed	When a company reports no total cost-of-revenue line, the cost lines an agent classified as cost of revenue were added up; the rule lists them.	block	0	
+Rule	coverage	Every released field has a value (or a stated reason) for every fiscal year in the window. A year after the newest 10-K is not missing until that year's 10-K is due (90 days after the year ends).	warn	0	
+Rule	definition note	The line read for a field says it covers more (or less) than the field's definition.	info	2	
+Rule	fact readings differ	A note figure the SEC does not tag, printed by two or more 10-Ks (the next 10-K repeats the year as its comparative column), reads the same in each, within half a rounding unit.	warn	2	
+Rule	jump	A field does not move more than 3× from one fiscal year to the next.	warn	5	
+Rule	no 10k yet	Names the years no 10-K can show, and any company with no 10-K at all, so a gap is never silent.	info	0	
+Rule	outlier vs own history	Capex ÷ revenue stays within 2× of the company's own median for the window.	warn	3	
+Rule	period length	Each value read from a 10-K covers one fiscal year.	block	0	
+Rule	ppe categories tie	The PP&E categories one 10-K prints for a balance date sum to the gross PP&E the same filing tags in XBRL (us-gaap PropertyPlantAndEquipmentGross), within (n + 1) × half the coarsest rounding unit on the sum (n parts and the total each rounded once). It bounds the sum, never a single part; groups of fewer than two parts, a part labelled as a total, or all zeros are not judged.	warn	1	
+Rule	restated	The same field and period read from two filings gives two different values.	info	10	
+Rule	row label switch	The row a field is read from has the same label in every filing for a company.	warn	6	
+Rule	segment basis mixed	A segment series (revenue or capex by segment) takes every release year from filings on the same side of the company's latest re-segmentation. A re-segmentation is read from the filings only - a later 10-K prints segment names the earlier one did not (or drops some), or restates two or more segments of a year while their total holds (amounts moved between segments). A single figure printed differently with the same segments and a changed total is a correction, not a re-segmentation, and does not fire.	warn	0	
+Rule	segment capex tie	The segment capex one 10-K prints for a fiscal year sums to the capex the same filing tags in XBRL (the first of the us-gaap capex concepts it tags), within (n + 1) × half the coarsest rounding unit on the sum (n parts and the total each rounded once). It bounds the sum, never a single part; groups of fewer than two parts, a part labelled as a total, or all zeros are not judged.	warn	6	
+Rule	segment revenue tie	The segment revenues one 10-K prints for a fiscal year sum to the total revenue the same filing tags in XBRL (the largest of the us-gaap revenue concepts, as the reference does), within (n + 1) × half the coarsest rounding unit on the sum (n parts and the total each rounded once). It bounds the sum, never a single part; groups of fewer than two parts, a part labelled as a total, or all zeros are not judged.	warn	7	
+Rule	sign	Revenue, capex and opex are never negative.	block	0	
+Rule	statement tables distinct	In every 10-K the located income statement is a different table from the located cash-flow statement, and it has a revenue-like row (total revenues, net sales).	block	0	
+Rule	statement tie	In each income statement: revenue − cost of revenue − total operating expenses = operating income, in every column.	block	0	
+Rule	unit from document	The unit (thousands, millions) was not stated with the table and was taken from elsewhere in the same filing.	warn	0	
+Rule	xbrl reconcile	The value matches XBRL within the coarser rounding of the two sources.	block	0	
+Guard	part year	a stated amount that covers a quarter, a half or N months is tagged part-year, never a year's figure	—	40	#68
+Guard	program words	an outlook statement with program words (joint venture, once completed, through 20XX) is tagged program, not a year's guidance	—	0	#69
+Guard	asset type mapping	every reported PP&E category maps to a us-gaap asset-type member with the note's words as evidence and a person's confirmed_by (T63), or is open	—	18	
+Guard	restated between filings	a cell from a later 10-K against a tag from an earlier one is a restatement	—	5	
+Guard	amendment without statements	a 10-K/A with few tables and no statement table is a Part III amendment, not a filing to locate statements in	—	1	#72
+Definition	APLD:cost lines	APLD: cost_lines (The two cost lines above gross profit.)	—	1	
+Mapping	MSFT:Computer equipment and software	MSFT: Computer equipment and software → TechnologyEquipmentMember (the note's own category name: computer equipment and software, the line Microsoft renamed in fiscal )	—	1	
+Mapping	MSFT:Servers, network equipment, and software	MSFT: Servers, network equipment, and software → TechnologyEquipmentMember (the note's own category name from fiscal 2025: servers, network equipment, and software)	—	1	
+Mapping	MSFT:Buildings and improvements	MSFT: Buildings and improvements → BuildingAndBuildingImprovementsMember (the note's own category name)	—	1	
+Mapping	MSFT:Furniture and equipment	MSFT: Furniture and equipment → FurnitureAndFixturesMember (the note's own category name)	—	1	
+Mapping	MSFT:Land	MSFT: Land → LandMember (the note's own category name)	—	1	
+Mapping	MSFT:Leasehold improvements	MSFT: Leasehold improvements → LeaseholdImprovementsMember (the note's own category name)	—	1	
+Mapping	GOOGL:Information technology assets	GOOGL: Information technology assets → TechnologyEquipmentMember (the note's category through FY2023: information technology assets (servers and network equipment), r)	—	1	
+Mapping	GOOGL:Technical infrastructure	GOOGL: Technical infrastructure → TechnologyEquipmentMember (the FY2024 10-K's category: technical infrastructure, which the filing's own extension member goog:T)	—	1	
+Mapping	GOOGL:Land and buildings	GOOGL: Land and buildings → LandAndBuildingMember (the note's own category name)	—	1	
+Mapping	GOOGL:Office space	GOOGL: Office space → BuildingAndBuildingImprovementsMember (the FY2024 10-K's category: office space (land, buildings, leasehold improvements for offices))	—	1	
+Mapping	GOOGL:Leasehold improvements	GOOGL: Leasehold improvements → LeaseholdImprovementsMember (the note's own category name)	—	1	
+Mapping	GOOGL:Furniture and fixtures	GOOGL: Furniture and fixtures → FurnitureAndFixturesMember (the note's own category name)	—	1	
+Mapping	GOOGL:Corporate and other assets	GOOGL: Corporate and other assets → PropertyPlantAndEquipmentOtherTypesMember (the FY2024 10-K's category: corporate and other assets)	—	1	
+Mapping	GOOGL:Construction in progress	GOOGL: Construction in progress → ConstructionInProgressMember (the note's own category name)	—	1	
+Mapping	GOOGL:Add: assets not yet in service	GOOGL: Add: assets not yet in service → ConstructionInProgressMember (the FY2024 10-K's line: assets not yet in service, the successor of construction in progress)	—	1	
+Mapping	AMZN:Equipment	AMZN: Equipment → MachineryAndEquipmentMember (the note's category through FY2024: equipment, which the FY2025 10-K splits into servers and network)	—	1	
+Mapping	AMZN:Servers and networking equipment	AMZN: Servers and networking equipment → TechnologyEquipmentMember (the FY2025 10-K's category: servers and networking equipment)	—	1	
+Mapping	AMZN:Heavy equipment	AMZN: Heavy equipment → MachineryAndEquipmentMember (the FY2025 10-K's category: heavy equipment (fulfillment and transportation))	—	1	
+Mapping	AMZN:Other equipment	AMZN: Other equipment → OtherMachineryAndEquipmentMember (the FY2025 10-K's category: other equipment)	—	1	
+Mapping	AMZN:Land and buildings	AMZN: Land and buildings → LandAndBuildingMember (the note's own category name)	—	1	
+Mapping	AMZN:Other assets	AMZN: Other assets → PropertyPlantAndEquipmentOtherTypesMember (the note's own category name)	—	1	
+Mapping	AMZN:Construction in progress	AMZN: Construction in progress → ConstructionInProgressMember (the note's own category name)	—	1	
+Mapping	NVDA:Equipment, compute hardware, and software	NVDA: Equipment, compute hardware, and software → TechnologyEquipmentMember (the note's own category name: equipment, compute hardware, and software)	—	1	
+Mapping	NVDA:Buildings, leasehold improvements, and furniture	NVDA: Buildings, leasehold improvements, and furniture → BuildingAndBuildingImprovementsMember (the note's own category name)	—	1	
+Mapping	NVDA:Land	NVDA: Land → LandMember (the note's own category name)	—	1	
+Mapping	NVDA:Construction in process	NVDA: Construction in process → ConstructionInProgressMember (the note's own category name)	—	1	
+Mapping	APLD:Networking equipment, electrical equipment, and software	APLD: Networking equipment, electrical equipment, and software → TechnologyEquipmentMember (the note's own category name)	—	1	
+Mapping	APLD:Information Systems and Software	APLD: Information Systems and Software → TechnologyEquipmentMember (the FY2022 and FY2023 notes' category name, the predecessor line)	—	1	
+Mapping	APLD:Electric Generation and Transformers	APLD: Electric Generation and Transformers → ElectricGenerationEquipmentMember (the note's own category name (FY2022 and FY2023 capitalisation))	—	1	
+Mapping	APLD:Electric generation and transformers	APLD: Electric generation and transformers → ElectricGenerationEquipmentMember (the note's own category name)	—	1	
+Mapping	APLD:Electrical infrastructure	APLD: Electrical infrastructure → ElectricGenerationEquipmentMember (the FY2026 note's category name)	—	1	
+Mapping	APLD:Mechanical infrastructure	APLD: Mechanical infrastructure → MachineryAndEquipmentMember (the FY2026 note's category name (cooling and mechanical plant))	—	1	
+Mapping	APLD:Building	APLD: Building → BuildingAndBuildingImprovementsMember (the note's own category name)	—	1	
+Mapping	APLD:Building improvements	APLD: Building improvements → BuildingAndBuildingImprovementsMember (the note's own category name)	—	1	
+Mapping	APLD:Land	APLD: Land → LandMember (the note's own category name)	—	1	
+Mapping	APLD:Land Improvements	APLD: Land Improvements → LandImprovementsMember (the note's own category name (FY2022 and FY2023 capitalisation))	—	1	
+Mapping	APLD:Land improvements	APLD: Land improvements → LandImprovementsMember (the note's own category name)	—	1	
+Mapping	APLD:Leasehold improvements	APLD: Leasehold improvements → LeaseholdImprovementsMember (the note's own category name)	—	1	
+Mapping	APLD:Construction in Progress	APLD: Construction in Progress → ConstructionInProgressMember (the note's own category name (FY2022 and FY2023 capitalisation))	—	1	
+Mapping	APLD:Construction in progress	APLD: Construction in progress → ConstructionInProgressMember (the note's own category name)	—	1	
+Mapping	APLD:Other Equipment and Fixtures	APLD: Other Equipment and Fixtures → FurnitureAndFixturesMember (the note's own category name (FY2021 to FY2023 capitalisation))	—	1	
+Mapping	APLD:Other equipment and fixtures	APLD: Other equipment and fixtures → FurnitureAndFixturesMember (the note's own category name)	—	1	
+Mapping	AMD:Equipment	AMD: Equipment → MachineryAndEquipmentMember (the note's own category name: equipment (test, manufacturing and computer equipment together; the no)	—	1	
+Mapping	AMD:Construction in progress	AMD: Construction in progress → ConstructionInProgressMember (the note's own category name)	—	1	
+Mapping	AMD:Land	AMD: Land → LandMember (the note's own category name (FY2022 only, before the line was combined))	—	1	
+Mapping	AMD:Building and leasehold improvements	AMD: Building and leasehold improvements → BuildingAndBuildingImprovementsMember (the note's own category name (FY2021 and FY2022))	—	1	
+Mapping	AMD:Land, building and leasehold improvements	AMD: Land, building and leasehold improvements → LandAndBuildingMember (the note's own category name from FY2022: land, building and leasehold improvements combined)	—	1	
+To review · 45
+Proposed category
+COMPANY	STAGE	ITEM	DETAIL
+MSFT	Category mapping	Buildings and improvements: BuildingAndBuildingImprovementsMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+MSFT	Category mapping	Computer equipment and software: TechnologyEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+MSFT	Category mapping	Furniture and equipment: FurnitureAndFixturesMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+MSFT	Category mapping	Land: LandMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+MSFT	Category mapping	Leasehold improvements: LeaseholdImprovementsMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+MSFT	Category mapping	Servers, network equipment, and software: TechnologyEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+GOOGL	Category mapping	Add: assets not yet in service: ConstructionInProgressMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+GOOGL	Category mapping	Corporate and other assets: PropertyPlantAndEquipmentOtherTypesMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+GOOGL	Category mapping	Office space: BuildingAndBuildingImprovementsMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+GOOGL	Category mapping	Technical infrastructure: TechnologyEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+AMZN	Category mapping	Equipment: MachineryAndEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+AMZN	Category mapping	Other assets: PropertyPlantAndEquipmentOtherTypesMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+AMZN	Category mapping	Other equipment: OtherMachineryAndEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+AMZN	Category mapping	Servers and networking equipment: TechnologyEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+NVDA	Category mapping	Buildings, leasehold improvements, and furniture: BuildingAndBuildingImprovementsMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+NVDA	Category mapping	Equipment, compute hardware, and software: TechnologyEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+APLD	Category mapping	Building: BuildingAndBuildingImprovementsMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+APLD	Category mapping	Building improvements: BuildingAndBuildingImprovementsMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+APLD	Category mapping	Electric Generation and Transformers: ElectricGenerationEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+APLD	Category mapping	Electric generation and transformers: ElectricGenerationEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+APLD	Category mapping	Electrical infrastructure: ElectricGenerationEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+APLD	Category mapping	Information Systems and Software: TechnologyEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+APLD	Category mapping	Mechanical infrastructure: MachineryAndEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+APLD	Category mapping	Networking equipment, electrical equipment, and software: TechnologyEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+AMD	Category mapping	Building and leasehold improvements: BuildingAndBuildingImprovementsMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+AMD	Category mapping	Construction in progress: ConstructionInProgressMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+AMD	Category mapping	Equipment: MachineryAndEquipmentMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+AMD	Category mapping	Land: LandMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+AMD	Category mapping	Land, building and leasehold improvements: LandAndBuildingMember, to confirm	proposed by Claude Fable 5.1; Reconcile, asset types: Approve, Edit or Reject
+Does not tie to total
+COMPANY	STAGE	ITEM	DETAIL
+GOOGL	Note figures	ppe_categories_tie: ppe_category FY2023 (0001652044-25-000014)	4 parts in 0001652044-25-000014 sum to $201,803M; the filing tags PropertyPlantAndEquipmentGross $166,667M for 2023-12-31 (gap $35,136M, tolerance on the sum ±$2.5M)
+GOOGL	Note figures	segment_revenue_tie: segment_revenue FY2020 (0001652044-23-000016)	3 parts in 0001652044-23-000016 sum to $182,351M; the filing tags RevenueFromContractWithCustomerExcludingAssessedTax $182,527M for 2020-12-31 (gap −$176M, tolerance on the sum ±$2M)
+GOOGL	Note figures	segment_revenue_tie: segment_revenue FY2021 (0001652044-24-000022)	3 parts in 0001652044-24-000022 sum to $257,488M; the filing tags RevenueFromContractWithCustomerExcludingAssessedTax $257,637M for 2021-12-31 (gap −$149M, tolerance on the sum ±$2M)
+GOOGL	Note figures	segment_revenue_tie: segment_revenue FY2022 (0001652044-25-000014)	3 parts in 0001652044-25-000014 sum to $280,876M; the filing tags RevenueFromContractWithCustomerExcludingAssessedTax $282,836M for 2022-12-31 (gap −$1,960M, tolerance on the sum ±$2M)
+GOOGL	Note figures	segment_revenue_tie: segment_revenue FY2023 (0001652044-26-000018)	3 parts in 0001652044-26-000018 sum to $307,158M; the filing tags Revenues $307,394M for 2023-12-31 (gap −$236M, tolerance on the sum ±$2M)
+GOOGL	Note figures	segment_revenue_tie: segment_revenue FY2024 (0001652044-26-000018)	3 parts in 0001652044-26-000018 sum to $349,807M; the filing tags Revenues $350,018M for 2024-12-31 (gap −$211M, tolerance on the sum ±$2M)
+GOOGL	Note figures	segment_revenue_tie: segment_revenue FY2025 (0001652044-26-000018)	3 parts in 0001652044-26-000018 sum to $402,963M; the filing tags Revenues $402,836M for 2025-12-31 (gap $127M, tolerance on the sum ±$2M)
+APLD	Note figures	segment_capex_tie: segment_capex FY2023 (0001144879-24-000216)	3 parts in 0001144879-24-000216 sum to $146.1M; the filing tags PaymentsToAcquireProductiveAssets $131.3M for 2023-05-31 (gap $14.9M, tolerance on the sum ±$2,000)
+APLD	Note figures	segment_capex_tie: segment_capex FY2023 (0001144879-25-000021)	2 parts in 0001144879-25-000021 sum to $145.8M; the filing tags PaymentsToAcquireProductiveAssets $131.3M for 2023-05-31 (gap $14.5M, tolerance on the sum ±$1,500)
+APLD	Note figures	segment_capex_tie: segment_capex FY2024 (0001144879-24-000216)	3 parts in 0001144879-24-000216 sum to $325.6M; the filing tags PaymentsToAcquireProductiveAssets $141.8M for 2024-05-31 (gap $183.8M, tolerance on the sum ±$2,000)
+APLD	Note figures	segment_capex_tie: segment_capex FY2024 (0001144879-26-000048)	2 parts in 0001144879-26-000048 sum to $245.6M; the filing tags PaymentsToAcquireProductiveAssets $141.8M for 2024-05-31 (gap $103.8M, tolerance on the sum ±$1,500)
+APLD	Note figures	segment_capex_tie: segment_capex FY2025 (0001144879-26-000048)	2 parts in 0001144879-26-000048 sum to $985.8M; the filing tags PaymentsToAcquireProductiveAssets $681.6M for 2025-05-31 (gap $304.2M, tolerance on the sum ±$1,500)
+APLD	Note figures	segment_capex_tie: segment_capex FY2026 (0001144879-26-000048)	2 parts in 0001144879-26-000048 sum to $2,989.9M; the filing tags PaymentsToAcquireProductiveAssets $2,865.8M for 2026-05-31 (gap $124.2M, tolerance on the sum ±$1,500)
+APLD	Note figures	segment_revenue_tie: segment_revenue FY2026 (0001144879-26-000048)	2 parts in 0001144879-26-000048 sum to $539.7M; the filing tags Revenues $611.3M for 2026-05-31 (gap −$71.6M, tolerance on the sum ±$1,500)
+Readings differ
+COMPANY	STAGE	ITEM	DETAIL
+APLD	Note figures	ppe_category Other equipment and fixtures FY2024: readings differ	readings differ across filings: $9.6M in 0001144879-24-000216 (filed 2024-08-30) vs $1.8M in 0001144879-25-000021 (filed 2025-07-30)
+APLD	Note figures	ppe_category Other equipment and fixtures FY2025: readings differ	readings differ across filings: $2.1M in 0001144879-25-000021 (filed 2025-07-30) vs $12.4M in 0001144879-26-000048 (filed 2026-07-29)

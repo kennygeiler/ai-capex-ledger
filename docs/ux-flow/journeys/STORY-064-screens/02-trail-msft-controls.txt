@@ -1,0 +1,477 @@
+A|Skip to content|#view|
+A|Kenny's Data Emporium|#proof|
+A|Proof|#proof|
+A|Rules|#rules|
+A|Reconcile|#reconcile|
+A|Dataset|#data|
+A|Explore|#explore|
+A|Release|#release|
+A|Known gaps|#gaps|
+A|Docs|#docs|
+A|6 companies|#data|
+A|Reconcile|#reconcile?scope=MSFT|
+A|Dataset|#data?ticker=MSFT|
+A|Review in Reconcile →|#reconcile?scope=MSFT|
+A|Through 10-K · FY ending 2026-06-30|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm|
+A|Open|/filing/0001564590-22-026876|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm|
+A|Open|/filing/0000950170-23-035122|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm|
+A|Open|/filing/0000950170-24-087843|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm|
+A|Open|/filing/0000950170-25-100235|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm|
+A|Open|/filing/0001193125-26-323660|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0027&row=Additions+to+property+and+equipment&col=2022&cell=%2823%2C886%29|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Additions%20to%20property%20and%20equipment,23%2C886|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0026&row=Additions+to+property+and+equipment&col=2023&cell=%2828%2C107%29|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Additions%20to%20property%20and%20equipment,28%2C107|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0027&row=Additions+to+property+and+equipment&col=2024&cell=%2844%2C477%29|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Additions%20to%20property%20and%20equipment,44%2C477|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0027&row=Additions+to+property+and+equipment&col=2025&cell=%2864%2C551%29|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Additions%20to%20property%20and%20equipment,64%2C551|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0027&row=Additions+to+property+and+equipment&col=2026&cell=%28115%2C948%29|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Additions%20to%20property%20and%20equipment,115%2C948|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0024&row=Total+revenue&col=2022&cell=198%2C270|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Total%20revenue,198%2C270|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0024&row=Total+cost+of+revenue&col=2022&cell=62%2C650|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Total%20cost%20of%20revenue,62%2C650|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0024&row=Operating+income&col=2022&cell=83%2C383|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Operating%20income,83%2C383|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0023&row=Total+revenue&col=2023&cell=211%2C915|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Total%20revenue,211%2C915|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0023&row=Total+cost+of+revenue&col=2023&cell=65%2C863|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Total%20cost%20of%20revenue,65%2C863|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0023&row=Operating+income&col=2023&cell=88%2C523|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Operating%20income,88%2C523|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Total+revenue&col=2024&cell=245%2C122|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20revenue,245%2C122|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Total+cost+of+revenue&col=2024&cell=74%2C114|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20cost%20of%20revenue,74%2C114|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Operating+income&col=2024&cell=109%2C433|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Operating%20income,109%2C433|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Total+revenue&col=2025&cell=281%2C724|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20revenue,281%2C724|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Total+cost+of+revenue&col=2025&cell=87%2C831|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20cost%20of%20revenue,87%2C831|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Operating+income&col=2025&cell=128%2C528|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Operating%20income,128%2C528|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Total+revenue&col=2026&cell=331%2C839|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20revenue,331%2C839|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Total+cost+of+revenue&col=2026&cell=106%2C374|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20cost%20of%20revenue,106%2C374|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Operating+income&col=2026&cell=155%2C237|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Operating%20income,155%2C237|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0024&row=Total+revenue&col=2022&cell=198%2C270|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Total%20revenue,198%2C270|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0023&row=Total+revenue&col=2023&cell=211%2C915|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Total%20revenue,211%2C915|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Total+revenue&col=2024&cell=245%2C122|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20revenue,245%2C122|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Total+revenue&col=2025&cell=281%2C724|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20revenue,281%2C724|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0024&row=Total+revenue&col=2026&cell=331%2C839|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20revenue,331%2C839|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0142&row=Purchase+commitments+%28d%29&col=Total&cell=45%2C654|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Purchase%20commitments%20%28d%29,45%2C654|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0021&row=Purchase+commitments+%28d%29&col=Total&cell=67%2C818|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Purchase%20commitments%20%28d%29,67%2C818|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0021&row=Purchase+commitments+%28d%29&col=Total&cell=72%2C022|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Purchase%20commitments%20%28d%29,72%2C022|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0020&row=Purchase+commitments+%28d%29&col=Total&cell=109%2C953|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Purchase%20commitments%20%28d%29,109%2C953|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0021&row=Purchase+commitments+%28d%29&col=Total&cell=194%2C060|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Purchase%20commitments%20%28d%29,194%2C060|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0203&row=Total+finance+lease+liabilities&col=2021&cell=12%2C541|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Total%20finance%20lease%20liabilities,12%2C541|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0203&row=Total+finance+lease+liabilities&col=2022&cell=14%2C902|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Total%20finance%20lease%20liabilities,14%2C902|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0066&row=Total+finance+lease+liabilities&col=2022&cell=14%2C902|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Total%20finance%20lease%20liabilities,14%2C902|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0066&row=Total+finance+lease+liabilities&col=2023&cell=17%2C067|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Total%20finance%20lease%20liabilities,17%2C067|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0068&row=Total+finance+lease+liabilities&col=2023&cell=17%2C067|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Total%20finance%20lease%20liabilities,17%2C067|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0068&row=Total+finance+lease+liabilities&col=2024&cell=27%2C145|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Total%20finance%20lease%20liabilities,27%2C145|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0061&row=Total+finance+lease+liabilities&col=2024&cell=27%2C145|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Total%20finance%20lease%20liabilities,27%2C145|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0061&row=Total+finance+lease+liabilities&col=2025&cell=46%2C172|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Total%20finance%20lease%20liabilities,46%2C172|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0064&row=Total+finance+lease+liabilities&col=2025&cell=46%2C172|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20finance%20lease%20liabilities,46%2C172|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0064&row=Total+finance+lease+liabilities&col=2026&cell=66%2C594|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Total%20finance%20lease%20liabilities,66%2C594|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0175&row=Buildings+and+improvements&col=2021&cell=43%2C928|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Buildings%20and%20improvements,43%2C928|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0175&row=Buildings+and+improvements&col=2022&cell=55%2C014|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Buildings%20and%20improvements,55%2C014|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0046&row=Buildings+and+improvements&col=2022&cell=55%2C014|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Buildings%20and%20improvements,55%2C014|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0046&row=Buildings+and+improvements&col=2023&cell=68%2C465|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Buildings%20and%20improvements,68%2C465|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0046&row=Buildings+and+improvements&col=2023&cell=68%2C465|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Buildings%20and%20improvements,68%2C465|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0046&row=Buildings+and+improvements&col=2024&cell=93%2C943|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Buildings%20and%20improvements,93%2C943|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0042&row=Buildings+and+improvements&col=2024&cell=93%2C943|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Buildings%20and%20improvements,93%2C943|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0042&row=Buildings+and+improvements&col=2025&cell=137%2C921|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Buildings%20and%20improvements,137%2C921|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0043&row=Buildings+and+improvements&col=2025&cell=137%2C921|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Buildings%20and%20improvements,137%2C921|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0043&row=Buildings+and+improvements&col=2026&cell=182%2C749|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Buildings%20and%20improvements,182%2C749|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0175&row=Computer+equipment+and+software&col=2021&cell=51%2C250|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Computer%20equipment%20and%20software,51%2C250|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0175&row=Computer+equipment+and+software&col=2022&cell=60%2C631|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Computer%20equipment%20and%20software,60%2C631|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0046&row=Computer+equipment+and+software&col=2022&cell=60%2C631|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Computer%20equipment%20and%20software,60%2C631|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0046&row=Computer+equipment+and+software&col=2023&cell=74%2C961|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Computer%20equipment%20and%20software,74%2C961|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0046&row=Computer+equipment+and+software&col=2023&cell=74%2C961|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Computer%20equipment%20and%20software,74%2C961|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0046&row=Computer+equipment+and+software&col=2024&cell=93%2C780|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Computer%20equipment%20and%20software,93%2C780|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0042&row=Computer+equipment+and+software&col=2024&cell=93%2C780|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Computer%20equipment%20and%20software,93%2C780|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0042&row=Computer+equipment+and+software&col=2025&cell=132%2C836|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Computer%20equipment%20and%20software,132%2C836|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0175&row=Furniture+and+equipment&col=2021&cell=5%2C344|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Furniture%20and%20equipment,5%2C344|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0175&row=Furniture+and+equipment&col=2022&cell=5%2C860|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Furniture%20and%20equipment,5%2C860|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0046&row=Furniture+and+equipment&col=2022&cell=5%2C860|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Furniture%20and%20equipment,5%2C860|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0046&row=Furniture+and+equipment&col=2023&cell=6%2C246|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Furniture%20and%20equipment,6%2C246|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0046&row=Furniture+and+equipment&col=2023&cell=6%2C246|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Furniture%20and%20equipment,6%2C246|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0046&row=Furniture+and+equipment&col=2024&cell=6%2C532|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Furniture%20and%20equipment,6%2C532|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0042&row=Furniture+and+equipment&col=2024&cell=6%2C532|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Furniture%20and%20equipment,6%2C532|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0042&row=Furniture+and+equipment&col=2025&cell=6%2C407|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Furniture%20and%20equipment,6%2C407|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0043&row=Furniture+and+equipment&col=2025&cell=6%2C407|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Furniture%20and%20equipment,6%2C407|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0043&row=Furniture+and+equipment&col=2026&cell=6%2C250|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Furniture%20and%20equipment,6%2C250|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0175&row=Land&col=2021&cell=3%2C660|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Land,3%2C660|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0175&row=Land&col=2022&cell=4%2C734|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Land,4%2C734|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0046&row=Land&col=2022&cell=4%2C734|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Land,4%2C734|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0046&row=Land&col=2023&cell=5%2C683|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Land,5%2C683|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0046&row=Land&col=2023&cell=5%2C683|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Land,5%2C683|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0046&row=Land&col=2024&cell=8%2C163|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Land,8%2C163|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0042&row=Land&col=2024&cell=8%2C163|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Land,8%2C163|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0042&row=Land&col=2025&cell=9%2C338|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Land,9%2C338|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0043&row=Land&col=2025&cell=9%2C338|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Land,9%2C338|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0043&row=Land&col=2026&cell=10%2C546|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Land,10%2C546|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0175&row=Leasehold+improvements&col=2021&cell=6%2C884|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Leasehold%20improvements,6%2C884|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0175&row=Leasehold+improvements&col=2022&cell=7%2C819|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Leasehold%20improvements,7%2C819|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0046&row=Leasehold+improvements&col=2022&cell=7%2C819|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Leasehold%20improvements,7%2C819|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0046&row=Leasehold+improvements&col=2023&cell=8%2C537|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Leasehold%20improvements,8%2C537|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0046&row=Leasehold+improvements&col=2023&cell=8%2C537|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Leasehold%20improvements,8%2C537|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0046&row=Leasehold+improvements&col=2024&cell=9%2C594|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Leasehold%20improvements,9%2C594|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0042&row=Leasehold+improvements&col=2024&cell=9%2C594|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Leasehold%20improvements,9%2C594|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0042&row=Leasehold+improvements&col=2025&cell=12%2C117|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Leasehold%20improvements,12%2C117|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0043&row=Leasehold+improvements&col=2025&cell=12%2C117|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Leasehold%20improvements,12%2C117|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0043&row=Leasehold+improvements&col=2026&cell=16%2C348|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Leasehold%20improvements,16%2C348|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0043&row=Servers%2C+network+equipment%2C+and+software&col=2025&cell=132%2C836|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Servers%2C%20network%20equipment%2C%20and%20software,132%2C836|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0043&row=Servers%2C+network+equipment%2C+and+software&col=2026&cell=215%2C874|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Servers%2C%20network%20equipment%2C%20and%20software,215%2C874|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0224&row=Intelligent+Cloud&col=2020&cell=48%2C366|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Intelligent%20Cloud,48%2C366|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0224&row=Intelligent+Cloud&col=2021&cell=60%2C080|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Intelligent%20Cloud,60%2C080|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0076&row=Intelligent+Cloud&col=2021&cell=59%2C728|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Intelligent%20Cloud,59%2C728|
+A|Compare filings|#evidence/compare?a=0001564590-22-026876%7Csegment_revenue%7CIntelligent%20Cloud%7C2021-06-30&b=0000950170-23-035122%7Csegment_revenue%7CIntelligent%20Cloud%7C2021-06-30|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0224&row=Intelligent+Cloud&col=2022&cell=75%2C251|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Intelligent%20Cloud,75%2C251|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0076&row=Intelligent+Cloud&col=2022&cell=74%2C965|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Intelligent%20Cloud,74%2C965|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0078&row=Intelligent+Cloud&col=2022&cell=74%2C965|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Intelligent%20Cloud,74%2C965|
+A|Compare filings|#evidence/compare?a=0001564590-22-026876%7Csegment_revenue%7CIntelligent%20Cloud%7C2022-06-30&b=0000950170-24-087843%7Csegment_revenue%7CIntelligent%20Cloud%7C2022-06-30|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0076&row=Intelligent+Cloud&col=2023&cell=87%2C907|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Intelligent%20Cloud,87%2C907|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0078&row=Intelligent+Cloud&col=2023&cell=87%2C907|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Intelligent%20Cloud,87%2C907|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0071&row=Revenue&col=2023&cell=72%2C944|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Revenue,72%2C944|
+A|Compare filings|#evidence/compare?a=0000950170-23-035122%7Csegment_revenue%7CIntelligent%20Cloud%7C2023-06-30&b=0000950170-25-100235%7Csegment_revenue%7CIntelligent%20Cloud%7C2023-06-30|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0078&row=Intelligent+Cloud&col=2024&cell=105%2C362|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Intelligent%20Cloud,105%2C362|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0071&row=Revenue&col=2024&cell=87%2C464|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Revenue,87%2C464|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0074&row=Revenue&col=2024&cell=87%2C464|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Revenue,87%2C464|
+A|Compare filings|#evidence/compare?a=0000950170-24-087843%7Csegment_revenue%7CIntelligent%20Cloud%7C2024-06-30&b=0001193125-26-323660%7Csegment_revenue%7CIntelligent%20Cloud%7C2024-06-30|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0071&row=Revenue&col=2025&cell=106%2C265|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Revenue,106%2C265|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0074&row=Revenue&col=2025&cell=106%2C265|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Revenue,106%2C265|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0074&row=Revenue&col=2026&cell=137%2C791|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Revenue,137%2C791|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0224&row=More+Personal+Computing&col=2020&cell=48%2C251|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=More%20Personal%20Computing,48%2C251|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0224&row=More+Personal+Computing&col=2021&cell=54%2C093|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=More%20Personal%20Computing,54%2C093|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0076&row=More+Personal+Computing&col=2021&cell=54%2C445|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=More%20Personal%20Computing,54%2C445|
+A|Compare filings|#evidence/compare?a=0001564590-22-026876%7Csegment_revenue%7CMore%20Personal%20Computing%7C2021-06-30&b=0000950170-23-035122%7Csegment_revenue%7CMore%20Personal%20Computing%7C2021-06-30|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0224&row=More+Personal+Computing&col=2022&cell=59%2C655|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=More%20Personal%20Computing,59%2C655|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0076&row=More+Personal+Computing&col=2022&cell=59%2C941|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=More%20Personal%20Computing,59%2C941|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0078&row=More+Personal+Computing&col=2022&cell=59%2C941|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=More%20Personal%20Computing,59%2C941|
+A|Compare filings|#evidence/compare?a=0001564590-22-026876%7Csegment_revenue%7CMore%20Personal%20Computing%7C2022-06-30&b=0000950170-24-087843%7Csegment_revenue%7CMore%20Personal%20Computing%7C2022-06-30|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0076&row=More+Personal+Computing&col=2023&cell=54%2C734|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=More%20Personal%20Computing,54%2C734|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0078&row=More+Personal+Computing&col=2023&cell=54%2C734|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=More%20Personal%20Computing,54%2C734|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0071&row=Revenue&col=2023&cell=44%2C820|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Revenue,44%2C820|
+A|Compare filings|#evidence/compare?a=0000950170-23-035122%7Csegment_revenue%7CMore%20Personal%20Computing%7C2023-06-30&b=0000950170-25-100235%7Csegment_revenue%7CMore%20Personal%20Computing%7C2023-06-30|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0078&row=More+Personal+Computing&col=2024&cell=62%2C032|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=More%20Personal%20Computing,62%2C032|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0071&row=Revenue&col=2024&cell=50%2C838|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Revenue,50%2C838|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0074&row=Revenue&col=2024&cell=50%2C838|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Revenue,50%2C838|
+A|Compare filings|#evidence/compare?a=0000950170-24-087843%7Csegment_revenue%7CMore%20Personal%20Computing%7C2024-06-30&b=0001193125-26-323660%7Csegment_revenue%7CMore%20Personal%20Computing%7C2024-06-30|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0071&row=Revenue&col=2025&cell=54%2C649|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Revenue,54%2C649|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0074&row=Revenue&col=2025&cell=54%2C649|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Revenue,54%2C649|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0074&row=Revenue&col=2026&cell=54%2C052|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Revenue,54%2C052|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0224&row=Productivity+and+Business+Processes&col=2020&cell=46%2C398|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Productivity%20and%20Business%20Processes,46%2C398|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0224&row=Productivity+and+Business+Processes&col=2021&cell=53%2C915|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Productivity%20and%20Business%20Processes,53%2C915|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0076&row=Productivity+and+Business+Processes&col=2021&cell=53%2C915|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Productivity%20and%20Business%20Processes,53%2C915|
+BUTTON|||
+A|Open|/filing/0001564590-22-026876?t=t0224&row=Productivity+and+Business+Processes&col=2022&cell=63%2C364|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000156459022026876/msft-10k_20220630.htm#:~:text=Productivity%20and%20Business%20Processes,63%2C364|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0076&row=Productivity+and+Business+Processes&col=2022&cell=63%2C364|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Productivity%20and%20Business%20Processes,63%2C364|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0078&row=Productivity+and+Business+Processes&col=2022&cell=63%2C364|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Productivity%20and%20Business%20Processes,63%2C364|
+BUTTON|||
+A|Open|/filing/0000950170-23-035122?t=t0076&row=Productivity+and+Business+Processes&col=2023&cell=69%2C274|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=Productivity%20and%20Business%20Processes,69%2C274|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0078&row=Productivity+and+Business+Processes&col=2023&cell=69%2C274|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Productivity%20and%20Business%20Processes,69%2C274|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0071&row=Revenue&col=2023&cell=94%2C151|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Revenue,94%2C151|
+A|Compare filings|#evidence/compare?a=0000950170-23-035122%7Csegment_revenue%7CProductivity%20and%20Business%20Processes%7C2023-06-30&b=0000950170-25-100235%7Csegment_revenue%7CProductivity%20and%20Business%20Processes%7C2023-06-30|
+BUTTON|||
+A|Open|/filing/0000950170-24-087843?t=t0078&row=Productivity+and+Business+Processes&col=2024&cell=77%2C728|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=Productivity%20and%20Business%20Processes,77%2C728|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0071&row=Revenue&col=2024&cell=106%2C820|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Revenue,106%2C820|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0074&row=Revenue&col=2024&cell=106%2C820|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Revenue,106%2C820|
+A|Compare filings|#evidence/compare?a=0000950170-24-087843%7Csegment_revenue%7CProductivity%20and%20Business%20Processes%7C2024-06-30&b=0001193125-26-323660%7Csegment_revenue%7CProductivity%20and%20Business%20Processes%7C2024-06-30|
+BUTTON|||
+A|Open|/filing/0000950170-25-100235?t=t0071&row=Revenue&col=2025&cell=120%2C810|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Revenue,120%2C810|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0074&row=Revenue&col=2025&cell=120%2C810|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Revenue,120%2C810|
+BUTTON|||
+A|Open|/filing/0001193125-26-323660?t=t0074&row=Revenue&col=2026&cell=139%2C996|
+A|sec.gov ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Revenue,139%2C996|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025010484/#:~:text=Already%2C%20our%20AI%20business%20has%20surpassed%20an%20annual|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025010484/#:~:text=We%20remain%20committed%20to%20balancing%20operational%20discipline%20with|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/#:~:text=It%E2%80%99s%20why%20we%20continue%20to%20increase%20our%20investments|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/#:~:text=It%E2%80%99s%20why%20we%20continue%20to%20increase%20our%20investments|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526027198/#:~:text=We%20are%20only%20at%20the%20beginning%20phases%20of|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526191457/#:~:text=Our%20AI%20business%20surpassed%20an%20annual%20revenue%20run|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=We%20expect%20capital%20expenditures%20to%20increase%20in%20coming|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017023035122/msft-20230630.htm#:~:text=The%20investments%20we%20are%20making%20in%20cloud%20and|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=We%20expect%20capital%20expenditures%20to%20increase%20in%20coming|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017024087843/msft-20240630.htm#:~:text=The%20investments%20we%20are%20making%20in%20cloud%20and|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=The%20investments%20we%20are%20making%20in%20cloud%20and|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Operating%20expenses%20increased%20%243.8%20billion%20or%206%25%20driven|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Operating%20expenses%20increased%20%241.1%20billion%20or%204%25%20driven|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Operating%20expenses%20increased%20%241.5%20billion%20or%207%25%20driven|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Research%20and%20development%20expenses%20increased%20%243.0%20billion%20or|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=We%20will%20continue%20to%20invest%20in%20capital%20expenditures|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=The%20investments%20we%20are%20making%20in%20cloud%20and|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Operating%20expenses%20increased%20%244.9%20billion%20or%207%25%20driven|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Cost%20of%20revenue%20increased%20%242.6%20billion%20or%2012%25|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Operating%20expenses%20increased%20%242.5%20billion%20or%209%25%20driven|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Cost%20of%20revenue%20increased%20%2417.7%20billion%20or%2044%25|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Operating%20expenses%20increased%20%241.4%20billion%20or%207%25%20driven|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Operating%20expenses%20increased%20%24940%20million%20or%206%25%20driven|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Research%20and%20development%20expenses%20increased%20%243.1%20billion%20or|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=We%20will%20continue%20to%20invest%20in%20capital%20expenditures|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Buildings%20and%20improvements,182%2C749|
+A|Decide in Reconcile →|#reconcile?scope=MSFT&cause=asset_types|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm#:~:text=Computer%20equipment%20and%20software,132%2C836|
+A|Decide in Reconcile →|#reconcile?scope=MSFT&cause=asset_types|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Furniture%20and%20equipment,6%2C250|
+A|Decide in Reconcile →|#reconcile?scope=MSFT&cause=asset_types|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Land,10%2C546|
+A|Decide in Reconcile →|#reconcile?scope=MSFT&cause=asset_types|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Leasehold%20improvements,16%2C348|
+A|Decide in Reconcile →|#reconcile?scope=MSFT&cause=asset_types|
+A|Open ↗|https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm#:~:text=Servers%2C%20network%20equipment%2C%20and%20software,215%2C874|
+A|Decide in Reconcile →|#reconcile?scope=MSFT&cause=asset_types|

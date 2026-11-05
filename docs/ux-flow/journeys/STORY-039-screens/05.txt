@@ -1,0 +1,125 @@
+Skip to content
+Kenny's Data Emporium
+Proof
+Rules
+Reconcile
+Dataset
+Explore
+Release
+Known gaps
+Docs
+Signer 
+6 companies · Data as of Nov 1, 2026
+Kenny's Data Emporium, Reconcile
+Reconcile
+Needs review 0Proposed 5Last run Nov 1, 2026Last release v1.8.0Keyboard
+All companies
+Chip design
+AMD (AMD)
+Grouped by cause
+Grouped by company
+Every cause
+Category mapping
+Every industry
+Chip design
+Every field
+Show 0 settled
+Category mapping
+5 proposed · 0 unmapped · 0 differ from company tag · 0 match company tag
+SELECT
+	COMPANY	ITEM	DATASET	SEC XBRL	GAP	DIFFERENCE	DECISION
+	AMD AMD	
+Building and leasehold improvements
+	Building and building improvements Proposed
+“the note's own category name (FY2021 and FY2022)”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	AMD AMD	
+Construction in progress
+	Construction in progress Proposed
+“the note's own category name”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+
+Construction in progress
+To confirm
+COMPANY LINE
+$508M FY2025Open ↗
+FY2021 $96M · FY2022 $143M · FY2023 $209M · FY2024 $324M · FY2025 $508M
+PROPOSED
+Construction in Progress ConstructionInProgressMember
+Structure or a modification to a structure under construction. Includes recently completed structures or modifications to structures that have not been placed into service.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0000002488-26-000018 · 2025-12-27
+BASIS
+“the note's own category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+None
+AFFECTS
+5 figures · $508M FY2025
+Approve
+Technology Equipment
+Computer Equipment
+Software and Software Development Costs
+Land
+Land and Building
+Building and Building Improvements
+Leasehold Improvements
+Furniture and Fixtures
+Machinery and Equipment
+Land Improvements
+Electric Generation Equipment
+Other Machinery and Equipment
+Property, Plant and Equipment, Other Types
+Building
+Building Improvements
+Equipment
+Other Capitalized Property Plant and Equipment
+Choose another
+Reject
+Note wording
+
+Note text unavailable
+
+Company trail
+
+	AMD AMD	
+Equipment
+	Machinery and equipment Proposed
+“the note's own category name: equipment (test, manufacturing and computer equipment together; the note does not split them)”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	AMD AMD	
+Land
+	Land Proposed
+“the note's own category name (FY2022 only, before the line was combined)”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another
+
+	AMD AMD	
+Land, building and leasehold improvements
+	Land and building Proposed
+“the note's own category name from FY2022: land, building and leasehold improvements combined”
+Not tagged
+	—		—	
+Approve
+Reject
+Choose another

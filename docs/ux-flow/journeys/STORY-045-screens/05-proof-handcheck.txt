@@ -1,0 +1,19 @@
+Hand check
+20 items per company · random sample · Unchecked never passes
+No SEC counterpart: 36 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–9.6%)
+Definition differs: 0 right · 0 wrong · 0 can’t say · 1 unchecked
+Calculated: 19 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–16.8%)
+Matches SEC XBRL: 64 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–5.7%)
+All: 119 right · 0 wrong · 0 can’t say · 1 unchecked · error rate 0.0% (95% CI 0.0–3.1%)
+AMD
+20/20
+AMZN
+20/20
+APLD
+19/20
+GOOGL
+20/20
+MSFT
+20/20
+NVDA
+20/20

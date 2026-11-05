@@ -1,0 +1,315 @@
+Skip to content
+Kenny's Data Emporium
+Proof
+Rules
+Reconcile
+Dataset
+Explore
+Release
+Known gaps
+Docs
+Signer 
+6 companies · Data as of Nov 1, 2026
+Kenny's Data Emporium, Company trail APLD
+Applied Digital
+APLD
+● Verified SEC XBRL or the quoted source● Corroborated ties to totals or confirmed in 2 filings● Matches company tag● Done● Unverified citation only● Proposed● Needs review open item● Blocks release
+17 to reviewReconcileDataset
+Before release
+As of 5 Nov 2026, 04:45 UTC
+Review in Reconcile →
+COVERAGE
+Through 10-K · FY ending 2026-05-31
+Filed 2026-07-29
+Next 10-K expected ~2027-07-29
+SEC checked 7d ago · out of date
+VERIFICATION
+Figures
+87
+Match SEC XBRL
+65
+Tie to totals
+7
+Confirmed in 2 filings
+6
+Citation only
+7
+To review
+17
+Quotes verified
+129
+LAST RELEASE
+v1.8.0
+Signed 2026-11-01 · Kenny Geiler
+CHANGES SINCE RELEASE
+None
+Filings
+5 items · Complete
+ITEM	VALUE	SOURCE	VERIFICATION
+● 10-K · FY ending 2022-05-31	—	
+10-K filed 2022-08-29 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2023-05-31	—	
+10-K filed 2023-08-02 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2024-05-31	—	
+10-K filed 2024-08-30 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2025-05-31	—	
+10-K filed 2025-07-30 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2026-05-31	—	
+10-K filed 2026-07-29 · Open · sec.gov ↗
+	
+Done · Statements located
+Statement figures
+23 items · Complete
+21 verified · 2 unverified
+Note figures
+71 items · 9 to review
+ITEM	VALUE	SOURCE	VERIFICATION
+● PP&E by category · Other equipment and fixtures · FY2024	$1.8M	
+Superseded
+10-K 2024-08-30 · Open · sec.gov ↗
+10-K 2025-07-30 · Open · sec.gov ↗
+	
+Needs review · Readings differ: $9.6M → $1.8M
+Restated: 9,552 (10-K 2024-08-30) → 1,760 (10-K 2025-07-30) · dataset uses 1,760 (10-K 2025-07-30)
+Compare filings
+
+● PP&E by category · Other equipment and fixtures · FY2025	$12.4M	
+Superseded
+10-K 2025-07-30 · Open · sec.gov ↗
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Needs review · Readings differ: $2.1M → $12.4M
+Restated: 2,126 (10-K 2025-07-30) → 12,447 (10-K 2026-07-29) · dataset uses 12,447 (10-K 2026-07-29)
+Compare filings
+
+● Segment capex · FY2023 · Parts vs total	—	
+10-K 2024-08-30 · Open · sec.gov ↗
+	
+Needs review · Does not tie · gap $14.9M
+
+● Segment capex · FY2023 · Parts vs total	—	
+10-K 2025-07-30 · Open · sec.gov ↗
+	
+Needs review · Does not tie · gap $14.5M
+
+● Segment capex · FY2024 · Parts vs total	—	
+10-K 2024-08-30 · Open · sec.gov ↗
+	
+Needs review · Does not tie · gap $183.8M
+
+● Segment capex · FY2024 · Parts vs total	—	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Needs review · Does not tie · gap $103.8M
+
+● Segment capex · FY2025 · Parts vs total	—	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Needs review · Does not tie · gap $304.2M
+
+● Segment capex · FY2026 · Parts vs total	—	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Needs review · Does not tie · gap $124.2M
+
+● Segment revenue · FY2026 · Parts vs total	—	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Needs review · Does not tie · gap $71.6M
+39 verified · 13 corroborated · 5 match company tag · 5 unverified
+AI disclosures
+35 items · Complete
+20 verified · 15 unverified
+Category mapping
+16 items · 8 to review
+Building
+To confirm
+COMPANY LINE
+$279.3M FY2026Open ↗
+FY2022 $30.2M · FY2023 $63.4M · FY2024 $104.0M · FY2025 $109.7M · FY2026 $279.3M
+PROPOSED
+Building and Building Improvements BuildingAndBuildingImprovementsMember
+Facility held for productive use including, but not limited to, office, production, storage and distribution facilities and any addition, improvement, or renovation to the structure, for example, but not limited to, interior masonry, interior flooring, electrical, and plumbing.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Differs: Building (BuildingMember)
+Facility held for productive use including, but not limited to, office, production, storage and distribution facilities.
+XBRL instance 0001144879-26-000048 · 2026-05-31
+BASIS
+“the note's own category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Building · BuildingMember · Company's own tag
+Land and Building · LandAndBuildingMember · Shares words: building
+Building Improvements · BuildingImprovementsMember · Shares words: building
+AFFECTS
+5 figures · $279.3M FY2026
+Decide in Reconcile →
+Building improvements
+To confirm
+COMPANY LINE
+$682.3M FY2026Open ↗
+FY2026 $682.3M
+PROPOSED
+Building and Building Improvements BuildingAndBuildingImprovementsMember
+Facility held for productive use including, but not limited to, office, production, storage and distribution facilities and any addition, improvement, or renovation to the structure, for example, but not limited to, interior masonry, interior flooring, electrical, and plumbing.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Differs: Building Improvements (BuildingImprovementsMember)
+Addition, improvement, or renovation to a facility held for productive use including, but not limited to, office, production, storage and distribution facilities.
+XBRL instance 0001144879-26-000048 · 2026-05-31
+BASIS
+“the note's own category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Building Improvements · BuildingImprovementsMember · Company's own tag
+Building · BuildingMember · Shares words: building
+Land and Building · LandAndBuildingMember · Shares words: building
+AFFECTS
+1 figure · $682.3M FY2026
+Decide in Reconcile →
+Electric Generation and Transformers
+To confirm
+COMPANY LINE
+$4.7M FY2023Open ↗
+FY2022 $4.3M · FY2023 $4.7M
+PROPOSED
+Electric Generation Equipment ElectricGenerationEquipmentMember
+Equipment used for the primary purpose of generating electricity to be distributed to the consumer.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Company-specific tag: apld:ElectricGenerationAndTransformersMember
+XBRL instance 0001144879-23-000176 · 2023-05-31
+BASIS
+“the note's own category name (FY2022 and FY2023 capitalisation)”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+None
+AFFECTS
+2 figures · $4.7M FY2023
+Decide in Reconcile →
+Electric generation and transformers
+To confirm
+COMPANY LINE
+$188.1M FY2026Open ↗
+FY2023 $4.7M · FY2024 $9.9M · FY2025 $9.9M · FY2026 $188.1M
+PROPOSED
+Electric Generation Equipment ElectricGenerationEquipmentMember
+Equipment used for the primary purpose of generating electricity to be distributed to the consumer.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Company-specific tag: apld:ElectricGenerationAndTransformersMember
+XBRL instance 0001144879-26-000048 · 2026-05-31
+BASIS
+“the note's own category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+None
+AFFECTS
+4 figures · $188.1M FY2026
+Decide in Reconcile →
+Electrical infrastructure
+To confirm
+COMPANY LINE
+$104.5M FY2026Open ↗
+FY2026 $104.5M
+PROPOSED
+Electric Generation Equipment ElectricGenerationEquipmentMember
+Equipment used for the primary purpose of generating electricity to be distributed to the consumer.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Company-specific tag: apld:ElectricalInfrastructureMember
+XBRL instance 0001144879-26-000048 · 2026-05-31
+BASIS
+“the FY2026 note's category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+None
+AFFECTS
+1 figure · $104.5M FY2026
+Decide in Reconcile →
+Information Systems and Software
+To confirm
+COMPANY LINE
+$21.2M FY2023Open ↗
+FY2022 $9.6M · FY2023 $21.2M
+PROPOSED
+Technology Equipment TechnologyEquipmentMember
+Equipment used in the creation, maintenance and utilization of information systems which include computers and peripherals.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Differs: Software and Software Development Costs (SoftwareAndSoftwareDevelopmentCostsMember)
+Purchased software applications and internally developed software for sale, licensing or long-term internal use.
+XBRL instance 0001144879-23-000176 · 2023-05-31
+BASIS
+“the FY2022 and FY2023 notes' category name, the predecessor line”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Software and Software Development Costs · SoftwareAndSoftwareDevelopmentCostsMember · Company's own tag
+AFFECTS
+2 figures · $21.2M FY2023
+Decide in Reconcile →
+Mechanical infrastructure
+To confirm
+COMPANY LINE
+$71.9M FY2026Open ↗
+FY2026 $71.9M
+PROPOSED
+Machinery and Equipment MachineryAndEquipmentMember
+Tangible personal property used to produce goods and services, including, but is not limited to, tools, dies and molds, computer and office equipment.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Company-specific tag: apld:MechanicalInfrastructureMember
+XBRL instance 0001144879-26-000048 · 2026-05-31
+BASIS
+“the FY2026 note's category name (cooling and mechanical plant)”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+None
+AFFECTS
+1 figure · $71.9M FY2026
+Decide in Reconcile →
+Networking equipment, electrical equipment, and software
+To confirm
+COMPANY LINE
+$38.7M FY2026Open ↗
+FY2023 $21.2M · FY2024 $32.2M · FY2025 $33.6M · FY2026 $38.7M
+PROPOSED
+Technology Equipment TechnologyEquipmentMember
+Equipment used in the creation, maintenance and utilization of information systems which include computers and peripherals.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Differs: Software and Software Development Costs (SoftwareAndSoftwareDevelopmentCostsMember)
+Purchased software applications and internally developed software for sale, licensing or long-term internal use.
+XBRL instance 0001144879-26-000048 · 2026-05-31
+BASIS
+“the note's own category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Software and Software Development Costs · SoftwareAndSoftwareDevelopmentCostsMember · Company's own tag
+Equipment · EquipmentMember · Shares words: equipment
+Computer Equipment · ComputerEquipmentMember · Shares words: equipment
+AFFECTS
+4 figures · $38.7M FY2026
+Decide in Reconcile →
+8 match company tag
+Guidance and projects
+109 items · Complete
+109 verified
+Release
+1 item · Complete
+ITEM	VALUE	SOURCE	VERIFICATION
+● Release gate	—	—	
+Done · No blocking items

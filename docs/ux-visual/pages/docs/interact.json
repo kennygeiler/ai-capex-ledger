@@ -1,0 +1,285 @@
+{
+ "focusOrder": [
+  {
+   "tag": "A",
+   "t": "How it works",
+   "href": "#docs/overview",
+   "x": 156,
+   "y": 134,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Operating guide",
+   "href": "#docs/operations",
+   "x": 156,
+   "y": 169,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Glossary",
+   "href": "#docs/glossary",
+   "x": 156,
+   "y": 205,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Map",
+   "href": "#docs/map",
+   "x": 156,
+   "y": 240,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "States",
+   "href": "#docs/states",
+   "x": 156,
+   "y": 275,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Rules and checks",
+   "href": "#docs/rules",
+   "x": 156,
+   "y": 310,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Evaluation",
+   "href": "#docs/evals",
+   "x": 156,
+   "y": 345,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Known limitations",
+   "href": "#docs/claims",
+   "x": 156,
+   "y": 380,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Handoff",
+   "href": "#docs/handoff",
+   "x": 156,
+   "y": 416,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "a",
+   "t": "FilingsEDGAR, XBRL",
+   "href": "#proof",
+   "x": 386,
+   "y": 274,
+   "outline": "auto 5px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "a",
+   "t": "Readheadless agents",
+   "href": "#rules",
+   "x": 551,
+   "y": 274,
+   "outline": "auto 5px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "a",
+   "t": "Checkcitations, rules, keys",
+   "href": "#proof",
+   "x": 716,
+   "y": 274,
+   "outline": "auto 5px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "a",
+   "t": "Reviewopen items only",
+   "href": "#reconcile",
+   "x": 881,
+   "y": 274,
+   "outline": "auto 5px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "a",
+   "t": "Releasesigned packet",
+   "href": "#release",
+   "x": 1046,
+   "y": 274,
+   "outline": "auto 5px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "a",
+   "t": "DatabasePostgres, read API",
+   "href": "#data",
+   "x": 1211,
+   "y": 274,
+   "outline": "auto 5px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Map",
+   "href": "#docs/map",
+   "x": 1303,
+   "y": 368,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Proof",
+   "href": "#proof",
+   "x": 1155,
+   "y": 400,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "ledger/ingest/",
+   "href": "https://github.com/kennygeiler/ai-capex-ledger/blob/main/ledger/ingest",
+   "x": 1239,
+   "y": 400,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Rules",
+   "href": "#rules",
+   "x": 1155,
+   "y": 479,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "ledger/extract/",
+   "href": "https://github.com/kennygeiler/ai-capex-ledger/blob/main/ledger/extract",
+   "x": 1239,
+   "y": 479,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Proof",
+   "href": "#proof",
+   "x": 1155,
+   "y": 559,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "ledger/checks/",
+   "href": "https://github.com/kennygeiler/ai-capex-ledger/blob/main/ledger/checks",
+   "x": 1239,
+   "y": 559,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Reconcile",
+   "href": "#reconcile",
+   "x": 1155,
+   "y": 660,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "ledger/review/",
+   "href": "https://github.com/kennygeiler/ai-capex-ledger/blob/main/ledger/review",
+   "x": 1239,
+   "y": 660,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Release",
+   "href": "#release",
+   "x": 1155,
+   "y": 740,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "ledger/release/",
+   "href": "https://github.com/kennygeiler/ai-capex-ledger/blob/main/ledger/release",
+   "x": 1239,
+   "y": 740,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "Dataset",
+   "href": "#data",
+   "x": 1155,
+   "y": 819,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "ledger/release/",
+   "href": "https://github.com/kennygeiler/ai-capex-ledger/blob/main/ledger/release",
+   "x": 1239,
+   "y": 819,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "ledger/web/",
+   "href": "https://github.com/kennygeiler/ai-capex-ledger/blob/main/ledger/web",
+   "x": 1239,
+   "y": 842,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  },
+  {
+   "tag": "A",
+   "t": "the state machines",
+   "href": "#docs/states",
+   "x": 821,
+   "y": 1217,
+   "outline": "auto 1px rgb(0, 95, 204)",
+   "shadow": "none"
+  }
+ ],
+ "handoffScrolledSide": {
+  "top": -3865.71875,
+  "bottom": -3551.5625
+ },
+ "opsScrollBefore": 1920,
+ "afterSideClickScroll": 0,
+ "afterBackScroll": 0,
+ "narrow": {
+  "sw": 505,
+  "vw": 390
+ }
+}

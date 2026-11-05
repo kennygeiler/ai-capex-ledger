@@ -1,0 +1,29 @@
+A|Skip to content|#view|
+A|Kenny's Data Emporium|#proof|
+A|Proof|#proof|
+A|Rules|#rules|
+A|Reconcile|#reconcile|
+A|Dataset|#data|
+A|Explore|#explore|
+A|Release|#release|
+A|Known gaps|#gaps|
+A|Docs|#docs|
+A|6 companies|#data|
+A|New|#explore|
+A|Capex by layer, by year
+taxonomy · capex, fiscal year by lay|#explore/capex-by-group|
+A|Technology equipment, gross balance by company
+taxonomy · pp|#explore/technology-equipment-gross|
+A|What companies state about AI, in dollars
+taxonomy · company|#explore/company-stated-ai|
+A|Committed: purchase obligations and finance leases
+taxonomy |#explore/committed|
+A|JSON|/api/v1/taxonomy?|
+A|CSV|/api/v1/taxonomy?&format=csv|
+BUTTON|Save as view||
+A|||
+A|||
+A|||
+A|||
+A|||
+BUTTON|Show rows||

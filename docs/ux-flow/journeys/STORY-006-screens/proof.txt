@@ -1,0 +1,500 @@
+Skip to content
+Kenny's Data Emporium
+Proof
+Rules
+Reconcile
+Dataset
+Explore
+Release
+Known gaps
+Docs
+Signer 
+6 companies · Data as of Nov 1, 2026
+Kenny's Data Emporium, Proof
+Proof
+0 of 6 proven
+Tables unchanged · Nov 3, 2026
+Hand check: 119 of 120 checked
+COMPANY	FILINGS	STATEMENT FIGURES	NOTE FIGURES	AI DISCLOSURES	CATEGORY MAPPING	GUIDANCE AND PROJECTS	RELEASE	
+
+Microsoft MSFT
+Hyperscaler
+	0 · 5 · 0 · 0	15 · 0 · 0	58 · 5 · 0	25 · 0 · 0	0 · 0 · 6	0 · 0 · 0	0 · 1 · 0 · 0	6 to review
+
+Alphabet GOOGL
+Hyperscaler
+	0 · 4 · 0 · 0	12 · 0 · 0	38 · 10 · 7	30 · 0 · 0	5 · 0 · 4	6 · 0 · 0	0 · 1 · 0 · 0	11 to review
+
+Amazon AMZN
+Hyperscaler
+	0 · 4 · 0 · 0	12 · 0 · 0	42 · 5 · 0	10 · 0 · 0	3 · 0 · 4	9 · 0 · 0	0 · 1 · 0 · 0	4 to review
+
+Nvidia NVDA
+Chip design
+	0 · 5 · 0 · 0	18 · 0 · 0	61 · 0 · 0	53 · 18 · 0	2 · 0 · 2	9 · 0 · 0	0 · 1 · 0 · 0	2 to review
+
+Applied Digital APLD
+Miner to HPC
+	0 · 5 · 0 · 0	21 · 2 · 0	57 · 5 · 9	20 · 15 · 0	8 · 0 · 8	109 · 0 · 0	0 · 1 · 0 · 0	17 to review
+
+AMD AMD
+Chip design
+	0 · 4 · 1 · 0	15 · 0 · 0	44 · 0 · 0	50 · 6 · 0	0 · 0 · 5	11 · 1 · 0	0 · 1 · 0 · 0	5 to review
+
+● Checked · ● Located/Done · ● Unverified · ● To review
+
+Verification source
+Strongest first
+COMPANY	SEC XBRL	OTHER COMPANY DOCUMENT	TIES TO TOTAL	LATER ACTUAL	LATER FILING	CITATION ONLY	ROWS
+MSFT	42	0	31	0	0	42	115
+GOOGL	50	0	0	0	5	62	117
+AMZN	31	0	22	0	4	33	90
+NVDA	81	0	0	0	0	88	169
+APLD	73	0	7	0	6	174	260
+AMD	38	0	21	0	0	79	138
+All	315	0	81	0	15	478	889
+Failure types
+72 known failure types · bars count types, not occurrences
+Types per cause class
+27 of 72
+11 of 72
+10 of 72
+7 of 72
+6 of 72
+6 of 72
+5 of 72
+0
+20
+40
+60
+pipeline  
+units  
+document error  
+agent misread  
+locator  
+period  
+scope  
+number of types, of 72
+Types per cause class
+CAUSE CLASS	TYPES	SHARE
+scope	27 of 72	38%
+period	11 of 72	15%
+locator	10 of 72	14%
+agent misread	7 of 72	9.7%
+document error	6 of 72	8.3%
+units	6 of 72	8.3%
+pipeline	5 of 72	6.9%
+All	72 of 72	100%
+Types per check
+45 of 72
+4 of 72
+4 of 72
+3 of 72
+3 of 72
+3 of 72
+2 of 72
+1 of 72
+1 of 72
+1 of 72
+1 of 72
+1 of 72
+1 of 72
+1 of 72
+1 of 72
+0
+20
+40
+60
+statement_tie  
+sign  
+restated  
+program_words  
+definition_note  
+cost_lines_summed  
+column_matches_period  
+amendment_without_statements  
+part_year  
+no_10k_yet  
+coverage  
+citation_resolves  
+xbrl_reconcile  
+period_length  
+No check  
+number of types, of 72
+Types per check
+CHECK	TYPES	SHARE
+No check	45 of 72	63%
+period_length	4 of 72	5.6%
+xbrl_reconcile	4 of 72	5.6%
+citation_resolves	3 of 72	4.2%
+coverage	3 of 72	4.2%
+no_10k_yet	3 of 72	4.2%
+part_year	2 of 72	2.8%
+amendment_without_statements	1 of 72	1.4%
+column_matches_period	1 of 72	1.4%
+cost_lines_summed	1 of 72	1.4%
+definition_note	1 of 72	1.4%
+program_words	1 of 72	1.4%
+restated	1 of 72	1.4%
+sign	1 of 72	1.4%
+statement_tie	1 of 72	1.4%
+All	72 of 72	100%
+
+No automated check: 45 of 72
+
+All 72 types
+Releases
+Next release
+VERSION	SIGNED	VALUES	TO REVIEW AT SIGNING	UNMAPPED AT SIGNING	COMPANIES	PACKET
+v1.8.0	Kenny Geiler, Nov 1, 2026	71	0	0	6: MSFT, GOOGL, AMZN, NVDA, APLD, AMD	Download
+v1.7.0	Kenny Geiler, Oct 31, 2026	1,076	—	—	—	Download
+v1.6.0	Kenny Geiler, Oct 30, 2026	1,076	—	—	—	Download
+v1.5.0	Kenny Geiler, Oct 30, 2026	1,076	—	—	—	Download
+v1.4.0	Kenny Geiler, Oct 29, 2026	384	—	—	—	Download
+v1.3.0	Kenny Geiler, Oct 29, 2026	384	—	—	—	Download
+Regression test
+Tables unchanged · Nov 3, 4:12 PM · Hand check: 119 of 120 checked
+Hand check
+20 items per company · random sample · Unchecked never passes
+No SEC counterpart: 36 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–9.6%)
+Definition differs: 0 right · 0 wrong · 0 can’t say · 1 unchecked
+Calculated: 19 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–16.8%)
+Matches SEC XBRL: 64 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–5.7%)
+All: 119 right · 0 wrong · 0 can’t say · 1 unchecked · error rate 0.0% (95% CI 0.0–3.1%)
+AMD
+20/20
+AMZN
+20/20
+APLD
+19/20
+GOOGL
+20/20
+MSFT
+20/20
+NVDA
+20/20
+APLD · 20 items
+19 right · 0 wrong · 0 can’t say · 1 unchecked · error rate 0.0% (95% CI 0.0–16.8%)
+ITEM	VALUE	SOURCE	CHECK
+No SEC counterpart6 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–39.0%)
+
+Segment capex · Data Center Hosting Business · FY2025
+Note figure · Not in SEC XBRL
+	
+9,320
+In thousands · $9,320,000
+	
+10-K 2025-07-30 · Open · sec.gov ↗
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+PP&E by category · Other equipment and fixtures · FY2023
+Note figure · Not in SEC XBRL
+	
+1,684
+In thousands · $1,684,000
+	
+10-K 2024-08-30 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Segment revenue · Cloud Services Business · FY2024
+Note figure · Not in SEC XBRL
+	
+28,957
+In thousands · $28,957,000
+	
+10-K 2024-08-30 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Segment capex · Data Center Hosting Business · FY2026
+Note figure · Not in SEC XBRL
+	
+1,234
+In thousands · $1,234,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+PP&E by category · Other Equipment and Fixtures · FY2021
+Note figure · Not in SEC XBRL
+	
+21
+In thousands · $21,000
+	
+10-K 2022-08-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+PP&E by category · Information Systems and Software · FY2022
+Note figure · Not in SEC XBRL
+	
+9,608
+In thousands · $9,608,000
+	
+10-K 2022-08-29 · Open · sec.gov ↗
+10-K 2023-08-02 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+Definition differs0 right · 0 wrong · 0 can’t say · 1 unchecked
+
+Opex · FY2026
+Statement figure · SEC XBRL $450,915,000
+	
+$394,144,000
+	
+Calculated: revenue − cost of revenue − operating income = $394.1M
+$611.3M − ($56.8M + $396.9M) − (−$236.5M) = $394.1M
+Filing’s own total: No total to compare
+SEC XBRL: $450.9M · differs by $56.8M · Data center rental and other cost of revenue line
+Revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Operating income
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Unchecked
+
+Calculated3 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–56.1%)
+
+Opex · FY2023
+Statement figure · SEC XBRL $53,915,000
+	
+$53,915,000
+	
+Calculated: revenue − cost of revenue − operating income = $53.9M
+$55.4M − $44.4M − (−$42.9M) = $53.9M
+Filing’s own total: No total to compare
+SEC XBRL: $53.9M · matches
+Revenue
+10-K 2025-07-30 · Open · sec.gov ↗
+Cost of revenue
+10-K 2025-07-30 · Open · sec.gov ↗
+Operating income
+10-K 2025-07-30 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Opex · FY2022
+Statement figure · SEC XBRL $19,941,000
+	
+$19,941,000
+	
+Calculated: revenue − cost of revenue − operating income = $19.9M
+$8.5M − $9.5M − (−$20.9M) = $19.9M
+Filing’s own total: No total to compare
+SEC XBRL: $19.9M · matches
+Revenue
+10-K 2023-08-02 · Open · sec.gov ↗
+Cost of revenue
+10-K 2023-08-02 · Open · sec.gov ↗
+Operating income
+10-K 2023-08-02 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Opex · FY2025
+Statement figure · SEC XBRL $83,985,000
+	
+$83,985,000
+	
+Calculated: revenue − cost of revenue − operating income = $84.0M
+$228.6M − ($0 + $216.8M) − (−$72.2M) = $84.0M
+Filing’s own total: No total to compare
+SEC XBRL: $84.0M · matches
+Revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Operating income
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+Matches SEC XBRL10 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–27.8%)
+
+Revenue · FY2024
+Statement figure · SEC XBRL $165,575,000
+	
+165,575
+In thousands · $165,575,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Capex · FY2022
+Statement figure · SEC XBRL $54,974,000
+	
+54,974
+In thousands · $54,974,000
+	
+10-K 2023-08-02 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Revenue · FY2023
+Statement figure · SEC XBRL $55,392,000
+	
+55,392
+In thousands · $55,392,000
+	
+10-K 2025-07-30 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Capex · FY2025
+Statement figure · SEC XBRL $681,603,000
+	
+681,603
+In thousands · $681,603,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Revenue · FY2026
+Statement figure · SEC XBRL $611,311,000
+	
+611,311
+In thousands · $611,311,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Capex · FY2024
+Statement figure · SEC XBRL $141,809,000
+	
+141,809
+In thousands · $141,809,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+PP&E by category · Building · FY2026
+Note figure · SEC XBRL $279,308,000
+	
+279,308
+In thousands · $279,308,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Segment revenue · Data Center Hosting Business · FY2025
+Note figure · SEC XBRL $144,193,000
+	
+144,193
+In thousands · $144,193,000
+	
+10-K 2025-07-30 · Open · sec.gov ↗
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Finance lease liabilities · FY2022
+Note figure · SEC XBRL $5,187,000
+	
+5,187
+In thousands · $5,187,000
+	
+10-K 2022-08-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+PP&E by category · Land improvements · FY2023
+Note figure · SEC XBRL $1,293,000
+	
+1,293
+In thousands · $1,293,000
+	
+10-K 2024-08-30 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026

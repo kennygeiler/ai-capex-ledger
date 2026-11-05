@@ -1,0 +1,37 @@
+A|Skip to content|#view|
+A|Kenny's Data Emporium|#proof|
+A|Proof|#proof|
+A|Rules|#rules|
+A|Reconcile|#reconcile|
+A|Dataset|#data|
+A|Explore|#explore|
+A|Release|#release|
+A|Known gaps|#gaps|
+A|Docs|#docs|
+A|6 companies|#data|
+A|Hand check: 119 of 120 checked|#gold|
+A|Microsoft|#proof/MSFT|
+A|Alphabet|#proof/GOOGL|
+A|Amazon|#proof/AMZN|
+A|Nvidia|#proof/NVDA|
+A|Applied Digital|#proof/APLD|
+A|AMD|#proof/AMD|
+A|Next release|#release|
+A|Download|/packet/v1.8.0.zip|
+A|Download|/packet/v1.7.0.zip|
+A|Download|/packet/v1.6.0.zip|
+A|Download|/packet/v1.5.0.zip|
+A|Download|/packet/v1.4.0.zip|
+A|Download|/packet/v1.3.0.zip|
+BUTTON|AMD
+20/20||
+BUTTON|AMZN
+20/20||
+BUTTON|APLD
+19/20||
+BUTTON|GOOGL
+20/20||
+BUTTON|MSFT
+20/20||
+BUTTON|NVDA
+20/20||

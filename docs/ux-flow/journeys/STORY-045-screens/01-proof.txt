@@ -1,0 +1,156 @@
+Skip to content
+Kenny's Data Emporium
+Proof
+Rules
+Reconcile
+Dataset
+Explore
+Release
+Known gaps
+Docs
+Signer 
+6 companies · Data as of Nov 1, 2026
+Kenny's Data Emporium, Proof
+Proof
+0 of 6 proven
+Tables unchanged · Nov 3, 2026
+Hand check: 119 of 120 checked
+COMPANY	FILINGS	STATEMENT FIGURES	NOTE FIGURES	AI DISCLOSURES	CATEGORY MAPPING	GUIDANCE AND PROJECTS	RELEASE	
+
+Microsoft MSFT
+Hyperscaler
+	0 · 5 · 0 · 0	15 · 0 · 0	58 · 5 · 0	25 · 0 · 0	0 · 0 · 6	0 · 0 · 0	0 · 1 · 0 · 0	6 to review
+
+Alphabet GOOGL
+Hyperscaler
+	0 · 4 · 0 · 0	12 · 0 · 0	38 · 10 · 7	30 · 0 · 0	5 · 0 · 4	6 · 0 · 0	0 · 1 · 0 · 0	11 to review
+
+Amazon AMZN
+Hyperscaler
+	0 · 4 · 0 · 0	12 · 0 · 0	42 · 5 · 0	10 · 0 · 0	3 · 0 · 4	9 · 0 · 0	0 · 1 · 0 · 0	4 to review
+
+Nvidia NVDA
+Chip design
+	0 · 5 · 0 · 0	18 · 0 · 0	61 · 0 · 0	53 · 18 · 0	2 · 0 · 2	9 · 0 · 0	0 · 1 · 0 · 0	2 to review
+
+Applied Digital APLD
+Miner to HPC
+	0 · 5 · 0 · 0	21 · 2 · 0	57 · 5 · 9	20 · 15 · 0	8 · 0 · 8	109 · 0 · 0	0 · 1 · 0 · 0	17 to review
+
+AMD AMD
+Chip design
+	0 · 4 · 1 · 0	15 · 0 · 0	44 · 0 · 0	50 · 6 · 0	0 · 0 · 5	11 · 1 · 0	0 · 1 · 0 · 0	5 to review
+
+● Checked · ● Located/Done · ● Unverified · ● To review
+
+Verification source
+Strongest first
+COMPANY	SEC XBRL	OTHER COMPANY DOCUMENT	TIES TO TOTAL	LATER ACTUAL	LATER FILING	CITATION ONLY	ROWS
+MSFT	42	0	31	0	0	42	115
+GOOGL	50	0	0	0	5	62	117
+AMZN	31	0	22	0	4	33	90
+NVDA	81	0	0	0	0	88	169
+APLD	73	0	7	0	6	174	260
+AMD	38	0	21	0	0	79	138
+All	315	0	81	0	15	478	889
+Failure types
+72 known failure types · bars count types, not occurrences
+Types per cause class
+27 of 72
+11 of 72
+10 of 72
+7 of 72
+6 of 72
+6 of 72
+5 of 72
+0
+20
+40
+60
+pipeline  
+units  
+document error  
+agent misread  
+locator  
+period  
+scope  
+number of types, of 72
+Types per cause class
+CAUSE CLASS	TYPES	SHARE
+scope	27 of 72	38%
+period	11 of 72	15%
+locator	10 of 72	14%
+agent misread	7 of 72	9.7%
+document error	6 of 72	8.3%
+units	6 of 72	8.3%
+pipeline	5 of 72	6.9%
+All	72 of 72	100%
+Types per check
+45 of 72
+4 of 72
+4 of 72
+3 of 72
+3 of 72
+3 of 72
+2 of 72
+1 of 72
+1 of 72
+1 of 72
+1 of 72
+1 of 72
+1 of 72
+1 of 72
+1 of 72
+0
+20
+40
+60
+statement_tie  
+sign  
+restated  
+program_words  
+definition_note  
+cost_lines_summed  
+column_matches_period  
+amendment_without_statements  
+part_year  
+no_10k_yet  
+coverage  
+citation_resolves  
+xbrl_reconcile  
+period_length  
+No check  
+number of types, of 72
+Types per check
+CHECK	TYPES	SHARE
+No check	45 of 72	63%
+period_length	4 of 72	5.6%
+xbrl_reconcile	4 of 72	5.6%
+citation_resolves	3 of 72	4.2%
+coverage	3 of 72	4.2%
+no_10k_yet	3 of 72	4.2%
+part_year	2 of 72	2.8%
+amendment_without_statements	1 of 72	1.4%
+column_matches_period	1 of 72	1.4%
+cost_lines_summed	1 of 72	1.4%
+definition_note	1 of 72	1.4%
+program_words	1 of 72	1.4%
+restated	1 of 72	1.4%
+sign	1 of 72	1.4%
+statement_tie	1 of 72	1.4%
+All	72 of 72	100%
+
+No automated check: 45 of 72
+
+All 72 types
+Releases
+Next release
+VERSION	SIGNED	VALUES	TO REVIEW AT SIGNING	UNMAPPED AT SIGNING	COMPANIES	PACKET
+v1.8.0	Kenny Geiler, Nov 1, 2026	71	0	0	6: MSFT, GOOGL, AMZN, NVDA, APLD, AMD	Download
+v1.7.0	Kenny Geiler, Oct 31, 2026	1,076	—	—	—	Download
+v1.6.0	Kenny Geiler, Oct 30, 2026	1,076	—	—	—	Download
+v1.5.0	Kenny Geiler, Oct 30, 2026	1,076	—	—	—	Download
+v1.4.0	Kenny Geiler, Oct 29, 2026	384	—	—	—	Download
+v1.3.0	Kenny Geiler, Oct 29, 2026	384	—	—	—	Download
+Regression test
+Tables unchanged · Nov 3, 4:12 PM · Hand check: 119 of 120 checked

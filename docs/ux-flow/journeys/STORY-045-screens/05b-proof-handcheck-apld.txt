@@ -1,0 +1,344 @@
+Hand check
+20 items per company · random sample · Unchecked never passes
+No SEC counterpart: 36 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–9.6%)
+Definition differs: 0 right · 0 wrong · 0 can’t say · 1 unchecked
+Calculated: 19 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–16.8%)
+Matches SEC XBRL: 64 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–5.7%)
+All: 119 right · 0 wrong · 0 can’t say · 1 unchecked · error rate 0.0% (95% CI 0.0–3.1%)
+AMD
+20/20
+AMZN
+20/20
+APLD
+19/20
+GOOGL
+20/20
+MSFT
+20/20
+NVDA
+20/20
+APLD · 20 items
+19 right · 0 wrong · 0 can’t say · 1 unchecked · error rate 0.0% (95% CI 0.0–16.8%)
+ITEM	VALUE	SOURCE	CHECK
+No SEC counterpart6 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–39.0%)
+
+Segment capex · Data Center Hosting Business · FY2025
+Note figure · Not in SEC XBRL
+	
+9,320
+In thousands · $9,320,000
+	
+10-K 2025-07-30 · Open · sec.gov ↗
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+PP&E by category · Other equipment and fixtures · FY2023
+Note figure · Not in SEC XBRL
+	
+1,684
+In thousands · $1,684,000
+	
+10-K 2024-08-30 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Segment revenue · Cloud Services Business · FY2024
+Note figure · Not in SEC XBRL
+	
+28,957
+In thousands · $28,957,000
+	
+10-K 2024-08-30 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Segment capex · Data Center Hosting Business · FY2026
+Note figure · Not in SEC XBRL
+	
+1,234
+In thousands · $1,234,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+PP&E by category · Other Equipment and Fixtures · FY2021
+Note figure · Not in SEC XBRL
+	
+21
+In thousands · $21,000
+	
+10-K 2022-08-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+PP&E by category · Information Systems and Software · FY2022
+Note figure · Not in SEC XBRL
+	
+9,608
+In thousands · $9,608,000
+	
+10-K 2022-08-29 · Open · sec.gov ↗
+10-K 2023-08-02 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+Definition differs0 right · 0 wrong · 0 can’t say · 1 unchecked
+
+Opex · FY2026
+Statement figure · SEC XBRL $450,915,000
+	
+$394,144,000
+	
+Calculated: revenue − cost of revenue − operating income = $394.1M
+$611.3M − ($56.8M + $396.9M) − (−$236.5M) = $394.1M
+Filing’s own total: No total to compare
+SEC XBRL: $450.9M · differs by $56.8M · Data center rental and other cost of revenue line
+Revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Operating income
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Unchecked
+
+Calculated3 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–56.1%)
+
+Opex · FY2023
+Statement figure · SEC XBRL $53,915,000
+	
+$53,915,000
+	
+Calculated: revenue − cost of revenue − operating income = $53.9M
+$55.4M − $44.4M − (−$42.9M) = $53.9M
+Filing’s own total: No total to compare
+SEC XBRL: $53.9M · matches
+Revenue
+10-K 2025-07-30 · Open · sec.gov ↗
+Cost of revenue
+10-K 2025-07-30 · Open · sec.gov ↗
+Operating income
+10-K 2025-07-30 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Opex · FY2022
+Statement figure · SEC XBRL $19,941,000
+	
+$19,941,000
+	
+Calculated: revenue − cost of revenue − operating income = $19.9M
+$8.5M − $9.5M − (−$20.9M) = $19.9M
+Filing’s own total: No total to compare
+SEC XBRL: $19.9M · matches
+Revenue
+10-K 2023-08-02 · Open · sec.gov ↗
+Cost of revenue
+10-K 2023-08-02 · Open · sec.gov ↗
+Operating income
+10-K 2023-08-02 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Opex · FY2025
+Statement figure · SEC XBRL $83,985,000
+	
+$83,985,000
+	
+Calculated: revenue − cost of revenue − operating income = $84.0M
+$228.6M − ($0 + $216.8M) − (−$72.2M) = $84.0M
+Filing’s own total: No total to compare
+SEC XBRL: $84.0M · matches
+Revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Operating income
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+Matches SEC XBRL10 right · 0 wrong · 0 can’t say · 0 unchecked · error rate 0.0% (95% CI 0.0–27.8%)
+
+Revenue · FY2024
+Statement figure · SEC XBRL $165,575,000
+	
+165,575
+In thousands · $165,575,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Capex · FY2022
+Statement figure · SEC XBRL $54,974,000
+	
+54,974
+In thousands · $54,974,000
+	
+10-K 2023-08-02 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Revenue · FY2023
+Statement figure · SEC XBRL $55,392,000
+	
+55,392
+In thousands · $55,392,000
+	
+10-K 2025-07-30 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Capex · FY2025
+Statement figure · SEC XBRL $681,603,000
+	
+681,603
+In thousands · $681,603,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Revenue · FY2026
+Statement figure · SEC XBRL $611,311,000
+	
+611,311
+In thousands · $611,311,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Capex · FY2024
+Statement figure · SEC XBRL $141,809,000
+	
+141,809
+In thousands · $141,809,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+PP&E by category · Building · FY2026
+Note figure · SEC XBRL $279,308,000
+	
+279,308
+In thousands · $279,308,000
+	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Segment revenue · Data Center Hosting Business · FY2025
+Note figure · SEC XBRL $144,193,000
+	
+144,193
+In thousands · $144,193,000
+	
+10-K 2025-07-30 · Open · sec.gov ↗
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+Finance lease liabilities · FY2022
+Note figure · SEC XBRL $5,187,000
+	
+5,187
+In thousands · $5,187,000
+	
+10-K 2022-08-29 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026
+
+
+PP&E by category · Land improvements · FY2023
+Note figure · SEC XBRL $1,293,000
+	
+1,293
+In thousands · $1,293,000
+	
+10-K 2024-08-30 · Open · sec.gov ↗
+	
+Right
+Wrong
+Can’t say
+Right · Kenny Geiler · Nov 3, 2026

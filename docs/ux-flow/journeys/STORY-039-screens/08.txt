@@ -1,0 +1,250 @@
+Skip to content
+Kenny's Data Emporium
+Proof
+Rules
+Reconcile
+Dataset
+Explore
+Release
+Known gaps
+Docs
+Signer 
+6 companies · Data as of Nov 1, 2026
+Kenny's Data Emporium, Company trail AMD
+AMD
+AMD
+● Verified SEC XBRL or the quoted source● Corroborated ties to totals or confirmed in 2 filings● Matches company tag● Done● Unverified citation only● Proposed● Needs review open item● Blocks release
+5 to reviewReconcileDataset
+Before release
+As of 5 Nov 2026, 04:46 UTC
+Review in Reconcile →
+COVERAGE
+Through 10-K · FY ending 2025-12-27
+Filed 2026-02-04
+Next 10-K expected ~2027-02-04
+SEC checked 7d ago · out of date
+VERIFICATION
+Figures
+59
+Match SEC XBRL
+38
+Tie to totals
+21
+To review
+5
+Quotes verified
+61
+LAST RELEASE
+v1.8.0
+Signed 2026-11-01 · Kenny Geiler
+CHANGES SINCE RELEASE
+2 added
+Details
+Filings
+5 items · Complete
+ITEM	VALUE	SOURCE	VERIFICATION
+● 10-K/A · FY ending 2025-12-27	—	—	
+Unverified · Amendment without statements
+
+● 10-K · FY ending 2022-12-31	—	
+10-K filed 2023-02-27 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2023-12-30	—	
+10-K filed 2024-01-31 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2024-12-28	—	
+10-K filed 2025-02-05 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2025-12-27	—	
+10-K filed 2026-02-04 · Open · sec.gov ↗
+	
+Done · Statements located
+Statement figures
+15 items · Complete
+15 verified
+Note figures
+44 items · Complete
+23 verified · 21 corroborated
+AI disclosures
+56 items · Complete
+50 verified · 6 unverified
+Category mapping
+5 items · 5 to review
+Building and leasehold improvements
+To confirm
+COMPANY LINE
+$594M FY2022Open ↗
+FY2021 $206M · FY2022 $594M
+PROPOSED
+Building and Building Improvements BuildingAndBuildingImprovementsMember
+Facility held for productive use including, but not limited to, office, production, storage and distribution facilities and any addition, improvement, or renovation to the structure, for example, but not limited to, interior masonry, interior flooring, electrical, and plumbing.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0000002488-23-000047 · 2022-12-31
+BASIS
+“the note's own category name (FY2021 and FY2022)”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Leasehold Improvements · LeaseholdImprovementsMember · Shares words: improvement, leasehold
+Building Improvements · BuildingImprovementsMember · Shares words: building, improvement
+Building · BuildingMember · Shares words: building
+AFFECTS
+2 figures · $594M FY2022
+Decide in Reconcile →
+Construction in progress
+To confirm
+COMPANY LINE
+$508M FY2025Open ↗
+FY2021 $96M · FY2022 $143M · FY2023 $209M · FY2024 $324M · FY2025 $508M
+PROPOSED
+Construction in Progress ConstructionInProgressMember
+Structure or a modification to a structure under construction. Includes recently completed structures or modifications to structures that have not been placed into service.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0000002488-26-000018 · 2025-12-27
+BASIS
+“the note's own category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+None
+AFFECTS
+5 figures · $508M FY2025
+Decide in Reconcile →
+Equipment
+To confirm
+COMPANY LINE
+$3,453M FY2025Open ↗
+FY2021 $1,534M · FY2022 $2,163M · FY2023 $2,346M · FY2024 $2,798M · FY2025 $3,453M
+PROPOSED
+Machinery and Equipment MachineryAndEquipmentMember
+Tangible personal property used to produce goods and services, including, but is not limited to, tools, dies and molds, computer and office equipment.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0000002488-26-000018 · 2025-12-27
+BASIS
+“the note's own category name: equipment (test, manufacturing and computer equipment together; the note does not split them)”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Equipment · EquipmentMember · Shares words: equipment
+Technology Equipment · TechnologyEquipmentMember · Shares words: equipment
+Computer Equipment · ComputerEquipmentMember · Shares words: equipment
+AFFECTS
+5 figures · $3,453M FY2025
+Decide in Reconcile →
+Land
+To confirm
+COMPANY LINE
+$120M FY2022Open ↗
+FY2022 $120M
+PROPOSED
+Land LandMember
+Part of earth's surface not covered by water.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0000002488-23-000047 · 2022-12-31
+BASIS
+“the note's own category name (FY2022 only, before the line was combined)”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Land and Building · LandAndBuildingMember · Shares words: land
+Land Improvements · LandImprovementsMember · Shares words: land
+AFFECTS
+1 figure · $120M FY2022
+Decide in Reconcile →
+Land, building and leasehold improvements
+To confirm
+COMPANY LINE
+$967M FY2025Open ↗
+FY2022 $714M · FY2023 $821M · FY2024 $853M · FY2025 $967M
+PROPOSED
+Land and Building LandAndBuildingMember
+Real estate held for productive use and structures used in the conduct of business, including but not limited to, office, production, storage and distribution facilities.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0000002488-26-000018 · 2025-12-27
+BASIS
+“the note's own category name from FY2022: land, building and leasehold improvements combined”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Building and Building Improvements · BuildingAndBuildingImprovementsMember · Shares words: building, improvement
+Leasehold Improvements · LeaseholdImprovementsMember · Shares words: improvement, leasehold
+Land Improvements · LandImprovementsMember · Shares words: improvement, land
+AFFECTS
+4 figures · $967M FY2025
+Decide in Reconcile →
+Guidance and projects
+12 items · Complete
+ITEM	VALUE	SOURCE	VERIFICATION
+● Guidance · revenue guidance · FY2022	—	—	
+Unverified · Part-year amount
+
+● Guidance · revenue guidance · FY2022	“For the full year 2022, AMD expects revenue to be approximately $23.5 billion, plus or minus $300 million, an increase of approximately 43% over 2021 led by growth in the Embedded and Data Center segments.”	
+Source · Open ↗
+	
+Verified · Quote matches source
+
+● Guidance · revenue guidance · FY2022	“For the full year 2022, AMD expects revenue to be approximately $23.5 billion, plus or minus $300 million, an increase of approximately 43% over 2021 led by growth in the Embedded and Data Center segments.”	
+Source · Open ↗
+	
+Verified · Quote matches source
+
+● Project · OpenAI 6 gigawatt AMD GPU deployment · FY2025	“In October 2025, we entered into a product purchase agreement with OpenAI OpCo, LLC, (OpenAI) to deploy 6 gigawatts of AMD GPUs, with the deployment of the first gigawatt of capacity powered by our AMD Instinct MI450 series products.”	
+Source · Open ↗
+	
+Verified · Quote matches source
+
+● Project · Anthropic MI450 Series GPU deployment in AMD Helios racks · FY2026	“Anthropic and AMD announced a strategic agreement to deploy up to 2 GW of AMD Instinct MI450 Series GPUs in AMD Helios racks.”	
+Source · Open ↗
+	
+Verified · Quote matches source
+
+● Project · Meta 6 GW AMD Instinct GPU deployment · FY2026	“Meta and AMD announced plans to deploy up to 6 gigawatts of AMD Instinct GPUs, with the first 1-GW to be powered by a custom AMD Instinct MI450-based GPU.”	
+Source · Open ↗
+	
+Verified · Quote matches source
+
+● Project · AMD, Cisco and HUMAIN AI infrastructure joint venture · FY2025	“AMD, Cisco and HUMAIN announced plans to form a joint venture to deliver 1 GW of AI infrastructure by 2030.”	
+Source · Open ↗
+	
+Verified · Quote matches source
+
+● Project · ORNL next-generation supercomputers · FY2025	“AMD and the U.S. Department of Energy announced two new next-generation supercomputers with ORNL”	
+Source · Open ↗
+	
+Verified · Quote matches source
+
+● Project · HUMAIN and AMD strategic collaboration AI compute capacity · FY2025	“HUMAIN and AMD announced a strategic collaboration to advance global AI infrastructure by deploying 500 megawatts of AI compute capacity over the next five years.”	
+Source · Open ↗
+	
+Verified · Quote matches source
+
+● Project · Ireland adaptive computing research, development and engineering operations expansion · FY2023	“AMD announced plans to invest $135 million to expand adaptive computing research, development and engineering operations in Ireland to fund strategic R&D projects for next generation AI, data center, networking and 6G communications infrastructure.”	
+Source · Open ↗
+	
+Verified · Quote matches source
+
+● Project · Pensando acquisition · FY2022	“AMD announced a definitive agreement to acquire Pensando for approximately $1.9 billion before working capital and other adjustments.”	
+Source · Open ↗
+	
+Verified · Quote matches source
+
+● Project · Oracle Cloud Infrastructure AI supercluster (AMD Helios) · FY2025	“Oracle and AMD announced that Oracle Cloud Infrastructure (OCI) will offer the first publicly available AI supercluster powered by the AMD “Helios” rack design with AMD Instinct MI450 GPUs, EPYC “Venice” CPUs and Pensando™ “Vulcano” networking, with an initial deployment of 50,000 GPUs starting in Q3 2026.”	
+Source · Open ↗
+	
+Verified · Quote matches source
+Release
+1 item · Complete
+ITEM	VALUE	SOURCE	VERIFICATION
+● Release gate	—	—	
+Done · No blocking items

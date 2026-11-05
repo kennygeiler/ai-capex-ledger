@@ -1,0 +1,22 @@
+A|Skip to content|#view|
+A|Kenny's Data Emporium|#proof|
+A|Proof|#proof|
+A|Rules|#rules|
+A|Reconcile|#reconcile|
+A|Dataset|#data|
+A|Explore|#explore|
+A|Release|#release|
+A|Known gaps|#gaps|
+A|Docs|#docs|
+A|6 companies|#data|
+A|How it works|#docs/overview|
+A|Operating guide|#docs/operations|
+A|Glossary|#docs/glossary|
+A|Map|#docs/map|
+A|States|#docs/states|
+A|Rules and checks|#docs/rules|
+A|Evaluation|#docs/evals|
+A|Known limitations|#docs/claims|
+A|Handoff|#docs/handoff|
+A|https://datahq-production.up.railway.app|https://datahq-production.up.railway.app|
+A|docs/CLAIMS.md|/docs/CLAIMS.md|

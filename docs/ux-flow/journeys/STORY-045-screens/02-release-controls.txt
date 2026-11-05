@@ -1,0 +1,40 @@
+A|Skip to content|#view|
+A|Kenny's Data Emporium|#proof|
+A|Proof|#proof|
+A|Rules|#rules|
+A|Reconcile|#reconcile|
+A|Dataset|#data|
+A|Explore|#explore|
+A|Release|#release|
+A|Known gaps|#gaps|
+A|Docs|#docs|
+A|6 companies|#data|
+BUTTON|Sign v1.9.0||disabled
+BUTTON|State||
+BUTTON|Check||
+BUTTON|Count||
+BUTTON|Required||
+BUTTON|Details||
+A|Proof|#proof|
+A|Reconcile|#reconcile|
+A|Proof|#proof|
+A|Reconcile|#reconcile?cause=asset_types|
+A|Reconcile|#reconcile|
+A|Reconcile|#reconcile|
+A|Reconcile|#reconcile|
+A|Dataset|#data?list=taxonomy&has_value=false|
+A|Dataset|#data|
+A|Release|#release|
+A|Known gaps|#gaps|
+A|Known gaps|#gaps|
+A|Known gaps|#gaps|
+A|Proof|#proof|
+A|Proof|#proof|
+A|Release|#release|
+A|Dataset|#data|
+A|MSFT|#proof/MSFT|
+A|GOOGL|#proof/GOOGL|
+A|AMZN|#proof/AMZN|
+A|NVDA|#proof/NVDA|
+A|APLD|#proof/APLD|
+A|AMD|#proof/AMD|

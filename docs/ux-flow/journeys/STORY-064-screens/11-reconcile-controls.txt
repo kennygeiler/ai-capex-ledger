@@ -1,0 +1,216 @@
+A|Skip to content|#view|
+A|Kenny's Data Emporium|#proof|
+A|Proof|#proof|
+A|Rules|#rules|
+A|Reconcile|#reconcile|
+A|Dataset|#data|
+A|Explore|#explore|
+A|Release|#release|
+A|Known gaps|#gaps|
+A|Docs|#docs|
+A|6 companies|#data|
+BUTTON|Select all 16||
+A|Applied Digital|#proof/APLD|
+A|Applied Digital|#proof/APLD|
+A|Applied Digital|#proof/APLD|
+A|Applied Digital|#proof/APLD|
+A|Applied Digital|#proof/APLD|
+A|Applied Digital|#proof/APLD|
+A|Applied Digital|#proof/APLD|
+A|Applied Digital|#proof/APLD|
+A|Applied Digital|#proof/APLD|
+A|Alphabet|#proof/GOOGL|
+A|Alphabet|#proof/GOOGL|
+A|Alphabet|#proof/GOOGL|
+A|Alphabet|#proof/GOOGL|
+A|Alphabet|#proof/GOOGL|
+A|Alphabet|#proof/GOOGL|
+A|Alphabet|#proof/GOOGL|
+A|AMD|#proof/AMD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|AMD|#proof/AMD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|AMD|#proof/AMD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|AMD|#proof/AMD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|AMD|#proof/AMD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Amazon|#proof/AMZN|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Amazon|#proof/AMZN|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Amazon|#proof/AMZN|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Amazon|#proof/AMZN|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Alphabet|#proof/GOOGL|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Alphabet|#proof/GOOGL|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Alphabet|#proof/GOOGL|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Alphabet|#proof/GOOGL|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Microsoft|#proof/MSFT|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Microsoft|#proof/MSFT|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Microsoft|#proof/MSFT|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Microsoft|#proof/MSFT|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Microsoft|#proof/MSFT|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Microsoft|#proof/MSFT|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Nvidia|#proof/NVDA|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Nvidia|#proof/NVDA|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Amazon|#proof/AMZN|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Amazon|#proof/AMZN|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Amazon|#proof/AMZN|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Applied Digital|#proof/APLD|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Alphabet|#proof/GOOGL|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Alphabet|#proof/GOOGL|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Alphabet|#proof/GOOGL|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Alphabet|#proof/GOOGL|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Alphabet|#proof/GOOGL|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Nvidia|#proof/NVDA|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||
+A|Nvidia|#proof/NVDA|
+BUTTON|Approve||
+BUTTON|Reject||
+BUTTON|Choose another||

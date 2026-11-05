@@ -23,3 +23,7 @@ reports/evidence/.crops.json.lock
 reports/evidence/crops/*.png
 reports/evidence/.crops.json.run.lock
 deploy/*
+docs/ux-*/**/*.png
+docs/ux-*/**/*.jpg
+docs/ux-*/tmp/
+docs/ux-*/**/audit.json

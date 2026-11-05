@@ -1,0 +1,18 @@
+A|Skip to content|#view|
+A|Kenny's Data Emporium|#proof|
+A|Proof|#proof|
+A|Rules|#rules|
+A|Reconcile|#reconcile|
+A|Dataset|#data|
+A|Explore|#explore|
+A|Release|#release|
+A|Known gaps|#gaps|
+A|Docs|#docs|
+A|6 companies|#data|
+BUTTON|Claim||
+BUTTON|Where||
+BUTTON|Status||
+BUTTON|Gaps||
+BUTTON|Severity||
+BUTTON|Issue||
+BUTTON|Claim||

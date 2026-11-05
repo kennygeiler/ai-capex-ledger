@@ -1,0 +1,141 @@
+Skip to content
+Kenny's Data Emporium
+Proof
+Rules
+Reconcile
+Dataset
+Explore
+Release
+Known gaps
+Docs
+Signer 
+6 companies · Data as of Nov 1, 2026
+Kenny's Data Emporium, Explore
+4 saved views
+New
+Capex by layer, by year
+taxonomy · capex, fiscal year by layer
+Technology equipment, gross balance by company
+taxonomy · ppe gross by type, fiscal year by ticker
+What companies state about AI, in dollars
+taxonomy · company stated_ai
+Committed: purchase obligations and finance leases
+taxonomy · committed, fiscal year by ticker
+Explore
+All measures
+Statement figures
+Note figures
+Quoted statements
+Named projects
+every measure
+committed
+company stated ai
+derived
+planned
+spent
+every category
+ai capex
+ai opex
+ai revenue
+capex
+finance lease liability
+guidance
+ppe gross by type
+project
+purchase obligations
+segment capex
+segment revenue
+every asset type
+BuildingAndBuildingImprovements
+ConstructionInProgress
+ElectricGenerationEquipment
+FurnitureAndFixtures
+LandAndBuilding
+LandImprovements
+Land
+LeaseholdImprovements
+MachineryAndEquipment
+OtherMachineryAndEquipment
+PropertyPlantAndEquipmentOtherTypes
+TechnologyEquipment
+every kind
+actual
+outlook
+the value as reported
+change from the prior year
+every layer
+Chip design
+Hyperscaler
+Miner to HPC
+from
+FY2020
+FY2021
+FY2022
+FY2023
+FY2024
+FY2025
+FY2026
+FY2027
+FY2028
+to
+FY2020
+FY2021
+FY2022
+FY2023
+FY2024
+FY2025
+FY2026
+FY2027
+FY2028
+then
+x: fiscal year
+x: company
+x: layer
+x: measure
+x: category
+x: standard type
+x: kind
+x: status
+x: source
+x: source kind
+x: period kind
+x: check
+one series
+series: company
+series: layer
+series: measure
+series: category
+series: standard type
+series: kind
+series: status
+series: source
+series: source kind
+series: period kind
+series: check
+bars
+stacked bars
+lines
+share of total
+27 rows
+JSON
+CSV
+Save as view
+FY2022
+FY2023
+FY2024
+FY2025
+FY2026
+$0B
+$50B
+$100B
+$150B
+$200B
+$250B
+$300B
+Miner to HPC
+Chip design
+Hyperscaler
+capex, $billion
+Data
+
+Show rows

@@ -1,0 +1,219 @@
+Skip to content
+Kenny's Data Emporium
+Proof
+Rules
+Reconcile
+Dataset
+Explore
+Release
+Known gaps
+Docs
+Signer 
+6 companies · Data as of Nov 1, 2026
+Kenny's Data Emporium, Company trail MSFT
+Microsoft
+MSFT
+● Verified SEC XBRL or the quoted source● Corroborated ties to totals or confirmed in 2 filings● Matches company tag● Done● Unverified citation only● Proposed● Needs review open item● Blocks release
+6 to reviewReconcileDataset
+Before release
+As of 5 Nov 2026, 04:47 UTC
+Review in Reconcile →
+COVERAGE
+Through 10-K · FY ending 2026-06-30
+Filed 2026-07-29
+Next 10-K expected ~2027-07-29
+SEC checked 7d ago · out of date
+VERIFICATION
+Figures
+78
+Match SEC XBRL
+42
+Tie to totals
+31
+Citation only
+5
+To review
+6
+Quotes verified
+25
+LAST RELEASE
+v1.8.0
+Signed 2026-11-01 · Kenny Geiler
+CHANGES SINCE RELEASE
+None
+Filings
+5 items · Complete
+ITEM	VALUE	SOURCE	VERIFICATION
+● 10-K · FY ending 2022-06-30	—	
+10-K filed 2022-07-28 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2023-06-30	—	
+10-K filed 2023-07-27 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2024-06-30	—	
+10-K filed 2024-07-30 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2025-06-30	—	
+10-K filed 2025-07-30 · Open · sec.gov ↗
+	
+Done · Statements located
+
+● 10-K · FY ending 2026-06-30	—	
+10-K filed 2026-07-29 · Open · sec.gov ↗
+	
+Done · Statements located
+Statement figures
+15 items · Complete
+15 verified
+Note figures
+63 items · Complete
+27 verified · 31 corroborated · 5 unverified
+AI disclosures
+25 items · Complete
+25 verified
+Category mapping
+6 items · 6 to review
+Buildings and improvements
+To confirm
+COMPANY LINE
+$182,749M FY2026Open ↗
+FY2021 $43,928M · FY2022 $55,014M · FY2023 $68,465M · FY2024 $93,943M · FY2025 $137,921M · FY2026 $182,749M
+PROPOSED
+Building and Building Improvements BuildingAndBuildingImprovementsMember
+Facility held for productive use including, but not limited to, office, production, storage and distribution facilities and any addition, improvement, or renovation to the structure, for example, but not limited to, interior masonry, interior flooring, electrical, and plumbing.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0001193125-26-323660 · 2026-06-30
+BASIS
+“the note's own category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Building Improvements · BuildingImprovementsMember · Shares words: building, improvement
+Building · BuildingMember · Shares words: building
+Land and Building · LandAndBuildingMember · Shares words: building
+AFFECTS
+6 figures · $182,749M FY2026
+Decide in Reconcile →
+Computer equipment and software
+To confirm
+COMPANY LINE
+$132,836M FY2025Open ↗
+FY2021 $51,250M · FY2022 $60,631M · FY2023 $74,961M · FY2024 $93,780M · FY2025 $132,836M
+PROPOSED
+Technology Equipment TechnologyEquipmentMember
+Equipment used in the creation, maintenance and utilization of information systems which include computers and peripherals.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0000950170-25-100235 · 2025-06-30
+BASIS
+“the note's own category name: computer equipment and software, the line Microsoft renamed in fiscal 2025”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Computer Equipment · ComputerEquipmentMember · Shares words: computer, equipment
+Equipment · EquipmentMember · Shares words: equipment
+Machinery and Equipment · MachineryAndEquipmentMember · Shares words: equipment
+AFFECTS
+5 figures · $132,836M FY2025
+Decide in Reconcile →
+Furniture and equipment
+To confirm
+COMPANY LINE
+$6,250M FY2026Open ↗
+FY2021 $5,344M · FY2022 $5,860M · FY2023 $6,246M · FY2024 $6,532M · FY2025 $6,407M · FY2026 $6,250M
+PROPOSED
+Furniture and Fixtures FurnitureAndFixturesMember
+Equipment commonly used in offices and stores that have no permanent connection to the structure of a building or utilities. Examples include, but are not limited to, desks, chairs, tables, and bookcases.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0001193125-26-323660 · 2026-06-30
+BASIS
+“the note's own category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Equipment · EquipmentMember · Shares words: equipment
+Technology Equipment · TechnologyEquipmentMember · Shares words: equipment
+Computer Equipment · ComputerEquipmentMember · Shares words: equipment
+AFFECTS
+6 figures · $6,250M FY2026
+Decide in Reconcile →
+Land
+To confirm
+COMPANY LINE
+$10,546M FY2026Open ↗
+FY2021 $3,660M · FY2022 $4,734M · FY2023 $5,683M · FY2024 $8,163M · FY2025 $9,338M · FY2026 $10,546M
+PROPOSED
+Land LandMember
+Part of earth's surface not covered by water.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0001193125-26-323660 · 2026-06-30
+BASIS
+“the note's own category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Land and Building · LandAndBuildingMember · Shares words: land
+Land Improvements · LandImprovementsMember · Shares words: land
+AFFECTS
+6 figures · $10,546M FY2026
+Decide in Reconcile →
+Leasehold improvements
+To confirm
+COMPANY LINE
+$16,348M FY2026Open ↗
+FY2021 $6,884M · FY2022 $7,819M · FY2023 $8,537M · FY2024 $9,594M · FY2025 $12,117M · FY2026 $16,348M
+PROPOSED
+Leasehold Improvements LeaseholdImprovementsMember
+Additions or improvements to assets held under a lease arrangement.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0001193125-26-323660 · 2026-06-30
+BASIS
+“the note's own category name”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Building and Building Improvements · BuildingAndBuildingImprovementsMember · Shares words: improvement
+Land Improvements · LandImprovementsMember · Shares words: improvement
+Building Improvements · BuildingImprovementsMember · Shares words: improvement
+AFFECTS
+6 figures · $16,348M FY2026
+Decide in Reconcile →
+Servers, network equipment, and software
+To confirm
+COMPANY LINE
+$215,874M FY2026Open ↗
+FY2025 $132,836M · FY2026 $215,874M
+PROPOSED
+Technology Equipment TechnologyEquipmentMember
+Equipment used in the creation, maintenance and utilization of information systems which include computers and peripherals.
+Source: FASB US GAAP 2025
+COMPANY’S OWN TAG
+Not tagged
+XBRL instance 0001193125-26-323660 · 2026-06-30
+BASIS
+“the note's own category name from fiscal 2025: servers, network equipment, and software”
+Claude Fable 5.1 · 2026-11-01
+ALTERNATIVES
+Equipment · EquipmentMember · Shares words: equipment
+Computer Equipment · ComputerEquipmentMember · Shares words: equipment
+Machinery and Equipment · MachineryAndEquipmentMember · Shares words: equipment
+AFFECTS
+2 figures · $215,874M FY2026
+Decide in Reconcile →
+Guidance and projects
+0 items · Complete
+Release
+1 item · Complete
+ITEM	VALUE	SOURCE	VERIFICATION
+● Release gate	—	—	
+Done · No blocking items

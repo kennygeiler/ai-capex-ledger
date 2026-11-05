@@ -1,0 +1,151 @@
+21 verified · 2 unverified
+ITEM	VALUE	SOURCE	VERIFICATION
+● Opex · FY2026	$394.1M	
+Calculated: revenue − cost of revenue − operating income = $394.1M
+$611.3M − ($56.8M + $396.9M) − (−$236.5M) = $394.1M
+Filing’s own total: No total to compare
+SEC XBRL: $450.9M · differs by $56.8M · Data center rental and other cost of revenue line
+Revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Operating income
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Unverified · Definition differs from SEC XBRL
+
+● Opex · FY2026 · Large year-over-year change	$394.1M	
+Calculated: revenue − cost of revenue − operating income = $394.1M
+$611.3M − ($56.8M + $396.9M) − (−$236.5M) = $394.1M
+Filing’s own total: No total to compare
+SEC XBRL: $450.9M · differs by $56.8M · Data center rental and other cost of revenue line
+Revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Operating income
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Unverified · Definition differs from SEC XBRL
+
+● Capex · FY2022	$55.0M	
+10-K 2023-08-02 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $55.0M
+
+● Capex · FY2023	$131.3M	
+10-K 2025-07-30 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $131.3M
+
+● Capex · FY2024	$141.8M	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $141.8M
+
+● Capex · FY2025	$681.6M	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $681.6M
+
+● Capex · FY2026	$2,865.8M	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $2,865.8M
+
+● Opex · FY2022	$19.9M	
+Calculated: revenue − cost of revenue − operating income = $19.9M
+$8.5M − $9.5M − (−$20.9M) = $19.9M
+Filing’s own total: No total to compare
+SEC XBRL: $19.9M · matches
+Revenue
+10-K 2023-08-02 · Open · sec.gov ↗
+Cost of revenue
+10-K 2023-08-02 · Open · sec.gov ↗
+Operating income
+10-K 2023-08-02 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $19.9M
+
+● Opex · FY2023	$53.9M	
+Calculated: revenue − cost of revenue − operating income = $53.9M
+$55.4M − $44.4M − (−$42.9M) = $53.9M
+Filing’s own total: No total to compare
+SEC XBRL: $53.9M · matches
+Revenue
+10-K 2025-07-30 · Open · sec.gov ↗
+Cost of revenue
+10-K 2025-07-30 · Open · sec.gov ↗
+Operating income
+10-K 2025-07-30 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $53.9M
+
+● Opex · FY2024	$115.6M	
+Calculated: revenue − cost of revenue − operating income = $115.6M
+$165.6M − ($0 + $148.3M) − (−$98.3M) = $115.6M
+Filing’s own total: No total to compare
+SEC XBRL: $115.6M · matches
+Revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Operating income
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $115.6M
+
+● Opex · FY2025	$84.0M	
+Calculated: revenue − cost of revenue − operating income = $84.0M
+$228.6M − ($0 + $216.8M) − (−$72.2M) = $84.0M
+Filing’s own total: No total to compare
+SEC XBRL: $84.0M · matches
+Revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Cost of revenue
+10-K 2026-07-29 · Open · sec.gov ↗
+Operating income
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $84.0M
+
+● Revenue · FY2022	$8.5M	
+10-K 2023-08-02 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $8.5M
+
+● Revenue · FY2023	$55.4M	
+10-K 2025-07-30 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $55.4M
+
+● Revenue · FY2024	$165.6M	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $165.6M
+
+● Revenue · FY2025	$228.6M	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $228.6M
+
+● Revenue · FY2026	$611.3M	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $611.3M
+
+● Capex · FY2025 · Large year-over-year change	$681.6M	
+10-K 2026-07-29 · Open · sec.gov ↗
+	
+Verified · Matches SEC XBRL: $681.6M
+
+● Capex · FY2026 · Large year-over-year change	$2,865.8M	
+10-K 2026-07-29 · Open · sec
