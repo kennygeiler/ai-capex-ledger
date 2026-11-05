@@ -32,7 +32,7 @@ async function explorePage(view, arg, qs) {
   const list = h('div', {class: 'viewlist'}, saved.map((v) => h('a', {href: '#explore/' + v.id, class: 'viewrow' + (current && v.id === current.id ? ' on' : '')}, h('span', {}, v.name), h('span', {class: 'muted small'}, `${v.measure}${v.filters.category ? ' · ' + v.filters.category.replace(/_/g, ' ') : v.filters.measure ? ' · ' + v.filters.measure.replace('_', ' ') : ''}${v.chart ? `, ${v.chart.x.replace('_', ' ')} by ${v.chart.series || 'total'}` : ''}`))));
   const left = h('div', {}, h('div', {class: 'hrow'}, h('span', {class: 'muted small'}, `${saved.length} saved view${saved.length === 1 ? '' : 's'}`), h('a', {href: '#explore', class: 'small'}, 'New')), list);
   const body = h('div', {class: 'exbody'});
-  view.append(h('div', {class: 'views'}, left, body));
+  view.append(h('div', {class: 'page-header'}, h('div', {}, h('h1', {class: 'page-title'}, current ? current.name : 'Explore'), current && current.note ? h('div', {class: 'text-secondary small mt-1'}, current.note) : '')), h('div', {class: 'views'}, left, body));
   const fetchRows = async () => (await api(listUrl(st))).rows;  // the chart's rows and the JSON / CSV export are one request (F-BF7)
   let all = await api(`/api/v1/${st.measure}`), rows = all.rows;
   const distinct = (c) => [...new Set(rows.map((r) => r[c]).filter((v) => v != null && v !== ''))].sort();
@@ -58,7 +58,7 @@ async function explorePage(view, arg, qs) {
     sel('X axis', 'x', Object.entries(EX_AXES).filter(([a]) => rows.some((r) => r[a] != null)).map(([a, t]) => [a, words(t)])),
     sel('Series', 'series', Object.entries(EX_AXES).filter(([a]) => a !== st.x && rows.some((r) => r[a] != null)).map(([a, t]) => [a, words(t)]), {blank: 'One series'}),
     sel('Chart', 'type', Object.entries(EX_TYPES).map(([k, t]) => [k, words(t)]))];
-  body.append(h('div', {class: 'sechead'}, h('h2', {}, current ? current.name : 'Explore'), current && current.note ? h('span', {class: 'muted small'}, current.note) : ''), controls);
+  body.append(controls);
   rows = await fetchRows();
   const m = EXM[st.measure];
   const val = st.value && m.alt && m.alt[st.value] ? m.alt[st.value] : m.value;

@@ -230,7 +230,7 @@ class Layout(unittest.TestCase):
         pg.wait_for_selector("main .card-body", timeout=60000)
         self.assertIn("No rows for Field = Capex", pg.text_content("main .card-body"))
         self.assertIn("Kind = Planned", pg.text_content("main .card-body"))
-        self.assertTrue(pg.locator("main button", has_text="Export CSV").is_disabled())
+        self.assertTrue(pg.locator("main .page-header button", has_text="CSV").is_disabled())
 
     def test_redrawn_tables_keep_the_kit(self):
         """V17: after Find (Dataset) and Show rows (Explore) every header button carries the kit's classes, none is outset."""
@@ -351,6 +351,35 @@ class Layout(unittest.TestCase):
                     pg.wait_for_selector("main .route > *", timeout=60000)
                     pg.wait_for_timeout(1500)
                     self.assertEqual(pg.evaluate(self.DEAD), [])
+
+    def test_one_header_style_and_one_head(self):
+        """V21: every table header in one case and size, a numeric column's header right-aligned, on every page; the Rows/Grid
+        switch and the CSV in the same place on both views. F-VS2: on Dataset, Explore and Docs the H1 shares the scope
+        line's left edge."""
+        for hash_ in ("proof", "proof/APLD", "rules", "reconcile", "data", "data?view=grid", "release", "gaps", "docs"):
+            with self.subTest(page=hash_):
+                pg = self.page(1600, hash_)
+                pg.wait_for_selector("main table thead th", timeout=60000)
+                m = pg.evaluate("""() => { const ths = [...document.querySelectorAll('main thead th')].filter((th) => th.getBoundingClientRect().height && th.textContent.trim() && !th.closest('tr.proof-legend, tr.gold-group'));
+                    const styles = new Set(ths.map((th) => { const b = th.querySelector('button') || th, c = getComputedStyle(b); return c.textTransform + ' ' + c.fontSize; }));
+                    const off = ths.filter((th) => { const t = th.closest('table'), td = t.tBodies[0] && t.tBodies[0].rows[0] && t.tBodies[0].rows[0].cells[th.cellIndex];
+                      return th.colSpan === 1 && td && td.colSpan === 1 && getComputedStyle(td).textAlign === 'right' && getComputedStyle(th).textAlign !== 'right'; }).map((th) => th.textContent.trim());
+                    return {styles: [...styles], off}; }""")
+                self.assertEqual(len(m["styles"]), 1, m["styles"])
+                self.assertEqual(m["off"], [])
+        at = {}
+        for hash_ in ("data?list=taxonomy", "data?view=grid"):
+            pg = self.page(1600, hash_)
+            pg.wait_for_selector("main .page-header .seg", timeout=60000)
+            at[hash_] = pg.evaluate("""() => { const r = (e) => Math.round(e.getBoundingClientRect().left); const csv = [...document.querySelectorAll('main .page-header .btn')].find((b) => b.textContent === 'CSV');
+                return [r(document.querySelector('main .page-header .seg')), r(csv)]; }""")
+        self.assertEqual(at["data?list=taxonomy"][:2], at["data?view=grid"][:2])
+        for hash_ in ("data?list=taxonomy", "explore", "docs"):
+            with self.subTest(page=hash_, check="F-VS2"):
+                pg = self.page(1600, hash_)
+                pg.wait_for_selector("main h1.page-title", timeout=60000)
+                pg.wait_for_selector("#scopeline a", timeout=60000)
+                self.assertLessEqual(pg.evaluate("Math.abs(document.querySelector('main h1.page-title').getBoundingClientRect().left - document.querySelector('#scopeline a').getBoundingClientRect().left)"), 1)
 
 if __name__ == "__main__":
     unittest.main()

@@ -61,7 +61,10 @@
   .bar { display: inline-block; height: 8px; background: var(--tblr-primary); border-radius: 2px; margin-right: .4rem; vertical-align: middle; }
   /* tables the pages build by hand (grid, heat) */
   .scroll { overflow-x: auto; }
-  table.grid, table.heat { width: 100%; }
+  table.grid { width: 100%; }
+  table.heat { width: auto; margin-bottom: 0; }
+  .grid-card { width: fit-content; max-width: 100%; }  /* V21: year columns sized to their figures, not spread across the page */
+  table.heat th.n, table.heat td.c { min-width: 7.5rem; }
   table.grid th, table.heat th { position: sticky; top: 0; z-index: 2; background: var(--tblr-bg-surface); }
   table.grid th:first-child, table.grid td:first-child, table.heat th:first-child, table.heat td:first-child { position: sticky; left: 0; background: var(--tblr-bg-surface); z-index: 1; }
   table.grid td.cell, table.heat td.cell { cursor: pointer; }
@@ -140,9 +143,11 @@
   /* explore */
   .views { display: grid; grid-template-columns: 16rem 1fr; gap: 1.25rem; align-items: start; }
   .viewlist { display: flex; flex-direction: column; gap: .15rem; margin-top: .5rem; }
-  .viewrow { display: flex; flex-direction: column; padding: .4rem .6rem; border-radius: var(--tblr-border-radius); color: var(--tblr-body-color); }
-  .viewrow:hover { background: var(--tblr-bg-surface-secondary); text-decoration: none; }
-  .viewrow.on { background: var(--tblr-active-bg, rgba(32,107,196,.08)); }
+  /* V21 / DE26: a side list's items on its header's left edge; the current one in the primary colour and weight */
+  .viewrow { display: flex; flex-direction: column; padding: .35rem 0; color: var(--tblr-body-color); }
+  .viewrow:hover { color: var(--tblr-primary); text-decoration: none; }
+  .viewrow.on { color: var(--tblr-primary); font-weight: 600; }
+  .viewrow.on .small { font-weight: 400; }
   /* V10: a page's side list sits inside its column, its items one line each (the description cut, whole on hover) */
   .sidelist { margin-inline: 0; }
   .sidelist .list-group-item { padding: .35rem .6rem; }

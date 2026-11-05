@@ -2,6 +2,11 @@
 const dataSwitch = (q, which) => h('div', {class: 'btn-group seg', role: 'group', 'aria-label': 'View'},
   h('a', {href: '#data' + (q.list || q.ticker || (q.t && !q.t.includes(',')) ? '?' + new URLSearchParams(Object.fromEntries(Object.entries({list: q.list, ticker: q.ticker || (q.t && !q.t.includes(',') ? q.t : '')}).filter(([, v]) => v))).toString() : ''), class: 'btn btn-sm btn-outline-secondary' + (which === 'rows' ? ' active' : ''), 'aria-current': which === 'rows' ? 'page' : null}, 'Rows'),
   h('a', {href: '#data?' + new URLSearchParams(Object.fromEntries(Object.entries({view: 'grid', t: q.t || q.ticker, f: q.f, k: q.k}).filter(([, v]) => v))).toString(), class: 'btn btn-sm btn-outline-secondary' + (which === 'grid' ? ' active' : ''), 'aria-current': which === 'grid' ? 'page' : null}, 'Grid'));
+// the Dataset's page head, Rows and Grid alike: the H1 on the page's left edge (F-VS2), the count under it; at the right the
+// exports, CSV last, then the Rows/Grid switch at the edge, so both sit at the same place on both views
+const dataHead = (title, sub, ...right) => h('div', {class: 'page-header mb-3'}, h('div', {class: 'row align-items-center g-2'},
+  h('div', {class: 'col'}, h('h1', {class: 'page-title'}, title), h('div', {class: 'text-secondary small mt-1'}, sub)),
+  h('div', {class: 'col-auto d-flex align-items-center gap-2'}, right)));
 async function dataPage(view, qs) {
   const q = parseQ(qs || '');
   if (q.view !== 'grid') return rowsView(view, q);
@@ -73,7 +78,7 @@ async function dataPage(view, qs) {
   }
   // grid
   const grid = h('div', {class: 'scroll'}, h('table', {class: 'heat'},
-    h('thead', {}, h('tr', {}, h('th', {}, 'Company'), sel.f.length > 1 ? h('th', {}, 'Field') : '', list.some((s) => s.dimension) ? h('th', {}, 'Segment or category') : '', years.map((y) => h('th', {class: 'n'}, y.slice(2))))),
+    h('thead', {}, h('tr', {}, h('th', {}, 'Company'), sel.f.length > 1 ? h('th', {}, 'Field') : '', list.some((s) => s.dimension) ? h('th', {}, 'Segment or category') : '', years.map((y) => h('th', {class: 'n'}, y)))),  // V21: "FY2022", as Rows and Explore say it
     h('tbody', {}, list.map((s) => h('tr', {}, h('td', {}, h('a', {href: `#data?view=grid&t=${s.ticker}&f=${sel.f.join(',')}`}, d.names[s.ticker]), ' ', h('span', {class: 'muted small'}, s.ticker)),
       sel.f.length > 1 ? h('td', {class: 'muted small'}, FIELDS[s.field] || s.field) : '', list.some((x) => x.dimension) ? h('td', {class: 'small'}, s.dimension || '') : '',
       years.map((y) => {
@@ -99,10 +104,12 @@ async function dataPage(view, qs) {
   // V9: no rows for the filters is said, with the filters by name, and there is nothing to export
   const sel_ = (el) => el.options[el.selectedIndex].text;
   const none = h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, `No rows for ${[['Field', sel_(fieldSel)], ['Companies', sel_(groupSel)], ['Kind', sel_(kindSel)]].map(([k, v]) => `${k} = ${v}`).join(' · ')}`));
-  view.append(h('div', {class: 'stack', style: 'gap:1rem'},
-    h('div', {class: 'hrow'}, dataSwitch(q, 'grid'), fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn btn-primary btn-sm', onclick: exportCsv, disabled: !list.length || null}, 'Export CSV'),
-      h('span', {class: 'muted small'}, `${list.length} rows · USD · ✓ Verified · ○ Unverified · ≠ Differs from SEC XBRL`)),
-    list.length ? grid : none));
+  // V21: the same head as Rows: the title on the page's left edge, the count under it; the Rows/Grid switch and the CSV at the
+  // right, in the same place on both views; the controls on the line under the head
+  view.append(dataHead(`Grid · ${FIELDS[sel.f[0]] || sel.f[0]}`, `${int(list.length)} rows · USD`, h('button', {type: 'button', class: 'btn btn-outline-secondary btn-sm', onclick: exportCsv, disabled: !list.length || null}, 'CSV'), dataSwitch(q, 'grid')),
+    h('div', {class: 'stack', style: 'gap:1rem'},
+      h('div', {class: 'hrow'}, fieldSel, groupSel, kindSel, h('span', {class: 'muted small'}, '✓ Verified · ○ Unverified · ≠ Differs from SEC XBRL')),
+      list.length ? h('div', {class: 'card grid-card'}, grid) : none));
 }
 
 // ── Dataset, rows view: the raw rows of every list, as the read API and the release files carry them ──
@@ -125,9 +132,7 @@ async function rowsView(view, q) {
     h('option', {value: ''}, 'Every company'), Object.entries(NAMES).map(([t, n]) => h('option', {value: t, selected: t === ticker || null}, `${n} ${t}`)));
   const search = h('input', {type: 'text', placeholder: 'Find in rows', 'aria-label': 'Find in rows', style: 'width:16rem'});
   const count = h('span', {'aria-live': 'polite'});  // V18: the one row count, under the list's name; it follows Find ("129 rows of 617")
-  const head = h('div', {class: 'page-header mb-3'}, h('div', {class: 'row align-items-center g-2'},
-    h('div', {class: 'col'}, h('div', {class: 'hrow mb-2'}, dataSwitch({...q, list: name, ticker}, 'rows'), h('h2', {class: 'm-0'}, TABLES.find(([k]) => k === name)[1])), h('div', {class: 'text-secondary small'}, count, ' · USD')),
-    h('div', {class: 'col-auto'}, h('a', {href: csv, class: 'btn btn-outline-secondary btn-sm'}, 'CSV'), ' ', h('a', {href: `/api/v1/${name}` + (qs ? `?${qs}` : ''), target: '_blank', rel: 'noopener', class: 'btn btn-outline-secondary btn-sm'}, 'JSON'))));
+  const head = dataHead(TABLES.find(([k]) => k === name)[1], [count, ' · USD'], h('a', {href: `/api/v1/${name}` + (qs ? `?${qs}` : ''), target: '_blank', rel: 'noopener', class: 'btn btn-outline-secondary btn-sm'}, 'JSON'), h('a', {href: csv, class: 'btn btn-outline-secondary btn-sm'}, 'CSV'), dataSwitch({...q, list: name, ticker}, 'rows'));
   const valueSel = name === 'taxonomy' ? h('select', {'aria-label': 'Rows with a value', class: hasValue ? 'is-set' : null, onchange: (e) => setQ({has_value: e.target.value})},
     [['', 'Every row'], ['true', 'With a value'], ['false', 'Without a value']].map(([v, t]) => h('option', {value: v, selected: v === hasValue || null}, t))) : '';
   const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, valueSel, search);
