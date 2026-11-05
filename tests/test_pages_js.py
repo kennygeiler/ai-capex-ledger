@@ -381,6 +381,23 @@ class MachineWords(unittest.TestCase):
 
 
 @unittest.skipUnless(shutil.which("node"), "no node")
+class AgentVersions(unittest.TestCase):
+    """Review 5: an agent with prompt versions and no recorded change still shows its versions."""
+
+    def card(self, a):
+        js = """const h = (tag, attrs = {}, ...kids) => kids.flat(Infinity).filter((k) => k !== '' && k != null).join(' ');
+const dtable = () => '[table]'; const day = (x) => x;\n""" + line("_shared.js", "const int") + "\n" + line("_shared.js", "const plural") + "\n" + \
+            (PAGES / "rules.js").read_text().split("async function rulesPage")[0] + "\nprocess.stdout.write(agentCard(JSON.parse(process.argv[process.argv.length - 1])));"
+        return node(js, json.dumps(a))
+
+    def test_versions_without_history(self):
+        base = {"id": "x", "name": "X", "job": "j", "llm": {"model": "m"}, "prompt": "p@v2", "charter_blocks": [], "runs": {"companies": [], "total": {}}}
+        self.assertIn("versions v1, v2", self.card({**base, "versions": ["p@v1", "p@v2"], "history": []}))
+        self.assertIn("No change recorded", self.card({**base, "versions": ["p@v1"], "history": []}))
+        self.assertIn("1 change · versions v1", self.card({**base, "versions": ["p@v1"], "history": [{"at": "2026-11-01", "by": "K", "change": "c"}]}))
+
+
+@unittest.skipUnless(shutil.which("node"), "no node")
 class HandCheckNote(unittest.TestCase):
     """V4 / PB9: the note box shows only after Wrong or Can't say, or when a note is on file; never for Right or unchecked."""
 

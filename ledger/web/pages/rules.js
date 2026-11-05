@@ -20,7 +20,8 @@ function agentCard(a) {
       h('div', {class: 'col-lg-7'}, scoreBlock(sc))),
       runs,
       sc && sc.faults && sc.faults.by_kind ? fold('Planted errors by kind', `${int(Object.keys(sc.faults.by_kind).length)} kinds`, faultsByKind(sc.faults)) : '',
-      (a.history || []).length ? fold('Prompt and model history', `${plural((a.history || []).length, 'change')} · versions ${(a.versions || []).map((v) => v.split('@').pop()).join(', ')}`, history) : ''));
+      // review 5: an agent with versions and no recorded change still shows its versions
+      (a.history || []).length || (a.versions || []).length ? fold('Prompt and model history', [(a.history || []).length ? plural(a.history.length, 'change') : 'No change recorded', (a.versions || []).length ? `versions ${a.versions.map((v) => v.split('@').pop()).join(', ')}` : ''].filter(Boolean).join(' · '), (a.history || []).length ? history : h('p', {class: 'text-secondary small m-0'}, 'No change recorded')) : ''));
 }
 
 // Wilson score interval on k of n at 95% (z = 1.96), as [low, high] fractions; null when n is 0. The same formula as
