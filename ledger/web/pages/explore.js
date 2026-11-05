@@ -8,6 +8,8 @@ const EXM = {taxonomy: {label: 'All measures', value: (r) => r.value, alt: {chan
 const EX_AXES = {period: 'year', fiscal_year: 'fiscal year', ticker: 'company', layer: 'layer', field: 'field', measure: 'measure', category: 'category', standard_type: 'standard type', kind: 'kind', dimension: 'dimension', status: 'status', scope: 'scope', source: 'source', source_kind: 'source kind', period_kind: 'period kind', check: 'check'};
 const EX_TYPES = {bars: 'bars', stacked: 'stacked bars', lines: 'lines', share: 'share of total'};
 const colorReg = (() => { let m = {}; try { m = JSON.parse(localStorage.getItem('datahq-colors') || '{}'); } catch {} return (name) => { if (name === 'Other') return '#9aa39d'; if (m[name] == null) { m[name] = Object.keys(m).length; try { localStorage.setItem('datahq-colors', JSON.stringify(m)); } catch {} } return COLORS[m[name] % COLORS.length]; }; })();
+// the list request behind the chart, and its JSON / CSV export: every filter the controls hold (Measure, Category, Standard type on the taxonomy; Field, Kind, Layer, Tickers; From / To), server side
+const listUrl = (st) => { const p = new URLSearchParams(); for (const k of ['field', 'kind', 'layer', 'ticker', 'from', 'to']) if (st[k]) p.set(k, st[k]); if (st.measure === 'taxonomy') for (const [k, q_] of [['tmeasure', 'measure'], ['category', 'category'], ['standard_type', 'standard_type']]) if (st[k]) p.set(q_, st[k]); return `/api/v1/${st.measure}?${p}`; };
 async function explorePage(view, arg, qs) {
   const {rows: saved} = await api('/api/v1/views');
   const q = parseQ(qs || '');
@@ -21,13 +23,7 @@ async function explorePage(view, arg, qs) {
   const left = h('div', {}, h('div', {class: 'hrow'}, h('span', {class: 'muted small'}, `${saved.length} saved view${saved.length === 1 ? '' : 's'}`), h('a', {href: '#explore', class: 'small'}, 'New')), list);
   const body = h('div', {class: 'exbody'});
   view.append(h('div', {class: 'views'}, left, body));
-  const fetchRows = async () => {
-    const p = new URLSearchParams();
-    for (const k of ['field', 'kind', 'layer', 'ticker']) if (st[k]) p.set(k, st[k]);
-    for (const [k, q_] of [['tmeasure', 'measure'], ['category', 'category'], ['standard_type', 'standard_type']]) if (st.measure === 'taxonomy' && st[k]) p.set(q_, st[k]);
-    const d = await api(`/api/v1/${st.measure}?${p}`);
-    return d.rows.filter((r) => (!st.from || !(r.period || r.fiscal_year) || (r.period || r.fiscal_year) >= st.from) && (!st.to || !(r.period || r.fiscal_year) || (r.period || r.fiscal_year) <= st.to));
-  };
+  const fetchRows = async () => (await api(listUrl(st))).rows;  // the chart's rows and the JSON / CSV export are one request (F-BF7)
   let all = await api(`/api/v1/${st.measure}`), rows = all.rows;
   const distinct = (c) => [...new Set(rows.map((r) => r[c]).filter((v) => v != null && v !== ''))].sort();
   const setState = (patch) => { st = {...st, ...patch}; go('explore?' + new URLSearchParams(Object.fromEntries(Object.entries(st).filter(([, v]) => v))).toString()); };
@@ -70,8 +66,7 @@ async function explorePage(view, arg, qs) {
   const fmtv = (v) => (v == null ? '—' : isShare ? pct(v) : usd(v));
   const plot = h('div', {class: 'plot', role: 'figure', 'aria-label': `${m.label} by ${EX_AXES[st.x]}${st.series ? ' and ' + EX_AXES[st.series] : ''}`});
   const under = h('div', {});
-  const q2 = new URLSearchParams(); for (const k of ['field', 'kind', 'layer', 'ticker']) if (st[k]) q2.set(k, st[k]);
-  const url = `/api/v1/${st.measure}?${q2}`;
+  const url = listUrl(st);
   const delMsg = h('span', {class: 'small bad', role: 'status'});
   const saveRow = h('div', {class: 'hrow', style: 'gap:1rem'}, h('span', {class: 'muted small'}, `${int(pts.length)} row${pts.length === 1 ? '' : 's'}${folded.size ? `, ${folded.size} smaller series folded into Other` : ''}`),
     h('a', {href: url, target: '_blank', rel: 'noopener', class: 'small'}, 'JSON'), h('a', {href: url + '&format=csv', class: 'small'}, 'CSV'),

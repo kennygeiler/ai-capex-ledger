@@ -15,6 +15,7 @@ from . import views as _views
 FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source", "measure", "category", "fiscal_year", "standard_type", "check",
            "source_kind", "period_kind", "has_value", "mapped", "status",
            "as_of")  # schema v11: the taxonomy rows' own columns; a boolean filter takes true / false. as_of (T55): a date; the rows carry it back
+RANGE = ("from", "to")  # F-BF7: a year range, inclusive, on a row's period or fiscal_year (FY2024); a row with neither is kept, as Explore's chart keeps it
 AS_OF_LISTS = ("values", "taxonomy")  # the lists that answer ?as_of=D (ledger/web/pit.py): the figure the newest filing filed by D gave
 AS_OF_NOTE = ("only the newest vintage of each figure is reconciled against XBRL; an as-of row from an older filing carries vintage_check "
               "'unchecked': its figure is the cell as read, not compared with its own filing's tags (docs/API.md, T55b)")  # for the response's top-level note
@@ -102,6 +103,11 @@ def apply(rows: list[dict], q: dict) -> list[dict]:
         if q.get(k):
             want = {x.upper() for x in _split(q[k])}
             rows = [r for r in rows if k not in r or ("" if r.get(k) is None else str(r[k])).upper() in want]  # False is a value, not empty (has_value=false)
+    year = lambda r: str(r.get("period") or r.get("fiscal_year") or "").upper()
+    if q.get("from"):
+        rows = [r for r in rows if not year(r) or year(r) >= q["from"].strip().upper()]
+    if q.get("to"):
+        rows = [r for r in rows if not year(r) or year(r) <= q["to"].strip().upper()]
     g = q.get("group")
     if g:
         if g not in FILTERS:

@@ -106,5 +106,29 @@ class SignButton(unittest.TestCase):
         self.assertIn("button.disabled = !canSign", js)
 
 
+@unittest.skipUnless(shutil.which("node"), "no node")
+class ExploreExport(unittest.TestCase):
+    """F-BF7: Explore's JSON and CSV links dropped Measure, Category, Standard type and From / To (617 rows exported, 27
+    charted). The chart's rows and both links come from one URL, listUrl, which carries every filter."""
+
+    def url(self, st):
+        js = line("explore.js", "const listUrl") + "\nprocess.stdout.write(listUrl(JSON.parse(process.argv[process.argv.length - 1])));"
+        return node(js, json.dumps(st))
+
+    def test_every_chart_filter_is_in_the_export_url(self):
+        from urllib.parse import parse_qs, urlparse
+        u = urlparse(self.url({"measure": "taxonomy", "tmeasure": "spent", "category": "capex", "standard_type": "LandMember", "from": "FY2023", "to": "FY2025",
+                               "layer": "hyperscaler", "ticker": "MSFT,GOOGL", "field": "", "kind": ""}))
+        self.assertEqual(u.path, "/api/v1/taxonomy")
+        self.assertEqual({k: v[0] for k, v in parse_qs(u.query).items()},
+                         {"measure": "spent", "category": "capex", "standard_type": "LandMember", "from": "FY2023", "to": "FY2025", "layer": "hyperscaler", "ticker": "MSFT,GOOGL"})
+
+    def test_the_chart_and_the_links_read_one_url(self):
+        js = (PAGES / "explore.js").read_text()
+        self.assertIn("const fetchRows = async () => (await api(listUrl(st))).rows;", js)
+        self.assertIn("const url = listUrl(st);", js)
+        self.assertIn("h('a', {href: url + '&format=csv', class: 'small'}, 'CSV')", js)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -850,12 +850,14 @@
   ticket: none
 
 - id: explore_views
-  claim: "Explore: Save as view, Save changes and Delete write a saved view; a failed write says why beside its button"
-  where: [ledger/web/pages/explore.js, ledger/web/pages/_shared.js, ledger/web/views.py, /api/v1/views]
-  shown: ["Save as view", "Save changes", "Confirm delete", "withJson"]
+  claim: "Explore: Save as view, Save changes and Delete write a saved view; a failed write says why beside its button; JSON and CSV export the rows the chart's filters select"
+  where: [ledger/web/pages/explore.js, ledger/web/pages/_shared.js, ledger/web/views.py, ledger/web/api.py, /api/v1/views, /api/v1/<list>]
+  shown: ["Save as view", "Save changes", "Confirm delete", "withJson", "listUrl"]
   backed_by:
-    functions: [ledger.web.views.save, ledger.web.views.delete]
+    functions: [ledger.web.views.save, ledger.web.views.delete, ledger.web.api.apply]
     tests:
+      - tests.test_pages_js.ExploreExport.test_every_chart_filter_is_in_the_export_url
+      - tests.test_api.YearRange.test_the_csv_export_of_the_real_taxonomy_equals_the_filtered_rows
       - tests.test_pages_js.JsonWrites.test_a_body_gets_the_json_content_type
       - tests.test_pages_js.JsonWrites.test_explore_writes_go_through_api
   status: partial

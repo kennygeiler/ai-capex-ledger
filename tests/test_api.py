@@ -142,3 +142,29 @@ class UnknownCompany(unittest.TestCase):
         code, body = self.get("/api/v1/proof/apld")
         self.assertEqual(code, 200)
         self.assertEqual(body["ticker"], "APLD")
+
+
+class YearRange(unittest.TestCase):
+    """F-BF7: ?from= and ?to= filter a list by period or fiscal_year, inclusive, server side, so an export holds the rows
+    the chart holds; a row with no year is kept, as the chart keeps it."""
+
+    ROWS = [{"ticker": "A", "fiscal_year": "FY2022"}, {"ticker": "A", "fiscal_year": "FY2023"}, {"ticker": "A", "period": "FY2026"}, {"ticker": "A"}]
+
+    def test_from_and_to_are_inclusive(self):
+        got = api.apply(list(self.ROWS), {"from": "FY2023", "to": "fy2025"})
+        self.assertEqual(got, [self.ROWS[1], self.ROWS[3]])
+
+    def test_the_csv_export_of_the_real_taxonomy_equals_the_filtered_rows(self):
+        import os
+        if not store.DEFAULT_DB.exists() or os.environ.get("LEDGER_SKIP_DB"):
+            self.skipTest("no database")
+        con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+        try:
+            q = {"measure": "spent", "category": "capex", "from": "FY2023", "to": "FY2024"}
+            rows = api.query(con, "taxonomy", q)
+            every = api.query(con, "taxonomy", {})
+        finally:
+            con.close()
+        self.assertTrue(rows)
+        self.assertLess(len(rows), len(every))
+        self.assertTrue(all(r["measure"] == "spent" and r["category"] == "capex" and "FY2023" <= r["fiscal_year"] <= "FY2024" for r in rows))

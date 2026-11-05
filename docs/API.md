@@ -158,7 +158,9 @@ same cells); the packet README names this endpoint.
 
 Every list takes `ticker`, `layer`, `period`, `field`, `kind`, `method`, `scope`, `dimension`, `source`, `measure`, `category`, `fiscal_year`, `standard_type`, `check`,
 `source_kind`, `period_kind`, `has_value`, `mapped`, `status` as comma-separated values (and values and taxonomy `as_of`, above), matched without regard to case; a boolean takes `true` or `false`
-(`has_value=false` is the rows the company named without a figure). `group=<column>` rolls the list up: one row per distinct
+(`has_value=false` is the rows the company named without a figure). `from=FY2023&to=FY2025` keeps the rows whose `period`
+(or `fiscal_year`) lies in that range, both ends included; a row with neither is kept. Explore's chart and its JSON and CSV links
+send one request with every filter its controls hold. `group=<column>` rolls the list up: one row per distinct
 value with `rows`, `amount` (the sum of the list's amount column: value, amount_mid or amount) and
 `with_amount`.
 
