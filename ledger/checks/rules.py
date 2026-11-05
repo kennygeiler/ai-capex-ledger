@@ -390,16 +390,8 @@ def _readings_differ(ctx, p):
     """An untagged note figure (facts.label no_reference) printed by two or more 10-Ks with values that differ by more
     than config.RESTATEMENT_TOLERANCE. The newest filing wins in the dataset; this keeps the disagreement open, because
     nothing on file says which reading is right (a tagged fact has the restatement guard and its tag instead)."""
-    from .ties import differ, differ_message, readings_of
-    by_id = {e["extraction_id"]: e for e in ctx.note_extractions}
-    out = []
-    for f in ctx.facts:
-        if f.get("label") != "no_reference":
-            continue
-        rs = readings_of(f, by_id)
-        if differ(rs):
-            out.append(Finding(f["ticker"], f"{f['field']} {f['dimension'] or ''} {f['period']}: {differ_message(rs)}".replace("  ", " "), f["field"], f["period"], f["dimension"] or ""))
-    return out
+    from .ties import differ_findings
+    return [Finding(x["ticker"], x["message"], x["field"], x["period"], x["subject"]) for x in differ_findings(ctx.facts, ctx.note_extractions)]
 
 
 @check("segment_basis_mixed")

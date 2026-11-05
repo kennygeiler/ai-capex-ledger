@@ -50,6 +50,9 @@ def _scoped(link: str, ticker: str) -> str:
 
 
 GATE_SHORT = {"G1": "All filings read", "G4": "Every block has a decision", "G5": "Values confirmed on filing", "G6": "No proposal left to confirm"}
+# each line's Details: one short line in product words, no file paths (the files behind each line: docs/OPERATIONS.md, "The Release lines")
+GATE_NOTE = {"G1": "Every filing read, or its failure logged and settled", "G4": "Every block finding has a current decision",
+             "G5": "Values SEC XBRL cannot vouch for, and a sample of those it can, confirmed on the filing", "G6": "Category mappings and run decisions waiting for a person"}
 
 
 def _rows(con, sql, p):
@@ -302,7 +305,7 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     no .git) the commit cannot be compared: informs, "commit not compared: no git", never a verified pass.
     `head` and `changed` are read from the checkout unless a test passes them."""
     if t is None:
-        return _line("tests", "Test run", True, 0, "not_run", "proof", "not run (reports/tests.json; `ledger test` writes it)")
+        return _line("tests", "Test run", True, 0, "not_run", "proof", "Test run not run")
     fails = t.get("failures") or []
     golden = t.get("golden")
     g_note = {True: "regression test ok", False: "regression test FAILED"}.get(golden, "regression test skipped, see its own line")
@@ -321,7 +324,7 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     stale = moved or bool(t.get("dirty"))
     if stale:
         why = "dirty tree" if t.get("dirty") else f"HEAD is {head}"
-        return _line("tests", "Test run", True, 0, "stale", "proof", f"stale ({why}): run `ledger test`; {base}", detail)
+        return _line("tests", "Test run", True, 0, "stale", "proof", f"Stale: {why}; {base}", detail)
     return _line("tests", "Test run", True, 0, "pass", "proof", base, detail)
 
 
@@ -331,9 +334,9 @@ def regression_line(g: dict | None) -> dict:
     that a number is right: the hand check is its own line (hand_check_line), read live. A report from before T82's
     split (no tables_ok) is read strictly."""
     if g is None:
-        return _line("regression", "Regression test", True, 1, "fail", "proof", "not run: `ledger golden --check`")
+        return _line("regression", "Regression test", True, 1, "fail", "proof", "Regression test not run")
     tables = bool(g.get("tables_ok") if "tables_ok" in g else (g.get("ok") and g.get("gold"))) and not g.get("failed_step")
-    note = ("tables unchanged since freeze" if tables else "tables changed since freeze") + (f", failed at {g['failed_step']}" if g.get("failed_step") else "") + f"; checked {str(g.get('at') or '')[:10] or 'never'}"
+    note = ("Tables unchanged since freeze" if tables else "Tables changed since freeze") + (f", failed at {g['failed_step']}" if g.get("failed_step") else "") + f"; checked {str(g.get('at') or '')[:10] or 'never'}"
     detail = [{"table": k, "only_in_run": v.get("n_only_in_run"), "only_in_expected": v.get("n_only_in_expected")} for k, v in (g.get("diffs") or {}).items()]
     return _line("regression", "Regression test", True, 0 if tables else (len(detail) or 1), "pass" if tables else "fail", "proof", note, detail)
 
@@ -380,12 +383,12 @@ def claims_lines() -> list[dict]:
         return [_line("claims", label, True, 1, "fail", "gaps", f"the register could not be read: {e.__class__.__name__}: {str(e)[:160]}", [{"problem": str(e)[:300]}])]
     probs = probs + [{"kind": "append_only", "what": p, "where": "claims/findings.jsonl"} for p in ao["problems"]]
     c = claims.counts(rows, fs)
-    scanned = f"scanned {sc['pages']} pages and {sc['files'] - sc['pages']} other files, {len(sc['strings'])} strings; {len(rows)} claims; {ao['note']}"
+    scanned = f"{len(rows)} claims; {len(sc['strings'])} strings scanned on {sc['pages']} pages and {sc['files'] - sc['pages']} other files; {ao['note']}"
     reg = _line("claims", label, True, len(probs), "pass" if not probs else "fail", "gaps",
                 scanned if not probs else f"{len(probs)} problems: a claim with no row, a row whose words moved, or an edited finding; {scanned}",
                 [{"kind": p["kind"], "what": p["what"], "where": p["where"]} for p in probs])
     gaps = _line("known_gaps", f"Known gaps: {c['stub']} stub · {c['stale']} stale · {c['open_findings']} open findings", False,
-                 c["stub"] + c["stale"] + c["open_findings"], "info", "gaps", claims.counts_line(c) + "; LIMITATIONS.md lists the stub, stale and planned claims",
+                 c["stub"] + c["stale"] + c["open_findings"], "info", "gaps", claims.counts_line(c),
                  [{"claim": r["claim"], "status": r["status"], "ticket": r["ticket"]} for r in rows if r["status"] in ("stub", "stale")])
     return [reg, doc_line(), gaps]
 
@@ -402,8 +405,8 @@ def doc_line(doc=None, text=None) -> dict:
     except Exception as e:
         return _line("claims_doc", label, True, 1, "fail", "gaps", f"could not compare: {e.__class__.__name__}: {str(e)[:160]}")
     if have == want:
-        return _line("claims_doc", label, True, 0, "pass", "gaps", "docs/CLAIMS.md equals the register as it is now")
-    return _line("claims_doc", label, True, 1, "fail", "gaps", "docs/CLAIMS.md is missing" if have is None else "docs/CLAIMS.md differs from the register: run `ledger claims` and commit")
+        return _line("claims_doc", label, True, 0, "pass", "gaps", "Matches the register")
+    return _line("claims_doc", label, True, 1, "fail", "gaps", "Missing" if have is None else "Differs from the register")
 
 
 def _head() -> str | None:
@@ -418,18 +421,18 @@ def _changed_since(sha: str) -> list | None:
 
 
 def review_counts(board: dict, unconfirmed: list, unmapped: list = ()) -> dict:
-    """{bad, wait, blocked, per_company, off_board}: the Proof board's items by the row word every page shows
-    (states.row), counted with states.tally (Reconcile's header counts its rows the same way), plus a run's decisions to
-    confirm under wait (Reconcile's "To confirm" rows, Proposed there; no Proof item carries them, so nothing is counted
-    twice), plus under bad every unmapped asset type (taxonomy.unmapped) the board has no mapping row for (`off_board`):
-    a name with no entry blocks whether or not a page lists it."""
-    from ..core.states import row as row_word, tally
-    words = {c["ticker"]: [row_word(i["state"], i.get("by")) for s in c["stages"].values() for i in s["all"]] for c in board["proven"]}
+    """{bad, wait, blocked, per_company, off_board}: the per-company buckets (workbench.company_counts, the function the
+    Proof board and the trail read) summed: Needs review, Proposed (a run's decisions to confirm included; no Proof item
+    carries them, so nothing is counted twice) and Blocks release, and the unmapped asset types (taxonomy.unmapped) the
+    board has no mapping row for (`off_board`), counted under Needs review: a name with no entry blocks whether or not a
+    page lists it."""
+    from ..review.workbench import company_counts
     on_board = {(c["ticker"], i.get("name")) for c in board["proven"] for i in (c["stages"].get("mapping") or {}).get("all", [])}
     off = [m for m in unmapped if (m["ticker"], m["reported_name"]) not in on_board]
-    n = tally(w for ws in words.values() for w in ws)
-    return {"bad": n.get("bad", 0) + len(off), "wait": n.get("wait", 0) + len(unconfirmed), "blocked": n.get("blocked", 0), "off_board": off,
-            "per_company": [{"ticker": t, "open": ws.count("bad") + sum(m["ticker"] == t for m in off), "proposed": ws.count("wait"), "blocked": ws.count("blocked")} for t, ws in words.items()]}
+    per = company_counts(board, unconfirmed, unmapped)
+    tot = lambda b: sum(x[b] for x in per.values())
+    return {"bad": tot("bad"), "wait": tot("wait"), "blocked": tot("blocked"), "off_board": off,
+            "per_company": [{"ticker": t, "open": x["bad"], "proposed": x["wait"], "blocked": x["blocked"]} for t, x in per.items()]}
 
 
 def g6_link(unconfirmed: list, mappings: list) -> str:
@@ -440,8 +443,9 @@ def g6_link(unconfirmed: list, mappings: list) -> str:
 
 def g6_detail(unconfirmed: list, mappings: list) -> list[dict]:
     """G6's items one per key: the key, its state, the reason and the page that fixes it."""
-    return ([{"key": r["key"], "state": r["state"], "reason": (r.get("reason") or "")[:160], "link": "reconcile?cause=to_confirm"} for r in unconfirmed]
-            + [{"key": f"asset_types|{m['ticker']}|{m['reported_name']}", "state": "to confirm", "reason": f"{m.get('standard_type')} proposed by {m.get('by')}",
+    from ..core.states import word
+    return ([{"company": (resolutions.parse_key(r["key"]) or {}).get("ticker", ""), "key": r["key"], "state": r["state"], "reason": (r.get("reason") or "")[:160], "link": "reconcile?cause=to_confirm"} for r in unconfirmed]
+            + [{"company": m["ticker"], "key": f"asset_types|{m['ticker']}|{m['reported_name']}", "state": word("row", "wait"), "reason": f"{m.get('standard_type')} proposed by {m.get('by')}",
                 "link": f"reconcile?scope={m['ticker']}&cause=asset_types"} for m in mappings])
 
 
@@ -459,32 +463,33 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     bad = failing(p["gates"])
     unc = resolutions.unconfirmed()  # a run's decisions to confirm (T3): Reconcile's "To confirm" rows, Proposed there too
     utc = taxonomy.to_confirm(con, list(SCOPE))  # T63: the asset-type mappings no person confirmed, the rest of G6
-    for gid in GATES:
-        by_t = p["gates"][gid]
-        n = sum(len(v) for v in by_t.values())
-        detail = [{"ticker": t, "items": len(items), "example": items[0] if items else "", **({"link": _scoped(GATE_FIX[gid], t)} if items else {})} for t, items in by_t.items()]
-        if gid == "G6":  # the Proposed bucket: one row per key, as the line had before T-RS, each with its page
-            detail = g6_detail(unc, utc)
-        lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", g6_link(unc, utc) if gid == "G6" else GATE_FIX[gid],
-                           GATES[gid] + (f"; export the hand-check from reports/stage{stage}-validation.html to golden/stage{stage}-handcheck.json" if gid == "G5" and any(v == ["no hand-check file"] for v in by_t.values()) else ""), detail))
-    # open, proposed and blocked in scope (T1): the one definition of open, from the Proof board, split by the row word every
-    # page shows (states.row) and counted with states.tally, the function Reconcile's header counts with. Each line is a
-    # distinct set, named as Reconcile names its bucket: Needs review (open, nothing proposed; an unmapped asset type is one),
-    # Proposed (the G6 line above: an asset-type mapping or a run's decision no person confirmed), Blocks release. Before,
-    # "Items to review" counted Needs review and Proposed together, and "Decisions left to confirm" and G6 counted Proposed
-    # twice more.
+    # open, proposed and blocked in scope (T1): the one per-company count (workbench.company_counts over the Proof board,
+    # states.buckets), the function the Proof board, the trail and Reconcile's header count with. Each line is one bucket,
+    # named as every page names it, and its detail is that bucket per company, linked to the page that fixes it (F-FL2):
+    # Needs review (open, nothing proposed; an unmapped asset type is one), Proposed (the G6 line: an asset-type mapping or a
+    # run's decision no person confirmed), Blocks release.
     um = taxonomy.unmapped(con, list(SCOPE))     # T14: the unmapped asset types, counted under Needs review whether or not the board lists them
     rc = review_counts(board, unc, um)
     open_, blocked, per_co = rc["bad"], rc["blocked"], rc["per_company"]  # rc["wait"] is the G6 line's count (tests.test_checklist.Parity)
+    for gid in GATES:
+        by_t = p["gates"][gid]
+        n = sum(len(v) for v in by_t.values())
+        detail = [{"company": t, "items": len(items), "example": items[0] if items else "", **({"link": _scoped(GATE_FIX[gid], t)} if items else {})} for t, items in by_t.items()]
+        if gid == "G6":  # the Proposed bucket: one row per item (company, key, state, reason), each with the page that fixes it
+            detail = g6_detail(unc, utc)
+        no_hc = gid == "G5" and any(v == ["no hand-check file"] for v in by_t.values())
+        lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", g6_link(unc, utc) if gid == "G6" else GATE_FIX[gid],
+                           GATE_NOTE[gid] + (" · Hand-check file for this stage missing · export from Proof" if no_hc else ""), detail))
     lines.append(_line("open", word("row", "bad"), True, open_, "pass" if open_ == 0 else "fail", NEEDS_REVIEW_FIX,
-                       "Neither verified nor explained, nothing proposed" + (f"; {len(um)} of them asset types with no entry (Reconcile, asset types)" if um else ""),
-                       [{"ticker": x["ticker"], "open": x["open"], "link": _scoped(NEEDS_REVIEW_FIX, x["ticker"])} for x in per_co if x["open"]] + [{"unmapped": m} for m in um]))
-    lines.append(_line("blocked", word("row", "blocked"), True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "A block rule or a decision refuses the release", [{"ticker": x["ticker"], "blocked": x["blocked"], "link": _scoped("reconcile", x["ticker"])} for x in per_co if x["blocked"]]))
+                       "Neither verified nor explained, and nothing proposed" + (f"; {len(um)} are categories with no mapping" if um else ""),
+                       [{"company": x["ticker"], "needs_review": x["open"], "link": _scoped(NEEDS_REVIEW_FIX, x["ticker"])} for x in per_co if x["open"]]
+                       + [{"company": m["ticker"], "unmapped_category": m["reported_name"], "link": _scoped("reconcile?cause=asset_types", m["ticker"])} for m in um]))
+    lines.append(_line("blocked", word("row", "blocked"), True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "A block rule or a person's decision holds the release",
+                       [{"company": x["ticker"], "blocks_release": x["blocked"], "link": _scoped("reconcile", x["ticker"])} for x in per_co if x["blocked"]]))
     # completeness against the answer key (T81): an XBRL value with no released value and nothing open is a silent blank
     miss = proof.missing_from_dataset(con, SCOPE, decisions())
     lines.append(_line("complete", "Answer-key values missing from the dataset", True, len(miss), "pass" if not miss else "fail", "reconcile",
-                       "company, field and year (from its first 10-K) where XBRL holds a value and the release ships none, with no open item, "
-                       "no person's resolution and no person's review decision on it; a company with no XBRL answer loaded counts once",
+                       "SEC XBRL holds a value the release does not ship, with nothing open or decided",
                        [{"ticker": m["ticker"], "field": m["field"], "period": m["period"], "reference": m["reference"], "why": m["why"]} for m in miss]))
     # rows with no value, by measure (T15: informational)
     tax = list(csv.DictReader(io.StringIO(p["files"]["taxonomy.csv"])))
@@ -492,18 +497,18 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     for r in tax:
         if r.get("has_value") == "False":
             nv[r["measure"]] = nv.get(r["measure"], 0) + 1
-    lines.append(_line("no_value", "Rows with no value", False, sum(nv.values()), "info", "data?list=taxonomy&has_value=false", "kept with value empty and has_value false; a project without an amount, a statement in words",
+    lines.append(_line("no_value", "Rows with no value", False, sum(nv.values()), "info", "data?list=taxonomy&has_value=false", "Kept with an empty value: a project without an amount, a statement in words",
                        [{"measure": k, "rows": v} for k, v in sorted(nv.items())]))
     # diff from the previous release in rows (T8)
     d = p["rows_diff"]
     n_diff = sum(x["added"] + x["removed"] + x["changed"] for x in d.values())
     lines.append(_line("diff", f"Rows changed since {p['previous']}" if p["previous"] else "First release", False, n_diff, "info", "data",
-                       "added + removed + changed across the lists; DIFF.md carries the same table and examples",
+                       "Rows added, removed or changed, by list",
                        [{"list": k, "rows": x["rows"], "added": x["added"], "removed": x["removed"], "changed": x["changed"], "columns_added": x["columns_added"], "columns_removed": x["columns_removed"]} for k, x in d.items()]))
     # known weaknesses with no mitigation (T68: informational, never red)
     lim = limitations.unmitigated(limitations.resolved(p["files"]))
     lines.append(_line("limitations", "Limitations with no mitigation", False, len(lim), "info", "",  # fixed in taxonomy/limitations.yaml, not on a page: no Fix in (F-BF11)
-                       "entries of taxonomy/limitations.yaml whose mitigation is none; LIMITATIONS.md in the packet lists every entry",
+                       "Known limitations with no mitigation; the packet lists every one",
                        [{"id": e["id"], "closes": e["closes"]} for e in lim]))
     # the claims register (docs/BUILD.md): every claim a page shows has a row (required); what is not yet true (informs)
     lines.extend(claims_lines())
@@ -516,13 +521,15 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     # a release folder before this one the checklist cannot read: the diff would lie, so it is a red line, not a 500
     broken = broken_before(version)
     lines.append(_line("previous", "Previous releases readable", True, len(broken), "fail" if broken else "pass", "",  # a folder under releases/, fixed on disk: no Fix in to Release itself (F-BF11)
-                       "; ".join(f"previous release {v} is broken: delete and rebuild" for v in broken) if broken else f"diffed against {p['previous']}" if p["previous"] else "no previous release",
+                       "; ".join(f"previous release {v} is broken: delete and rebuild" for v in broken) if broken else f"Compared with {p['previous']}" if p["previous"] else "No previous release",
                        [{"folder": v} for v in broken]))
     # the packet as it would be written
     fstate, fnote = folder_state(version, p["hash"])
     exists, signed = fstate != "none", fstate == "signed"
     pk_state = "pass" if fstate in ("none", "same") else "fail"
-    pk_note = fnote or f"built in memory, not written; {p['values']} values, {len(tax)} taxonomy rows"
+    pk_note = {"none": f"Built, not yet written; {p['values']} values, {len(tax)} taxonomy rows", "same": f"Written, unsigned, unchanged; {p['values']} values, {len(tax)} taxonomy rows",
+               "signed": f"{version} is already signed: use a new version", "broken": f"The {version} folder is incomplete: delete and rebuild",
+               "different": f"An unsigned {version} folder differs from this packet: delete and rebuild"}[fstate]  # folder_state's own note names the folder, for the CLI
     lines.append(_line("packet", f"Packet {version}", True, len(p["files"]), pk_state, "data", pk_note,
                        [{"file": n, "bytes": len(text.encode()), "rows": max(0, text.count("\n") - 1) if n.endswith(".csv") else None} for n, text in sorted(p["files"].items())]))
     required = [l for l in lines if l["required"]]

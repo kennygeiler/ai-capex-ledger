@@ -63,7 +63,7 @@ function trailTable(items, stage, ticker) {
 }
 
 function stageCard(id, st, waiting, body) {
-  const tally = waiting.length ? h('span', {class: 'text-orange'}, `${int(waiting.length)} to review`) : h('span', {class: 'text-green'}, 'Complete');
+  const tally = waiting.length ? bucketLine(st.counts) : h('span', {class: 'text-green'}, 'Complete');  // the stage's own buckets, in the words the company's count uses
   return h('div', {class: 'card mb-3'},
     h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0', title: TRAIL_STAGE_HELP[id] || ''}, STAGE_LABEL_UI[id] || id),
       h('span', {class: 'ms-3 small'}, `${plural(st.items, 'item')} · `, tally)),
@@ -81,7 +81,7 @@ async function trailPage(view, ticker) {
           return [h('span', {class: cls + (i ? ' ms-3' : ''), title: title || null}, '● ' + word), after ? h('span', {class: 'text-secondary'}, after) : ''];
         }), c.in_proven_set ? '' : h('span', {class: 'text-secondary ms-3'}, 'Not in scope'))),
     h('div', {class: 'col-auto'}, unfiled ? h('span', {class: stateWord('company', c.filing_state)[0] + ' fw-medium'}, stateWord('company', c.filing_state)[1])
-      : c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-orange fw-medium'}, `${int(c.open)} to review`),
+      : c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : bucketLine(c.counts),
       h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-3'}, 'Reconcile'), h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'))));
   const waitingTotal = Object.values(c.stages).reduce((n, st) => n + (st.open || []).length, 0);
   const s = c.summary || {}, S = c.status || {};
@@ -107,7 +107,7 @@ async function trailPage(view, ticker) {
       tile('Verification',
         kv('Figures', S.figures, 'text-body fw-medium'), kv('Match SEC XBRL', S.matched, 'text-green'), kv('Tie to totals', S.tied, 'text-teal'),
         kv('Confirmed in 2 filings', S.second_reading, 'text-teal'), kv('Citation only', S.reading_only, 'text-azure'),
-        kv('To review', S.waiting, 'text-orange'), kv('Quotes verified', S.quotes)),
+        ...bucketParts(c.counts).map(([b, n]) => kv(stateWord('row', b)[1], n, stateWord('row', b)[0])), kv('Quotes verified', S.quotes)),
       tile('Last release', S.shipped ? S.shipped.version : 'None', S.shipped ? `Signed ${S.shipped.signed_at} · ${S.shipped.signed_by}` : ''),
       tile('Changes since release', ...sinceLines))));
   const order = (it) => ({open: 0, blocked: 0, explained: 1, checked: 2})[it.state] ?? 1;

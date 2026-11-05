@@ -482,7 +482,7 @@ class Parity(unittest.TestCase):
         board = {"proven": [{"ticker": "X", "stages": {"facts": {"all": [item("open", "rule:jump"), item("open", "rule:jump")]},
                                                       "mapping": {"all": [item("open", "label:to_confirm"), item("open", "label:to_confirm"), item("open", "label:to_confirm")]},
                                                       "release": {"all": [item("blocked", "rule:b")]}, "values": {"all": [item("checked", "xbrl")]}}}], "open": 6}
-        rc = checklist.review_counts(board, [{"key": "k"}])
+        rc = checklist.review_counts(board, [{"key": "finding_unconfirmed|X|capex|FY2024||jump|"}])  # unconfirmed() gives live keys only
         self.assertEqual((rc["bad"], rc["wait"], rc["blocked"]), (2, 3 + 1, 1))  # 2 + 4 + 1 = 7: every open item once, the old line said 5 then 3 again
         self.assertEqual(rc["bad"] + rc["wait"] - 1 + rc["blocked"], board["open"])  # Proof's open (6) = bad + wait items + blocked; the run decision is not a Proof item
         self.assertEqual(checklist.review_counts({"proven": []}, []), {"bad": 0, "wait": 0, "blocked": 0, "off_board": [], "per_company": []})  # nothing to count is zero, per bucket

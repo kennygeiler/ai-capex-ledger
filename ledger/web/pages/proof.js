@@ -46,7 +46,7 @@ async function proofPage(view, qs) {
     h('tbody', {}, b.proven.map((c) => h('tr', {class: 'item', tabindex: 0, onclick: () => go('proof/' + c.ticker), onkeydown: (e) => { if (e.key === 'Enter') go('proof/' + c.ticker); }},
       h('td', {}, h('div', {}, h('a', {href: '#proof/' + c.ticker, onclick: (e) => e.stopPropagation()}, c.name), ' ', h('span', {class: 'text-secondary small'}, c.ticker)), h('div', {class: 'text-secondary small'}, INDUSTRY[c.layer] || c.layer)),
       b.stages.map((s) => stageCell(c.stages[s.id])),
-      h('td', {class: 'text-nowrap'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-orange fw-medium'}, `${int(c.open)} to review`))))))));
+      h('td', {class: 'text-nowrap'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : bucketLine(c.counts))))))));
   const legend = h('p', {class: 'small mt-2'}, [['ok', 'checked'], ['done', 'done'], ['info', 'explained'], ['bad', 'open']].map(([s, g], i) => [i ? h('span', {class: 'text-secondary'}, ' · ') : '', h('span', {class: stateWord('row', s)[0]}, '● ' + stateGroups()[g])]));
   // T56: rows by the strongest answer key that vouches for them, graded by independence (status.KEY_GRADE); `none` is every row no key vouches for, so a row counts once
   const grades = b.key_grade || [];

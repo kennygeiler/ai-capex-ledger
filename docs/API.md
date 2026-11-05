@@ -49,7 +49,11 @@ mapper's latest standing line from `decisions/mapping_proposals.jsonl`: `standar
 today's date (the one writer of the file): 400 when `standard_type` is not in `members`, when the (ticker, reported_name) already has an
 entry, when a field is empty, when `by` is not on `config.PEOPLE`, or when `expected` is missing; the reply is the entry written.
 `expected` is the entry the page showed, `{standard_type, at}`, or `null` for none: when the file's entry no longer matches it, the write is
-refused with 409 (`stale: true`) and the page reloads. `POST /api/mapping/reject` `{ticker, reported_name, standard_type, by,
+refused with 409 (`stale: true`) and the page reloads. `POST /api/mapping/bulk` `{items: [{ticker, reported_name, standard_type, evidence,
+expected}], by}` is Reconcile's "Approve all N" on the categories the company's own tag matches: each item goes through the same writer, with
+its `expected`, one after another; every item must confirm the member the page showed (`standard_type` equal to `expected.standard_type`);
+it stops at the first refusal with that refusal's status (409 stale, 400 otherwise), naming how many were written before it; the reply is
+`{approved, items}`. `POST /api/mapping/reject` `{ticker, reported_name, standard_type, by,
 reason}` appends a `rejected` line to the proposals log so the next `ledger mapper` run does not propose that member again; 400 when
 `by` is not on `config.PEOPLE`.
 
