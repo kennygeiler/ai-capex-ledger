@@ -3,9 +3,11 @@ groups with a deliberate Save, the packet on Release, Proof with one job, the co
 Verification filter on the Dataset, and the read-only copy's scope line."""
 import json
 import shutil
+import tempfile
 import unittest
 from pathlib import Path
 
+from tests.test_flow import REAL_DB
 from tests.test_pages_js import PAGES, block, line, node
 
 
@@ -128,12 +130,49 @@ class TrailCondensed(unittest.TestCase):
         self.assertEqual(got, [["opex FY2026", ["jump"], 1], ["capex FY2025", ["jump"], 0],  # an open flag makes its figure open
                                ["row_label_switch: revenue FY2022", [], 2]])  # no figure row of its own: stays a row
 
-    def test_identical_empty_rows_are_one_row_with_a_count(self):
-        empty = lambda p: {"what": p, "state": "explained", "card": {"how": {"tone": "info", "text": "Part-year amount"}, "where": []}}
+    def test_two_figures_in_one_period_stay_two_and_a_flag_folds_only_into_one(self):
+        """review 1: the key was field|period, so Search vanished behind Cloud and a flag folded into the wrong segment."""
+        seg = lambda d: {"what": f"segment_revenue {d} FY2025", "state": "checked", "ref": {"field": "segment_revenue", "dimension": d, "period": "FY2025"}, "card": {"found": "$1", "where": [{}]}}
+        flag = lambda d=None: {"what": "jump", "state": "open", "ref": {"field": "segment_revenue", "period": "FY2025", **({"dimension": d} if d else {})}, "show": {"rule": "jump"}, "card": {"how": {"tone": "bad"}}}
+        got = _call(self.PRE, "foldFlags(A).map((i) => [i.what, (i.flags || []).map((f) => f.rule)])", [seg("Cloud"), seg("Search"), flag()])
+        self.assertEqual(got, [["segment_revenue Cloud FY2025", []], ["segment_revenue Search FY2025", []], ["jump", []]])  # two matches: the flag stays a row
+        got = _call(self.PRE, "foldFlags(A).map((i) => [i.what, (i.flags || []).map((f) => f.rule)])", [seg("Cloud"), seg("Search"), flag("Search")])
+        self.assertEqual(got, [["segment_revenue Cloud FY2025", []], ["segment_revenue Search FY2025", ["jump"]]])
+
+    @unittest.skipUnless(REAL_DB, "no data/ledger.duckdb")
+    def test_every_figure_of_every_proven_company_keeps_its_row(self):
+        from ledger.checks import proof
+        from ledger.core.config import PROVEN
+        from ledger.web import app, cards
+        con = app._con()
+        try:
+            trails = {t: cards.add(con, proof.company(con, t)) for t in PROVEN}
+        finally:
+            con.close()
+        js = self.PRE + "\nprocess.stdout.write(JSON.stringify(Object.fromEntries(Object.entries(A).map(([t, c]) => [t, Object.values(c.stages).map((st) => { const all = st.all || [], f = foldFlags(all); return [all.filter((i) => !(i.show || {}).rule).length, f.filter((i) => !(i.show || {}).rule).length, all.length - f.length, f.reduce((n, i) => n + (i.flags || []).length, 0)]; })]))));"
+        with tempfile.NamedTemporaryFile("w", suffix=".json") as f:  # six trails are too large for one argument
+            json.dump(trails, f, default=str)
+            f.flush()
+            out = json.loads(node("const A = JSON.parse(require('fs').readFileSync(process.argv[process.argv.length - 1], 'utf8'));\n" + js, f.name))
+        for t, stages in out.items():
+            for before, after, gone, folded in stages:
+                self.assertEqual(before, after, t)  # every figure (not flag) still has its row
+                self.assertEqual(gone, folded, t)  # a row leaves only as a flag folded into one figure
+
+    def test_identical_rows_are_one_row_with_a_count_and_any_difference_keeps_them_apart(self):
+        empty = lambda p, detail=None: {"what": p, "state": "explained", "detail": detail, "card": {"how": {"tone": "info", "text": "Part-year amount"}, "where": []}}
         quoted = {"what": "FY2025", "state": "checked", "card": {"found": "“quote”", "how": {"tone": "ok"}, "where": [{}]}}
         items = [empty("FY2025")] * 7 + [quoted, quoted, empty("FY2026")]
         got = _call(self.PRE, "groupSame(A, (i) => i.what).map((i) => [i.what, i.count])", items)
         self.assertEqual(got, [["FY2025", 7], ["FY2025", 1], ["FY2025", 1], ["FY2026", 1]])  # rows with a value or source are never merged
+        how = lambda d: {"what": "R", "state": "explained", "card": {"how": {"tone": "info", "text": "Part-year", "detail": d}, "where": []}}
+        self.assertEqual(_call(self.PRE, "groupSame(A, (i) => i.what).map((i) => i.count)", [how("quarter 1 only"), how("Q1-Q3 only")]), [1, 1])  # review 2
+        self.assertEqual(_call(self.PRE, "groupSame(A, (i) => i.what).map((i) => i.count)", [empty("R", "three months to August"), empty("R", "three months to November")]), [1, 1])
+        self.assertEqual(_call(self.PRE, "groupSame(A, (i) => i.what).map((i) => i.count)", [{**how(None), "card": {**how(None)["card"], "restatement": {"line": "x"}}}, how(None)]), [1, 1])
+
+    def test_a_folded_flag_says_its_state_in_words(self):
+        page = (PAGES / "trail.js").read_text()
+        self.assertIn("`${TRAIL_RULE[f.rule] || f.rule.replaceAll('_', ' ')} · `), h('span', {class: fc}, fw)", page)  # review 8: not colour alone
 
     def test_one_link_per_stage_and_complete_stages_fold(self):
         page = (PAGES / "trail.js").read_text()

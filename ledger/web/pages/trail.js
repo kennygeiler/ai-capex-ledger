@@ -17,25 +17,28 @@ const TRAIL_RULE = {jump: 'Large year-over-year change', restated: 'Restated', r
 // the figure's row as a line under its verification. A flag with no figure row of its own stays a row.
 const ORDER = {open: 0, blocked: 0, explained: 1, checked: 2};
 const trailOrder = (it) => Math.min(ORDER[it.state] ?? 1, ...(it.flags || []).map((f) => ORDER[f.state] ?? 1));
-const flagKey = (it) => { const r = it.ref || {}; return r.field && r.period ? `${r.field}|${r.period}` : null; };
+// a figure is field + dimension + period (two segments in one year are two figures); a flag names field and period, and
+// sometimes a dimension: it folds only into the one figure it matches, else it stays its own row (review 1)
+const flagKey = (it) => { const r = it.ref || {}; return r.field && r.period ? `${r.field}|${r.dimension || ''}|${r.period}` : null; };
 function foldFlags(items) {
+  const out = items.map((it) => ((it.show || {}).rule || !flagKey(it) ? it : {...it, flags: []}));
   const figures = new Map();
-  for (const it of items) if (!(it.show || {}).rule && flagKey(it) && !figures.has(flagKey(it))) figures.set(flagKey(it), {...it, flags: []});
-  const out = [];
-  for (const it of items) {
-    const rule = (it.show || {}).rule, fig = rule ? figures.get(flagKey(it)) : null;
-    if (fig) { fig.flags.push({rule, state: it.state, tone: ((it.card || {}).how || {}).tone}); continue; }
-    out.push(!rule && flagKey(it) ? figures.get(flagKey(it)) : it);
-  }
-  return [...new Set(out)];
+  for (const it of out) if (!(it.show || {}).rule && flagKey(it)) figures.set(flagKey(it), [...(figures.get(flagKey(it)) || []), it]);
+  return out.filter((it) => {
+    const rule = (it.show || {}).rule, match = rule ? figures.get(flagKey(it)) || [] : [];
+    if (match.length !== 1) return true;
+    match[0].flags.push({rule, state: it.state, tone: ((it.card || {}).how || {}).tone});
+    return false;
+  });
 }
-// report #10: rows that read the same and carry nothing to tell apart (no value, no source: "Revenue · FY2025 · Actual",
-// Part-year amount ×8) are one row with their count; any row with a value or a source stays its own
+// report #10: rows identical in everything the row shows and opens (words, state, value, sources, verification and its
+// detail, restatement, compare) are one row with their count: "Revenue · FY2025 · Actual", Part-year amount ×8. A row
+// with a value, a source or a flag is never merged (review 2: rows that differed only in their detail were merged)
 function groupSame(items, whatOf) {
   const out = [], seen = new Map();
   for (const it of items) {
-    const c = it.card || {}, how = c.how || {};
-    const key = c.found || (c.where || []).length || (it.flags || []).length ? null : JSON.stringify([whatOf(it), it.state, how.tone, how.text]);
+    const c = it.card || {};
+    const key = c.found || (c.where || []).length || (it.flags || []).length ? null : JSON.stringify([whatOf(it), it.state, it.reason || null, it.detail || null, c]);
     if (key && seen.has(key)) { seen.get(key).count += 1; continue; }
     const row = {...it, count: 1};
     if (key) seen.set(key, row);
@@ -71,7 +74,7 @@ function trailVerify(c, ticker) {
   const [cls, word] = rowWord(c.how.tone);
   const line = h('div', {class: 'small'}, h('span', {class: cls + ' fw-medium'}, word), c.how.text ? h('span', {class: 'text-secondary'}, ` · ${c.how.text}`) : '');
   const more = [restatedLine(c.restatement), c.compare ? h('div', {class: 'small'}, h('a', {href: `#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}`}, 'Compare filings')) : ''];
-  const flags = (c.flags || []).map((f) => h('div', {class: 'small ' + rowWord(f.tone || 'unknown')[0]}, TRAIL_RULE[f.rule] || f.rule.replaceAll('_', ' ')));  // the figure's check flags, folded in
+  const flags = (c.flags || []).map((f) => { const [fc, fw] = rowWord(f.tone || 'unknown'); return h('div', {class: 'small'}, h('span', {class: 'text-secondary'}, `${TRAIL_RULE[f.rule] || f.rule.replaceAll('_', ' ')} · `), h('span', {class: fc}, fw)); });  // the figure's check flags, folded in: the check and its state word (review 8: not by colour alone)
   more.push(...flags);
   const tie = tieParts(c.how.detail);  // V11: a tie's parts as a list of values, the count and tolerance as cells
   const detail = tie ? h('div', {class: 'small mt-1'}, valueCells([['Parts', tie.n.split(' ')[0]], ['Tolerance', tie.tolerance]], 'compact'), h('div', {class: 'readings mt-1'}, tie.parts.map(([k, v]) => [h('span', {class: 'text-secondary'}, k), h('span', {class: 'num'}, v)])))
@@ -85,7 +88,7 @@ function trailRow(it, stage, ticker, withValue = true) {
   const what = trailWhat(it, stage);
   return h('tr', {},
     h('td', {}, h('span', {class: cls, 'aria-hidden': 'true'}, '● '), what, it.count > 1 ? h('span', {class: 'text-secondary'}, ` · ${int(it.count)} rows`) : ''),
-    withValue ? h('td', {class: 'num'}, c.found ? (stage === 'statements' || stage === 'planned' || stage === 'mapping' ? c.found : h('span', {class: 'money'}, c.found)) : h('span', {class: 'text-secondary'}, '—')) : '',
+    withValue ? h('td', {class: 'num'}, c.found ? (stage === 'statements' || stage === 'planned' || stage === 'mapping' ? c.found : h('span', {class: 'money'}, c.found)) : (stage === 'statements' || stage === 'planned') && it.detail ? h('span', {class: 'text-secondary'}, it.detail) : h('span', {class: 'text-secondary'}, '—')) : '',  // a statement with no figure shows its words (STORY-014: 8 rows read the same)
     h('td', {}, trailSource(c, what)),
     h('td', {}, trailVerify(c, ticker)));
 }
