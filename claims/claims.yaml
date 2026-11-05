@@ -805,6 +805,9 @@
       - tests.test_restated.OneFunction.test_reconcile_drawer_reads_the_same_record
       - tests.test_ids.CommaDimension.test_restatement_found
       - tests.test_ids.SplitIds.test_no_bare_split_on_extraction_ids_left
+      - tests.test_ids.SplitIds.test_no_sql_splits_a_comma_joined_list
+      - tests.test_ids.OnTheRealDatabase.test_the_company_feed_carries_the_cell
+      - tests.test_ids.OnTheRealDatabase.test_the_trail_cites_the_cell
   status: partial
   gaps:
     - Note figures only. A statement figure (revenue, capex, opex) cites the one filing it ships from; a restated statement figure is the `restated` rule's finding, with no Superseded crop beside it.

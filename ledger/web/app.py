@@ -78,8 +78,12 @@ def company(ticker: str) -> dict:
                    if json.loads(r["detail"] or "{}").get("ticker") == ticker]
         report = build(con, [ticker], f"stage{STAGE}")
         ai = _rows(con, "select * from ai_spend where ticker = ? order by field, period, kind", ticker)
-        facts = _rows(con, "select f.*, e.table_id, e.row_label, e.column_label, e.cell_text from facts f left join note_extractions e on e.extraction_id = split_part(f.extraction_ids, ',', -1) "
-                           "where f.ticker = ? order by f.field, f.dimension, f.period", ticker)
+        facts = _rows(con, "select f.* from facts f where f.ticker = ? order by f.field, f.dimension, f.period", ticker)
+        last = {id(f): (split_ids(f.get("extraction_ids")) or [None])[-1] for f in facts}  # the newest reading; a dimension may hold a comma (F-BF1), so never split in SQL
+        cell = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, table_id, row_label, column_label, cell_text from note_extractions where extraction_id in (select unnest(?))",
+                                                     [i for i in last.values() if i])}
+        for f in facts:
+            f.update({k: (cell.get(last[id(f)]) or {}).get(k) for k in ("table_id", "row_label", "column_label", "cell_text")})
     finally:
         con.close()
     cur, still = latest(decisions()), {e["exception_id"] for e in open_items(excs, decisions())}

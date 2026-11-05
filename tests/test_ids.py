@@ -33,6 +33,55 @@ class SplitIds(unittest.TestCase):
                     bad.append(f"{p.relative_to(ROOT)}:{n}")
         self.assertEqual(bad, [])
 
+    def test_no_sql_splits_a_comma_joined_list(self):
+        """The SQL form of the same bug (app.company joined on split_part(extraction_ids, ',', -1)): no module splits a
+        string in SQL; it reads the ids with split_ids in Python."""
+        bad = []
+        for p in (ROOT / "ledger").rglob("*.py"):
+            for n, line in enumerate(p.read_text().splitlines(), 1):
+                if re.search(r"split_part\(|string_split\(|regexp_split|str_split\(", line, re.I):
+                    bad.append(f"{p.relative_to(ROOT)}:{n}")
+        self.assertEqual(bad, [])
+
+
+class OnTheRealDatabase(unittest.TestCase):
+    """End to end on the working database: APLD's comma-dimension note fact carries its cited cell on the trail
+    (/api/v1/proof/APLD) and in the company feed (/api/company?t=APLD)."""
+
+    DIM = "Networking equipment, electrical equipment, and software"
+
+    def setUp(self):
+        import os
+        from ledger.core import store
+        if not store.DEFAULT_DB.exists() or os.environ.get("LEDGER_SKIP_DB"):
+            self.skipTest("no database")
+        import threading
+        from http.server import ThreadingHTTPServer
+        from ledger.web import app
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.shutdown)
+        self.base = f"http://127.0.0.1:{srv.server_address[1]}"
+
+    def get(self, path):
+        import json
+        from urllib import request
+        with request.urlopen(self.base + path) as r:
+            return json.loads(r.read())
+
+    def test_the_trail_cites_the_cell(self):
+        items = [i for i in self.get("/api/v1/proof/APLD")["stages"]["facts"]["all"] if (i.get("ref") or {}).get("dimension") == self.DIM]
+        self.assertTrue(items)
+        for it in items:
+            where = it["card"]["where"]
+            self.assertTrue(where, it["what"])
+            self.assertTrue(all(w["row"] == self.DIM and w["cell"] for w in where), it["what"])
+
+    def test_the_company_feed_carries_the_cell(self):
+        facts = [f for f in self.get("/api/company?t=APLD")["facts"] if f["dimension"] == self.DIM]
+        self.assertTrue(facts)
+        self.assertTrue(all(f["row_label"] == self.DIM and f["cell_text"] for f in facts))
+
 
 class CommaDimension(unittest.TestCase):
     """A fact whose dimension holds a comma, read in two filings that disagree: the readings and the restatement are found."""
