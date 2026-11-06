@@ -176,3 +176,19 @@ class OneThreshold(unittest.TestCase):
         with mock.patch.object(config, "RESTATEMENT_TOLERANCE", 10):
             self.assertFalse(config.restated(100, 104, 1))
         self.assertTrue(config.restated(100, 104, 1))
+
+
+class StatusColumnDoc(unittest.TestCase):
+    """F27: the packet README said the status column holds empty, confirmed, overridden or rejected; it holds the words
+    resolutions.by_row writes."""
+
+    def test_the_readme_names_the_status_values_the_rows_carry(self):
+        from ledger.release.release import column_doc
+        from ledger.review.resolutions import STATUS
+        for name in ("values", "facts"):
+            allowed, meaning = column_doc(name, "status")
+            for w in STATUS.values():
+                self.assertIn(f"`{w}`", allowed, name)
+                self.assertIn(f"`{w}`", meaning, name)
+            for gone in ("confirmed", "overridden", "rejected"):
+                self.assertNotIn(gone, allowed + meaning, name)

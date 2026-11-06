@@ -39,7 +39,6 @@ def _rows(con, tickers):
     return [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
 
 
-_PARSED: dict = {}  # path -> ((mtime_ns, size), parsed): one parse per instance file version, across requests
 
 
 def whole(value) -> int | None:
@@ -52,24 +51,15 @@ def whole(value) -> int | None:
 
 
 def instance(cik, accession, cache: dict | None = None) -> dict | None:
-    """The distilled instance of a filing as {(concept, member, date): value}, or None when it is not on disk. Parsed
-    once per file version: memoised by path, modification time and size, so an instance that changes on disk is read
-    again and never served stale."""
-    from ..ingest.edgar import RAW
+    """The filing's instance as {(concept, member, date): value}, or None when it is not on disk or does not read: the
+    one reading ties.instance gives the ladder too (the distilled facts, or the stored XML), memoised by path,
+    modification time and size, so an instance that changes on disk is read again and never served stale."""
+    from .ties import LOADED, instance as read
     cache = {} if cache is None else cache
     key = (cik, accession)
     if key not in cache:
-        try:
-            p = Path(RAW) / f"{int(cik):010d}" / "filings" / f"{accession}.facts.json"
-            st = p.stat()
-            stamp = (st.st_mtime_ns, st.st_size)
-            hit = _PARSED.get(str(p))
-            if not hit or hit[0] != stamp:
-                hit = (stamp, {tuple(k.split("\t")): v for k, v in json.loads(p.read_text()).items()})
-                _PARSED[str(p)] = hit
-            cache[key] = hit[1]
-        except Exception:  # not on disk, unreadable, or a cik that is not a number
-            cache[key] = None
+        state, facts = read(cik, accession)
+        cache[key] = facts if state == LOADED else None
     return cache[key]
 
 

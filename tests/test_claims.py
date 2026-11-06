@@ -352,6 +352,86 @@ class AppendOnly(unittest.TestCase):
             f.write_text('{"id":"F1"}\n{"id":"S1"}\n')
             self.assertEqual(len(C.append_only(f, "f.jsonl", repo)["problems"]), 2)
 
+    def test_the_decisions_logs_are_append_only_too(self):
+        """F30: decisions.jsonl, resolutions.jsonl and mapping_proposals.jsonl were called append-only and never checked. An
+        edited or removed line is caught; a line moved byte for byte to decisions/archive/ is not an edit."""
+        with tempfile.TemporaryDirectory() as d:
+            repo = Path(d)
+            git = lambda *a: subprocess.run(["git", *a], cwd=repo, capture_output=True, text=True, check=True)
+            try:
+                git("init", "-q")
+            except (OSError, subprocess.CalledProcessError):
+                self.skipTest("no git")
+            git("config", "user.email", "t@t")
+            git("config", "user.name", "t")
+            (repo / "claims").mkdir()
+            (repo / "decisions").mkdir()
+            (repo / "claims" / "findings.jsonl").write_text('{"id":"F1"}\n')
+            logs = {rel: repo / rel for rel in C.APPEND_ONLY_LOGS if rel.startswith("decisions/")}
+            for rel, f in logs.items():
+                f.write_text('{"id":"a"}\n{"id":"b"}\n')
+            git("add", ".")
+            git("commit", "-qm", "one")
+            self.assertEqual(C.append_only_logs(repo)["problems"], [])
+            res = repo / "decisions" / "decisions.jsonl"
+            res.write_text('{"id":"a","reason":"rewritten"}\n{"id":"b"}\n')
+            a = C.append_only_logs(repo)
+            self.assertEqual([i["where"] for i in a["items"]], ["decisions/decisions.jsonl"])
+            res.write_text('{"id":"b"}\n')  # removed, nowhere kept
+            self.assertEqual([i["where"] for i in C.append_only_logs(repo)["items"]], ["decisions/decisions.jsonl"])
+            (repo / "decisions" / "archive").mkdir()
+            (repo / "decisions" / "archive" / "moved.jsonl").write_text('{"id":"a"}\n')  # a review decision copied to an archive is still gone
+            self.assertEqual([i["where"] for i in C.append_only_logs(repo)["items"]], ["decisions/decisions.jsonl"])
+            res.write_text('{"id":"a"}\n{"id":"b"}\n')
+            (repo / "decisions" / "archive" / "moved.jsonl").unlink()
+            self.assertEqual(C.append_only_logs(repo)["problems"], [])
+            # resolutions: only a line whose key is no longer live may move to the archive
+            from ledger.review.resolutions import key_for
+            stale = '{"id":"s","key":"reference_disagrees|GOOGL|AI capex FY2024","hash":"h","state":"explain"}'
+            live = '{"id":"l","key":"%s","hash":"h","state":"blocks"}' % key_for("blocked", "ZZB", "revenue", "FY2024", rule_id="xbrl_reconcile")
+            rlog = repo / "decisions" / "resolutions.jsonl"
+            ab = '{"id":"a"}\n{"id":"b"}\n'  # the lines its first commit holds
+            rlog.write_text(ab + stale + "\n" + live + "\n")
+            git("add", ".")
+            git("commit", "-qm", "two lines")
+            rlog.write_text(ab + live + "\n")
+            (repo / "decisions" / "archive" / "stale.jsonl").write_text(stale + "\n")
+            self.assertEqual(C.append_only_logs(repo)["problems"], [])  # the stale line moved: allowed
+            rlog.write_text(ab)
+            (repo / "decisions" / "archive" / "stale.jsonl").write_text(stale + "\n" + live + "\n")  # a live block moved out: refused
+            self.assertEqual([i["where"] for i in C.append_only_logs(repo)["items"]], ["decisions/resolutions.jsonl"])
+            res.write_text('{"id":"a","reason":"rewritten"}\n{"id":"b"}\n')
+            a = C.append_only_logs(repo)
+            with mock.patch.object(C, "append_only_logs", return_value={**a, "note": "x"}):
+                from ledger.release import checklist
+                line = next(l for l in checklist.claims_lines() if l["id"] == "claims")
+            self.assertEqual(line["state"], "fail")
+            self.assertIn({"kind": "append_only", "what": a["items"][0]["what"], "where": "decisions/decisions.jsonl"}, line["detail"])
+
+    def test_an_edit_on_a_merged_side_branch_is_caught(self):
+        """Review of F30: --first-parent alone missed a line edited on a side branch and merged back."""
+        with tempfile.TemporaryDirectory() as d:
+            repo = Path(d)
+            git = lambda *a: subprocess.run(["git", *a], cwd=repo, capture_output=True, text=True, check=True)
+            try:
+                git("init", "-q", "-b", "main")
+            except (OSError, subprocess.CalledProcessError):
+                self.skipTest("no git")
+            git("config", "user.email", "t@t")
+            git("config", "user.name", "t")
+            f = repo / "f.jsonl"
+            f.write_text('{"id":"F1"}\n')
+            git("add", "f.jsonl")
+            git("commit", "-qm", "one")
+            git("checkout", "-qb", "side")
+            f.write_text('{"id":"F1"}\n{"id":"S1"}\n')
+            git("commit", "-qam", "side adds S1")
+            f.write_text('{"id":"F1"}\n{"id":"S1","text":"rewritten"}\n')
+            git("commit", "-qam", "side rewrites S1")
+            git("checkout", "-q", "main")
+            subprocess.run(["git", "merge", "-q", "--no-ff", "side", "-m", "merge"], cwd=repo, capture_output=True, text=True)
+            self.assertEqual(len(C.append_only(f, "f.jsonl", repo)["problems"]), 1)  # the side commit that added S1 lost it
+
     def test_interleaved_new_lines_pass_and_an_edit_fails(self):
         self.assertTrue(C._kept_in_order(["a", "b", "c"], ["a", "b", "x", "c", "y"]))
         self.assertFalse(C._kept_in_order(["a", "b", "c"], ["a", "c", "b"]))

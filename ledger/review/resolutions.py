@@ -187,13 +187,14 @@ def _parse(key: str):
 WORST = ("blocks", "fix", "explain", "accept")  # a row's state is the worst over its items' latest resolutions
 
 
-def by_row(rs: list[dict] | None = None, items: list[dict] | None = None) -> dict:
+def by_row(rs: list[dict] | None = None, items: list[dict] | None = None, tickers=()) -> dict:
     """The decision per dataset row: {(table, ticker, field, dimension, period, kind): {state, status, by, at, reason}}.
     A row may carry several queue items (T62: two findings on one field and year); its state is the worst of their latest
     resolutions, blocks > fix > explain > accept. With `items` (the queue, [{key, hash}]), a resolution whose item's hash
     moved on no longer counts, and a row one of whose items has no current resolution reads as unresolved: it is left
-    out, so the row is open. A values key with no period applies to
-    every period of that field."""
+    out, so the row is open. `tickers` says for which companies `items` is every item there is (F15): a resolution of
+    theirs whose key no item carries today closes nothing. A values key with no period applies to
+    every period of that field. Pages read `index()`, which passes both."""
     lt = latest(rs)
     unresolved, expired = set(), set()
     for q in items or []:
@@ -203,6 +204,9 @@ def by_row(rs: list[dict] | None = None, items: list[dict] | None = None) -> dic
             unresolved.add(k)
             if r:
                 expired.add(q["key"])  # the item changed since: its resolution no longer counts, the item is back
+    if tickers:
+        live = {q["key"] for q in items or []}
+        expired |= {key for key in lt if key not in live and (parse_key(key) or {}).get("ticker") in set(tickers)}  # the item is gone: nothing to close
     per_row = {}
     for key, r in lt.items():
         k = _parse(key)
@@ -211,10 +215,39 @@ def by_row(rs: list[dict] | None = None, items: list[dict] | None = None) -> dic
     out = {}
     for k, rows in per_row.items():
         r = min(rows, key=lambda r: WORST.index(r["state"]))
-        if r["state"] in ("explain", "accept") and k in unresolved:
-            continue
+        if r["state"] in ("explain", "accept", "fix") and k in unresolved:
+            continue  # another item on the row has no current decision: the row is open, and no word of one item's decision stands for it
         out[k] = {"id": r.get("id"), "state": r["state"], "status": STATUS[r["state"]], "by": r["by"], "at": r["at"], "reason": r["reason"]}
     return out
+
+
+UNMATCHED = "Resolutions not matched · queue not built"
+
+
+class Unmatched(RuntimeError):
+    """The queue the resolutions are matched against could not be built: no page may count a resolution."""
+
+
+def index(con, tickers=None, rs: list[dict] | None = None) -> dict:
+    """by_row as every page reads it (F15, F1): each resolution matched against the queue item, key and hash, it was
+    written for (app.queue_items, the producer Reconcile lists), so a changed or gone item reopens on Proof, the Release
+    counts, the read API and the taxonomy rows exactly as on Reconcile, and two items on one row need a decision each.
+    The queue is built only for the companies that have a live resolution on file (`tickers` narrows them), once per
+    stamp (queue.items_for). When it cannot be built (a file the snapshot reads is missing, a database without its
+    tables) nothing is guessed: Unmatched is raised, a 503 "Resolutions not matched · queue not built" on a page and a
+    stopped command, never a page that quietly disagrees with Reconcile."""
+    rs = load() if rs is None else rs
+    have = {k["ticker"] for key in latest(rs) if (k := parse_key(key)) and k["kind"] in LIVE_KINDS}
+    want = sorted(have if tickers is None else have & {str(t).upper() for t in tickers})
+    if not want:
+        return {}
+    import duckdb
+    from .queue import items_for
+    try:
+        items = items_for(con, want)
+    except (OSError, ValueError, duckdb.Error) as e:
+        raise Unmatched(f"{UNMATCHED}: {e.__class__.__name__}: {str(e)[:200]}") from e
+    return {k: v for k, v in by_row(rs, items=items, tickers=want).items() if k[1] in want}
 
 
 def resolution_of(index: dict, table: str, ticker: str, field: str, dimension: str = "", period: str = "", kind: str = "") -> dict | None:

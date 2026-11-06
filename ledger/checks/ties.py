@@ -337,7 +337,7 @@ def fail_message(g: dict) -> str:
 # ── the one ladder: a fact's state, for Proof, Reconcile, the taxonomy rows and gold ─────────────────────────────────
 def fact_state(f: dict, idx: dict, lad: dict, restated: str | None = None) -> tuple[dict, dict]:
     """(status state, the record it rests on) for a `facts` row `f` ({ticker, field, dimension, period, label,
-    accession}). `lad` is by_fact(...) (proof.ladder); `idx` the resolutions index (resolutions.by_row). A fact whose
+    accession}). `lad` is by_fact(...) (proof.ladder); `idx` the resolutions index (resolutions.index). A fact whose
     readings differ takes the resolution on its finding (keyed by rule and dimension, resolutions._parse), never the
     fact's; every other fact the resolution on the fact."""
     from ..review import resolutions
@@ -363,7 +363,8 @@ def fact_state(f: dict, idx: dict, lad: dict, restated: str | None = None) -> tu
         ref["tie"] = {k_: holds[k_] for k_ in ("rule", "key", "accession", "concept", "total", "sum", "tolerance", "dimensions", "parts")}
     res = (resolutions.resolution_of(idx, "findings", t, f["field"], dim, f["period"], DIFFER) if differs
            else resolutions.resolution_of(idx, "facts", t, f["field"], dim, f["period"]))
-    st = status.of_fact(f, res, restated, differ=differ_message(rs) if differs else None, tie=holds["rule"] if holds else None, reading=second, filer=bool(filer))
+    st = status.of_fact(f, res, restated, differ=differ_message(rs) if differs else None, tie=holds["rule"] if holds else None, reading=second, filer=bool(filer),
+                        looked_up=k.get("instance", ABSENT))  # F17 review: a fact the ladder did not see is not looked up, never loaded by default
     return st, ref
 
 
@@ -374,28 +375,91 @@ def check_columns(st: dict) -> tuple[str, str]:
     from ..core.states import LADDER_CHECK, ladder
     by = st.get("by") or ""
     check = LADDER_CHECK[ladder(st)]  # the company's own tag is a twin: the value is in its instance, so it reads agree
-    if check == "not_checked":  # no state: nothing vouches, never a default pass
-        return check, "none"
+    if check == "not_checked":  # no state, or the instance never loaded (F17): nothing vouches, never a default pass
+        return check, by if by == "label:not_looked_up" else "none"
     return check, (by if check != "differs" or by.startswith("rule:") else "xbrl")
 
 
 # ── loaders (the database, and the distilled instances on disk; never fetched) ───────────────────────────────────────
+_INSTANCES: dict = {}  # path -> ((mtime_ns, size), (state, facts)): one read per instance file version, across requests
+_INSTANCE_LOCK = __import__("threading").Lock()  # the app serves requests on threads: one parse per file, never one per request
+LOADED, ABSENT, UNREADABLE = "loaded", "absent", "unreadable"
+
+
+def instance(cik, accession: str | None) -> tuple[str, dict]:
+    """The one reading of a filing's XBRL instance on disk, for the ties, the ladder, Proof's lookup marker and the
+    company's own tag (filertag.instance): (state, {(concept, member, end): value}). The distilled facts
+    (data/raw/<cik>/filings/<accession>.facts.json) or else the stored XML (dimensions.parse_instance; nothing is
+    written). state: loaded; absent (neither file: the lookup never ran); unreadable (a file that does not parse: no
+    answer either, never "tags nothing"). Memoised per (path, mtime, size). Never fetched."""
+    from ..ingest.edgar import RAW
+    try:
+        d = RAW / f"{int(cik):010d}" / "filings"
+    except (TypeError, ValueError):
+        return ABSENT, {}
+    if not accession:
+        return ABSENT, {}
+    p = next((x for x in (d / f"{accession}.facts.json", d / f"{accession}.xml") if x.exists()), None)
+    if p is None:
+        return ABSENT, {}
+    try:
+        st = p.stat()
+        stamp = (st.st_mtime_ns, st.st_size)
+    except OSError:
+        return ABSENT, {}
+    hit = _INSTANCES.get(str(p))
+    if hit and hit[0] == stamp:
+        return hit[1]
+    with _INSTANCE_LOCK:
+        hit = _INSTANCES.get(str(p))
+        if hit and hit[0] == stamp:
+            return hit[1]
+        try:
+            if p.suffix == ".json":
+                raw = json.loads(p.read_text())
+                facts = {tuple(k.split("\t")): v for k, v in raw.items()}
+                if any(len(k) != 3 for k in facts):
+                    raise ValueError("a key is not concept, member, end")
+            else:
+                facts = _xml_facts(p, stamp)
+            hit = (stamp, (LOADED, facts))
+        except Exception:  # does not parse: unreadable, said so (F17 review)
+            hit = (stamp, (UNREADABLE, {}))
+        _INSTANCES[str(p)] = hit
+    return hit[1]
+
+
+XML_CACHE = "data/cache/instances"  # derived, untracked (.gitignore): the parsed facts of a stored XML instance, per file version
+
+
+def _xml_facts(p, stamp: tuple) -> dict:
+    """dimensions.parse_instance over a stored XML instance, kept under data/cache/instances/ keyed by the XML's path,
+    mtime and size, so a server's first read does not parse every XML again (a parse is about 20 ms a filing, 298 of
+    them outside the six). Never under data/raw (shared, the SEC's files); a cache that cannot be written or read is
+    skipped. Raises when the XML does not parse (the caller says unreadable)."""
+    from ..core.store import ROOT
+    from ..ingest.reference.dimensions import parse_instance
+    c = ROOT / XML_CACHE / p.parent.parent.name / f"{p.stem}.{stamp[0]}.{stamp[1]}.json"
+    try:
+        return {tuple(k.split("\t")): v for k, v in json.loads(c.read_text()).items()}
+    except (OSError, ValueError):
+        pass
+    facts = parse_instance(p.read_bytes())
+    try:
+        c.parent.mkdir(parents=True, exist_ok=True)
+        tmp = c.with_suffix(".tmp")
+        tmp.write_text(json.dumps({"\t".join(k): v for k, v in facts.items()}))
+        tmp.replace(c)
+    except OSError:
+        pass
+    return facts
+
+
 def instance_totals(cik, accession: str, concepts: set[str]) -> dict:
     """{(accession, concept, end): value} for the company totals (no dimension member) of `concepts` the filing tagged,
-    from the distilled instance on disk (data/raw/<cik>/filings/<accession>.facts.json, keys "concept\\tmember\\tend").
-    Empty when it is not there: no total read, no tie."""
-    from ..ingest.edgar import RAW
-    if cik is None or not accession:
-        return {}
-    p = RAW / f"{int(cik):010d}" / "filings" / f"{accession}.facts.json"
-    if not p.exists():
-        return {}
-    out = {}
-    for k, v in json.loads(p.read_text()).items():
-        concept, member, end = k.split("\t")
-        if not member and concept in concepts:
-            out[(accession, concept, end)] = v
-    return out
+    from instance(): empty when it is absent or unreadable (no total read, no tie)."""
+    state, facts = instance(cik, accession)
+    return {(accession, concept, end): v for (concept, member, end), v in facts.items() if not member and concept in concepts}
 
 
 def _rows(con, sql, *p):
@@ -436,7 +500,8 @@ def by_fact(data: dict, rules: list[dict]) -> dict:
                 gs[g["key"]] = g
     out = {"groups": gs}
     for f in data["facts"]:
-        out[(f["ticker"], f["field"], f["dimension"] or "", f["period"])] = {"readings": readings_of(f, by_id), "tie": gs.get(key(f["ticker"], f["field"], f["period"], f["accession"]))}
+        out[(f["ticker"], f["field"], f["dimension"] or "", f["period"])] = {"readings": readings_of(f, by_id), "tie": gs.get(key(f["ticker"], f["field"], f["period"], f["accession"])),
+                                                                            "accession": f["accession"]}
     return out
 
 
@@ -466,6 +531,11 @@ def ladder(con, tickers: list[str], rules: list[dict] | None = None) -> dict:
             rec = record(tag)
             for r in tag["readings"]:
                 out.setdefault((t, "ppe_category", name, r["period"]), {"readings": [], "tie": None, "restated": None})["filer_tag"] = rec
+    # F17: whether each fact's filing instance is on disk; without it an untagged fact's label is no answer (the lookup never ran)
+    ciks = {r[0]: r[1] for r in con.execute("select accession, cik from documents where ticker in (select unnest(?))", [list(tickers)]).fetchall()} if len(out) > 1 else {}
+    for k, v in out.items():
+        if k != "groups" and v.get("readings") is not None and v.get("accession"):
+            v["instance"] = instance(ciks.get(v["accession"]), v["accession"])[0]
     for f in _rows(con, "select ticker, field, dimension, period, accession, reference from facts where ticker in (select unnest(?)) and label = 'unresolved'", list(tickers)) if len(out) > 1 else []:  # facts on file
         k = (f["ticker"], f["field"], f["dimension"] or "", f["period"])
         if k in out:

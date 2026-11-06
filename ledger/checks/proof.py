@@ -17,13 +17,19 @@ from ..review.review import decisions, open_items, proposed
 from .rules import explain_key, explained
 from ..release.taxonomy import asset_types, rows as taxonomy_rows
 from ..core.config import PROVEN, PROVEN_WHY, SCOPE, industry, tracked
+from ..extract.agent import unfingerprinted
+from ..core.states import word as _word
+
+READING_WORD = _word("reading", "unfingerprinted")  # F25: states.READING
+UNFINGERPRINTED_WHY = "the reading carries no task fingerprint: nothing says it answered the current task; re-read it"
 
 STAGES = ("ingest", "values", "facts", "statements", "mapping", "planned", "release")
 STAGE_LABEL = {"ingest": "Filings", "values": "Statement figures", "facts": "Note figures", "statements": "AI disclosures", "mapping": "Category mapping",
                "planned": "Guidance and projects", "release": "Release"}
 NEEDS = {"values": "Definition or unit rule", "facts": "Definition", "finding": "Definition or rule", "mapping": "Category mapping",
          "mapping_confirm": "Proposed category", "readings": "Readings differ", "tie": "Does not tie to total", "basis": "Segment basis",
-         "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision", "decision_confirm": "Proposed decision"}  # what an open item needs, as the Rules page groups it
+         "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision", "decision_confirm": "Proposed decision",
+         "instance": "XBRL instance", "reread": "Re-read (--run)"}  # what an open item needs, as the Rules page groups it
 
 
 # The exceptions a loader writes when a stage failed (cli/extract, cli/notes, cli/aispend, cli/projects): failures, never
@@ -78,7 +84,7 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     with what they need. `rset` is rules_on_file(), read once per request by the caller (board, rules, unevidenced)."""
     t = ticker.upper()
     rset = rules_on_file() if rset is None else rset
-    idx = resolutions.by_row() if idx is None else idx
+    idx = resolutions.index(con, [t]) if idx is None else idx  # F15: matched to the queue item it was written for, as Reconcile reads it
     defs = definitions.load() if defs is None else defs
     stages = {}
 
@@ -99,6 +105,9 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     for e in exc:
         if e["rule_id"] in FAILURES:
             items.append({**_item(f"{e['rule_id'].replace('_', ' ')}: {e['subject']}", status.of_exception(e), e["message"][:200], NEEDS["ingest"]), "show": {"note": "Extraction failed", "accession": e["subject"]}})
+    for u in unfingerprinted(con, [t]):  # F25: a reading loaded with no task fingerprint is open until it is re-read, never current
+        items.append({**_item(f"{u['what']} · {u['label']}: {READING_WORD}", status.state({"label": "unfingerprinted", "reason": UNFINGERPRINTED_WHY}),
+                              f"{u['step']} --run", NEEDS["reread"], ref={"step": u["step"], "subject": u["subject"]}), "show": {"note": READING_WORD, "accession": u["subject"]}})
     stages["ingest"] = _stage(items)
 
     # values: agree with XBRL, or explained by a definition, a label or a decision; a warn finding takes the state of its rows
@@ -138,7 +147,11 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
         differs = st["by"] == f"rule:{ties.DIFFER}"
         what = where + (": readings differ" if differs else ": differs from the tag" if status.is_open(st) else "")
         detail = ties.differ_message(extra.get("readings") or []) if differs else f"cell {f['value']}, tag {f['reference']}" if status.is_open(st) else ""
-        items.append(_item(what, st, detail, NEEDS["readings"] if differs else NEEDS["facts"], ref=ref))
+        unloaded = st["by"] == "label:not_looked_up"  # F17: the instance never loaded, said apart from "nothing tagged"
+        if unloaded:
+            bad = "does not parse" in (st.get("reason") or "")
+            what, detail = where + (": XBRL instance unreadable" if bad else ": XBRL instance not loaded"), "tag lookup gave no answer" if bad else "tag lookup not run"
+        items.append(_item(what, st, detail, NEEDS["readings"] if differs else NEEDS["instance"] if unloaded else NEEDS["facts"], ref=ref))
     for e in exc:  # a tie that fails (the finding on a fact whose readings differ is that fact's own item): open on the group, never checked
         if e["severity"] != "warn" or e["exception_id"] in decided or e["field"] not in NOTE_FIELDS or e["rule_id"] == ties.DIFFER:
             continue
@@ -235,13 +248,9 @@ def ladder(con, tickers: list[str], rules: list[dict]) -> dict:
 
 
 def instance_on_file(cik, accession: str | None) -> bool:
-    """T80: the filing's XBRL instance is on disk (the distilled facts or the XML, data/raw/<cik>/filings/), so a fact's
+    """T80: the filing's XBRL instance is on disk and reads (ties.instance: the distilled facts or the XML), so a fact's
     empty reference is an answer from it, not a lookup that never ran. Never fetched here."""
-    from ..ingest.edgar import RAW
-    if cik is None or not accession:
-        return False
-    d = RAW / f"{int(cik):010d}" / "filings"
-    return (d / f"{accession}.facts.json").exists() or (d / f"{accession}.xml").exists()
+    return ties.instance(cik, accession)[0] == ties.LOADED
 
 
 def amendment_without_statements(doc: dict) -> bool:
@@ -275,7 +284,7 @@ def _restated(con, ticker: str, f: dict) -> str | None:
 
 def board(con) -> dict:
     """The Proof home: every company in scope (config.SCOPE) with its stage counts. The database keeps every company; the board shows the scope (T2)."""
-    idx, defs, rset = resolutions.by_row(), definitions.load(), rules_on_file()
+    idx, defs, rset = resolutions.index(con, SCOPE), definitions.load(), rules_on_file()
     proven = [company(con, t, idx, defs, rset) for t in SCOPE]
     keys = {k: sum(c["keys"][k] for c in proven) for k in (*status.KEY_GRADE, "none", "rows")}  # per company on each row; the total over the scope here
     return {"stages": [{"id": s, "label": STAGE_LABEL[s]} for s in STAGES], "proven": proven, "scope": list(SCOPE), "open": sum(c["open"] for c in proven),
@@ -293,7 +302,7 @@ GUARDS = [
 
 def rules(con) -> dict:
     """Every rule, guard and definition with what it closed in scope, and the open items by what is missing."""
-    idx, defs, rset = resolutions.by_row(), definitions.load(), rules_on_file()
+    idx, defs, rset = resolutions.index(con, SCOPE), definitions.load(), rules_on_file()
     cos = [company(con, t, idx, defs, rset) for t in SCOPE]
     exc = _rows(con, "select rule_id, severity, count(*) as n from exceptions where ticker in (select unnest(?)) group by 1, 2", SCOPE)
     fired = {}
@@ -375,7 +384,7 @@ def unevidenced(con, tickers=None, companies: list[dict] | None = None, ev: dict
     defs, types = definitions.load(), asset_types()
     ev = evidence(con, defs=defs, types=types, tickers=tickers) if ev is None else ev
     if companies is None:
-        idx, rset = resolutions.by_row(), rules_on_file()
+        idx, rset = resolutions.index(con, tickers), rules_on_file()
         companies = [company(con, t, idx, defs, rset) for t in tickers]
     return [{"ticker": c["ticker"], "stage": s, "what": i["what"], "state": i["state"], "by": i["by"], "gap": gap}
             for c in companies for s, st in c["stages"].items() for i in st["all"] if (gap := status.evidence_gap(i, ev))]
@@ -416,7 +425,7 @@ def missing_from_dataset(con, tickers, ds: list[dict], idx: dict | None = None) 
                       "and field in (select unnest(?)) and period in (select unnest(?)) order by ticker, field, period", tickers, list(RELEASE_FIELDS), list(MVP_YEARS))
     vals = _rows(con, 'select * from "values" where ticker in (select unnest(?))', tickers)
     excs = _rows(con, "select * from exceptions where ticker in (select unnest(?))", tickers) if _has(con, "exceptions") else []
-    idx = resolutions.by_row() if idx is None else idx
+    idx = resolutions.index(con, tickers) if idx is None else idx
     first = first_periods(vals)
     released = {(v["ticker"], v["field"], v["period"]): v for v in apply(vals, excs, ds)}
     pending = {(e["ticker"], e["field"], e["period"]) for e in open_items(excs, ds)}

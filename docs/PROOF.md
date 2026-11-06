@@ -51,8 +51,10 @@ resolutions.
 **The lookup marker (`ref.looked_up`).** An empty answer is only an answer when the question was asked. A value's
 marker is true only when `reference_values` holds rows for its ticker (reconcile reads the same table, and with none
 it writes `not_reported` over every blank); a fact's only when its filing's XBRL instance is on disk
-(`proof.instance_on_file`: `data/raw/<cik>/filings/<accession>.facts.json` or `.xml`, never fetched). No marker, no
-evidence: a blank whose lookup never ran is a gap, and so is an `xbrl` check.
+(`proof.instance_on_file` over `ties.instance`: `data/raw/<cik>/filings/<accession>.facts.json` or `.xml` that parses, never fetched). No marker, no
+evidence: a blank whose lookup never ran is a gap, and so is an `xbrl` check. An untagged fact whose instance is not on
+disk is its own state (F17): open, "XBRL instance not loaded", Needs "XBRL instance"; a tie or a second reading still
+checks it, the label never explains it.
 
 Which labels explain, decided: only `not_reported` and `no_reference`, and only with XBRL looked up and empty. That is
 reconcile's own definition (`ledger/checks/reconcile.py`): `not_reported` means the 10-K has no line and XBRL tags no value
@@ -192,7 +194,8 @@ taxonomy rows (`taxonomy.fact_check`, the `check` / `check_method` columns) and 
    `segment_revenue_tie.yaml`, `segment_capex_tie.yaml`, check `parts_tie`) group the parts one filing printed for a
    field and a date, and compare their sum with the company total the same filing tags in its XBRL instance
    (PropertyPlantAndEquipmentGross; the largest us-gaap revenue tag, named on the finding; the first us-gaap capex tag),
-   read from the distilled instance on disk (`data/raw/<cik>/filings/<accession>.facts.json`, never fetched). A context
+   read from the distilled instance on disk (`data/raw/<cik>/filings/<accession>.facts.json`, or the stored `.xml` when
+   none was distilled, read without writing; never fetched). A context
    with a dimension under `<segment>` or `<scenario>` is never a total (`reference/dimensions.py`). The same filing, so a
    later 10-K's recast categories are compared with its own total. **What a tie proves: the sum.** The bound is on the
    sum of the group, (n + 1) × half the coarsest table's rounding unit (n parts each rounded once, the total once more,

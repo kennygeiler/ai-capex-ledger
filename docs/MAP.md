@@ -36,7 +36,8 @@ each in `ledger/cli/` (they do the table writes: `store.write`).
 | `checks/calc.py` | a figure calculated from several cells: formula, arithmetic, roles, cross-checks (filing total, XBRL) | crosscheck (M18) |
 | `checks/proof.py` | Proof: every row's state per stage per company | |
 | `checks/golden.py` | the golden test (`fixtures/`) | |
-| `review/resolutions.py` | `decisions/resolutions.jsonl`, keys (`key_for`) | |
+| `review/resolutions.py` | `decisions/resolutions.jsonl`, keys (`key_for`), `index` (each resolution matched to its queue item) | |
+| `review/queue.py` | the queue's items with key and hash (`queue_items`), built once per stamp (`items_for`) | |
 | `review/workbench.py` | Reconcile's rows | |
 | `review/mapper.py`, `mapcard.py` | the mapping assistant and the mapping decision card | mapping (M5, via `status.of_mapping`) |
 | `review/gold.py` | the gold set, verdicts, error rate per group, hard items first | gold (M7), gold_group (M17) |

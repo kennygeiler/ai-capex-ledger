@@ -55,6 +55,18 @@ class Rows(unittest.TestCase):
         seg = by[("spent", "segment_revenue", "AWS", "FY2025")]
         self.assertIn("StatementBusinessSegmentsAxis", seg["standard_concept"])
         po = by[("committed", "purchase_obligations", "purchase commitments", "FY2025")]
+        # this hand-built database names no filing's cik, so no instance is read: the untagged fact is not looked up (F17)
+        self.assertEqual((po["check"], po["check_method"]), ("not_checked", "label:not_looked_up"))
+        from unittest import mock
+        from ledger.checks import ties
+        real = ties.ladder
+        def loaded(con, tickers, rules=None):  # the same rows with every filing's instance read and tagging nothing
+            out = real(con, tickers, rules)
+            for t, f, d, p in con.execute("select ticker, field, coalesce(dimension, ''), period from facts").fetchall():
+                out.setdefault((t, f, d, p), {"readings": [], "tie": None})["instance"] = ties.LOADED
+            return out
+        with mock.patch("ledger.checks.ties.ladder", side_effect=loaded):
+            po = {(r["measure"], r["category"], r["reported_name"], r["fiscal_year"]): r for r in taxonomy.rows(_con(), ["AMZN"])}[("committed", "purchase_obligations", "purchase commitments", "FY2025")]
         self.assertEqual((po["check"], po["check_method"]), ("no_reference", "label:no_reference"))
         self.assertEqual((by[("spent", "segment_revenue", "Other", "FY2025")]["check"], by[("spent", "segment_revenue", "Other", "FY2025")]["check_method"]), ("differs", "xbrl"))
         self.assertNotIn("revenue", [r["category"] for r in rows if r["measure"] == "spent"])  # revenue is not spend

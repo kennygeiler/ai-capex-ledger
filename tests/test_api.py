@@ -94,10 +94,16 @@ class StatusAndFlag(unittest.TestCase):
         import tempfile, pathlib, json
         resolutions.LOG = pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
         resolutions.LOG.write_text(json.dumps({"key": "finding_unconfirmed|T|opex|FY2022||jump|", "hash": "h", "state": "fix", "reason": "unit", "by": "k", "at": "2026-10-30"}) + "\n")
+        from unittest import mock
+        item = lambda h: {"queue": [{"key": "finding_unconfirmed|T|opex|FY2022||jump|", "hash": h}]}  # F15: the status holds only while the item is the one decided
         try:
-            rows = {(r["ticker"], r["period"]): r for r in api.fetch(con, "values")}
+            with mock.patch("ledger.review.queue.queue_items", return_value=item("h")):
+                rows = {(r["ticker"], r["period"]): r for r in api.fetch(con, "values")}
+            with mock.patch("ledger.review.queue.queue_items", return_value=item("changed")):
+                moved = {(r["ticker"], r["period"]): r for r in api.fetch(con, "values")}
         finally:
             resolutions.LOG = old
+        self.assertEqual(moved[("T", "FY2022")]["status"], "")
         self.assertEqual((rows[("T", "FY2022")]["flag"], rows[("T", "FY2022")]["status"]), ("differs_from_xbrl", "fix_pending"))
         self.assertEqual((rows[("MSFT", "FY2025")]["flag"], rows[("MSFT", "FY2025")]["status"]), ("", ""))
         self.assertIn("status", api.to_csv(list(rows.values())).splitlines()[0])

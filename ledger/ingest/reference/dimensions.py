@@ -35,6 +35,15 @@ def instance_facts(cik: int, accession: str) -> dict:
     if not url:
         return {}
     body, _ = _cached(url, RAW / f"{cik:010d}" / "filings" / f"{accession}.xml", False, 24 * 365)
+    out = parse_instance(body)
+    distilled.parent.mkdir(parents=True, exist_ok=True)
+    distilled.write_text(json.dumps({"\t".join(k): v for k, v in out.items()}))
+    return out
+
+
+def parse_instance(body: bytes) -> dict:
+    """instance_facts' reading of an instance XML already on disk, {(concept, member or '', end date): value}; writes
+    nothing (F17: the ties read a stored instance whose distilled facts were never written)."""
     root = ET.fromstring(body)
     contexts = {}
     for ctx in root.iter(f"{XBRLI}context"):
@@ -65,6 +74,4 @@ def instance_facts(cik: int, accession: str) -> dict:
             continue
         member, end = contexts[el.get("contextRef")]
         out.setdefault((el.tag.split("}", 1)[1], member, end), val)
-    distilled.parent.mkdir(parents=True, exist_ok=True)
-    distilled.write_text(json.dumps({"\t".join(k): v for k, v in out.items()}))
     return out

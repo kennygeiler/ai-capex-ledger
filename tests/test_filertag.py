@@ -280,8 +280,9 @@ class Guards(Base):
 
     def test_an_instance_is_parsed_once_per_file_version(self):
         import os
-        filertag._PARSED.clear()
-        with mock.patch("ledger.checks.filertag.json.loads", wraps=json.loads) as parse:
+        from ledger.checks import ties
+        ties._INSTANCES.clear()  # one reading of an instance for the tag and the ladder (ties.instance)
+        with mock.patch("ledger.checks.ties.json.loads", wraps=json.loads) as parse:
             filertag.verdicts(self.con, ["MU"])
             n = parse.call_count
             filertag.verdicts(self.con, ["MU"])

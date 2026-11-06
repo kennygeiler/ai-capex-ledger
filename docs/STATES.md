@@ -34,13 +34,22 @@ explains, `no_reference`; `unresolved` plus a restatement is the `restated_betwe
 (180-189). Proof applies them per stage in `proof.company` (proof.py:75-205).
 
 **Missing or folded states.**
-- No "not looked up" state. For values it folds into open by `label:not_reported` (status.py:211-214; correct). For
-  facts it folds into **explained**: `of_fact` explains `no_reference` with no lookup check (status.py:247-248). The fact
-  label is `no_reference` whenever the reference is None, loaded or not (notes.py:151). `ties.load` returns empty
-  readings and ties when tables are absent (ties.py:216-217), and `instance_totals` returns `{}` when the instance file
-  is missing (ties.py:194-195), so "no tie" and "not checked" are one state. Only `status.evidence_gap`
-  (status.py:358-363, with `proof.instance_on_file`, proof.py:214-221) tells them apart, and it never runs on live data (R1).
-- No "stale" state: a resolution whose item changed still counts everywhere except Reconcile (M2).
+- "Not looked up". For values it folds into open by `label:not_reported` (correct). For facts it is its own state
+  (F17): `ties.instance` is the one reading of a filing's instance (the distilled facts or the stored XML, memoised per
+  file version; loaded, absent or unreadable) for the ladder, the ties, Proof's lookup marker and the company's own tag
+  (`filertag.instance`). `ties.ladder` records each fact's state, a fact it did not see reads absent, and
+  `of_fact(..., looked_up="absent"|"unreadable")` makes an untagged fact that no tie or second reading
+  checks open by `label:not_looked_up`, ladder rung `not_looked_up`, word "XBRL instance not loaded", taxonomy check
+  `not_checked` / `label:not_looked_up`, Proof needs "XBRL instance" (the item says "XBRL instance unreadable" when the
+  file does not parse). Before, it read "Unverified · citation only", the
+  same as an instance that tags nothing. `instance_totals` reads a stored instance XML whose facts were never distilled
+  (`dimensions.parse_instance`, writes nothing), so the tie is tried offline; nothing is fetched. On the six every
+  filing's instance is on disk, so no fact reads it today. Locally 294 filings outside the six have only the XML: the
+  first read ever parses them (about 7 s) and keeps the parsed facts in `data/cache/instances/` (untracked, keyed by the
+  XML's mtime and size, never under the shared data/raw); a new process reads them from there (under 1 s). The hosted copy has the distilled
+  facts of the six only (fixtures/data/raw), so a fact of another company reads "XBRL instance not loaded" there.
+- A resolution whose item changed, or whose item is gone, counts nowhere (F15, `resolutions.index`): the row reads open on
+  every page, as on Reconcile.
 - "to confirm" is a string only: Reconcile gives it to run-written resolutions (workbench.py:167), and mappings carry it as
   `by=label:to_confirm` with state `open`. It is not in `STATES`.
 
@@ -54,14 +63,18 @@ Forbidden, and whether enforced:
 - A run-written resolution → explained: **not enforced**. `_res` (status.py:105-109) ignores the author, and `latest()`
   returns a run line when no person line shares its key and hash (resolutions.py:106-126). Only `evidence_gap`
   (status.py:354-357) refuses it, and that runs in tests only.
-- A changed item staying explained: **enforced only on Reconcile**. `by_row(items=...)` is called only at
-  workbench.py:215. Every other caller uses `by_row()` with no items (proof.py:80,253,271,353,394; api.py:62,165;
-  taxonomy.py:161; gold.py:415; app.py:145,278), and with no items there is no hash expiry (resolutions.py:202-210).
-- One decision closing a sibling item: **enforced only on Reconcile**. `_parse` maps `fact_differs` and `fact_changed` to
-  the same `facts` row (resolutions.py:176-177), and `finding_unconfirmed` (non-note) and `blocked` to the same `values`
-  row (183-184). Without `items`, `by_row` takes the worst latest resolution per row with no unresolved-sibling check
-  (211-217). So on Proof, accepting "fact changed since release" explains a fact that still differs from its tag, and
-  accepting a jump explains an `unresolved` value (status.py:146-147).
+- A changed item staying explained: **enforced everywhere** (F15, F1). Proof, the Release lines, the read API's
+  `status`, the Grid, the taxonomy rows and gold read `resolutions.index(con, tickers)`: the queue items of every
+  company with a live resolution (`ledger/review/queue.py` `queue_items`, the producer Reconcile lists, built once per
+  stamp by `queue.items_for`) and `by_row(items=…, tickers=…)` over them, so a resolution counts only on the item, key
+  and hash, it was written for; one whose item is gone closes nothing. Reconcile passes `flow["items"]` (every item, the
+  30-row cut on changed facts is display only). A queue that cannot be built raises `resolutions.Unmatched`: a 503
+  "Resolutions not matched · queue not built" on a page, a stopped command, never a quiet reopen. A `fix` on one item
+  of a row with an undecided sibling is not the row's status either. `tests/test_one_resolution_rule.py`.
+- One decision closing a sibling item: **enforced everywhere**. `_parse` maps `fact_differs` and `fact_changed` to the same
+  `facts` row, and `finding_unconfirmed` (non-note) and `blocked` to the same `values` row; with the items, a row with
+  an item no current resolution covers is left out of the index, so accepting "fact changed since release" no longer
+  explains a fact that still differs from its tag.
 - A definition written by a non-person: `definitions.load` needs only a non-empty `by` (definitions.py:22-24), and
   `evidence_gap` checks only that the definition exists (status.py:345-346): **not enforced**. Explains rules are (rules.py:478-479).
 
@@ -135,10 +148,11 @@ until then `definition_gap` can name a definition that no longer exists (only th
 ## M1b. A fact's rung on the ladder (`ties.fact_state`)
 
 **States.** Checked by xbrl, `rule:<id>_tie` or `reading:<acc>`; explained by `label:no_reference`, a resolution or the
-`restated_between_filings` guard; open by `rule:fact_readings_differ` or an `unresolved` label (ties.py:148-170). Taxonomy
-rendering: `check_columns` (173-182). A failed tie is its own warn item on Proof (proof.py:139-146).
-**Missing.** "Not checked" for ties and readings: no instance on disk or no tables read as "no tie" and drop to the
-label. The hosted copy depends on shipped `*.facts.json` files for exactly this (HANDOFF, "The hosted copy").
+`restated_between_filings` guard; open by `rule:fact_readings_differ` or an `unresolved` label; open by
+`label:not_looked_up`, "XBRL instance not loaded", when the filing's instance is not on disk (F17). Taxonomy rendering:
+`check_columns`. A failed tie is its own warn item on Proof.
+The hosted copy ships the `*.facts.json` files: without them every untagged fact there reads "XBRL instance not
+loaded" (HANDOFF, "The hosted copy").
 
 **Consumers.** Proof (proof.py:132), Reconcile (workbench.py:143), taxonomy (taxonomy.py:135-141) and `gold.compare`
 (gold.py:415) pass the ladder. **`gold_view`'s `live.open` does not** (app.py:297; gold.py:341-345).
@@ -149,7 +163,7 @@ label. The hosted copy depends on shipped `*.facts.json` files for exactly this 
 **States** per key: none / `accept` / `explain` / `fix` / `blocks` (resolutions.py:30). Word map `STATUS`: accepted,
 explained, fix_pending, blocks (76). Orthogonal:
 - `author_kind` person/run (85; legacy lines read through `by_person`/`by_run`, 88-104);
-- hash current/expired, computed only when `by_row` gets `items` (202-210);
+- hash current/expired against the live queue item, on every page (`resolutions.index`, F15);
 - key live/legacy/stale kind (`is_live` 73-74; `LIVE_KINDS` 37-42).
 "Unconfirmed" means the latest line is live and run-written (230-239).
 
@@ -166,7 +180,7 @@ explained, fix_pending, blocks (76). Orthogonal:
 | `accept` on `new_filing` (an unread filing becomes explained and leaves the queue) | `/api/resolve` | person | **not enforced** (LIVE_KINDS includes it, 42) |
 | a hash that is not the item's current one | `/api/resolve` | person | **not enforced** |
 | a key not in the current queue | `/api/resolve` | person | **not enforced** (key shape only, 135-136) |
-| an edit or deletion (append-only) | file edit | anyone | **not enforced**: `claims.append_only` checks only findings.jsonl (claims.py:163; checklist.py:341) |
+| an edit or deletion (append-only) | file edit | anyone | **enforced at the Release line** (F30): `claims.append_only_logs` checks every first-parent commit, and every side-branch commit since 2026-11-05, of findings.jsonl, decisions.jsonl, resolutions.jsonl, mapping_proposals.jsonl and the archive files; only a resolution whose key is no longer live may leave, into `decisions/archive/`, byte for byte. The Claims register line is red on an edit |
 | a run-written line | no writer in code sets `author_kind="run"` | agent editing the file | a hand-appended `author_kind: person` line by "Kenny Geiler" is a person line |
 
 **UI.** Reconcile "<Accept|Explain|Fix|Blocks> by <by>, <date>" (reconcile.js:94; RES_LABEL/RES_HELP/RES_BADGE 9-11).
@@ -212,13 +226,16 @@ before the field the resolutions rule, a name on config.PEOPLE with no "to confi
 `review.proposed`: open under G4, a G6 item `decisions|<ticker>|<exception id>`, Proposed on Proof (release stage, "to
 confirm") and on Reconcile's blocks group, and `apply` ignores its override or reject. On a block finding a run's decision
 never supersedes a person's on the same input hash; warn and info findings keep the newest line, as before. The 12 accepts above now read Proposed for their seven companies; no line was rewritten.
+Since F-TR1 a person also decides one from Reconcile: Confirm or Overturn on the Proposed decision card, `POST
+/api/decision` → `review.person_decides` (the proposal standing must be the one the page showed, by decision_id, and the
+finding's input hash the page's; else 409) → `decide(..., author_kind="person")`.
 
 **UI.** `/api/company` `status` "note" / "open" / "decided", and `decision {kind, reason, reviewer, decided_at}`
 (app.py:84-85). Values change silently in the packet.
 **Risks.**
 - [HIGH] A run decision closes blocks, with no person check and no G6.
 - [MED] Latest is by file order.
-- [MED] Not checked as append-only.
+- Append-only: checked (F30, above).
 
 ## M4. A Reconcile queue item (`app._flow`)
 
@@ -364,8 +381,8 @@ golden run reads green. [MED] No line for EDGAR freshness or the hosted copy.
 (116-147); later lines may change only `status`/`at` (`MUTABLE`, 70; enforced 140-144); every committed version must be a
 prefix (163-180; with git only).
 **Transitions.** Any state → any state by an appended line. Not enforced: fixed with no evidence that the fix landed.
-**UI.** Gaps page severity, text, claim, ticket (gaps.js:41-47); "Findings log append-only: checked / edited / not
-enforced here" (gaps.js:29); Release "Known gaps: … open findings" (checklist.py:351). **Risk.** [LOW]
+**UI.** Gaps page severity, text, claim, ticket; "Append-only log edited" / "Append-only logs: not enforced here"
+(every append-only log, F30); Release "Known gaps: … open findings" (checklist.py:351). **Risk.** [LOW]
 
 ## M11. A claim (`claims/claims.yaml`, `ledger/release/claims.py`)
 
@@ -429,6 +446,18 @@ read) · unknown ("Unknown company": not followed, no filing read). Absent input
 the trail route (`/api/v1/proof/<ticker>`: 404 with the unknown word). A database that cannot be read is a 503, never unknown.
 **UI.** The trail's head and its release card show the word instead of Proven / Ready for release; an unknown ticker's
 trail shows only the word.
+
+## M20. Whether a reading answered the current task (F25, 5 Nov 2026)
+
+**States.** current ("Reading current": its `_run.task_sha` is the current task's) · stale ("Reading answered an older
+task") · unfingerprinted ("Reading not fingerprinted": no `_run.task_sha`). Absent input is unfingerprinted.
+**Who decides.** `agent.reading_state(obj, task_text)`. The four loaders (extract, notes, aispend, projects `--load`)
+refuse a stale output as their `*_failed` item (projects since F25). An unfingerprinted output still loads (its rows stand;
+nothing is re-run by the check), and `agent.unfingerprinted(con, tickers)` lists every one on disk: Proof's ingest stage
+shows each open by `label:unfingerprinted`, needs "Re-read (--run)", and Reconcile lists it under "Reading not
+fingerprinted" (kind `reading_unfingerprinted`, not a live resolution kind: no decision closes it). The two pages count
+it the same (Needs review). `<step> --run` re-asks it and writes the fingerprint.
+**Today.** 4 statement outputs (CRWV one, ORCL three), none on the six: the nine MSFT, NVDA and APLD ones were re-read on 2026-11-05.
 
 ## M12. Freshness of the monitoring inputs
 
@@ -529,7 +558,7 @@ Next tier (F24 to F30):
 - "proven" means three things: `config.PROVEN` membership (api.py:67, release.py:335), Proof's nothing-open, and the
   claim status.
 - "unchecked" and "not_checked" name one state.
-- resolutions.jsonl, decisions.jsonl and mapping_proposals.jsonl are not checked as append-only.
+- resolutions.jsonl, decisions.jsonl and mapping_proposals.jsonl are checked as append-only since F30 (`claims.append_only_logs`).
 
 ## Proposed design: declare the machines in code (`ledger/core/states.py`; the machines that reach a page built, the writer hooks and replays below still planned)
 
@@ -554,7 +583,7 @@ stale refusal. The actor comes from `status.is_person`, the writer's identity, o
 return names from the declarations, so no state can appear undeclared.
 
 **States to add:**
-- row `not_looked_up` (unknown) and `stale` (a resolution on a changed hash);
+- row `stale` (a resolution on a changed hash; F15 closes it as open, no own word); ladder `not_looked_up` is produced (F17);
 - line `stale` (its own badge; required lines treat it as fail);
 - decision `author_kind`;
 - release `deployed` / `hosted_stale`;

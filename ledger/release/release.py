@@ -321,11 +321,14 @@ def ai_line(rows: list[dict]) -> str:
 # are described here, as a meaning or as (allowed values, meaning) where the shipped set is narrower than the table's
 # enum. A column with no description raises: nothing ships undocumented, and the test on checklist.packet compares every
 # CSV header in the packet with the README's tables.
+from ..review.resolutions import STATUS as _RES_STATUS
 LIST_TABLES = {"values": "values", "facts": "facts", "statements": "ai_statements", "projects": "projects", "ai_spend": "ai_spend"}
 COLUMN_DOCS = {
     "*": {"layer": "The supply-chain layer the company was picked under (config.INDUSTRIES): a reading aid, not a standard.",
           "proven": "True when the company is in the proven set (docs/PROOF.md): every number checked or explained.",
-          "status": "A person's latest decision on the row (decisions/resolutions.jsonl): empty, confirmed, overridden or rejected.",
+          "status": (", ".join(["empty"] + [f"`{w}`" for w in _RES_STATUS.values()]),  # F27: the words by_row writes (resolutions.STATUS), never a list of its own
+                     "A person's latest decision on the row's queue items (decisions/resolutions.jsonl), counted only while each item is the one decided: "
+                     "`accepted`, `explained`, `fix_pending` (to be fixed, still open) or `blocks` (refuses the release); empty when none stands."),
           "flag": "What the numbers say by themselves: `differs_from_xbrl` when the check is unresolved, else empty."},
     "values": {"ticker": "Company ticker, e.g. NVDA.",
                "period": "The company's own fiscal year, e.g. FY2026 (`period_end` is its last day; Nvidia's FY2026 ended 25 Jan 2026).",
@@ -361,7 +364,8 @@ def column_doc(name: str, col: str) -> tuple[str, str]:
     if c:
         return allowed, c.doc
     if col in COLUMN_DOCS["*"]:
-        return allowed, COLUMN_DOCS["*"][col]
+        d = COLUMN_DOCS["*"][col]
+        return (d[0], d[1]) if isinstance(d, tuple) else (allowed, d)
     raise KeyError(f"{name}.csv column `{col}` has no description (release.COLUMN_DOCS or store.SCHEMA)")
 
 

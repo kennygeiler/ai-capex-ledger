@@ -401,15 +401,15 @@ def claims_lines() -> list[dict]:
         fs = claims.findings(ids={e["id"] for e in es})
         probs = claims.unregistered(es)
         sc = claims.scan()
-        ao = claims.append_only()
+        ao = claims.append_only_logs()  # F30: the findings log and the decisions logs
         rows = claims.computed(True, entries=es, fs=fs)
     except Exception as e:
         return [_line("claims", label, True, 1, "fail", "gaps", f"the register could not be read: {e.__class__.__name__}: {str(e)[:160]}", [{"problem": str(e)[:300]}])]
-    probs = probs + [{"kind": "append_only", "what": p, "where": "claims/findings.jsonl"} for p in ao["problems"]]
+    probs = probs + [{"kind": "append_only", "what": i["what"], "where": i["where"]} for i in ao["items"]]
     c = claims.counts(rows, fs)
     scanned = f"{len(rows)} claims; {len(sc['strings'])} strings scanned on {sc['pages']} pages and {sc['files'] - sc['pages']} other files; {ao['note']}"
     reg = _line("claims", label, True, len(probs), "pass" if not probs else "fail", "gaps",
-                scanned if not probs else f"{len(probs)} problems: a claim with no row, a row whose words moved, or an edited finding; {scanned}",
+                scanned if not probs else f"{len(probs)} problems: a claim with no row, a row whose words moved, or an edited line in an append-only log; {scanned}",
                 [{"kind": p["kind"], "what": p["what"], "where": p["where"]} for p in probs])
     gaps = _line("known_gaps", f"Known gaps: {c['stub']} stub · {c['stale']} stale · {c['open_findings']} open findings", False,
                  c["stub"] + c["stale"] + c["open_findings"], "info", "gaps", claims.counts_line(c),

@@ -12,8 +12,9 @@ from ..core.states import SEGMENT_BASIS_MIXED
 
 EVIDENCE = store.ROOT / "reports" / "evidence"
 CAUSES = {"fact_differs": "Differs from SEC XBRL", "fact_changed": "Changed since last release", "blocked": "Blocks release",
-          "finding_unconfirmed": "Rule findings", "new_filing": "New SEC filing", "value_missing": "Not extracted"}
-REF_LABEL = {"fact_differs": "SEC XBRL", "fact_changed": "Last release", "blocked": None, "finding_unconfirmed": "SEC XBRL", "new_filing": None, "value_missing": "SEC XBRL"}
+          "finding_unconfirmed": "Rule findings", "new_filing": "New SEC filing", "value_missing": "Not extracted",
+          "reading_unfingerprinted": "Reading not fingerprinted"}
+REF_LABEL = {"fact_differs": "SEC XBRL", "fact_changed": "Last release", "blocked": None, "finding_unconfirmed": "SEC XBRL", "new_filing": None, "value_missing": "SEC XBRL", "reading_unfingerprinted": None}
 # a rule's finding by the rule that fired (the queue carries kind "other" and the rule id for the note rules), one short label each
 FINDING_LABEL = {"restated": "Restated", "jump": "Large year-over-year change", "row_switch": "Line renamed", "capex_intensity": "Capex high vs revenue", "opex_over_revenue": "Opex above revenue",
                  "segment_capex_tie": "Does not tie to reported total", "segment_revenue_tie": "Does not tie to reported total", "ppe_categories_tie": "Does not tie to reported total",
@@ -154,10 +155,39 @@ def _state(con, q: dict, idx: dict, xp: dict | None = None, lad: dict | None = N
         return status.of_exception({"rule_id": d.get("rule"), "severity": "block", "message": d.get("message")}, res)
     if q["kind"] == "value_missing":  # T65: the value row itself, open by label:not_extracted; a resolution is not live for this kind
         return status.of_value({"field": d.get("field"), "period": d.get("period"), "label": d.get("label", "not_extracted")}, res)
+    if q["kind"] == "reading_unfingerprinted":  # F25: open by label:unfingerprinted, as Proof's ingest item; closed by re-reading
+        from ..checks.proof import UNFINGERPRINTED_WHY
+        return status.state({"label": "unfingerprinted", "reason": UNFINGERPRINTED_WHY})
     return status.state({"reason": "a filing at the SEC the ledger has not read", "resolution": res})
 
 
 TO_CONFIRM = "to_confirm"
+ACCESSION = __import__("re").compile(r"\b\d{10}-\d{2}-\d{6}\b")
+
+
+def filing_words(con, text: str | None) -> str | None:
+    """A finding's message as the page says it (evidence `said`; `message` stays as the rule wrote it, for the parsers),
+    with every accession number said as its filing, "10-K filed 2026-07-29" (V22: no machine
+    words on a page); an accession the database does not hold stays as written."""
+    if not text or not ACCESSION.search(text):
+        return text
+    docs = {a: (f, str(d)[:10]) for a, f, d in con.execute("select accession, form, filed from documents where accession in (select unnest(?))", [ACCESSION.findall(text)]).fetchall()}
+    return ACCESSION.sub(lambda m: f"{docs[m.group(0)][0]} filed {docs[m.group(0)][1]}" if m.group(0) in docs else m.group(0), text)
+
+
+def _proposal(con, exception_id: str | None, ds: list[dict]) -> dict | None:
+    """F-TR1: the proposed decision on a block finding as the page needs it to confirm or overturn it: the finding's
+    id and input hash as the database holds them, and the standing proposal (review.proposed) with its decision_id.
+    `ds`: decisions/decisions.jsonl, read once per items() call."""
+    from .review import proposed
+    cur = con.execute("select * from exceptions where exception_id = ?", [exception_id or ""])
+    r = cur.fetchone()
+    if not r:
+        return None
+    e = dict(zip([c[0] for c in cur.description], r))
+    p = next((x["decision"] for x in proposed([e], ds)), None)
+    return p and {"exception_id": e["exception_id"], "input_hash": e["input_hash"],
+                  **{k: p.get(k) for k in ("decision_id", "kind", "value", "reviewer", "reason", "decided_at")}}
 
 
 def to_confirm(tickers: list[str] | None, names: dict) -> list[dict]:
@@ -285,7 +315,7 @@ def items(con, flow: dict) -> dict:
     The decisions a run left for a person to confirm come first as their own group (`to_confirm`, T3), counted apart; the
     unmapped asset types (`asset_types`, T33) are their own group too, with `members` the list a mapping may use."""
     names, rel = flow["names"], flow["release"]["last"]
-    idx = resolutions.by_row(items=flow["queue"])  # T62: a row with an unresolved sibling finding stays open
+    idx = resolutions.by_row(items=flow.get("items") or flow["queue"], tickers=flow["tickers"] if "items" in flow else ())  # T62: a row with an unresolved sibling finding stays open; F15: every item, as resolutions.index reads it
     xp = _explained(con, sorted({q["ticker"] for q in flow["queue"]}))
     from ..checks.ties import ladder
     lad = ladder(con, sorted({q["ticker"] for q in flow["queue"]}))  # T92: the facts' ladder, read once
@@ -294,6 +324,7 @@ def items(con, flow: dict) -> dict:
     restated = restatements(con, tick)  # ties.restatement per fact: the drawer says it whatever the row's state
     basis = _basis(con, tick) if any((q.get("detail") or {}).get("rule") == "segment_basis_mixed" for q in flow["queue"]) else {}
     enc = {}  # the definitions and rules on file, read once for every item's offers
+    ds = None  # decisions/decisions.jsonl, read at the first proposed block
     rows = []
     from ..checks.crops import brief, cells
     crop_of = cells(con, [((q.get("detail") or {}).get("cite") or {}).get("extraction_id") for q in flow["queue"] if q["kind"] == "fact_differs"])  # one read for every row
@@ -327,16 +358,23 @@ def items(con, flow: dict) -> dict:
                     "cause_label": FINDING_LABEL.get(lk, row["cause_label"])}
             if d.get("field"):
                 row["series"] = _value_series(con, q["ticker"], d["field"])
-            row["evidence"] = {"message": d.get("message"), "kind": k, "size": d.get("size"), **({"dimension": d.get("subject")} if d.get("rule") == "fact_readings_differ" and d.get("subject") else {})}  # two categories, one year: named apart
+            row["evidence"] = {"message": d.get("message"), "said": filing_words(con, d.get("message")), "kind": k, "size": d.get("size"), **({"dimension": d.get("subject")} if d.get("rule") == "fact_readings_differ" and d.get("subject") else {})}  # two categories, one year: named apart
             row |= _finding_numbers(d, q["ticker"], lad, restated)  # STORY-027: the gap in the columns, not only in the Details prose
         elif q["kind"] == "blocked":
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if d.get("value") is not None else None, "ours": d.get("value")}
-            row["evidence"] = {"message": d.get("message"), "rule": d.get("rule")}
+            row["evidence"] = {"message": d.get("message"), "said": filing_words(con, d.get("message")), "rule": d.get("rule")}
+            if q.get("proposed"):  # F-TR1: the run's decision a person confirms or overturns on the page (POST /api/decision)
+                if ds is None:
+                    from .review import decisions
+                    ds = decisions()  # once per items() call, whatever the number of proposed blocks
+                row["evidence"]["proposed"] = _proposal(con, d.get("exception_id"), ds)
         elif q["kind"] == "value_missing":
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": None, "reference": _num(d.get("reference")), "ours_label": "Not extracted"}
             if d.get("field"):
                 row["series"] = _value_series(con, q["ticker"], d["field"])
             row["evidence"] = {"label": d.get("label"), "reference": d.get("reference"), "period_end": d.get("period_end")}
+        elif q["kind"] == "reading_unfingerprinted":
+            row["evidence"] = {"step": d.get("step"), "subject": d.get("subject"), "label": d.get("label"), "rerun": f"ledger {d.get('step')} --run --ticker {q['ticker']}"}
         elif q["kind"] == "new_filing":
             row |= {"period": d.get("period")}
             row["evidence"] = {"url": d.get("url"), "filed": d.get("filed"), "form": d.get("form")}

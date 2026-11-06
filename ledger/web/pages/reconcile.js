@@ -1,7 +1,7 @@
 // ── Reconcile: the workbench, on Tabler (dashboard UI kit) inside its own shadow root so the kit's reset touches nothing else. ──
 // One card per cause; one row per item with ours, reference, a gap bar, delta and decision; Enter opens the evidence as
 // aligned diff tables (this year, the computation, every year) with a status badge per line, and the decision form.
-const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'value_missing', 'finding_unconfirmed', 'new_filing', 'asset_types', 'asset_types_match'];
+const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'value_missing', 'reading_unfingerprinted', 'finding_unconfirmed', 'new_filing', 'asset_types', 'asset_types_match'];
 // Category mapping is two cards: Proposed (needs a person) and Matches company tag (the company's own XBRL tag already agrees)
 const isMatch = (r) => r.cause === 'asset_types' && r.verification === 'company';
 const causeKey = (r) => (isMatch(r) ? 'asset_types_match' : r.cause);
@@ -176,7 +176,7 @@ async function reconcilePage(view, qs) {
       const ours = isAsset(r) ? [P ? [h('span', {style: 'overflow-wrap:anywhere', title: P.standard_type}, memberWords(P.standard_type)), ' ', r.evidence.mapping === 'verified' ? h('span', {class: 'small text-green'}, 'Matches company’s own tag') : P.confidence ? h('span', {class: 'text-secondary small'}, `Confidence ${P.confidence}`) : h('span', {class: 'small text-secondary'}, 'Proposed')] : h('span', {class: 'text-secondary small'}, 'No proposal'), h('div', {class: 'small'}, filerNote(r), P && filerNote(r) ? h('span', {class: 'text-secondary'}, ' · ') : '', P ? h('span', {class: 'text-secondary', title: P.evidence}, `“${memberText(P.evidence)}”`) : '')] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
         h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
-        isAsset(r) ? h('td', {colspan: assetCard ? null : 4}, ours) : [h('td', {class: 'num'}, ours),
+        isAsset(r) ? h('td', {colspan: assetCard ? null : 4}, ours) : r.cause === 'reading_unfingerprinted' ? h('td', {colspan: 4, class: 'small'}, 'Re-read required') : [h('td', {class: 'num'}, ours),
         h('td', {class: 'num'}, r.reference == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[r.relation] || '', num(r, r.reference)], r.ref_label && r.reference != null ? h('div', {class: 'text-secondary small'}, r.ref_label) : ''),
         h('td', {class: 'w-1'}, r.ours != null && r.reference != null ? gapBar(r) : ''),
         h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, '—') : [h('span', {class: 'fw-semibold'}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : ''])],
@@ -349,6 +349,29 @@ async function reconcilePage(view, qs) {
     }
     return h('div', {class: 'row g-2'}, parts);
   }
+  // F-TR1: a block a run or an agent decided is Proposed; a person confirms it or overturns it here (POST /api/decision →
+  // review.person_decides, author_kind person, the signer box's name on the signer list)
+  function proposedDecision(r) {
+    const P = r.evidence.proposed;
+    const KIND = {accept: 'Accept as read', reject: 'Reject: empty the value', override: `Override${P.value != null ? ': ' + usd(P.value) : ''}`};
+    const others = Object.keys(KIND).filter((k) => k !== P.kind && k !== 'override');
+    const reason = h('input', {type: 'text', class: 'form-control form-control-sm', name: 'reason', autocomplete: 'off', placeholder: 'Reason', 'aria-label': 'Reason'});
+    const pick = h('select', {class: 'form-select form-select-sm w-auto', 'aria-label': 'Overturn to'}, others.map((k) => h('option', {value: k}, KIND[k])));
+    const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
+    const send = (action) => async (e) => {
+      if (!reason.value.trim()) { reason.focus(); status.textContent = 'Reason required'; return; }
+      const btn = e.currentTarget; btn.disabled = true; status.classList.remove('text-red'); status.textContent = 'Saving…';
+      try {
+        await api('/api/decision', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({exception_id: P.exception_id, input_hash: P.input_hash, decision_id: P.decision_id, action, kind: action === 'overturn' ? pick.value : null, reason: reason.value, by: me})});
+        status.textContent = action === 'confirm' ? 'Confirmed' : 'Overturned'; setTimeout(route, 600);
+      } catch (err) { status.textContent = `Couldn’t save: ${err.message}.`; status.classList.add('text-red'); btn.disabled = !isSigner(me); }
+    };
+    const confirm = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: isSigner(me) ? null : signerWhy(me), onclick: send('confirm')}, 'Confirm'));
+    const overturn = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: isSigner(me) ? null : signerWhy(me), onclick: send('overturn')}, 'Overturn'));
+    return h('div', {class: 'row g-2 align-items-center'},
+      h('div', {class: 'col-12 small'}, h('span', {class: 'fw-medium'}, `Proposed: ${KIND[P.kind] || P.kind}`), h('span', {class: 'text-secondary'}, ` · ${P.reviewer} · ${day(P.decided_at)} · ${P.reason}`)),
+      h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, reason, confirm)), h('div', {class: 'col-auto d-flex gap-2'}, pick, overturn), h('div', {class: 'col-12'}, status));
+  }
   function resolutionForm(r, many, done) {
     const items = many || [r];
     let state = startState(r);
@@ -408,6 +431,9 @@ async function reconcilePage(view, qs) {
     } else if (r.cause === 'value_missing') {
       cards.push(col(5, dtable(`${r.period} · Not extracted`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.value == null ? '—' : usd(x.value))}], [{what: 'Cited', value: null}, {what: 'SEC XBRL', value: r.reference, _cls: 'fw-semibold'}])));
       cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')));
+    } else if (r.cause === 'reading_unfingerprinted') {  // F25: closed by re-reading, never by a decision
+      cards.push(col(8, dtable(r.cause_label, [{t: '', k: 'what'}, {t: '', k: 'value'}], [{what: 'Reading', value: r.where}, {what: 'Re-read', value: 'Run the reader again for this company'}])));
+      cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')));
     } else if (r.cause === 'finding_unconfirmed' || r.cause === 'blocked') {
       if (r.measure) {
         const maxL = Math.max(1, Math.abs(r.ours || 0), Math.abs(r.reference || 0));
@@ -417,11 +443,11 @@ async function reconcilePage(view, qs) {
       const facts = messageFacts(E.message);  // V11: the finding's figures as labelled cells (the server's text when its shape is unknown)
       // readings that differ: the Restated line at the top says every reading and the one used, in product words; the rule's
       // own message (field id, accession numbers) is not repeated here (V22)
-      cards.push(col(4, h('h3', {class: 'mb-2'}, 'Details'), E.restatement ? h('div', {class: 'small text-secondary'}, r.cause_label) : facts ? valueCells(facts, 'compact') : h('div', {class: 'small'}, E.message || ''), h('div', {class: 'mt-2'}, h('a', {href: `#data?view=grid&t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'Open in Dataset'))));
+      cards.push(col(4, h('h3', {class: 'mb-2'}, 'Details'), E.restatement ? h('div', {class: 'small text-secondary'}, r.cause_label) : facts ? valueCells(facts, 'compact') : h('div', {class: 'small'}, E.said || E.message || ''), h('div', {class: 'mt-2'}, h('a', {href: `#data?view=grid&t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'Open in Dataset'))));
     } else if (toConfirm(r)) {
       const p = r.resolution || {};
       cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, `Proposed: ${RES_LABEL[E.proposed] || E.proposed}`), h('span', {class: 'ms-2 small text-secondary'}, `${p.by || ''}, ${day(p.at)}`)),
-        h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0'}, E.message || p.reason || '')),
+        h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0'}, E.said || E.message || p.reason || '')),
         h('div', {class: 'card-footer py-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')))));
     } else if (r.cause === 'new_filing') {
       cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} · Filed ${day(E.filed)} · `, h('a', {href: safeHref(E.url), target: '_blank', rel: 'noopener'}, 'Open in EDGAR ↗')))));
@@ -433,11 +459,14 @@ async function reconcilePage(view, qs) {
       cards.push(col(12, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Note wording')),  // V15: under the decision, the row's width (a 4-column box was 5 % filled)
         h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0 small'}, N && N.before ? `…${N.before}` : 'Note text unavailable'), h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail'))))));
     }
-    const decision = isAsset(r)
+    const decision = isAsset(r) || r.cause === 'reading_unfingerprinted'
       ? ''
       : writes(h('div', {class: 'col-12 decision-panel', hidden: selected.size > 0}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Change decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} · ${r.resolution.by} · ${day(r.resolution.at)} · ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r)))));
+    const proposal = r.cause === 'blocked' && r.evidence && r.evidence.proposed
+      ? writes(h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Proposed decision')), h('div', {class: 'card-body py-2'}, proposedDecision(r)))))
+      : '';
     const once = canEncode(r) ? writes(h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Apply everywhere')), h('div', {class: 'card-body py-2'}, encodePanel(r))))) : '';
-    return h('div', {class: 'row g-3'}, cards, decision, once);
+    return h('div', {class: 'row g-3'}, cards, proposal, decision, once);
   }
   requestAnimationFrame(() => cutTitles(wrap));  // F-VS5: measured once the rows are laid out
   wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No items to review · ', h('a', {href: '#release'}, 'Release')))]));

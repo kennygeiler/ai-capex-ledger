@@ -85,12 +85,14 @@
 - id: unverified_citation_only
   claim: "Unverified · citation only"
   where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/pages/_shared.js, ledger/web/pages/proof.js, ledger/web/cards.py]
-  shown: ["Unverified", "Citation only", "Unverified · citation only", "Not in SEC XBRL"]
+  shown: ["Unverified", "Citation only", "Unverified · citation only", "Not in SEC XBRL", "XBRL instance not loaded"]
   backed_by:
     functions: [ledger.core.status.of_fact, ledger.web.cards._how]
     tests:
       - tests.test_status.Definition.test_the_ladder_of_an_untagged_fact
       - tests.test_status.EveryCheckedRowNamesItsEvidence.test_planted_no_reference_on_a_fact_xbrl_holds
+      - tests.test_instance_not_loaded.NotLookedUp.test_an_untagged_fact_with_no_instance_is_open_and_says_so
+      - tests.test_instance_not_loaded.OnProof.test_proof_and_taxonomy_say_the_instance_was_not_loaded
   status: partial
   gaps:
     - 22 note figures on the six rest on the citation alone; nothing independent checks the number.
@@ -122,9 +124,9 @@
     tests:
       - tests.test_status.Definition.test_checked_explained_open_blocked
       - tests.test_status.ProofAgreesWithReconcile.test_open_counts_agree_on_the_fixtures
+      - tests.test_one_resolution_rule.Surfaces.test_current_hash_closes_a_changed_one_reopens_everywhere
   status: partial
-  gaps:
-    - Proof shows a resolved item as closed until the next rules run, even when its finding has changed since.
+  gaps: []
   ticket: T92
 
 - id: item_states
@@ -469,17 +471,19 @@
 
 - id: late_writers
   claim: "Late writers never overwrite"
-  where: [ledger/extract/agent.py, ledger/review/mapper.py, ledger/review/gold.py]
-  shown: ["def stale"]
+  where: [ledger/extract/agent.py, ledger/review/mapper.py, ledger/review/gold.py, ledger/core/states.py, ledger/checks/proof.py]
+  shown: ["def stale", "Reading not fingerprinted", "Reading current", "Reading answered an older task"]
   backed_by:
     functions: [ledger.extract.agent.stale, ledger.core.safewrite.safe_write]
     tests:
       - tests.test_late_writers.StaleOutput.test_repack_a_task_then_load_the_old_output_refused
       - tests.test_late_writers.LateProposal.test_a_proposal_after_a_persons_approval_changes_nothing
       - tests.test_gold.Draw.test_a_verdict_recorded_while_the_draw_runs_survives
+      - tests.test_one_resolution_rule.Index.test_a_resolution_on_a_changed_item_closes_nothing
+      - tests.test_one_resolution_rule.Index.test_two_items_on_one_row_need_a_decision_each
   status: partial
   gaps:
-    - 13 older statement readings carry no fingerprint and load unjudged until they are read again.
+    - 4 older statement readings (CRWV, ORCL) carry no fingerprint; their rows load, and Proof and Reconcile show each open, "Reading not fingerprinted", until it is read again.
   ticket: T100
 
 - id: decision_author
@@ -495,6 +499,9 @@
       - tests.test_trust.DecisionAuthors.test_every_new_decision_records_its_author_and_kind
       - tests.test_trust.DecisionAuthors.test_g4_and_g6_both_name_a_proposed_block
       - tests.test_trust.DecisionAuthors.test_proof_and_reconcile_read_it_proposed
+      - tests.test_claims.AppendOnly.test_the_decisions_logs_are_append_only_too
+      - tests.test_person_decides.PersonDecides.test_confirm_writes_the_proposal_as_the_persons_and_closes_the_block
+      - tests.test_person_decides.Route.test_the_route_writes_a_persons_decision
   status: partial
   gaps:
     - The name is the one typed in the signer box; nobody signs in.

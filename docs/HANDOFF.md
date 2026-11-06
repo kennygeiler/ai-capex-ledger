@@ -103,7 +103,8 @@ look without a checkout. Redeploy after a run or a release: `uv run python scrip
 `uv run python -m ledger claims --deployed` and commit `claims/hosted.json` (without that record the Gaps page reads the hosted copy stale) (the `Dockerfile`;
 `.railwayignore` and `.dockerignore` re-include `data/ledger.duckdb` and the distilled XBRL instances `data/raw/*/filings/*.facts.json`,
 which git ignores: without the instances the restatement guard (`proof._restated`) cannot name a tag's filing, and the hosted copy
-counts those rows open while the local one counts them explained). The signed releases also sit in the production Postgres,
+counts those rows open while the local one counts them explained, and every untagged note figure reads "XBRL instance not
+loaded", F17). The signed releases also sit in the production Postgres,
 `DATABASE_READONLY_URL` in `.env`, the only connection string to hand out.
 
 ## The work
@@ -145,7 +146,11 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
 - **Decide a block finding**: `ledger review decide <id> accept|override|reject --reason "…" --by "<name on
   config.PEOPLE>" --as person --ticker X`; `--as person|run` is required, so the command says who decides, and every
   line records `reviewer` and `author_kind`. An agent writes `--as run`: its decision is recorded and closes nothing that blocks; the finding stays open under G4 and Proposed (G6, Proof, Reconcile) until a person decides
-  it (F14). A run's decision on a warning closes it, as before.
+  it (F14). A run's decision on a warning closes it, as before. On the page (F-TR1): Reconcile's Proposed decision card
+  on that block carries Confirm (the proposal's own kind and value, as the person's) and Overturn (accept or reject
+  instead; an override with a value stays on the command line), `POST /api/decision` → `review.person_decides` →
+  `review.decide(..., author_kind="person")`, the signer box's name on `config.PEOPLE`, refused 409 when the finding or the
+  proposal changed since the page showed it; hidden on the read-only copy.
 - **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.
 - **Release**: Kenny's Data Emporium's Release page (`#release`) is the checklist: every line that could make a signature wrong, green or
   red with its count and the page that fixes it, and the packet built in memory. Its Sign button (enabled only when every
@@ -193,8 +198,8 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   offline; needs the stored filings in data/raw). The hosted copy has neither the filings nor the pictures (F-EV3, F-EV4).
 - **An agent output loads only if it answered the current task** (T100, `agent.stale`): after any change that repacks
   tasks (a locator, a parser, a prompt version), run the step's `--run` before `--load`, or the loader refuses the old
-  answers as `*_failed` "stale output". 4 statement outputs carry no `_run.task_sha` (written by hand before headless
-  runs) and are re-asked on the next `extract --run`: CRWV 0001769628-26-000104; ORCL 0000950170-24-075605,
+  answers as `*_failed` "stale output" (the projects loader too, since F25). 4 statement outputs carry no `_run.task_sha` (written by hand before headless
+  runs): their rows load, Proof and Reconcile show each open as "Reading not fingerprinted" (Needs review, F25), and they are re-asked on the next `extract --run`: CRWV 0001769628-26-000104; ORCL 0000950170-24-075605,
   0000950170-25-087926, 0001193125-26-277521. The nine MSFT, NVDA and APLD outputs were re-read on 2026-11-05
   (statements@v2, one attempt each); golden held every table equal after the load.
 - **Golden**: `ledger golden --check` before any commit that touches a parser, a rule, a loader or the taxonomy; `--freeze`
@@ -250,7 +255,12 @@ module being changed. Run the tests before and after. The invariants that must h
 - No column holds a number the pipeline made up: every taxonomy row is a reported figure, a verbatim quote, or
   arithmetic on reported balances marked `derived`. An asset type maps to a published us-gaap member or stays open.
 - A release is reproducible from its inputs: same inputs, same hash. Never edit a file under `releases/`.
-- `decisions/` and the agents' history are append-only.
+- `decisions/` and the agents' history are append-only. The Release line "Claims register" checks it
+  (`claims.append_only_logs`, F30): every first-parent commit of findings, decisions, resolutions and mapping proposals,
+  and every side-branch commit since 2026-11-05 (`claims.FULL_HISTORY_SINCE`), must survive line for line. The one line
+  that may leave a log is a resolution whose key is no longer live, moved byte for byte to `decisions/archive/`. Three
+  side-branch commits before that date rewrote lines (596eeac and 9f30518 renumbered findings F14/F15; 742887b
+  re-stamped migrated resolutions) and are not read.
 
 Verify, don't assert: the pipeline writes `runs`, snapshots and `data/jobs/progress.json`; `ledger golden --check` says
 whether the proven six still rebuild equal; read them rather than the log. Some shells wrap commands with `rtk`, which

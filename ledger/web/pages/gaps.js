@@ -19,7 +19,7 @@ async function gapsPage(view) {
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Known gaps'),
       h('div', {class: 'text-secondary small'}, ['proven', 'partial', 'stub', 'stale', 'planned'].map((s, i) => [i ? ' · ' : '', h('b', {class: 'text-body'}, int(c[s])), ` ${CLAIM_WORD[s]}`]),
         ' · ', h('b', {class: 'text-body'}, int(c.open_findings)), ' open issues'),
-      ao.enforced === false || (ao.problems && ao.problems.length) ? h('div', {class: 'small ' + (ao.enforced === false ? 'text-orange' : 'text-red')}, ao.enforced === false ? 'Issue log append-only: not enforced here' : 'Issue log edited') : ''),
+      ao.enforced === false || (ao.problems && ao.problems.length) ? h('div', {class: 'small ' + (ao.enforced === false ? 'text-orange' : 'text-red')}, ao.enforced === false ? 'Append-only logs: not enforced here' : 'Append-only log edited') : ''),
     h('div', {class: 'col-auto text-secondary small'}, `Updated ${when(d.at)}`)));
   const problems = (d.problems || []).length
     ? h('div', {class: 'alert alert-danger small'}, h('b', {}, `Unregistered claims · ${int(d.problems.length)}`), h('ul', {class: 'plain'}, d.problems.map((p) => h('li', {}, `${p.kind}: ${p.what} · ${p.where}`))))
