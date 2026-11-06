@@ -172,7 +172,7 @@ explained, fix_pending, blocks (76). Orthogonal:
 | `accept` on `new_filing` (an unread filing becomes explained and leaves the queue) | `/api/resolve` | person | **not enforced** (LIVE_KINDS includes it, 42) |
 | a hash that is not the item's current one | `/api/resolve` | person | **not enforced** |
 | a key not in the current queue | `/api/resolve` | person | **not enforced** (key shape only, 135-136) |
-| an edit or deletion (append-only) | file edit | anyone | **not enforced**: `claims.append_only` checks only findings.jsonl (claims.py:163; checklist.py:341) |
+| an edit or deletion (append-only) | file edit | anyone | **enforced at the Release line** (F30): `claims.append_only_logs` checks every committed version (first parent) of findings.jsonl, decisions.jsonl, resolutions.jsonl, mapping_proposals.jsonl and the archive files; a line may leave a decisions log only into `decisions/archive/`, byte for byte. The Claims register line is red on an edit |
 | a run-written line | no writer in code sets `author_kind="run"` | agent editing the file | a hand-appended `author_kind: person` line by "Kenny Geiler" is a person line |
 
 **UI.** Reconcile "<Accept|Explain|Fix|Blocks> by <by>, <date>" (reconcile.js:94; RES_LABEL/RES_HELP/RES_BADGE 9-11).
@@ -224,7 +224,7 @@ never supersedes a person's on the same input hash; warn and info findings keep 
 **Risks.**
 - [HIGH] A run decision closes blocks, with no person check and no G6.
 - [MED] Latest is by file order.
-- [MED] Not checked as append-only.
+- Append-only: checked (F30, above).
 
 ## M4. A Reconcile queue item (`app._flow`)
 
@@ -370,8 +370,8 @@ golden run reads green. [MED] No line for EDGAR freshness or the hosted copy.
 (116-147); later lines may change only `status`/`at` (`MUTABLE`, 70; enforced 140-144); every committed version must be a
 prefix (163-180; with git only).
 **Transitions.** Any state → any state by an appended line. Not enforced: fixed with no evidence that the fix landed.
-**UI.** Gaps page severity, text, claim, ticket (gaps.js:41-47); "Findings log append-only: checked / edited / not
-enforced here" (gaps.js:29); Release "Known gaps: … open findings" (checklist.py:351). **Risk.** [LOW]
+**UI.** Gaps page severity, text, claim, ticket; "Append-only log edited" / "Append-only logs: not enforced here"
+(every append-only log, F30); Release "Known gaps: … open findings" (checklist.py:351). **Risk.** [LOW]
 
 ## M11. A claim (`claims/claims.yaml`, `ledger/release/claims.py`)
 
@@ -547,7 +547,7 @@ Next tier (F24 to F30):
 - "proven" means three things: `config.PROVEN` membership (api.py:67, release.py:335), Proof's nothing-open, and the
   claim status.
 - "unchecked" and "not_checked" name one state.
-- resolutions.jsonl, decisions.jsonl and mapping_proposals.jsonl are not checked as append-only.
+- resolutions.jsonl, decisions.jsonl and mapping_proposals.jsonl are checked as append-only since F30 (`claims.append_only_logs`).
 
 ## Proposed design: declare the machines in code (`ledger/core/states.py`; the machines that reach a page built, the writer hooks and replays below still planned)
 

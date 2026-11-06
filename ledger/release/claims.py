@@ -171,10 +171,12 @@ def _git(*args, cwd: Path | None = None) -> subprocess.CompletedProcess | None:
     return r
 
 
-def append_only(path: Path = FINDINGS, rel: str = FINDINGS_REL, repo: Path | None = None) -> dict:
-    """{enforced, commits, problems}: every line of every committed version of the findings log must still be in the
+def append_only(path: Path = FINDINGS, rel: str = FINDINGS_REL, repo: Path | None = None, archived: frozenset | set = frozenset()) -> dict:
+    """{enforced, commits, problems}: every line of every committed version of the log must still be in the
     working file, unchanged and in the same order (a subsequence). A union merge of two branches may interleave new
-    lines, so a strict prefix is not required; an edited or removed line is still caught.
+    lines, so a strict prefix is not required; an edited or removed line is still caught. `archived`: lines moved,
+    byte for byte, to an archive file (decisions/archive/, the one way a stale decision leaves a live log): those may be
+    gone from the log; an edited line never.
     Without git (the hosted copy) nothing can be compared: enforced False, said so, never a silent pass."""
     log = _git("log", "--first-parent", "--format=%H", "--", rel, cwd=repo)
     if log is None or log.returncode != 0:
@@ -186,10 +188,33 @@ def append_only(path: Path = FINDINGS, rel: str = FINDINGS_REL, repo: Path | Non
         old = _git("show", f"{sha}:{rel}", cwd=repo)
         if old is None or old.returncode != 0:
             continue  # the commit that deleted it, or a rename: nothing to compare
-        if not _kept_in_order(old.stdout.splitlines(), now.splitlines()):
+        if not _kept_in_order([l for l in old.stdout.splitlines() if l not in archived], now.splitlines()):
             problems.append(f"{sha[:7]}: a line was edited or removed; append a new line with the same id instead")
     return {"enforced": True, "commits": len(shas), "problems": problems,
             "note": f"append-only checked against {len(shas)} commits" if not problems else f"{len(problems)} commits lost or edited a line"}
+
+
+# F30: every log the house calls append-only (docs/HANDOFF.md, invariants), checked the same way as the findings log
+APPEND_ONLY_LOGS = (FINDINGS_REL, "decisions/decisions.jsonl", "decisions/resolutions.jsonl", "decisions/mapping_proposals.jsonl")
+ARCHIVE_REL = "decisions/archive"
+
+
+def append_only_logs(repo: Path | None = None) -> dict:
+    """append_only over APPEND_ONLY_LOGS and every archive file under decisions/archive/ (an archive only grows too):
+    {enforced, commits, problems ["<log> <sha>: …"], items [{where, what}], logs {rel: result}, note}. A decisions log may
+    lose a line only to an archive file that holds it byte for byte."""
+    root = Path(repo) if repo else REPO
+    arch_files = sorted((root / ARCHIVE_REL).glob("*.jsonl"))
+    archived = frozenset(l for f in arch_files for l in f.read_text().splitlines() if l.strip())
+    logs = {}
+    for rel in (*APPEND_ONLY_LOGS, *(f.relative_to(root).as_posix() for f in arch_files)):
+        logs[rel] = append_only(root / rel, rel, repo, archived if rel.startswith("decisions/") else frozenset())
+    enforced = all(r["enforced"] for r in logs.values())
+    items = [{"where": rel, "what": p} for rel, r in logs.items() for p in r["problems"]]
+    commits = sum(r["commits"] for r in logs.values())
+    note = ("append-only not enforced here: no git" if not enforced else
+            f"append-only checked on {len(logs)} logs against {commits} commits" if not items else f"{len(items)} commits lost or edited a line of an append-only log")
+    return {"enforced": enforced, "commits": commits, "problems": [f"{i['where']} {i['what']}" for i in items], "items": items, "logs": logs, "note": note}
 
 
 def _kept_in_order(old: list[str], now: list[str]) -> bool:
@@ -578,7 +603,7 @@ def payload(live: bool = True) -> dict:
     sc = scan()
     return {"at": _now().isoformat(timespec="seconds"), "live": live, "counts": counts(rows, fs), "claims": rows,
             "findings": open_findings(fs), "problems": unregistered(es), "scanned": {"files": sc["files"], "pages": sc["pages"], "strings": len(sc["strings"])},
-            "append_only": append_only()}
+            "append_only": append_only_logs()}
 
 
 def _cell(s) -> str:

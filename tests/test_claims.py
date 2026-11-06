@@ -352,6 +352,42 @@ class AppendOnly(unittest.TestCase):
             f.write_text('{"id":"F1"}\n{"id":"S1"}\n')
             self.assertEqual(len(C.append_only(f, "f.jsonl", repo)["problems"]), 2)
 
+    def test_the_decisions_logs_are_append_only_too(self):
+        """F30: decisions.jsonl, resolutions.jsonl and mapping_proposals.jsonl were called append-only and never checked. An
+        edited or removed line is caught; a line moved byte for byte to decisions/archive/ is not an edit."""
+        with tempfile.TemporaryDirectory() as d:
+            repo = Path(d)
+            git = lambda *a: subprocess.run(["git", *a], cwd=repo, capture_output=True, text=True, check=True)
+            try:
+                git("init", "-q")
+            except (OSError, subprocess.CalledProcessError):
+                self.skipTest("no git")
+            git("config", "user.email", "t@t")
+            git("config", "user.name", "t")
+            (repo / "claims").mkdir()
+            (repo / "decisions").mkdir()
+            (repo / "claims" / "findings.jsonl").write_text('{"id":"F1"}\n')
+            logs = {rel: repo / rel for rel in C.APPEND_ONLY_LOGS if rel.startswith("decisions/")}
+            for rel, f in logs.items():
+                f.write_text('{"id":"a"}\n{"id":"b"}\n')
+            git("add", ".")
+            git("commit", "-qm", "one")
+            self.assertEqual(C.append_only_logs(repo)["problems"], [])
+            res = repo / "decisions" / "decisions.jsonl"
+            res.write_text('{"id":"a","reason":"rewritten"}\n{"id":"b"}\n')
+            a = C.append_only_logs(repo)
+            self.assertEqual([i["where"] for i in a["items"]], ["decisions/decisions.jsonl"])
+            res.write_text('{"id":"b"}\n')  # removed, nowhere kept
+            self.assertEqual([i["where"] for i in C.append_only_logs(repo)["items"]], ["decisions/decisions.jsonl"])
+            (repo / "decisions" / "archive").mkdir()
+            (repo / "decisions" / "archive" / "stale.jsonl").write_text('{"id":"a"}\n')  # moved to the archive, byte for byte
+            self.assertEqual(C.append_only_logs(repo)["problems"], [])
+            with mock.patch.object(C, "append_only_logs", return_value={**a, "note": "x"}):
+                from ledger.release import checklist
+                line = next(l for l in checklist.claims_lines() if l["id"] == "claims")
+            self.assertEqual(line["state"], "fail")
+            self.assertIn({"kind": "append_only", "what": a["items"][0]["what"], "where": "decisions/decisions.jsonl"}, line["detail"])
+
     def test_interleaved_new_lines_pass_and_an_edit_fails(self):
         self.assertTrue(C._kept_in_order(["a", "b", "c"], ["a", "b", "x", "c", "y"]))
         self.assertFalse(C._kept_in_order(["a", "b", "c"], ["a", "c", "b"]))

@@ -499,6 +499,7 @@
       - tests.test_trust.DecisionAuthors.test_every_new_decision_records_its_author_and_kind
       - tests.test_trust.DecisionAuthors.test_g4_and_g6_both_name_a_proposed_block
       - tests.test_trust.DecisionAuthors.test_proof_and_reconcile_read_it_proposed
+      - tests.test_claims.AppendOnly.test_the_decisions_logs_are_append_only_too
   status: partial
   gaps:
     - The name is the one typed in the signer box; nobody signs in.
