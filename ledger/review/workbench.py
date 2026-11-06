@@ -162,6 +162,17 @@ def _state(con, q: dict, idx: dict, xp: dict | None = None, lad: dict | None = N
 
 
 TO_CONFIRM = "to_confirm"
+ACCESSION = __import__("re").compile(r"\b\d{10}-\d{2}-\d{6}\b")
+
+
+def filing_words(con, text: str | None) -> str | None:
+    """A finding's message as the page says it (evidence `said`; `message` stays as the rule wrote it, for the parsers),
+    with every accession number said as its filing, "10-K filed 2026-07-29" (V22: no machine
+    words on a page); an accession the database does not hold stays as written."""
+    if not text or not ACCESSION.search(text):
+        return text
+    docs = {a: (f, str(d)[:10]) for a, f, d in con.execute("select accession, form, filed from documents where accession in (select unnest(?))", [ACCESSION.findall(text)]).fetchall()}
+    return ACCESSION.sub(lambda m: f"{docs[m.group(0)][0]} filed {docs[m.group(0)][1]}" if m.group(0) in docs else m.group(0), text)
 
 
 def _proposal(con, exception_id: str | None, ds: list[dict]) -> dict | None:
@@ -347,11 +358,11 @@ def items(con, flow: dict) -> dict:
                     "cause_label": FINDING_LABEL.get(lk, row["cause_label"])}
             if d.get("field"):
                 row["series"] = _value_series(con, q["ticker"], d["field"])
-            row["evidence"] = {"message": d.get("message"), "kind": k, "size": d.get("size"), **({"dimension": d.get("subject")} if d.get("rule") == "fact_readings_differ" and d.get("subject") else {})}  # two categories, one year: named apart
+            row["evidence"] = {"message": d.get("message"), "said": filing_words(con, d.get("message")), "kind": k, "size": d.get("size"), **({"dimension": d.get("subject")} if d.get("rule") == "fact_readings_differ" and d.get("subject") else {})}  # two categories, one year: named apart
             row |= _finding_numbers(d, q["ticker"], lad, restated)  # STORY-027: the gap in the columns, not only in the Details prose
         elif q["kind"] == "blocked":
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if d.get("value") is not None else None, "ours": d.get("value")}
-            row["evidence"] = {"message": d.get("message"), "rule": d.get("rule")}
+            row["evidence"] = {"message": d.get("message"), "said": filing_words(con, d.get("message")), "rule": d.get("rule")}
             if q.get("proposed"):  # F-TR1: the run's decision a person confirms or overturns on the page (POST /api/decision)
                 if ds is None:
                     from .review import decisions

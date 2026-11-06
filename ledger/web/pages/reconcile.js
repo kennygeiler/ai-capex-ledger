@@ -443,11 +443,11 @@ async function reconcilePage(view, qs) {
       const facts = messageFacts(E.message);  // V11: the finding's figures as labelled cells (the server's text when its shape is unknown)
       // readings that differ: the Restated line at the top says every reading and the one used, in product words; the rule's
       // own message (field id, accession numbers) is not repeated here (V22)
-      cards.push(col(4, h('h3', {class: 'mb-2'}, 'Details'), E.restatement ? h('div', {class: 'small text-secondary'}, r.cause_label) : facts ? valueCells(facts, 'compact') : h('div', {class: 'small'}, E.message || ''), h('div', {class: 'mt-2'}, h('a', {href: `#data?view=grid&t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'Open in Dataset'))));
+      cards.push(col(4, h('h3', {class: 'mb-2'}, 'Details'), E.restatement ? h('div', {class: 'small text-secondary'}, r.cause_label) : facts ? valueCells(facts, 'compact') : h('div', {class: 'small'}, E.said || E.message || ''), h('div', {class: 'mt-2'}, h('a', {href: `#data?view=grid&t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'Open in Dataset'))));
     } else if (toConfirm(r)) {
       const p = r.resolution || {};
       cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, `Proposed: ${RES_LABEL[E.proposed] || E.proposed}`), h('span', {class: 'ms-2 small text-secondary'}, `${p.by || ''}, ${day(p.at)}`)),
-        h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0'}, E.message || p.reason || '')),
+        h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0'}, E.said || E.message || p.reason || '')),
         h('div', {class: 'card-footer py-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')))));
     } else if (r.cause === 'new_filing') {
       cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} · Filed ${day(E.filed)} · `, h('a', {href: safeHref(E.url), target: '_blank', rel: 'noopener'}, 'Open in EDGAR ↗')))));
