@@ -382,6 +382,7 @@ def check_columns(st: dict) -> tuple[str, str]:
 
 # ── loaders (the database, and the distilled instances on disk; never fetched) ───────────────────────────────────────
 _INSTANCES: dict = {}  # path -> ((mtime_ns, size), (state, facts)): one read per instance file version, across requests
+_INSTANCE_LOCK = __import__("threading").Lock()  # the app serves requests on threads: one parse per file, never one per request
 LOADED, ABSENT, UNREADABLE = "loaded", "absent", "unreadable"
 
 
@@ -407,7 +408,12 @@ def instance(cik, accession: str | None) -> tuple[str, dict]:
     except OSError:
         return ABSENT, {}
     hit = _INSTANCES.get(str(p))
-    if not hit or hit[0] != stamp:
+    if hit and hit[0] == stamp:
+        return hit[1]
+    with _INSTANCE_LOCK:
+        hit = _INSTANCES.get(str(p))
+        if hit and hit[0] == stamp:
+            return hit[1]
         try:
             if p.suffix == ".json":
                 raw = json.loads(p.read_text())
