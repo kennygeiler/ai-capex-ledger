@@ -421,13 +421,38 @@ def instance(cik, accession: str | None) -> tuple[str, dict]:
                 if any(len(k) != 3 for k in facts):
                     raise ValueError("a key is not concept, member, end")
             else:
-                from ..ingest.reference.dimensions import parse_instance
-                facts = parse_instance(p.read_bytes())
+                facts = _xml_facts(p, stamp)
             hit = (stamp, (LOADED, facts))
         except Exception:  # does not parse: unreadable, said so (F17 review)
             hit = (stamp, (UNREADABLE, {}))
         _INSTANCES[str(p)] = hit
     return hit[1]
+
+
+XML_CACHE = "data/cache/instances"  # derived, untracked (.gitignore): the parsed facts of a stored XML instance, per file version
+
+
+def _xml_facts(p, stamp: tuple) -> dict:
+    """dimensions.parse_instance over a stored XML instance, kept under data/cache/instances/ keyed by the XML's path,
+    mtime and size, so a server's first read does not parse every XML again (a parse is about 20 ms a filing, 298 of
+    them outside the six). Never under data/raw (shared, the SEC's files); a cache that cannot be written or read is
+    skipped. Raises when the XML does not parse (the caller says unreadable)."""
+    from ..core.store import ROOT
+    from ..ingest.reference.dimensions import parse_instance
+    c = ROOT / XML_CACHE / p.parent.parent.name / f"{p.stem}.{stamp[0]}.{stamp[1]}.json"
+    try:
+        return {tuple(k.split("\t")): v for k, v in json.loads(c.read_text()).items()}
+    except (OSError, ValueError):
+        pass
+    facts = parse_instance(p.read_bytes())
+    try:
+        c.parent.mkdir(parents=True, exist_ok=True)
+        tmp = c.with_suffix(".tmp")
+        tmp.write_text(json.dumps({"\t".join(k): v for k, v in facts.items()}))
+        tmp.replace(c)
+    except OSError:
+        pass
+    return facts
 
 
 def instance_totals(cik, accession: str, concepts: set[str]) -> dict:

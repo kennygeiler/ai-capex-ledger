@@ -45,7 +45,8 @@ explains, `no_reference`; `unresolved` plus a restatement is the `restated_betwe
   same as an instance that tags nothing. `instance_totals` reads a stored instance XML whose facts were never distilled
   (`dimensions.parse_instance`, writes nothing), so the tie is tried offline; nothing is fetched. On the six every
   filing's instance is on disk, so no fact reads it today. Locally 294 filings outside the six have only the XML: the
-  first ladder read in a process parses them (about 6 s), later reads use the memo. The hosted copy has the distilled
+  first read ever parses them (about 7 s) and keeps the parsed facts in `data/cache/instances/` (untracked, keyed by the
+  XML's mtime and size, never under the shared data/raw); a new process reads them from there (under 1 s). The hosted copy has the distilled
   facts of the six only (fixtures/data/raw), so a fact of another company reads "XBRL instance not loaded" there.
 - A resolution whose item changed, or whose item is gone, counts nowhere (F15, `resolutions.index`): the row reads open on
   every page, as on Reconcile.

@@ -78,10 +78,22 @@ class InstanceReading(unittest.TestCase):
     def test_the_xml_is_parsed_once_per_file_version(self):
         d = self._raw("0000000001-25-000001.xml", XML)
         ties._INSTANCES.clear()
-        with mock.patch("ledger.ingest.edgar.RAW", d), mock.patch("ledger.ingest.reference.dimensions.parse_instance", wraps=__import__("ledger.ingest.reference.dimensions", fromlist=["x"]).parse_instance) as p:
+        with mock.patch("ledger.core.store.ROOT", d), mock.patch("ledger.ingest.edgar.RAW", d), mock.patch("ledger.ingest.reference.dimensions.parse_instance", wraps=__import__("ledger.ingest.reference.dimensions", fromlist=["x"]).parse_instance) as p:
             for _ in range(3):
                 self.assertEqual(ties.instance(1, "0000000001-25-000001")[0], "loaded")
         self.assertEqual(p.call_count, 1)
+
+    def test_a_new_process_reads_the_parsed_xml_from_the_cache(self):
+        d = self._raw("0000000001-25-000001.xml", XML)
+        from ledger.ingest.reference import dimensions
+        with mock.patch("ledger.core.store.ROOT", d), mock.patch("ledger.ingest.edgar.RAW", d):
+            ties._INSTANCES.clear()
+            first = ties.instance(1, "0000000001-25-000001")
+            ties._INSTANCES.clear()  # a new process: the memo is empty, the cache on disk is not
+            with mock.patch.object(dimensions, "parse_instance", side_effect=AssertionError("parsed again")):
+                self.assertEqual(ties.instance(1, "0000000001-25-000001"), first)
+            self.assertFalse((d / "0000000001" / "filings" / "0000000001-25-000001.facts.json").exists())  # nothing written under data/raw
+        ties._INSTANCES.clear()
 
     def test_a_fact_the_ladder_did_not_see_is_not_looked_up(self):
         st, _ = ties.fact_state({**UNTAGGED, "accession": "x"}, {}, {})

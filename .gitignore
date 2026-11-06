@@ -8,6 +8,7 @@ data/extract/tasks/
 data/snapshots/
 data/watch.json
 data/jobs/
+data/cache/
 data/text
 data/aispend/tasks/
 data/notes/tasks/
