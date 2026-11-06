@@ -198,11 +198,10 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
   offline; needs the stored filings in data/raw). The hosted copy has neither the filings nor the pictures (F-EV3, F-EV4).
 - **An agent output loads only if it answered the current task** (T100, `agent.stale`): after any change that repacks
   tasks (a locator, a parser, a prompt version), run the step's `--run` before `--load`, or the loader refuses the old
-  answers as `*_failed` "stale output" (the projects loader too, since F25). 13 statement outputs carry no `_run.task_sha` (written by hand before headless
-  runs): their rows load, Proof and Reconcile show each open as "Reading not fingerprinted" (Needs review, F25), and they are re-asked on the next `extract --run`: APLD 0001144879-24-000216, -25-000021, -26-000048; CRWV
-  0001769628-26-000104; MSFT 0000950170-24-087843, 0000950170-25-100235, 0001193125-26-323660; NVDA
-  0001045810-24-000029, -25-000023, -26-000021; ORCL 0000950170-24-075605, 0000950170-25-087926, 0001193125-26-277521.
-  MSFT, NVDA and APLD are proven: check golden after that run.
+  answers as `*_failed` "stale output" (the projects loader too, since F25). 4 statement outputs carry no `_run.task_sha` (written by hand before headless
+  runs): their rows load, Proof and Reconcile show each open as "Reading not fingerprinted" (Needs review, F25), and they are re-asked on the next `extract --run`: CRWV 0001769628-26-000104; ORCL 0000950170-24-075605,
+  0000950170-25-087926, 0001193125-26-277521. The nine MSFT, NVDA and APLD outputs were re-read on 2026-11-05
+  (statements@v2, one attempt each); golden held every table equal after the load.
 - **Golden**: `ledger golden --check` before any commit that touches a parser, a rule, a loader or the taxonomy; `--freeze`
   only on purpose, in its own commit that says why. Freeze copies the live DB's tables, so rerun `ledger rules` on the
   proven six first when a rule changed.

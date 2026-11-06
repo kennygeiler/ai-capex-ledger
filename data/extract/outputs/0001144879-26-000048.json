@@ -44,8 +44,8 @@
    "period_end": "2026-05-31",
    "months": 12,
    "value": 396858000,
-   "confidence": 0.95,
-   "notes": "No total cost-of-revenue line; 'Services cost of revenue' is the direct cost of delivering services revenue (its label names it as cost of revenue), so it is a cost_of_revenue_part."
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; this row is labeled as the cost of revenue for services revenue."
   },
   {
    "field": "cost_of_revenue_part",
@@ -56,8 +56,8 @@
    "period_end": "2025-05-31",
    "months": 12,
    "value": 216759000,
-   "confidence": 0.95,
-   "notes": "No total cost-of-revenue line; 'Services cost of revenue' is the direct cost of delivering services revenue (its label names it as cost of revenue), so it is a cost_of_revenue_part."
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; this row is labeled as the cost of revenue for services revenue."
   },
   {
    "field": "cost_of_revenue_part",
@@ -68,8 +68,8 @@
    "period_end": "2024-05-31",
    "months": 12,
    "value": 148340000,
-   "confidence": 0.95,
-   "notes": "No total cost-of-revenue line; 'Services cost of revenue' is the direct cost of delivering services revenue (its label names it as cost of revenue), so it is a cost_of_revenue_part."
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; this row is labeled as the cost of revenue for services revenue."
   },
   {
    "field": "cost_of_revenue_part",
@@ -80,32 +80,8 @@
    "period_end": "2026-05-31",
    "months": 12,
    "value": 56771000,
-   "confidence": 0.95,
-   "notes": "No total cost-of-revenue line; 'Data center rental and other cost of revenue' is the direct cost of delivering data center rental revenue (its label names it as cost of revenue), so it is a cost_of_revenue_part."
-  },
-  {
-   "field": "cost_of_revenue_part",
-   "table_id": "t0021",
-   "row_label": "Data center rental and other cost of revenue",
-   "column_label": "Fiscal Year Ended | May 31, 2025",
-   "cell_text": "—",
-   "period_end": "2025-05-31",
-   "months": 12,
-   "value": 0,
-   "confidence": 0.9,
-   "notes": "No total cost-of-revenue line; 'Data center rental and other cost of revenue' is the direct cost of delivering data center rental revenue (its label names it as cost of revenue), so it is a cost_of_revenue_part. Cell shows an em dash (nil) for this year; value 0."
-  },
-  {
-   "field": "cost_of_revenue_part",
-   "table_id": "t0021",
-   "row_label": "Data center rental and other cost of revenue",
-   "column_label": "Fiscal Year Ended | May 31, 2024",
-   "cell_text": "—",
-   "period_end": "2024-05-31",
-   "months": 12,
-   "value": 0,
-   "confidence": 0.9,
-   "notes": "No total cost-of-revenue line; 'Data center rental and other cost of revenue' is the direct cost of delivering data center rental revenue (its label names it as cost of revenue), so it is a cost_of_revenue_part. Cell shows an em dash (nil) for this year; value 0."
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; this row is labeled as the cost of revenue for data center rental and other revenue. Shown as '\u2014' (nil) in FY2025 and FY2024, so no part is reported for those years."
   },
   {
    "field": "operating_income",
@@ -149,8 +125,8 @@
    "period_end": "2026-05-31",
    "months": 12,
    "value": 2865765000,
-   "confidence": 0.95,
-   "notes": "Line also covers 'other assets' alongside property and equipment; used as reported."
+   "confidence": 0.9,
+   "notes": "Line combines property and equipment with 'other assets' (not split out); used as the only capex line per rules."
   },
   {
    "field": "capex",
@@ -161,8 +137,8 @@
    "period_end": "2025-05-31",
    "months": 12,
    "value": 681603000,
-   "confidence": 0.95,
-   "notes": "Line also covers 'other assets' alongside property and equipment; used as reported."
+   "confidence": 0.9,
+   "notes": "Line combines property and equipment with 'other assets' (not split out); used as the only capex line per rules."
   },
   {
    "field": "capex",
@@ -173,14 +149,22 @@
    "period_end": "2024-05-31",
    "months": 12,
    "value": 141809000,
-   "confidence": 0.95,
-   "notes": "Line also covers 'other assets' alongside property and equipment; used as reported."
+   "confidence": 0.9,
+   "notes": "Line combines property and equipment with 'other assets' (not split out); used as the only capex line per rules."
   }
  ],
  "not_found": [
   {
    "field": "cost_of_revenue",
-   "reason": "Income statement has no total cost-of-revenue line; only 'Services cost of revenue' and 'Data center rental and other cost of revenue', given as cost_of_revenue_part."
+   "reason": "Statement has no total cost-of-revenue line; cost of revenue is given as two component lines, reported as cost_of_revenue_part."
   }
- ]
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.8,
+  "input_tokens": 9939,
+  "output_tokens": 2211,
+  "attempts": 1,
+  "task_sha": "5000ee0a3dfd9f96"
+ }
 }

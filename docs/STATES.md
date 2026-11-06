@@ -456,7 +456,7 @@ nothing is re-run by the check), and `agent.unfingerprinted(con, tickers)` lists
 shows each open by `label:unfingerprinted`, needs "Re-read (--run)", and Reconcile lists it under "Reading not
 fingerprinted" (kind `reading_unfingerprinted`, not a live resolution kind: no decision closes it). The two pages count
 it the same (Needs review). `<step> --run` re-asks it and writes the fingerprint.
-**Today.** 13 statement outputs, 9 on the six (MSFT, NVDA, APLD three each).
+**Today.** 4 statement outputs (CRWV one, ORCL three), none on the six: the nine MSFT, NVDA and APLD ones were re-read on 2026-11-05.
 
 ## M12. Freshness of the monitoring inputs
 
