@@ -42,7 +42,7 @@ class Layout(unittest.TestCase):
     def page(self, width, hash_, height=1000):
         pg = self.browser.new_page(viewport={"width": width, "height": height})
         self.addCleanup(pg.close)
-        pg.goto(self.base + "#" + hash_)
+        pg.goto(self.base + "#" + hash_, timeout=90000)  # "load" waits on the CDN stylesheets and Plotly; a slow fetch is not the page
         return pg
 
     def test_hand_check_value_cell_never_clips_the_exact_dollars(self):
