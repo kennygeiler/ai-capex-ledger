@@ -31,9 +31,11 @@ class Keys(unittest.TestCase):
         import re
         src = (resolutions.ROOT / "ledger" / "web" / "app.py").read_text()
         produced = set(re.findall(r'queue\.append\(\{"kind": "([a-z_]+)"', src))
-        self.assertEqual(produced - {"value_missing"}, set(resolutions.LIVE_KINDS))  # value_missing (T65) takes no resolution: the fix is a re-read, so it is never live
-        self.assertIn("value_missing", produced)
-        self.assertEqual(len(re.findall(r'"key": resolutions\.key_for\(', src)), len(resolutions.LIVE_KINDS) + 1)  # every live kind keys through key_for, and value_missing too (keyed, never live)
+        never = {"value_missing", "reading_unfingerprinted"}  # T65, F25: no resolution closes them, a re-read does, so they are never live
+        self.assertEqual(produced - never, set(resolutions.LIVE_KINDS))
+        self.assertLessEqual(never, produced)
+        self.assertFalse(never & set(resolutions.LIVE_KINDS))
+        self.assertEqual(len(re.findall(r'"key": resolutions\.key_for\(', src)), len(resolutions.LIVE_KINDS) + len(never))  # every kind keys through key_for, the never-live ones too
         self.assertNotIn("q_['where']}\"", src)  # never the display string
         self.assertTrue(resolutions.is_live(key_for("fact_differs", "IRM", "segment_capex", "FY2023", "X")))
         self.assertFalse(resolutions.is_live(key_for("value_missing", "AMD", "revenue", "FY2022")))

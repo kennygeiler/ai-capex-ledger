@@ -69,11 +69,15 @@ class Synthetic(unittest.TestCase):
         self.assertEqual(score.score(self.con, "reader", ["MSFT"])["outputs"], 5)
 
     def test_notes_reader_twin_leaves_out_no_reference(self):
-        sc = score.score(self.con, "notes_reader", ["MSFT"])
+        from unittest import mock
+        with mock.patch("ledger.checks.proof.instance_on_file", return_value=True):  # the synthetic filing's instance taken as loaded
+            sc = score.score(self.con, "notes_reader", ["MSFT"])
         self.assertEqual(sc["outputs"], 3)
         self.assertEqual(sc["checked"], 1)
-        self.assertEqual(sc["explained"], 1)  # no_reference: the label explains it
+        self.assertEqual(sc["explained"], 1)  # no_reference: the label explains it, the instance loaded and tagging nothing
         self.assertEqual(sc["open"], 1)
+        unloaded = score.score(self.con, "notes_reader", ["MSFT"])  # F17: no instance on disk for the synthetic filing: the label explains nothing
+        self.assertEqual((unloaded["explained"], unloaded["open"]), (0, 2))
         self.assertEqual(sc["twin"], {"agree": 1, "of": 2, "interval": [0.0945, 0.9055]})
 
     def test_quote_readers_have_no_twin_and_no_fault_test(self):
