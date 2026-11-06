@@ -154,7 +154,7 @@ def _fingerprinted(path) -> bool | None:
 
 
 def unfingerprinted(con, tickers) -> list[dict]:
-    """[{ticker, step, subject, what}]: every agent output on disk for `tickers` that loads with no task fingerprint
+    """[{ticker, step, subject, what, label}]: every agent output on disk for `tickers` that loads with no task fingerprint
     (reading_state unfingerprinted). Its rows stand in the dataset, but nothing says they answer the current task: Proof
     and Reconcile show each as open, "Reading not fingerprinted", until `<step> --run` re-asks it. Read from disk, the
     outputs the loaders read (statements and notes per filing, AI statements and projects per text)."""
@@ -163,10 +163,10 @@ def unfingerprinted(con, tickers) -> list[dict]:
     has = lambda n: bool(con.execute("select count(*) from information_schema.tables where table_name = ?", [n]).fetchone()[0])
     cols = lambda n: {r[0] for r in con.execute("select column_name from information_schema.columns where table_name = ?", [n]).fetchall()}
     subjects = []
-    if has("documents") and {"ticker", "accession"} <= cols("documents"):
-        docs = con.execute("select ticker, accession from documents where ticker in (select unnest(?)) order by ticker, accession", [tickers]).fetchall()
-        subjects += [(t, step, a, d) for t, a in docs for step, d in (("extract", ex.OUTPUTS), ("notes", notes.OUTPUTS))]
-    if has("texts") and {"ticker", "text_id"} <= cols("texts"):
-        texts = con.execute("select ticker, text_id from texts where ticker in (select unnest(?)) order by ticker, text_id", [tickers]).fetchall()
-        subjects += [(t, step, i, d) for t, i in texts for step, d in (("aispend", guidance.OUTPUTS), ("projects", projects.OUTPUTS))]
-    return [{"ticker": t, "step": step, "subject": s, "what": READERS[step]} for t, step, s, d in subjects if _fingerprinted(d / f"{s}.json") is False]
+    if has("documents") and {"ticker", "accession", "form", "filed"} <= cols("documents"):
+        docs = con.execute("select ticker, accession, form, filed from documents where ticker in (select unnest(?)) order by ticker, filed, accession", [tickers]).fetchall()
+        subjects += [(t, step, a, d, f"{form} filed {str(filed)[:10]}") for t, a, form, filed in docs for step, d in (("extract", ex.OUTPUTS), ("notes", notes.OUTPUTS))]
+    if has("texts") and {"ticker", "text_id", "kind", "date"} <= cols("texts"):
+        texts = con.execute("select ticker, text_id, kind, date from texts where ticker in (select unnest(?)) order by ticker, date, text_id", [tickers]).fetchall()
+        subjects += [(t, step, i, d, f"{kind.replace('_', ' ')} {str(date)[:10]}") for t, i, kind, date in texts for step, d in (("aispend", guidance.OUTPUTS), ("projects", projects.OUTPUTS))]
+    return [{"ticker": t, "step": step, "subject": s, "what": READERS[step], "label": label} for t, step, s, d, label in subjects if _fingerprinted(d / f"{s}.json") is False]

@@ -85,7 +85,8 @@ class Unfingerprinted(unittest.TestCase):
         with mock.patch.object(ex, "OUTPUTS", d):
             items = [i for i in proof.company(self.con, "AMD")["stages"]["ingest"]["all"] if i["by"] == "label:unfingerprinted"]
             rows = [r for r in workbench.items(self.con, app._flow("AMD"))["rows"] if r["cause"] == "reading_unfingerprinted"]
-        self.assertEqual([(i["state"], i["what"]) for i in items], [("open", f"Statement reading {acc}: Reading not fingerprinted")])
+        self.assertEqual([(i["state"], i["what"].split(" · ")[0], i["ref"]["subject"]) for i in items], [("open", "Statement reading", acc)])
+        self.assertTrue(items[0]["what"].endswith(": Reading not fingerprinted") and acc not in items[0]["what"])  # the filing by form and date, never its accession
         self.assertEqual([(r["state"], r["verification"], r["bulk"]) for r in rows], [("open", "bad", False)])  # Needs review; no decision closes it
         self.assertEqual(agent.unfingerprinted(self.con, ["AMD"]), [])  # the files on disk all carry one
 

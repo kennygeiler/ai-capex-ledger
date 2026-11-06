@@ -355,7 +355,7 @@ def queue_items(con, tickers: list[str]) -> dict:
     from ..extract.agent import unfingerprinted
     for u in unfingerprinted(con, tickers):  # F25: closed by re-reading, never by a decision (not a live resolution kind)
         queue.append({"kind": "reading_unfingerprinted", "key": resolutions.key_for("reading_unfingerprinted", u["ticker"], u["step"], subject=u["subject"]), "state": "missing",
-                      "ticker": u["ticker"], "where": f"{u['what']} {u['subject']}", "impact": "rows from a reading nothing ties to the current task", "action": "run", "detail": u})
+                      "ticker": u["ticker"], "where": f"{u['what']} · {u['label']}", "impact": "rows from a reading nothing ties to the current task", "action": "run", "detail": u})
     names_ = {c["ticker"]: c["name"] for c in tracked()}
     findings = [x for x in hqd["findings"] if x.get("rule") != DIFFER_RULE] + [  # F-FL1: the readings that differ come from the ladder, never from a stale exceptions table
         {"ticker": x["ticker"], "company": names_.get(x["ticker"]), "field": x["field"], "period": x["period"], "confirmed": False, "message": x["message"],

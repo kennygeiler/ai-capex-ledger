@@ -342,7 +342,7 @@ def items(con, flow: dict) -> dict:
                 row["series"] = _value_series(con, q["ticker"], d["field"])
             row["evidence"] = {"label": d.get("label"), "reference": d.get("reference"), "period_end": d.get("period_end")}
         elif q["kind"] == "reading_unfingerprinted":
-            row["evidence"] = {"step": d.get("step"), "subject": d.get("subject"), "rerun": f"ledger {d.get('step')} --run --ticker {q['ticker']}"}
+            row["evidence"] = {"step": d.get("step"), "subject": d.get("subject"), "label": d.get("label"), "rerun": f"ledger {d.get('step')} --run --ticker {q['ticker']}"}
         elif q["kind"] == "new_filing":
             row |= {"period": d.get("period")}
             row["evidence"] = {"url": d.get("url"), "filed": d.get("filed"), "form": d.get("form")}

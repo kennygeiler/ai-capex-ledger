@@ -106,7 +106,7 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
         if e["rule_id"] in FAILURES:
             items.append({**_item(f"{e['rule_id'].replace('_', ' ')}: {e['subject']}", status.of_exception(e), e["message"][:200], NEEDS["ingest"]), "show": {"note": "Extraction failed", "accession": e["subject"]}})
     for u in unfingerprinted(con, [t]):  # F25: a reading loaded with no task fingerprint is open until it is re-read, never current
-        items.append({**_item(f"{u['what']} {u['subject']}: {READING_WORD}", status.state({"label": "unfingerprinted", "reason": UNFINGERPRINTED_WHY}),
+        items.append({**_item(f"{u['what']} · {u['label']}: {READING_WORD}", status.state({"label": "unfingerprinted", "reason": UNFINGERPRINTED_WHY}),
                               f"{u['step']} --run", NEEDS["reread"], ref={"step": u["step"], "subject": u["subject"]}), "show": {"note": READING_WORD, "accession": u["subject"]}})
     stages["ingest"] = _stage(items)
 

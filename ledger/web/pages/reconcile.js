@@ -176,7 +176,7 @@ async function reconcilePage(view, qs) {
       const ours = isAsset(r) ? [P ? [h('span', {style: 'overflow-wrap:anywhere', title: P.standard_type}, memberWords(P.standard_type)), ' ', r.evidence.mapping === 'verified' ? h('span', {class: 'small text-green'}, 'Matches company’s own tag') : P.confidence ? h('span', {class: 'text-secondary small'}, `Confidence ${P.confidence}`) : h('span', {class: 'small text-secondary'}, 'Proposed')] : h('span', {class: 'text-secondary small'}, 'No proposal'), h('div', {class: 'small'}, filerNote(r), P && filerNote(r) ? h('span', {class: 'text-secondary'}, ' · ') : '', P ? h('span', {class: 'text-secondary', title: P.evidence}, `“${memberText(P.evidence)}”`) : '')] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
         h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
-        isAsset(r) ? h('td', {colspan: assetCard ? null : 4}, ours) : [h('td', {class: 'num'}, ours),
+        isAsset(r) ? h('td', {colspan: assetCard ? null : 4}, ours) : r.cause === 'reading_unfingerprinted' ? h('td', {colspan: 4, class: 'small'}, 'Re-read required') : [h('td', {class: 'num'}, ours),
         h('td', {class: 'num'}, r.reference == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[r.relation] || '', num(r, r.reference)], r.ref_label && r.reference != null ? h('div', {class: 'text-secondary small'}, r.ref_label) : ''),
         h('td', {class: 'w-1'}, r.ours != null && r.reference != null ? gapBar(r) : ''),
         h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, '—') : [h('span', {class: 'fw-semibold'}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : ''])],
@@ -409,7 +409,7 @@ async function reconcilePage(view, qs) {
       cards.push(col(5, dtable(`${r.period} · Not extracted`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.value == null ? '—' : usd(x.value))}], [{what: 'Cited', value: null}, {what: 'SEC XBRL', value: r.reference, _cls: 'fw-semibold'}])));
       cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')));
     } else if (r.cause === 'reading_unfingerprinted') {  // F25: closed by re-reading, never by a decision
-      cards.push(col(8, dtable(r.cause_label, [{t: '', k: 'what'}, {t: '', k: 'value'}], [{what: 'Reading', value: r.where}, {what: 'Re-read', value: E.rerun}])));
+      cards.push(col(8, dtable(r.cause_label, [{t: '', k: 'what'}, {t: '', k: 'value'}], [{what: 'Reading', value: r.where}, {what: 'Re-read', value: 'Run the reader again for this company'}])));
       cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')));
     } else if (r.cause === 'finding_unconfirmed' || r.cause === 'blocked') {
       if (r.measure) {
