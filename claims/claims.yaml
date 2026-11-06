@@ -85,12 +85,14 @@
 - id: unverified_citation_only
   claim: "Unverified · citation only"
   where: [ledger/core/states.py, ledger/web/pages/trail.js, ledger/web/pages/_shared.js, ledger/web/pages/proof.js, ledger/web/cards.py]
-  shown: ["Unverified", "Citation only", "Unverified · citation only", "Not in SEC XBRL"]
+  shown: ["Unverified", "Citation only", "Unverified · citation only", "Not in SEC XBRL", "XBRL instance not loaded"]
   backed_by:
     functions: [ledger.core.status.of_fact, ledger.web.cards._how]
     tests:
       - tests.test_status.Definition.test_the_ladder_of_an_untagged_fact
       - tests.test_status.EveryCheckedRowNamesItsEvidence.test_planted_no_reference_on_a_fact_xbrl_holds
+      - tests.test_instance_not_loaded.NotLookedUp.test_an_untagged_fact_with_no_instance_is_open_and_says_so
+      - tests.test_instance_not_loaded.OnProof.test_proof_and_taxonomy_say_the_instance_was_not_loaded
   status: partial
   gaps:
     - 22 note figures on the six rest on the citation alone; nothing independent checks the number.

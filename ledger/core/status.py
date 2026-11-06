@@ -237,7 +237,7 @@ DIFFER = "fact_readings_differ"  # ties.DIFFER; the rule (rules/fact_readings_di
 
 
 def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None, differ: str | None = None,
-            tie: str | None = None, reading: str | None = None, filer: bool = False) -> dict:
+            tie: str | None = None, reading: str | None = None, filer: bool = False, looked_up: bool = True) -> dict:
     """A `facts` row: label agree → checked by XBRL; unresolved → the restatement guard when the cell and the tag come
     from different filings (`restated` is that finding's text), else open unless resolved. no_reference (no XBRL value)
     climbs the ladder (T92, ledger/checks/ties.py): readings across filings that differ (`differ`, the finding's text) → open by
@@ -245,7 +245,9 @@ def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None
     the company's own tag checks (`filer`, ledger/checks/filertag.py), checked by mapping:filer_tag: the filing's instance tags
     this very value with the category's member, a twin, so it is never "no XBRL to compare"; else a tie that holds for its
     filing's group (`tie`, the rule id) → checked by rule:<id>_tie; else two or more filings agreeing (`reading`, the
-    other filing's accession) → checked by reading:<accession>; else the label, explained, citation only."""
+    other filing's accession) → checked by reading:<accession>; else the label, explained, citation only, but only when
+    the filing's XBRL instance was loaded (`looked_up`, proof.instance_on_file): without it the empty tag is no answer, and
+    the fact is open by label:not_looked_up, "XBRL instance not loaded" (F17)."""
     label = f.get("label")
     row = {"resolution": resolution}
     if label == "agree":
@@ -258,6 +260,8 @@ def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None
         row |= {"check": f"rule:{tie}", "reason": "the parts sum to the filing's tagged total"}
     elif label == "no_reference" and reading:
         row |= {"check": f"reading:{reading}"}
+    elif label == "no_reference" and not looked_up:
+        row |= {"label": "not_looked_up", "reason": "the filing's XBRL instance was not loaded: the tag lookup did not run"}
     elif label == "no_reference":
         row["label"] = "no_reference"
     elif restated:

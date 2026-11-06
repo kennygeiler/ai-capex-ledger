@@ -34,12 +34,14 @@ explains, `no_reference`; `unresolved` plus a restatement is the `restated_betwe
 (180-189). Proof applies them per stage in `proof.company` (proof.py:75-205).
 
 **Missing or folded states.**
-- No "not looked up" state. For values it folds into open by `label:not_reported` (status.py:211-214; correct). For
-  facts it folds into **explained**: `of_fact` explains `no_reference` with no lookup check (status.py:247-248). The fact
-  label is `no_reference` whenever the reference is None, loaded or not (notes.py:151). `ties.load` returns empty
-  readings and ties when tables are absent (ties.py:216-217), and `instance_totals` returns `{}` when the instance file
-  is missing (ties.py:194-195), so "no tie" and "not checked" are one state. Only `status.evidence_gap`
-  (status.py:358-363, with `proof.instance_on_file`, proof.py:214-221) tells them apart, and it never runs on live data (R1).
+- "Not looked up". For values it folds into open by `label:not_reported` (correct). For facts it is its own state
+  (F17): `ties.ladder` records per fact whether its filing's instance is on disk (`proof.instance_on_file`, the
+  distilled facts or the XML), and `of_fact(..., looked_up=False)` makes an untagged fact that no tie or second reading
+  checks open by `label:not_looked_up`, ladder rung `not_looked_up`, word "XBRL instance not loaded", taxonomy check
+  `not_checked` / `label:not_looked_up`, Proof needs "XBRL instance". Before, it read "Unverified · citation only", the
+  same as an instance that tags nothing. `instance_totals` reads a stored instance XML whose facts were never distilled
+  (`dimensions.parse_instance`, writes nothing), so the tie is tried offline; nothing is fetched. On the six every
+  filing's instance is on disk, so no fact reads it today.
 - A resolution whose item changed, or whose item is gone, counts nowhere (F15, `resolutions.index`): the row reads open on
   every page, as on Reconcile.
 - "to confirm" is a string only: Reconcile gives it to run-written resolutions (workbench.py:167), and mappings carry it as
@@ -138,10 +140,11 @@ until then `definition_gap` can name a definition that no longer exists (only th
 ## M1b. A fact's rung on the ladder (`ties.fact_state`)
 
 **States.** Checked by xbrl, `rule:<id>_tie` or `reading:<acc>`; explained by `label:no_reference`, a resolution or the
-`restated_between_filings` guard; open by `rule:fact_readings_differ` or an `unresolved` label (ties.py:148-170). Taxonomy
-rendering: `check_columns` (173-182). A failed tie is its own warn item on Proof (proof.py:139-146).
-**Missing.** "Not checked" for ties and readings: no instance on disk or no tables read as "no tie" and drop to the
-label. The hosted copy depends on shipped `*.facts.json` files for exactly this (HANDOFF, "The hosted copy").
+`restated_between_filings` guard; open by `rule:fact_readings_differ` or an `unresolved` label; open by
+`label:not_looked_up`, "XBRL instance not loaded", when the filing's instance is not on disk (F17). Taxonomy rendering:
+`check_columns`. A failed tie is its own warn item on Proof.
+The hosted copy ships the `*.facts.json` files: without them every untagged fact there reads "XBRL instance not
+loaded" (HANDOFF, "The hosted copy").
 
 **Consumers.** Proof (proof.py:132), Reconcile (workbench.py:143), taxonomy (taxonomy.py:135-141) and `gold.compare`
 (gold.py:415) pass the ladder. **`gold_view`'s `live.open` does not** (app.py:297; gold.py:341-345).
@@ -557,7 +560,7 @@ stale refusal. The actor comes from `status.is_person`, the writer's identity, o
 return names from the declarations, so no state can appear undeclared.
 
 **States to add:**
-- row `not_looked_up` (unknown) and `stale` (a resolution on a changed hash);
+- row `stale` (a resolution on a changed hash; F15 closes it as open, no own word); ladder `not_looked_up` is produced (F17);
 - line `stale` (its own badge; required lines treat it as fail);
 - decision `author_kind`;
 - release `deployed` / `hosted_stale`;

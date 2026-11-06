@@ -472,6 +472,7 @@ print(json.dumps({"untagged": len(untagged), "ladder": {k: sum(1 for _, i in unt
 print(json.dumps({"filer_tagged": sum(1 for c in cos for i in c["stages"]["mapping"]["all"] if i["by"] == "mapping:filer_tag")}))
 print(json.dumps({"gaps": proof.unevidenced(con, companies=cos),
                   "nr_open": [[c["ticker"], i["what"], i["state"]] for c in cos for i in c["stages"]["values"]["all"] if i["by"] == "label:not_reported" and i["state"] != "explained"],
+                  "not_looked_up": [[c["ticker"], i["what"], i["state"]] for c in cos for i in c["stages"]["facts"]["all"] if i["by"] == "label:not_looked_up"],
                   "walked": sum(1 for c in cos for s in c["stages"].values() for i in s["all"] if i["state"] in ("checked", "explained")),
                   "unconfirmed": sum(1 for c in cos for i in c["stages"]["mapping"]["all"] if ((types.get(c["ticker"]) or {}).get(i["name"]) or {}).get("standard_type")
                                      and not status.confirmed((types.get(c["ticker"]) or {}).get(i["name"])))}, default=str))
@@ -517,9 +518,11 @@ class EveryCheckedRowNamesItsEvidence(unittest.TestCase):
         self.assertTrue(r["nr_open"] and all(t == "MSFT" and st == "open" for t, _, st in r["nr_open"]), r["nr_open"])  # T81: unasked, not_reported is open
 
     def test_planted_fact_whose_instance_is_absent(self):
+        # F17: an untagged fact whose instance is gone is no longer explained by its label (a gap the walk caught): it is
+        # open, "XBRL instance not loaded", so it claims nothing and the walk has no gap for it
         r = self.walk("no_instance")
-        self.assertTrue(r["gaps"] and all(g["ticker"] == "MSFT" and g["stage"] == "facts" for g in r["gaps"]), r["gaps"])
-        self.assertTrue(any(g["by"] == "label:no_reference" and "not looked up" in g["gap"] for g in r["gaps"]), r["gaps"])
+        self.assertFalse([g for g in r["gaps"] if g["by"] == "label:no_reference"], r["gaps"])
+        self.assertTrue(r["not_looked_up"] and all(t == "MSFT" and st == "open" and w.endswith("XBRL instance not loaded") for t, w, st in r["not_looked_up"]), r["not_looked_up"])
 
     def test_planted_mapping_without_confirmed_by_forced_to_checked(self):
         r = self.walk("mapping")

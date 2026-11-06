@@ -108,6 +108,9 @@ def _words(it: dict, name: str, defs: dict, found_value=None) -> dict:
             return {"tone": "wait", "text": "Proposed category. Review in Reconcile.", "detail": None}
         if by == "label:not_extracted":
             return {"tone": "bad", "text": "In SEC XBRL, not extracted. Re-read required.", "detail": None}
+        if by == "label:not_looked_up":  # F17: the instance was never loaded, so the empty tag is no answer
+            from ..core.states import word
+            return {"tone": "bad", "text": word("ladder", "not_looked_up"), "detail": "Tag lookup not run"}
         rs = ref.get("readings") or []
         if by == "rule:fact_readings_differ" and len(rs) >= 2:
             vals = [r.get("value") for r in rs]

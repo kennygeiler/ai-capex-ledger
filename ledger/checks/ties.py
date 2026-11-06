@@ -363,7 +363,8 @@ def fact_state(f: dict, idx: dict, lad: dict, restated: str | None = None) -> tu
         ref["tie"] = {k_: holds[k_] for k_ in ("rule", "key", "accession", "concept", "total", "sum", "tolerance", "dimensions", "parts")}
     res = (resolutions.resolution_of(idx, "findings", t, f["field"], dim, f["period"], DIFFER) if differs
            else resolutions.resolution_of(idx, "facts", t, f["field"], dim, f["period"]))
-    st = status.of_fact(f, res, restated, differ=differ_message(rs) if differs else None, tie=holds["rule"] if holds else None, reading=second, filer=bool(filer))
+    st = status.of_fact(f, res, restated, differ=differ_message(rs) if differs else None, tie=holds["rule"] if holds else None, reading=second, filer=bool(filer),
+                        looked_up=k.get("instance", True))
     return st, ref
 
 
@@ -374,8 +375,8 @@ def check_columns(st: dict) -> tuple[str, str]:
     from ..core.states import LADDER_CHECK, ladder
     by = st.get("by") or ""
     check = LADDER_CHECK[ladder(st)]  # the company's own tag is a twin: the value is in its instance, so it reads agree
-    if check == "not_checked":  # no state: nothing vouches, never a default pass
-        return check, "none"
+    if check == "not_checked":  # no state, or the instance never loaded (F17): nothing vouches, never a default pass
+        return check, by if by == "label:not_looked_up" else "none"
     return check, (by if check != "differs" or by.startswith("rule:") else "xbrl")
 
 
@@ -387,15 +388,19 @@ def instance_totals(cik, accession: str, concepts: set[str]) -> dict:
     from ..ingest.edgar import RAW
     if cik is None or not accession:
         return {}
-    p = RAW / f"{int(cik):010d}" / "filings" / f"{accession}.facts.json"
-    if not p.exists():
+    d = RAW / f"{int(cik):010d}" / "filings"
+    p, xml = d / f"{accession}.facts.json", d / f"{accession}.xml"
+    if p.exists():
+        facts = (tuple(k.split("\t")) + (v,) for k, v in json.loads(p.read_text()).items())
+    elif xml.exists():  # F17: the instance is stored but its facts were never distilled: read the XML, write nothing
+        from ..ingest.reference.dimensions import parse_instance
+        try:
+            facts = (k + (v,) for k, v in parse_instance(xml.read_bytes()).items())
+        except Exception:
+            return {}
+    else:
         return {}
-    out = {}
-    for k, v in json.loads(p.read_text()).items():
-        concept, member, end = k.split("\t")
-        if not member and concept in concepts:
-            out[(accession, concept, end)] = v
-    return out
+    return {(accession, concept, end): v for concept, member, end, v in facts if not member and concept in concepts}
 
 
 def _rows(con, sql, *p):
@@ -436,7 +441,8 @@ def by_fact(data: dict, rules: list[dict]) -> dict:
                 gs[g["key"]] = g
     out = {"groups": gs}
     for f in data["facts"]:
-        out[(f["ticker"], f["field"], f["dimension"] or "", f["period"])] = {"readings": readings_of(f, by_id), "tie": gs.get(key(f["ticker"], f["field"], f["period"], f["accession"]))}
+        out[(f["ticker"], f["field"], f["dimension"] or "", f["period"])] = {"readings": readings_of(f, by_id), "tie": gs.get(key(f["ticker"], f["field"], f["period"], f["accession"])),
+                                                                            "accession": f["accession"]}
     return out
 
 
@@ -466,6 +472,15 @@ def ladder(con, tickers: list[str], rules: list[dict] | None = None) -> dict:
             rec = record(tag)
             for r in tag["readings"]:
                 out.setdefault((t, "ppe_category", name, r["period"]), {"readings": [], "tie": None, "restated": None})["filer_tag"] = rec
+    # F17: whether each fact's filing instance is on disk; without it an untagged fact's label is no answer (the lookup never ran)
+    from .proof import instance_on_file
+    ciks = {r[0]: r[1] for r in con.execute("select accession, cik from documents where ticker in (select unnest(?))", [list(tickers)]).fetchall()} if len(out) > 1 else {}
+    on_file = {}
+    for k, v in out.items():
+        if k != "groups" and v.get("readings") is not None:
+            acc = (v.get("accession") or "")
+            if acc:
+                v["instance"] = on_file[acc] if acc in on_file else on_file.setdefault(acc, instance_on_file(ciks.get(acc), acc))
     for f in _rows(con, "select ticker, field, dimension, period, accession, reference from facts where ticker in (select unnest(?)) and label = 'unresolved'", list(tickers)) if len(out) > 1 else []:  # facts on file
         k = (f["ticker"], f["field"], f["dimension"] or "", f["period"])
         if k in out:

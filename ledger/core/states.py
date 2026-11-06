@@ -172,10 +172,10 @@ LADDER = Machine("ladder", "M1b", "ledger.core.states.ladder", (
     _s("explained", NEUTRAL, alias="row.info", meaning="a decision, a definition or a guard explains it"),
     _s("readings_differ", OPEN, alias="row.bad", meaning="two filings print different figures"),
     _s("differs", OPEN, alias="row.bad", meaning="the cell differs from its tag, or nothing explains it"),
-    _s("not_looked_up", UNKNOWN, alias="row.unknown", meaning="the instance was never loaded: not produced yet, it reads citation_only (F17)"),
+    _s("not_looked_up", UNKNOWN, "XBRL instance not loaded", "text-review", meaning="the filing's XBRL instance is not on disk: the tag lookup did not run, so an empty tag is no answer; open until the instance is loaded (F17)"),
 ), frozenset({("citation_only", "tie"), ("citation_only", "reading"), ("citation_only", "readings_differ"), ("readings_differ", "explained"),
               ("differs", "explained"), ("explained", "differs"), ("xbrl", "differs"), ("differs", "xbrl"), ("not_looked_up", "citation_only")}),
-    absent="not_looked_up is declared but not produced: a fact whose instance was never loaded reads citation_only (F17, open)")
+    absent="not_looked_up")
 LADDER_CHECK = {"xbrl": "agree", "filer_tag": "agree", "tie": "corroborated", "reading": "corroborated", "keyed": "corroborated",
                 "citation_only": "no_reference", "explained": "explained", "readings_differ": "differs", "differs": "differs",
                 "not_looked_up": "not_checked"}  # the taxonomy `check` column; not_checked is the word pit.py gives an unchecked vintage, never a pass
@@ -197,6 +197,8 @@ def ladder(st: dict) -> str:
     if s == "explained":
         return "citation_only" if by == "label:no_reference" else "explained"
     if s in ("open", "blocked"):
+        if by == "label:not_looked_up":
+            return "not_looked_up"
         return "readings_differ" if by == "rule:fact_readings_differ" else "differs"
     return "not_looked_up"
 

@@ -103,7 +103,8 @@ look without a checkout. Redeploy after a run or a release: `uv run python scrip
 `uv run python -m ledger claims --deployed` and commit `claims/hosted.json` (without that record the Gaps page reads the hosted copy stale) (the `Dockerfile`;
 `.railwayignore` and `.dockerignore` re-include `data/ledger.duckdb` and the distilled XBRL instances `data/raw/*/filings/*.facts.json`,
 which git ignores: without the instances the restatement guard (`proof._restated`) cannot name a tag's filing, and the hosted copy
-counts those rows open while the local one counts them explained). The signed releases also sit in the production Postgres,
+counts those rows open while the local one counts them explained, and every untagged note figure reads "XBRL instance not
+loaded", F17). The signed releases also sit in the production Postgres,
 `DATABASE_READONLY_URL` in `.env`, the only connection string to hand out.
 
 ## The work

@@ -23,7 +23,8 @@ STAGE_LABEL = {"ingest": "Filings", "values": "Statement figures", "facts": "Not
                "planned": "Guidance and projects", "release": "Release"}
 NEEDS = {"values": "Definition or unit rule", "facts": "Definition", "finding": "Definition or rule", "mapping": "Category mapping",
          "mapping_confirm": "Proposed category", "readings": "Readings differ", "tie": "Does not tie to total", "basis": "Segment basis",
-         "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision", "decision_confirm": "Proposed decision"}  # what an open item needs, as the Rules page groups it
+         "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision", "decision_confirm": "Proposed decision",
+         "instance": "XBRL instance"}  # what an open item needs, as the Rules page groups it
 
 
 # The exceptions a loader writes when a stage failed (cli/extract, cli/notes, cli/aispend, cli/projects): failures, never
@@ -138,7 +139,10 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
         differs = st["by"] == f"rule:{ties.DIFFER}"
         what = where + (": readings differ" if differs else ": differs from the tag" if status.is_open(st) else "")
         detail = ties.differ_message(extra.get("readings") or []) if differs else f"cell {f['value']}, tag {f['reference']}" if status.is_open(st) else ""
-        items.append(_item(what, st, detail, NEEDS["readings"] if differs else NEEDS["facts"], ref=ref))
+        unloaded = st["by"] == "label:not_looked_up"  # F17: the instance never loaded, said apart from "nothing tagged"
+        if unloaded:
+            what, detail = where + ": XBRL instance not loaded", "tag lookup not run"
+        items.append(_item(what, st, detail, NEEDS["readings"] if differs else NEEDS["instance"] if unloaded else NEEDS["facts"], ref=ref))
     for e in exc:  # a tie that fails (the finding on a fact whose readings differ is that fact's own item): open on the group, never checked
         if e["severity"] != "warn" or e["exception_id"] in decided or e["field"] not in NOTE_FIELDS or e["rule_id"] == ties.DIFFER:
             continue
