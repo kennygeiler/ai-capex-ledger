@@ -53,6 +53,41 @@ class NotLookedUp(unittest.TestCase):
         self.assertFalse((d / "0000000001" / "filings" / "0000000001-25-000001.facts.json").exists())  # read only, nothing written
 
 
+class InstanceReading(unittest.TestCase):
+    """Review of F17: one reading of an instance (ties.instance) for the ladder, the ties and the company's tag."""
+
+    def _raw(self, name, body):
+        d = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, d, True)
+        (d / "0000000001" / "filings").mkdir(parents=True)
+        (d / "0000000001" / "filings" / name).write_bytes(body)
+        return d
+
+    def test_a_malformed_instance_is_unreadable_never_tags_nothing(self):
+        for name, body in (("0000000001-25-000001.xml", b"<xbrl><not closed"), ("0000000001-25-000001.facts.json", b"{not json")):
+            with mock.patch("ledger.ingest.edgar.RAW", self._raw(name, body)):
+                self.assertEqual(ties.instance(1, "0000000001-25-000001"), ("unreadable", {}), name)
+                self.assertEqual(ties.instance_totals(1, "0000000001-25-000001", {"PropertyPlantAndEquipmentGross"}), {})
+                from ledger.checks import filertag, proof
+                self.assertIsNone(filertag.instance(1, "0000000001-25-000001"))
+                self.assertFalse(proof.instance_on_file(1, "0000000001-25-000001"))
+        st = status.of_fact(UNTAGGED, looked_up="unreadable")
+        self.assertEqual((st["state"], st["by"]), ("open", "label:not_looked_up"))
+        self.assertIn("does not parse", st["reason"])
+
+    def test_the_xml_is_parsed_once_per_file_version(self):
+        d = self._raw("0000000001-25-000001.xml", XML)
+        ties._INSTANCES.clear()
+        with mock.patch("ledger.ingest.edgar.RAW", d), mock.patch("ledger.ingest.reference.dimensions.parse_instance", wraps=__import__("ledger.ingest.reference.dimensions", fromlist=["x"]).parse_instance) as p:
+            for _ in range(3):
+                self.assertEqual(ties.instance(1, "0000000001-25-000001")[0], "loaded")
+        self.assertEqual(p.call_count, 1)
+
+    def test_a_fact_the_ladder_did_not_see_is_not_looked_up(self):
+        st, _ = ties.fact_state({**UNTAGGED, "accession": "x"}, {}, {})
+        self.assertEqual(st["by"], "label:not_looked_up")  # no instance marker: never loaded by default
+
+
 @unittest.skipUnless(store.DEFAULT_DB.exists(), "needs the working database")
 class OnProof(unittest.TestCase):
     def test_proof_and_taxonomy_say_the_instance_was_not_loaded(self):
@@ -62,9 +97,15 @@ class OnProof(unittest.TestCase):
         self.addCleanup(con.close)
         before = [i for i in proof.company(con, "MSFT")["stages"]["facts"]["all"] if i["by"] == "label:no_reference"]
         self.assertTrue(before)
-        with mock.patch("ledger.checks.proof.instance_on_file", return_value=False):
+        real = ties.instance
+        gone_state = lambda state: (lambda cik, acc: (state, real(cik, acc)[1]))  # the totals stay; only the marker says the lookup did not answer
+        with mock.patch("ledger.checks.ties.instance", side_effect=gone_state("absent")):
             items = proof.company(con, "MSFT")["stages"]["facts"]["all"]
             rows = [r for r in taxonomy.rows(con, ["MSFT"]) if r["check_method"] == "label:not_looked_up"]
+        with mock.patch("ledger.checks.ties.instance", side_effect=gone_state("unreadable")):
+            bad = [i for i in proof.company(con, "MSFT")["stages"]["facts"]["all"] if i["by"] == "label:not_looked_up"]
+        self.assertEqual(len(bad), len(before))
+        self.assertTrue(all(i["what"].endswith("XBRL instance unreadable") for i in bad))
         gone = [i for i in items if i["by"] == "label:not_looked_up"]
         self.assertEqual(len(gone), len(before))  # every citation-only fact, and nothing else
         self.assertTrue(all(i["state"] == "open" and i["what"].endswith("XBRL instance not loaded") and i["needs"] == "XBRL instance" for i in gone))

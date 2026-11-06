@@ -35,13 +35,18 @@ explains, `no_reference`; `unresolved` plus a restatement is the `restated_betwe
 
 **Missing or folded states.**
 - "Not looked up". For values it folds into open by `label:not_reported` (correct). For facts it is its own state
-  (F17): `ties.ladder` records per fact whether its filing's instance is on disk (`proof.instance_on_file`, the
-  distilled facts or the XML), and `of_fact(..., looked_up=False)` makes an untagged fact that no tie or second reading
+  (F17): `ties.instance` is the one reading of a filing's instance (the distilled facts or the stored XML, memoised per
+  file version; loaded, absent or unreadable) for the ladder, the ties, Proof's lookup marker and the company's own tag
+  (`filertag.instance`). `ties.ladder` records each fact's state, a fact it did not see reads absent, and
+  `of_fact(..., looked_up="absent"|"unreadable")` makes an untagged fact that no tie or second reading
   checks open by `label:not_looked_up`, ladder rung `not_looked_up`, word "XBRL instance not loaded", taxonomy check
-  `not_checked` / `label:not_looked_up`, Proof needs "XBRL instance". Before, it read "Unverified · citation only", the
+  `not_checked` / `label:not_looked_up`, Proof needs "XBRL instance" (the item says "XBRL instance unreadable" when the
+  file does not parse). Before, it read "Unverified · citation only", the
   same as an instance that tags nothing. `instance_totals` reads a stored instance XML whose facts were never distilled
   (`dimensions.parse_instance`, writes nothing), so the tie is tried offline; nothing is fetched. On the six every
-  filing's instance is on disk, so no fact reads it today.
+  filing's instance is on disk, so no fact reads it today. Locally 294 filings outside the six have only the XML: the
+  first ladder read in a process parses them (about 6 s), later reads use the memo. The hosted copy has the distilled
+  facts of the six only (fixtures/data/raw), so a fact of another company reads "XBRL instance not loaded" there.
 - A resolution whose item changed, or whose item is gone, counts nowhere (F15, `resolutions.index`): the row reads open on
   every page, as on Reconcile.
 - "to confirm" is a string only: Reconcile gives it to run-written resolutions (workbench.py:167), and mappings carry it as
@@ -59,10 +64,12 @@ Forbidden, and whether enforced:
   (status.py:354-357) refuses it, and that runs in tests only.
 - A changed item staying explained: **enforced everywhere** (F15, F1). Proof, the Release lines, the read API's
   `status`, the Grid, the taxonomy rows and gold read `resolutions.index(con, tickers)`: the queue items of every
-  company with a live resolution (`app.queue_items`, the producer Reconcile lists) and `by_row(items=…, tickers=…)` over
-  them, so a resolution counts only on the item, key and hash, it was written for; one whose item is gone closes nothing.
-  Reconcile passes `flow["items"]` (every item, the 30-row cut on changed facts is display only). A queue that cannot
-  be built (a file the snapshot reads missing) closes nothing for those companies. `tests/test_one_resolution_rule.py`.
+  company with a live resolution (`ledger/review/queue.py` `queue_items`, the producer Reconcile lists, built once per
+  stamp by `queue.items_for`) and `by_row(items=…, tickers=…)` over them, so a resolution counts only on the item, key
+  and hash, it was written for; one whose item is gone closes nothing. Reconcile passes `flow["items"]` (every item, the
+  30-row cut on changed facts is display only). A queue that cannot be built raises `resolutions.Unmatched`: a 503
+  "Resolutions not matched · queue not built" on a page, a stopped command, never a quiet reopen. A `fix` on one item
+  of a row with an undecided sibling is not the row's status either. `tests/test_one_resolution_rule.py`.
 - One decision closing a sibling item: **enforced everywhere**. `_parse` maps `fact_differs` and `fact_changed` to the same
   `facts` row, and `finding_unconfirmed` (non-note) and `blocked` to the same `values` row; with the items, a row with
   an item no current resolution covers is left out of the index, so accepting "fact changed since release" no longer

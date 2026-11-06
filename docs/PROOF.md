@@ -51,7 +51,7 @@ resolutions.
 **The lookup marker (`ref.looked_up`).** An empty answer is only an answer when the question was asked. A value's
 marker is true only when `reference_values` holds rows for its ticker (reconcile reads the same table, and with none
 it writes `not_reported` over every blank); a fact's only when its filing's XBRL instance is on disk
-(`proof.instance_on_file`: `data/raw/<cik>/filings/<accession>.facts.json` or `.xml`, never fetched). No marker, no
+(`proof.instance_on_file` over `ties.instance`: `data/raw/<cik>/filings/<accession>.facts.json` or `.xml` that parses, never fetched). No marker, no
 evidence: a blank whose lookup never ran is a gap, and so is an `xbrl` check. An untagged fact whose instance is not on
 disk is its own state (F17): open, "XBRL instance not loaded", Needs "XBRL instance"; a tie or a second reading still
 checks it, the label never explains it.

@@ -149,7 +149,8 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
         detail = ties.differ_message(extra.get("readings") or []) if differs else f"cell {f['value']}, tag {f['reference']}" if status.is_open(st) else ""
         unloaded = st["by"] == "label:not_looked_up"  # F17: the instance never loaded, said apart from "nothing tagged"
         if unloaded:
-            what, detail = where + ": XBRL instance not loaded", "tag lookup not run"
+            bad = "does not parse" in (st.get("reason") or "")
+            what, detail = where + (": XBRL instance unreadable" if bad else ": XBRL instance not loaded"), "tag lookup gave no answer" if bad else "tag lookup not run"
         items.append(_item(what, st, detail, NEEDS["readings"] if differs else NEEDS["instance"] if unloaded else NEEDS["facts"], ref=ref))
     for e in exc:  # a tie that fails (the finding on a fact whose readings differ is that fact's own item): open on the group, never checked
         if e["severity"] != "warn" or e["exception_id"] in decided or e["field"] not in NOTE_FIELDS or e["rule_id"] == ties.DIFFER:
@@ -247,13 +248,9 @@ def ladder(con, tickers: list[str], rules: list[dict]) -> dict:
 
 
 def instance_on_file(cik, accession: str | None) -> bool:
-    """T80: the filing's XBRL instance is on disk (the distilled facts or the XML, data/raw/<cik>/filings/), so a fact's
+    """T80: the filing's XBRL instance is on disk and reads (ties.instance: the distilled facts or the XML), so a fact's
     empty reference is an answer from it, not a lookup that never ran. Never fetched here."""
-    from ..ingest.edgar import RAW
-    if cik is None or not accession:
-        return False
-    d = RAW / f"{int(cik):010d}" / "filings"
-    return (d / f"{accession}.facts.json").exists() or (d / f"{accession}.xml").exists()
+    return ties.instance(cik, accession)[0] == ties.LOADED
 
 
 def amendment_without_statements(doc: dict) -> bool:

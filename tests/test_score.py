@@ -70,7 +70,7 @@ class Synthetic(unittest.TestCase):
 
     def test_notes_reader_twin_leaves_out_no_reference(self):
         from unittest import mock
-        with mock.patch("ledger.checks.proof.instance_on_file", return_value=True):  # the synthetic filing's instance taken as loaded
+        with mock.patch("ledger.checks.ties.instance", return_value=("loaded", {})):  # the synthetic filing's instance taken as loaded, tagging nothing
             sc = score.score(self.con, "notes_reader", ["MSFT"])
         self.assertEqual(sc["outputs"], 3)
         self.assertEqual(sc["checked"], 1)
