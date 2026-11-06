@@ -78,7 +78,7 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     with what they need. `rset` is rules_on_file(), read once per request by the caller (board, rules, unevidenced)."""
     t = ticker.upper()
     rset = rules_on_file() if rset is None else rset
-    idx = resolutions.by_row() if idx is None else idx
+    idx = resolutions.index(con, [t]) if idx is None else idx  # F15: matched to the queue item it was written for, as Reconcile reads it
     defs = definitions.load() if defs is None else defs
     stages = {}
 
@@ -275,7 +275,7 @@ def _restated(con, ticker: str, f: dict) -> str | None:
 
 def board(con) -> dict:
     """The Proof home: every company in scope (config.SCOPE) with its stage counts. The database keeps every company; the board shows the scope (T2)."""
-    idx, defs, rset = resolutions.by_row(), definitions.load(), rules_on_file()
+    idx, defs, rset = resolutions.index(con, SCOPE), definitions.load(), rules_on_file()
     proven = [company(con, t, idx, defs, rset) for t in SCOPE]
     keys = {k: sum(c["keys"][k] for c in proven) for k in (*status.KEY_GRADE, "none", "rows")}  # per company on each row; the total over the scope here
     return {"stages": [{"id": s, "label": STAGE_LABEL[s]} for s in STAGES], "proven": proven, "scope": list(SCOPE), "open": sum(c["open"] for c in proven),
@@ -293,7 +293,7 @@ GUARDS = [
 
 def rules(con) -> dict:
     """Every rule, guard and definition with what it closed in scope, and the open items by what is missing."""
-    idx, defs, rset = resolutions.by_row(), definitions.load(), rules_on_file()
+    idx, defs, rset = resolutions.index(con, SCOPE), definitions.load(), rules_on_file()
     cos = [company(con, t, idx, defs, rset) for t in SCOPE]
     exc = _rows(con, "select rule_id, severity, count(*) as n from exceptions where ticker in (select unnest(?)) group by 1, 2", SCOPE)
     fired = {}
@@ -375,7 +375,7 @@ def unevidenced(con, tickers=None, companies: list[dict] | None = None, ev: dict
     defs, types = definitions.load(), asset_types()
     ev = evidence(con, defs=defs, types=types, tickers=tickers) if ev is None else ev
     if companies is None:
-        idx, rset = resolutions.by_row(), rules_on_file()
+        idx, rset = resolutions.index(con, tickers), rules_on_file()
         companies = [company(con, t, idx, defs, rset) for t in tickers]
     return [{"ticker": c["ticker"], "stage": s, "what": i["what"], "state": i["state"], "by": i["by"], "gap": gap}
             for c in companies for s, st in c["stages"].items() for i in st["all"] if (gap := status.evidence_gap(i, ev))]
@@ -416,7 +416,7 @@ def missing_from_dataset(con, tickers, ds: list[dict], idx: dict | None = None) 
                       "and field in (select unnest(?)) and period in (select unnest(?)) order by ticker, field, period", tickers, list(RELEASE_FIELDS), list(MVP_YEARS))
     vals = _rows(con, 'select * from "values" where ticker in (select unnest(?))', tickers)
     excs = _rows(con, "select * from exceptions where ticker in (select unnest(?))", tickers) if _has(con, "exceptions") else []
-    idx = resolutions.by_row() if idx is None else idx
+    idx = resolutions.index(con, tickers) if idx is None else idx
     first = first_periods(vals)
     released = {(v["ticker"], v["field"], v["period"]): v for v in apply(vals, excs, ds)}
     pending = {(e["ticker"], e["field"], e["period"]) for e in open_items(excs, ds)}

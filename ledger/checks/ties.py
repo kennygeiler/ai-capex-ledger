@@ -337,7 +337,7 @@ def fail_message(g: dict) -> str:
 # ── the one ladder: a fact's state, for Proof, Reconcile, the taxonomy rows and gold ─────────────────────────────────
 def fact_state(f: dict, idx: dict, lad: dict, restated: str | None = None) -> tuple[dict, dict]:
     """(status state, the record it rests on) for a `facts` row `f` ({ticker, field, dimension, period, label,
-    accession}). `lad` is by_fact(...) (proof.ladder); `idx` the resolutions index (resolutions.by_row). A fact whose
+    accession}). `lad` is by_fact(...) (proof.ladder); `idx` the resolutions index (resolutions.index). A fact whose
     readings differ takes the resolution on its finding (keyed by rule and dimension, resolutions._parse), never the
     fact's; every other fact the resolution on the fact."""
     from ..review import resolutions

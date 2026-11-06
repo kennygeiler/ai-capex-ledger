@@ -160,9 +160,9 @@ def data(q: dict) -> dict:
             rows.append({"ticker": f["ticker"], "field": f["field"], "dimension": f["dimension"], "period": f["period"], "kind": FIELD_KIND.get(f["field"], "spent"), "value": f["value"], "unit": "usd",
                          "check": f["label"], "basis": f["basis"], "prov": {"extractions": f["extraction_ids"], "accession": f["accession"], "table": "facts", "xbrl": f["reference"]}})
         urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents")}
+        idx = resolutions.index(con)  # F15: a resolution counts only on the queue item it was written for
     finally:
         con.close()
-    idx = resolutions.by_row()
     for r in rows:
         acc = r["prov"].get("accession") or (r["prov"].get("extractions") or "").split("|")[0]
         r["prov"]["url"] = urls.get(acc)
@@ -275,7 +275,8 @@ def content_hash(kind: str, detail: dict) -> str:
 def _flow(scope: str) -> dict:
     """The queue for a scope (all = config.SCOPE, a layer within it, or any one ticker the database holds): new filings,
     blocks, facts that differ from the filing's tag, facts that changed since the signed release, findings the SEC's data
-    can't confirm. Nothing here is an estimate."""
+    can't confirm. Nothing here is an estimate. `queue` is what Reconcile lists (the first 30 changed facts); `items` is
+    every item with its key and hash, the set a resolution is matched against (F15)."""
     present = {c["ticker"] for c in tracked()}
     if scope in INDUSTRIES or scope == "other":
         tickers = sorted(t for t in SCOPE if industry(t) == scope)
@@ -285,17 +286,43 @@ def _flow(scope: str) -> dict:
         tickers = sorted(SCOPE)
     con = _con()
     try:
-        hqd = snapshot(con, STAGE, tickers)
-        facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker in (select unnest(?))", tickers)
-        cites = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, table_id, row_label, column_label, cell_text from note_extractions where ticker in (select unnest(?))", tickers)}
-        urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents where ticker in (select unnest(?))", tickers)}
-        fact_ref = {(f["ticker"], f["field"], f["dimension"], f["period"]): f for f in _rows(con, "select ticker, field, dimension, period, reference, extraction_ids from facts where ticker in (select unnest(?))", tickers)}
-        missing = _rows(con, 'select v.ticker, v.field, v.period, v.period_end, v.label, r.value as reference from "values" v left join reference_values r using (ticker, field, period) '
-                             "where v.label = 'not_extracted' and v.ticker in (select unnest(?)) order by v.ticker, v.field, v.period", tickers)
-        from ..checks import ties
-        differ_live = ties.differ_findings(**(lambda d: {"facts": d["facts"], "extractions": d["extractions"]})(ties.load(con, tickers, [])))  # F-FL1: read live, as Proof's ladder reads them
+        q = queue_items(con, tickers)
     finally:
         con.close()
+    queue, changed, rel, facts_changed = q["queue"], q["changed"], q["release"], q["facts_changed"]
+    items = [{"key": q_["key"], "hash": q_["hash"], "kind": q_["kind"], "ticker": q_["ticker"]} for q_ in queue]
+    late = {id(q_) for q_ in [q_ for q_ in queue if q_["kind"] == "fact_changed"][30:]}  # Reconcile lists the first 30 changed facts
+    queue = [q_ for q_ in queue if id(q_) not in late]
+    res = resolutions.latest()
+    for q_ in queue:
+        r_ = res.get(q_["key"])
+        q_["resolution"] = r_ if r_ and r_["hash"] == q_["hash"] else None
+        if q_["resolution"] and q_["resolution"]["state"] == "blocks":
+            q_["state"] = "blocked"
+    order = {"blocked": 0, "disagrees": 1, "new": 2, "moved": 3, "look": 4, "missing": 5}
+    queue.sort(key=lambda q_: (0 if q_["state"] == "blocked" else 1, -q_["dollars"], order[q_["state"]], q_["ticker"]))
+    open_ = [q_ for q_ in queue if not q_["resolution"] or q_["resolution"]["state"] == "fix"]
+    blocks = [q_ for q_ in queue if q_["state"] == "blocked"]
+    release = {"last": rel.name if rel else None, "blocks": len(blocks), "unresolved": len(open_), "facts_changed": len(facts_changed)}
+    return {"scope": scope or "all", "tickers": tickers, "changed": changed, "queue": queue, "items": items, "release": release,
+            "industries": sorted(INDUSTRIES) + ["other"], "scope_tickers": list(SCOPE), "names": {c["ticker"]: c["name"] for c in tracked()}}
+
+
+def queue_items(con, tickers: list[str]) -> dict:
+    """Every queue item of `tickers`, each with its key (resolutions.key_for) and the hash of what it holds
+    (content_hash), on the caller's connection: {queue, changed, release, facts_changed}. The one producer of queue items:
+    Reconcile lists them (_flow) and every other page matches a resolution against them (resolutions.index, F15), so a
+    resolution closes only the item, key and hash, it was written for."""
+    tickers = sorted(tickers)
+    hqd = snapshot(con, STAGE, tickers)
+    facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker in (select unnest(?))", tickers)
+    cites = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, table_id, row_label, column_label, cell_text from note_extractions where ticker in (select unnest(?))", tickers)}
+    urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents where ticker in (select unnest(?))", tickers)}
+    fact_ref = {(f["ticker"], f["field"], f["dimension"], f["period"]): f for f in _rows(con, "select ticker, field, dimension, period, reference, extraction_ids from facts where ticker in (select unnest(?))", tickers)}
+    missing = _rows(con, 'select v.ticker, v.field, v.period, v.period_end, v.label, r.value as reference from "values" v left join reference_values r using (ticker, field, period) '
+                         "where v.label = 'not_extracted' and v.ticker in (select unnest(?)) order by v.ticker, v.field, v.period", tickers)
+    from ..checks import ties
+    differ_live = ties.differ_findings(**(lambda d: {"facts": d["facts"], "extractions": d["extractions"]})(ties.load(con, tickers, [])))  # F-FL1: read live, as Proof's ladder reads them
     rel = latest_signed()
     rel_facts = {(r["ticker"], r["field"], r["dimension"], r["period"]): r["value"] for r in csv.DictReader((rel / "facts.csv").open())} if rel and (rel / "facts.csv").exists() else {}
     facts_changed = [f for f in facts if rel_facts and str(f["value"]) != rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"]), "")]
@@ -303,7 +330,6 @@ def _flow(scope: str) -> dict:
     changed = {"new_filings": [f for f in (hqd["watch"] or {}).get("new", []) if f["ticker"] in tickers],
                "filings_read": [f for f in since.get("new_filings", []) if f.split("|")[0] in tickers], "facts_changed": len(facts_changed),
                "release": rel.name if rel else None, "last_run": hqd["health"][0]["run_at"]}
-    res = resolutions.latest()
     queue = []
     for f in changed["new_filings"]:
         queue.append({"kind": "new_filing", "key": resolutions.key_for("new_filing", f["ticker"], f["form"], f["period"]), "state": "new", "ticker": f["ticker"], "where": f"{f['form']} for the year ended {f['period']}", "impact": "values, facts and statements for the year", "action": "run", "detail": f})
@@ -311,7 +337,7 @@ def _flow(scope: str) -> dict:
         if e["ticker"] in tickers:
             queue.append({"kind": "blocked", "key": resolutions.key_for("blocked", e["ticker"], e["field"], e["period"], rule_id=e["rule"], subject=e.get("subject")), "state": "blocked", "ticker": e["ticker"], "where": f"{e['field'] or ''} {e['period'] or ''}".strip() or e["rule"], "impact": "blocks the release", "action": "definition",
                           "detail": {k: v for k, v in e.items() if k != "proposed"}, "proposed": e.get("proposed")})  # F14: a run's decision, off the hash (the item is the same finding)
-    for f in facts_changed[:30]:
+    for f in facts_changed:
         queue.append({"kind": "fact_changed", "key": resolutions.key_for("fact_changed", f["ticker"], f["field"], f["period"], f["dimension"]), "state": "moved", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "), "impact": "the next release", "dollars": 0, "new": True, "action": "release",
                       "detail": {**f, "release_value": (lambda v: None if v in (None, "") else float(v))(rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"])))}})
     for f in facts:
@@ -336,17 +362,7 @@ def _flow(scope: str) -> dict:
     for q_ in queue:
         q_.setdefault("dollars", 0); q_.setdefault("new", False)
         q_["hash"] = content_hash(q_["kind"], q_["detail"])
-        r_ = res.get(q_["key"])
-        q_["resolution"] = r_ if r_ and r_["hash"] == q_["hash"] else None
-        if q_["resolution"] and q_["resolution"]["state"] == "blocks":
-            q_["state"] = "blocked"
-    order = {"blocked": 0, "disagrees": 1, "new": 2, "moved": 3, "look": 4, "missing": 5}
-    queue.sort(key=lambda q_: (0 if q_["state"] == "blocked" else 1, -q_["dollars"], order[q_["state"]], q_["ticker"]))
-    open_ = [q_ for q_ in queue if not q_["resolution"] or q_["resolution"]["state"] == "fix"]
-    blocks = [q_ for q_ in queue if q_["state"] == "blocked"]
-    release = {"last": rel.name if rel else None, "blocks": len(blocks), "unresolved": len(open_), "facts_changed": len(facts_changed)}
-    return {"scope": scope or "all", "tickers": tickers, "changed": changed, "queue": queue, "release": release,
-            "industries": sorted(INDUSTRIES) + ["other"], "scope_tickers": list(SCOPE), "names": {c["ticker"]: c["name"] for c in tracked()}}
+    return {"queue": queue, "changed": changed, "release": rel, "facts_changed": facts_changed}
 
 
 _COUNTS_IN: dict = {}  # with_counts' inputs (a run's decisions to confirm, the unmapped names), by tickers and _stamp()
@@ -436,7 +452,7 @@ def gold_view(ticker: str | None = None) -> dict:
         con = _con()
     except Busy:
         con = None
-    live, looked_up, xbrl, idx, lad, restated = {}, set(), {}, resolutions.by_row(), None, {}
+    live, looked_up, xbrl, idx, lad, restated = {}, set(), {}, {}, None, {}
     from ..checks import crops  # the cited cells' crops, read the way the trail and Reconcile read them
     from ..checks.ties import mark
     cells = {}
@@ -450,6 +466,7 @@ def gold_view(ticker: str | None = None) -> dict:
                 cells = crops.cells(con, [c.get("extraction_id") for it in docs[t]["items"] for c in it.get("cites", [])])
                 from ..checks.ties import ladder
                 lad = ladder(con, [t])  # the one ladder Proof and gold.compare read (F26)
+                idx = resolutions.index(con, [t])  # F15: matched to the queue item, as Proof reads it
                 from ..checks.ties import restatements
                 restated = restatements(con, [t])  # readings that disagree across filings, said on the item whatever its group
                 live = gold.live_index(vals, facts)

@@ -122,9 +122,9 @@
     tests:
       - tests.test_status.Definition.test_checked_explained_open_blocked
       - tests.test_status.ProofAgreesWithReconcile.test_open_counts_agree_on_the_fixtures
+      - tests.test_one_resolution_rule.Surfaces.test_current_hash_closes_a_changed_one_reopens_everywhere
   status: partial
-  gaps:
-    - Proof shows a resolved item as closed until the next rules run, even when its finding has changed since.
+  gaps: []
   ticket: T92
 
 - id: item_states
@@ -477,6 +477,8 @@
       - tests.test_late_writers.StaleOutput.test_repack_a_task_then_load_the_old_output_refused
       - tests.test_late_writers.LateProposal.test_a_proposal_after_a_persons_approval_changes_nothing
       - tests.test_gold.Draw.test_a_verdict_recorded_while_the_draw_runs_survives
+      - tests.test_one_resolution_rule.Index.test_a_resolution_on_a_changed_item_closes_nothing
+      - tests.test_one_resolution_rule.Index.test_two_items_on_one_row_need_a_decision_each
   status: partial
   gaps:
     - 13 older statement readings carry no fingerprint and load unjudged until they are read again.

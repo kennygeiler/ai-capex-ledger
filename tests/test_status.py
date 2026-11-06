@@ -422,8 +422,8 @@ if plant in ("resolution", "gemini"):  # (c) a resolution not on file; one on fi
     tk, f, d, p = r0["ticker"], r0["field"], r0["dimension"], r0["period"]
     print(json.dumps({"planted_on": tk}))
     rid = "not-on-file" if plant == "resolution" else "planted-gemini"
-    real, real_load = resolutions.by_row, resolutions.load
-    resolutions.by_row = lambda *a, **k: {**real(*a, **k), ("facts", tk, f, d, p, ""): {"id": rid, "state": "accept", "status": "accepted", "by": "Gemini", "at": "", "reason": "planted"}}
+    real, real_load = resolutions.index, resolutions.load  # F15: every page reads index(), the matched resolutions
+    resolutions.index = lambda *a, **k: {**real(*a, **k), ("facts", tk, f, d, p, ""): {"id": rid, "state": "accept", "status": "accepted", "by": "Gemini", "at": "", "reason": "planted"}}
     if plant == "gemini":
         resolutions.load = lambda *a, **k: real_load(*a, **k) + [{"id": rid, "key": "x", "hash": "x", "state": "accept", "reason": "planted", "by": "Gemini", "at": ""}]
 if plant == "gate":  # a gate on the values stage

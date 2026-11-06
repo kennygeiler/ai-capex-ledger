@@ -492,7 +492,7 @@ def compare_db(con, gold: dict | None = None, res_index: dict | None = None, pro
     return compare(gold, q('select ticker, field, period, value, label from "values" where ticker in (select unnest(?))'),
                    q("select * from facts where ticker in (select unnest(?))"),
                    q("select ticker, field, period, value from reference_values where ticker in (select unnest(?))"),
-                   resolutions.by_row() if res_index is None else res_index, problems or (), ladder(con, tickers))
+                   resolutions.index(con, tickers) if res_index is None else res_index, problems or (), ladder(con, tickers))
 
 
 def summary_line(c: dict) -> str:

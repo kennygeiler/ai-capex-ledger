@@ -60,7 +60,7 @@ def fetch(con, name: str) -> list[dict]:
         rows = _views.load()["views"]
     else:
         raise KeyError(f"no list {name}; one of {LISTS}")
-    idx = _resolutions.by_row() if name in ("values", "facts") else None
+    idx = _resolutions.index(con) if name in ("values", "facts") else None  # F15: matched to the item it was written for
     for r in rows:
         if "ticker" in r and "layer" not in r:
             r["layer"] = industry(r["ticker"])
@@ -192,7 +192,7 @@ def as_of_rows(con, name: str, day: str, q: dict) -> list[dict]:
     if name == "taxonomy":
         return pit.taxonomy_as_of(con, fetch(con, name), day, tickers)
     live = {(v["ticker"], v["field"], v["period"]): v for v in _rows(con, 'select ticker, field, period, basis, first_reported from "values"')}
-    idx = _resolutions.by_row()
+    idx = _resolutions.index(con, tickers)
     out = []
     for r in pit.as_of(con, day, tickers):
         v = live.get((r["ticker"], r["field"], r["period"])) or {}

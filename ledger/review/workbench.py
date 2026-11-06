@@ -285,7 +285,7 @@ def items(con, flow: dict) -> dict:
     The decisions a run left for a person to confirm come first as their own group (`to_confirm`, T3), counted apart; the
     unmapped asset types (`asset_types`, T33) are their own group too, with `members` the list a mapping may use."""
     names, rel = flow["names"], flow["release"]["last"]
-    idx = resolutions.by_row(items=flow["queue"])  # T62: a row with an unresolved sibling finding stays open
+    idx = resolutions.by_row(items=flow.get("items") or flow["queue"], tickers=flow["tickers"] if "items" in flow else ())  # T62: a row with an unresolved sibling finding stays open; F15: every item, as resolutions.index reads it
     xp = _explained(con, sorted({q["ticker"] for q in flow["queue"]}))
     from ..checks.ties import ladder
     lad = ladder(con, sorted({q["ticker"] for q in flow["queue"]}))  # T92: the facts' ladder, read once

@@ -40,7 +40,8 @@ explains, `no_reference`; `unresolved` plus a restatement is the `restated_betwe
   readings and ties when tables are absent (ties.py:216-217), and `instance_totals` returns `{}` when the instance file
   is missing (ties.py:194-195), so "no tie" and "not checked" are one state. Only `status.evidence_gap`
   (status.py:358-363, with `proof.instance_on_file`, proof.py:214-221) tells them apart, and it never runs on live data (R1).
-- No "stale" state: a resolution whose item changed still counts everywhere except Reconcile (M2).
+- A resolution whose item changed, or whose item is gone, counts nowhere (F15, `resolutions.index`): the row reads open on
+  every page, as on Reconcile.
 - "to confirm" is a string only: Reconcile gives it to run-written resolutions (workbench.py:167), and mappings carry it as
   `by=label:to_confirm` with state `open`. It is not in `STATES`.
 
@@ -54,14 +55,16 @@ Forbidden, and whether enforced:
 - A run-written resolution → explained: **not enforced**. `_res` (status.py:105-109) ignores the author, and `latest()`
   returns a run line when no person line shares its key and hash (resolutions.py:106-126). Only `evidence_gap`
   (status.py:354-357) refuses it, and that runs in tests only.
-- A changed item staying explained: **enforced only on Reconcile**. `by_row(items=...)` is called only at
-  workbench.py:215. Every other caller uses `by_row()` with no items (proof.py:80,253,271,353,394; api.py:62,165;
-  taxonomy.py:161; gold.py:415; app.py:145,278), and with no items there is no hash expiry (resolutions.py:202-210).
-- One decision closing a sibling item: **enforced only on Reconcile**. `_parse` maps `fact_differs` and `fact_changed` to
-  the same `facts` row (resolutions.py:176-177), and `finding_unconfirmed` (non-note) and `blocked` to the same `values`
-  row (183-184). Without `items`, `by_row` takes the worst latest resolution per row with no unresolved-sibling check
-  (211-217). So on Proof, accepting "fact changed since release" explains a fact that still differs from its tag, and
-  accepting a jump explains an `unresolved` value (status.py:146-147).
+- A changed item staying explained: **enforced everywhere** (F15, F1). Proof, the Release lines, the read API's
+  `status`, the Grid, the taxonomy rows and gold read `resolutions.index(con, tickers)`: the queue items of every
+  company with a live resolution (`app.queue_items`, the producer Reconcile lists) and `by_row(items=…, tickers=…)` over
+  them, so a resolution counts only on the item, key and hash, it was written for; one whose item is gone closes nothing.
+  Reconcile passes `flow["items"]` (every item, the 30-row cut on changed facts is display only). A queue that cannot
+  be built (a file the snapshot reads missing) closes nothing for those companies. `tests/test_one_resolution_rule.py`.
+- One decision closing a sibling item: **enforced everywhere**. `_parse` maps `fact_differs` and `fact_changed` to the same
+  `facts` row, and `finding_unconfirmed` (non-note) and `blocked` to the same `values` row; with the items, a row with
+  an item no current resolution covers is left out of the index, so accepting "fact changed since release" no longer
+  explains a fact that still differs from its tag.
 - A definition written by a non-person: `definitions.load` needs only a non-empty `by` (definitions.py:22-24), and
   `evidence_gap` checks only that the definition exists (status.py:345-346): **not enforced**. Explains rules are (rules.py:478-479).
 
@@ -149,7 +152,7 @@ label. The hosted copy depends on shipped `*.facts.json` files for exactly this 
 **States** per key: none / `accept` / `explain` / `fix` / `blocks` (resolutions.py:30). Word map `STATUS`: accepted,
 explained, fix_pending, blocks (76). Orthogonal:
 - `author_kind` person/run (85; legacy lines read through `by_person`/`by_run`, 88-104);
-- hash current/expired, computed only when `by_row` gets `items` (202-210);
+- hash current/expired against the live queue item, on every page (`resolutions.index`, F15);
 - key live/legacy/stale kind (`is_live` 73-74; `LIVE_KINDS` 37-42).
 "Unconfirmed" means the latest line is live and run-written (230-239).
 
