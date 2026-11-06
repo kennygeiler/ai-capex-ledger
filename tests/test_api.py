@@ -97,9 +97,9 @@ class StatusAndFlag(unittest.TestCase):
         from unittest import mock
         item = lambda h: {"queue": [{"key": "finding_unconfirmed|T|opex|FY2022||jump|", "hash": h}]}  # F15: the status holds only while the item is the one decided
         try:
-            with mock.patch("ledger.web.app.queue_items", return_value=item("h")):
+            with mock.patch("ledger.review.queue.queue_items", return_value=item("h")):
                 rows = {(r["ticker"], r["period"]): r for r in api.fetch(con, "values")}
-            with mock.patch("ledger.web.app.queue_items", return_value=item("changed")):
+            with mock.patch("ledger.review.queue.queue_items", return_value=item("changed")):
                 moved = {(r["ticker"], r["period"]): r for r in api.fetch(con, "values")}
         finally:
             resolutions.LOG = old

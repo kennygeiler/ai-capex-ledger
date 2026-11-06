@@ -29,7 +29,7 @@ class Keys(unittest.TestCase):
 
     def test_live_kinds_are_what_the_queue_produces(self):
         import re
-        src = (resolutions.ROOT / "ledger" / "web" / "app.py").read_text()
+        src = (resolutions.ROOT / "ledger" / "review" / "queue.py").read_text()  # the queue's producer (review of F15)
         produced = set(re.findall(r'queue\.append\(\{"kind": "([a-z_]+)"', src))
         never = {"value_missing", "reading_unfingerprinted"}  # T65, F25: no resolution closes them, a re-read does, so they are never live
         self.assertEqual(produced - never, set(resolutions.LIVE_KINDS))

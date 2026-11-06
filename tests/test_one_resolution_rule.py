@@ -28,7 +28,7 @@ class Index(unittest.TestCase):
     DIFFERS = key_for("fact_differs", T, "segment_capex", "FY2024", "Cloud")
 
     def _index(self, lines, queue):
-        with mock.patch("ledger.web.app.queue_items", return_value={"queue": queue}):
+        with mock.patch("ledger.review.queue.queue_items", return_value={"queue": queue}):
             return resolutions.index(None, None, lines)
 
     def test_a_resolution_on_a_changed_item_closes_nothing(self):
@@ -47,12 +47,39 @@ class Index(unittest.TestCase):
         self.assertEqual(self._index([_line(self.DIFFERS, "h1")], []), {})
 
     def test_no_live_resolution_builds_no_queue(self):
-        with mock.patch("ledger.web.app.queue_items", side_effect=AssertionError("built")):
+        with mock.patch("ledger.review.queue.queue_items", side_effect=AssertionError("built")):
             self.assertEqual(resolutions.index(None, None, []), {})
 
-    def test_a_queue_that_cannot_be_built_closes_nothing(self):
-        with mock.patch("ledger.web.app.queue_items", side_effect=OSError("reports/stage3-faults.json")):
-            self.assertEqual(resolutions.index(None, None, [_line(self.DIFFERS, "h1")]), {})
+    def test_a_queue_that_cannot_be_built_stops_the_page_never_reopens_quietly(self):
+        # review of F15: an empty match would reopen every decision on the page while Reconcile still counts them
+        with mock.patch("ledger.review.queue.queue_items", side_effect=OSError("reports/stage3-faults.json")):
+            with self.assertRaises(resolutions.Unmatched) as c:
+                resolutions.index(None, None, [_line(self.DIFFERS, "h1")])
+        self.assertIn("Resolutions not matched · queue not built", str(c.exception))
+        src = (store.ROOT / "ledger" / "web" / "app.py").read_text()
+        self.assertIn("except resolutions.Unmatched as e:", src[src.index("def _guard"):])  # a 503 on every page route
+
+    def test_a_fix_on_one_item_does_not_speak_for_an_undecided_sibling(self):
+        lines = [_line(self.CHANGED, "c1", state="fix")]
+        self.assertEqual(self._index(lines, [{"key": self.CHANGED, "hash": "c1"}, {"key": self.DIFFERS, "hash": "d1"}]), {})
+        self.assertEqual(self._index(lines, [{"key": self.CHANGED, "hash": "c1"}])[("facts", self.T, "segment_capex", "Cloud", "FY2024", "")]["status"], "fix_pending")
+
+    def test_the_queue_is_built_once_per_stamp(self):
+        from ledger.review import queue
+        con = duckdb.connect(str(store.DEFAULT_DB), read_only=True) if store.DEFAULT_DB.exists() else None
+        if con is None:
+            self.skipTest("needs the working database")
+        self.addCleanup(con.close)
+        queue._ITEMS.clear()
+        with mock.patch("ledger.review.queue.queue_items", return_value={"queue": [{"key": self.DIFFERS, "hash": "h1"}]}) as q:
+            for _ in range(3):
+                resolutions.index(con, None, [_line(self.DIFFERS, "h1")])
+        self.assertEqual(q.call_count, 1)
+        queue._ITEMS.clear()
+
+    def test_the_queue_lives_outside_the_web_app(self):
+        src = (store.ROOT / "ledger" / "review" / "resolutions.py").read_text()
+        self.assertNotIn("web.app", src)  # review of F15: resolutions reads the queue from ledger/review/queue.py
 
     def test_no_page_reads_the_unmatched_index(self):
         # every reader outside Reconcile goes through index(); by_row() with no items is the matching rule's inside only

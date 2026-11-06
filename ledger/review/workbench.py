@@ -164,16 +164,17 @@ def _state(con, q: dict, idx: dict, xp: dict | None = None, lad: dict | None = N
 TO_CONFIRM = "to_confirm"
 
 
-def _proposal(con, exception_id: str | None) -> dict | None:
+def _proposal(con, exception_id: str | None, ds: list[dict]) -> dict | None:
     """F-TR1: the proposed decision on a block finding as the page needs it to confirm or overturn it: the finding's
-    id and input hash as the database holds them, and the standing proposal (review.proposed) with its decision_id."""
-    from .review import decisions, proposed
+    id and input hash as the database holds them, and the standing proposal (review.proposed) with its decision_id.
+    `ds`: decisions/decisions.jsonl, read once per items() call."""
+    from .review import proposed
     cur = con.execute("select * from exceptions where exception_id = ?", [exception_id or ""])
     r = cur.fetchone()
     if not r:
         return None
     e = dict(zip([c[0] for c in cur.description], r))
-    p = next((x["decision"] for x in proposed([e], decisions())), None)
+    p = next((x["decision"] for x in proposed([e], ds)), None)
     return p and {"exception_id": e["exception_id"], "input_hash": e["input_hash"],
                   **{k: p.get(k) for k in ("decision_id", "kind", "value", "reviewer", "reason", "decided_at")}}
 
@@ -312,6 +313,7 @@ def items(con, flow: dict) -> dict:
     restated = restatements(con, tick)  # ties.restatement per fact: the drawer says it whatever the row's state
     basis = _basis(con, tick) if any((q.get("detail") or {}).get("rule") == "segment_basis_mixed" for q in flow["queue"]) else {}
     enc = {}  # the definitions and rules on file, read once for every item's offers
+    ds = None  # decisions/decisions.jsonl, read at the first proposed block
     rows = []
     from ..checks.crops import brief, cells
     crop_of = cells(con, [((q.get("detail") or {}).get("cite") or {}).get("extraction_id") for q in flow["queue"] if q["kind"] == "fact_differs"])  # one read for every row
@@ -351,7 +353,10 @@ def items(con, flow: dict) -> dict:
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if d.get("value") is not None else None, "ours": d.get("value")}
             row["evidence"] = {"message": d.get("message"), "rule": d.get("rule")}
             if q.get("proposed"):  # F-TR1: the run's decision a person confirms or overturns on the page (POST /api/decision)
-                row["evidence"]["proposed"] = _proposal(con, d.get("exception_id"))
+                if ds is None:
+                    from .review import decisions
+                    ds = decisions()  # once per items() call, whatever the number of proposed blocks
+                row["evidence"]["proposed"] = _proposal(con, d.get("exception_id"), ds)
         elif q["kind"] == "value_missing":
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": None, "reference": _num(d.get("reference")), "ours_label": "Not extracted"}
             if d.get("field"):

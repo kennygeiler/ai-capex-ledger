@@ -215,30 +215,38 @@ def by_row(rs: list[dict] | None = None, items: list[dict] | None = None, ticker
     out = {}
     for k, rows in per_row.items():
         r = min(rows, key=lambda r: WORST.index(r["state"]))
-        if r["state"] in ("explain", "accept") and k in unresolved:
-            continue
+        if r["state"] in ("explain", "accept", "fix") and k in unresolved:
+            continue  # another item on the row has no current decision: the row is open, and no word of one item's decision stands for it
         out[k] = {"id": r.get("id"), "state": r["state"], "status": STATUS[r["state"]], "by": r["by"], "at": r["at"], "reason": r["reason"]}
     return out
+
+
+UNMATCHED = "Resolutions not matched · queue not built"
+
+
+class Unmatched(RuntimeError):
+    """The queue the resolutions are matched against could not be built: no page may count a resolution."""
 
 
 def index(con, tickers=None, rs: list[dict] | None = None) -> dict:
     """by_row as every page reads it (F15, F1): each resolution matched against the queue item, key and hash, it was
     written for (app.queue_items, the producer Reconcile lists), so a changed or gone item reopens on Proof, the Release
     counts, the read API and the taxonomy rows exactly as on Reconcile, and two items on one row need a decision each.
-    The queue is built only for the companies that have a live resolution on file (`tickers` narrows them); when it cannot
-    be built (a file the snapshot reads is missing, a database without its tables), their resolutions close nothing: the rows read open, never closed on
-    a decision nobody can match."""
+    The queue is built only for the companies that have a live resolution on file (`tickers` narrows them), once per
+    stamp (queue.items_for). When it cannot be built (a file the snapshot reads is missing, a database without its
+    tables) nothing is guessed: Unmatched is raised, a 503 "Resolutions not matched · queue not built" on a page and a
+    stopped command, never a page that quietly disagrees with Reconcile."""
     rs = load() if rs is None else rs
     have = {k["ticker"] for key in latest(rs) if (k := parse_key(key)) and k["kind"] in LIVE_KINDS}
     want = sorted(have if tickers is None else have & {str(t).upper() for t in tickers})
     if not want:
         return {}
     import duckdb
-    from ..web.app import queue_items  # the queue's producer; imported here, the web app imports this module
+    from .queue import items_for
     try:
-        items = [{"key": q["key"], "hash": q["hash"]} for q in queue_items(con, want)["queue"]]
-    except (OSError, ValueError, KeyError, duckdb.Error):
-        items = []
+        items = items_for(con, want)
+    except (OSError, ValueError, duckdb.Error) as e:
+        raise Unmatched(f"{UNMATCHED}: {e.__class__.__name__}: {str(e)[:200]}") from e
     return {k: v for k, v in by_row(rs, items=items, tickers=want).items() if k[1] in want}
 
 
