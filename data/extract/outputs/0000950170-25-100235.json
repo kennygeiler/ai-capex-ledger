@@ -1,16 +1,153 @@
-{"accession": "0000950170-25-100235", "prompt_version": "statements@v1",
+{
+ "accession": "0000950170-25-100235",
+ "prompt_version": "statements@v2",
  "values": [
-  {"field": "revenue", "table_id": "t0023", "row_label": "Total revenue", "column_label": "2025", "cell_text": "281,724", "period_end": "2025-06-30", "months": 12, "value": 281724000000, "confidence": 1.0, "notes": "Total line chosen over Product / Service and other components. Fiscal year ends June 30 per report period."},
-  {"field": "revenue", "table_id": "t0023", "row_label": "Total revenue", "column_label": "2024", "cell_text": "245,122", "period_end": "2024-06-30", "months": 12, "value": 245122000000, "confidence": 1.0},
-  {"field": "revenue", "table_id": "t0023", "row_label": "Total revenue", "column_label": "2023", "cell_text": "211,915", "period_end": "2023-06-30", "months": 12, "value": 211915000000, "confidence": 1.0},
-  {"field": "cost_of_revenue", "table_id": "t0023", "row_label": "Total cost of revenue", "column_label": "2025", "cell_text": "87,831", "period_end": "2025-06-30", "months": 12, "value": 87831000000, "confidence": 1.0, "notes": "Total line chosen over Product / Service and other components."},
-  {"field": "cost_of_revenue", "table_id": "t0023", "row_label": "Total cost of revenue", "column_label": "2024", "cell_text": "74,114", "period_end": "2024-06-30", "months": 12, "value": 74114000000, "confidence": 1.0},
-  {"field": "cost_of_revenue", "table_id": "t0023", "row_label": "Total cost of revenue", "column_label": "2023", "cell_text": "65,863", "period_end": "2023-06-30", "months": 12, "value": 65863000000, "confidence": 1.0},
-  {"field": "operating_income", "table_id": "t0023", "row_label": "Operating income", "column_label": "2025", "cell_text": "128,528", "period_end": "2025-06-30", "months": 12, "value": 128528000000, "confidence": 1.0},
-  {"field": "operating_income", "table_id": "t0023", "row_label": "Operating income", "column_label": "2024", "cell_text": "109,433", "period_end": "2024-06-30", "months": 12, "value": 109433000000, "confidence": 1.0},
-  {"field": "operating_income", "table_id": "t0023", "row_label": "Operating income", "column_label": "2023", "cell_text": "88,523", "period_end": "2023-06-30", "months": 12, "value": 88523000000, "confidence": 1.0},
-  {"field": "capex", "table_id": "t0026", "row_label": "Additions to property and equipment", "column_label": "2025", "cell_text": "(64,551)", "period_end": "2025-06-30", "months": 12, "value": 64551000000, "confidence": 1.0, "notes": "Investing line for property and equipment only; intangibles are on the separate acquisitions line, which is not added."},
-  {"field": "capex", "table_id": "t0026", "row_label": "Additions to property and equipment", "column_label": "2024", "cell_text": "(44,477)", "period_end": "2024-06-30", "months": 12, "value": 44477000000, "confidence": 1.0},
-  {"field": "capex", "table_id": "t0026", "row_label": "Additions to property and equipment", "column_label": "2023", "cell_text": "(28,107)", "period_end": "2023-06-30", "months": 12, "value": 28107000000, "confidence": 1.0}
+  {
+   "field": "revenue",
+   "table_id": "t0023",
+   "row_label": "Total revenue",
+   "column_label": "2025",
+   "cell_text": "281,724",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 281724000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0023",
+   "row_label": "Total revenue",
+   "column_label": "2024",
+   "cell_text": "245,122",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 245122000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0023",
+   "row_label": "Total revenue",
+   "column_label": "2023",
+   "cell_text": "211,915",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 211915000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0023",
+   "row_label": "Total cost of revenue",
+   "column_label": "2025",
+   "cell_text": "87,831",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 87831000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0023",
+   "row_label": "Total cost of revenue",
+   "column_label": "2024",
+   "cell_text": "74,114",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 74114000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0023",
+   "row_label": "Total cost of revenue",
+   "column_label": "2023",
+   "cell_text": "65,863",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 65863000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0023",
+   "row_label": "Operating income",
+   "column_label": "2025",
+   "cell_text": "128,528",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 128528000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0023",
+   "row_label": "Operating income",
+   "column_label": "2024",
+   "cell_text": "109,433",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 109433000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0023",
+   "row_label": "Operating income",
+   "column_label": "2023",
+   "cell_text": "88,523",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 88523000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Additions to property and equipment",
+   "column_label": "2025",
+   "cell_text": "(64,551)",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 64551000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Additions to property and equipment",
+   "column_label": "2024",
+   "cell_text": "(44,477)",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 44477000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Additions to property and equipment",
+   "column_label": "2023",
+   "cell_text": "(28,107)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 28107000000,
+   "confidence": 1.0
+  }
  ],
- "not_found": []}
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the income statement has a 'Total cost of revenue' line, so cost_of_revenue is used instead of parts."
+  }
+ ],
+ "notes": "Fiscal year ends June 30 (report period 2025-06-30); year-only column labels mapped to June 30 of each year. Capex line covers property and equipment only; intangible purchases are on a separate line and were not added.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.0,
+  "input_tokens": 6111,
+  "output_tokens": 1410,
+  "attempts": 1,
+  "task_sha": "2fec5b596b978073"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "0001045810-26-000021",
- "prompt_version": "statements@v1",
+ "prompt_version": "statements@v2",
  "values": [
   {
    "field": "revenue",
@@ -110,8 +110,8 @@
    "period_end": "2026-01-25",
    "months": 12,
    "value": 6042000000,
-   "confidence": 0.95,
-   "notes": "Line covers property and equipment and intangible assets combined; no separate PP&E-only line in the statement."
+   "confidence": 0.9,
+   "notes": "Investing line combines purchases of property and equipment with intangible assets; used as-is per rules. Separate financing line 'Principal payments on property and equipment and intangible assets' not added."
   },
   {
    "field": "capex",
@@ -122,8 +122,8 @@
    "period_end": "2025-01-26",
    "months": 12,
    "value": 3236000000,
-   "confidence": 0.95,
-   "notes": "Line covers property and equipment and intangible assets combined; no separate PP&E-only line in the statement."
+   "confidence": 0.9,
+   "notes": "Investing line combines purchases of property and equipment with intangible assets; used as-is per rules. Separate financing line 'Principal payments on property and equipment and intangible assets' not added."
   },
   {
    "field": "capex",
@@ -134,9 +134,17 @@
    "period_end": "2024-01-28",
    "months": 12,
    "value": 1069000000,
-   "confidence": 0.95,
-   "notes": "Line covers property and equipment and intangible assets combined; no separate PP&E-only line in the statement."
+   "confidence": 0.9,
+   "notes": "Investing line combines purchases of property and equipment with intangible assets; used as-is per rules. Separate financing line 'Principal payments on property and equipment and intangible assets' not added."
   }
  ],
- "not_found": []
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.3,
+  "input_tokens": 6214,
+  "output_tokens": 1788,
+  "attempts": 1,
+  "task_sha": "d85156354c52a9ff"
+ }
 }

@@ -1,6 +1,6 @@
 {
  "accession": "0001045810-25-000023",
- "prompt_version": "statements@v1",
+ "prompt_version": "statements@v2",
  "values": [
   {
    "field": "revenue",
@@ -111,7 +111,7 @@
    "months": 12,
    "value": 3236000000,
    "confidence": 0.9,
-   "notes": "Only capex line in investing section; label also covers intangible assets. Sign flipped to positive cash spent."
+   "notes": "Line also covers intangible assets; it is the only capital-expenditure line in the investing section, so used as-is per rules."
   },
   {
    "field": "capex",
@@ -123,7 +123,7 @@
    "months": 12,
    "value": 1069000000,
    "confidence": 0.9,
-   "notes": "Only capex line in investing section; label also covers intangible assets. Sign flipped to positive cash spent."
+   "notes": "Line also covers intangible assets; it is the only capital-expenditure line in the investing section, so used as-is per rules."
   },
   {
    "field": "capex",
@@ -135,8 +135,16 @@
    "months": 12,
    "value": 1833000000,
    "confidence": 0.9,
-   "notes": "Only capex line in investing section; label also covers intangible assets. Sign flipped to positive cash spent."
+   "notes": "Line also covers intangible assets; it is the only capital-expenditure line in the investing section, so used as-is per rules."
   }
  ],
- "not_found": []
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.5,
+  "input_tokens": 6270,
+  "output_tokens": 1565,
+  "attempts": 1,
+  "task_sha": "6c2ac5a30c29454a"
+ }
 }
