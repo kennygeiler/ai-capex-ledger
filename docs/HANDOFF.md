@@ -256,7 +256,12 @@ module being changed. Run the tests before and after. The invariants that must h
 - No column holds a number the pipeline made up: every taxonomy row is a reported figure, a verbatim quote, or
   arithmetic on reported balances marked `derived`. An asset type maps to a published us-gaap member or stays open.
 - A release is reproducible from its inputs: same inputs, same hash. Never edit a file under `releases/`.
-- `decisions/` and the agents' history are append-only.
+- `decisions/` and the agents' history are append-only. The Release line "Claims register" checks it
+  (`claims.append_only_logs`, F30): every first-parent commit of findings, decisions, resolutions and mapping proposals,
+  and every side-branch commit since 2026-11-05 (`claims.FULL_HISTORY_SINCE`), must survive line for line. The one line
+  that may leave a log is a resolution whose key is no longer live, moved byte for byte to `decisions/archive/`. Three
+  side-branch commits before that date rewrote lines (596eeac and 9f30518 renumbered findings F14/F15; 742887b
+  re-stamped migrated resolutions) and are not read.
 
 Verify, don't assert: the pipeline writes `runs`, snapshots and `data/jobs/progress.json`; `ledger golden --check` says
 whether the proven six still rebuild equal; read them rather than the log. Some shells wrap commands with `rtk`, which

@@ -171,18 +171,25 @@ def _git(*args, cwd: Path | None = None) -> subprocess.CompletedProcess | None:
     return r
 
 
+FULL_HISTORY_SINCE = "2026-11-05T00:00:00Z"  # side-branch commits from here on are read too (review of F30)
+
+
 def append_only(path: Path = FINDINGS, rel: str = FINDINGS_REL, repo: Path | None = None, archived: frozenset | set = frozenset()) -> dict:
     """{enforced, commits, problems}: every line of every committed version of the log must still be in the
     working file, unchanged and in the same order (a subsequence). A union merge of two branches may interleave new
-    lines, so a strict prefix is not required; an edited or removed line is still caught. `archived`: lines moved,
-    byte for byte, to an archive file (decisions/archive/, the one way a stale decision leaves a live log): those may be
-    gone from the log; an edited line never.
+    lines, so a strict prefix is not required; an edited or removed line is still caught. Every first-parent commit that
+    touched the file is read, and every commit on a merged side branch made since FULL_HISTORY_SINCE: each side of a
+    union merge keeps its own order in the merged file, so an edit on a side branch is caught too. Side-branch commits
+    before that date are not read: three of them (596eeac, 9f30518 renumbering findings F14/F15; 742887b re-stamping
+    migrated resolutions) rewrote lines before any check existed (docs/HANDOFF.md). `archived`: lines that may be
+    gone from the log because they were moved, byte for byte, to an archive file (append_only_logs decides which).
     Without git (the hosted copy) nothing can be compared: enforced False, said so, never a silent pass."""
-    log = _git("log", "--first-parent", "--format=%H", "--", rel, cwd=repo)
-    if log is None or log.returncode != 0:
+    main = _git("log", "--first-parent", "--format=%H", "--", rel, cwd=repo)
+    side = _git("log", "--full-history", f"--since={FULL_HISTORY_SINCE}", "--format=%H", "--", rel, cwd=repo)
+    if main is None or main.returncode != 0 or side is None or side.returncode != 0:
         return {"enforced": False, "commits": 0, "problems": [], "note": "append-only not enforced here: no git"}
     now = path.read_text() if path.exists() else ""
-    shas = [s for s in log.stdout.split() if s]
+    shas = list(dict.fromkeys(s for s in main.stdout.split() + side.stdout.split() if s))
     problems = []
     for sha in shas:
         old = _git("show", f"{sha}:{rel}", cwd=repo)
@@ -199,22 +206,50 @@ APPEND_ONLY_LOGS = (FINDINGS_REL, "decisions/decisions.jsonl", "decisions/resolu
 ARCHIVE_REL = "decisions/archive"
 
 
+RESOLUTIONS_REL = "decisions/resolutions.jsonl"
+_AO_CACHE: dict = {}
+
+
+def _stale_resolution(line: str) -> bool:
+    """A resolutions line whose key the queue can no longer produce (resolutions.is_live false: a retired kind or a
+    legacy-shaped key). Only such a line may leave the live log, and only into an archive file (the T62 and 2 Nov sweeps)."""
+    from ..review.resolutions import is_live
+    try:
+        r = json.loads(line)
+    except ValueError:
+        return False
+    return isinstance(r, dict) and isinstance(r.get("key"), str) and not is_live(r["key"])
+
+
 def append_only_logs(repo: Path | None = None) -> dict:
     """append_only over APPEND_ONLY_LOGS and every archive file under decisions/archive/ (an archive only grows too):
-    {enforced, commits, problems ["<log> <sha>: …"], items [{where, what}], logs {rel: result}, note}. A decisions log may
-    lose a line only to an archive file that holds it byte for byte."""
+    {enforced, commits, problems ["<log> <sha>: …"], items [{where, what}], logs {rel: result}, note}. Only one line may
+    ever leave a log: a resolution whose key is no longer live, moved byte for byte to an archive file. A live
+    resolution, a review decision or a mapping proposal never leaves, archived or not. Cached per HEAD and the logs'
+    (mtime, size)."""
     root = Path(repo) if repo else REPO
     arch_files = sorted((root / ARCHIVE_REL).glob("*.jsonl"))
-    archived = frozenset(l for f in arch_files for l in f.read_text().splitlines() if l.strip())
+    files = [root / r for r in APPEND_ONLY_LOGS] + arch_files
+    head = _git("rev-parse", "HEAD", cwd=repo)
+    key = (str(root), head.stdout.strip() if head is not None and head.returncode == 0 else None,
+           tuple((str(f), *((f.stat().st_mtime_ns, f.stat().st_size) if f.exists() else (0, 0))) for f in files))
+    if key[1] and key in _AO_CACHE:
+        return _AO_CACHE[key]
+    archived = frozenset(l for f in arch_files for l in f.read_text().splitlines() if l.strip() and _stale_resolution(l))
     logs = {}
     for rel in (*APPEND_ONLY_LOGS, *(f.relative_to(root).as_posix() for f in arch_files)):
-        logs[rel] = append_only(root / rel, rel, repo, archived if rel.startswith("decisions/") else frozenset())
+        logs[rel] = append_only(root / rel, rel, repo, archived if rel == RESOLUTIONS_REL else frozenset())
     enforced = all(r["enforced"] for r in logs.values())
     items = [{"where": rel, "what": p} for rel, r in logs.items() for p in r["problems"]]
     commits = sum(r["commits"] for r in logs.values())
     note = ("append-only not enforced here: no git" if not enforced else
             f"append-only checked on {len(logs)} logs against {commits} commits" if not items else f"{len(items)} commits lost or edited a line of an append-only log")
-    return {"enforced": enforced, "commits": commits, "problems": [f"{i['where']} {i['what']}" for i in items], "items": items, "logs": logs, "note": note}
+    out = {"enforced": enforced, "commits": commits, "problems": [f"{i['where']} {i['what']}" for i in items], "items": items, "logs": logs, "note": note}
+    if key[1]:
+        if len(_AO_CACHE) > 8:
+            _AO_CACHE.clear()
+        _AO_CACHE[key] = out
+    return out
 
 
 def _kept_in_order(old: list[str], now: list[str]) -> bool:

@@ -172,7 +172,7 @@ explained, fix_pending, blocks (76). Orthogonal:
 | `accept` on `new_filing` (an unread filing becomes explained and leaves the queue) | `/api/resolve` | person | **not enforced** (LIVE_KINDS includes it, 42) |
 | a hash that is not the item's current one | `/api/resolve` | person | **not enforced** |
 | a key not in the current queue | `/api/resolve` | person | **not enforced** (key shape only, 135-136) |
-| an edit or deletion (append-only) | file edit | anyone | **enforced at the Release line** (F30): `claims.append_only_logs` checks every committed version (first parent) of findings.jsonl, decisions.jsonl, resolutions.jsonl, mapping_proposals.jsonl and the archive files; a line may leave a decisions log only into `decisions/archive/`, byte for byte. The Claims register line is red on an edit |
+| an edit or deletion (append-only) | file edit | anyone | **enforced at the Release line** (F30): `claims.append_only_logs` checks every first-parent commit, and every side-branch commit since 2026-11-05, of findings.jsonl, decisions.jsonl, resolutions.jsonl, mapping_proposals.jsonl and the archive files; only a resolution whose key is no longer live may leave, into `decisions/archive/`, byte for byte. The Claims register line is red on an edit |
 | a run-written line | no writer in code sets `author_kind="run"` | agent editing the file | a hand-appended `author_kind: person` line by "Kenny Geiler" is a person line |
 
 **UI.** Reconcile "<Accept|Explain|Fix|Blocks> by <by>, <date>" (reconcile.js:94; RES_LABEL/RES_HELP/RES_BADGE 9-11).
