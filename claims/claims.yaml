@@ -500,6 +500,8 @@
       - tests.test_trust.DecisionAuthors.test_g4_and_g6_both_name_a_proposed_block
       - tests.test_trust.DecisionAuthors.test_proof_and_reconcile_read_it_proposed
       - tests.test_claims.AppendOnly.test_the_decisions_logs_are_append_only_too
+      - tests.test_person_decides.PersonDecides.test_confirm_writes_the_proposal_as_the_persons_and_closes_the_block
+      - tests.test_person_decides.Route.test_the_route_writes_a_persons_decision
   status: partial
   gaps:
     - The name is the one typed in the signer box; nobody signs in.

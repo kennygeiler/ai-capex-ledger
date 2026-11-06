@@ -218,6 +218,9 @@ before the field the resolutions rule, a name on config.PEOPLE with no "to confi
 `review.proposed`: open under G4, a G6 item `decisions|<ticker>|<exception id>`, Proposed on Proof (release stage, "to
 confirm") and on Reconcile's blocks group, and `apply` ignores its override or reject. On a block finding a run's decision
 never supersedes a person's on the same input hash; warn and info findings keep the newest line, as before. The 12 accepts above now read Proposed for their seven companies; no line was rewritten.
+Since F-TR1 a person also decides one from Reconcile: Confirm or Overturn on the Proposed decision card, `POST
+/api/decision` → `review.person_decides` (the proposal standing must be the one the page showed, by decision_id, and the
+finding's input hash the page's; else 409) → `decide(..., author_kind="person")`.
 
 **UI.** `/api/company` `status` "note" / "open" / "decided", and `decision {kind, reason, reviewer, decided_at}`
 (app.py:84-85). Values change silently in the packet.

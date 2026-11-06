@@ -349,6 +349,29 @@ async function reconcilePage(view, qs) {
     }
     return h('div', {class: 'row g-2'}, parts);
   }
+  // F-TR1: a block a run or an agent decided is Proposed; a person confirms it or overturns it here (POST /api/decision →
+  // review.person_decides, author_kind person, the signer box's name on the signer list)
+  function proposedDecision(r) {
+    const P = r.evidence.proposed;
+    const KIND = {accept: 'Accept as read', reject: 'Reject: empty the value', override: `Override${P.value != null ? ': ' + usd(P.value) : ''}`};
+    const others = Object.keys(KIND).filter((k) => k !== P.kind && k !== 'override');
+    const reason = h('input', {type: 'text', class: 'form-control form-control-sm', name: 'reason', autocomplete: 'off', placeholder: 'Reason', 'aria-label': 'Reason'});
+    const pick = h('select', {class: 'form-select form-select-sm w-auto', 'aria-label': 'Overturn to'}, others.map((k) => h('option', {value: k}, KIND[k])));
+    const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
+    const send = (action) => async (e) => {
+      if (!reason.value.trim()) { reason.focus(); status.textContent = 'Reason required'; return; }
+      const btn = e.currentTarget; btn.disabled = true; status.classList.remove('text-red'); status.textContent = 'Saving…';
+      try {
+        await api('/api/decision', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({exception_id: P.exception_id, input_hash: P.input_hash, decision_id: P.decision_id, action, kind: action === 'overturn' ? pick.value : null, reason: reason.value, by: me})});
+        status.textContent = action === 'confirm' ? 'Confirmed' : 'Overturned'; setTimeout(route, 600);
+      } catch (err) { status.textContent = `Couldn’t save: ${err.message}.`; status.classList.add('text-red'); btn.disabled = !isSigner(me); }
+    };
+    const confirm = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: isSigner(me) ? null : signerWhy(me), onclick: send('confirm')}, 'Confirm'));
+    const overturn = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: isSigner(me) ? null : signerWhy(me), onclick: send('overturn')}, 'Overturn'));
+    return h('div', {class: 'row g-2 align-items-center'},
+      h('div', {class: 'col-12 small'}, h('span', {class: 'fw-medium'}, `Proposed: ${KIND[P.kind] || P.kind}`), h('span', {class: 'text-secondary'}, ` · ${P.reviewer} · ${day(P.decided_at)} · ${P.reason}`)),
+      h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, reason, confirm)), h('div', {class: 'col-auto d-flex gap-2'}, pick, overturn), h('div', {class: 'col-12'}, status));
+  }
   function resolutionForm(r, many, done) {
     const items = many || [r];
     let state = startState(r);
@@ -439,8 +462,11 @@ async function reconcilePage(view, qs) {
     const decision = isAsset(r) || r.cause === 'reading_unfingerprinted'
       ? ''
       : writes(h('div', {class: 'col-12 decision-panel', hidden: selected.size > 0}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Change decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} · ${r.resolution.by} · ${day(r.resolution.at)} · ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r)))));
+    const proposal = r.cause === 'blocked' && r.evidence && r.evidence.proposed
+      ? writes(h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Proposed decision')), h('div', {class: 'card-body py-2'}, proposedDecision(r)))))
+      : '';
     const once = canEncode(r) ? writes(h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Apply everywhere')), h('div', {class: 'card-body py-2'}, encodePanel(r))))) : '';
-    return h('div', {class: 'row g-3'}, cards, decision, once);
+    return h('div', {class: 'row g-3'}, cards, proposal, decision, once);
   }
   requestAnimationFrame(() => cutTitles(wrap));  // F-VS5: measured once the rows are laid out
   wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No items to review · ', h('a', {href: '#release'}, 'Release')))]));

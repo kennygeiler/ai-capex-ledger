@@ -146,7 +146,11 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
 - **Decide a block finding**: `ledger review decide <id> accept|override|reject --reason "…" --by "<name on
   config.PEOPLE>" --as person --ticker X`; `--as person|run` is required, so the command says who decides, and every
   line records `reviewer` and `author_kind`. An agent writes `--as run`: its decision is recorded and closes nothing that blocks; the finding stays open under G4 and Proposed (G6, Proof, Reconcile) until a person decides
-  it (F14). A run's decision on a warning closes it, as before.
+  it (F14). A run's decision on a warning closes it, as before. On the page (F-TR1): Reconcile's Proposed decision card
+  on that block carries Confirm (the proposal's own kind and value, as the person's) and Overturn (accept or reject
+  instead; an override with a value stays on the command line), `POST /api/decision` → `review.person_decides` →
+  `review.decide(..., author_kind="person")`, the signer box's name on `config.PEOPLE`, refused 409 when the finding or the
+  proposal changed since the page showed it; hidden on the read-only copy.
 - **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.
 - **Release**: Kenny's Data Emporium's Release page (`#release`) is the checklist: every line that could make a signature wrong, green or
   red with its count and the page that fixes it, and the packet built in memory. Its Sign button (enabled only when every

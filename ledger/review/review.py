@@ -109,3 +109,33 @@ def apply(values: list[dict], exceptions: list[dict], ds: list[dict]) -> list[di
         d = by_key.get((v["ticker"], v["field"], v["period"]))
         out.append(v if not d else {**v, "value": d["value"], "source": "override"} if d["kind"] == "override" else {**v, "value": None, "source": "missing"})
     return out
+
+
+ACTIONS = ("confirm", "overturn")  # F-TR1: what a person does with a block a run or an agent decided
+
+
+class Stale(ValueError):
+    """The finding or its proposed decision changed since the page showed it (the route answers 409; the page reloads)."""
+
+
+def person_decides(exc: dict, action: str, reason: str, by: str, *, decision_id: str, kind: str | None = None, value: int | None = None,
+                   ds: list[dict] | None = None) -> dict:
+    """F-TR1: a person makes a proposed block decision theirs from the page (POST /api/decision). `exc` is the exception
+    as the database holds it now; `decision_id` the proposal the page showed. Confirm writes the proposal's own kind and
+    value; Overturn writes another kind (`kind`, with `value` for an override). Either goes through `decide` with
+    author_kind person, so `by` must be on config.PEOPLE. Refused (ValueError, nothing written): not a block, no
+    proposal standing, an unknown action. Stale: the proposal standing is not the one the page showed."""
+    if action not in ACTIONS:
+        raise ValueError(f"action must be one of {ACTIONS}, not {action!r}")
+    if exc.get("severity") != "block":
+        raise ValueError("only a block finding takes a person's decision here")
+    p = next((x["decision"] for x in proposed([exc], decisions() if ds is None else ds)), None)
+    if p is None:
+        raise ValueError("no proposed decision stands on this finding: nothing to confirm or overturn")
+    if p.get("decision_id") != decision_id:
+        raise Stale("the proposed decision changed since the page showed it; reload")
+    if action == "confirm":
+        return decide(exc, p["kind"], reason, by, p.get("value"), author_kind="person")
+    if kind == p["kind"] and (kind != "override" or value == p.get("value")):
+        raise ValueError("an overturn names another decision than the one proposed; to keep it, confirm")
+    return decide(exc, kind or "", reason, by, value, author_kind="person")

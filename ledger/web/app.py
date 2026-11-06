@@ -430,6 +430,28 @@ def golden_view() -> dict:
     return {**out, **live_hand_check((rep or {}).get("gold"))}
 
 
+def decide_route(body: dict) -> dict:
+    """POST /api/decision (F-TR1): {exception_id, input_hash, decision_id, action confirm|overturn, kind, value, reason,
+    by}. The exception is read from the database; the page's input hash and decision id must be the ones standing
+    (review.Stale, 409, otherwise), and review.person_decides writes through review.decide with author_kind person, so a
+    `by` off config.PEOPLE is a 400. KeyError (400) for an exception the database does not hold."""
+    from ..review import review
+    con = _con()
+    try:
+        cur = con.execute("select * from exceptions where exception_id = ?", [str(body.get("exception_id", ""))])
+        r = cur.fetchone()
+        e = dict(zip([c[0] for c in cur.description], r)) if r else None
+    finally:
+        con.close()
+    if e is None:
+        raise KeyError(f"no finding {body.get('exception_id')!r}")
+    if e["input_hash"] != body.get("input_hash"):
+        raise review.Stale("the finding changed since the page showed it; reload")
+    v = body.get("value")
+    return review.person_decides(e, str(body.get("action", "")), str(body.get("reason", "")), str(body.get("by", "")), decision_id=str(body.get("decision_id", "")),
+                                 kind=body.get("kind") or None, value=int(v) if v not in (None, "") else None)
+
+
 def company_state(con, ticker: str) -> str:
     """states.company for a ticker: followed (config.tracked) and how many filings the database holds for it. A database
     error is raised, never read as unknown: the route's _guard turns Busy into a 503 (F-BF15)."""
@@ -847,6 +869,15 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(bulk()))
         if u.path == "/api/resolve":  # T69: a person's route, author_kind person; a `by` not on config.PEOPLE is refused (400)
             return self._guard(lambda: self._json(resolutions.resolve(body.get("key", ""), body.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", ""), author_kind="person")))
+        if u.path == "/api/decision":  # F-TR1: a person confirms or overturns a run's decision on a block (review.person_decides, author_kind person)
+            from ..review.review import Stale as DecisionStale
+
+            def do_decide():
+                try:
+                    return self._json(decide_route(body))
+                except DecisionStale as e:  # the finding or its proposal changed since the page showed it: the page reloads
+                    return self._json({"error": str(e), "stale": True}, HTTPStatus.CONFLICT)
+            return self._guard(do_decide)
         if u.path == "/api/judgement":  # T36: an explanation written once as a definition or a rule; `by` on config.PEOPLE, what is written decided from the key and the database
             from ..review import judgement
 
