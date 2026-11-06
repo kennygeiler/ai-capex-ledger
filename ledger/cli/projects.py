@@ -100,6 +100,8 @@ def main(argv=None) -> int:
             obj = json.loads(out.read_text())
             if "error" in obj:
                 raise Invalid(f"the agent couldn't answer: {obj['error']}")
+            if why := agent.stale(obj, task.read_text() if task.exists() else None):  # F25: an answer to a task repacked since never loads, as for the other readers
+                raise Invalid(why)
             validate_output(obj, d["text_id"], task_passages(task.read_text()) if task.exists() else {})
         except (Invalid, json.JSONDecodeError) as e:
             excs.append(_exc(d["ticker"], d["text_id"], f"{d['kind']} {d['period_end']}: {getattr(e, 'reason', e)}"))

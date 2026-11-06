@@ -118,3 +118,55 @@ def stale(obj: dict, task_text: str | None) -> str | None:
         return None
     now = task_sha(task_text)
     return None if was == now else f"stale output: answered an older task (task_sha {was}, the current task's is {now}); rerun --run to re-ask it"
+
+
+# ── F25: a reading the loader took without knowing it answered the current task ─────────────────────────────────────
+READERS = {"extract": "Statement reading", "notes": "Note reading", "aispend": "AI statement reading", "projects": "Project reading"}  # step → what the page calls it
+
+
+def reading_state(obj: dict, task_text: str | None = None) -> str:
+    """A loaded agent output's reading state (states.READING): `unfingerprinted` when it carries no `_run.task_sha`
+    (written before headless runs: nothing says which task it answered), `stale` when it answered an older task than
+    `task_text` (the loaders refuse it, `stale`), else `current`."""
+    if not (obj.get("_run") or {}).get("task_sha"):
+        return "unfingerprinted"
+    return "stale" if stale(obj, task_text) else "current"
+
+
+_FP: dict = {}
+
+
+def _fingerprinted(path) -> bool | None:
+    """Whether the output at `path` carries a task fingerprint; None when it is absent, unreadable or an error (never
+    loaded). Cached per (path, mtime, size)."""
+    try:
+        st = path.stat()
+    except OSError:
+        return None
+    k = (str(path), st.st_mtime_ns, st.st_size)
+    if k not in _FP:
+        try:
+            obj = __import__("json").loads(path.read_text())
+            _FP[k] = None if not isinstance(obj, dict) or "error" in obj else reading_state(obj) != "unfingerprinted"
+        except (OSError, ValueError):
+            _FP[k] = None
+    return _FP[k]
+
+
+def unfingerprinted(con, tickers) -> list[dict]:
+    """[{ticker, step, subject, what}]: every agent output on disk for `tickers` that loads with no task fingerprint
+    (reading_state unfingerprinted). Its rows stand in the dataset, but nothing says they answer the current task: Proof
+    and Reconcile show each as open, "Reading not fingerprinted", until `<step> --run` re-asks it. Read from disk, the
+    outputs the loaders read (statements and notes per filing, AI statements and projects per text)."""
+    from . import extract as ex, guidance, notes, projects
+    tickers = list(tickers)
+    has = lambda n: bool(con.execute("select count(*) from information_schema.tables where table_name = ?", [n]).fetchone()[0])
+    cols = lambda n: {r[0] for r in con.execute("select column_name from information_schema.columns where table_name = ?", [n]).fetchall()}
+    subjects = []
+    if has("documents") and {"ticker", "accession"} <= cols("documents"):
+        docs = con.execute("select ticker, accession from documents where ticker in (select unnest(?)) order by ticker, accession", [tickers]).fetchall()
+        subjects += [(t, step, a, d) for t, a in docs for step, d in (("extract", ex.OUTPUTS), ("notes", notes.OUTPUTS))]
+    if has("texts") and {"ticker", "text_id"} <= cols("texts"):
+        texts = con.execute("select ticker, text_id from texts where ticker in (select unnest(?)) order by ticker, text_id", [tickers]).fetchall()
+        subjects += [(t, step, i, d) for t, i in texts for step, d in (("aispend", guidance.OUTPUTS), ("projects", projects.OUTPUTS))]
+    return [{"ticker": t, "step": step, "subject": s, "what": READERS[step]} for t, step, s, d in subjects if _fingerprinted(d / f"{s}.json") is False]

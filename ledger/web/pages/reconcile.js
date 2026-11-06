@@ -1,7 +1,7 @@
 // ── Reconcile: the workbench, on Tabler (dashboard UI kit) inside its own shadow root so the kit's reset touches nothing else. ──
 // One card per cause; one row per item with ours, reference, a gap bar, delta and decision; Enter opens the evidence as
 // aligned diff tables (this year, the computation, every year) with a status badge per line, and the decision form.
-const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'value_missing', 'finding_unconfirmed', 'new_filing', 'asset_types', 'asset_types_match'];
+const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'value_missing', 'reading_unfingerprinted', 'finding_unconfirmed', 'new_filing', 'asset_types', 'asset_types_match'];
 // Category mapping is two cards: Proposed (needs a person) and Matches company tag (the company's own XBRL tag already agrees)
 const isMatch = (r) => r.cause === 'asset_types' && r.verification === 'company';
 const causeKey = (r) => (isMatch(r) ? 'asset_types_match' : r.cause);
@@ -408,6 +408,9 @@ async function reconcilePage(view, qs) {
     } else if (r.cause === 'value_missing') {
       cards.push(col(5, dtable(`${r.period} · Not extracted`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.value == null ? '—' : usd(x.value))}], [{what: 'Cited', value: null}, {what: 'SEC XBRL', value: r.reference, _cls: 'fw-semibold'}])));
       cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')));
+    } else if (r.cause === 'reading_unfingerprinted') {  // F25: closed by re-reading, never by a decision
+      cards.push(col(8, dtable(r.cause_label, [{t: '', k: 'what'}, {t: '', k: 'value'}], [{what: 'Reading', value: r.where}, {what: 'Re-read', value: E.rerun}])));
+      cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')));
     } else if (r.cause === 'finding_unconfirmed' || r.cause === 'blocked') {
       if (r.measure) {
         const maxL = Math.max(1, Math.abs(r.ours || 0), Math.abs(r.reference || 0));
@@ -433,7 +436,7 @@ async function reconcilePage(view, qs) {
       cards.push(col(12, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Note wording')),  // V15: under the decision, the row's width (a 4-column box was 5 % filled)
         h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0 small'}, N && N.before ? `…${N.before}` : 'Note text unavailable'), h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail'))))));
     }
-    const decision = isAsset(r)
+    const decision = isAsset(r) || r.cause === 'reading_unfingerprinted'
       ? ''
       : writes(h('div', {class: 'col-12 decision-panel', hidden: selected.size > 0}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Change decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} · ${r.resolution.by} · ${day(r.resolution.at)} · ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r)))));
     const once = canEncode(r) ? writes(h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Apply everywhere')), h('div', {class: 'card-body py-2'}, encodePanel(r))))) : '';

@@ -471,8 +471,8 @@
 
 - id: late_writers
   claim: "Late writers never overwrite"
-  where: [ledger/extract/agent.py, ledger/review/mapper.py, ledger/review/gold.py]
-  shown: ["def stale"]
+  where: [ledger/extract/agent.py, ledger/review/mapper.py, ledger/review/gold.py, ledger/core/states.py, ledger/checks/proof.py]
+  shown: ["def stale", "Reading not fingerprinted", "Reading current", "Reading answered an older task"]
   backed_by:
     functions: [ledger.extract.agent.stale, ledger.core.safewrite.safe_write]
     tests:
@@ -483,7 +483,7 @@
       - tests.test_one_resolution_rule.Index.test_two_items_on_one_row_need_a_decision_each
   status: partial
   gaps:
-    - 13 older statement readings carry no fingerprint and load unjudged until they are read again.
+    - 13 older statement readings carry no fingerprint; their rows load, and Proof and Reconcile show each open, "Reading not fingerprinted", until it is read again.
   ticket: T100
 
 - id: decision_author

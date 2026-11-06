@@ -436,6 +436,18 @@ the trail route (`/api/v1/proof/<ticker>`: 404 with the unknown word). A databas
 **UI.** The trail's head and its release card show the word instead of Proven / Ready for release; an unknown ticker's
 trail shows only the word.
 
+## M20. Whether a reading answered the current task (F25, 5 Nov 2026)
+
+**States.** current ("Reading current": its `_run.task_sha` is the current task's) · stale ("Reading answered an older
+task") · unfingerprinted ("Reading not fingerprinted": no `_run.task_sha`). Absent input is unfingerprinted.
+**Who decides.** `agent.reading_state(obj, task_text)`. The four loaders (extract, notes, aispend, projects `--load`)
+refuse a stale output as their `*_failed` item (projects since F25). An unfingerprinted output still loads (its rows stand;
+nothing is re-run by the check), and `agent.unfingerprinted(con, tickers)` lists every one on disk: Proof's ingest stage
+shows each open by `label:unfingerprinted`, needs "Re-read (--run)", and Reconcile lists it under "Reading not
+fingerprinted" (kind `reading_unfingerprinted`, not a live resolution kind: no decision closes it). The two pages count
+it the same (Needs review). `<step> --run` re-asks it and writes the fingerprint.
+**Today.** 13 statement outputs, 9 on the six (MSFT, NVDA, APLD three each).
+
 ## M12. Freshness of the monitoring inputs
 
 | Input | Fresh / stale rule | Read where | Not checked where |

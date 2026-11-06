@@ -12,8 +12,9 @@ from ..core.states import SEGMENT_BASIS_MIXED
 
 EVIDENCE = store.ROOT / "reports" / "evidence"
 CAUSES = {"fact_differs": "Differs from SEC XBRL", "fact_changed": "Changed since last release", "blocked": "Blocks release",
-          "finding_unconfirmed": "Rule findings", "new_filing": "New SEC filing", "value_missing": "Not extracted"}
-REF_LABEL = {"fact_differs": "SEC XBRL", "fact_changed": "Last release", "blocked": None, "finding_unconfirmed": "SEC XBRL", "new_filing": None, "value_missing": "SEC XBRL"}
+          "finding_unconfirmed": "Rule findings", "new_filing": "New SEC filing", "value_missing": "Not extracted",
+          "reading_unfingerprinted": "Reading not fingerprinted"}
+REF_LABEL = {"fact_differs": "SEC XBRL", "fact_changed": "Last release", "blocked": None, "finding_unconfirmed": "SEC XBRL", "new_filing": None, "value_missing": "SEC XBRL", "reading_unfingerprinted": None}
 # a rule's finding by the rule that fired (the queue carries kind "other" and the rule id for the note rules), one short label each
 FINDING_LABEL = {"restated": "Restated", "jump": "Large year-over-year change", "row_switch": "Line renamed", "capex_intensity": "Capex high vs revenue", "opex_over_revenue": "Opex above revenue",
                  "segment_capex_tie": "Does not tie to reported total", "segment_revenue_tie": "Does not tie to reported total", "ppe_categories_tie": "Does not tie to reported total",
@@ -154,6 +155,9 @@ def _state(con, q: dict, idx: dict, xp: dict | None = None, lad: dict | None = N
         return status.of_exception({"rule_id": d.get("rule"), "severity": "block", "message": d.get("message")}, res)
     if q["kind"] == "value_missing":  # T65: the value row itself, open by label:not_extracted; a resolution is not live for this kind
         return status.of_value({"field": d.get("field"), "period": d.get("period"), "label": d.get("label", "not_extracted")}, res)
+    if q["kind"] == "reading_unfingerprinted":  # F25: open by label:unfingerprinted, as Proof's ingest item; closed by re-reading
+        from ..checks.proof import UNFINGERPRINTED_WHY
+        return status.state({"label": "unfingerprinted", "reason": UNFINGERPRINTED_WHY})
     return status.state({"reason": "a filing at the SEC the ledger has not read", "resolution": res})
 
 
@@ -337,6 +341,8 @@ def items(con, flow: dict) -> dict:
             if d.get("field"):
                 row["series"] = _value_series(con, q["ticker"], d["field"])
             row["evidence"] = {"label": d.get("label"), "reference": d.get("reference"), "period_end": d.get("period_end")}
+        elif q["kind"] == "reading_unfingerprinted":
+            row["evidence"] = {"step": d.get("step"), "subject": d.get("subject"), "rerun": f"ledger {d.get('step')} --run --ticker {q['ticker']}"}
         elif q["kind"] == "new_filing":
             row |= {"period": d.get("period")}
             row["evidence"] = {"url": d.get("url"), "filed": d.get("filed"), "form": d.get("form")}

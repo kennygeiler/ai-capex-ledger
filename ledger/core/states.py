@@ -352,7 +352,16 @@ def company(tracked: bool, documents: int) -> str:
     return "unfiled" if tracked else "unknown"
 
 
-MACHINES = {m.id: m for m in (ROW, LADDER, CHECK, MAPPING, CROP, GOLD, GOLD_GROUP, CROSSCHECK, LINE, EDGAR, COMPANY)}
+# ── reading: whether a loaded agent output answered the current task (agent.reading_state; F25) ────────────────────
+READING = Machine("reading", "M20", "ledger.extract.agent.reading_state", (
+    _s("current", GOOD, "Reading current", "text-secondary", meaning="the output carries the task fingerprint of the task it answered, and it is the current task's"),
+    _s("stale", STALE, "Reading answered an older task", "text-orange", meaning="the fingerprint is an older task's: the loaders refuse it (a *_failed item) until --run re-asks it"),
+    _s("unfingerprinted", STALE, "Reading not fingerprinted", "text-orange", meaning="no fingerprint (written before headless runs): its rows load, and Proof and Reconcile show it open until --run re-asks it"),
+), frozenset({("unfingerprinted", "current"), ("current", "stale"), ("stale", "current")}),
+    absent="unfingerprinted")
+
+
+MACHINES = {m.id: m for m in (ROW, LADDER, CHECK, MAPPING, CROP, GOLD, GOLD_GROUP, CROSSCHECK, LINE, EDGAR, COMPANY, READING)}
 
 
 def allow(machine: str, frm: str, to: str) -> None:

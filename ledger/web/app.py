@@ -352,6 +352,10 @@ def queue_items(con, tickers: list[str]) -> dict:
     for v in missing:  # T65: no cell read while XBRL tags a value; open on Proof by label:not_extracted, so open here too (closed by re-reading, never by a decision)
         queue.append({"kind": "value_missing", "key": resolutions.key_for("value_missing", v["ticker"], v["field"], v["period"]), "state": "missing", "ticker": v["ticker"], "where": f"{v['field']} {v['period']}", "impact": "a released value is blank while the filing tags one",
                       "action": "run", "detail": v})
+    from ..extract.agent import unfingerprinted
+    for u in unfingerprinted(con, tickers):  # F25: closed by re-reading, never by a decision (not a live resolution kind)
+        queue.append({"kind": "reading_unfingerprinted", "key": resolutions.key_for("reading_unfingerprinted", u["ticker"], u["step"], subject=u["subject"]), "state": "missing",
+                      "ticker": u["ticker"], "where": f"{u['what']} {u['subject']}", "impact": "rows from a reading nothing ties to the current task", "action": "run", "detail": u})
     names_ = {c["ticker"]: c["name"] for c in tracked()}
     findings = [x for x in hqd["findings"] if x.get("rule") != DIFFER_RULE] + [  # F-FL1: the readings that differ come from the ladder, never from a stale exceptions table
         {"ticker": x["ticker"], "company": names_.get(x["ticker"]), "field": x["field"], "period": x["period"], "confirmed": False, "message": x["message"],

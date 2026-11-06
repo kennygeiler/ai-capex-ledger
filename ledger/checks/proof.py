@@ -17,6 +17,11 @@ from ..review.review import decisions, open_items, proposed
 from .rules import explain_key, explained
 from ..release.taxonomy import asset_types, rows as taxonomy_rows
 from ..core.config import PROVEN, PROVEN_WHY, SCOPE, industry, tracked
+from ..extract.agent import unfingerprinted
+from ..core.states import word as _word
+
+READING_WORD = _word("reading", "unfingerprinted")  # F25: states.READING
+UNFINGERPRINTED_WHY = "the reading carries no task fingerprint: nothing says it answered the current task; re-read it"
 
 STAGES = ("ingest", "values", "facts", "statements", "mapping", "planned", "release")
 STAGE_LABEL = {"ingest": "Filings", "values": "Statement figures", "facts": "Note figures", "statements": "AI disclosures", "mapping": "Category mapping",
@@ -24,7 +29,7 @@ STAGE_LABEL = {"ingest": "Filings", "values": "Statement figures", "facts": "Not
 NEEDS = {"values": "Definition or unit rule", "facts": "Definition", "finding": "Definition or rule", "mapping": "Category mapping",
          "mapping_confirm": "Proposed category", "readings": "Readings differ", "tie": "Does not tie to total", "basis": "Segment basis",
          "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision", "decision_confirm": "Proposed decision",
-         "instance": "XBRL instance"}  # what an open item needs, as the Rules page groups it
+         "instance": "XBRL instance", "reread": "Re-read (--run)"}  # what an open item needs, as the Rules page groups it
 
 
 # The exceptions a loader writes when a stage failed (cli/extract, cli/notes, cli/aispend, cli/projects): failures, never
@@ -100,6 +105,9 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     for e in exc:
         if e["rule_id"] in FAILURES:
             items.append({**_item(f"{e['rule_id'].replace('_', ' ')}: {e['subject']}", status.of_exception(e), e["message"][:200], NEEDS["ingest"]), "show": {"note": "Extraction failed", "accession": e["subject"]}})
+    for u in unfingerprinted(con, [t]):  # F25: a reading loaded with no task fingerprint is open until it is re-read, never current
+        items.append({**_item(f"{u['what']} {u['subject']}: {READING_WORD}", status.state({"label": "unfingerprinted", "reason": UNFINGERPRINTED_WHY}),
+                              f"{u['step']} --run", NEEDS["reread"], ref={"step": u["step"], "subject": u["subject"]}), "show": {"note": READING_WORD, "accession": u["subject"]}})
     stages["ingest"] = _stage(items)
 
     # values: agree with XBRL, or explained by a definition, a label or a decision; a warn finding takes the state of its rows
